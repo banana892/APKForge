@@ -1,0 +1,164 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "apkforge"
+version = "0.1.0-dev"
+description = "APKForge — Android APK Security & Modification Workbench"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.11"
+authors = [{ name = "APKForge Contributors" }]
+keywords = ["android", "apk", "security", "reverse-engineering", "privacy"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Security",
+    "Topic :: Software Development :: Libraries",
+    "Typing :: Typed",
+]
+
+dependencies = [
+    "pydantic>=2.7,<3",
+    "typer>=0.12,<1",
+    "rich>=13.7,<15",
+    "androguard>=4.0.0",
+    "cryptography>=42.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.2,<9",
+    "pytest-cov>=5.0,<6",
+    "ruff>=0.4,<1",
+    "mypy>=1.10,<2",
+    "hatchling",
+]
+
+[project.scripts]
+apkforge = "apkforge.cli.main:app"
+
+[project.urls]
+Repository = "https://github.com/apkforge/apkforge"
+Documentation = "https://github.com/apkforge/apkforge/tree/main/docs"
+"Bug Tracker" = "https://github.com/apkforge/apkforge/issues"
+
+# ---------------------------------------------------------------------------
+# Hatchling build configuration
+# ---------------------------------------------------------------------------
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/apkforge"]
+
+# ---------------------------------------------------------------------------
+# Pytest configuration
+# ---------------------------------------------------------------------------
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = [
+    "--tb=short",
+    "--strict-markers",
+    "--import-mode=importlib",
+]
+markers = [
+    "unit: marks a test as a unit test",
+    "integration: marks a test as an integration test",
+    "slow: marks a test as slow-running",
+]
+
+# ---------------------------------------------------------------------------
+# Coverage configuration
+# ---------------------------------------------------------------------------
+
+[tool.coverage.run]
+source = ["src/apkforge"]
+branch = true
+omit = ["*/__main__.py"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+fail_under = 0  # Phase 0: no minimum yet; raise in Phase 1+
+
+# ---------------------------------------------------------------------------
+# Ruff configuration
+# ---------------------------------------------------------------------------
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+src = ["src"]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "SIM", # flake8-simplify
+    "TCH", # flake8-type-checking
+    "ANN", # flake8-annotations
+    "S",   # bandit security checks
+    "RUF", # ruff-specific rules
+]
+ignore = [
+    "S101",    # Use of assert detected (fine in tests)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["ANN", "S", "TC003"]
+"src/apkforge/__main__.py" = ["ANN"]
+"src/apkforge/cli/main.py" = ["B008", "TC003"]  # Typer requires callables in defaults; Path needed at runtime
+
+[tool.ruff.lint.isort]
+known-first-party = ["apkforge"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+# ---------------------------------------------------------------------------
+# Mypy configuration
+# ---------------------------------------------------------------------------
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = false
+disallow_any_generics = true
+disallow_subclassing_any = true
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+no_implicit_reexport = true
+strict_equality = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+
+[[tool.mypy.overrides]]
+module = "androguard.*"
+ignore_missing_imports = true

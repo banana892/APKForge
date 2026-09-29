@@ -1,0 +1,102 @@
+# APKForge Security Engine — Built-in Suspicious Combination Rules
+
+rules:
+  - id: SEC-COMB-SURVEILLANCE-SUITE
+    title: Multiple Concurrent Surveillance Capabilities
+    category: spyware_indicator
+    severity: high
+    confidence: high
+    description: >
+      The application combines audio recording, camera capture, and physical location tracking capabilities.
+    conditions:
+      all:
+        - permission: android.permission.RECORD_AUDIO
+        - permission: android.permission.CAMERA
+        - permission_any:
+            - android.permission.ACCESS_FINE_LOCATION
+            - android.permission.ACCESS_COARSE_LOCATION
+    assessment: >
+      The APK declares a full suite of surveillance capabilities (audio + camera + location) simultaneously.
+    limitations:
+      - Legitimate unified communications, social media, and security tools may combine these permissions.
+    references:
+      - CWE-359: Exposure of Private Personal Information
+    tags:
+      - combination
+      - surveillance
+      - spyware
+
+  - id: SEC-COMB-PERSISTENT-LOC
+    title: Boot Persistence Combined with Location Tracking
+    category: spyware_indicator
+    severity: high
+    confidence: high
+    description: >
+      The application registers a boot receiver and declares physical location tracking capabilities.
+    conditions:
+      all:
+        - boot_receiver: true
+        - permission_any:
+            - android.permission.ACCESS_FINE_LOCATION
+            - android.permission.ACCESS_COARSE_LOCATION
+        - api_any:
+            - android.location.LocationManager
+            - com.google.android.gms.location.FusedLocationProviderClient
+    assessment: >
+      The application combines auto-start on boot with physical location tracking, consistent with persistent tracking behavior.
+    limitations:
+      - Geofencing and lost-device tracking utilities legitimately execute location checks following device reboot.
+    references:
+      - CWE-359: Exposure of Private Personal Information
+    tags:
+      - combination
+      - persistence
+      - location
+
+  - id: SEC-COMB-ACCESSIBILITY-OVERLAY
+    title: Accessibility Service Combined with System Overlay
+    category: spyware_indicator
+    severity: high
+    confidence: high
+    description: >
+      The application declares both an AccessibilityService and the SYSTEM_ALERT_WINDOW permission.
+    conditions:
+      all:
+        - api_any:
+            - android.accessibilityservice.AccessibilityService
+        - permission: android.permission.SYSTEM_ALERT_WINDOW
+    assessment: >
+      The combination of AccessibilityService and System Overlay provides the technical capability for UI redressing, credential harvesting, and tapjacking.
+    limitations:
+      - Assistive technology and automation utilities may legitimately combine overlays and accessibility services.
+    references:
+      - CWE-1021: Improper Restriction of Rendered UI Layers or Frames
+    tags:
+      - combination
+      - accessibility
+      - overlay
+
+  - id: SEC-COMB-DYNLOAD-PAYLOAD
+    title: Dynamic Class Loading Combined with Embedded DEX Payload
+    category: malware_indicator
+    severity: high
+    confidence: confirmed
+    description: >
+      The application bundles an embedded DEX file and references dynamic class loading APIs.
+    conditions:
+      all:
+        - embedded_file_type: dex
+        - api_any:
+            - dalvik.system.DexClassLoader
+            - dalvik.system.PathClassLoader
+    assessment: >
+      The application contains both an embedded secondary executable payload and the exact APIs required to execute it dynamically at runtime.
+    limitations:
+      - Certain app protection or legacy multi-dex packers exhibit this pattern for legitimate software protection.
+    references:
+      - CWE-506: Embedded Malicious Code
+      - CWE-94: Improper Control of Generation of Code ('Code Injection')
+    tags:
+      - combination
+      - payload
+      - dynamic_loading

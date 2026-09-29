@@ -1,0 +1,64 @@
+rules:
+  - id: telemetry.sentry
+    name: Sentry
+    vendor: Sentry
+    category: crash_reporting
+    description: Open-source error tracking and performance monitoring.
+    packages:
+      - io.sentry
+      - io.sentry.android
+    classes:
+      - io.sentry.Sentry
+      - io.sentry.android.core.SentryAndroid
+    strings:
+      - "io.sentry.dsn"
+    domains:
+      - sentry.io
+      - ingest.sentry.io
+
+  - id: telemetry.firebase.crashlytics
+    name: Firebase Crashlytics
+    vendor: Google
+    category: crash_reporting
+    description: Real-time crash reporting and diagnostic issue logging.
+    packages:
+      - com.google.firebase.crashlytics
+    classes:
+      - com.google.firebase.crashlytics.FirebaseCrashlytics
+    strings:
+      - "com.crashlytics.android.build_id"
+    domains:
+      - crashlyticsreports-pa.googleapis.com
+      - crashlytics.com
+
+  - id: telemetry.bugsnag
+    name: Bugsnag
+    vendor: SmartBear
+    category: crash_reporting
+    description: Full-stack application stability and error monitoring.
+    packages:
+      - com.bugsnag.android
+    classes:
+      - com.bugsnag.android.Bugsnag
+    strings:
+      - "com.bugsnag.android.API_KEY"
+    domains:
+      - notify.bugsnag.com
+      - bugsnag.com
+
+  - id: telemetry.microsoft.appcenter
+    name: Microsoft Visual Studio App Center
+    vendor: Microsoft
+    category: telemetry
+    description: Microsoft diagnostics, crash reporting, and analytics service.
+    packages:
+      - com.microsoft.appcenter
+      - com.microsoft.appcenter.crashes
+      - com.microsoft.appcenter.analytics
+    classes:
+      - com.microsoft.appcenter.AppCenter
+    strings:
+      - "appcenter.ms"
+    domains:
+      - in.appcenter.ms
+      - appcenter.ms

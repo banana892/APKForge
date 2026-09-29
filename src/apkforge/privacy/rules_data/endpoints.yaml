@@ -1,0 +1,27 @@
+rules:
+  - id: endpoint.google.cdn
+    name: Google Static Content CDN
+    vendor: Google
+    category: other
+    description: Public Google content delivery network.
+    domains:
+      - gstatic.com
+      - fonts.googleapis.com
+      - fonts.gstatic.com
+
+  - id: endpoint.cloudflare.cdn
+    name: Cloudflare CDN
+    vendor: Cloudflare
+    category: other
+    description: Cloudflare content delivery and acceleration network.
+    domains:
+      - cdnjs.cloudflare.com
+      - cloudflare.com
+
+  - id: endpoint.aws.cloudfront
+    name: Amazon CloudFront
+    vendor: Amazon
+    category: other
+    description: Amazon Web Services content distribution network.
+    domains:
+      - cloudfront.net

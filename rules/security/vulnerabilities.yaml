@@ -1,0 +1,115 @@
+# APKForge Security Engine — Built-in Vulnerability Rules
+
+rules:
+  - id: SEC-VULN-DEBUGGABLE-001
+    title: Application Configured as Debuggable in Manifest
+    category: vulnerability
+    severity: high
+    confidence: confirmed
+    description: >
+      The AndroidManifest.xml contains android:debuggable="true", exposing debugging interfaces.
+    conditions:
+      all:
+        - manifest_attribute: "debuggable=true"
+    assessment: >
+      Debuggable applications allow arbitrary code injection via JDWP (Java Debug Wire Protocol) and full local data extraction.
+    limitations:
+      - Intended for development and testing builds; unacceptable in production release builds.
+    references:
+      - CWE-215: Insertion of Sensitive Information Into Debugging Code
+    tags:
+      - vulnerability
+      - manifest
+      - debuggable
+
+  - id: SEC-VULN-CLEARTEXT-001
+    title: Cleartext Network Traffic Allowed
+    category: vulnerability
+    severity: medium
+    confidence: confirmed
+    description: >
+      The AndroidManifest.xml declares android:usesCleartextTraffic="true", permitting unencrypted HTTP traffic.
+    conditions:
+      all:
+        - manifest_attribute: "usesCleartextTraffic=true"
+    assessment: >
+      Allowing cleartext HTTP traffic exposes application network communication to eavesdropping and man-in-the-middle (MITM) attacks.
+    limitations:
+      - Applications targeting older Android versions or interacting with local hardware may require cleartext.
+    references:
+      - CWE-319: Cleartext Transmission of Sensitive Information
+    tags:
+      - vulnerability
+      - network
+      - cleartext
+
+  - id: SEC-VULN-BACKUP-001
+    title: Application Backup Enabled Without Restriction
+    category: vulnerability
+    severity: low
+    confidence: confirmed
+    description: >
+      The AndroidManifest.xml has android:allowBackup="true" without restrictive backup rules, allowing adb backup.
+    conditions:
+      all:
+        - manifest_attribute: "allowBackup=true"
+    assessment: >
+      Application private data can be extracted using ADB backup if physical or debugging access is gained.
+    limitations:
+      - System backup is standard for user data migration; risk depends on sensitivity of stored credentials.
+    references:
+      - CWE-200: Exposure of Sensitive Information
+    tags:
+      - vulnerability
+      - manifest
+      - backup
+
+  - id: SEC-VULN-WEAK-CIPHER-001
+    title: Insecure or Broken Cryptographic Cipher Mode
+    category: vulnerability
+    severity: high
+    confidence: high
+    description: >
+      The application references weak or broken encryption algorithms (e.g. DES, RC4, or AES in ECB mode).
+    conditions:
+      any:
+        - string_any:
+            - "AES/ECB/PKCS5Padding"
+            - "AES/ECB/NoPadding"
+            - "DES/CBC/PKCS5Padding"
+            - "DESede"
+            - "RC4"
+    assessment: >
+      Electronic Codebook (ECB) mode and legacy ciphers (DES/RC4) are vulnerable to pattern analysis, known-plaintext, and cipher degradation attacks.
+    limitations:
+      - Static presence of algorithm strings in third-party libraries may not be active in the application's core cryptography.
+    references:
+      - CWE-327: Use of a Broken or Risky Cryptographic Algorithm
+    tags:
+      - vulnerability
+      - crypto
+      - cipher
+
+  - id: SEC-VULN-WEAK-HASH-001
+    title: Weak Cryptographic Hash Algorithm Referenced
+    category: vulnerability
+    severity: low
+    confidence: medium
+    description: >
+      The application references legacy hash functions (MD5 or SHA-1).
+    conditions:
+      any:
+        - string_any:
+            - "MD5"
+            - "SHA-1"
+            - "SHA1"
+    assessment: >
+      MD5 and SHA-1 have known collision vulnerabilities. If used for cryptographic signatures or password hashing, they represent a weakness.
+    limitations:
+      - MD5 and SHA-1 are frequently used for non-cryptographic checksums or cache keys, which does not constitute a vulnerability.
+    references:
+      - CWE-328: Use of Weak Hash
+    tags:
+      - vulnerability
+      - crypto
+      - hash

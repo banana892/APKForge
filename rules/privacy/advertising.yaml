@@ -1,0 +1,119 @@
+rules:
+  - id: ad.google.admob
+    name: Google AdMob / Google Mobile Ads
+    vendor: Google
+    category: advertising
+    description: Google Mobile Ads SDK for banner, interstitial, and rewarded advertisements.
+    packages:
+      - com.google.android.gms.ads
+    classes:
+      - com.google.android.gms.ads.AdView
+      - com.google.android.gms.ads.MobileAds
+      - com.google.android.gms.ads.interstitial.InterstitialAd
+    strings:
+      - "com.google.android.gms.ads.APPLICATION_ID"
+      - "ca-app-pub-"
+    domains:
+      - googleads.g.doubleclick.net
+      - pagead2.googlesyndication.com
+      - adservice.google.com
+
+  - id: ad.applovin
+    name: AppLovin MAX
+    vendor: AppLovin
+    category: advertising
+    description: AppLovin mobile advertising and mediation platform.
+    packages:
+      - com.applovin.sdk
+      - com.applovin.mediation
+      - com.applovin.adview
+    classes:
+      - com.applovin.sdk.AppLovinSdk
+      - com.applovin.adview.AppLovinAdView
+    strings:
+      - "applovin.sdk.key"
+      - "AppLovinSdk"
+    domains:
+      - applovin.com
+      - ms.applovin.com
+      - a.applovin.com
+
+  - id: ad.unity
+    name: Unity Ads
+    vendor: Unity Technologies
+    category: advertising
+    description: Unity Ads monetization platform for mobile games and apps.
+    packages:
+      - com.unity3d.services.ads
+      - com.unity3d.ads
+    classes:
+      - com.unity3d.ads.UnityAds
+    strings:
+      - "com.unity3d.ads"
+    domains:
+      - unityads.unity3d.com
+      - auction.unityads.unity3d.com
+
+  - id: ad.facebook.audience
+    name: Meta Audience Network
+    vendor: Meta
+    category: advertising
+    description: Meta Audience Network mobile advertising platform.
+    packages:
+      - com.facebook.ads
+    classes:
+      - com.facebook.ads.AdView
+      - com.facebook.ads.AudienceNetworkAds
+    strings:
+      - "AudienceNetworkAds"
+    domains:
+      - graph.facebook.com
+      - an.facebook.com
+
+  - id: ad.inmobi
+    name: InMobi Ads
+    vendor: InMobi
+    category: advertising
+    description: InMobi mobile marketing and monetization platform.
+    packages:
+      - com.inmobi.ads
+      - com.inmobi.sdk
+    classes:
+      - com.inmobi.sdk.InMobiSdk
+      - com.inmobi.ads.InMobiBanner
+    strings:
+      - "InMobiSdk"
+    domains:
+      - inmobi.com
+      - config.inmobi.com
+
+  - id: ad.ironsource
+    name: ironSource
+    vendor: ironSource
+    category: advertising
+    description: ironSource ad mediation and monetization platform.
+    packages:
+      - com.ironsource.mediationsdk
+    classes:
+      - com.ironsource.mediationsdk.IronSource
+    strings:
+      - "IronSource"
+    domains:
+      - ironsrc.com
+      - platform.ironsrc.com
+
+  - id: ad.vungle
+    name: Vungle / Liftoff
+    vendor: Liftoff
+    category: advertising
+    description: Vungle video ad platform.
+    packages:
+      - com.vungle.ads
+      - com.vungle.warren
+    classes:
+      - com.vungle.ads.VungleAds
+    strings:
+      - "vungle.api_endpoint"
+    domains:
+      - vungle.com
+      - ads.api.vungle.com

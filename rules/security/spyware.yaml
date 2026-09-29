@@ -1,0 +1,228 @@
+# APKForge Security Engine — Built-in Spyware & Surveillance Indicator Rules
+
+rules:
+  - id: SEC-SPY-AUDIO-001
+    title: Background Audio Collection Capability
+    category: spyware_indicator
+    severity: high
+    confidence: high
+    description: >
+      The application declares microphone recording permissions, references framework audio recording APIs,
+      and declares background service components.
+    conditions:
+      all:
+        - permission_any:
+            - android.permission.RECORD_AUDIO
+        - api_any:
+            - android.media.AudioRecord
+            - android.media.MediaRecorder
+        - component_type: service
+    assessment: >
+      The APK contains multiple static indicators consistent with background audio collection.
+    limitations:
+      - Static analysis cannot establish that audio recording occurs during normal runtime execution.
+    references:
+      - CWE-359: Exposure of Private Personal Information to an Unauthorized Actor
+    tags:
+      - spyware
+      - audio
+      - microphone
+      - background
+
+  - id: SEC-SPY-CAMERA-001
+    title: Background Camera Capture Capability
+    category: spyware_indicator
+    severity: high
+    confidence: high
+    description: >
+      The application requests camera permissions, references camera framework APIs, and contains background services.
+    conditions:
+      all:
+        - permission_any:
+            - android.permission.CAMERA
+        - api_any:
+            - android.hardware.Camera
+            - android.hardware.camera2.CameraManager
+        - component_type: service
+    assessment: >
+      The APK contains static indicators consistent with background camera photo or video capture.
+    limitations:
+      - Static analysis cannot prove runtime camera activation or data transmission.
+    references:
+      - CWE-359: Exposure of Private Personal Information
+    tags:
+      - spyware
+      - camera
+      - video
+      - background
+
+  - id: SEC-SPY-LOCATION-001
+    title: Background Location Tracking Capability
+    category: spyware_indicator
+    severity: medium
+    confidence: high
+    description: >
+      The application requests physical location permissions, references location APIs, and declares background services.
+    conditions:
+      all:
+        - permission_any:
+            - android.permission.ACCESS_FINE_LOCATION
+            - android.permission.ACCESS_COARSE_LOCATION
+            - android.permission.ACCESS_BACKGROUND_LOCATION
+        - api_any:
+            - android.location.LocationManager
+            - com.google.android.gms.location.FusedLocationProviderClient
+        - component_type: service
+    assessment: >
+      The APK contains static indicators consistent with physical location tracking in the background.
+    limitations:
+      - Static analysis does not determine whether location coordinates are transmitted off-device.
+    references:
+      - CWE-359: Exposure of Private Personal Information
+    tags:
+      - spyware
+      - location
+      - tracking
+
+  - id: SEC-SPY-SMS-001
+    title: SMS Interception Capability
+    category: spyware_indicator
+    severity: high
+    confidence: high
+    description: >
+      The application requests SMS permissions, references SMS APIs, and declares broadcast receiver components.
+    conditions:
+      all:
+        - permission_any:
+            - android.permission.RECEIVE_SMS
+            - android.permission.READ_SMS
+        - api_any:
+            - android.telephony.SmsManager
+            - android.provider.Telephony.SMS_RECEIVED
+        - component_type: receiver
+    assessment: >
+      The APK contains static indicators consistent with SMS message reception, inspection, or interception.
+    limitations:
+      - Static analysis cannot verify that incoming SMS messages are redirected or forwarded.
+    references:
+      - CWE-200: Exposure of Sensitive Information to an Unauthorized Actor
+    tags:
+      - spyware
+      - sms
+      - telephony
+
+  - id: SEC-SPY-CALLS-001
+    title: Phone Call State & Log Monitoring Capability
+    category: spyware_indicator
+    severity: medium
+    confidence: medium
+    description: >
+      The application requests phone state permissions and references telephony manager APIs.
+    conditions:
+      all:
+        - permission_any:
+            - android.permission.READ_PHONE_STATE
+            - android.permission.READ_CALL_LOG
+        - api_any:
+            - android.telephony.TelephonyManager
+    assessment: >
+      The APK contains capabilities to monitor telephony state and phone call activity.
+    limitations:
+      - Static presence of TelephonyManager does not prove call eavesdropping or logging.
+    references:
+      - CWE-359: Exposure of Private Personal Information
+    tags:
+      - spyware
+      - phone
+      - calls
+
+  - id: SEC-SPY-CONTACTS-001
+    title: Contact Address Book Access Capability
+    category: spyware_indicator
+    severity: medium
+    confidence: high
+    description: >
+      The application requests contacts permissions and references ContactsContract APIs.
+    conditions:
+      all:
+        - permission_any:
+            - android.permission.READ_CONTACTS
+        - api_any:
+            - android.provider.ContactsContract
+    assessment: >
+      The APK contains capabilities to query device contact records.
+    limitations:
+      - Static analysis cannot determine whether contact records are exfiltrated to remote servers.
+    references:
+      - CWE-200: Exposure of Sensitive Information
+    tags:
+      - spyware
+      - contacts
+      - collection
+
+  - id: SEC-SPY-CLIPBOARD-001
+    title: Background Clipboard Access Capability
+    category: spyware_indicator
+    severity: low
+    confidence: medium
+    description: >
+      The application references ClipboardManager within background execution components.
+    conditions:
+      all:
+        - api_any:
+            - android.content.ClipboardManager
+        - component_type: service
+    assessment: >
+      The APK contains static references to clipboard access in a background service context.
+    limitations:
+      - Static reference does not prove unprompted clipboard reading during runtime.
+    references:
+      - CWE-200: Exposure of Sensitive Information
+    tags:
+      - spyware
+      - clipboard
+      - background
+
+  - id: SEC-SPY-ACCESSIBILITY-001
+    title: Accessibility Service Implementation
+    category: spyware_indicator
+    severity: medium
+    confidence: high
+    description: >
+      The application declares an AccessibilityService component.
+    conditions:
+      all:
+        - api_any:
+            - android.accessibilityservice.AccessibilityService
+    assessment: >
+      The APK declares an AccessibilityService capable of inspecting UI windows and user actions.
+    limitations:
+      - Accessibility services require explicit user approval in system settings before running.
+    references:
+      - CWE-250: Execution with Unnecessary Privileges
+    tags:
+      - spyware
+      - accessibility
+      - surveillance
+
+  - id: SEC-SPY-OVERLAY-001
+    title: System Alert Window (Overlay) Capability
+    category: spyware_indicator
+    severity: medium
+    confidence: high
+    description: >
+      The application requests the SYSTEM_ALERT_WINDOW permission allowing display over other applications.
+    conditions:
+      all:
+        - permission_any:
+            - android.permission.SYSTEM_ALERT_WINDOW
+    assessment: >
+      The APK requests permissions to display windows on top of all other applications (tapjacking / overlay risk).
+    limitations:
+      - Overlay capability is legitimate for utilities, floating chats, and screen tools.
+    references:
+      - CWE-1021: Improper Restriction of Rendered UI Layers or Frames
+    tags:
+      - spyware
+      - overlay
+      - ui

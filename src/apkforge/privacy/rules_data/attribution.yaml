@@ -1,0 +1,83 @@
+rules:
+  - id: attribution.appsflyer
+    name: AppsFlyer
+    vendor: AppsFlyer
+    category: attribution
+    description: Mobile attribution, marketing analytics, and deep linking platform.
+    packages:
+      - com.appsflyer
+    classes:
+      - com.appsflyer.AppsFlyerLib
+      - com.appsflyer.AppsFlyerConversionListener
+    strings:
+      - "AppsFlyerLib"
+      - "AF_DEV_KEY"
+    domains:
+      - t.appsflyer.com
+      - conversions.appsflyer.com
+      - stats.appsflyer.com
+      - appsflyer.com
+
+  - id: attribution.adjust
+    name: Adjust
+    vendor: Adjust
+    category: attribution
+    description: Adjust mobile measurement, attribution, and fraud prevention platform.
+    packages:
+      - com.adjust.sdk
+    classes:
+      - com.adjust.sdk.Adjust
+      - com.adjust.sdk.AdjustConfig
+    strings:
+      - "AdjustConfig"
+      - "com.adjust.sdk"
+    domains:
+      - app.adjust.com
+      - adjust.com
+
+  - id: attribution.branch
+    name: Branch Metrics
+    vendor: Branch
+    category: attribution
+    description: Branch deep linking, install attribution, and cross-channel marketing.
+    packages:
+      - io.branch.referral
+    classes:
+      - io.branch.referral.Branch
+    strings:
+      - "io.branch.sdk.BranchKey"
+    domains:
+      - api.branch.io
+      - api2.branch.io
+      - branch.io
+
+  - id: attribution.kochava
+    name: Kochava
+    vendor: Kochava
+    category: attribution
+    description: Kochava mobile attribution and analytics measurement engine.
+    packages:
+      - com.kochava.tracker
+      - com.kochava.base
+    classes:
+      - com.kochava.tracker.Tracker
+    strings:
+      - "com.kochava.tracker"
+    domains:
+      - control.kochava.com
+      - kochava.com
+
+  - id: attribution.singular
+    name: Singular
+    vendor: Singular
+    category: attribution
+    description: Singular marketing analytics and attribution platform.
+    packages:
+      - com.singular.sdk
+    classes:
+      - com.singular.sdk.Singular
+    strings:
+      - "com.singular.sdk"
+    domains:
+      - api.singular.net
+      - singular.net

@@ -1,0 +1,96 @@
+rules:
+  - id: analytics.google.firebase
+    name: Google Analytics for Firebase
+    vendor: Google
+    category: analytics
+    description: Firebase Analytics event logging and user engagement tracking.
+    packages:
+      - com.google.android.gms.measurement
+      - com.google.firebase.analytics
+    classes:
+      - com.google.firebase.analytics.FirebaseAnalytics
+      - com.google.android.gms.measurement.AppMeasurement
+    strings:
+      - "google_app_id"
+      - "google_api_key"
+      - "firebase_analytics"
+    domains:
+      - app-measurement.com
+      - firebaseinstallations.googleapis.com
+      - firebaselogging-pa.googleapis.com
+
+  - id: analytics.flurry
+    name: Flurry Analytics
+    vendor: Yahoo
+    category: analytics
+    description: Flurry mobile analytics and app performance monitoring.
+    packages:
+      - com.flurry.android
+    classes:
+      - com.flurry.android.FlurryAgent
+    strings:
+      - "FlurryAgent"
+    domains:
+      - data.flurry.com
+      - flurry.com
+
+  - id: analytics.mixpanel
+    name: Mixpanel
+    vendor: Mixpanel
+    category: analytics
+    description: Mixpanel product analytics and event tracking.
+    packages:
+      - com.mixpanel.android.mpmetrics
+    classes:
+      - com.mixpanel.android.mpmetrics.MixpanelAPI
+    strings:
+      - "com.mixpanel.android.MPConfig"
+    domains:
+      - api.mixpanel.com
+      - mixpanel.com
+
+  - id: analytics.amplitude
+    name: Amplitude
+    vendor: Amplitude
+    category: analytics
+    description: Amplitude product intelligence and behavioral analytics.
+    packages:
+      - com.amplitude.api
+    classes:
+      - com.amplitude.api.Amplitude
+      - com.amplitude.api.AmplitudeClient
+    strings:
+      - "AmplitudeClient"
+    domains:
+      - api.amplitude.com
+      - api2.amplitude.com
+
+  - id: analytics.segment
+    name: Segment / Twilio Segment
+    vendor: Twilio
+    category: analytics
+    description: Segment customer data platform and routing library.
+    packages:
+      - com.segment.analytics
+    classes:
+      - com.segment.analytics.Analytics
+    strings:
+      - "com.segment.analytics"
+    domains:
+      - api.segment.io
+      - cdn.segment.com
+
+  - id: analytics.clevertap
+    name: CleverTap
+    vendor: CleverTap
+    category: analytics
+    description: CleverTap customer engagement and behavioral tracking platform.
+    packages:
+      - com.clevertap.android.sdk
+    classes:
+      - com.clevertap.android.sdk.CleverTapAPI
+    strings:
+      - "CLEVERTAP_ACCOUNT_ID"
+    domains:
+      - clevertap.com
+      - wizrocket.com

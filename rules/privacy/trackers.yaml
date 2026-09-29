@@ -1,0 +1,46 @@
+rules:
+  - id: tracker.criteo
+    name: Criteo
+    vendor: Criteo
+    category: tracking
+    description: Dynamic retargeting and behavioral user tracking platform.
+    packages:
+      - com.criteo.publisher
+      - com.criteo.sync
+    classes:
+      - com.criteo.publisher.Criteo
+    strings:
+      - "criteo.com"
+    domains:
+      - criteo.com
+      - gum.criteo.com
+
+  - id: tracker.mparticle
+    name: mParticle
+    vendor: mParticle
+    category: tracking
+    description: Customer data platform orchestrating identity and behavioral tracking.
+    packages:
+      - com.mparticle
+    classes:
+      - com.mparticle.MParticle
+    strings:
+      - "mparticle.com"
+    domains:
+      - nativesdks.mparticle.com
+      - mparticle.com
+
+  - id: tracker.onesignal
+    name: OneSignal
+    vendor: OneSignal
+    category: tracking
+    description: Push notification service collecting device metadata and behavioral events.
+    packages:
+      - com.onesignal
+    classes:
+      - com.onesignal.OneSignal
+    strings:
+      - "onesignal.com"
+    domains:
+      - onesignal.com
+      - api.onesignal.com
