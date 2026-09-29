@@ -95,11 +95,20 @@ class TestStubCommands:
         assert result.exit_code == 0, result.output
 
     @pytest.mark.unit()
-    def test_modify_stub_exits_zero(self, tmp_path: Path) -> None:
+    def test_modify_help_exits_zero(self) -> None:
+        """The modify command's --help must exit cleanly."""
+        result = runner.invoke(app, ["modify", "--help"])
+        assert result.exit_code == 0, result.output
+        assert "modify" in result.output.lower()
+
+    @pytest.mark.unit()
+    def test_modify_with_invalid_apk_exits_nonzero(self, tmp_path: Path) -> None:
+        """The modify command with an invalid APK exits non-zero."""
         fake_apk = tmp_path / "test.apk"
         fake_apk.write_bytes(b"PK")
         result = runner.invoke(app, ["modify", str(fake_apk)])
-        assert result.exit_code == 0, result.output
+        # Should fail because the APK is not a valid APK for analysis
+        assert result.exit_code != 0 or "error" in result.output.lower() or "failed" in result.output.lower()
 
     @pytest.mark.unit()
     def test_verify_stub_exits_zero(self, tmp_path: Path) -> None:

@@ -33,7 +33,7 @@ if TYPE_CHECKING:
     from collections.abc import Callable
 
     from apkforge.core.config import APKForgeConfig
-    from apkforge.intake.models import AndroidPackage
+    from apkforge.intake import AndroidPackage
 
 _log = logging.getLogger(__name__)
 _T = TypeVar("_T")

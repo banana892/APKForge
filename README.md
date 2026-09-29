@@ -5,17 +5,19 @@
 
 ---
 
-## 📦 Current Status — Phase 5: Security Analysis Engine Complete
+## 📦 Current Status — Phase 7: Modification Framework Complete
 
-APKForge has completed **Phase 0 (Foundation)**, **Phase 1 (Intake & Identification)**, **Phase 2 (Core APK Inspection)**, **Phase 3 (APK Diff Engine)**, **Phase 4 (Privacy & Tracker Engine)**, and **Phase 5 (Security Analysis Engine)**.
+APKForge has completed **Phase 0 (Foundation)**, **Phase 1 (Intake & Identification)**, **Phase 2 (Core APK Inspection)**, **Phase 3 (APK Diff Engine)**, **Phase 4 (Privacy & Tracker Engine)**, **Phase 5 (Security Analysis Engine)**, **Phase 6 (Modification Planning Engine)**, and **Phase 7 (Modification Framework)**.
 
-The security analysis engine operates on structured evidence collected across Phases 1–4:
-- **Core Analysis Philosophy**: Local technical evidence and analysis. Distinguishes Evidence, Severity, Confidence, Assessment, and Limitations on every finding. Static analysis never claims to definitively prove that an APK is malware, spyware, or safe.
-- **Malware Indicators**: Embedded payloads (DEX, ELF, nested APKs, high-entropy assets), command execution (`Runtime.exec`, `ProcessBuilder`, shell binaries), dynamic code loading (`DexClassLoader`), persistence (`BOOT_COMPLETED`, foreground services), and direct IP/exfiltration channels.
-- **Spyware & Surveillance Indicators**: Covert audio recording, camera capture, location tracking, SMS/OTP interception, call and contact harvesting, hardware device identifiers, accessibility service abuse, and multi-vector surveillance suites.
-- **Vulnerability Indicators**: Insecure manifest flags (`debuggable`, `usesCleartextTraffic`, `allowBackup`), unprotected exported components (providers, services, receivers), cryptographic weaknesses (ECB mode, DES, MD5/SHA-1), and masked hardcoded credential detection.
-- **Diff-Aware Security Analysis**: Automated regression detection when comparing original vs modified builds (added dangerous permissions, certificate changes, new exported attack surfaces, added native binaries, and new external network endpoints).
-- **Unified Orchestration**: `apkforge analyze` command orchestrating Core Inspection, Privacy Auditing, and Security Analysis in a single invocation.
+The modification framework turns approved modification plans into controlled, executed changes:
+- **Workspace Isolation**: All modifications operate on a working copy inside an isolated workspace. The original APK is never modified.
+- **Approval Enforcement**: Only explicitly approved plans with accepted changes reach execution.
+- **Built-in Modifiers**: ManifestModifier, PermissionModifier, TrackerModifier, ComponentModifier, ResourceModifier, DexModifier, PayloadModifier.
+- **Modifier Registry**: Extensible dispatch system mapping change types to modifier implementations.
+- **Preflight Validation**: All changes are validated before any modification is applied.
+- **Dry-Run Mode**: Simulate all modifications without writing any changes.
+- **Rollback Support**: Automatic rollback of applied changes on failure.
+- **CLI Modify Command**: `apkforge modify` command with `--dry-run`, `--approve-all`, `--plan`, and `--json` support.
 
 ---
 
@@ -126,10 +128,23 @@ apkforge security path/to/app.apk --json > security.json
 apkforge analyze path/to/app.apk
 apkforge analyze path/to/app.apk --json > full_report.json
 
-# (Phase 6+) Apply a modification plan
-apkforge modify path/to/app.apk --plan plan.toml
+# Modification Planning (Phase 6)
+apkforge plan path/to/app.apk
+apkforge plan path/to/app.apk --diff original.apk
+apkforge plan path/to/app.apk --type permission
+apkforge plan path/to/app.apk --type tracker
+apkforge plan path/to/app.apk --risk high
+apkforge plan path/to/app.apk --json > plan.json
+apkforge plan path/to/app.apk --yaml > plan.yaml
+apkforge plan path/to/app.apk --output plan.yaml
 
-# (Phase 6+) Verify a built APK
+# Modification Execution (Phase 7)
+apkforge modify path/to/app.apk --plan plan.json --dry-run
+apkforge modify path/to/app.apk --plan plan.yaml --approve-all
+apkforge modify path/to/app.apk --approve-all --workspace ./output
+apkforge modify path/to/app.apk --approve-all --json > result.json
+
+# (Phase 8+) Verify a built APK
 apkforge verify output.apk
 ```
 
@@ -168,8 +183,10 @@ mypy src/
 | **Phase 3** | ✅ Complete | APK Diff Engine: structured delta analysis across identity, files, manifest, permissions, components, DEX, network, native libs, resources, assets, and certificates |
 | **Phase 4** | ✅ Complete | Privacy & tracker engine (permissions, API correlation, SDK/tracker detection, endpoint mapping, data capabilities) |
 | **Phase 5** | ✅ Complete | Security analysis engine: malware indicators, spyware/surveillance indicators, vulnerabilities, combinations, diff regressions, secret masking |
-| **Phase 6** | ⏳ Planned | Modification engine, rebuild, signing, verification |
-| **Phase 7** | ⏳ Planned | GUI (consuming Phase 1–6 core engines) |
+| **Phase 6** | ✅ Complete | Modification planning engine: evidence-driven change proposals, risk assessment, impact analysis, dependencies, conflicts, serialization, staleness tracking |
+| **Phase 7** | ✅ Complete | Modification framework: workspace isolation, approval enforcement, 7 built-in modifiers (Manifest, Permission, Tracker, Component, Resource, DEX, Payload), preflight validation, dry-run, rollback |
+| **Phase 8** | ⏳ Planned | APK Rebuild & Signing: apktool integration, zipalign, apksigner, post-modification verification |
+| **Phase 9** | ⏳ Planned | GUI & Interactive Workbench (consuming Phase 1–8 core engines) |
 
 ---
 

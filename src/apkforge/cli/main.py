@@ -41,8 +41,11 @@ from apkforge.core.models import AnalysisStatus, Severity
 if TYPE_CHECKING:
     from apkforge.diff.models import DiffResult
     from apkforge.inspection import InspectionResult
+    from apkforge.modification.models import ModificationPlan
+    from apkforge.modification.modifiers.base import ModificationResult
     from apkforge.privacy.models import PrivacyResult
     from apkforge.security.models import FullAnalysisResult, SecurityResult
+
 
 app = typer.Typer(
     name="apkforge",
@@ -1504,14 +1507,14 @@ def _render_security_summary(
                 Severity.HIGH: "red",
                 Severity.MEDIUM: "yellow",
                 Severity.LOW: "cyan",
-                Severity.INFO: "dim",
+                Severity.INFORMATIONAL: "dim",
             }.get(f.severity, "white")
 
             _console.print(
                 f"[{sev_color}][{f.severity.value.upper()}][/{sev_color}] "
                 f"[bold]{f.id}[/bold]: {f.title}"
             )
-            cat_val = f.category.value
+            cat_val = getattr(f.category, "value", str(f.category))
             conf_val = f.confidence.value.upper()
             _console.print(
                 f"  [dim]Category:[/dim] {cat_val} | [dim]Confidence:[/dim] [cyan]{conf_val}[/cyan]"
@@ -1546,6 +1549,329 @@ def _render_security_summary(
         _console.print("\n[bold dim]Analysis Limitations:[/bold dim]")
         for lim in result.limitations:
             _console.print(f"  [dim]• {lim}[/dim]")
+
+
+# ---------------------------------------------------------------------------
+# plan command (Phase 6)
+# ---------------------------------------------------------------------------
+
+
+@app.command("plan")
+def cmd_plan(
+    apk: Path = typer.Argument(
+        ...,
+        metavar="APK",
+        help="Path to the APK file to generate a modification plan for.",
+        exists=True,
+        file_okay=True,
+        dir_okay=False,
+        readable=True,
+        resolve_path=True,
+    ),
+    diff_apk: Path | None = typer.Option(
+        None,
+        "--diff",
+        "-d",
+        help="Optional base APK to compute diff and plan regression rollbacks.",
+        exists=True,
+        file_okay=True,
+        dir_okay=False,
+        readable=True,
+        resolve_path=True,
+    ),
+    output: Path | None = typer.Option(
+        None,
+        "--output",
+        "-o",
+        help="Path to save the generated modification plan (.json or .yaml).",
+    ),
+    json_output: bool = typer.Option(
+        False,
+        "--json",
+        help="Output plan in JSON format to stdout.",
+    ),
+    yaml_output: bool = typer.Option(
+        False,
+        "--yaml",
+        help="Output plan in YAML format to stdout.",
+    ),
+    filter_type: str | None = typer.Option(
+        None,
+        "--type",
+        "-t",
+        help="Filter changes by type (e.g. permission, tracker, component, config).",
+    ),
+    min_risk: str | None = typer.Option(
+        None,
+        "--risk",
+        "-r",
+        help="Filter changes by minimum risk (low, medium, high, critical).",
+    ),
+    verbose: bool = typer.Option(
+        False,
+        "--verbose",
+        "-v",
+        help="Display extended details including impact analysis and validation steps.",
+    ),
+    keep_workspace: bool = typer.Option(
+        False,
+        "--keep-workspace",
+        help="Do not delete the temporary workspace directory after planning.",
+    ),
+) -> None:
+    """Generate a structured, evidence-based modification plan for an APK.
+
+    Analyzes the APK across Inspection, Privacy, Security, and optional Diff
+    engines to produce a non-destructive plan of proposed modifications.
+    """
+    cfg = load_default_config()
+    setup_logging(cfg.log_level)
+
+    import logging
+
+    _log = logging.getLogger("apkforge.cli.plan")
+
+    from apkforge.inspection import InspectionEngine
+    from apkforge.modification import (
+        ModificationPlanner,
+        ModificationRisk,
+        plan_to_json,
+        plan_to_yaml,
+        save_plan,
+    )
+    from apkforge.privacy.engine import PrivacyEngine
+    from apkforge.security.engine import SecurityEngine
+
+    # 1. Inspection Engine
+    insp_engine = InspectionEngine(config=cfg)
+    try:
+        insp_result = insp_engine.inspect(apk, keep_workspace=keep_workspace)
+    except Exception as e:
+        _console.print(f"[bold red]Core inspection failed:[/bold red] {e}")
+        raise typer.Exit(code=1) from e
+
+    # 2. Privacy Engine
+    priv_result = None
+    try:
+        priv_engine = PrivacyEngine(config=cfg)
+        priv_result = priv_engine.analyze(insp_result, keep_workspace=keep_workspace)
+    except Exception as e:
+        _log.warning("Privacy engine failed during planning: %s", e)
+
+    # 3. Optional Diff Engine
+    diff_result = None
+    if diff_apk:
+        try:
+            from apkforge.diff.engine import DiffEngine
+
+            diff_engine = DiffEngine(config=cfg)
+            orig_insp = insp_engine.inspect(diff_apk, keep_workspace=keep_workspace)
+            diff_result = diff_engine.diff(
+                orig_insp,
+                insp_result,
+                keep_workspace=keep_workspace,
+            )
+        except Exception as e:
+            _log.warning("Diff engine failed during planning: %s", e)
+
+    # 4. Security Engine
+    sec_result = None
+    try:
+        sec_engine = SecurityEngine(config=cfg)
+        sec_result = sec_engine.analyze(
+            target=insp_result,
+            privacy=priv_result,
+            diff=diff_result,
+            keep_workspace=keep_workspace,
+        )
+    except Exception as e:
+        _log.warning("Security engine failed during planning: %s", e)
+
+    # 5. Create Plan
+    planner = ModificationPlanner()
+    plan = planner.create_plan(
+        apk_path=apk,
+        inspection=insp_result,
+        privacy=priv_result,
+        security=sec_result,
+        diff=diff_result,
+    )
+
+    # 6. Apply filters
+    if filter_type:
+        ft = filter_type.lower()
+        plan.changes = [
+            c for c in plan.changes if ft in c.change_type.value or ft in c.target.lower()
+        ]
+
+    if min_risk:
+        mr = min_risk.lower()
+        risk_map = {
+            "low": [
+                ModificationRisk.LOW,
+                ModificationRisk.MEDIUM,
+                ModificationRisk.HIGH,
+                ModificationRisk.CRITICAL,
+            ],
+            "medium": [
+                ModificationRisk.MEDIUM,
+                ModificationRisk.HIGH,
+                ModificationRisk.CRITICAL,
+            ],
+            "high": [
+                ModificationRisk.HIGH,
+                ModificationRisk.CRITICAL,
+            ],
+            "critical": [
+                ModificationRisk.CRITICAL,
+            ],
+        }
+        allowed = risk_map.get(mr, [])
+        if allowed:
+            plan.changes = [c for c in plan.changes if c.risk in allowed]
+
+    # 7. Output saving / serialization
+    if output:
+        save_plan(plan, output)
+        _console.print(f"[bold green]Modification plan saved to:[/bold green] {output}")
+
+    if json_output:
+        typer.echo(plan_to_json(plan))
+        return
+
+    if yaml_output:
+        typer.echo(plan_to_yaml(plan))
+        return
+
+    # 8. Render Rich summary
+    _render_plan_summary(plan, verbose=verbose)
+
+
+def _render_plan_summary(plan: ModificationPlan, verbose: bool = False) -> None:
+    """Render a human-friendly summary of a ModificationPlan."""
+    from apkforge.modification.models import ModificationRisk
+
+    # Header Panel
+    status_color = "yellow" if plan.status == "review_required" else "green"
+    _console.print(
+        Panel(
+            f"[bold]Plan ID:[/bold] {plan.plan_id}\n"
+            f"[bold]Source APK:[/bold] {plan.source_apk}\n"
+            f"[bold]Source SHA-256:[/bold] {plan.source_sha256[:16]}...\n"
+            f"[bold]Status:[/bold] [{status_color}]{plan.status.value.upper()}[/{status_color}]\n"
+            f"[bold]Planner Version:[/bold] {plan.planner_version}\n"
+            f"[bold]Proposed Changes:[/bold] {plan.change_count}",
+            title="[bold yellow]APKForge Modification Plan[/bold yellow]",
+            expand=False,
+        )
+    )
+
+    # Breakdown Table
+    table = Table(title="Proposed Changes Summary", show_header=True, box=None)
+    table.add_column("Change Type", style="bold")
+    table.add_column("Count", justify="right")
+    table.add_column("Sample Targets")
+
+    by_type: dict[str, list[str]] = {}
+    for c in plan.changes:
+        by_type.setdefault(c.change_type.value, []).append(c.target)
+
+    for ctype, targets in sorted(by_type.items()):
+        sample = ", ".join(targets[:2])
+        if len(targets) > 2:
+            sample += f" (+{len(targets) - 2} more)"
+        table.add_row(ctype, str(len(targets)), sample)
+
+    _console.print(table)
+    _console.print()
+
+    # Detailed Changes
+    _console.print("[bold]PROPOSED CHANGES[/bold]")
+    _console.print("─" * 50)
+
+    if not plan.changes:
+        _console.print("  [dim]No changes proposed for this package.[/dim]")
+    else:
+        for c in plan.changes:
+            risk_color = {
+                ModificationRisk.CRITICAL: "bold red",
+                ModificationRisk.HIGH: "red",
+                ModificationRisk.MEDIUM: "yellow",
+                ModificationRisk.LOW: "cyan",
+            }.get(c.risk, "white")
+
+            _console.print(
+                f"[bold cyan][{c.id}][/bold cyan] "
+                f"[bold]{c.target}[/bold] [dim]({c.change_type.value})[/dim]"
+            )
+            _console.print(
+                f"  [dim]Risk:[/dim] [{risk_color}]{c.risk.value.upper()}[/{risk_color}] "
+                f"— {c.risk_explanation}"
+            )
+            _console.print(f"  [dim]Confidence:[/dim] [cyan]{c.confidence.value.upper()}[/cyan]")
+            _console.print(f"  [bold]Reason:[/bold] {c.reason}")
+
+            if c.impact.direct_effects:
+                _console.print(f"  [dim]Direct Effect:[/dim] {c.impact.direct_effects[0]}")
+            if c.impact.potential_functional_effects:
+                _console.print(
+                    f"  [dim]Potential Impact:[/dim] {c.impact.potential_functional_effects[0]}"
+                )
+
+            if c.evidence:
+                _console.print("  [dim]Evidence:[/dim]")
+                ev_list = c.evidence if verbose else c.evidence[:3]
+                for ev in ev_list:
+                    loc = f" ({ev.location})" if ev.location else ""
+                    _console.print(f"    • {ev.description}{loc}")
+                if len(c.evidence) > 3 and not verbose:
+                    _console.print(
+                        f"    [dim]... and {len(c.evidence) - 3} more (use -v to view all)[/dim]"
+                    )
+
+            if c.dependencies:
+                deps_str = ", ".join(c.dependencies)
+                _console.print(f"  [yellow]Dependencies:[/yellow] {deps_str}")
+
+            if c.conflicts:
+                confs_str = ", ".join(c.conflicts)
+                _console.print(f"  [bold red]Conflicts:[/bold red] {confs_str}")
+
+            _console.print(
+                f"  [dim]Reversible:[/dim] {c.reversibility.value.upper()} "
+                f"({c.reversibility_explanation})"
+            )
+
+            if verbose and c.validation_steps:
+                _console.print("  [bold green]Validation Steps:[/bold green]")
+                for step in c.validation_steps:
+                    _console.print(f"    1. {step}")
+
+            _console.print()
+
+    # Conflicts
+    if plan.conflicts:
+        _console.print("[bold red]DETECTED CONFLICTS[/bold red]")
+        _console.print("─" * 50)
+        for cf in plan.conflicts:
+            _console.print(
+                f"  [red]![/red] [bold]{cf.change_id_a}[/bold] ↔ "
+                f"[bold]{cf.change_id_b}[/bold] ({cf.conflict_type.value}): {cf.reason}"
+            )
+            if cf.resolution_guidance:
+                _console.print(f"    [dim]Resolution: {cf.resolution_guidance}[/dim]")
+        _console.print()
+
+    # Warnings & Limitations
+    if plan.warnings:
+        _console.print("[bold yellow]Plan Warnings:[/bold yellow]")
+        for w in plan.warnings:
+            _console.print(f"  [yellow]![/yellow] {w}")
+
+    if plan.limitations:
+        _console.print("\n[bold dim]Planning Limitations:[/bold dim]")
+        for lim in plan.limitations:
+            _console.print(f"  [dim]• {lim}[/dim]")
     _console.print()
 
 
@@ -1564,16 +1890,186 @@ def cmd_modify(
         None,
         "--plan",
         "-p",
-        help="Path to a modification plan TOML/JSON file.",
+        help="Path to a modification plan JSON/YAML file.",
+        exists=True,
+        file_okay=True,
+        readable=True,
+        resolve_path=True,
+    ),
+    dry_run: bool = typer.Option(
+        False,
+        "--dry-run",
+        help="Simulate all modifications without writing any changes.",
+    ),
+    approve_all: bool = typer.Option(
+        False,
+        "--approve-all",
+        help="Approve all proposed changes before execution (use with caution).",
+    ),
+    workspace_dir: Path | None = typer.Option(
+        None,
+        "--workspace",
+        "-w",
+        help="Custom workspace directory for modification output.",
+    ),
+    json_output: bool = typer.Option(
+        False,
+        "--json",
+        help="Output result in JSON format.",
+    ),
+    keep_workspace: bool = typer.Option(
+        False,
+        "--keep-workspace",
+        help="Retain workspace directory after modification.",
     ),
 ) -> None:
-    """[yellow]⚡ Phase 3[/yellow] — Apply modifications to an APK.
+    """Apply an approved modification plan to a working copy of the APK.
 
-    Applies a structured modification plan to a working copy of the APK
-    without touching the original file.  The result must be rebuilt and
-    verified before use.
+    The original APK file is never modified.  All changes happen inside
+    an isolated workspace.  Use --dry-run to simulate without writing.
     """
-    _not_implemented("modify", apk=str(apk))
+    import logging
+
+    from apkforge.modification import (
+        ModificationFramework,
+        StepStatus,
+    )
+    from apkforge.modification.models import ChangeStatus, PlanStatus
+    from apkforge.modification.serialization import load_plan
+
+    cfg = load_default_config()
+    setup_logging(cfg.log_level)
+    _log = logging.getLogger("apkforge.cli.modify")
+
+    # 1. Load or generate plan
+    if plan_file:
+        try:
+            plan = load_plan(plan_file)
+            _console.print(f"[green]Loaded plan:[/green] {plan.plan_id} ({plan.change_count} changes)")
+        except Exception as e:
+            _console.print(f"[bold red]Failed to load plan:[/bold red] {e}")
+            raise typer.Exit(code=1) from e
+    else:
+        # Auto-generate plan from analysis
+        _console.print("[cyan]No plan file provided; generating plan from analysis...[/cyan]")
+        from apkforge.inspection import InspectionEngine
+        from apkforge.modification import ModificationPlanner
+        from apkforge.privacy.engine import PrivacyEngine
+        from apkforge.security.engine import SecurityEngine
+
+        insp_engine = InspectionEngine(config=cfg)
+        insp_result = insp_engine.inspect(apk, keep_workspace=keep_workspace)
+
+        priv_result = None
+        try:
+            priv_engine = PrivacyEngine(config=cfg)
+            priv_result = priv_engine.analyze(insp_result, keep_workspace=keep_workspace)
+        except Exception as e:
+            _log.warning("Privacy engine failed: %s", e)
+
+        sec_result = None
+        try:
+            sec_engine = SecurityEngine(config=cfg)
+            sec_result = sec_engine.analyze(
+                target=insp_result, privacy=priv_result, keep_workspace=keep_workspace
+            )
+        except Exception as e:
+            _log.warning("Security engine failed: %s", e)
+
+        planner = ModificationPlanner()
+        plan = planner.create_plan(
+            apk_path=apk,
+            inspection=insp_result,
+            privacy=priv_result,
+            security=sec_result,
+        )
+        _console.print(
+            f"[green]Generated plan:[/green] {plan.plan_id} ({plan.change_count} changes)"
+        )
+
+    # 2. Auto-approve if requested
+    if approve_all:
+        plan.status = PlanStatus.APPROVED
+        for c in plan.changes:
+            c.status = ChangeStatus.ACCEPTED
+        _console.print("[yellow]All changes auto-approved via --approve-all.[/yellow]")
+
+    # 3. Execute
+    framework = ModificationFramework()
+    result = framework.execute(
+        plan=plan,
+        apk_path=apk,
+        dry_run=dry_run,
+        workspace_dir=workspace_dir,
+    )
+
+    # 4. Output
+    if json_output:
+        _console.print(result.model_dump_json(indent=2), soft_wrap=True)
+    else:
+        _render_modification_result(result)
+
+    if result.status == StepStatus.FAILED:
+        raise typer.Exit(code=1)
+
+
+def _render_modification_result(result: ModificationResult) -> None:
+    """Render human-readable modification result to the console."""
+    from apkforge.modification.modifiers.base import StepStatus
+
+    status_color = "green" if result.status == StepStatus.SUCCESS else (
+        "cyan" if result.status == StepStatus.DRY_RUN else "red"
+    )
+    mode_str = " [DRY RUN]" if result.dry_run else ""
+
+    _console.print(
+        Panel(
+            f"[bold]Plan ID:[/bold] {result.plan_id}{mode_str}\n"
+            f"[bold]Status:[/bold] [{status_color}]{result.status.value.upper()}[/{status_color}]\n"
+            f"[bold]Total Steps:[/bold] {result.total_steps}\n"
+            f"[bold]Successful:[/bold] {result.successful_steps}\n"
+            f"[bold]Failed:[/bold] {result.failed_steps}\n"
+            f"[bold]Skipped:[/bold] {result.skipped_steps}",
+            title="[bold green]APKForge Modification Result[/bold green]",
+            expand=False,
+        )
+    )
+
+    if result.working_copy_path:
+        _console.print(f"\n[bold]Working Copy:[/bold] {result.working_copy_path}")
+
+    if result.steps:
+        _console.print("\n[bold]STEP DETAILS[/bold]")
+        _console.print("─" * 50)
+        for step in result.steps:
+            step_color = {
+                StepStatus.SUCCESS: "green",
+                StepStatus.DRY_RUN: "cyan",
+                StepStatus.SKIPPED: "yellow",
+                StepStatus.FAILED: "red",
+                StepStatus.ROLLED_BACK: "magenta",
+            }.get(step.status, "white")
+            _console.print(
+                f"  [{step_color}][{step.status.value.upper()}][/{step_color}] "
+                f"[bold]{step.change_id}[/bold] ({step.modifier_id})"
+            )
+            _console.print(f"    {step.message}")
+            if step.files_modified:
+                _console.print(f"    [dim]Modified:[/dim] {', '.join(step.files_modified)}")
+            if step.files_deleted:
+                _console.print(f"    [dim]Deleted:[/dim] {', '.join(step.files_deleted[:5])}")
+
+    if result.warnings:
+        _console.print("\n[bold yellow]Warnings:[/bold yellow]")
+        for w in result.warnings:
+            _console.print(f"  [yellow]![/yellow] {w}")
+
+    if result.errors:
+        _console.print("\n[bold red]Errors:[/bold red]")
+        for e in result.errors:
+            _console.print(f"  [red]✗[/red] {e}")
+
+    _console.print()
 
 
 # ---------------------------------------------------------------------------

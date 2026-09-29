@@ -32,7 +32,7 @@ if TYPE_CHECKING:
 
     from apkforge.core.config import APKForgeConfig
     from apkforge.diff.models import DiffResult
-    from apkforge.intake.models import AndroidPackage
+    from apkforge.intake import AndroidPackage
     from apkforge.privacy.models import PrivacyResult
 
 _log = logging.getLogger(__name__)

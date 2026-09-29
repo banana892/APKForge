@@ -301,8 +301,27 @@ class PrivacyResult(BaseModel):
     endpoints: EndpointResult = Field(default_factory=EndpointResult)
     data_collection: DataCollectionResult = Field(default_factory=DataCollectionResult)
 
+    detected_sdks: list[DetectedSDK] = Field(default_factory=list)
+
     findings: list[PrivacyFinding] = Field(default_factory=list)
 
     warnings: list[str] = Field(default_factory=list)
     errors: list[str] = Field(default_factory=list)
     limitations: list[str] = Field(default_factory=list)
+
+    @property
+    def all_detected_sdks(self) -> list[DetectedSDK]:
+        """All detected SDKs across detected_sdks, trackers, advertising, analytics, telemetry."""
+        seen: set[str] = set()
+        result: list[DetectedSDK] = []
+        for sdk in (
+            self.detected_sdks
+            + self.trackers.detected_trackers
+            + self.advertising.detected_advertising_sdks
+            + self.analytics.detected_analytics_sdks
+            + self.telemetry.detected_telemetry_sdks
+        ):
+            if sdk.name not in seen:
+                seen.add(sdk.name)
+                result.append(sdk)
+        return result
