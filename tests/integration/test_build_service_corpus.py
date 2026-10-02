@@ -4,8 +4,11 @@ Skipped automatically when the toolchain or corpus is unavailable.
 
 - Two small corpus APKs run by default (stage-by-stage assertions), plus the
   individually callable stage methods (Phase C.3) on the smallest APK.
-- The full 9-APK no-op corpus runs when ``APKFORGE_CORPUS_BUILD=1`` (several minutes).
-  ``build-tests/run_c2_corpus.py`` runs the same pipeline and records c2_results.json.
+- Phase C.4: the corpus is defined by ``tests/corpus/manifest.json`` (APK identity =
+  SHA-256). The manifest and APK hashes are checked by default; the full corpus is
+  rebuilt and compared with the documented baseline when ``APKFORGE_CORPUS_BUILD=1``
+  (several minutes). ``build-tests/run_corpus_validation.py run`` does the same with
+  repeated runs and writes results.json + report.md.
 
 Framework and development key are provisioned into pytest temp directories so the
 tests never touch the user's APKForge data directory.
@@ -31,12 +34,20 @@ from apkforge.builders import (
     ToolchainConfig,
     ensure_dev_keystore,
 )
+from apkforge.builders.corpus import (
+    Comparison,
+    CorpusManifest,
+    EntryIdentity,
+    resolve_entries,
+    run_entry,
+)
 from apkforge.builders.noop_integrity import compare_noop_rebuild
 
 pytestmark = pytest.mark.integration
 
 CORPUS_DIR = Path(__file__).resolve().parent.parent / "corpus"
-CORPUS = sorted(CORPUS_DIR.glob("*.apk"))
+MANIFEST = CORPUS_DIR / "manifest.json"
+CORPUS_MANIFEST = CorpusManifest.load(MANIFEST)
 SMALL = CORPUS_DIR / "com.oF2pks.applicationsinfo_19.apk"
 OPENLINK = CORPUS_DIR / "de.audioattack.openlink_28.apk"
 
@@ -171,17 +182,36 @@ def test_openlink_export_and_retention(real_service: BuildService, tmp_path: Pat
     assert (res.workspace / "metadata" / "result.json").is_file()
 
 
+def test_corpus_manifest_matches_files() -> None:
+    """Every corpus APK present must have its manifest hash; replacements fail loudly."""
+    if not any(CORPUS_DIR.glob("*.apk")):
+        pytest.skip("Corpus APKs not present")
+    resolved, unlisted = resolve_entries(CORPUS_MANIFEST, CORPUS_DIR)
+    replaced = [r.problem for r in resolved if r.identity == EntryIdentity.HASH_MISMATCH]
+    assert not replaced, replaced
+    assert not unlisted, f"APKs not in the manifest: {unlisted}"
+
+
 @pytest.mark.slow
 @pytest.mark.skipif(
     os.environ.get("APKFORGE_CORPUS_BUILD") != "1", reason="set APKFORGE_CORPUS_BUILD=1"
 )
-@pytest.mark.parametrize("apk", CORPUS, ids=[p.stem for p in CORPUS])
-def test_corpus_noop_rebuild(real_service: BuildService, apk: Path) -> None:
-    res = real_service.build_pipeline(apk, BuildOptions())
-    assert res.success, _stage_row(res)
-    assert res.failure_category == BuildFailureCategory.SUCCESS
-    assert res.input_unchanged is True
-    assert res.output_apk is not None
-    integrity = compare_noop_rebuild(apk, res.output_apk)
-    assert integrity["native_libs"]["all_identical"], integrity["native_libs"]
-    assert integrity["manifest"]["rebuilt_parseable"]
+@pytest.mark.parametrize("entry_id", [e.id for e in CORPUS_MANIFEST.entries])
+def test_corpus_baseline(real_service: BuildService, entry_id: str, tmp_path: Path) -> None:
+    """Real-toolchain rebuild of one corpus entry, compared with its documented baseline."""
+    resolved, _ = resolve_entries(CORPUS_MANIFEST, CORPUS_DIR)
+    r = next(x for x in resolved if x.entry.id == entry_id)
+    if r.identity == EntryIdentity.MISSING:
+        pytest.skip(f"Corpus sample missing: {r.entry.filename}")
+    res = run_entry(real_service, r, tmp_path / "corpus", keep_output=False)
+    detail = (
+        f"{entry_id}: {res.outcome} (expected {res.expected.outcome}) -> {res.comparison} "
+        f"| {res.failure_cause} | evidence={res.failure_evidence} | log={res.log_file} "
+        f"| notes={res.notes}"
+    )
+    assert not res.unexpected, detail
+    assert res.apk_sha256 == r.entry.sha256 and res.input_unchanged is True, detail
+    if res.comparison in (Comparison.UNCHANGED_SUCCESS, Comparison.IMPROVEMENT):
+        assert res.integrity is not None, detail
+        assert res.integrity["native_libs_identical"], res.integrity
+        assert res.integrity["manifest_parseable"], res.integrity

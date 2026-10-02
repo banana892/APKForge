@@ -255,12 +255,32 @@ the original APK) is summarized as one `BuildResult.warnings` entry.
 - `build-tests/run_c2_corpus.py` rebuilds all corpus APKs, computes the no-op integrity
   baseline (`noop_integrity.compare_noop_rebuild`), and writes
   `build-tests/c2_results.json`; stage logs are copied to `build-tests/logs/c2/<apk>/`.
-  Outputs go to `work/c2/<run-id>/`; the corpus is never written.
+  Outputs go to `work/c2/<run-id>/`; the corpus is never written. (Historic C.2 evidence;
+  superseded by the C.4 runner below.)
+
+### Phase C.4: corpus regression baseline
+
+The corpus is defined by `tests/corpus/manifest.json` (stable id + SHA-256 per APK,
+inspection metadata, documented expected outcome). `apkforge.builders.corpus` runs each
+entry through `BuildService.build_pipeline` in its own work directory, records the
+service's per-stage results, compares the outcome with the baseline
+(`UNCHANGED_SUCCESS`, `UNCHANGED_KNOWN_FAILURE`, `IMPROVEMENT`, `REGRESSION`,
+`NEW_FAILURE`, `CORPUS_ERROR`) and checks repeated-run consistency. It never invokes a tool
+itself.
+
+- `build-tests/run_corpus_validation.py run` writes `results.json` and `report.md` to
+  `work/corpus/<run-id>/`; `--write-baseline` refreshes `tests/corpus/results/`.
+- Unit tests: `tests/unit/test_build_corpus.py` (simulated tools).
+- Opt-in real-toolchain test: `APKFORGE_CORPUS_BUILD=1` runs `test_corpus_baseline` per entry;
+  `test_corpus_manifest_matches_files` (hash check) runs by default.
+
+See `tests/corpus/README.md` for identity rules, categories and how to change the baseline.
 
 ## 10. Known limitations
 
 - The `apkforge verify` CLI command is still the Phase 3 placeholder; its intended
-  backend is `BuildService.verify()`.
+  backend is `BuildService.verify()`. Open technical debt (recorded again in C.4; the
+  corpus runner uses `BuildService` directly and does not depend on the CLI).
 - **Runtime install/launch validation is not part of C.2/C.3.** No emulator or device was
   available (`adb devices` empty during C.1b) and provisioning one is out of scope. A
   rebuilt APK that verifies is not proven to install or run.

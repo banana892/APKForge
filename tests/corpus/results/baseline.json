@@ -1,0 +1,1364 @@
+{
+  "schema_version": 1,
+  "phase": "C.4",
+  "title": "APKForge corpus validation (BuildService no-op rebuild)",
+  "run_id": "20261002T173537Z",
+  "started": "2026-10-02T17:35:37.356541+00:00",
+  "finished": "2026-10-02T17:40:29.413163+00:00",
+  "duration_seconds": 292.1,
+  "corpus_dir": "/home/naishring/APKForge/tests/corpus",
+  "manifest_path": "/home/naishring/APKForge/tests/corpus/manifest.json",
+  "manifest_sha256": "a6b0a9d518f35d2377c13f8e4f70f685e00ba95d10bbdd8eb16031cdaed9d427",
+  "configuration": {
+    "repeat": 2,
+    "stage_timeout_seconds": 900,
+    "check_integrity": true,
+    "only": null,
+    "work_root": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces"
+  },
+  "apkforge": {
+    "version": "0.1.0-dev",
+    "git_commit": "bff895a26e9fe9eff3687d1f907f65f679ade809",
+    "git_dirty": true
+  },
+  "environment": {
+    "host": "Linux 7.2.7-200.fc44.x86_64 x86_64",
+    "python": "3.14.7"
+  },
+  "toolchain": {
+    "versions": {
+      "java": "25.0.4.1",
+      "apktool": "3.0.3",
+      "zipalign": "35.0.0",
+      "apksigner": "0.9",
+      "build_tools": "35.0.0",
+      "android_platform": "android-35"
+    },
+    "config": {
+      "java": "/usr/lib/jvm/java-25-openjdk/bin/java",
+      "keytool": "/usr/lib/jvm/java-25-openjdk/bin/keytool",
+      "apktool": "/home/naishring/APKForge/tools/apktool_3.0.3.jar",
+      "zipalign": "/home/naishring/Android/Sdk/build-tools/35.0.0/zipalign",
+      "apksigner": "/home/naishring/Android/Sdk/build-tools/35.0.0/apksigner",
+      "android_sdk": "/home/naishring/Android/Sdk",
+      "android_platform": "/home/naishring/Android/Sdk/platforms/android-35/android.jar",
+      "platform_name": "android-35",
+      "build_tools": "/home/naishring/Android/Sdk/build-tools/35.0.0",
+      "build_tools_version": "35.0.0",
+      "framework_dir": "/home/naishring/.local/share/apkforge/apktool-framework/android-35"
+    },
+    "check": {
+      "valid": true,
+      "tools": {
+        "java": {
+          "name": "java",
+          "path": "/usr/lib/jvm/java-25-openjdk/bin/java",
+          "version": "25.0.4.1",
+          "status": "FOUND",
+          "notes": ""
+        },
+        "keytool": {
+          "name": "keytool",
+          "path": "/usr/lib/jvm/java-25-openjdk/bin/keytool",
+          "version": null,
+          "status": "FOUND",
+          "notes": ""
+        },
+        "apktool": {
+          "name": "apktool",
+          "path": "/home/naishring/APKForge/tools/apktool_3.0.3.jar",
+          "version": "3.0.3",
+          "status": "FOUND",
+          "notes": ""
+        },
+        "android_sdk": {
+          "name": "android_sdk",
+          "path": "/home/naishring/Android/Sdk",
+          "version": null,
+          "status": "FOUND",
+          "notes": ""
+        },
+        "build_tools": {
+          "name": "build_tools",
+          "path": "/home/naishring/Android/Sdk/build-tools/35.0.0",
+          "version": "35.0.0",
+          "status": "FOUND",
+          "notes": ""
+        },
+        "android_platform": {
+          "name": "android_platform",
+          "path": "/home/naishring/Android/Sdk/platforms/android-35/android.jar",
+          "version": "android-35",
+          "status": "FOUND",
+          "notes": ""
+        },
+        "apktool_framework": {
+          "name": "apktool_framework",
+          "path": "/home/naishring/.local/share/apkforge/apktool-framework/android-35",
+          "version": "android-35",
+          "status": "INSTALLED",
+          "notes": "Installed from /home/naishring/Android/Sdk/platforms/android-35/android.jar (sha256 4566663c3876e022\u2026)."
+        },
+        "zipalign": {
+          "name": "zipalign",
+          "path": "/home/naishring/Android/Sdk/build-tools/35.0.0/zipalign",
+          "version": "35.0.0",
+          "status": "FOUND",
+          "notes": ""
+        },
+        "apksigner": {
+          "name": "apksigner",
+          "path": "/home/naishring/Android/Sdk/build-tools/35.0.0/apksigner",
+          "version": "0.9",
+          "status": "FOUND",
+          "notes": "build-tools 35.0.0"
+        }
+      },
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "baseline_toolchain": {
+    "java": "25.0.4.1",
+    "apktool": "3.0.3",
+    "zipalign": "35.0.0",
+    "apksigner": "0.9",
+    "build_tools": "35.0.0",
+    "android_platform": "android-35"
+  },
+  "toolchain_differences": {},
+  "signing": {
+    "mode": "development",
+    "development_key": true,
+    "description": "development key: /home/naishring/.local/share/apkforge/dev-signing/apkforge-dev.p12 (alias apkforge-dev, password from file /home/naishring/.local/share/apkforge/dev-signing/apkforge-dev.password)"
+  },
+  "summary": {
+    "total": 9,
+    "successful": 9,
+    "failed": 0,
+    "not_run": 0,
+    "known_failures": 0,
+    "unexpected_failures": 0,
+    "regressions": 0,
+    "new_failures": 0,
+    "improvements": 0,
+    "corpus_errors": 0,
+    "inconsistent": 0,
+    "by_comparison": {
+      "UNCHANGED_SUCCESS": 9,
+      "UNCHANGED_KNOWN_FAILURE": 0,
+      "IMPROVEMENT": 0,
+      "REGRESSION": 0,
+      "NEW_FAILURE": 0,
+      "NEW_SUCCESS": 0,
+      "CORPUS_ERROR": 0
+    },
+    "attempts_per_entry": 2,
+    "vs_previous": {
+      "UNCHANGED_SUCCESS": 9,
+      "UNCHANGED_KNOWN_FAILURE": 0,
+      "IMPROVEMENT": 0,
+      "REGRESSION": 0,
+      "NEW_FAILURE": 0,
+      "NEW_SUCCESS": 0,
+      "CORPUS_ERROR": 0
+    },
+    "passed": true
+  },
+  "unlisted_apks": [],
+  "previous_run": {
+    "run_id": "20261002T165901Z",
+    "apkforge": {
+      "version": "0.1.0-dev",
+      "git_commit": "bff895a26e9fe9eff3687d1f907f65f679ade809",
+      "git_dirty": true
+    },
+    "toolchain_versions": {
+      "java": "25.0.4.1",
+      "apktool": "3.0.3",
+      "zipalign": "35.0.0",
+      "apksigner": "0.9",
+      "build_tools": "35.0.0",
+      "android_platform": "android-35"
+    }
+  },
+  "results": [
+    {
+      "corpus_id": "com.emanuelef.remote_capture@95",
+      "filename": "com.emanuelef.remote_capture_95.apk",
+      "apk_path": "/home/naishring/APKForge/tests/corpus/com.emanuelef.remote_capture_95.apk",
+      "identity": "OK",
+      "expected_sha256": "e03f79082278b3754b4954c7537e7c9f7681e5995a44e70aa1589eca10190066",
+      "apk_sha256": "e03f79082278b3754b4954c7537e7c9f7681e5995a44e70aa1589eca10190066",
+      "input_unchanged": true,
+      "final_status": "SUCCESS",
+      "failure_stage": null,
+      "failure_category": "SUCCESS",
+      "failure_cause": "",
+      "failure_evidence": null,
+      "failure_command": null,
+      "expected": {
+        "final_status": "SUCCESS",
+        "failure_stage": null,
+        "failure_category": "SUCCESS",
+        "reason": "",
+        "evidence": "C.2 corpus run 20261002T153924Z (build-tests/c2_results.json): all stages PASS; C.3 real-toolchain pipeline: SUCCESS."
+      },
+      "comparison": "UNCHANGED_SUCCESS",
+      "unexpected": false,
+      "stages": {
+        "prepare": {
+          "status": "PASS",
+          "duration_seconds": 0.091,
+          "exit_code": null,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/com.emanuelef.remote_capture@95/attempt-1/workspaces/20261002T173537Z-900a8299/logs/stage-prepare.log"
+        },
+        "decode": {
+          "status": "PASS",
+          "duration_seconds": 2.65,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/com.emanuelef.remote_capture@95/attempt-1/workspaces/20261002T173537Z-900a8299/logs/stage-decode.log"
+        },
+        "build": {
+          "status": "PASS",
+          "duration_seconds": 6.233,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/com.emanuelef.remote_capture@95/attempt-1/workspaces/20261002T173537Z-900a8299/logs/stage-build.log"
+        },
+        "align": {
+          "status": "PASS",
+          "duration_seconds": 0.027,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/com.emanuelef.remote_capture@95/attempt-1/workspaces/20261002T173537Z-900a8299/logs/stage-align.log"
+        },
+        "sign": {
+          "status": "PASS",
+          "duration_seconds": 1.063,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/com.emanuelef.remote_capture@95/attempt-1/workspaces/20261002T173537Z-900a8299/logs/stage-sign.log"
+        },
+        "verify": {
+          "status": "PASS",
+          "duration_seconds": 0.749,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/com.emanuelef.remote_capture@95/attempt-1/workspaces/20261002T173537Z-900a8299/logs/stage-verify.log"
+        }
+      },
+      "signing_mode": "development",
+      "certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+      "integrity": {
+        "native_lib_count": 20,
+        "native_libs_identical": true,
+        "manifest_parseable": true,
+        "manifest_identity_and_components_match": true
+      },
+      "duration_seconds": 10.983,
+      "workspace": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/com.emanuelef.remote_capture@95/attempt-1/workspaces/20261002T173537Z-900a8299",
+      "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/com.emanuelef.remote_capture@95/attempt-1/workspaces/20261002T173537Z-900a8299/logs/build.log",
+      "warnings": [
+        "apksigner: 61 META-INF entries not covered by the v1 signature (non-signature files carried over from the original APK; see verification.apksigner_warnings)."
+      ],
+      "notes": [],
+      "attempt_count": 2,
+      "consistent": true,
+      "attempts": [
+        {
+          "final_status": "SUCCESS",
+          "failure_stage": null,
+          "failure_category": "SUCCESS",
+          "stages": {
+            "prepare": "PASS",
+            "decode": "PASS",
+            "build": "PASS",
+            "align": "PASS",
+            "sign": "PASS",
+            "verify": "PASS"
+          },
+          "apk_sha256": "e03f79082278b3754b4954c7537e7c9f7681e5995a44e70aa1589eca10190066",
+          "certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "integrity": {
+            "native_lib_count": 20,
+            "native_libs_identical": true,
+            "manifest_parseable": true,
+            "manifest_identity_and_components_match": true
+          }
+        },
+        {
+          "final_status": "SUCCESS",
+          "failure_stage": null,
+          "failure_category": "SUCCESS",
+          "stages": {
+            "prepare": "PASS",
+            "decode": "PASS",
+            "build": "PASS",
+            "align": "PASS",
+            "sign": "PASS",
+            "verify": "PASS"
+          },
+          "apk_sha256": "e03f79082278b3754b4954c7537e7c9f7681e5995a44e70aa1589eca10190066",
+          "certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "integrity": {
+            "native_lib_count": 20,
+            "native_libs_identical": true,
+            "manifest_parseable": true,
+            "manifest_identity_and_components_match": true
+          }
+        }
+      ],
+      "previous": {
+        "outcome": {
+          "final_status": "SUCCESS",
+          "failure_stage": null,
+          "failure_category": "SUCCESS"
+        },
+        "comparison": "UNCHANGED_SUCCESS"
+      }
+    },
+    {
+      "corpus_id": "com.oF2pks.applicationsinfo@19",
+      "filename": "com.oF2pks.applicationsinfo_19.apk",
+      "apk_path": "/home/naishring/APKForge/tests/corpus/com.oF2pks.applicationsinfo_19.apk",
+      "identity": "OK",
+      "expected_sha256": "c0188f5f1f566e12324bd6bf4bf4f1b9408d852c6cc6b113706503031f13eebd",
+      "apk_sha256": "c0188f5f1f566e12324bd6bf4bf4f1b9408d852c6cc6b113706503031f13eebd",
+      "input_unchanged": true,
+      "final_status": "SUCCESS",
+      "failure_stage": null,
+      "failure_category": "SUCCESS",
+      "failure_cause": "",
+      "failure_evidence": null,
+      "failure_command": null,
+      "expected": {
+        "final_status": "SUCCESS",
+        "failure_stage": null,
+        "failure_category": "SUCCESS",
+        "reason": "",
+        "evidence": "C.2 corpus run 20261002T153924Z (build-tests/c2_results.json): all stages PASS; C.3 real-toolchain pipeline: SUCCESS."
+      },
+      "comparison": "UNCHANGED_SUCCESS",
+      "unexpected": false,
+      "stages": {
+        "prepare": {
+          "status": "PASS",
+          "duration_seconds": 0.001,
+          "exit_code": null,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/com.oF2pks.applicationsinfo@19/attempt-1/workspaces/20261002T173549Z-beec648f/logs/stage-prepare.log"
+        },
+        "decode": {
+          "status": "PASS",
+          "duration_seconds": 0.843,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/com.oF2pks.applicationsinfo@19/attempt-1/workspaces/20261002T173549Z-beec648f/logs/stage-decode.log"
+        },
+        "build": {
+          "status": "PASS",
+          "duration_seconds": 0.628,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/com.oF2pks.applicationsinfo@19/attempt-1/workspaces/20261002T173549Z-beec648f/logs/stage-build.log"
+        },
+        "align": {
+          "status": "PASS",
+          "duration_seconds": 0.003,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/com.oF2pks.applicationsinfo@19/attempt-1/workspaces/20261002T173549Z-beec648f/logs/stage-align.log"
+        },
+        "sign": {
+          "status": "PASS",
+          "duration_seconds": 0.721,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/com.oF2pks.applicationsinfo@19/attempt-1/workspaces/20261002T173549Z-beec648f/logs/stage-sign.log"
+        },
+        "verify": {
+          "status": "PASS",
+          "duration_seconds": 0.216,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/com.oF2pks.applicationsinfo@19/attempt-1/workspaces/20261002T173549Z-beec648f/logs/stage-verify.log"
+        }
+      },
+      "signing_mode": "development",
+      "certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+      "integrity": {
+        "native_lib_count": 0,
+        "native_libs_identical": true,
+        "manifest_parseable": true,
+        "manifest_identity_and_components_match": true
+      },
+      "duration_seconds": 2.429,
+      "workspace": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/com.oF2pks.applicationsinfo@19/attempt-1/workspaces/20261002T173549Z-beec648f",
+      "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/com.oF2pks.applicationsinfo@19/attempt-1/workspaces/20261002T173549Z-beec648f/logs/build.log",
+      "warnings": [
+        "apksigner: 1 META-INF entry not covered by the v1 signature (non-signature files carried over from the original APK; see verification.apksigner_warnings)."
+      ],
+      "notes": [],
+      "attempt_count": 2,
+      "consistent": true,
+      "attempts": [
+        {
+          "final_status": "SUCCESS",
+          "failure_stage": null,
+          "failure_category": "SUCCESS",
+          "stages": {
+            "prepare": "PASS",
+            "decode": "PASS",
+            "build": "PASS",
+            "align": "PASS",
+            "sign": "PASS",
+            "verify": "PASS"
+          },
+          "apk_sha256": "c0188f5f1f566e12324bd6bf4bf4f1b9408d852c6cc6b113706503031f13eebd",
+          "certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "integrity": {
+            "native_lib_count": 0,
+            "native_libs_identical": true,
+            "manifest_parseable": true,
+            "manifest_identity_and_components_match": true
+          }
+        },
+        {
+          "final_status": "SUCCESS",
+          "failure_stage": null,
+          "failure_category": "SUCCESS",
+          "stages": {
+            "prepare": "PASS",
+            "decode": "PASS",
+            "build": "PASS",
+            "align": "PASS",
+            "sign": "PASS",
+            "verify": "PASS"
+          },
+          "apk_sha256": "c0188f5f1f566e12324bd6bf4bf4f1b9408d852c6cc6b113706503031f13eebd",
+          "certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "integrity": {
+            "native_lib_count": 0,
+            "native_libs_identical": true,
+            "manifest_parseable": true,
+            "manifest_identity_and_components_match": true
+          }
+        }
+      ],
+      "previous": {
+        "outcome": {
+          "final_status": "SUCCESS",
+          "failure_stage": null,
+          "failure_category": "SUCCESS"
+        },
+        "comparison": "UNCHANGED_SUCCESS"
+      }
+    },
+    {
+      "corpus_id": "de.audioattack.openlink@28",
+      "filename": "de.audioattack.openlink_28.apk",
+      "apk_path": "/home/naishring/APKForge/tests/corpus/de.audioattack.openlink_28.apk",
+      "identity": "OK",
+      "expected_sha256": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+      "apk_sha256": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+      "input_unchanged": true,
+      "final_status": "SUCCESS",
+      "failure_stage": null,
+      "failure_category": "SUCCESS",
+      "failure_cause": "",
+      "failure_evidence": null,
+      "failure_command": null,
+      "expected": {
+        "final_status": "SUCCESS",
+        "failure_stage": null,
+        "failure_category": "SUCCESS",
+        "reason": "",
+        "evidence": "C.2 corpus run 20261002T153924Z (build-tests/c2_results.json): all stages PASS; C.3 real-toolchain pipeline: SUCCESS."
+      },
+      "comparison": "UNCHANGED_SUCCESS",
+      "unexpected": false,
+      "stages": {
+        "prepare": {
+          "status": "PASS",
+          "duration_seconds": 0.001,
+          "exit_code": null,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/de.audioattack.openlink@28/attempt-1/workspaces/20261002T173551Z-202e80f3/logs/stage-prepare.log"
+        },
+        "decode": {
+          "status": "PASS",
+          "duration_seconds": 0.969,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/de.audioattack.openlink@28/attempt-1/workspaces/20261002T173551Z-202e80f3/logs/stage-decode.log"
+        },
+        "build": {
+          "status": "PASS",
+          "duration_seconds": 0.628,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/de.audioattack.openlink@28/attempt-1/workspaces/20261002T173551Z-202e80f3/logs/stage-build.log"
+        },
+        "align": {
+          "status": "PASS",
+          "duration_seconds": 0.003,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/de.audioattack.openlink@28/attempt-1/workspaces/20261002T173551Z-202e80f3/logs/stage-align.log"
+        },
+        "sign": {
+          "status": "PASS",
+          "duration_seconds": 0.77,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/de.audioattack.openlink@28/attempt-1/workspaces/20261002T173551Z-202e80f3/logs/stage-sign.log"
+        },
+        "verify": {
+          "status": "PASS",
+          "duration_seconds": 0.208,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/de.audioattack.openlink@28/attempt-1/workspaces/20261002T173551Z-202e80f3/logs/stage-verify.log"
+        }
+      },
+      "signing_mode": "development",
+      "certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+      "integrity": {
+        "native_lib_count": 0,
+        "native_libs_identical": true,
+        "manifest_parseable": true,
+        "manifest_identity_and_components_match": true
+      },
+      "duration_seconds": 2.605,
+      "workspace": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/de.audioattack.openlink@28/attempt-1/workspaces/20261002T173551Z-202e80f3",
+      "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/de.audioattack.openlink@28/attempt-1/workspaces/20261002T173551Z-202e80f3/logs/build.log",
+      "warnings": [
+        "apksigner: 16 META-INF entries not covered by the v1 signature (non-signature files carried over from the original APK; see verification.apksigner_warnings)."
+      ],
+      "notes": [],
+      "attempt_count": 2,
+      "consistent": true,
+      "attempts": [
+        {
+          "final_status": "SUCCESS",
+          "failure_stage": null,
+          "failure_category": "SUCCESS",
+          "stages": {
+            "prepare": "PASS",
+            "decode": "PASS",
+            "build": "PASS",
+            "align": "PASS",
+            "sign": "PASS",
+            "verify": "PASS"
+          },
+          "apk_sha256": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+          "certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "integrity": {
+            "native_lib_count": 0,
+            "native_libs_identical": true,
+            "manifest_parseable": true,
+            "manifest_identity_and_components_match": true
+          }
+        },
+        {
+          "final_status": "SUCCESS",
+          "failure_stage": null,
+          "failure_category": "SUCCESS",
+          "stages": {
+            "prepare": "PASS",
+            "decode": "PASS",
+            "build": "PASS",
+            "align": "PASS",
+            "sign": "PASS",
+            "verify": "PASS"
+          },
+          "apk_sha256": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+          "certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "integrity": {
+            "native_lib_count": 0,
+            "native_libs_identical": true,
+            "manifest_parseable": true,
+            "manifest_identity_and_components_match": true
+          }
+        }
+      ],
+      "previous": {
+        "outcome": {
+          "final_status": "SUCCESS",
+          "failure_stage": null,
+          "failure_category": "SUCCESS"
+        },
+        "comparison": "UNCHANGED_SUCCESS"
+      }
+    },
+    {
+      "corpus_id": "de.danoeh.antennapod@3120295",
+      "filename": "de.danoeh.antennapod_3120295.apk",
+      "apk_path": "/home/naishring/APKForge/tests/corpus/de.danoeh.antennapod_3120295.apk",
+      "identity": "OK",
+      "expected_sha256": "3f43a4337a693cdb49141afe06cb596e88c796009ed77bff51e9444ce2d1ebfc",
+      "apk_sha256": "3f43a4337a693cdb49141afe06cb596e88c796009ed77bff51e9444ce2d1ebfc",
+      "input_unchanged": true,
+      "final_status": "SUCCESS",
+      "failure_stage": null,
+      "failure_category": "SUCCESS",
+      "failure_cause": "",
+      "failure_evidence": null,
+      "failure_command": null,
+      "expected": {
+        "final_status": "SUCCESS",
+        "failure_stage": null,
+        "failure_category": "SUCCESS",
+        "reason": "",
+        "evidence": "C.2 corpus run 20261002T153924Z (build-tests/c2_results.json): all stages PASS; C.3 real-toolchain pipeline: SUCCESS."
+      },
+      "comparison": "UNCHANGED_SUCCESS",
+      "unexpected": false,
+      "stages": {
+        "prepare": {
+          "status": "PASS",
+          "duration_seconds": 0.041,
+          "exit_code": null,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/de.danoeh.antennapod@3120295/attempt-1/workspaces/20261002T173554Z-bb132b00/logs/stage-prepare.log"
+        },
+        "decode": {
+          "status": "PASS",
+          "duration_seconds": 4.225,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/de.danoeh.antennapod@3120295/attempt-1/workspaces/20261002T173554Z-bb132b00/logs/stage-decode.log"
+        },
+        "build": {
+          "status": "PASS",
+          "duration_seconds": 9.378,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/de.danoeh.antennapod@3120295/attempt-1/workspaces/20261002T173554Z-bb132b00/logs/stage-build.log"
+        },
+        "align": {
+          "status": "PASS",
+          "duration_seconds": 0.023,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/de.danoeh.antennapod@3120295/attempt-1/workspaces/20261002T173554Z-bb132b00/logs/stage-align.log"
+        },
+        "sign": {
+          "status": "PASS",
+          "duration_seconds": 1.038,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/de.danoeh.antennapod@3120295/attempt-1/workspaces/20261002T173554Z-bb132b00/logs/stage-sign.log"
+        },
+        "verify": {
+          "status": "PASS",
+          "duration_seconds": 0.601,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/de.danoeh.antennapod@3120295/attempt-1/workspaces/20261002T173554Z-bb132b00/logs/stage-verify.log"
+        }
+      },
+      "signing_mode": "development",
+      "certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+      "integrity": {
+        "native_lib_count": 4,
+        "native_libs_identical": true,
+        "manifest_parseable": true,
+        "manifest_identity_and_components_match": true
+      },
+      "duration_seconds": 15.629,
+      "workspace": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/de.danoeh.antennapod@3120295/attempt-1/workspaces/20261002T173554Z-bb132b00",
+      "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/de.danoeh.antennapod@3120295/attempt-1/workspaces/20261002T173554Z-bb132b00/logs/build.log",
+      "warnings": [
+        "apksigner: 75 META-INF entries not covered by the v1 signature (non-signature files carried over from the original APK; see verification.apksigner_warnings)."
+      ],
+      "notes": [],
+      "attempt_count": 2,
+      "consistent": true,
+      "attempts": [
+        {
+          "final_status": "SUCCESS",
+          "failure_stage": null,
+          "failure_category": "SUCCESS",
+          "stages": {
+            "prepare": "PASS",
+            "decode": "PASS",
+            "build": "PASS",
+            "align": "PASS",
+            "sign": "PASS",
+            "verify": "PASS"
+          },
+          "apk_sha256": "3f43a4337a693cdb49141afe06cb596e88c796009ed77bff51e9444ce2d1ebfc",
+          "certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "integrity": {
+            "native_lib_count": 4,
+            "native_libs_identical": true,
+            "manifest_parseable": true,
+            "manifest_identity_and_components_match": true
+          }
+        },
+        {
+          "final_status": "SUCCESS",
+          "failure_stage": null,
+          "failure_category": "SUCCESS",
+          "stages": {
+            "prepare": "PASS",
+            "decode": "PASS",
+            "build": "PASS",
+            "align": "PASS",
+            "sign": "PASS",
+            "verify": "PASS"
+          },
+          "apk_sha256": "3f43a4337a693cdb49141afe06cb596e88c796009ed77bff51e9444ce2d1ebfc",
+          "certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "integrity": {
+            "native_lib_count": 4,
+            "native_libs_identical": true,
+            "manifest_parseable": true,
+            "manifest_identity_and_components_match": true
+          }
+        }
+      ],
+      "previous": {
+        "outcome": {
+          "final_status": "SUCCESS",
+          "failure_stage": null,
+          "failure_category": "SUCCESS"
+        },
+        "comparison": "UNCHANGED_SUCCESS"
+      }
+    },
+    {
+      "corpus_id": "eu.siacs.conversations@4218104",
+      "filename": "eu.siacs.conversations_4218104.apk",
+      "apk_path": "/home/naishring/APKForge/tests/corpus/eu.siacs.conversations_4218104.apk",
+      "identity": "OK",
+      "expected_sha256": "3fae646e33b59b95f049ce9bd828022e2edbb374fa82e517bd782aced71ba980",
+      "apk_sha256": "3fae646e33b59b95f049ce9bd828022e2edbb374fa82e517bd782aced71ba980",
+      "input_unchanged": true,
+      "final_status": "SUCCESS",
+      "failure_stage": null,
+      "failure_category": "SUCCESS",
+      "failure_cause": "",
+      "failure_evidence": null,
+      "failure_command": null,
+      "expected": {
+        "final_status": "SUCCESS",
+        "failure_stage": null,
+        "failure_category": "SUCCESS",
+        "reason": "",
+        "evidence": "C.2 corpus run 20261002T153924Z (build-tests/c2_results.json): all stages PASS; C.3 real-toolchain pipeline: SUCCESS."
+      },
+      "comparison": "UNCHANGED_SUCCESS",
+      "unexpected": false,
+      "stages": {
+        "prepare": {
+          "status": "PASS",
+          "duration_seconds": 0.068,
+          "exit_code": null,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/eu.siacs.conversations@4218104/attempt-1/workspaces/20261002T173609Z-2384da9c/logs/stage-prepare.log"
+        },
+        "decode": {
+          "status": "PASS",
+          "duration_seconds": 3.101,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/eu.siacs.conversations@4218104/attempt-1/workspaces/20261002T173609Z-2384da9c/logs/stage-decode.log"
+        },
+        "build": {
+          "status": "PASS",
+          "duration_seconds": 10.809,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/eu.siacs.conversations@4218104/attempt-1/workspaces/20261002T173609Z-2384da9c/logs/stage-build.log"
+        },
+        "align": {
+          "status": "PASS",
+          "duration_seconds": 0.024,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/eu.siacs.conversations@4218104/attempt-1/workspaces/20261002T173609Z-2384da9c/logs/stage-align.log"
+        },
+        "sign": {
+          "status": "PASS",
+          "duration_seconds": 1.175,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/eu.siacs.conversations@4218104/attempt-1/workspaces/20261002T173609Z-2384da9c/logs/stage-sign.log"
+        },
+        "verify": {
+          "status": "PASS",
+          "duration_seconds": 0.806,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/eu.siacs.conversations@4218104/attempt-1/workspaces/20261002T173609Z-2384da9c/logs/stage-verify.log"
+        }
+      },
+      "signing_mode": "development",
+      "certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+      "integrity": {
+        "native_lib_count": 2,
+        "native_libs_identical": true,
+        "manifest_parseable": true,
+        "manifest_identity_and_components_match": true
+      },
+      "duration_seconds": 16.269,
+      "workspace": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/eu.siacs.conversations@4218104/attempt-1/workspaces/20261002T173609Z-2384da9c",
+      "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/eu.siacs.conversations@4218104/attempt-1/workspaces/20261002T173609Z-2384da9c/logs/build.log",
+      "warnings": [
+        "apksigner: 80 META-INF entries not covered by the v1 signature (non-signature files carried over from the original APK; see verification.apksigner_warnings)."
+      ],
+      "notes": [],
+      "attempt_count": 2,
+      "consistent": true,
+      "attempts": [
+        {
+          "final_status": "SUCCESS",
+          "failure_stage": null,
+          "failure_category": "SUCCESS",
+          "stages": {
+            "prepare": "PASS",
+            "decode": "PASS",
+            "build": "PASS",
+            "align": "PASS",
+            "sign": "PASS",
+            "verify": "PASS"
+          },
+          "apk_sha256": "3fae646e33b59b95f049ce9bd828022e2edbb374fa82e517bd782aced71ba980",
+          "certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "integrity": {
+            "native_lib_count": 2,
+            "native_libs_identical": true,
+            "manifest_parseable": true,
+            "manifest_identity_and_components_match": true
+          }
+        },
+        {
+          "final_status": "SUCCESS",
+          "failure_stage": null,
+          "failure_category": "SUCCESS",
+          "stages": {
+            "prepare": "PASS",
+            "decode": "PASS",
+            "build": "PASS",
+            "align": "PASS",
+            "sign": "PASS",
+            "verify": "PASS"
+          },
+          "apk_sha256": "3fae646e33b59b95f049ce9bd828022e2edbb374fa82e517bd782aced71ba980",
+          "certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "integrity": {
+            "native_lib_count": 2,
+            "native_libs_identical": true,
+            "manifest_parseable": true,
+            "manifest_identity_and_components_match": true
+          }
+        }
+      ],
+      "previous": {
+        "outcome": {
+          "final_status": "SUCCESS",
+          "failure_stage": null,
+          "failure_category": "SUCCESS"
+        },
+        "comparison": "UNCHANGED_SUCCESS"
+      }
+    },
+    {
+      "corpus_id": "godau.fynn.usagedirect@10",
+      "filename": "godau.fynn.usagedirect_10.apk",
+      "apk_path": "/home/naishring/APKForge/tests/corpus/godau.fynn.usagedirect_10.apk",
+      "identity": "OK",
+      "expected_sha256": "c55079192a77fc6696a80c6d337c3f0c64fe4ebc27e5970aaf4baac0a60a3b31",
+      "apk_sha256": "c55079192a77fc6696a80c6d337c3f0c64fe4ebc27e5970aaf4baac0a60a3b31",
+      "input_unchanged": true,
+      "final_status": "SUCCESS",
+      "failure_stage": null,
+      "failure_category": "SUCCESS",
+      "failure_cause": "",
+      "failure_evidence": null,
+      "failure_command": null,
+      "expected": {
+        "final_status": "SUCCESS",
+        "failure_stage": null,
+        "failure_category": "SUCCESS",
+        "reason": "",
+        "evidence": "C.2 corpus run 20261002T153924Z (build-tests/c2_results.json): all stages PASS; C.3 real-toolchain pipeline: SUCCESS."
+      },
+      "comparison": "UNCHANGED_SUCCESS",
+      "unexpected": false,
+      "stages": {
+        "prepare": {
+          "status": "PASS",
+          "duration_seconds": 0.008,
+          "exit_code": null,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/godau.fynn.usagedirect@10/attempt-1/workspaces/20261002T173626Z-b9204242/logs/stage-prepare.log"
+        },
+        "decode": {
+          "status": "PASS",
+          "duration_seconds": 2.35,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/godau.fynn.usagedirect@10/attempt-1/workspaces/20261002T173626Z-b9204242/logs/stage-decode.log"
+        },
+        "build": {
+          "status": "PASS",
+          "duration_seconds": 6.103,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/godau.fynn.usagedirect@10/attempt-1/workspaces/20261002T173626Z-b9204242/logs/stage-build.log"
+        },
+        "align": {
+          "status": "PASS",
+          "duration_seconds": 0.008,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/godau.fynn.usagedirect@10/attempt-1/workspaces/20261002T173626Z-b9204242/logs/stage-align.log"
+        },
+        "sign": {
+          "status": "PASS",
+          "duration_seconds": 0.821,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/godau.fynn.usagedirect@10/attempt-1/workspaces/20261002T173626Z-b9204242/logs/stage-sign.log"
+        },
+        "verify": {
+          "status": "PASS",
+          "duration_seconds": 0.345,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/godau.fynn.usagedirect@10/attempt-1/workspaces/20261002T173626Z-b9204242/logs/stage-verify.log"
+        }
+      },
+      "signing_mode": "development",
+      "certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+      "integrity": {
+        "native_lib_count": 0,
+        "native_libs_identical": true,
+        "manifest_parseable": true,
+        "manifest_identity_and_components_match": true
+      },
+      "duration_seconds": 9.797,
+      "workspace": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/godau.fynn.usagedirect@10/attempt-1/workspaces/20261002T173626Z-b9204242",
+      "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/godau.fynn.usagedirect@10/attempt-1/workspaces/20261002T173626Z-b9204242/logs/build.log",
+      "warnings": [
+        "apksigner: 47 META-INF entries not covered by the v1 signature (non-signature files carried over from the original APK; see verification.apksigner_warnings)."
+      ],
+      "notes": [],
+      "attempt_count": 2,
+      "consistent": true,
+      "attempts": [
+        {
+          "final_status": "SUCCESS",
+          "failure_stage": null,
+          "failure_category": "SUCCESS",
+          "stages": {
+            "prepare": "PASS",
+            "decode": "PASS",
+            "build": "PASS",
+            "align": "PASS",
+            "sign": "PASS",
+            "verify": "PASS"
+          },
+          "apk_sha256": "c55079192a77fc6696a80c6d337c3f0c64fe4ebc27e5970aaf4baac0a60a3b31",
+          "certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "integrity": {
+            "native_lib_count": 0,
+            "native_libs_identical": true,
+            "manifest_parseable": true,
+            "manifest_identity_and_components_match": true
+          }
+        },
+        {
+          "final_status": "SUCCESS",
+          "failure_stage": null,
+          "failure_category": "SUCCESS",
+          "stages": {
+            "prepare": "PASS",
+            "decode": "PASS",
+            "build": "PASS",
+            "align": "PASS",
+            "sign": "PASS",
+            "verify": "PASS"
+          },
+          "apk_sha256": "c55079192a77fc6696a80c6d337c3f0c64fe4ebc27e5970aaf4baac0a60a3b31",
+          "certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "integrity": {
+            "native_lib_count": 0,
+            "native_libs_identical": true,
+            "manifest_parseable": true,
+            "manifest_identity_and_components_match": true
+          }
+        }
+      ],
+      "previous": {
+        "outcome": {
+          "final_status": "SUCCESS",
+          "failure_stage": null,
+          "failure_category": "SUCCESS"
+        },
+        "comparison": "UNCHANGED_SUCCESS"
+      }
+    },
+    {
+      "corpus_id": "io.github.muntashirakon.AppManager@451",
+      "filename": "io.github.muntashirakon.AppManager_451.apk",
+      "apk_path": "/home/naishring/APKForge/tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+      "identity": "OK",
+      "expected_sha256": "e1f6ba10812c74016ad626e11e27a1ae450aec2c0964a11466abb9e7a9c8ef84",
+      "apk_sha256": "e1f6ba10812c74016ad626e11e27a1ae450aec2c0964a11466abb9e7a9c8ef84",
+      "input_unchanged": true,
+      "final_status": "SUCCESS",
+      "failure_stage": null,
+      "failure_category": "SUCCESS",
+      "failure_cause": "",
+      "failure_evidence": null,
+      "failure_command": null,
+      "expected": {
+        "final_status": "SUCCESS",
+        "failure_stage": null,
+        "failure_category": "SUCCESS",
+        "reason": "",
+        "evidence": "C.2 corpus run 20261002T153924Z (build-tests/c2_results.json): all stages PASS; C.3 real-toolchain pipeline: SUCCESS."
+      },
+      "comparison": "UNCHANGED_SUCCESS",
+      "unexpected": false,
+      "stages": {
+        "prepare": {
+          "status": "PASS",
+          "duration_seconds": 0.066,
+          "exit_code": null,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/io.github.muntashirakon.AppManager@451/attempt-1/workspaces/20261002T173636Z-51c2bfe3/logs/stage-prepare.log"
+        },
+        "decode": {
+          "status": "PASS",
+          "duration_seconds": 7.081,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/io.github.muntashirakon.AppManager@451/attempt-1/workspaces/20261002T173636Z-51c2bfe3/logs/stage-decode.log"
+        },
+        "build": {
+          "status": "PASS",
+          "duration_seconds": 15.394,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/io.github.muntashirakon.AppManager@451/attempt-1/workspaces/20261002T173636Z-51c2bfe3/logs/stage-build.log"
+        },
+        "align": {
+          "status": "PASS",
+          "duration_seconds": 0.043,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/io.github.muntashirakon.AppManager@451/attempt-1/workspaces/20261002T173636Z-51c2bfe3/logs/stage-align.log"
+        },
+        "sign": {
+          "status": "PASS",
+          "duration_seconds": 1.375,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/io.github.muntashirakon.AppManager@451/attempt-1/workspaces/20261002T173636Z-51c2bfe3/logs/stage-sign.log"
+        },
+        "verify": {
+          "status": "PASS",
+          "duration_seconds": 1.074,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/io.github.muntashirakon.AppManager@451/attempt-1/workspaces/20261002T173636Z-51c2bfe3/logs/stage-verify.log"
+        }
+      },
+      "signing_mode": "development",
+      "certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+      "integrity": {
+        "native_lib_count": 16,
+        "native_libs_identical": true,
+        "manifest_parseable": true,
+        "manifest_identity_and_components_match": true
+      },
+      "duration_seconds": 25.874,
+      "workspace": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/io.github.muntashirakon.AppManager@451/attempt-1/workspaces/20261002T173636Z-51c2bfe3",
+      "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/io.github.muntashirakon.AppManager@451/attempt-1/workspaces/20261002T173636Z-51c2bfe3/logs/build.log",
+      "warnings": [
+        "apksigner: 9 META-INF entries not covered by the v1 signature (non-signature files carried over from the original APK; see verification.apksigner_warnings)."
+      ],
+      "notes": [],
+      "attempt_count": 2,
+      "consistent": true,
+      "attempts": [
+        {
+          "final_status": "SUCCESS",
+          "failure_stage": null,
+          "failure_category": "SUCCESS",
+          "stages": {
+            "prepare": "PASS",
+            "decode": "PASS",
+            "build": "PASS",
+            "align": "PASS",
+            "sign": "PASS",
+            "verify": "PASS"
+          },
+          "apk_sha256": "e1f6ba10812c74016ad626e11e27a1ae450aec2c0964a11466abb9e7a9c8ef84",
+          "certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "integrity": {
+            "native_lib_count": 16,
+            "native_libs_identical": true,
+            "manifest_parseable": true,
+            "manifest_identity_and_components_match": true
+          }
+        },
+        {
+          "final_status": "SUCCESS",
+          "failure_stage": null,
+          "failure_category": "SUCCESS",
+          "stages": {
+            "prepare": "PASS",
+            "decode": "PASS",
+            "build": "PASS",
+            "align": "PASS",
+            "sign": "PASS",
+            "verify": "PASS"
+          },
+          "apk_sha256": "e1f6ba10812c74016ad626e11e27a1ae450aec2c0964a11466abb9e7a9c8ef84",
+          "certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "integrity": {
+            "native_lib_count": 16,
+            "native_libs_identical": true,
+            "manifest_parseable": true,
+            "manifest_identity_and_components_match": true
+          }
+        }
+      ],
+      "previous": {
+        "outcome": {
+          "final_status": "SUCCESS",
+          "failure_stage": null,
+          "failure_category": "SUCCESS"
+        },
+        "comparison": "UNCHANGED_SUCCESS"
+      }
+    },
+    {
+      "corpus_id": "org.mozilla.fennec_fdroid@1560020",
+      "filename": "org.mozilla.fennec_fdroid_1560020.apk",
+      "apk_path": "/home/naishring/APKForge/tests/corpus/org.mozilla.fennec_fdroid_1560020.apk",
+      "identity": "OK",
+      "expected_sha256": "27f2951376ca1085e0933066c902fdfe4d260916d381e233475c5fd6964f5745",
+      "apk_sha256": "27f2951376ca1085e0933066c902fdfe4d260916d381e233475c5fd6964f5745",
+      "input_unchanged": true,
+      "final_status": "SUCCESS",
+      "failure_stage": null,
+      "failure_category": "SUCCESS",
+      "failure_cause": "",
+      "failure_evidence": null,
+      "failure_command": null,
+      "expected": {
+        "final_status": "SUCCESS",
+        "failure_stage": null,
+        "failure_category": "SUCCESS",
+        "reason": "",
+        "evidence": "C.2 corpus run 20261002T153924Z (build-tests/c2_results.json): all stages PASS; C.3 real-toolchain pipeline: SUCCESS."
+      },
+      "comparison": "UNCHANGED_SUCCESS",
+      "unexpected": false,
+      "stages": {
+        "prepare": {
+          "status": "PASS",
+          "duration_seconds": 0.296,
+          "exit_code": null,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/org.mozilla.fennec_fdroid@1560020/attempt-1/workspaces/20261002T173702Z-24de59f0/logs/stage-prepare.log"
+        },
+        "decode": {
+          "status": "PASS",
+          "duration_seconds": 8.374,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/org.mozilla.fennec_fdroid@1560020/attempt-1/workspaces/20261002T173702Z-24de59f0/logs/stage-decode.log"
+        },
+        "build": {
+          "status": "PASS",
+          "duration_seconds": 25.312,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/org.mozilla.fennec_fdroid@1560020/attempt-1/workspaces/20261002T173702Z-24de59f0/logs/stage-build.log"
+        },
+        "align": {
+          "status": "PASS",
+          "duration_seconds": 0.092,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/org.mozilla.fennec_fdroid@1560020/attempt-1/workspaces/20261002T173702Z-24de59f0/logs/stage-align.log"
+        },
+        "sign": {
+          "status": "PASS",
+          "duration_seconds": 2.833,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/org.mozilla.fennec_fdroid@1560020/attempt-1/workspaces/20261002T173702Z-24de59f0/logs/stage-sign.log"
+        },
+        "verify": {
+          "status": "PASS",
+          "duration_seconds": 1.526,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/org.mozilla.fennec_fdroid@1560020/attempt-1/workspaces/20261002T173702Z-24de59f0/logs/stage-verify.log"
+        }
+      },
+      "signing_mode": "development",
+      "certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+      "integrity": {
+        "native_lib_count": 15,
+        "native_libs_identical": true,
+        "manifest_parseable": true,
+        "manifest_identity_and_components_match": true
+      },
+      "duration_seconds": 39.688,
+      "workspace": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/org.mozilla.fennec_fdroid@1560020/attempt-1/workspaces/20261002T173702Z-24de59f0",
+      "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/org.mozilla.fennec_fdroid@1560020/attempt-1/workspaces/20261002T173702Z-24de59f0/logs/build.log",
+      "warnings": [],
+      "notes": [],
+      "attempt_count": 2,
+      "consistent": true,
+      "attempts": [
+        {
+          "final_status": "SUCCESS",
+          "failure_stage": null,
+          "failure_category": "SUCCESS",
+          "stages": {
+            "prepare": "PASS",
+            "decode": "PASS",
+            "build": "PASS",
+            "align": "PASS",
+            "sign": "PASS",
+            "verify": "PASS"
+          },
+          "apk_sha256": "27f2951376ca1085e0933066c902fdfe4d260916d381e233475c5fd6964f5745",
+          "certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "integrity": {
+            "native_lib_count": 15,
+            "native_libs_identical": true,
+            "manifest_parseable": true,
+            "manifest_identity_and_components_match": true
+          }
+        },
+        {
+          "final_status": "SUCCESS",
+          "failure_stage": null,
+          "failure_category": "SUCCESS",
+          "stages": {
+            "prepare": "PASS",
+            "decode": "PASS",
+            "build": "PASS",
+            "align": "PASS",
+            "sign": "PASS",
+            "verify": "PASS"
+          },
+          "apk_sha256": "27f2951376ca1085e0933066c902fdfe4d260916d381e233475c5fd6964f5745",
+          "certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "integrity": {
+            "native_lib_count": 15,
+            "native_libs_identical": true,
+            "manifest_parseable": true,
+            "manifest_identity_and_components_match": true
+          }
+        }
+      ],
+      "previous": {
+        "outcome": {
+          "final_status": "SUCCESS",
+          "failure_stage": null,
+          "failure_category": "SUCCESS"
+        },
+        "comparison": "UNCHANGED_SUCCESS"
+      }
+    },
+    {
+      "corpus_id": "org.schabi.newpipe@1015",
+      "filename": "org.schabi.newpipe_1015_cb84069.apk",
+      "apk_path": "/home/naishring/APKForge/tests/corpus/org.schabi.newpipe_1015_cb84069.apk",
+      "identity": "OK",
+      "expected_sha256": "18447bfb1e06d113edc88df93f471827280de06f6f3d4dc42f56f28b9c1bab79",
+      "apk_sha256": "18447bfb1e06d113edc88df93f471827280de06f6f3d4dc42f56f28b9c1bab79",
+      "input_unchanged": true,
+      "final_status": "SUCCESS",
+      "failure_stage": null,
+      "failure_category": "SUCCESS",
+      "failure_cause": "",
+      "failure_evidence": null,
+      "failure_command": null,
+      "expected": {
+        "final_status": "SUCCESS",
+        "failure_stage": null,
+        "failure_category": "SUCCESS",
+        "reason": "",
+        "evidence": "C.2 corpus run 20261002T153924Z (build-tests/c2_results.json): all stages PASS; C.3 real-toolchain pipeline: SUCCESS."
+      },
+      "comparison": "UNCHANGED_SUCCESS",
+      "unexpected": false,
+      "stages": {
+        "prepare": {
+          "status": "PASS",
+          "duration_seconds": 0.026,
+          "exit_code": null,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/org.schabi.newpipe@1015/attempt-1/workspaces/20261002T173743Z-81b4b0c1/logs/stage-prepare.log"
+        },
+        "decode": {
+          "status": "PASS",
+          "duration_seconds": 4.407,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/org.schabi.newpipe@1015/attempt-1/workspaces/20261002T173743Z-81b4b0c1/logs/stage-decode.log"
+        },
+        "build": {
+          "status": "PASS",
+          "duration_seconds": 13.862,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/org.schabi.newpipe@1015/attempt-1/workspaces/20261002T173743Z-81b4b0c1/logs/stage-build.log"
+        },
+        "align": {
+          "status": "PASS",
+          "duration_seconds": 0.016,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/org.schabi.newpipe@1015/attempt-1/workspaces/20261002T173743Z-81b4b0c1/logs/stage-align.log"
+        },
+        "sign": {
+          "status": "PASS",
+          "duration_seconds": 1.001,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/org.schabi.newpipe@1015/attempt-1/workspaces/20261002T173743Z-81b4b0c1/logs/stage-sign.log"
+        },
+        "verify": {
+          "status": "PASS",
+          "duration_seconds": 0.546,
+          "exit_code": 0,
+          "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/org.schabi.newpipe@1015/attempt-1/workspaces/20261002T173743Z-81b4b0c1/logs/stage-verify.log"
+        }
+      },
+      "signing_mode": "development",
+      "certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+      "integrity": {
+        "native_lib_count": 4,
+        "native_libs_identical": true,
+        "manifest_parseable": true,
+        "manifest_identity_and_components_match": true
+      },
+      "duration_seconds": 20.17,
+      "workspace": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/org.schabi.newpipe@1015/attempt-1/workspaces/20261002T173743Z-81b4b0c1",
+      "log_file": "/home/naishring/APKForge/work/corpus/20261002T173537Z/workspaces/org.schabi.newpipe@1015/attempt-1/workspaces/20261002T173743Z-81b4b0c1/logs/build.log",
+      "warnings": [
+        "apksigner: 123 META-INF entries not covered by the v1 signature (non-signature files carried over from the original APK; see verification.apksigner_warnings)."
+      ],
+      "notes": [],
+      "attempt_count": 2,
+      "consistent": true,
+      "attempts": [
+        {
+          "final_status": "SUCCESS",
+          "failure_stage": null,
+          "failure_category": "SUCCESS",
+          "stages": {
+            "prepare": "PASS",
+            "decode": "PASS",
+            "build": "PASS",
+            "align": "PASS",
+            "sign": "PASS",
+            "verify": "PASS"
+          },
+          "apk_sha256": "18447bfb1e06d113edc88df93f471827280de06f6f3d4dc42f56f28b9c1bab79",
+          "certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "integrity": {
+            "native_lib_count": 4,
+            "native_libs_identical": true,
+            "manifest_parseable": true,
+            "manifest_identity_and_components_match": true
+          }
+        },
+        {
+          "final_status": "SUCCESS",
+          "failure_stage": null,
+          "failure_category": "SUCCESS",
+          "stages": {
+            "prepare": "PASS",
+            "decode": "PASS",
+            "build": "PASS",
+            "align": "PASS",
+            "sign": "PASS",
+            "verify": "PASS"
+          },
+          "apk_sha256": "18447bfb1e06d113edc88df93f471827280de06f6f3d4dc42f56f28b9c1bab79",
+          "certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "integrity": {
+            "native_lib_count": 4,
+            "native_libs_identical": true,
+            "manifest_parseable": true,
+            "manifest_identity_and_components_match": true
+          }
+        }
+      ],
+      "previous": {
+        "outcome": {
+          "final_status": "SUCCESS",
+          "failure_stage": null,
+          "failure_category": "SUCCESS"
+        },
+        "comparison": "UNCHANGED_SUCCESS"
+      }
+    }
+  ]
+}

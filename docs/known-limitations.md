@@ -475,3 +475,8 @@ The APK rebuild pipeline's limitations (no runtime install/launch validation, no
 equivalence check of DEX/resources, 4 KiB `.so` page alignment only, platform framework
 only) are listed in [build-service.md §10](build-service.md#10-known-limitations), with the
 corpus evidence in `build-tests/phase-c2-report.md` and `build-tests/c2_results.json`.
+
+Phase C.4 (corpus regression baseline): the corpus definition and expected outcomes are in
+`tests/corpus/manifest.json`, the baseline result in `tests/corpus/results/baseline.json`
+and `baseline-report.md`. The baseline only covers the no-op rebuild of these 9 APKs with
+the recorded toolchain; it says nothing about install/runtime behaviour or other APKs.
