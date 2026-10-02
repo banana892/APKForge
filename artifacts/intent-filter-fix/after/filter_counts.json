@@ -1,0 +1,580 @@
+{
+  "_meta": {
+    "apkforge_module": "/home/naishring/APKForge/src/apkforge/__init__.py",
+    "generated_utc": "2026-10-02T19:14:36.862484+00:00",
+    "git_head": "7415f671aa5b0e56f2e865b2167d43f74176a013",
+    "src_dirty": [
+      "M src/apkforge/inspection/manifest.py"
+    ]
+  },
+  "apks": {
+    "com.emanuelef.remote_capture@95": {
+      "inspector_status": "complete",
+      "intent_filter_warnings": [],
+      "per_component": {
+        "activities:cat.ereza.customactivityoncrash.activity.DefaultErrorActivity": 0,
+        "activities:com.emanuelef.remote_capture.activities.AboutActivity": 0,
+        "activities:com.emanuelef.remote_capture.activities.AppDetailsActivity": 0,
+        "activities:com.emanuelef.remote_capture.activities.AppFilterActivity": 0,
+        "activities:com.emanuelef.remote_capture.activities.AppsActivity": 0,
+        "activities:com.emanuelef.remote_capture.activities.CaptureCtrl": 0,
+        "activities:com.emanuelef.remote_capture.activities.CaptureListActivity": 0,
+        "activities:com.emanuelef.remote_capture.activities.ConnectionDetailsActivity": 0,
+        "activities:com.emanuelef.remote_capture.activities.ConnectionsActivity": 0,
+        "activities:com.emanuelef.remote_capture.activities.EditFilterActivity": 0,
+        "activities:com.emanuelef.remote_capture.activities.EditListActivity": 0,
+        "activities:com.emanuelef.remote_capture.activities.ErrorActivity": 0,
+        "activities:com.emanuelef.remote_capture.activities.FirewallActivity": 0,
+        "activities:com.emanuelef.remote_capture.activities.HttpDetailsActivity": 0,
+        "activities:com.emanuelef.remote_capture.activities.HttpLogFilterActivity": 0,
+        "activities:com.emanuelef.remote_capture.activities.LogviewActivity": 0,
+        "activities:com.emanuelef.remote_capture.activities.MainActivity": 1,
+        "activities:com.emanuelef.remote_capture.activities.MalwareDetection": 0,
+        "activities:com.emanuelef.remote_capture.activities.MitmSetupWizard": 0,
+        "activities:com.emanuelef.remote_capture.activities.OnBoardingActivity": 0,
+        "activities:com.emanuelef.remote_capture.activities.StatsActivity": 0,
+        "activities:com.emanuelef.remote_capture.activities.prefs.EditCtrlPermissions": 0,
+        "activities:com.emanuelef.remote_capture.activities.prefs.PortMapActivity": 0,
+        "activities:com.emanuelef.remote_capture.activities.prefs.PortMapExemptionsActivity": 0,
+        "activities:com.emanuelef.remote_capture.activities.prefs.SettingsActivity": 0,
+        "activities:com.emanuelef.remote_capture.activities.prefs.VpnExemptionsActivity": 0,
+        "receivers:androidx.profileinstaller.ProfileInstallReceiver": 4,
+        "receivers:com.emanuelef.remote_capture.ActionReceiver": 0,
+        "receivers:com.emanuelef.remote_capture.BootReceiver": 1,
+        "services:com.emanuelef.remote_capture.CaptureService": 1,
+        "services:com.emanuelef.remote_capture.VpnReconnectService": 0
+      },
+      "totals": {
+        "activities": {
+          "components": 26,
+          "filters": 1,
+          "with_filters": 1
+        },
+        "receivers": {
+          "components": 3,
+          "filters": 5,
+          "with_filters": 2
+        },
+        "services": {
+          "components": 2,
+          "filters": 1,
+          "with_filters": 1
+        }
+      }
+    },
+    "com.oF2pks.applicationsinfo@19": {
+      "inspector_status": "complete",
+      "intent_filter_warnings": [],
+      "per_component": {
+        "activities:com.oF2pks.applicationsinfo.DetailActivity": 0,
+        "activities:com.oF2pks.applicationsinfo.MainActivity": 1,
+        "activities:com.oF2pks.applicationsinfo.View2ManifestActivity": 0,
+        "activities:com.oF2pks.applicationsinfo.ViewManifestActivity": 0
+      },
+      "totals": {
+        "activities": {
+          "components": 4,
+          "filters": 1,
+          "with_filters": 1
+        },
+        "receivers": {
+          "components": 0,
+          "filters": 0,
+          "with_filters": 0
+        },
+        "services": {
+          "components": 0,
+          "filters": 0,
+          "with_filters": 0
+        }
+      }
+    },
+    "de.audioattack.openlink@28": {
+      "inspector_status": "complete",
+      "intent_filter_warnings": [],
+      "per_component": {
+        "activities:de.audioattack.openlink.ui.IncognitoActivity": 1,
+        "activities:de.audioattack.openlink.ui.MainActivity": 1,
+        "activities:de.audioattack.openlink.ui.MenuActivity": 1,
+        "receivers:androidx.profileinstaller.ProfileInstallReceiver": 4,
+        "receivers:de.audioattack.openlink.conf.PackageChangeBroadcastReceiver": 1
+      },
+      "totals": {
+        "activities": {
+          "components": 3,
+          "filters": 3,
+          "with_filters": 3
+        },
+        "receivers": {
+          "components": 2,
+          "filters": 5,
+          "with_filters": 2
+        },
+        "services": {
+          "components": 0,
+          "filters": 0,
+          "with_filters": 0
+        }
+      }
+    },
+    "de.danoeh.antennapod@3120295": {
+      "inspector_status": "complete",
+      "intent_filter_warnings": [],
+      "per_component": {
+        "activities:androidx.car.app.CarAppPermissionActivity": 0,
+        "activities:de.danoeh.antennapod.activity.MainActivity": 3,
+        "activities:de.danoeh.antennapod.activity.OpmlImportActivity": 1,
+        "activities:de.danoeh.antennapod.activity.SelectSubscriptionActivity": 1,
+        "activities:de.danoeh.antennapod.activity.SplashActivity": 1,
+        "activities:de.danoeh.antennapod.ui.echo.EchoActivity": 1,
+        "activities:de.danoeh.antennapod.ui.screen.onlinefeedview.OnlineFeedViewActivity": 6,
+        "activities:de.danoeh.antennapod.ui.screen.playback.PlaybackSpeedDialogActivity": 1,
+        "activities:de.danoeh.antennapod.ui.screen.playback.video.Media3VideoPlayerActivity": 1,
+        "activities:de.danoeh.antennapod.ui.screen.playback.video.VideoplayerActivity": 1,
+        "activities:de.danoeh.antennapod.ui.screen.preferences.PreferenceActivity": 1,
+        "activities:de.danoeh.antennapod.ui.widget.WidgetConfigActivity": 1,
+        "receivers:androidx.car.app.notification.CarAppNotificationBroadcastReceiver": 0,
+        "receivers:androidx.media3.session.MediaButtonReceiver": 1,
+        "receivers:androidx.profileinstaller.ProfileInstallReceiver": 4,
+        "receivers:androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy": 1,
+        "receivers:androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy": 1,
+        "receivers:androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy": 1,
+        "receivers:androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy": 1,
+        "receivers:androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver": 1,
+        "receivers:androidx.work.impl.background.systemalarm.RescheduleReceiver": 1,
+        "receivers:androidx.work.impl.diagnostics.DiagnosticsReceiver": 1,
+        "receivers:androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver": 0,
+        "receivers:de.danoeh.antennapod.net.download.service.ConnectivityActionReceiver": 1,
+        "receivers:de.danoeh.antennapod.net.download.service.PowerConnectionReceiver": 1,
+        "receivers:de.danoeh.antennapod.net.download.service.feed.FeedUpdateReceiver": 0,
+        "receivers:de.danoeh.antennapod.playback.service.MediaButtonReceiver": 2,
+        "receivers:de.danoeh.antennapod.ui.widget.PlayerWidget": 1,
+        "services:androidx.room.MultiInstanceInvalidationService": 0,
+        "services:androidx.work.impl.background.systemalarm.SystemAlarmService": 0,
+        "services:androidx.work.impl.background.systemjob.SystemJobService": 0,
+        "services:androidx.work.impl.foreground.SystemForegroundService": 0,
+        "services:de.danoeh.antennapod.playback.service.Media3PlaybackService": 1,
+        "services:de.danoeh.antennapod.playback.service.PlaybackService": 1,
+        "services:de.danoeh.antennapod.playback.service.QuickSettingsTileService": 1
+      },
+      "totals": {
+        "activities": {
+          "components": 12,
+          "filters": 18,
+          "with_filters": 11
+        },
+        "receivers": {
+          "components": 16,
+          "filters": 17,
+          "with_filters": 13
+        },
+        "services": {
+          "components": 7,
+          "filters": 3,
+          "with_filters": 3
+        }
+      }
+    },
+    "eu.siacs.conversations@4218104": {
+      "inspector_status": "complete",
+      "intent_filter_warnings": [],
+      "per_component": {
+        "activities:com.canhub.cropper.CropImageActivity": 0,
+        "activities:eu.siacs.conversations.ui.AboutActivity": 0,
+        "activities:eu.siacs.conversations.ui.AddReactionActivity": 0,
+        "activities:eu.siacs.conversations.ui.BlocklistActivity": 0,
+        "activities:eu.siacs.conversations.ui.ChangePasswordActivity": 0,
+        "activities:eu.siacs.conversations.ui.ChannelDiscoveryActivity": 0,
+        "activities:eu.siacs.conversations.ui.ChooseAccountForProfilePictureActivity": 1,
+        "activities:eu.siacs.conversations.ui.ChooseContactActivity": 0,
+        "activities:eu.siacs.conversations.ui.ConferenceDetailsActivity": 0,
+        "activities:eu.siacs.conversations.ui.ContactDetailsActivity": 0,
+        "activities:eu.siacs.conversations.ui.ConversationActivity": 1,
+        "activities:eu.siacs.conversations.ui.ConversationsActivity": 0,
+        "activities:eu.siacs.conversations.ui.EasyOnboardingInviteActivity": 0,
+        "activities:eu.siacs.conversations.ui.EditAccountActivity": 0,
+        "activities:eu.siacs.conversations.ui.EditHistoryActivity": 0,
+        "activities:eu.siacs.conversations.ui.ImportBackupActivity": 4,
+        "activities:eu.siacs.conversations.ui.MagicCreateActivity": 0,
+        "activities:eu.siacs.conversations.ui.ManageAccountActivity": 0,
+        "activities:eu.siacs.conversations.ui.MediaBrowserActivity": 0,
+        "activities:eu.siacs.conversations.ui.MemorizingActivity": 0,
+        "activities:eu.siacs.conversations.ui.MucUsersActivity": 0,
+        "activities:eu.siacs.conversations.ui.PickServerActivity": 0,
+        "activities:eu.siacs.conversations.ui.PublishGroupChatProfilePictureActivity": 0,
+        "activities:eu.siacs.conversations.ui.PublishProfilePictureActivity": 0,
+        "activities:eu.siacs.conversations.ui.RecordingActivity": 0,
+        "activities:eu.siacs.conversations.ui.RtpSessionActivity": 0,
+        "activities:eu.siacs.conversations.ui.ScanQrCodeActivity": 0,
+        "activities:eu.siacs.conversations.ui.SearchActivity": 0,
+        "activities:eu.siacs.conversations.ui.ShareLocationActivity": 0,
+        "activities:eu.siacs.conversations.ui.ShareViaAccountActivity": 0,
+        "activities:eu.siacs.conversations.ui.ShareWithActivity": 2,
+        "activities:eu.siacs.conversations.ui.ShortcutActivity": 1,
+        "activities:eu.siacs.conversations.ui.ShowLocationActivity": 0,
+        "activities:eu.siacs.conversations.ui.StartConversationActivity": 1,
+        "activities:eu.siacs.conversations.ui.TrustKeysActivity": 0,
+        "activities:eu.siacs.conversations.ui.UnifiedPushDistributor": 1,
+        "activities:eu.siacs.conversations.ui.ViewProfilePictureActivity": 0,
+        "activities:eu.siacs.conversations.ui.WelcomeActivity": 0,
+        "activities:eu.siacs.conversations.ui.YuriLauncherActivity": 6,
+        "activities:eu.siacs.conversations.ui.activity.SettingsActivity": 1,
+        "receivers:androidx.profileinstaller.ProfileInstallReceiver": 4,
+        "receivers:androidx.work.impl.background.systemalarm.RescheduleReceiver": 1,
+        "receivers:androidx.work.impl.diagnostics.DiagnosticsReceiver": 1,
+        "receivers:androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver": 0,
+        "receivers:eu.siacs.conversations.receiver.SystemEventReceiver": 1,
+        "receivers:eu.siacs.conversations.receiver.UnifiedPushDistributor": 2,
+        "services:androidx.room.MultiInstanceInvalidationService": 0,
+        "services:androidx.sharetarget.ChooserTargetServiceCompat": 1,
+        "services:androidx.work.impl.background.systemjob.SystemJobService": 0,
+        "services:androidx.work.impl.foreground.SystemForegroundService": 0,
+        "services:eu.siacs.conversations.services.CallIntegrationConnectionService": 1,
+        "services:eu.siacs.conversations.services.XmppConnectionService": 0
+      },
+      "totals": {
+        "activities": {
+          "components": 40,
+          "filters": 18,
+          "with_filters": 9
+        },
+        "receivers": {
+          "components": 6,
+          "filters": 9,
+          "with_filters": 5
+        },
+        "services": {
+          "components": 6,
+          "filters": 2,
+          "with_filters": 2
+        }
+      }
+    },
+    "godau.fynn.usagedirect@10": {
+      "inspector_status": "complete",
+      "intent_filter_warnings": [],
+      "per_component": {
+        "activities:godau.fynn.librariesdirect.AboutDirectActivity": 0,
+        "activities:godau.fynn.librariesdirect.AboutLibrariesActivity": 0,
+        "activities:godau.fynn.usagedirect.activity.ChartsActivity": 0,
+        "activities:godau.fynn.usagedirect.activity.ColorActivity": 0,
+        "activities:godau.fynn.usagedirect.activity.SourceAppUsageStatisticsActivity": 1,
+        "receivers:androidx.profileinstaller.ProfileInstallReceiver": 4,
+        "receivers:godau.fynn.usagedirect.widget.TimeTodayWidgetProvider": 1,
+        "services:androidx.room.MultiInstanceInvalidationService": 0,
+        "services:godau.fynn.usagedirect.persistence.EventLogService": 0
+      },
+      "totals": {
+        "activities": {
+          "components": 5,
+          "filters": 1,
+          "with_filters": 1
+        },
+        "receivers": {
+          "components": 2,
+          "filters": 5,
+          "with_filters": 2
+        },
+        "services": {
+          "components": 2,
+          "filters": 0,
+          "with_filters": 0
+        }
+      }
+    },
+    "io.github.muntashirakon.AppManager@451": {
+      "inspector_status": "complete",
+      "intent_filter_warnings": [],
+      "per_component": {
+        "activities:io.github.muntashirakon.AppManager.DummyActivity": 0,
+        "activities:io.github.muntashirakon.AppManager.accessibility.activity.LeadingActivityTrackerActivity": 0,
+        "activities:io.github.muntashirakon.AppManager.apk.behavior.FreezeUnfreezeActivity": 0,
+        "activities:io.github.muntashirakon.AppManager.apk.installer.PackageInstallerActivity": 5,
+        "activities:io.github.muntashirakon.AppManager.batchops.BatchOpsResultsActivity": 0,
+        "activities:io.github.muntashirakon.AppManager.crypto.OpenPGPCryptoActivity": 0,
+        "activities:io.github.muntashirakon.AppManager.crypto.auth.AuthFeatureDemultiplexer": 0,
+        "activities:io.github.muntashirakon.AppManager.crypto.auth.AuthManagerActivity": 0,
+        "activities:io.github.muntashirakon.AppManager.crypto.ks.KeyStoreActivity": 0,
+        "activities:io.github.muntashirakon.AppManager.debloat.DebloaterActivity": 0,
+        "activities:io.github.muntashirakon.AppManager.details.ActivityLauncherShortcutActivity": 0,
+        "activities:io.github.muntashirakon.AppManager.details.AppDetailsActivity": 0,
+        "activities:io.github.muntashirakon.AppManager.details.manifest.ManifestViewerActivity": 2,
+        "activities:io.github.muntashirakon.AppManager.editor.CodeEditorActivity": 0,
+        "activities:io.github.muntashirakon.AppManager.filters.FinderActivity": 0,
+        "activities:io.github.muntashirakon.AppManager.fm.FmActivity": 1,
+        "activities:io.github.muntashirakon.AppManager.fm.OpenWithActivity": 0,
+        "activities:io.github.muntashirakon.AppManager.history.ops.OpHistoryActivity": 0,
+        "activities:io.github.muntashirakon.AppManager.intercept.ActivityInterceptor": 21,
+        "activities:io.github.muntashirakon.AppManager.logcat.LogViewerActivity": 2,
+        "activities:io.github.muntashirakon.AppManager.logcat.RecordLogDialogActivity": 0,
+        "activities:io.github.muntashirakon.AppManager.main.MainActivity": 1,
+        "activities:io.github.muntashirakon.AppManager.main.SplashActivity": 1,
+        "activities:io.github.muntashirakon.AppManager.misc.HelpActivity": 0,
+        "activities:io.github.muntashirakon.AppManager.misc.LabsActivity": 0,
+        "activities:io.github.muntashirakon.AppManager.oneclickops.OneClickOpsActivity": 0,
+        "activities:io.github.muntashirakon.AppManager.profiles.AppsFilterProfileActivity": 0,
+        "activities:io.github.muntashirakon.AppManager.profiles.AppsProfileActivity": 0,
+        "activities:io.github.muntashirakon.AppManager.profiles.ProfileApplierActivity": 0,
+        "activities:io.github.muntashirakon.AppManager.profiles.ProfilesActivity": 0,
+        "activities:io.github.muntashirakon.AppManager.runningapps.RunningAppsActivity": 0,
+        "activities:io.github.muntashirakon.AppManager.scanner.ScannerActivity": 2,
+        "activities:io.github.muntashirakon.AppManager.settings.SettingsActivity": 2,
+        "activities:io.github.muntashirakon.AppManager.sharedpref.SharedPrefsActivity": 0,
+        "activities:io.github.muntashirakon.AppManager.sysconfig.SysConfigActivity": 0,
+        "activities:io.github.muntashirakon.AppManager.terminal.TermActivity": 0,
+        "activities:io.github.muntashirakon.AppManager.usage.AppUsageActivity": 0,
+        "activities:io.github.muntashirakon.AppManager.viewer.ExplorerActivity": 2,
+        "activities:io.github.muntashirakon.AppManager.viewer.audio.AudioPlayerActivity": 3,
+        "receivers:androidx.profileinstaller.ProfileInstallReceiver": 4,
+        "receivers:io.github.muntashirakon.AppManager.logcat.RecordingWidgetProvider": 3,
+        "receivers:io.github.muntashirakon.AppManager.oneclickops.ClearCacheAppWidget": 1,
+        "receivers:io.github.muntashirakon.AppManager.self.BootReceiver": 1,
+        "receivers:io.github.muntashirakon.AppManager.servermanager.ServerStatusChangeReceiver": 0,
+        "receivers:io.github.muntashirakon.AppManager.usage.DataUsageAppWidget": 1,
+        "receivers:io.github.muntashirakon.AppManager.usage.ScreenTimeAppWidget": 1,
+        "services:androidx.room.MultiInstanceInvalidationService": 0,
+        "services:io.github.muntashirakon.AppManager.accessibility.NoRootAccessibilityService": 1,
+        "services:io.github.muntashirakon.AppManager.adb.AdbPairingService": 0,
+        "services:io.github.muntashirakon.AppManager.apk.behavior.FreezeUnfreezeService": 0,
+        "services:io.github.muntashirakon.AppManager.apk.installer.PackageInstallerService": 0,
+        "services:io.github.muntashirakon.AppManager.batchops.BatchOpsService": 0,
+        "services:io.github.muntashirakon.AppManager.logcat.LogcatRecordingService": 0,
+        "services:io.github.muntashirakon.AppManager.profiles.ProfileApplierService": 0,
+        "services:io.github.muntashirakon.AppManager.self.filecache.InternalCacheCleanerService": 0,
+        "services:io.github.muntashirakon.AppManager.servermanager.WifiWaitService": 0,
+        "services:io.github.muntashirakon.AppManager.session.SessionMonitoringService": 0
+      },
+      "totals": {
+        "activities": {
+          "components": 39,
+          "filters": 42,
+          "with_filters": 11
+        },
+        "receivers": {
+          "components": 7,
+          "filters": 11,
+          "with_filters": 6
+        },
+        "services": {
+          "components": 11,
+          "filters": 1,
+          "with_filters": 1
+        }
+      }
+    },
+    "org.mozilla.fennec_fdroid@1560020": {
+      "inspector_status": "complete",
+      "intent_filter_warnings": [],
+      "per_component": {
+        "activities:com.google.android.gms.common.api.GoogleApiActivity": 0,
+        "activities:mozilla.components.feature.pwa.WebAppLauncherActivity": 1,
+        "activities:mozilla.components.feature.qr.QrScanActivity": 0,
+        "activities:mozilla.components.lib.crash.prompt.CrashReporterActivity": 0,
+        "activities:mozilla.telemetry.glean.debug.GleanDebugActivity": 0,
+        "activities:org.mozilla.fenix.HomeActivity": 1,
+        "activities:org.mozilla.fenix.IntentReceiverActivity": 11,
+        "activities:org.mozilla.fenix.autofill.AutofillConfirmActivity": 0,
+        "activities:org.mozilla.fenix.autofill.AutofillSearchActivity": 0,
+        "activities:org.mozilla.fenix.autofill.AutofillUnlockActivity": 0,
+        "activities:org.mozilla.fenix.components.lens.LensCameraActivity": 0,
+        "activities:org.mozilla.fenix.customtabs.ExternalAppBrowserActivity": 0,
+        "activities:org.mozilla.fenix.messaging.NotificationClickedReceiverActivity": 0,
+        "activities:org.mozilla.fenix.perf.StopProfilerActivity": 0,
+        "activities:org.mozilla.fenix.settings.account.AuthCustomTabActivity": 0,
+        "activities:org.mozilla.fenix.settings.account.AuthIntentReceiverActivity": 0,
+        "activities:org.mozilla.fenix.startupCrash.StartupCrashActivity": 0,
+        "activities:org.mozilla.fenix.widget.LensSearchActivity": 0,
+        "activities:org.mozilla.fenix.widget.VoiceSearchActivity": 0,
+        "activities:org.unifiedpush.android.connector.internal.LinkActivity": 0,
+        "receivers:androidx.profileinstaller.ProfileInstallReceiver": 4,
+        "receivers:androidx.work.impl.background.systemalarm.RescheduleReceiver": 1,
+        "receivers:androidx.work.impl.diagnostics.DiagnosticsReceiver": 1,
+        "receivers:androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver": 0,
+        "receivers:com.adjust.sdk.AdjustPreinstallReferrerReceiver": 1,
+        "receivers:org.ironfoxoss.unifiedpush.PushReceiver": 1,
+        "receivers:org.mozilla.fenix.components.share.PrintReceiver": 1,
+        "receivers:org.mozilla.fenix.components.share.SaveToPdfReceiver": 1,
+        "receivers:org.mozilla.fenix.experiments.QANimbusToolingReceiver": 1,
+        "receivers:org.mozilla.fenix.messaging.QAMessageNotificationWorkerReceiver": 1,
+        "receivers:org.mozilla.fenix.onboarding.WidgetPinnedReceiver": 1,
+        "receivers:org.mozilla.fenix.privacyreport.PrivacyReportNotificationReceiver": 0,
+        "receivers:org.mozilla.gecko.search.SearchWidgetProvider": 1,
+        "receivers:org.unifiedpush.android.connector.internal.MessagingReceiverImpl": 1,
+        "services:androidx.room.MultiInstanceInvalidationService": 0,
+        "services:androidx.work.impl.background.systemjob.SystemJobService": 0,
+        "services:androidx.work.impl.foreground.SystemForegroundService": 0,
+        "services:mozilla.components.feature.addons.update.DefaultAddonUpdater$NotificationHandlerService": 0,
+        "services:mozilla.components.lib.crash.handler.CrashHandlerService": 0,
+        "services:mozilla.components.lib.crash.service.SendCrashReportService": 0,
+        "services:mozilla.components.lib.crash.service.SendCrashTelemetryService": 0,
+        "services:org.mozilla.fenix.autofill.AutofillService": 1,
+        "services:org.mozilla.fenix.customtabs.CustomTabsService": 1,
+        "services:org.mozilla.fenix.downloads.DownloadService": 0,
+        "services:org.mozilla.fenix.media.MediaSessionService": 0,
+        "services:org.mozilla.fenix.messaging.NotificationDismissedService": 0,
+        "services:org.mozilla.fenix.perf.ProfilerService": 0,
+        "services:org.mozilla.fenix.push.FirebasePushService": 1,
+        "services:org.mozilla.fenix.session.PrivateNotificationService": 0,
+        "services:org.mozilla.gecko.crashhelper.CrashHelper": 0,
+        "services:org.mozilla.gecko.media.MediaManager": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$gmplugin": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$gpu": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$ipdlunittest": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab0": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab1": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab10": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab11": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab12": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab13": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab14": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab15": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab16": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab17": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab18": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab19": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab2": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab20": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab21": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab22": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab23": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab24": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab25": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab26": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab27": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab28": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab29": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab3": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab30": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab31": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab32": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab33": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab34": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab35": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab36": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab37": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab38": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab39": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab4": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab5": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab6": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab7": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab8": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab9": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$rdd": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$socket": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab0": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab1": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab10": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab11": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab12": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab13": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab14": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab15": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab16": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab17": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab18": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab19": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab2": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab20": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab21": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab22": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab23": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab24": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab25": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab26": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab27": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab28": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab29": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab3": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab30": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab31": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab32": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab33": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab34": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab35": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab36": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab37": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab38": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab39": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab4": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab5": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab6": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab7": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab8": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$tab9": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$utility": 0,
+        "services:org.mozilla.gecko.process.GeckoChildProcessServices$zygoteTab": 0,
+        "services:org.unifiedpush.android.connector.internal.RaiseToForegroundService": 1
+      },
+      "totals": {
+        "activities": {
+          "components": 20,
+          "filters": 13,
+          "with_filters": 3
+        },
+        "receivers": {
+          "components": 14,
+          "filters": 15,
+          "with_filters": 12
+        },
+        "services": {
+          "components": 105,
+          "filters": 4,
+          "with_filters": 4
+        }
+      }
+    },
+    "org.schabi.newpipe@1015": {
+      "inspector_status": "complete",
+      "intent_filter_warnings": [],
+      "per_component": {
+        "activities:com.jakewharton.processphoenix.PhoenixActivity": 0,
+        "activities:net.newpipe.app.ComposeActivity": 0,
+        "activities:org.schabi.newpipe.ExitActivity": 0,
+        "activities:org.schabi.newpipe.MainActivity": 1,
+        "activities:org.schabi.newpipe.PanicResponderActivity": 1,
+        "activities:org.schabi.newpipe.RouterActivity": 13,
+        "activities:org.schabi.newpipe.about.AboutActivity": 0,
+        "activities:org.schabi.newpipe.download.DownloadActivity": 0,
+        "activities:org.schabi.newpipe.error.ErrorActivity": 0,
+        "activities:org.schabi.newpipe.error.ReCaptchaActivity": 0,
+        "activities:org.schabi.newpipe.player.PlayQueueActivity": 0,
+        "activities:org.schabi.newpipe.settings.SettingsActivity": 0,
+        "activities:org.schabi.newpipe.util.FilePickerActivityHelper": 1,
+        "receivers:androidx.media.session.MediaButtonReceiver": 1,
+        "receivers:androidx.profileinstaller.ProfileInstallReceiver": 4,
+        "receivers:androidx.work.impl.background.systemalarm.RescheduleReceiver": 1,
+        "receivers:androidx.work.impl.diagnostics.DiagnosticsReceiver": 1,
+        "receivers:androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver": 0,
+        "services:androidx.appcompat.app.AppLocalesMetadataHolderService": 0,
+        "services:androidx.room.MultiInstanceInvalidationService": 0,
+        "services:androidx.work.impl.background.systemjob.SystemJobService": 0,
+        "services:androidx.work.impl.foreground.SystemForegroundService": 0,
+        "services:com.jakewharton.processphoenix.PhoenixService": 0,
+        "services:org.acra.sender.JobSenderService": 0,
+        "services:org.acra.sender.LegacySenderService": 0,
+        "services:org.schabi.newpipe.RouterActivity$FetcherService": 0,
+        "services:org.schabi.newpipe.local.feed.service.FeedLoadService": 0,
+        "services:org.schabi.newpipe.player.PlayerService": 2,
+        "services:us.shandian.giga.service.DownloadManagerService": 0
+      },
+      "totals": {
+        "activities": {
+          "components": 13,
+          "filters": 16,
+          "with_filters": 4
+        },
+        "receivers": {
+          "components": 5,
+          "filters": 7,
+          "with_filters": 4
+        },
+        "services": {
+          "components": 11,
+          "filters": 2,
+          "with_filters": 1
+        }
+      }
+    }
+  }
+}

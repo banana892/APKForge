@@ -1,0 +1,396 @@
+{
+  "_meta": {
+    "apk_sha256": "e03f79082278b3754b4954c7537e7c9f7681e5995a44e70aa1589eca10190066",
+    "apkforge_module": "/tmp/claude-1000/-home-naishring-APKForge/fa411565-066c-4e98-9721-a3c63ad0f39b/scratchpad/before-wt/src/apkforge/__init__.py",
+    "generated_utc": "2026-10-02T19:06:37.276045+00:00",
+    "git_head": "7415f671aa5b0e56f2e865b2167d43f74176a013",
+    "id": "com.emanuelef.remote_capture@95",
+    "src_dirty": []
+  },
+  "inspector_status": "complete",
+  "manifest": {
+    "activities": [
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.activities.CaptureListActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.activities.AppFilterActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.activities.MitmSetupWizard",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.activities.HttpLogFilterActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.activities.EditFilterActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.activities.MalwareDetection",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.activities.EditListActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.activities.FirewallActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.activities.MainActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.activities.LogviewActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.activities.AboutActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.activities.prefs.PortMapExemptionsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.activities.prefs.PortMapActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.activities.prefs.VpnExemptionsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.activities.prefs.SettingsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.activities.AppsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.activities.HttpDetailsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.activities.ConnectionsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.activities.ConnectionDetailsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "cat.ereza.customactivityoncrash.activity.DefaultErrorActivity",
+        "permission": null,
+        "process": ":error_activity"
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.activities.ErrorActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.activities.AppDetailsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.activities.OnBoardingActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.activities.prefs.EditCtrlPermissions",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.activities.CaptureCtrl",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.activities.StatsActivity",
+        "permission": null,
+        "process": null
+      }
+    ],
+    "application": {
+      "allow_backup": true,
+      "debuggable": null,
+      "extract_native_libs": true,
+      "icon": "res/9w.png",
+      "label": "PCAPdroid",
+      "large_heap": null,
+      "network_security_config": null,
+      "test_only": null,
+      "theme": "@7F140014",
+      "uses_cleartext_traffic": null
+    },
+    "declared_permissions": [],
+    "min_sdk": 23,
+    "package_name": "com.emanuelef.remote_capture",
+    "permissions": [
+      {
+        "name": "android.permission.RECEIVE_BOOT_COMPLETED",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.INTERACT_ACROSS_USERS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.POST_NOTIFICATIONS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.ACCESS_WIFI_STATE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.READ_EXTERNAL_STORAGE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.WRITE_CLIPS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.FOREGROUND_SERVICE_SPECIAL_USE",
+        "protection_level": null
+      },
+      {
+        "name": "com.emanuelef.remote_capture.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.ACCESS_NETWORK_STATE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.ACCESS_LOCAL_NETWORK",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.WRITE_EXTERNAL_STORAGE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.INTERNET",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.FOREGROUND_SERVICE",
+        "protection_level": null
+      }
+    ],
+    "providers": [
+      {
+        "authorities": "com.emanuelef.remote_capture.customactivityoncrashinitprovider",
+        "enabled": null,
+        "exported": false,
+        "grant_uri_permissions": null,
+        "name": "cat.ereza.customactivityoncrash.provider.CaocInitProvider",
+        "permission": null,
+        "process": null,
+        "read_permission": null,
+        "write_permission": null
+      },
+      {
+        "authorities": "com.emanuelef.remote_capture.androidx-startup",
+        "enabled": null,
+        "exported": false,
+        "grant_uri_permissions": null,
+        "name": "androidx.startup.InitializationProvider",
+        "permission": null,
+        "process": null,
+        "read_permission": null,
+        "write_permission": null
+      }
+    ],
+    "receivers": [
+      {
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.BootReceiver",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.ActionReceiver",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": true,
+        "intent_filters": [],
+        "name": "androidx.profileinstaller.ProfileInstallReceiver",
+        "permission": "android.permission.DUMP",
+        "process": null
+      }
+    ],
+    "resource_map": {
+      "@7F100001": "res/9w.png"
+    },
+    "services": [
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x40000000",
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.VpnReconnectService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x40000000",
+        "intent_filters": [],
+        "name": "com.emanuelef.remote_capture.CaptureService",
+        "permission": "android.permission.BIND_VPN_SERVICE",
+        "process": null
+      }
+    ],
+    "target_sdk": 37,
+    "version_code": 95,
+    "version_name": "2.0.2"
+  },
+  "overall_status": "complete",
+  "warnings": []
+}

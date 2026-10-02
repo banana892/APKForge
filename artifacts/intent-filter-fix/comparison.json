@@ -1,0 +1,1684 @@
+{
+  "meta": {
+    "before": {
+      "apkforge_module": "/tmp/claude-1000/-home-naishring-APKForge/fa411565-066c-4e98-9721-a3c63ad0f39b/scratchpad/before-wt/src/apkforge/__init__.py",
+      "generated_utc": "2026-10-02T19:06:37.276045+00:00",
+      "git_head": "7415f671aa5b0e56f2e865b2167d43f74176a013",
+      "src_dirty": []
+    },
+    "after": {
+      "apkforge_module": "/home/naishring/APKForge/src/apkforge/__init__.py",
+      "generated_utc": "2026-10-02T19:14:36.862484+00:00",
+      "git_head": "7415f671aa5b0e56f2e865b2167d43f74176a013",
+      "src_dirty": [
+        "M src/apkforge/inspection/manifest.py"
+      ]
+    }
+  },
+  "manifest": {
+    "com.emanuelef.remote_capture@95": {
+      "inspector_status": [
+        "complete",
+        "complete"
+      ],
+      "intent_filter_warnings": [
+        [],
+        []
+      ],
+      "totals": {
+        "activities": {
+          "components": [
+            26,
+            26
+          ],
+          "filters": [
+            0,
+            1
+          ]
+        },
+        "services": {
+          "components": [
+            2,
+            2
+          ],
+          "filters": [
+            0,
+            1
+          ]
+        },
+        "receivers": {
+          "components": [
+            3,
+            3
+          ],
+          "filters": [
+            0,
+            5
+          ]
+        }
+      },
+      "changed_components": [
+        {
+          "component": "activities:com.emanuelef.remote_capture.activities.MainActivity",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "services:com.emanuelef.remote_capture.CaptureService",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:androidx.profileinstaller.ProfileInstallReceiver",
+          "filters": [
+            0,
+            4
+          ]
+        },
+        {
+          "component": "receivers:com.emanuelef.remote_capture.BootReceiver",
+          "filters": [
+            0,
+            1
+          ]
+        }
+      ],
+      "non_filter_fields_identical": true
+    },
+    "com.oF2pks.applicationsinfo@19": {
+      "inspector_status": [
+        "complete",
+        "complete"
+      ],
+      "intent_filter_warnings": [
+        [],
+        []
+      ],
+      "totals": {
+        "activities": {
+          "components": [
+            4,
+            4
+          ],
+          "filters": [
+            0,
+            1
+          ]
+        },
+        "services": {
+          "components": [
+            0,
+            0
+          ],
+          "filters": [
+            0,
+            0
+          ]
+        },
+        "receivers": {
+          "components": [
+            0,
+            0
+          ],
+          "filters": [
+            0,
+            0
+          ]
+        }
+      },
+      "changed_components": [
+        {
+          "component": "activities:com.oF2pks.applicationsinfo.MainActivity",
+          "filters": [
+            0,
+            1
+          ]
+        }
+      ],
+      "non_filter_fields_identical": true
+    },
+    "de.audioattack.openlink@28": {
+      "inspector_status": [
+        "complete",
+        "complete"
+      ],
+      "intent_filter_warnings": [
+        [],
+        []
+      ],
+      "totals": {
+        "activities": {
+          "components": [
+            3,
+            3
+          ],
+          "filters": [
+            0,
+            3
+          ]
+        },
+        "services": {
+          "components": [
+            0,
+            0
+          ],
+          "filters": [
+            0,
+            0
+          ]
+        },
+        "receivers": {
+          "components": [
+            2,
+            2
+          ],
+          "filters": [
+            0,
+            5
+          ]
+        }
+      },
+      "changed_components": [
+        {
+          "component": "activities:de.audioattack.openlink.ui.IncognitoActivity",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "activities:de.audioattack.openlink.ui.MainActivity",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "activities:de.audioattack.openlink.ui.MenuActivity",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:androidx.profileinstaller.ProfileInstallReceiver",
+          "filters": [
+            0,
+            4
+          ]
+        },
+        {
+          "component": "receivers:de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+          "filters": [
+            0,
+            1
+          ]
+        }
+      ],
+      "non_filter_fields_identical": true
+    },
+    "de.danoeh.antennapod@3120295": {
+      "inspector_status": [
+        "complete",
+        "complete"
+      ],
+      "intent_filter_warnings": [
+        [],
+        []
+      ],
+      "totals": {
+        "activities": {
+          "components": [
+            12,
+            12
+          ],
+          "filters": [
+            0,
+            18
+          ]
+        },
+        "services": {
+          "components": [
+            7,
+            7
+          ],
+          "filters": [
+            0,
+            3
+          ]
+        },
+        "receivers": {
+          "components": [
+            16,
+            16
+          ],
+          "filters": [
+            0,
+            17
+          ]
+        }
+      },
+      "changed_components": [
+        {
+          "component": "activities:de.danoeh.antennapod.activity.MainActivity",
+          "filters": [
+            0,
+            3
+          ]
+        },
+        {
+          "component": "activities:de.danoeh.antennapod.activity.OpmlImportActivity",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "activities:de.danoeh.antennapod.activity.SelectSubscriptionActivity",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "activities:de.danoeh.antennapod.activity.SplashActivity",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "activities:de.danoeh.antennapod.ui.echo.EchoActivity",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "activities:de.danoeh.antennapod.ui.screen.onlinefeedview.OnlineFeedViewActivity",
+          "filters": [
+            0,
+            6
+          ]
+        },
+        {
+          "component": "activities:de.danoeh.antennapod.ui.screen.playback.PlaybackSpeedDialogActivity",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "activities:de.danoeh.antennapod.ui.screen.playback.video.Media3VideoPlayerActivity",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "activities:de.danoeh.antennapod.ui.screen.playback.video.VideoplayerActivity",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "activities:de.danoeh.antennapod.ui.screen.preferences.PreferenceActivity",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "activities:de.danoeh.antennapod.ui.widget.WidgetConfigActivity",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "services:de.danoeh.antennapod.playback.service.Media3PlaybackService",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "services:de.danoeh.antennapod.playback.service.PlaybackService",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "services:de.danoeh.antennapod.playback.service.QuickSettingsTileService",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:androidx.media3.session.MediaButtonReceiver",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:androidx.profileinstaller.ProfileInstallReceiver",
+          "filters": [
+            0,
+            4
+          ]
+        },
+        {
+          "component": "receivers:androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:androidx.work.impl.background.systemalarm.RescheduleReceiver",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:androidx.work.impl.diagnostics.DiagnosticsReceiver",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:de.danoeh.antennapod.net.download.service.ConnectivityActionReceiver",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:de.danoeh.antennapod.net.download.service.PowerConnectionReceiver",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:de.danoeh.antennapod.playback.service.MediaButtonReceiver",
+          "filters": [
+            0,
+            2
+          ]
+        },
+        {
+          "component": "receivers:de.danoeh.antennapod.ui.widget.PlayerWidget",
+          "filters": [
+            0,
+            1
+          ]
+        }
+      ],
+      "non_filter_fields_identical": true
+    },
+    "eu.siacs.conversations@4218104": {
+      "inspector_status": [
+        "complete",
+        "complete"
+      ],
+      "intent_filter_warnings": [
+        [],
+        []
+      ],
+      "totals": {
+        "activities": {
+          "components": [
+            40,
+            40
+          ],
+          "filters": [
+            0,
+            18
+          ]
+        },
+        "services": {
+          "components": [
+            6,
+            6
+          ],
+          "filters": [
+            0,
+            2
+          ]
+        },
+        "receivers": {
+          "components": [
+            6,
+            6
+          ],
+          "filters": [
+            0,
+            9
+          ]
+        }
+      },
+      "changed_components": [
+        {
+          "component": "activities:eu.siacs.conversations.ui.ChooseAccountForProfilePictureActivity",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "activities:eu.siacs.conversations.ui.ConversationActivity",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "activities:eu.siacs.conversations.ui.ImportBackupActivity",
+          "filters": [
+            0,
+            4
+          ]
+        },
+        {
+          "component": "activities:eu.siacs.conversations.ui.ShareWithActivity",
+          "filters": [
+            0,
+            2
+          ]
+        },
+        {
+          "component": "activities:eu.siacs.conversations.ui.ShortcutActivity",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "activities:eu.siacs.conversations.ui.StartConversationActivity",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "activities:eu.siacs.conversations.ui.UnifiedPushDistributor",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "activities:eu.siacs.conversations.ui.YuriLauncherActivity",
+          "filters": [
+            0,
+            6
+          ]
+        },
+        {
+          "component": "activities:eu.siacs.conversations.ui.activity.SettingsActivity",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "services:androidx.sharetarget.ChooserTargetServiceCompat",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "services:eu.siacs.conversations.services.CallIntegrationConnectionService",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:androidx.profileinstaller.ProfileInstallReceiver",
+          "filters": [
+            0,
+            4
+          ]
+        },
+        {
+          "component": "receivers:androidx.work.impl.background.systemalarm.RescheduleReceiver",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:androidx.work.impl.diagnostics.DiagnosticsReceiver",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:eu.siacs.conversations.receiver.SystemEventReceiver",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:eu.siacs.conversations.receiver.UnifiedPushDistributor",
+          "filters": [
+            0,
+            2
+          ]
+        }
+      ],
+      "non_filter_fields_identical": true
+    },
+    "godau.fynn.usagedirect@10": {
+      "inspector_status": [
+        "complete",
+        "complete"
+      ],
+      "intent_filter_warnings": [
+        [],
+        []
+      ],
+      "totals": {
+        "activities": {
+          "components": [
+            5,
+            5
+          ],
+          "filters": [
+            0,
+            1
+          ]
+        },
+        "services": {
+          "components": [
+            2,
+            2
+          ],
+          "filters": [
+            0,
+            0
+          ]
+        },
+        "receivers": {
+          "components": [
+            2,
+            2
+          ],
+          "filters": [
+            0,
+            5
+          ]
+        }
+      },
+      "changed_components": [
+        {
+          "component": "activities:godau.fynn.usagedirect.activity.SourceAppUsageStatisticsActivity",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:androidx.profileinstaller.ProfileInstallReceiver",
+          "filters": [
+            0,
+            4
+          ]
+        },
+        {
+          "component": "receivers:godau.fynn.usagedirect.widget.TimeTodayWidgetProvider",
+          "filters": [
+            0,
+            1
+          ]
+        }
+      ],
+      "non_filter_fields_identical": true
+    },
+    "io.github.muntashirakon.AppManager@451": {
+      "inspector_status": [
+        "complete",
+        "complete"
+      ],
+      "intent_filter_warnings": [
+        [],
+        []
+      ],
+      "totals": {
+        "activities": {
+          "components": [
+            39,
+            39
+          ],
+          "filters": [
+            0,
+            42
+          ]
+        },
+        "services": {
+          "components": [
+            11,
+            11
+          ],
+          "filters": [
+            0,
+            1
+          ]
+        },
+        "receivers": {
+          "components": [
+            7,
+            7
+          ],
+          "filters": [
+            0,
+            11
+          ]
+        }
+      },
+      "changed_components": [
+        {
+          "component": "activities:io.github.muntashirakon.AppManager.apk.installer.PackageInstallerActivity",
+          "filters": [
+            0,
+            5
+          ]
+        },
+        {
+          "component": "activities:io.github.muntashirakon.AppManager.details.manifest.ManifestViewerActivity",
+          "filters": [
+            0,
+            2
+          ]
+        },
+        {
+          "component": "activities:io.github.muntashirakon.AppManager.fm.FmActivity",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "activities:io.github.muntashirakon.AppManager.intercept.ActivityInterceptor",
+          "filters": [
+            0,
+            21
+          ]
+        },
+        {
+          "component": "activities:io.github.muntashirakon.AppManager.logcat.LogViewerActivity",
+          "filters": [
+            0,
+            2
+          ]
+        },
+        {
+          "component": "activities:io.github.muntashirakon.AppManager.main.MainActivity",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "activities:io.github.muntashirakon.AppManager.main.SplashActivity",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "activities:io.github.muntashirakon.AppManager.scanner.ScannerActivity",
+          "filters": [
+            0,
+            2
+          ]
+        },
+        {
+          "component": "activities:io.github.muntashirakon.AppManager.settings.SettingsActivity",
+          "filters": [
+            0,
+            2
+          ]
+        },
+        {
+          "component": "activities:io.github.muntashirakon.AppManager.viewer.ExplorerActivity",
+          "filters": [
+            0,
+            2
+          ]
+        },
+        {
+          "component": "activities:io.github.muntashirakon.AppManager.viewer.audio.AudioPlayerActivity",
+          "filters": [
+            0,
+            3
+          ]
+        },
+        {
+          "component": "services:io.github.muntashirakon.AppManager.accessibility.NoRootAccessibilityService",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:androidx.profileinstaller.ProfileInstallReceiver",
+          "filters": [
+            0,
+            4
+          ]
+        },
+        {
+          "component": "receivers:io.github.muntashirakon.AppManager.logcat.RecordingWidgetProvider",
+          "filters": [
+            0,
+            3
+          ]
+        },
+        {
+          "component": "receivers:io.github.muntashirakon.AppManager.oneclickops.ClearCacheAppWidget",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:io.github.muntashirakon.AppManager.self.BootReceiver",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:io.github.muntashirakon.AppManager.usage.DataUsageAppWidget",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:io.github.muntashirakon.AppManager.usage.ScreenTimeAppWidget",
+          "filters": [
+            0,
+            1
+          ]
+        }
+      ],
+      "non_filter_fields_identical": true
+    },
+    "org.mozilla.fennec_fdroid@1560020": {
+      "inspector_status": [
+        "complete",
+        "complete"
+      ],
+      "intent_filter_warnings": [
+        [],
+        []
+      ],
+      "totals": {
+        "activities": {
+          "components": [
+            20,
+            20
+          ],
+          "filters": [
+            0,
+            13
+          ]
+        },
+        "services": {
+          "components": [
+            105,
+            105
+          ],
+          "filters": [
+            0,
+            4
+          ]
+        },
+        "receivers": {
+          "components": [
+            14,
+            14
+          ],
+          "filters": [
+            0,
+            15
+          ]
+        }
+      },
+      "changed_components": [
+        {
+          "component": "activities:mozilla.components.feature.pwa.WebAppLauncherActivity",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "activities:org.mozilla.fenix.HomeActivity",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "activities:org.mozilla.fenix.IntentReceiverActivity",
+          "filters": [
+            0,
+            11
+          ]
+        },
+        {
+          "component": "services:org.mozilla.fenix.autofill.AutofillService",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "services:org.mozilla.fenix.customtabs.CustomTabsService",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "services:org.mozilla.fenix.push.FirebasePushService",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "services:org.unifiedpush.android.connector.internal.RaiseToForegroundService",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:androidx.profileinstaller.ProfileInstallReceiver",
+          "filters": [
+            0,
+            4
+          ]
+        },
+        {
+          "component": "receivers:androidx.work.impl.background.systemalarm.RescheduleReceiver",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:androidx.work.impl.diagnostics.DiagnosticsReceiver",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:com.adjust.sdk.AdjustPreinstallReferrerReceiver",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:org.ironfoxoss.unifiedpush.PushReceiver",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:org.mozilla.fenix.components.share.PrintReceiver",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:org.mozilla.fenix.components.share.SaveToPdfReceiver",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:org.mozilla.fenix.experiments.QANimbusToolingReceiver",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:org.mozilla.fenix.messaging.QAMessageNotificationWorkerReceiver",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:org.mozilla.fenix.onboarding.WidgetPinnedReceiver",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:org.mozilla.gecko.search.SearchWidgetProvider",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:org.unifiedpush.android.connector.internal.MessagingReceiverImpl",
+          "filters": [
+            0,
+            1
+          ]
+        }
+      ],
+      "non_filter_fields_identical": true
+    },
+    "org.schabi.newpipe@1015": {
+      "inspector_status": [
+        "complete",
+        "complete"
+      ],
+      "intent_filter_warnings": [
+        [],
+        []
+      ],
+      "totals": {
+        "activities": {
+          "components": [
+            13,
+            13
+          ],
+          "filters": [
+            0,
+            16
+          ]
+        },
+        "services": {
+          "components": [
+            11,
+            11
+          ],
+          "filters": [
+            0,
+            2
+          ]
+        },
+        "receivers": {
+          "components": [
+            5,
+            5
+          ],
+          "filters": [
+            0,
+            7
+          ]
+        }
+      },
+      "changed_components": [
+        {
+          "component": "activities:org.schabi.newpipe.MainActivity",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "activities:org.schabi.newpipe.PanicResponderActivity",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "activities:org.schabi.newpipe.RouterActivity",
+          "filters": [
+            0,
+            13
+          ]
+        },
+        {
+          "component": "activities:org.schabi.newpipe.util.FilePickerActivityHelper",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "services:org.schabi.newpipe.player.PlayerService",
+          "filters": [
+            0,
+            2
+          ]
+        },
+        {
+          "component": "receivers:androidx.media.session.MediaButtonReceiver",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:androidx.profileinstaller.ProfileInstallReceiver",
+          "filters": [
+            0,
+            4
+          ]
+        },
+        {
+          "component": "receivers:androidx.work.impl.background.systemalarm.RescheduleReceiver",
+          "filters": [
+            0,
+            1
+          ]
+        },
+        {
+          "component": "receivers:androidx.work.impl.diagnostics.DiagnosticsReceiver",
+          "filters": [
+            0,
+            1
+          ]
+        }
+      ],
+      "non_filter_fields_identical": true
+    }
+  },
+  "security": {
+    "openlink": {
+      "count": [
+        5,
+        5
+      ],
+      "summary": [
+        {
+          "total_findings": 5,
+          "critical_count": 0,
+          "high_count": 0,
+          "medium_count": 0,
+          "low_count": 5,
+          "info_count": 0,
+          "malware_indicator_count": 0,
+          "spyware_indicator_count": 1,
+          "vulnerability_count": 3,
+          "diff_security_change_count": 0,
+          "overall_security_status": "findings_present"
+        },
+        {
+          "total_findings": 5,
+          "critical_count": 0,
+          "high_count": 0,
+          "medium_count": 0,
+          "low_count": 5,
+          "info_count": 0,
+          "malware_indicator_count": 0,
+          "spyware_indicator_count": 1,
+          "vulnerability_count": 3,
+          "diff_security_change_count": 0,
+          "overall_security_status": "findings_present"
+        }
+      ],
+      "added": [],
+      "removed": [],
+      "changed": [
+        {
+          "id": "SEC-MAL-PERSISTENCE-BOOT",
+          "fields": {
+            "confidence": [
+              "high",
+              "confirmed"
+            ]
+          },
+          "evidence_count": [
+            1,
+            2
+          ],
+          "evidence_added": [
+            {
+              "description": "Boot startup broadcast receiver: de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+              "location": "manifest:receiver:de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+              "references": [],
+              "snippet": "Receiver: de.audioattack.openlink.conf.PackageChangeBroadcastReceiver"
+            }
+          ],
+          "evidence_removed": []
+        }
+      ]
+    },
+    "pcapdroid": {
+      "count": [
+        9,
+        10
+      ],
+      "summary": [
+        {
+          "total_findings": 9,
+          "critical_count": 0,
+          "high_count": 0,
+          "medium_count": 3,
+          "low_count": 5,
+          "info_count": 1,
+          "malware_indicator_count": 0,
+          "spyware_indicator_count": 6,
+          "vulnerability_count": 2,
+          "diff_security_change_count": 0,
+          "overall_security_status": "findings_present"
+        },
+        {
+          "total_findings": 10,
+          "critical_count": 0,
+          "high_count": 0,
+          "medium_count": 4,
+          "low_count": 5,
+          "info_count": 1,
+          "malware_indicator_count": 1,
+          "spyware_indicator_count": 6,
+          "vulnerability_count": 2,
+          "diff_security_change_count": 0,
+          "overall_security_status": "findings_present"
+        }
+      ],
+      "added": [
+        {
+          "id": "SEC-MAL-BOOT-001",
+          "category": "malware_indicator",
+          "title": "Persistent Boot Startup Receiver",
+          "description": "The application registers a broadcast receiver for device boot completion (BOOT_COMPLETED) and declares background services.\n",
+          "severity": "medium",
+          "confidence": "high",
+          "evidence": [
+            {
+              "description": "Observed broadcast receiver listening for device boot completion",
+              "location": "manifest:receiver:BOOT_COMPLETED",
+              "snippet": "BOOT_COMPLETED receiver",
+              "references": []
+            },
+            {
+              "description": "Observed component: type=service (com.emanuelef.remote_capture.VpnReconnectService, com.emanuelef.remote_capture.CaptureService)",
+              "location": "manifest:service",
+              "snippet": "Observed component: type=service (com.emanuelef.remote_capture.VpnReconnectService, com.emanuelef.remote_capture.CaptureService)",
+              "references": []
+            }
+          ],
+          "assessment": "The APK contains components configured to automatically start background execution upon device boot.\n",
+          "limitations": [
+            "Boot startup is standard for background synchronization, alarms, and messaging apps."
+          ],
+          "references": [
+            "CWE-250: Execution with Unnecessary Privileges"
+          ],
+          "tags": [
+            "malware",
+            "persistence",
+            "boot"
+          ]
+        }
+      ],
+      "removed": [],
+      "changed": [
+        {
+          "id": "SEC-MAL-PERSISTENCE-BOOT",
+          "fields": {
+            "confidence": [
+              "high",
+              "confirmed"
+            ]
+          },
+          "evidence_count": [
+            1,
+            2
+          ],
+          "evidence_added": [
+            {
+              "description": "Boot startup broadcast receiver: com.emanuelef.remote_capture.BootReceiver",
+              "location": "manifest:receiver:com.emanuelef.remote_capture.BootReceiver",
+              "references": [],
+              "snippet": "Receiver: com.emanuelef.remote_capture.BootReceiver"
+            }
+          ],
+          "evidence_removed": []
+        }
+      ]
+    },
+    "appmanager": {
+      "count": [
+        28,
+        29
+      ],
+      "summary": [
+        {
+          "total_findings": 28,
+          "critical_count": 0,
+          "high_count": 5,
+          "medium_count": 13,
+          "low_count": 9,
+          "info_count": 1,
+          "malware_indicator_count": 12,
+          "spyware_indicator_count": 9,
+          "vulnerability_count": 5,
+          "diff_security_change_count": 0,
+          "overall_security_status": "findings_present"
+        },
+        {
+          "total_findings": 29,
+          "critical_count": 0,
+          "high_count": 5,
+          "medium_count": 14,
+          "low_count": 9,
+          "info_count": 1,
+          "malware_indicator_count": 13,
+          "spyware_indicator_count": 9,
+          "vulnerability_count": 5,
+          "diff_security_change_count": 0,
+          "overall_security_status": "findings_present"
+        }
+      ],
+      "added": [
+        {
+          "id": "SEC-MAL-BOOT-001",
+          "category": "malware_indicator",
+          "title": "Persistent Boot Startup Receiver",
+          "description": "The application registers a broadcast receiver for device boot completion (BOOT_COMPLETED) and declares background services.\n",
+          "severity": "medium",
+          "confidence": "high",
+          "evidence": [
+            {
+              "description": "Observed broadcast receiver listening for device boot completion",
+              "location": "manifest:receiver:BOOT_COMPLETED",
+              "snippet": "BOOT_COMPLETED receiver",
+              "references": []
+            },
+            {
+              "description": "Observed component: type=service (io.github.muntashirakon.AppManager.apk.behavior.FreezeUnfreezeService, io.github.muntashirakon.AppManager.accessibility.NoRootAccessibilityService, io.github.muntashirakon.AppManager.self.filecache.InternalCacheCleanerService)",
+              "location": "manifest:service",
+              "snippet": "Observed component: type=service (io.github.muntashirakon.AppManager.apk.behavior.FreezeUnfreezeService, io.github.muntashirakon.AppManager.accessibility.NoRootAccessibilityService, io.github.muntashirakon.AppManager.self.filecache.InternalCacheCleanerService)",
+              "references": []
+            }
+          ],
+          "assessment": "The APK contains components configured to automatically start background execution upon device boot.\n",
+          "limitations": [
+            "Boot startup is standard for background synchronization, alarms, and messaging apps."
+          ],
+          "references": [
+            "CWE-250: Execution with Unnecessary Privileges"
+          ],
+          "tags": [
+            "malware",
+            "persistence",
+            "boot"
+          ]
+        }
+      ],
+      "removed": [],
+      "changed": [
+        {
+          "id": "SEC-MAL-PERSISTENCE-BOOT",
+          "fields": {
+            "confidence": [
+              "high",
+              "confirmed"
+            ]
+          },
+          "evidence_count": [
+            1,
+            2
+          ],
+          "evidence_added": [
+            {
+              "description": "Boot startup broadcast receiver: io.github.muntashirakon.AppManager.self.BootReceiver",
+              "location": "manifest:receiver:io.github.muntashirakon.AppManager.self.BootReceiver",
+              "references": [],
+              "snippet": "Receiver: io.github.muntashirakon.AppManager.self.BootReceiver"
+            }
+          ],
+          "evidence_removed": []
+        },
+        {
+          "id": "SEC-MAL-PERSISTENCE-FG-SERVICE",
+          "fields": {},
+          "evidence_count": [
+            5,
+            5
+          ],
+          "evidence_added": [
+            {
+              "description": "Foreground service declared: io.github.muntashirakon.AppManager.adb.AdbPairingService (type=0x40000000)",
+              "location": "manifest:service:io.github.muntashirakon.AppManager.adb.AdbPairingService",
+              "references": [],
+              "snippet": "io.github.muntashirakon.AppManager.adb.AdbPairingService [type=0x40000000]"
+            }
+          ],
+          "evidence_removed": [
+            {
+              "description": "Foreground service declared: io.github.muntashirakon.AppManager.batchops.BatchOpsService (type=0x40000001)",
+              "location": "manifest:service:io.github.muntashirakon.AppManager.batchops.BatchOpsService",
+              "references": [],
+              "snippet": "io.github.muntashirakon.AppManager.batchops.BatchOpsService [type=0x40000001]"
+            }
+          ]
+        },
+        {
+          "id": "SEC-SPY-CLIPBOARD-001",
+          "fields": {},
+          "evidence_count": [
+            2,
+            2
+          ],
+          "evidence_added": [
+            {
+              "description": "Observed component: type=service (io.github.muntashirakon.AppManager.apk.behavior.FreezeUnfreezeService, io.github.muntashirakon.AppManager.accessibility.NoRootAccessibilityService, io.github.muntashirakon.AppManager.self.filecache.InternalCacheCleanerService)",
+              "location": "manifest:service",
+              "references": [],
+              "snippet": "Observed component: type=service (io.github.muntashirakon.AppManager.apk.behavior.FreezeUnfreezeService, io.github.muntashirakon.AppManager.accessibility.NoRootAccessibilityService, io.github.muntashirakon.AppManager.self.filecache.InternalCacheCleanerService)"
+            }
+          ],
+          "evidence_removed": [
+            {
+              "description": "Observed component: type=service (io.github.muntashirakon.AppManager.accessibility.NoRootAccessibilityService, io.github.muntashirakon.AppManager.self.filecache.InternalCacheCleanerService, io.github.muntashirakon.AppManager.apk.behavior.FreezeUnfreezeService)",
+              "location": "manifest:service",
+              "references": [],
+              "snippet": "Observed component: type=service (io.github.muntashirakon.AppManager.accessibility.NoRootAccessibilityService, io.github.muntashirakon.AppManager.self.filecache.InternalCacheCleanerService, io.github.muntashirakon.AppManager.apk.behavior.FreezeUnfreezeService)"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "noise": {
+    "openlink": {
+      "before_vs_before_rerun": {
+        "count": [
+          5,
+          5
+        ],
+        "added": [],
+        "removed": [],
+        "changed": []
+      },
+      "after_vs_after_rerun": {
+        "count": [
+          5,
+          5
+        ],
+        "added": [],
+        "removed": [],
+        "changed": []
+      }
+    },
+    "pcapdroid": {
+      "before_vs_before_rerun": {
+        "count": [
+          9,
+          9
+        ],
+        "added": [],
+        "removed": [],
+        "changed": [
+          {
+            "id": "SEC-SPY-CLIPBOARD-001",
+            "fields": {},
+            "evidence_count": [
+              2,
+              2
+            ],
+            "evidence_added": [
+              {
+                "description": "Observed component: type=service (com.emanuelef.remote_capture.CaptureService, com.emanuelef.remote_capture.VpnReconnectService)",
+                "location": "manifest:service",
+                "references": [],
+                "snippet": "Observed component: type=service (com.emanuelef.remote_capture.CaptureService, com.emanuelef.remote_capture.VpnReconnectService)"
+              }
+            ],
+            "evidence_removed": [
+              {
+                "description": "Observed component: type=service (com.emanuelef.remote_capture.VpnReconnectService, com.emanuelef.remote_capture.CaptureService)",
+                "location": "manifest:service",
+                "references": [],
+                "snippet": "Observed component: type=service (com.emanuelef.remote_capture.VpnReconnectService, com.emanuelef.remote_capture.CaptureService)"
+              }
+            ]
+          }
+        ]
+      },
+      "after_vs_after_rerun": {
+        "count": [
+          10,
+          10
+        ],
+        "added": [],
+        "removed": [],
+        "changed": []
+      }
+    },
+    "appmanager": {
+      "before_vs_before_rerun": {
+        "count": [
+          28,
+          28
+        ],
+        "added": [],
+        "removed": [],
+        "changed": [
+          {
+            "id": "SEC-MAL-PERSISTENCE-FG-SERVICE",
+            "fields": {},
+            "evidence_count": [
+              5,
+              5
+            ],
+            "evidence_added": [
+              {
+                "description": "Foreground service declared: io.github.muntashirakon.AppManager.adb.AdbPairingService (type=0x40000000)",
+                "location": "manifest:service:io.github.muntashirakon.AppManager.adb.AdbPairingService",
+                "references": [],
+                "snippet": "io.github.muntashirakon.AppManager.adb.AdbPairingService [type=0x40000000]"
+              },
+              {
+                "description": "Foreground service declared: io.github.muntashirakon.AppManager.servermanager.WifiWaitService (type=0x40000000)",
+                "location": "manifest:service:io.github.muntashirakon.AppManager.servermanager.WifiWaitService",
+                "references": [],
+                "snippet": "io.github.muntashirakon.AppManager.servermanager.WifiWaitService [type=0x40000000]"
+              },
+              {
+                "description": "Foreground service declared: io.github.muntashirakon.AppManager.session.SessionMonitoringService (type=0x40000001)",
+                "location": "manifest:service:io.github.muntashirakon.AppManager.session.SessionMonitoringService",
+                "references": [],
+                "snippet": "io.github.muntashirakon.AppManager.session.SessionMonitoringService [type=0x40000001]"
+              }
+            ],
+            "evidence_removed": [
+              {
+                "description": "Foreground service declared: io.github.muntashirakon.AppManager.batchops.BatchOpsService (type=0x40000001)",
+                "location": "manifest:service:io.github.muntashirakon.AppManager.batchops.BatchOpsService",
+                "references": [],
+                "snippet": "io.github.muntashirakon.AppManager.batchops.BatchOpsService [type=0x40000001]"
+              },
+              {
+                "description": "Foreground service declared: io.github.muntashirakon.AppManager.logcat.LogcatRecordingService (type=0x40000001)",
+                "location": "manifest:service:io.github.muntashirakon.AppManager.logcat.LogcatRecordingService",
+                "references": [],
+                "snippet": "io.github.muntashirakon.AppManager.logcat.LogcatRecordingService [type=0x40000001]"
+              },
+              {
+                "description": "Foreground service declared: io.github.muntashirakon.AppManager.profiles.ProfileApplierService (type=0x40000001)",
+                "location": "manifest:service:io.github.muntashirakon.AppManager.profiles.ProfileApplierService",
+                "references": [],
+                "snippet": "io.github.muntashirakon.AppManager.profiles.ProfileApplierService [type=0x40000001]"
+              }
+            ]
+          },
+          {
+            "id": "SEC-SPY-CLIPBOARD-001",
+            "fields": {},
+            "evidence_count": [
+              2,
+              2
+            ],
+            "evidence_added": [
+              {
+                "description": "Observed component: type=service (io.github.muntashirakon.AppManager.apk.installer.PackageInstallerService, io.github.muntashirakon.AppManager.servermanager.WifiWaitService, io.github.muntashirakon.AppManager.adb.AdbPairingService)",
+                "location": "manifest:service",
+                "references": [],
+                "snippet": "Observed component: type=service (io.github.muntashirakon.AppManager.apk.installer.PackageInstallerService, io.github.muntashirakon.AppManager.servermanager.WifiWaitService, io.github.muntashirakon.AppManager.adb.AdbPairingService)"
+              }
+            ],
+            "evidence_removed": [
+              {
+                "description": "Observed component: type=service (io.github.muntashirakon.AppManager.accessibility.NoRootAccessibilityService, io.github.muntashirakon.AppManager.self.filecache.InternalCacheCleanerService, io.github.muntashirakon.AppManager.apk.behavior.FreezeUnfreezeService)",
+                "location": "manifest:service",
+                "references": [],
+                "snippet": "Observed component: type=service (io.github.muntashirakon.AppManager.accessibility.NoRootAccessibilityService, io.github.muntashirakon.AppManager.self.filecache.InternalCacheCleanerService, io.github.muntashirakon.AppManager.apk.behavior.FreezeUnfreezeService)"
+              }
+            ]
+          }
+        ]
+      },
+      "after_vs_after_rerun": {
+        "count": [
+          29,
+          29
+        ],
+        "added": [],
+        "removed": [],
+        "changed": [
+          {
+            "id": "SEC-MAL-BOOT-001",
+            "fields": {},
+            "evidence_count": [
+              2,
+              2
+            ],
+            "evidence_added": [
+              {
+                "description": "Observed component: type=service (androidx.room.MultiInstanceInvalidationService, io.github.muntashirakon.AppManager.session.SessionMonitoringService, io.github.muntashirakon.AppManager.profiles.ProfileApplierService)",
+                "location": "manifest:service",
+                "references": [],
+                "snippet": "Observed component: type=service (androidx.room.MultiInstanceInvalidationService, io.github.muntashirakon.AppManager.session.SessionMonitoringService, io.github.muntashirakon.AppManager.profiles.ProfileApplierService)"
+              }
+            ],
+            "evidence_removed": [
+              {
+                "description": "Observed component: type=service (io.github.muntashirakon.AppManager.apk.behavior.FreezeUnfreezeService, io.github.muntashirakon.AppManager.accessibility.NoRootAccessibilityService, io.github.muntashirakon.AppManager.self.filecache.InternalCacheCleanerService)",
+                "location": "manifest:service",
+                "references": [],
+                "snippet": "Observed component: type=service (io.github.muntashirakon.AppManager.apk.behavior.FreezeUnfreezeService, io.github.muntashirakon.AppManager.accessibility.NoRootAccessibilityService, io.github.muntashirakon.AppManager.self.filecache.InternalCacheCleanerService)"
+              }
+            ]
+          },
+          {
+            "id": "SEC-MAL-PERSISTENCE-FG-SERVICE",
+            "fields": {},
+            "evidence_count": [
+              5,
+              5
+            ],
+            "evidence_added": [
+              {
+                "description": "Foreground service declared: io.github.muntashirakon.AppManager.servermanager.WifiWaitService (type=0x40000000)",
+                "location": "manifest:service:io.github.muntashirakon.AppManager.servermanager.WifiWaitService",
+                "references": [],
+                "snippet": "io.github.muntashirakon.AppManager.servermanager.WifiWaitService [type=0x40000000]"
+              },
+              {
+                "description": "Foreground service declared: io.github.muntashirakon.AppManager.session.SessionMonitoringService (type=0x40000001)",
+                "location": "manifest:service:io.github.muntashirakon.AppManager.session.SessionMonitoringService",
+                "references": [],
+                "snippet": "io.github.muntashirakon.AppManager.session.SessionMonitoringService [type=0x40000001]"
+              }
+            ],
+            "evidence_removed": [
+              {
+                "description": "Foreground service declared: io.github.muntashirakon.AppManager.adb.AdbPairingService (type=0x40000000)",
+                "location": "manifest:service:io.github.muntashirakon.AppManager.adb.AdbPairingService",
+                "references": [],
+                "snippet": "io.github.muntashirakon.AppManager.adb.AdbPairingService [type=0x40000000]"
+              },
+              {
+                "description": "Foreground service declared: io.github.muntashirakon.AppManager.apk.installer.PackageInstallerService (type=0x40000001)",
+                "location": "manifest:service:io.github.muntashirakon.AppManager.apk.installer.PackageInstallerService",
+                "references": [],
+                "snippet": "io.github.muntashirakon.AppManager.apk.installer.PackageInstallerService [type=0x40000001]"
+              }
+            ]
+          },
+          {
+            "id": "SEC-SPY-CLIPBOARD-001",
+            "fields": {},
+            "evidence_count": [
+              2,
+              2
+            ],
+            "evidence_added": [
+              {
+                "description": "Observed component: type=service (androidx.room.MultiInstanceInvalidationService, io.github.muntashirakon.AppManager.session.SessionMonitoringService, io.github.muntashirakon.AppManager.profiles.ProfileApplierService)",
+                "location": "manifest:service",
+                "references": [],
+                "snippet": "Observed component: type=service (androidx.room.MultiInstanceInvalidationService, io.github.muntashirakon.AppManager.session.SessionMonitoringService, io.github.muntashirakon.AppManager.profiles.ProfileApplierService)"
+              }
+            ],
+            "evidence_removed": [
+              {
+                "description": "Observed component: type=service (io.github.muntashirakon.AppManager.apk.behavior.FreezeUnfreezeService, io.github.muntashirakon.AppManager.accessibility.NoRootAccessibilityService, io.github.muntashirakon.AppManager.self.filecache.InternalCacheCleanerService)",
+                "location": "manifest:service",
+                "references": [],
+                "snippet": "Observed component: type=service (io.github.muntashirakon.AppManager.apk.behavior.FreezeUnfreezeService, io.github.muntashirakon.AppManager.accessibility.NoRootAccessibilityService, io.github.muntashirakon.AppManager.self.filecache.InternalCacheCleanerService)"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

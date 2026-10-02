@@ -1,0 +1,12 @@
+# new regression tests run against pre-fix src (git 7415f671aa5b0e56f2e865b2167d43f74176a013)
+E   AssertionError: assert 'failed' == 'partial'
+E     + failed
+WARNING  apkforge.inspection.manifest:manifest.py:178 Androguard failed to parse APK: element API unavailable
+ERROR    apkforge.inspection.engine:engine.py:189 Manifest inspection failed: element API unavailable
+FAILED tests/unit/test_inspection_manifest_intent_filters.py::test_activity_filters_extracted_from_lxml
+FAILED tests/unit/test_inspection_manifest_intent_filters.py::test_service_filters_extracted_from_lxml
+FAILED tests/unit/test_inspection_manifest_intent_filters.py::test_receiver_filters_with_actions_categories_and_data
+FAILED tests/unit/test_inspection_manifest_intent_filters.py::test_receivers_sharing_a_simple_class_name_keep_their_own_filters
+FAILED tests/unit/test_inspection_manifest_intent_filters.py::test_extraction_failure_is_recorded_not_swallowed
+FAILED tests/unit/test_inspection_manifest_intent_filters.py::test_extraction_failure_makes_manifest_inspection_partial
+6 failed, 1 passed in 0.34s

@@ -1,0 +1,88 @@
+{
+  "before": {
+    "apps": {
+      "openlink": {
+        "findings": 5,
+        "TRUE_POSITIVE": 5,
+        "FALSE_POSITIVE": 0,
+        "UNCLEAR": 0,
+        "new": [],
+        "fp_rate": 0.0
+      },
+      "pcapdroid": {
+        "findings": 9,
+        "TRUE_POSITIVE": 6,
+        "FALSE_POSITIVE": 2,
+        "UNCLEAR": 1,
+        "new": [],
+        "fp_rate": 22.2
+      },
+      "appmanager": {
+        "findings": 28,
+        "TRUE_POSITIVE": 24,
+        "FALSE_POSITIVE": 3,
+        "UNCLEAR": 1,
+        "new": [],
+        "fp_rate": 10.7
+      }
+    },
+    "unreviewed": [],
+    "total": {
+      "findings": 42,
+      "TRUE_POSITIVE": 35,
+      "FALSE_POSITIVE": 5,
+      "UNCLEAR": 2,
+      "fp_rate": 11.9
+    }
+  },
+  "after": {
+    "apps": {
+      "openlink": {
+        "findings": 5,
+        "TRUE_POSITIVE": 5,
+        "FALSE_POSITIVE": 0,
+        "UNCLEAR": 0,
+        "new": [],
+        "fp_rate": 0.0
+      },
+      "pcapdroid": {
+        "findings": 10,
+        "TRUE_POSITIVE": 7,
+        "FALSE_POSITIVE": 2,
+        "UNCLEAR": 1,
+        "new": [
+          {
+            "id": "SEC-MAL-BOOT-001",
+            "verdict": "TRUE_POSITIVE"
+          }
+        ],
+        "fp_rate": 20.0
+      },
+      "appmanager": {
+        "findings": 29,
+        "TRUE_POSITIVE": 25,
+        "FALSE_POSITIVE": 3,
+        "UNCLEAR": 1,
+        "new": [
+          {
+            "id": "SEC-MAL-BOOT-001",
+            "verdict": "TRUE_POSITIVE"
+          }
+        ],
+        "fp_rate": 10.3
+      }
+    },
+    "unreviewed": [],
+    "total": {
+      "findings": 44,
+      "TRUE_POSITIVE": 37,
+      "FALSE_POSITIVE": 5,
+      "UNCLEAR": 2,
+      "fp_rate": 11.4
+    }
+  },
+  "new_verdicts": {
+    "pcapdroid:SEC-MAL-BOOT-001": "TRUE_POSITIVE",
+    "appmanager:SEC-MAL-BOOT-001": "TRUE_POSITIVE"
+  }
+}

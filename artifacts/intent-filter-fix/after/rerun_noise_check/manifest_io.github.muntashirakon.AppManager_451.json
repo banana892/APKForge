@@ -1,0 +1,3490 @@
+{
+  "_meta": {
+    "apk_sha256": "e1f6ba10812c74016ad626e11e27a1ae450aec2c0964a11466abb9e7a9c8ef84",
+    "apkforge_module": "/home/naishring/APKForge/src/apkforge/__init__.py",
+    "generated_utc": "2026-10-02T19:18:46.444214+00:00",
+    "git_head": "7415f671aa5b0e56f2e865b2167d43f74176a013",
+    "id": "io.github.muntashirakon.AppManager@451",
+    "src_dirty": [
+      "M src/apkforge/inspection/manifest.py"
+    ]
+  },
+  "inspector_status": "complete",
+  "manifest": {
+    "activities": [
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.crypto.ks.KeyStoreActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.profiles.ProfilesActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.profiles.AppsProfileActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.profiles.AppsFilterProfileActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.sysconfig.SysConfigActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.batchops.BatchOpsResultsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.misc.HelpActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.history.ops.OpHistoryActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": true,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.APPLICATION_PREFERENCES",
+              "android.service.quicksettings.action.QS_TILE",
+              "android.intent.action.VIEW",
+              "android.intent.action.EDIT",
+              "android.intent.action.PICK",
+              "android.intent.action.GET_CONTENT",
+              "android.intent.action.CREATE_DOCUMENT",
+              "android.intent.action.OPEN_DOCUMENT",
+              "android.intent.action.OPEN_DOCUMENT_TREE",
+              "android.intent.action.INSERT",
+              "android.intent.action.INSERT_OR_EDIT",
+              "android.intent.action.CALL_BUTTON",
+              "android.intent.action.DIAL",
+              "android.provider.action.REVIEW",
+              "android.provider.action.REVIEW_SECURE",
+              "com.android.camera.action.REVIEW",
+              "com.android.camera.action.SPLIT_SCREEN_REVIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "http"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "https"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "about"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "javascript"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "mailto"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "geo"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "file"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "content"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "rtsp"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "rtmp"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "ftp"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "sftp"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "skype"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "sms"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "smsto"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "mms"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "mmsto"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "zxing"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "spotify"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "tel"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "voicemail"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "view-source"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "sqlite"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "alipays"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "market"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "store"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "android"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "weixin"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "whatsapp"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "whatsapp-sheet"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "whatsapp-consumer"
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.APPLICATION_PREFERENCES",
+              "android.service.quicksettings.action.QS_TILE",
+              "android.intent.action.VIEW",
+              "android.intent.action.EDIT",
+              "android.intent.action.PICK",
+              "android.intent.action.GET_CONTENT",
+              "android.intent.action.CREATE_DOCUMENT",
+              "android.intent.action.OPEN_DOCUMENT",
+              "android.intent.action.OPEN_DOCUMENT_TREE",
+              "android.intent.action.INSERT",
+              "android.intent.action.INSERT_OR_EDIT",
+              "android.intent.action.CALL_BUTTON",
+              "android.intent.action.DIAL",
+              "android.provider.action.REVIEW",
+              "android.provider.action.REVIEW_SECURE",
+              "com.android.camera.action.REVIEW",
+              "com.android.camera.action.SPLIT_SCREEN_REVIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE",
+              "android.intent.category.OPENABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": "*/*",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.APPLICATION_PREFERENCES",
+              "android.service.quicksettings.action.QS_TILE",
+              "android.intent.action.VIEW",
+              "android.intent.action.EDIT",
+              "android.intent.action.PICK",
+              "android.intent.action.GET_CONTENT",
+              "android.intent.action.CREATE_DOCUMENT",
+              "android.intent.action.OPEN_DOCUMENT",
+              "android.intent.action.OPEN_DOCUMENT_TREE",
+              "android.intent.action.INSERT",
+              "android.intent.action.INSERT_OR_EDIT",
+              "android.intent.action.CALL_BUTTON",
+              "android.intent.action.DIAL",
+              "android.provider.action.REVIEW",
+              "android.provider.action.REVIEW_SECURE",
+              "com.android.camera.action.REVIEW",
+              "com.android.camera.action.SPLIT_SCREEN_REVIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE",
+              "android.intent.category.OPENABLE"
+            ],
+            "data": []
+          },
+          {
+            "actions": [
+              "android.intent.action.APPLICATION_PREFERENCES",
+              "android.service.quicksettings.action.QS_TILE",
+              "android.intent.action.VIEW",
+              "android.intent.action.EDIT",
+              "android.intent.action.PICK",
+              "android.intent.action.GET_CONTENT",
+              "android.intent.action.CREATE_DOCUMENT",
+              "android.intent.action.OPEN_DOCUMENT",
+              "android.intent.action.OPEN_DOCUMENT_TREE",
+              "android.intent.action.INSERT",
+              "android.intent.action.INSERT_OR_EDIT",
+              "android.intent.action.CALL_BUTTON",
+              "android.intent.action.DIAL",
+              "android.provider.action.REVIEW",
+              "android.provider.action.REVIEW_SECURE",
+              "com.android.camera.action.REVIEW",
+              "com.android.camera.action.SPLIT_SCREEN_REVIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE",
+              "android.intent.category.OPENABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "http"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "https"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "about"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "javascript"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "mailto"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "geo"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "file"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "content"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "rtsp"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "rtmp"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "ftp"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "sftp"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "skype"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "sms"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "smsto"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "mms"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "mmsto"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "zxing"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "spotify"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "tel"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "voicemail"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "view-source"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "sqlite"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "alipays"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "market"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "store"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "android"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "weixin"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "whatsapp"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "whatsapp-sheet"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "whatsapp-consumer"
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.APPLICATION_PREFERENCES",
+              "android.service.quicksettings.action.QS_TILE",
+              "android.intent.action.VIEW",
+              "android.intent.action.EDIT",
+              "android.intent.action.PICK",
+              "android.intent.action.GET_CONTENT",
+              "android.intent.action.CREATE_DOCUMENT",
+              "android.intent.action.OPEN_DOCUMENT",
+              "android.intent.action.OPEN_DOCUMENT_TREE",
+              "android.intent.action.INSERT",
+              "android.intent.action.INSERT_OR_EDIT",
+              "android.intent.action.CALL_BUTTON",
+              "android.intent.action.DIAL",
+              "android.provider.action.REVIEW",
+              "android.provider.action.REVIEW_SECURE",
+              "com.android.camera.action.REVIEW",
+              "com.android.camera.action.SPLIT_SCREEN_REVIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE",
+              "android.intent.category.OPENABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "http"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "https"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "about"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "javascript"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "mailto"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "geo"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "file"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "content"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "rtsp"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "rtmp"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "ftp"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "sftp"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "skype"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "sms"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "smsto"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "mms"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "mmsto"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "zxing"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "spotify"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "tel"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "voicemail"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "view-source"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "sqlite"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "alipays"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "market"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "store"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "android"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "weixin"
+              },
+              {
+                "host": null,
+                "mime_type": "*/*",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.PICK",
+              "android.intent.action.ATTACH_DATA",
+              "android.intent.action.SET_WALLPAPER"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": []
+          },
+          {
+            "actions": [
+              "android.intent.action.SEND"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": "*/*",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.SENDTO"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": "*/*",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.SENDTO"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "mailto"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "sms"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "smsto"
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.SEND_MULTIPLE"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": "*/*",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.SEARCH",
+              "android.intent.action.MEDIA_SEARCH",
+              "android.intent.action.WEB_SEARCH",
+              "android.speech.action.VOICE_SEARCH_HANDS_FREE",
+              "android.media.action.MEDIA_PLAY_FROM_SEARCH",
+              "android.media.action.TEXT_OPEN_FROM_SEARCH",
+              "android.media.action.VIDEO_PLAY_FROM_SEARCH"
+            ],
+            "categories": [],
+            "data": []
+          },
+          {
+            "actions": [
+              "android.intent.action.SEARCH",
+              "android.intent.action.MEDIA_SEARCH",
+              "android.intent.action.WEB_SEARCH",
+              "android.speech.action.VOICE_SEARCH_HANDS_FREE",
+              "android.media.action.MEDIA_PLAY_FROM_SEARCH",
+              "android.media.action.TEXT_OPEN_FROM_SEARCH",
+              "android.media.action.VIDEO_PLAY_FROM_SEARCH"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": []
+          },
+          {
+            "actions": [
+              "android.intent.action.ASSIST"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": []
+          },
+          {
+            "actions": [
+              "com.google.android.gm.action.AUTO_SEND"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": "*/*",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "com.google.zxing.client.android.SCAN"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": []
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": "scan",
+                "mime_type": null,
+                "path": "/",
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "zxing"
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": [
+              {
+                "host": "*",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "file"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "content"
+              },
+              {
+                "host": null,
+                "mime_type": "*/*",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": "/external/file/.*",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "com.android.camera.action.CROP"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.ALTERNATIVE",
+              "android.intent.category.SELECTED_ALTERNATIVE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "content"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "file"
+              },
+              {
+                "host": null,
+                "mime_type": "image/*",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.INSTALL_PACKAGE",
+              "android.intent.action.UNINSTALL_PACKAGE"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "content"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "file"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "package"
+              },
+              {
+                "host": "*",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/*",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.media.action.IMAGE_CAPTURE",
+              "android.media.action.IMAGE_CAPTURE_SECURE",
+              "android.media.action.STILL_IMAGE_CAMERA",
+              "android.media.action.STILL_IMAGE_CAMERA_SECURE",
+              "android.media.action.VIDEO_CAMERA",
+              "android.media.action.VIDEO_CAPTURE"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE",
+              "android.intent.category.VOICE"
+            ],
+            "data": []
+          },
+          {
+            "actions": [
+              "android.intent.action.MUSIC_PLAYER"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.APP_MUSIC"
+            ],
+            "data": []
+          }
+        ],
+        "name": "io.github.muntashirakon.AppManager.intercept.ActivityInterceptor",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.details.AppDetailsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.crypto.auth.AuthManagerActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.crypto.auth.AuthFeatureDemultiplexer",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.SEND"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": "application/vnd.android.package-archive",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/octet-stream",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "file"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "content"
+              },
+              {
+                "host": "*",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/vnd.android.package-archive",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/octet-stream",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          }
+        ],
+        "name": "io.github.muntashirakon.AppManager.scanner.ScannerActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.details.ActivityLauncherShortcutActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.apk.behavior.FreezeUnfreezeActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.profiles.ProfileApplierActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.MAIN"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.LAUNCHER",
+              "android.intent.category.LEANBACK_LAUNCHER"
+            ],
+            "data": []
+          }
+        ],
+        "name": "io.github.muntashirakon.AppManager.main.SplashActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": true,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.SEND"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": "text/plain",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/octet-stream",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\.am.log",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\.am.log",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\.am.log",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\.am.log",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\..*\\.am.log",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\..*\\..*\\.am.log",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\..*\\..*\\..*\\.am.log",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "file"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "content"
+              },
+              {
+                "host": "*",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "text/plain",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/octet-stream",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\.am.log",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\.am.log",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\.am.log",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\.am.log",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\..*\\.am.log",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\..*\\..*\\.am.log",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\..*\\..*\\..*\\.am.log",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          }
+        ],
+        "name": "io.github.muntashirakon.AppManager.logcat.LogViewerActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.logcat.RecordLogDialogActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.VIEW",
+              "org.openintents.action.VIEW_DIRECTORY"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": "inode/directory",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "resource/folder",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "vnd.android.document/directory",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "vnd.android.cursor.dir/*",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "x-directory/normal",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "file"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "folder"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "directory"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "content"
+              }
+            ]
+          }
+        ],
+        "name": "io.github.muntashirakon.AppManager.fm.FmActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.APPLICATION_PREFERENCES"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": []
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "app-manager"
+              },
+              {
+                "host": "settings",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          }
+        ],
+        "name": "io.github.muntashirakon.AppManager.settings.SettingsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.crypto.OpenPGPCryptoActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.runningapps.RunningAppsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.SEND"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.ALTERNATIVE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": "audio/*",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "vnd.android.cursor.dir/audio",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.SEND_MULTIPLE"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.ALTERNATIVE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": "audio/*",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "vnd.android.cursor.dir/audio",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "file"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "content"
+              },
+              {
+                "host": null,
+                "mime_type": "audio/*",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "vnd.android.cursor.dir/audio",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          }
+        ],
+        "name": "io.github.muntashirakon.AppManager.viewer.audio.AudioPlayerActivity",
+        "permission": null,
+        "process": ":audio_player"
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": true,
+        "exported": null,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.DummyActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.fm.OpenWithActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.VIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": "search",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "market"
+              }
+            ]
+          }
+        ],
+        "name": "io.github.muntashirakon.AppManager.main.MainActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.terminal.TermActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.usage.AppUsageActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.accessibility.activity.LeadingActivityTrackerActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.SEND"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": "application/vnd.android.package-archive",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/octet-stream",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "file"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "content"
+              },
+              {
+                "host": "*",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/vnd.android.package-archive",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/octet-stream",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          }
+        ],
+        "name": "io.github.muntashirakon.AppManager.details.manifest.ManifestViewerActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.SEND"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": "application/vnd.android.package-archive",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/vnd.apkm",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/xapk-package-archive",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/octet-stream",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.SEND_MULTIPLE"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": "*/*",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW",
+              "android.intent.action.INSTALL_PACKAGE"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "file"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "content"
+              },
+              {
+                "host": "*",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/vnd.android.package-archive",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/vnd.apkm",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/xapk-package-archive",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/octet-stream",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.INSTALL_PACKAGE"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "content"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "package"
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "file"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "content"
+              },
+              {
+                "host": "*",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "*/*",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\.apkm",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\.apkm",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\.apkm",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\.apkm",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\..*\\.apkm",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\..*\\..*\\.apkm",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\..*\\..*\\..*\\.apkm",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\.apks",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\.apks",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\.apks",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\.apks",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\..*\\.apks",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\..*\\..*\\.apks",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\..*\\..*\\..*\\.apks",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\.xapk",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\.xapk",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\.xapk",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\.xapk",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\..*\\.xapk",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\..*\\..*\\.xapk",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\..*\\..*\\..*\\.xapk",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          }
+        ],
+        "name": "io.github.muntashirakon.AppManager.apk.installer.PackageInstallerActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": true,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.SEND"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": "application/vnd.android.package-archive",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/java-archive",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/x-dex",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/octet-stream",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/zip",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "file"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "content"
+              },
+              {
+                "host": "*",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/vnd.android.package-archive",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/java-archive",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/x-dex",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/octet-stream",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/zip",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          }
+        ],
+        "name": "io.github.muntashirakon.AppManager.viewer.ExplorerActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.sharedpref.SharedPrefsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.oneclickops.OneClickOpsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.filters.FinderActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.misc.LabsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.editor.CodeEditorActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.debloat.DebloaterActivity",
+        "permission": null,
+        "process": null
+      }
+    ],
+    "application": {
+      "allow_backup": true,
+      "debuggable": null,
+      "extract_native_libs": true,
+      "icon": "res/9w.png",
+      "label": "App Manager",
+      "large_heap": true,
+      "network_security_config": "res/8G.xml",
+      "test_only": null,
+      "theme": "@7F13000B",
+      "uses_cleartext_traffic": null
+    },
+    "declared_permissions": [],
+    "min_sdk": 21,
+    "package_name": "io.github.muntashirakon.AppManager",
+    "permissions": [
+      {
+        "name": "android.permission.KILL_UID",
+        "protection_level": null
+      },
+      {
+        "name": "com.android.launcher.permission.INSTALL_SHORTCUT",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.GET_TASKS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.ADJUST_RUNTIME_PERMISSIONS_POLICY",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.POST_NOTIFICATIONS",
+        "protection_level": null
+      },
+      {
+        "name": "com.termux.permission.RUN_COMMAND",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.INTERACT_ACROSS_USERS_FULL",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.FOREGROUND_SERVICE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.DUMP",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.DELETE_PACKAGES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.FOREGROUND_SERVICE_SPECIAL_USE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.ENFORCE_UPDATE_OWNERSHIP",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.WRITE_SECURE_SETTINGS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.GRANT_RUNTIME_PERMISSIONS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.MANAGE_SENSORS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.CLEAR_APP_CACHE",
+        "protection_level": null
+      },
+      {
+        "name": "io.github.muntashirakon.AppManager.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.USE_BIOMETRIC",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.INTERNET",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.READ_PHONE_STATE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.ACCESS_HIDDEN_PROFILES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.INTERACT_ACROSS_USERS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.REQUEST_DELETE_PACKAGES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.INTERNAL_DELETE_CACHE_FILES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.GET_APP_OPS_STATS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.MANAGE_APP_OPS_MODES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.CHANGE_OVERLAY_PACKAGES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.GET_RUNTIME_PERMISSIONS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.NETWORK_SETTINGS",
+        "protection_level": null
+      },
+      {
+        "name": "com.android.permission.INSTALL_EXISTING_PACKAGES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.SYSTEM_ALERT_WINDOW",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.UPDATE_APP_OPS_STATS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.CHANGE_COMPONENT_ENABLED_STATE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.INSTALL_TEST_ONLY_PACKAGE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.WAKE_LOCK",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.GET_PACKAGE_SIZE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.CLEAR_APP_USER_DATA",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.QUERY_ALL_PACKAGES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.START_ANY_ACTIVITY",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.FORCE_STOP_PACKAGES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.READ_EXTERNAL_STORAGE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.MANAGE_NETWORK_POLICY",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.RECEIVE_BOOT_COMPLETED",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.REAL_GET_TASKS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.DELETE_CACHE_FILES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.UPDATE_PACKAGES_WITHOUT_USER_ACTION",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.INSTALL_PACKAGES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.REQUEST_INSTALL_PACKAGES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.MANAGE_USERS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.READ_LOGS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.PACKAGE_USAGE_STATS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.UPDATE_DOMAIN_VERIFICATION_USER_SELECTION",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.FOREGROUND_SERVICE_DATA_SYNC",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.WRITE_EXTERNAL_STORAGE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.ACCESS_NETWORK_STATE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.BACKUP",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.SUSPEND_APPS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.MANAGE_EXTERNAL_STORAGE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.MANAGE_APPOPS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.USE_FINGERPRINT",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.REVOKE_RUNTIME_PERMISSIONS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.MANAGE_NOTIFICATION_LISTENERS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.DEVICE_POWER",
+        "protection_level": null
+      }
+    ],
+    "providers": [
+      {
+        "authorities": "io.github.muntashirakon.AppManager.androidx-startup",
+        "enabled": null,
+        "exported": false,
+        "grant_uri_permissions": null,
+        "name": "androidx.startup.InitializationProvider",
+        "permission": null,
+        "process": null,
+        "read_permission": null,
+        "write_permission": null
+      },
+      {
+        "authorities": "io.github.muntashirakon.AppManager.file",
+        "enabled": null,
+        "exported": false,
+        "grant_uri_permissions": true,
+        "name": "io.github.muntashirakon.AppManager.fm.FmProvider",
+        "permission": null,
+        "process": null,
+        "read_permission": null,
+        "write_permission": null
+      }
+    ],
+    "receivers": [
+      {
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.appwidget.action.APPWIDGET_UPDATE",
+              "android.appwidget.action.APPWIDGET_UPDATE_OPTIONS",
+              "android.appwidget.action.APPWIDGET_DELETED",
+              "android.appwidget.action.APPWIDGET_DISABLED",
+              "android.appwidget.action.APPWIDGET_ENABLED",
+              "android.appwidget.action.APPWIDGET_RESTORED"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "io.github.muntashirakon.AppManager.usage.ScreenTimeAppWidget",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.appwidget.action.APPWIDGET_UPDATE"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "io.github.muntashirakon.AppManager.oneclickops.ClearCacheAppWidget",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.appwidget.action.APPWIDGET_UPDATE",
+              "android.appwidget.action.APPWIDGET_UPDATE_OPTIONS",
+              "android.appwidget.action.APPWIDGET_DELETED",
+              "android.appwidget.action.APPWIDGET_DISABLED",
+              "android.appwidget.action.APPWIDGET_ENABLED",
+              "android.appwidget.action.APPWIDGET_RESTORED"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "io.github.muntashirakon.AppManager.usage.DataUsageAppWidget",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "androidx.profileinstaller.action.INSTALL_PROFILE"
+            ],
+            "categories": [],
+            "data": []
+          },
+          {
+            "actions": [
+              "androidx.profileinstaller.action.SKIP_FILE"
+            ],
+            "categories": [],
+            "data": []
+          },
+          {
+            "actions": [
+              "androidx.profileinstaller.action.SAVE_PROFILE"
+            ],
+            "categories": [],
+            "data": []
+          },
+          {
+            "actions": [
+              "androidx.profileinstaller.action.BENCHMARK_OPERATION"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "androidx.profileinstaller.ProfileInstallReceiver",
+        "permission": "android.permission.DUMP",
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.servermanager.ServerStatusChangeReceiver",
+        "permission": "android.permission.UPDATE_APP_OPS_STATS",
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.appwidget.action.APPWIDGET_UPDATE"
+            ],
+            "categories": [],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "log_viewer_widget"
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.appwidget.action.APPWIDGET_UPDATE"
+            ],
+            "categories": [],
+            "data": []
+          },
+          {
+            "actions": [
+              "io.github.muntashirakon.AppManager.action.RECORD_OR_STOP"
+            ],
+            "categories": [],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "log_viewer_widget"
+              }
+            ]
+          }
+        ],
+        "name": "io.github.muntashirakon.AppManager.logcat.RecordingWidgetProvider",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.BOOT_COMPLETED"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "io.github.muntashirakon.AppManager.self.BootReceiver",
+        "permission": null,
+        "process": null
+      }
+    ],
+    "resource_map": {
+      "@7F0F0002": "res/9w.png",
+      "@7F15000B": "res/8G.xml"
+    },
+    "services": [
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "androidx.room.MultiInstanceInvalidationService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x40000001",
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.session.SessionMonitoringService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x40000001",
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.profiles.ProfileApplierService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x40000001",
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.logcat.LogcatRecordingService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.accessibilityservice.AccessibilityService"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "io.github.muntashirakon.AppManager.accessibility.NoRootAccessibilityService",
+        "permission": "android.permission.BIND_ACCESSIBILITY_SERVICE",
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.self.filecache.InternalCacheCleanerService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x40000001",
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.apk.behavior.FreezeUnfreezeService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x40000000",
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.servermanager.WifiWaitService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x40000000",
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.adb.AdbPairingService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x40000001",
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.batchops.BatchOpsService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x40000001",
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.apk.installer.PackageInstallerService",
+        "permission": null,
+        "process": null
+      }
+    ],
+    "target_sdk": 36,
+    "version_code": 451,
+    "version_name": "4.1.1"
+  },
+  "overall_status": "complete",
+  "warnings": []
+}

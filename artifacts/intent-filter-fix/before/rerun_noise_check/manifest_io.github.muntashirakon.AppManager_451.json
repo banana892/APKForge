@@ -1,0 +1,827 @@
+{
+  "_meta": {
+    "apk_sha256": "e1f6ba10812c74016ad626e11e27a1ae450aec2c0964a11466abb9e7a9c8ef84",
+    "apkforge_module": "/tmp/claude-1000/-home-naishring-APKForge/fa411565-066c-4e98-9721-a3c63ad0f39b/scratchpad/before-wt/src/apkforge/__init__.py",
+    "generated_utc": "2026-10-02T19:10:16.547933+00:00",
+    "git_head": "7415f671aa5b0e56f2e865b2167d43f74176a013",
+    "id": "io.github.muntashirakon.AppManager@451",
+    "src_dirty": []
+  },
+  "inspector_status": "complete",
+  "manifest": {
+    "activities": [
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.settings.SettingsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.terminal.TermActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.scanner.ScannerActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": true,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.viewer.ExplorerActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.editor.CodeEditorActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.accessibility.activity.LeadingActivityTrackerActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.sharedpref.SharedPrefsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.main.MainActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.misc.LabsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.debloat.DebloaterActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.details.AppDetailsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.details.manifest.ManifestViewerActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.filters.FinderActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.apk.installer.PackageInstallerActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.crypto.ks.KeyStoreActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.runningapps.RunningAppsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.profiles.ProfilesActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.profiles.AppsProfileActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.profiles.AppsFilterProfileActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.sysconfig.SysConfigActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.batchops.BatchOpsResultsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.history.ops.OpHistoryActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.oneclickops.OneClickOpsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": true,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.intercept.ActivityInterceptor",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.misc.HelpActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.crypto.auth.AuthManagerActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.crypto.auth.AuthFeatureDemultiplexer",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.details.ActivityLauncherShortcutActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.profiles.ProfileApplierActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.apk.behavior.FreezeUnfreezeActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.main.SplashActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": true,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.logcat.LogViewerActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.logcat.RecordLogDialogActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.fm.FmActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.fm.OpenWithActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.viewer.audio.AudioPlayerActivity",
+        "permission": null,
+        "process": ":audio_player"
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": true,
+        "exported": null,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.DummyActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.crypto.OpenPGPCryptoActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.usage.AppUsageActivity",
+        "permission": null,
+        "process": null
+      }
+    ],
+    "application": {
+      "allow_backup": true,
+      "debuggable": null,
+      "extract_native_libs": true,
+      "icon": "res/9w.png",
+      "label": "App Manager",
+      "large_heap": true,
+      "network_security_config": "res/8G.xml",
+      "test_only": null,
+      "theme": "@7F13000B",
+      "uses_cleartext_traffic": null
+    },
+    "declared_permissions": [],
+    "min_sdk": 21,
+    "package_name": "io.github.muntashirakon.AppManager",
+    "permissions": [
+      {
+        "name": "android.permission.KILL_UID",
+        "protection_level": null
+      },
+      {
+        "name": "com.android.launcher.permission.INSTALL_SHORTCUT",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.GET_TASKS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.ADJUST_RUNTIME_PERMISSIONS_POLICY",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.POST_NOTIFICATIONS",
+        "protection_level": null
+      },
+      {
+        "name": "com.termux.permission.RUN_COMMAND",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.INTERACT_ACROSS_USERS_FULL",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.DUMP",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.DELETE_PACKAGES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.FOREGROUND_SERVICE_SPECIAL_USE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.ENFORCE_UPDATE_OWNERSHIP",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.WRITE_SECURE_SETTINGS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.GRANT_RUNTIME_PERMISSIONS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.MANAGE_SENSORS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.CLEAR_APP_CACHE",
+        "protection_level": null
+      },
+      {
+        "name": "io.github.muntashirakon.AppManager.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.USE_BIOMETRIC",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.READ_PHONE_STATE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.DEVICE_POWER",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.ACCESS_HIDDEN_PROFILES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.INTERACT_ACROSS_USERS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.REQUEST_DELETE_PACKAGES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.INTERNAL_DELETE_CACHE_FILES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.GET_APP_OPS_STATS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.MANAGE_APP_OPS_MODES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.MANAGE_APPOPS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.CHANGE_OVERLAY_PACKAGES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.GET_RUNTIME_PERMISSIONS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.NETWORK_SETTINGS",
+        "protection_level": null
+      },
+      {
+        "name": "com.android.permission.INSTALL_EXISTING_PACKAGES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.SYSTEM_ALERT_WINDOW",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.UPDATE_APP_OPS_STATS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.CHANGE_COMPONENT_ENABLED_STATE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.INSTALL_TEST_ONLY_PACKAGE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.GET_PACKAGE_SIZE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.WAKE_LOCK",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.CLEAR_APP_USER_DATA",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.QUERY_ALL_PACKAGES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.START_ANY_ACTIVITY",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.FORCE_STOP_PACKAGES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.READ_EXTERNAL_STORAGE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.MANAGE_NETWORK_POLICY",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.RECEIVE_BOOT_COMPLETED",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.DELETE_CACHE_FILES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.REAL_GET_TASKS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.MANAGE_USERS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.INSTALL_PACKAGES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.REQUEST_INSTALL_PACKAGES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.UPDATE_PACKAGES_WITHOUT_USER_ACTION",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.READ_LOGS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.PACKAGE_USAGE_STATS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.UPDATE_DOMAIN_VERIFICATION_USER_SELECTION",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.FOREGROUND_SERVICE_DATA_SYNC",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.WRITE_EXTERNAL_STORAGE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.ACCESS_NETWORK_STATE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.BACKUP",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.SUSPEND_APPS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.MANAGE_EXTERNAL_STORAGE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.INTERNET",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.USE_FINGERPRINT",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.REVOKE_RUNTIME_PERMISSIONS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.MANAGE_NOTIFICATION_LISTENERS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.FOREGROUND_SERVICE",
+        "protection_level": null
+      }
+    ],
+    "providers": [
+      {
+        "authorities": "io.github.muntashirakon.AppManager.file",
+        "enabled": null,
+        "exported": false,
+        "grant_uri_permissions": true,
+        "name": "io.github.muntashirakon.AppManager.fm.FmProvider",
+        "permission": null,
+        "process": null,
+        "read_permission": null,
+        "write_permission": null
+      },
+      {
+        "authorities": "io.github.muntashirakon.AppManager.androidx-startup",
+        "enabled": null,
+        "exported": false,
+        "grant_uri_permissions": null,
+        "name": "androidx.startup.InitializationProvider",
+        "permission": null,
+        "process": null,
+        "read_permission": null,
+        "write_permission": null
+      }
+    ],
+    "receivers": [
+      {
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.servermanager.ServerStatusChangeReceiver",
+        "permission": "android.permission.UPDATE_APP_OPS_STATS",
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.oneclickops.ClearCacheAppWidget",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.usage.ScreenTimeAppWidget",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.logcat.RecordingWidgetProvider",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.usage.DataUsageAppWidget",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.self.BootReceiver",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": true,
+        "intent_filters": [],
+        "name": "androidx.profileinstaller.ProfileInstallReceiver",
+        "permission": "android.permission.DUMP",
+        "process": null
+      }
+    ],
+    "resource_map": {
+      "@7F0F0002": "res/9w.png",
+      "@7F15000B": "res/8G.xml"
+    },
+    "services": [
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x40000001",
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.apk.installer.PackageInstallerService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x40000000",
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.servermanager.WifiWaitService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x40000000",
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.adb.AdbPairingService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "androidx.room.MultiInstanceInvalidationService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x40000001",
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.session.SessionMonitoringService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x40000001",
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.apk.behavior.FreezeUnfreezeService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.accessibility.NoRootAccessibilityService",
+        "permission": "android.permission.BIND_ACCESSIBILITY_SERVICE",
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.self.filecache.InternalCacheCleanerService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x40000001",
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.logcat.LogcatRecordingService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x40000001",
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.profiles.ProfileApplierService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x40000001",
+        "intent_filters": [],
+        "name": "io.github.muntashirakon.AppManager.batchops.BatchOpsService",
+        "permission": null,
+        "process": null
+      }
+    ],
+    "target_sdk": 36,
+    "version_code": 451,
+    "version_name": "4.1.1"
+  },
+  "overall_status": "complete",
+  "warnings": []
+}

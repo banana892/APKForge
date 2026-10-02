@@ -1,0 +1,144 @@
+{
+  "_meta": {
+    "apk_sha256": "c55079192a77fc6696a80c6d337c3f0c64fe4ebc27e5970aaf4baac0a60a3b31",
+    "apkforge_module": "/tmp/claude-1000/-home-naishring-APKForge/fa411565-066c-4e98-9721-a3c63ad0f39b/scratchpad/before-wt/src/apkforge/__init__.py",
+    "generated_utc": "2026-10-02T19:10:16.547933+00:00",
+    "git_head": "7415f671aa5b0e56f2e865b2167d43f74176a013",
+    "id": "godau.fynn.usagedirect@10",
+    "src_dirty": []
+  },
+  "inspector_status": "complete",
+  "manifest": {
+    "activities": [
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "godau.fynn.librariesdirect.AboutDirectActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "godau.fynn.librariesdirect.AboutLibrariesActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "godau.fynn.usagedirect.activity.SourceAppUsageStatisticsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "godau.fynn.usagedirect.activity.ChartsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "godau.fynn.usagedirect.activity.ColorActivity",
+        "permission": null,
+        "process": null
+      }
+    ],
+    "application": {
+      "allow_backup": true,
+      "debuggable": null,
+      "extract_native_libs": true,
+      "icon": "res/9w.png",
+      "label": "usageDirect",
+      "large_heap": null,
+      "network_security_config": null,
+      "test_only": null,
+      "theme": "@7F100005",
+      "uses_cleartext_traffic": null
+    },
+    "declared_permissions": [],
+    "min_sdk": 21,
+    "package_name": "godau.fynn.usagedirect",
+    "permissions": [
+      {
+        "name": "android.permission.RECEIVE_BOOT_COMPLETED",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.PACKAGE_USAGE_STATS",
+        "protection_level": null
+      }
+    ],
+    "providers": [
+      {
+        "authorities": "godau.fynn.usagedirect.androidx-startup",
+        "enabled": null,
+        "exported": false,
+        "grant_uri_permissions": null,
+        "name": "androidx.startup.InitializationProvider",
+        "permission": null,
+        "process": null,
+        "read_permission": null,
+        "write_permission": null
+      }
+    ],
+    "receivers": [
+      {
+        "enabled": true,
+        "exported": true,
+        "intent_filters": [],
+        "name": "androidx.profileinstaller.ProfileInstallReceiver",
+        "permission": "android.permission.DUMP",
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "godau.fynn.usagedirect.widget.TimeTodayWidgetProvider",
+        "permission": null,
+        "process": null
+      }
+    ],
+    "resource_map": {
+      "@7F0D0000": "res/9w.png"
+    },
+    "services": [
+      {
+        "enabled": null,
+        "exported": true,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "godau.fynn.usagedirect.persistence.EventLogService",
+        "permission": "android.permission.BIND_JOB_SERVICE",
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "androidx.room.MultiInstanceInvalidationService",
+        "permission": null,
+        "process": null
+      }
+    ],
+    "target_sdk": 28,
+    "version_code": 10,
+    "version_name": "0.8.1"
+  },
+  "overall_status": "complete",
+  "warnings": []
+}

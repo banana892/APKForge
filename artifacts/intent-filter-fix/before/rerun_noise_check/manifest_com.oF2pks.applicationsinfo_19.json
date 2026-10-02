@@ -1,0 +1,95 @@
+{
+  "_meta": {
+    "apk_sha256": "c0188f5f1f566e12324bd6bf4bf4f1b9408d852c6cc6b113706503031f13eebd",
+    "apkforge_module": "/tmp/claude-1000/-home-naishring-APKForge/fa411565-066c-4e98-9721-a3c63ad0f39b/scratchpad/before-wt/src/apkforge/__init__.py",
+    "generated_utc": "2026-10-02T19:10:16.547933+00:00",
+    "git_head": "7415f671aa5b0e56f2e865b2167d43f74176a013",
+    "id": "com.oF2pks.applicationsinfo@19",
+    "src_dirty": []
+  },
+  "inspector_status": "complete",
+  "manifest": {
+    "activities": [
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "com.oF2pks.applicationsinfo.MainActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "com.oF2pks.applicationsinfo.ViewManifestActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "com.oF2pks.applicationsinfo.View2ManifestActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "com.oF2pks.applicationsinfo.DetailActivity",
+        "permission": null,
+        "process": null
+      }
+    ],
+    "application": {
+      "allow_backup": false,
+      "debuggable": null,
+      "extract_native_libs": null,
+      "icon": "res/7W.png",
+      "label": "apps_Packages Info",
+      "large_heap": null,
+      "network_security_config": null,
+      "test_only": null,
+      "theme": "@7F090000",
+      "uses_cleartext_traffic": null
+    },
+    "declared_permissions": [],
+    "min_sdk": 16,
+    "package_name": "com.oF2pks.applicationsinfo",
+    "permissions": [
+      {
+        "name": "android.permission.QUERY_ALL_PACKAGES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.GET_PACKAGE_SIZE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.REQUEST_DELETE_PACKAGES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.PACKAGE_USAGE_STATS",
+        "protection_level": null
+      }
+    ],
+    "providers": [],
+    "receivers": [],
+    "resource_map": {
+      "@7F040002": "res/7W.png"
+    },
+    "services": [],
+    "target_sdk": 32,
+    "version_code": 19,
+    "version_name": "1.7-19"
+  },
+  "overall_status": "complete",
+  "warnings": []
+}

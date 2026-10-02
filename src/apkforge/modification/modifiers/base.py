@@ -39,12 +39,31 @@ _log = logging.getLogger(__name__)
 
 
 class StepStatus(StrEnum):
-    """Outcome status of a single modifier step."""
+    """Outcome status of a modifier step, or of a whole plan execution.
+
+    Step statuses:
+
+    - ``PENDING``: planned, not attempted (e.g. execution stopped at an earlier failure).
+    - ``SUCCESS``: executed; the working copy was changed.  Whether the change was
+      also *verified* is recorded separately in ``ModificationStepResult.verified``.
+    - ``SKIPPED``: not executed; the modifier found nothing to change.  Never a success.
+    - ``FAILED``: execution failed (including an exception raised by the modifier).
+    - ``VERIFICATION_FAILED``: executed, but the modifier's post-apply verification
+      rejected the result.
+    - ``DRY_RUN``: simulated; would have been executed.
+    - ``ROLLED_BACK``: returned by ``Modifier.rollback`` only.
+
+    Aggregate (``ModificationResult.status``) additionally uses ``PARTIAL``: some
+    changes were executed and others were skipped.  See
+    :meth:`ModificationResult.aggregate_status`.
+    """
 
     PENDING = "pending"
     SUCCESS = "success"
     SKIPPED = "skipped"
     FAILED = "failed"
+    VERIFICATION_FAILED = "verification_failed"
+    PARTIAL = "partial"
     ROLLED_BACK = "rolled_back"
     DRY_RUN = "dry_run"
 
@@ -143,6 +162,22 @@ class ModificationStepResult(BaseModel):
         default_factory=dict,
         description="Information needed to roll back this step.",
     )
+    verified: bool | None = Field(
+        default=None,
+        description=(
+            "Post-apply verification outcome: True passed, False failed, None not "
+            "verified (not executed, dry run, or the modifier has no verify())."
+        ),
+    )
+    rolled_back: bool = Field(
+        default=False,
+        description="True if this executed step was undone after a later failure.",
+    )
+
+    @property
+    def executed(self) -> bool:
+        """True if the modifier actually changed the working copy for this step."""
+        return self.status in (StepStatus.SUCCESS, StepStatus.VERIFICATION_FAILED)
 
 
 class ModificationResult(BaseModel):
@@ -151,11 +186,17 @@ class ModificationResult(BaseModel):
     plan_id: str = Field(description="ID of the plan that was executed.")
     status: StepStatus = StepStatus.PENDING
     dry_run: bool = False
+    planned_steps: int = Field(
+        default=0, description="Number of accepted changes the run set out to apply."
+    )
     steps: list[ModificationStepResult] = Field(default_factory=list)
     warnings: list[str] = Field(default_factory=list)
     errors: list[str] = Field(default_factory=list)
     working_copy_path: str | None = None
     original_apk_path: str | None = None
+
+    def _count(self, *statuses: StepStatus) -> int:
+        return sum(1 for s in self.steps if s.status in statuses)
 
     @property
     def total_steps(self) -> int:
@@ -164,26 +205,75 @@ class ModificationResult(BaseModel):
 
     @property
     def successful_steps(self) -> int:
-        """Number of steps that succeeded."""
-        return sum(1 for s in self.steps if s.status == StepStatus.SUCCESS)
+        """Number of steps executed successfully (status SUCCESS)."""
+        return self._count(StepStatus.SUCCESS)
+
+    @property
+    def executed_steps(self) -> int:
+        """Number of steps that changed the working copy (SUCCESS or VERIFICATION_FAILED)."""
+        return sum(1 for s in self.steps if s.executed)
+
+    @property
+    def verified_steps(self) -> int:
+        """Number of steps whose post-apply verification passed."""
+        return sum(1 for s in self.steps if s.verified is True)
 
     @property
     def failed_steps(self) -> int:
-        """Number of steps that failed."""
-        return sum(1 for s in self.steps if s.status == StepStatus.FAILED)
+        """Number of steps that failed, in execution or in verification."""
+        return self._count(StepStatus.FAILED, StepStatus.VERIFICATION_FAILED)
+
+    @property
+    def verification_failed_steps(self) -> int:
+        """Number of steps executed but rejected by post-apply verification."""
+        return self._count(StepStatus.VERIFICATION_FAILED)
 
     @property
     def skipped_steps(self) -> int:
-        """Number of steps that were skipped."""
-        return sum(1 for s in self.steps if s.status == StepStatus.SKIPPED)
+        """Number of steps that were skipped (not executed)."""
+        return self._count(StepStatus.SKIPPED)
+
+    @property
+    def not_attempted_steps(self) -> int:
+        """Number of planned steps never attempted (execution stopped earlier)."""
+        return self._count(StepStatus.PENDING)
+
+    @property
+    def rolled_back_steps(self) -> int:
+        """Number of executed steps undone after a later failure."""
+        return sum(1 for s in self.steps if s.rolled_back)
 
     @property
     def all_succeeded(self) -> bool:
-        """True if every step either succeeded or was a dry-run success."""
-        return all(
-            s.status in (StepStatus.SUCCESS, StepStatus.DRY_RUN, StepStatus.SKIPPED)
+        """True if there is at least one step and every step was executed (or, in a
+        dry run, simulated) successfully.  A skipped step is not a success."""
+        return bool(self.steps) and all(
+            s.status in (StepStatus.SUCCESS, StepStatus.DRY_RUN) and s.verified is not False
             for s in self.steps
         )
+
+    def aggregate_status(self) -> StepStatus:
+        """Derive the overall status from the step results.
+
+        - ``FAILED``: any step failed, failed verification or was rolled back, or
+          any planned step was never attempted.
+        - ``SKIPPED``: nothing was executed (no steps, or every step skipped).
+        - ``PARTIAL``: some steps executed (or simulated), others skipped.
+        - ``SUCCESS`` / ``DRY_RUN``: every step executed (or simulated) successfully.
+        """
+        if any(
+            s.status in (StepStatus.FAILED, StepStatus.VERIFICATION_FAILED, StepStatus.PENDING)
+            or s.rolled_back
+            or s.verified is False
+            for s in self.steps
+        ):
+            return StepStatus.FAILED
+        done = self._count(StepStatus.SUCCESS, StepStatus.DRY_RUN)
+        if done == 0:
+            return StepStatus.SKIPPED
+        if done < len(self.steps):
+            return StepStatus.PARTIAL
+        return StepStatus.DRY_RUN if self.dry_run else StepStatus.SUCCESS
 
 
 # ---------------------------------------------------------------------------
@@ -249,3 +339,12 @@ class Modifier(Protocol):
         ``FAILED`` if rollback was not possible.
         """
         ...
+
+    # Optional: a modifier may also define
+    #
+    #     def verify(self, change, context, step_result) -> ModificationStepResult
+    #
+    # which the framework calls after a successful (non-dry-run) apply.  It returns
+    # status ``SUCCESS`` if the working copy now reflects the change, ``FAILED``
+    # otherwise.  It is not part of the Protocol so that existing modifiers still
+    # satisfy ``isinstance(m, Modifier)``; without it a step stays ``verified=None``.

@@ -1,0 +1,293 @@
+{
+  "status": "complete",
+  "security_status": "findings_present",
+  "package_name": "de.audioattack.openlink",
+  "version_name": "1.5.11",
+  "version_code": "28",
+  "summary": {
+    "total_findings": 5,
+    "critical_count": 0,
+    "high_count": 0,
+    "medium_count": 0,
+    "low_count": 5,
+    "info_count": 0,
+    "malware_indicator_count": 0,
+    "spyware_indicator_count": 1,
+    "vulnerability_count": 3,
+    "diff_security_change_count": 0,
+    "overall_security_status": "findings_present"
+  },
+  "findings": [
+    {
+      "id": "SEC-MAL-PERSISTENCE-BOOT",
+      "category": "persistence",
+      "title": "Device Boot Persistence Mechanism Detected",
+      "description": "Application requests RECEIVE_BOOT_COMPLETED permission and/or declares broadcast receivers listening for device boot completion.",
+      "severity": "low",
+      "confidence": "high",
+      "evidence": [
+        {
+          "description": "Declared permission: RECEIVE_BOOT_COMPLETED",
+          "location": "permission:android.permission.RECEIVE_BOOT_COMPLETED",
+          "snippet": "RECEIVE_BOOT_COMPLETED",
+          "references": []
+        }
+      ],
+      "assessment": "The application contains components configured to automatically startor resume executionwhen the device is powered on or rebooted.",
+      "limitations": [
+        "Boot startup is standard for communication apps, alarm managers, andscheduled synchronization services."
+      ],
+      "references": [
+        "CWE-250: Execution with Unnecessary Privileges"
+      ],
+      "tags": [
+        "persistence",
+        "boot",
+        "receiver"
+      ]
+    },
+    {
+      "id": "SEC-NET-CLEARTEXT-URLS",
+      "category": "network",
+      "title": "Cleartext HTTP URL References Detected",
+      "description": "Discovered 1 unencrypted HTTP URLs in theapplication.",
+      "severity": "low",
+      "confidence": "high",
+      "evidence": [
+        {
+          "description": "Cleartext HTTP URL: http://example.org",
+          "location": "classes.dex",
+          "snippet": "http://example.org",
+          "references": []
+        }
+      ],
+      "assessment": "Using plain HTTP allows network adversaries on the same path (e.g.public Wi-Fi)to monitor or modify transmitted data.",
+      "limitations": [
+        "Static URL strings may be fallback endpoints or legacy protocoldocumentation references."
+      ],
+      "references": [
+        "CWE-319: Cleartext Transmission of Sensitive Information"
+      ],
+      "tags": [
+        "network",
+        "http",
+        "cleartext"
+      ]
+    },
+    {
+      "id": "SEC-VULN-BACKUP-001",
+      "category": "vulnerability",
+      "title": "Application Backup Enabled Without Restriction",
+      "description": "The AndroidManifest.xml has android:allowBackup=\"true\" without restrictive backup rules, allowing adb backup.\n",
+      "severity": "low",
+      "confidence": "confirmed",
+      "evidence": [
+        {
+          "description": "Manifest attribute allowBackup=true",
+          "location": "manifest:allowBackup",
+          "snippet": "allowBackup=true",
+          "references": []
+        }
+      ],
+      "assessment": "Application private data can be extracted using ADB backup if physical or debugging access is gained.\n",
+      "limitations": [
+        "System backup is standard for user data migration; risk depends on sensitivity of stored credentials."
+      ],
+      "references": [
+        "CWE-200: Exposure of Sensitive Information"
+      ],
+      "tags": [
+        "vulnerability",
+        "manifest",
+        "backup"
+      ]
+    },
+    {
+      "id": "SEC-VULN-EXPORTED-RECEIVER",
+      "category": "exported_component",
+      "title": "Exported Broadcast Receiver Lacks Permission Protection",
+      "description": "Found 1 Broadcast Receiver(s) declared with android:exported='true' without permission constraints.",
+      "severity": "low",
+      "confidence": "confirmed",
+      "evidence": [
+        {
+          "description": "Exported broadcast receiver lacking permission: de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+          "location": "manifest:receiver:de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+          "snippet": "Receiver: de.audioattack.openlink.conf.PackageChangeBroadcastReceiver (exported=true, permission=None)",
+          "references": []
+        }
+      ],
+      "assessment": "Any application on the device can send broadcast intents to thisreceiver,potentially triggering internal workflows with forged parameters.",
+      "limitations": [
+        "Receivers listening to system broadcasts (e.g. connectivity changes)must be exported."
+      ],
+      "references": [
+        "CWE-926: Improper Export of Android Application Components"
+      ],
+      "tags": [
+        "exported_component",
+        "receiver",
+        "vulnerability"
+      ]
+    },
+    {
+      "id": "SEC-VULN-MANIFEST-BACKUP",
+      "category": "configuration",
+      "title": "Application Data Backup Enabled (allowBackup=true)",
+      "description": "The application manifest sets android:allowBackup='true'. Application private databases and shared preferences can be backed upvia ADB.",
+      "severity": "low",
+      "confidence": "confirmed",
+      "evidence": [
+        {
+          "description": "Manifest declaration: android:allowBackup='true'",
+          "location": "manifest:application:allowBackup",
+          "snippet": "android:allowBackup='true'",
+          "references": []
+        }
+      ],
+      "assessment": "Anyone with physical access to an unlocked device or ADB authorizationcan run 'adb backup'to extract the application's internal files and local credentials.",
+      "limitations": [
+        "Google Drive auto-backup relies on allowBackup; applications may useandroid:fullBackupContent rules."
+      ],
+      "references": [
+        "CWE-200: Exposure of Sensitive Information"
+      ],
+      "tags": [
+        "manifest",
+        "backup",
+        "vulnerability"
+      ]
+    }
+  ],
+  "malware_indicators": [],
+  "spyware_indicators": [
+    {
+      "id": "SEC-MAL-PERSISTENCE-BOOT",
+      "category": "persistence",
+      "title": "Device Boot Persistence Mechanism Detected",
+      "description": "Application requests RECEIVE_BOOT_COMPLETED permission and/or declares broadcast receivers listening for device boot completion.",
+      "severity": "low",
+      "confidence": "high",
+      "evidence": [
+        {
+          "description": "Declared permission: RECEIVE_BOOT_COMPLETED",
+          "location": "permission:android.permission.RECEIVE_BOOT_COMPLETED",
+          "snippet": "RECEIVE_BOOT_COMPLETED",
+          "references": []
+        }
+      ],
+      "assessment": "The application contains components configured to automatically startor resume executionwhen the device is powered on or rebooted.",
+      "limitations": [
+        "Boot startup is standard for communication apps, alarm managers, andscheduled synchronization services."
+      ],
+      "references": [
+        "CWE-250: Execution with Unnecessary Privileges"
+      ],
+      "tags": [
+        "persistence",
+        "boot",
+        "receiver"
+      ]
+    }
+  ],
+  "vulnerability_indicators": [
+    {
+      "id": "SEC-VULN-BACKUP-001",
+      "category": "vulnerability",
+      "title": "Application Backup Enabled Without Restriction",
+      "description": "The AndroidManifest.xml has android:allowBackup=\"true\" without restrictive backup rules, allowing adb backup.\n",
+      "severity": "low",
+      "confidence": "confirmed",
+      "evidence": [
+        {
+          "description": "Manifest attribute allowBackup=true",
+          "location": "manifest:allowBackup",
+          "snippet": "allowBackup=true",
+          "references": []
+        }
+      ],
+      "assessment": "Application private data can be extracted using ADB backup if physical or debugging access is gained.\n",
+      "limitations": [
+        "System backup is standard for user data migration; risk depends on sensitivity of stored credentials."
+      ],
+      "references": [
+        "CWE-200: Exposure of Sensitive Information"
+      ],
+      "tags": [
+        "vulnerability",
+        "manifest",
+        "backup"
+      ]
+    },
+    {
+      "id": "SEC-VULN-EXPORTED-RECEIVER",
+      "category": "exported_component",
+      "title": "Exported Broadcast Receiver Lacks Permission Protection",
+      "description": "Found 1 Broadcast Receiver(s) declared with android:exported='true' without permission constraints.",
+      "severity": "low",
+      "confidence": "confirmed",
+      "evidence": [
+        {
+          "description": "Exported broadcast receiver lacking permission: de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+          "location": "manifest:receiver:de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+          "snippet": "Receiver: de.audioattack.openlink.conf.PackageChangeBroadcastReceiver (exported=true, permission=None)",
+          "references": []
+        }
+      ],
+      "assessment": "Any application on the device can send broadcast intents to thisreceiver,potentially triggering internal workflows with forged parameters.",
+      "limitations": [
+        "Receivers listening to system broadcasts (e.g. connectivity changes)must be exported."
+      ],
+      "references": [
+        "CWE-926: Improper Export of Android Application Components"
+      ],
+      "tags": [
+        "exported_component",
+        "receiver",
+        "vulnerability"
+      ]
+    },
+    {
+      "id": "SEC-VULN-MANIFEST-BACKUP",
+      "category": "configuration",
+      "title": "Application Data Backup Enabled (allowBackup=true)",
+      "description": "The application manifest sets android:allowBackup='true'. Application private databases and shared preferences can be backed upvia ADB.",
+      "severity": "low",
+      "confidence": "confirmed",
+      "evidence": [
+        {
+          "description": "Manifest declaration: android:allowBackup='true'",
+          "location": "manifest:application:allowBackup",
+          "snippet": "android:allowBackup='true'",
+          "references": []
+        }
+      ],
+      "assessment": "Anyone with physical access to an unlocked device or ADB authorizationcan run 'adb backup'to extract the application's internal files and local credentials.",
+      "limitations": [
+        "Google Drive auto-backup relies on allowBackup; applications may useandroid:fullBackupContent rules."
+      ],
+      "references": [
+        "CWE-200: Exposure of Sensitive Information"
+      ],
+      "tags": [
+        "manifest",
+        "backup",
+        "vulnerability"
+      ]
+    }
+  ],
+  "diff_findings": [],
+  "warnings": [],
+  "errors": [],
+  "limitations": [
+    "Static security analysis identifies capabilities, configuration states, and potential vulnerability patterns. It does not establish that code is actively executed, that vulnerabilities are exploitable in context, or that the application is malicious."
+  ],
+  "_regen_meta": {
+    "generated_utc": "2026-10-02T19:06:37.276045+00:00",
+    "apkforge_module": "/tmp/claude-1000/-home-naishring-APKForge/fa411565-066c-4e98-9721-a3c63ad0f39b/scratchpad/before-wt/src/apkforge/__init__.py",
+    "git_head": "7415f671aa5b0e56f2e865b2167d43f74176a013",
+    "src_dirty": [],
+    "apk": "tests/corpus/de.audioattack.openlink_28.apk",
+    "apk_sha256": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed"
+  }
+}

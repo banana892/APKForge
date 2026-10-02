@@ -1,0 +1,12 @@
+com.emanuelef.remote_capture@95 {'activities': {'components': 26, 'with_filters': 0, 'filters': 0}, 'services': {'components': 2, 'with_filters': 0, 'filters': 0}, 'receivers': {'components': 3, 'with_filters': 0, 'filters': 0}}
+  pcapdroid: 9 findings
+com.oF2pks.applicationsinfo@19 {'activities': {'components': 4, 'with_filters': 0, 'filters': 0}, 'services': {'components': 0, 'with_filters': 0, 'filters': 0}, 'receivers': {'components': 0, 'with_filters': 0, 'filters': 0}}
+de.audioattack.openlink@28 {'activities': {'components': 3, 'with_filters': 0, 'filters': 0}, 'services': {'components': 0, 'with_filters': 0, 'filters': 0}, 'receivers': {'components': 2, 'with_filters': 0, 'filters': 0}}
+  openlink: 5 findings
+de.danoeh.antennapod@3120295 {'activities': {'components': 12, 'with_filters': 0, 'filters': 0}, 'services': {'components': 7, 'with_filters': 0, 'filters': 0}, 'receivers': {'components': 16, 'with_filters': 0, 'filters': 0}}
+eu.siacs.conversations@4218104 {'activities': {'components': 40, 'with_filters': 0, 'filters': 0}, 'services': {'components': 6, 'with_filters': 0, 'filters': 0}, 'receivers': {'components': 6, 'with_filters': 0, 'filters': 0}}
+godau.fynn.usagedirect@10 {'activities': {'components': 5, 'with_filters': 0, 'filters': 0}, 'services': {'components': 2, 'with_filters': 0, 'filters': 0}, 'receivers': {'components': 2, 'with_filters': 0, 'filters': 0}}
+io.github.muntashirakon.AppManager@451 {'activities': {'components': 39, 'with_filters': 0, 'filters': 0}, 'services': {'components': 11, 'with_filters': 0, 'filters': 0}, 'receivers': {'components': 7, 'with_filters': 0, 'filters': 0}}
+  appmanager: 28 findings
+org.mozilla.fennec_fdroid@1560020 {'activities': {'components': 20, 'with_filters': 0, 'filters': 0}, 'services': {'components': 105, 'with_filters': 0, 'filters': 0}, 'receivers': {'components': 14, 'with_filters': 0, 'filters': 0}}
+org.schabi.newpipe@1015 {'activities': {'components': 13, 'with_filters': 0, 'filters': 0}, 'services': {'components': 11, 'with_filters': 0, 'filters': 0}, 'receivers': {'components': 5, 'with_filters': 0, 'filters': 0}}

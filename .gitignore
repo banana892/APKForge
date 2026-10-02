@@ -38,6 +38,8 @@ htmlcov/
 *.swp
 *.swo
 *~
+# Office-suite lock files (e.g. ONLYOFFICE/LibreOffice)
+.~lock.*#
 .DS_Store
 Thumbs.db
 

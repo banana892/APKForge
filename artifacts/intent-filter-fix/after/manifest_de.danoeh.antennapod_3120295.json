@@ -1,0 +1,1023 @@
+{
+  "_meta": {
+    "apk_sha256": "3f43a4337a693cdb49141afe06cb596e88c796009ed77bff51e9444ce2d1ebfc",
+    "apkforge_module": "/home/naishring/APKForge/src/apkforge/__init__.py",
+    "generated_utc": "2026-10-02T19:14:36.862484+00:00",
+    "git_head": "7415f671aa5b0e56f2e865b2167d43f74176a013",
+    "id": "de.danoeh.antennapod@3120295",
+    "src_dirty": [
+      "M src/apkforge/inspection/manifest.py"
+    ]
+  },
+  "inspector_status": "complete",
+  "manifest": {
+    "activities": [
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.VIEW",
+              "android.intent.action.SEND"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": "text/xml",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "text/x-opml",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/xml",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "file"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "content"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "http"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "https"
+              }
+            ]
+          }
+        ],
+        "name": "de.danoeh.antennapod.activity.OpmlImportActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.VIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": "antennapod.org",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/deeplink/main",
+                "port": null,
+                "scheme": "https"
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": "antennapod.org",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/deeplink/search",
+                "port": null,
+                "scheme": "https"
+              }
+            ]
+          },
+          {
+            "actions": [
+              "de.danoeh.antennapod.intents.MAIN_ACTIVITY",
+              "android.service.quicksettings.action.QS_TILE_PREFERENCES"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": []
+          }
+        ],
+        "name": "de.danoeh.antennapod.activity.MainActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "de.danoeh.antennapod.intents.VIDEO_PLAYER_MEDIA3"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": []
+          }
+        ],
+        "name": "de.danoeh.antennapod.ui.screen.playback.video.Media3VideoPlayerActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.appwidget.action.APPWIDGET_CONFIGURE"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "de.danoeh.antennapod.ui.widget.WidgetConfigActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [
+          {
+            "actions": [
+              "de.danoeh.antennapod.intents.PLAYBACK_SPEED"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": []
+          }
+        ],
+        "name": "de.danoeh.antennapod.ui.screen.playback.PlaybackSpeedDialogActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.APPLICATION_PREFERENCES"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "de.danoeh.antennapod.ui.screen.preferences.PreferenceActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.MAIN",
+              "android.media.action.MEDIA_PLAY_FROM_SEARCH",
+              "android.intent.action.MUSIC_PLAYER"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.LAUNCHER",
+              "android.intent.category.APP_MUSIC"
+            ],
+            "data": []
+          }
+        ],
+        "name": "de.danoeh.antennapod.activity.SplashActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [
+          {
+            "actions": [
+              "de.danoeh.antennapod.intents.VIDEO_PLAYER"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": []
+          }
+        ],
+        "name": "de.danoeh.antennapod.ui.screen.playback.video.VideoplayerActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.VIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "http"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "https"
+              },
+              {
+                "host": null,
+                "mime_type": "text/xml",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/rss+xml",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/atom+xml",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "application/xml",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "itpc"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "pcast"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "feed"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "antennapod-subscribe"
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": "antennapod.org",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/deeplink/subscribe",
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "http"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "https"
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": "/.*\\..*/.*",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "www.subscribeonandroid.com",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "https"
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.SEND"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": "text/plain",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "de.danoeh.antennapod.intents.ONLINE_FEEDVIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": []
+          }
+        ],
+        "name": "de.danoeh.antennapod.ui.screen.onlinefeedview.OnlineFeedViewActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [
+          {
+            "actions": [],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": []
+          }
+        ],
+        "name": "de.danoeh.antennapod.ui.echo.EchoActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.CREATE_SHORTCUT"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "de.danoeh.antennapod.activity.SelectSubscriptionActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "androidx.car.app.CarAppPermissionActivity",
+        "permission": null,
+        "process": null
+      }
+    ],
+    "application": {
+      "allow_backup": true,
+      "debuggable": null,
+      "extract_native_libs": false,
+      "icon": "res/9w.png",
+      "label": "AntennaPod",
+      "large_heap": null,
+      "network_security_config": "res/8G.xml",
+      "test_only": null,
+      "theme": "@7F140279",
+      "uses_cleartext_traffic": true
+    },
+    "declared_permissions": [],
+    "min_sdk": 23,
+    "package_name": "de.danoeh.antennapod",
+    "permissions": [
+      {
+        "name": "android.permission.RECEIVE_BOOT_COMPLETED",
+        "protection_level": null
+      },
+      {
+        "name": "de.danoeh.antennapod.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.POST_NOTIFICATIONS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.ACCESS_WIFI_STATE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.WAKE_LOCK",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.BLUETOOTH",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.ACCESS_NETWORK_STATE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.VIBRATE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.INTERNET",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.FOREGROUND_SERVICE",
+        "protection_level": null
+      }
+    ],
+    "providers": [
+      {
+        "authorities": "androidx.car.app.connection",
+        "enabled": null,
+        "exported": null,
+        "grant_uri_permissions": null,
+        "name": "androidx.car.app.connection.provider",
+        "permission": null,
+        "process": null,
+        "read_permission": null,
+        "write_permission": null
+      },
+      {
+        "authorities": "de.danoeh.antennapod.provider",
+        "enabled": null,
+        "exported": false,
+        "grant_uri_permissions": true,
+        "name": "androidx.core.content.FileProvider",
+        "permission": null,
+        "process": null,
+        "read_permission": null,
+        "write_permission": null
+      },
+      {
+        "authorities": "de.danoeh.antennapod.androidx-startup",
+        "enabled": null,
+        "exported": false,
+        "grant_uri_permissions": null,
+        "name": "androidx.startup.InitializationProvider",
+        "permission": null,
+        "process": null,
+        "read_permission": null,
+        "write_permission": null
+      }
+    ],
+    "receivers": [
+      {
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.net.conn.CONNECTIVITY_CHANGE"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "de.danoeh.antennapod.net.download.service.ConnectivityActionReceiver",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": false,
+        "exported": false,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.BOOT_COMPLETED",
+              "android.intent.action.TIME_SET",
+              "android.intent.action.TIMEZONE_CHANGED"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "androidx.work.impl.background.systemalarm.RescheduleReceiver",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": false,
+        "exported": false,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.DEVICE_STORAGE_LOW",
+              "android.intent.action.DEVICE_STORAGE_OK"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": false,
+        "exported": false,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.net.conn.CONNECTIVITY_CHANGE"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": false,
+        "exported": false,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.BATTERY_OKAY",
+              "android.intent.action.BATTERY_LOW"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "de.danoeh.antennapod.net.download.service.feed.FeedUpdateReceiver",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": false,
+        "exported": false,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.ACTION_POWER_CONNECTED",
+              "android.intent.action.ACTION_POWER_DISCONNECTED"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [
+          {
+            "actions": [
+              "androidx.work.impl.background.systemalarm.UpdateProxies"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.ACTION_POWER_CONNECTED",
+              "android.intent.action.ACTION_POWER_DISCONNECTED"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "de.danoeh.antennapod.net.download.service.PowerConnectionReceiver",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "intent_filters": [],
+        "name": "androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "androidx.profileinstaller.action.INSTALL_PROFILE"
+            ],
+            "categories": [],
+            "data": []
+          },
+          {
+            "actions": [
+              "androidx.profileinstaller.action.SKIP_FILE"
+            ],
+            "categories": [],
+            "data": []
+          },
+          {
+            "actions": [
+              "androidx.profileinstaller.action.SAVE_PROFILE"
+            ],
+            "categories": [],
+            "data": []
+          },
+          {
+            "actions": [
+              "androidx.profileinstaller.action.BENCHMARK_OPERATION"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "androidx.profileinstaller.ProfileInstallReceiver",
+        "permission": "android.permission.DUMP",
+        "process": null
+      },
+      {
+        "enabled": false,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.MEDIA_BUTTON"
+            ],
+            "categories": [],
+            "data": []
+          },
+          {
+            "actions": [
+              "de.danoeh.antennapod.NOTIFY_BUTTON_RECEIVER"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "de.danoeh.antennapod.playback.service.MediaButtonReceiver",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "androidx.car.app.notification.CarAppNotificationBroadcastReceiver",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.appwidget.action.APPWIDGET_UPDATE",
+              "de.danoeh.antennapod.FORCE_WIDGET_UPDATE",
+              "de.danoeh.antennapod.STOP_WIDGET_UPDATE"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "de.danoeh.antennapod.ui.widget.PlayerWidget",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "androidx.work.diagnostics.REQUEST_DIAGNOSTICS"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "androidx.work.impl.diagnostics.DiagnosticsReceiver",
+        "permission": "android.permission.DUMP",
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.MEDIA_BUTTON"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "androidx.media3.session.MediaButtonReceiver",
+        "permission": null,
+        "process": null
+      }
+    ],
+    "resource_map": {
+      "@7F100000": "res/9w.png",
+      "@7F130332": "de.danoeh.antennapod.provider",
+      "@7F160004": "res/8G.xml"
+    },
+    "services": [
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "androidx.work.impl.background.systemalarm.SystemAlarmService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": true,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "androidx.work.impl.background.systemjob.SystemJobService",
+        "permission": "android.permission.BIND_JOB_SERVICE",
+        "process": null
+      },
+      {
+        "enabled": false,
+        "exported": true,
+        "foreground_service_type": null,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.service.quicksettings.action.QS_TILE"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "de.danoeh.antennapod.playback.service.QuickSettingsTileService",
+        "permission": "android.permission.BIND_QUICK_SETTINGS_TILE",
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": true,
+        "foreground_service_type": "0x00000002",
+        "intent_filters": [
+          {
+            "actions": [
+              "androidx.media3.session.MediaSessionService",
+              "androidx.media3.session.MediaLibraryService",
+              "de.danoeh.antennapod.intents.PLAYBACK_SERVICE_MEDIA3",
+              "android.media.browse.MediaBrowserService"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "de.danoeh.antennapod.playback.service.Media3PlaybackService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": false,
+        "exported": true,
+        "foreground_service_type": "0x00000002",
+        "intent_filters": [
+          {
+            "actions": [
+              "android.media.browse.MediaBrowserService",
+              "de.danoeh.antennapod.intents.PLAYBACK_SERVICE"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "de.danoeh.antennapod.playback.service.PlaybackService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "androidx.room.MultiInstanceInvalidationService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "androidx.work.impl.foreground.SystemForegroundService",
+        "permission": null,
+        "process": null
+      }
+    ],
+    "target_sdk": 36,
+    "version_code": 3120295,
+    "version_name": "3.12.2"
+  },
+  "overall_status": "complete",
+  "warnings": []
+}

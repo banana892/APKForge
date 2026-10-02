@@ -1,0 +1,1513 @@
+{
+  "_meta": {
+    "apk_sha256": "27f2951376ca1085e0933066c902fdfe4d260916d381e233475c5fd6964f5745",
+    "apkforge_module": "/tmp/claude-1000/-home-naishring-APKForge/fa411565-066c-4e98-9721-a3c63ad0f39b/scratchpad/before-wt/src/apkforge/__init__.py",
+    "generated_utc": "2026-10-02T19:10:16.547933+00:00",
+    "git_head": "7415f671aa5b0e56f2e865b2167d43f74176a013",
+    "id": "org.mozilla.fennec_fdroid@1560020",
+    "src_dirty": []
+  },
+  "inspector_status": "complete",
+  "manifest": {
+    "activities": [
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "mozilla.components.feature.pwa.WebAppLauncherActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "mozilla.components.lib.crash.prompt.CrashReporterActivity",
+        "permission": null,
+        "process": ":mozilla.components.lib.crash.CrashReporter"
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.HomeActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.messaging.NotificationClickedReceiverActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.settings.account.AuthCustomTabActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "org.unifiedpush.android.connector.internal.LinkActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.autofill.AutofillSearchActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.customtabs.ExternalAppBrowserActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.components.lens.LensCameraActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.startupCrash.StartupCrashActivity",
+        "permission": null,
+        "process": ":StartupCrashActivityProcess"
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "mozilla.telemetry.glean.debug.GleanDebugActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "mozilla.components.feature.qr.QrScanActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.perf.StopProfilerActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.settings.account.AuthIntentReceiverActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.IntentReceiverActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.autofill.AutofillUnlockActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.widget.VoiceSearchActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.widget.LensSearchActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.autofill.AutofillConfirmActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "com.google.android.gms.common.api.GoogleApiActivity",
+        "permission": null,
+        "process": null
+      }
+    ],
+    "application": {
+      "allow_backup": false,
+      "debuggable": null,
+      "extract_native_libs": true,
+      "icon": "res/d2.webp",
+      "label": "Fennec",
+      "large_heap": null,
+      "network_security_config": "res/8G.xml",
+      "test_only": null,
+      "theme": "@7F1501B4",
+      "uses_cleartext_traffic": true
+    },
+    "declared_permissions": [],
+    "min_sdk": 26,
+    "package_name": "org.mozilla.fennec_fdroid",
+    "permissions": [
+      {
+        "name": "com.android.launcher.permission.INSTALL_SHORTCUT",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.POST_NOTIFICATIONS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.FOREGROUND_SERVICE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.FOREGROUND_SERVICE_SPECIAL_USE",
+        "protection_level": null
+      },
+      {
+        "name": "org.mozilla.fennec_fdroid.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+        "protection_level": null
+      },
+      {
+        "name": "com.adjust.preinstall.READ_PERMISSION",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.USE_BIOMETRIC",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.CAMERA",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.MODIFY_AUDIO_SETTINGS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.REQUEST_DELETE_PACKAGES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.RECORD_AUDIO",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.ACCESS_FINE_LOCATION",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.CREDENTIAL_MANAGER_QUERY_CANDIDATE_CREDENTIALS",
+        "protection_level": null
+      },
+      {
+        "name": "org.mozilla.fennec_fdroid.permission.PROFILER_INTERNAL",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.READ_MEDIA_AUDIO",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.VIBRATE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.DOWNLOAD_WITHOUT_NOTIFICATION",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.CREDENTIAL_MANAGER_SET_ORIGIN",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.WAKE_LOCK",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.QUERY_ALL_PACKAGES",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.ACCESS_LOCAL_NETWORK",
+        "protection_level": null
+      },
+      {
+        "name": "org.mozilla.fennec_fdroid.permission.RECEIVE_DOWNLOAD_BROADCAST",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.READ_EXTERNAL_STORAGE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.RECEIVE_BOOT_COMPLETED",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.READ_MEDIA_VISUAL_USER_SELECTED",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.FOREGROUND_SERVICE_DATA_SYNC",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.WRITE_EXTERNAL_STORAGE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.ACCESS_NETWORK_STATE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.INTERNET",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.USE_FINGERPRINT",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.ACCESS_COARSE_LOCATION",
+        "protection_level": null
+      }
+    ],
+    "providers": [
+      {
+        "authorities": "org.mozilla.fennec_fdroid.fileprovider",
+        "enabled": null,
+        "exported": false,
+        "grant_uri_permissions": true,
+        "name": "androidx.core.content.FileProvider",
+        "permission": null,
+        "process": null,
+        "read_permission": null,
+        "write_permission": null
+      },
+      {
+        "authorities": "org.mozilla.fennec_fdroid.androidx-startup",
+        "enabled": null,
+        "exported": false,
+        "grant_uri_permissions": null,
+        "name": "androidx.startup.InitializationProvider",
+        "permission": null,
+        "process": null,
+        "read_permission": null,
+        "write_permission": null
+      },
+      {
+        "authorities": "org.mozilla.fennec_fdroid.feature.prompts.fileprovider",
+        "enabled": null,
+        "exported": false,
+        "grant_uri_permissions": true,
+        "name": "mozilla.components.feature.prompts.provider.FileProvider",
+        "permission": null,
+        "process": null,
+        "read_permission": null,
+        "write_permission": null
+      },
+      {
+        "authorities": "org.mozilla.fennec_fdroid.clipboard",
+        "enabled": null,
+        "exported": true,
+        "grant_uri_permissions": true,
+        "name": "org.mozilla.gecko.GeckoClipboardContentProvider",
+        "permission": null,
+        "process": null,
+        "read_permission": null,
+        "write_permission": null
+      },
+      {
+        "authorities": "org.mozilla.fennec_fdroid.androidx-startup",
+        "enabled": null,
+        "exported": false,
+        "grant_uri_permissions": null,
+        "name": "androidx.startup.InitializationProvider",
+        "permission": null,
+        "process": null,
+        "read_permission": null,
+        "write_permission": null
+      },
+      {
+        "authorities": "org.mozilla.fennec_fdroid.lens.fileprovider",
+        "enabled": null,
+        "exported": false,
+        "grant_uri_permissions": true,
+        "name": "org.mozilla.fenix.components.LensFileProvider",
+        "permission": null,
+        "process": null,
+        "read_permission": null,
+        "write_permission": null
+      },
+      {
+        "authorities": "org.mozilla.fennec_fdroid.profiler",
+        "enabled": false,
+        "exported": false,
+        "grant_uri_permissions": false,
+        "name": "org.mozilla.fenix.perf.ProfilerProvider",
+        "permission": null,
+        "process": null,
+        "read_permission": "android.permission.DUMP",
+        "write_permission": null
+      },
+      {
+        "authorities": "org.mozilla.fennec_fdroid.feature.downloads.fileprovider",
+        "enabled": null,
+        "exported": false,
+        "grant_uri_permissions": true,
+        "name": "mozilla.components.support.utils.provider.FileProvider",
+        "permission": null,
+        "process": null,
+        "read_permission": null,
+        "write_permission": null
+      },
+      {
+        "authorities": "org.mozilla.fennec_fdroid.SentryPerformanceProvider",
+        "enabled": null,
+        "exported": false,
+        "grant_uri_permissions": null,
+        "name": "io.sentry.android.core.SentryPerformanceProvider",
+        "permission": null,
+        "process": null,
+        "read_permission": null,
+        "write_permission": null
+      }
+    ],
+    "receivers": [
+      {
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.components.share.PrintReceiver",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": false,
+        "exported": false,
+        "intent_filters": [],
+        "name": "androidx.work.impl.background.systemalarm.RescheduleReceiver",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.components.share.SaveToPdfReceiver",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": true,
+        "intent_filters": [],
+        "name": "androidx.work.impl.diagnostics.DiagnosticsReceiver",
+        "permission": "android.permission.DUMP",
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "intent_filters": [],
+        "name": "androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": true,
+        "intent_filters": [],
+        "name": "androidx.profileinstaller.ProfileInstallReceiver",
+        "permission": "android.permission.DUMP",
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.privacyreport.PrivacyReportNotificationReceiver",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "com.adjust.sdk.AdjustPreinstallReferrerReceiver",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": true,
+        "intent_filters": [],
+        "name": "org.ironfoxoss.unifiedpush.PushReceiver",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.onboarding.WidgetPinnedReceiver",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": true,
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.experiments.QANimbusToolingReceiver",
+        "permission": "android.permission.DUMP",
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": true,
+        "intent_filters": [],
+        "name": "org.unifiedpush.android.connector.internal.MessagingReceiverImpl",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": true,
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.messaging.QAMessageNotificationWorkerReceiver",
+        "permission": "android.permission.DUMP",
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.search.SearchWidgetProvider",
+        "permission": null,
+        "process": null
+      }
+    ],
+    "resource_map": {
+      "@7F100000": "res/d2.webp",
+      "@7F170016": "res/8G.xml"
+    },
+    "services": [
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab34",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_34"
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x40000000",
+        "intent_filters": [],
+        "name": "mozilla.components.lib.crash.handler.CrashHandlerService",
+        "permission": null,
+        "process": ":mozilla.components.lib.crash.CrashHandler"
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x40000000",
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.session.PrivateNotificationService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab29",
+        "permission": null,
+        "process": ":tab_disable_art_image_29"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab16",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_16"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab38",
+        "permission": null,
+        "process": ":tab_disable_art_image_38"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab33",
+        "permission": null,
+        "process": ":tab_disable_art_image_33"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$ipdlunittest",
+        "permission": null,
+        "process": ":ipdlunittest_disable_art_image_"
+      },
+      {
+        "enabled": null,
+        "exported": true,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.autofill.AutofillService",
+        "permission": "android.permission.BIND_AUTOFILL_SERVICE",
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab17",
+        "permission": null,
+        "process": ":tab_disable_art_image_17"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$utility",
+        "permission": null,
+        "process": ":utility_disable_art_image_"
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x40000000",
+        "intent_filters": [],
+        "name": "mozilla.components.lib.crash.service.SendCrashReportService",
+        "permission": null,
+        "process": ":crashReportingProcess"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab1",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_1"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab11",
+        "permission": null,
+        "process": ":tab_disable_art_image_11"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab2",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_2"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab21",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_21"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab27",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_27"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab31",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_31"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab9",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_9"
+      },
+      {
+        "enabled": null,
+        "exported": true,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.unifiedpush.android.connector.internal.RaiseToForegroundService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab22",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_22"
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "androidx.work.impl.foreground.SystemForegroundService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab18",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_18"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab19",
+        "permission": null,
+        "process": ":tab_disable_art_image_19"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab22",
+        "permission": null,
+        "process": ":tab_disable_art_image_22"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.crashhelper.CrashHelper",
+        "permission": null,
+        "process": ":crashhelper_disable_art_image_"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab10",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_10"
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.push.FirebasePushService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab13",
+        "permission": null,
+        "process": ":tab_disable_art_image_13"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab8",
+        "permission": null,
+        "process": ":tab_disable_art_image_8"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab32",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_32"
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x00000001",
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.downloads.DownloadService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab4",
+        "permission": null,
+        "process": ":tab_disable_art_image_4"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab15",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_15"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab19",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_19"
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.messaging.NotificationDismissedService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": true,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "androidx.work.impl.background.systemjob.SystemJobService",
+        "permission": "android.permission.BIND_JOB_SERVICE",
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab36",
+        "permission": null,
+        "process": ":tab_disable_art_image_36"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab9",
+        "permission": null,
+        "process": ":tab_disable_art_image_9"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab15",
+        "permission": null,
+        "process": ":tab_disable_art_image_15"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab35",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_35"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab12",
+        "permission": null,
+        "process": ":tab_disable_art_image_12"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab13",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_13"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab36",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_36"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab25",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_25"
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "androidx.room.MultiInstanceInvalidationService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab0",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_0"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab14",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_14"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab37",
+        "permission": null,
+        "process": ":tab_disable_art_image_37"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab34",
+        "permission": null,
+        "process": ":tab_disable_art_image_34"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab26",
+        "permission": null,
+        "process": ":tab_disable_art_image_26"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab1",
+        "permission": null,
+        "process": ":tab_disable_art_image_1"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab21",
+        "permission": null,
+        "process": ":tab_disable_art_image_21"
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x40000000",
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.perf.ProfilerService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab3",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_3"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab28",
+        "permission": null,
+        "process": ":tab_disable_art_image_28"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab12",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_12"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab6",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_6"
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x00000002",
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.media.MediaSessionService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab24",
+        "permission": null,
+        "process": ":tab_disable_art_image_24"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab8",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_8"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab23",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_23"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$zygoteTab",
+        "permission": null,
+        "process": ":zygoteTab_disable_art_image_"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab38",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_38"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab25",
+        "permission": null,
+        "process": ":tab_disable_art_image_25"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab26",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_26"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab7",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_7"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab30",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_30"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab2",
+        "permission": null,
+        "process": ":tab_disable_art_image_2"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab5",
+        "permission": null,
+        "process": ":tab_disable_art_image_5"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab27",
+        "permission": null,
+        "process": ":tab_disable_art_image_27"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab6",
+        "permission": null,
+        "process": ":tab_disable_art_image_6"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab30",
+        "permission": null,
+        "process": ":tab_disable_art_image_30"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab39",
+        "permission": null,
+        "process": ":tab_disable_art_image_39"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab10",
+        "permission": null,
+        "process": ":tab_disable_art_image_10"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab31",
+        "permission": null,
+        "process": ":tab_disable_art_image_31"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab24",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_24"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab28",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_28"
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "mozilla.components.feature.addons.update.DefaultAddonUpdater$NotificationHandlerService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab37",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_37"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab29",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_29"
+      },
+      {
+        "enabled": null,
+        "exported": true,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.fenix.customtabs.CustomTabsService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab3",
+        "permission": null,
+        "process": ":tab_disable_art_image_3"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab35",
+        "permission": null,
+        "process": ":tab_disable_art_image_35"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab20",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_20"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab0",
+        "permission": null,
+        "process": ":tab_disable_art_image_0"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab39",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_39"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab17",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_17"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$rdd",
+        "permission": null,
+        "process": ":rdd_disable_art_image_"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$gpu",
+        "permission": null,
+        "process": ":gpu_disable_art_image_"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab4",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_4"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab11",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_11"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab14",
+        "permission": null,
+        "process": ":tab_disable_art_image_14"
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x40000000",
+        "intent_filters": [],
+        "name": "mozilla.components.lib.crash.service.SendCrashTelemetryService",
+        "permission": null,
+        "process": ":crashReportingProcess"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab5",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_5"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab23",
+        "permission": null,
+        "process": ":tab_disable_art_image_23"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$socket",
+        "permission": null,
+        "process": ":socket_disable_art_image_"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab18",
+        "permission": null,
+        "process": ":tab_disable_art_image_18"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$gmplugin",
+        "permission": null,
+        "process": ":gmplugin_disable_art_image_"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab7",
+        "permission": null,
+        "process": ":tab_disable_art_image_7"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.media.MediaManager",
+        "permission": null,
+        "process": ":media"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab16",
+        "permission": null,
+        "process": ":tab_disable_art_image_16"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab32",
+        "permission": null,
+        "process": ":tab_disable_art_image_32"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab33",
+        "permission": null,
+        "process": ":isolatedTab_disable_art_image_33"
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.mozilla.gecko.process.GeckoChildProcessServices$tab20",
+        "permission": null,
+        "process": ":tab_disable_art_image_20"
+      }
+    ],
+    "target_sdk": 37,
+    "version_code": 1560020,
+    "version_name": "156.0.0"
+  },
+  "overall_status": "partial",
+  "warnings": [
+    "File 'lib/arm64-v8a/libxul.so' too large for embedded detection (156864024 bytes)."
+  ]
+}

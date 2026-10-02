@@ -193,5 +193,8 @@ It also reproduces OpenLink's no-op baseline entry.
 - That the APK is free of malware or spyware, safe to install, or runs on a device. It
   was never installed.
 - Semantic equality of `resources.arsc` and recompiled resources, or of manifest content
-  that DiffEngine does not compare (see known-limitations §16). For C.5 these are covered
-  only by the source-level edit check before the build.
+  that DiffEngine does not compare (e.g. `<queries>`, `<meta-data>`, `<activity-alias>`).
+  For C.5 these are covered only by the source-level edit check before the build.
+  DiffEngine does compare intent filters (actions, categories, data) since the §16 fix;
+  results recorded before that fix said otherwise (known-limitations, "Status update —
+  intent-filter extraction fix").

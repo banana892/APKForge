@@ -1,0 +1,33 @@
+verdicts {'PASS': 96, 'PARTIAL': 3} -> {'PASS': 96, 'PARTIAL': 3}
+verdict differences []
+  com.emanuelef.remote_capture_95.apk security /data_summary/finding_categories ['collection', 'configuration', 'network', 'persistence', 'spyware_indicator', 'vulnerability'] -> ['collection', 'configuration', 'malware_indicator', 'network', 'persistence', 'spyware_indicator', 'vulnerability']
+  com.emanuelef.remote_capture_95.apk security /data_summary/medium 3 -> 4
+  com.emanuelef.remote_capture_95.apk security /data_summary/total_findings 9 -> 10
+  com.emanuelef.remote_capture_95.apk security /message OK: 9 findings (C:0 H:0 M:3 L:5 I:1) -> OK: 10 findings (C:0 H:0 M:4 L:5 I:1)
+  de.danoeh.antennapod_3120295.apk privacy /data_summary/endpoint_count 94 -> 95
+  de.danoeh.antennapod_3120295.apk privacy /message OK: 11 perms, 0 SDKs, 94 endpoints -> OK: 11 perms, 0 SDKs, 95 endpoints
+  de.danoeh.antennapod_3120295.apk security /data_summary/finding_categories ['collection', 'configuration', 'crypto', 'exported_component', 'network', 'persistence', 'spyware_indicator', 'vulnerab -> ['collection', 'configuration', 'crypto', 'exported_component', 'malware_indicator', 'network', 'persistence', 'spyware_
+  de.danoeh.antennapod_3120295.apk security /data_summary/medium 8 -> 9
+  de.danoeh.antennapod_3120295.apk security /data_summary/total_findings 18 -> 19
+  de.danoeh.antennapod_3120295.apk security /message OK: 18 findings (C:0 H:1 M:8 L:8 I:1) -> OK: 19 findings (C:0 H:1 M:9 L:8 I:1)
+  de.danoeh.antennapod_3120295.apk strings_urls_domains /data_summary/domain_count 47 -> 48
+  de.danoeh.antennapod_3120295.apk strings_urls_domains /message OK: 47 URLs, 47 domains, 10 IPs -> OK: 47 URLs, 48 domains, 10 IPs
+  eu.siacs.conversations_4218104.apk security /data_summary/finding_categories ['collection', 'configuration', 'crypto', 'exported_component', 'network', 'payload', 'persistence', 'spyware_indicator' -> ['collection', 'configuration', 'crypto', 'exported_component', 'malware_indicator', 'network', 'payload', 'persistence'
+  eu.siacs.conversations_4218104.apk security /data_summary/high 8 -> 9
+  eu.siacs.conversations_4218104.apk security /data_summary/medium 8 -> 9
+  eu.siacs.conversations_4218104.apk security /data_summary/total_findings 25 -> 27
+  eu.siacs.conversations_4218104.apk security /message OK: 25 findings (C:0 H:8 M:8 L:8 I:1) -> OK: 27 findings (C:0 H:9 M:9 L:8 I:1)
+  io.github.muntashirakon.AppManager_451.apk security /data_summary/medium 13 -> 14
+  io.github.muntashirakon.AppManager_451.apk security /data_summary/total_findings 28 -> 29
+  io.github.muntashirakon.AppManager_451.apk security /message OK: 28 findings (C:0 H:5 M:13 L:9 I:1) -> OK: 29 findings (C:0 H:5 M:14 L:9 I:1)
+  org.mozilla.fennec_fdroid_1560020.apk security /data_summary/high 7 -> 8
+  org.mozilla.fennec_fdroid_1560020.apk security /data_summary/medium 12 -> 13
+  org.mozilla.fennec_fdroid_1560020.apk security /data_summary/total_findings 25 -> 27
+  org.schabi.newpipe_1015_cb84069.apk privacy /data_summary/endpoint_count 233 -> 246
+  org.schabi.newpipe_1015_cb84069.apk privacy /message OK: 11 perms, 2 SDKs, 233 endpoints -> OK: 11 perms, 2 SDKs, 246 endpoints
+  org.schabi.newpipe_1015_cb84069.apk security /data_summary/medium 5 -> 6
+  org.schabi.newpipe_1015_cb84069.apk security /data_summary/total_findings 14 -> 15
+  org.schabi.newpipe_1015_cb84069.apk security /message OK: 14 findings (C:0 H:2 M:5 L:6 I:1) -> OK: 15 findings (C:0 H:2 M:6 L:6 I:1)
+  org.schabi.newpipe_1015_cb84069.apk strings_urls_domains /data_summary/domain_count 98 -> 111
+  org.schabi.newpipe_1015_cb84069.apk strings_urls_domains /message OK: 135 URLs, 98 domains, 0 IPs -> OK: 135 URLs, 111 domains, 0 IPs
+diff pair differences 0

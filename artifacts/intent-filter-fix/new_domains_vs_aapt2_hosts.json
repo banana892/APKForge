@@ -1,0 +1,28 @@
+{
+  "de.danoeh.antennapod_3120295": {
+    "new_domains": [
+      "www.subscribeonandroid.com"
+    ],
+    "all_are_aapt2_intent_filter_hosts": true,
+    "not_in_hosts": []
+  },
+  "org.schabi.newpipe_1015_cb84069": {
+    "new_domains": [
+      "eduvid.org",
+      "indymotion.fr",
+      "m.soundcloud.com",
+      "media.assassinate-you.net",
+      "media.fsfe.org",
+      "peertube.co.uk",
+      "peertube.fr",
+      "skeptikon.fr",
+      "subscribeto.me",
+      "tilvids.com",
+      "video.lqdn.fr",
+      "video.ploud.fr",
+      "www.soundcloud.com"
+    ],
+    "all_are_aapt2_intent_filter_hosts": true,
+    "not_in_hosts": []
+  }
+}

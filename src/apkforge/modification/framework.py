@@ -5,8 +5,10 @@ This is the central engine that:
 2. Validates that the plan is approved and not stale.
 3. Creates an isolated workspace with a working copy.
 4. Runs preflight checks for all approved changes.
-5. Applies changes in dependency order via the ModifierRegistry.
-6. Reports results.
+5. Applies changes in dependency order via the ModifierRegistry, and runs a
+   modifier's optional ``verify()`` after each applied change.
+6. Reports results.  The overall status is derived from the step results by
+   ``ModificationResult.aggregate_status()``: a skipped change is never a success.
 
 Core invariants:
 - The original APK is never modified.
@@ -42,6 +44,7 @@ from apkforge.modification.modifiers.tracker import TrackerModifier
 if TYPE_CHECKING:
     from apkforge.inspection.models import InspectionResult
     from apkforge.modification.models import ModificationPlan, PlannedChange
+    from apkforge.modification.modifiers.base import Modifier
 
 _log = logging.getLogger(__name__)
 
@@ -104,8 +107,9 @@ class ModificationFramework:
             workspace_dir: Optional custom workspace directory.  A caller-supplied
                 directory is never deleted.
             keep_workspace: Keep a framework-created workspace even when the run
-                fails (debugging).  A successful run always keeps it: the working
-                copy is the run's output.
+                does not produce an output (debugging).  A SUCCESS or PARTIAL run
+                always keeps it: the working copy, with the executed changes, is the
+                run's output.  FAILED, SKIPPED and DRY_RUN runs produce none.
 
         Returns:
             ModificationResult with the outcome of each step.
@@ -152,9 +156,11 @@ class ModificationFramework:
             c for c in plan.changes if c.status == ChangeStatus.ACCEPTED
         ]
         if not accepted_changes:
-            result.status = StepStatus.SUCCESS
+            # Nothing executed: complete, but not a successful modification.
+            result.status = StepStatus.SKIPPED
             result.warnings.append("No accepted changes in the plan; nothing to apply.")
             return result
+        result.planned_steps = len(accepted_changes)
 
         # 5. Create isolated workspace
         created_ws = workspace_dir is None
@@ -163,9 +169,18 @@ class ModificationFramework:
             self._execute_in_workspace(
                 plan, apk_path, accepted_changes, ws_dir, inspection, dry_run, result
             )
+            # Original-APK integrity: full SHA-256, not just existence.
+            if self._compute_sha256(apk_path) != current_sha:
+                result.errors.append("CRITICAL: Original APK was modified during execution!")
+                result.status = StepStatus.FAILED
         finally:
-            if created_ws and not keep_workspace and result.status != StepStatus.SUCCESS:
-                # A failed (or interrupted) run's working copy is not an output.
+            if (
+                created_ws
+                and not keep_workspace
+                and result.status not in (StepStatus.SUCCESS, StepStatus.PARTIAL)
+            ):
+                # Without executed changes (failed, skipped, dry run or interrupted
+                # run) the working copy is not an output.
                 shutil.rmtree(ws_dir, ignore_errors=True)
                 result.working_copy_path = None
         return result
@@ -236,41 +251,41 @@ class ModificationFramework:
             )
             return
 
-        # 7. Apply changes in order
+        # 7. Apply (and verify) changes in order
         applied_steps: list[tuple[PlannedChange, ModificationStepResult]] = []
-        for change in accepted_changes:
+        for index, change in enumerate(accepted_changes):
             modifier = self._registry.get_modifier(change.change_type.value)
             if modifier is None:
+                # Unreachable after preflight; a missing modifier is a failure, not a skip.
                 step = ModificationStepResult(
                     change_id=change.id,
                     modifier_id="unknown",
-                    status=StepStatus.SKIPPED,
+                    status=StepStatus.FAILED,
                     message="No modifier available.",
                 )
-                result.steps.append(step)
-                continue
-
-            try:
-                step = modifier.apply(change, context)
-            except Exception as exc:
-                step = ModificationStepResult(
-                    change_id=change.id,
-                    modifier_id=getattr(modifier, "modifier_id", "unknown"),
-                    status=StepStatus.FAILED,
-                    message=f"Apply exception: {exc}",
-                )
+            else:
+                step = self._apply_and_verify(modifier, change, context)
 
             result.steps.append(step)
             applied_steps.append((change, step))
 
-            if step.status == StepStatus.FAILED:
+            if step.status in (StepStatus.FAILED, StepStatus.VERIFICATION_FAILED):
                 result.errors.append(
-                    f"Change {change.id} failed: {step.message}. "
+                    f"Change {change.id} {step.status.value}: {step.message}. "
                     f"Stopping execution."
                 )
-                # Attempt to roll back previously applied changes
-                self._rollback_applied(applied_steps[:-1], context, result)
-                result.status = StepStatus.FAILED
+                # Roll back executed changes, including one that failed verification.
+                to_undo = applied_steps if step.executed else applied_steps[:-1]
+                self._rollback_applied(to_undo, context, result)
+                for skipped_change in accepted_changes[index + 1 :]:
+                    result.steps.append(
+                        ModificationStepResult(
+                            change_id=skipped_change.id,
+                            modifier_id=self._modifier_id_for(skipped_change),
+                            status=StepStatus.PENDING,
+                            message=f"Not attempted: execution stopped at {change.id}.",
+                        )
+                    )
                 break
 
         # 8. Final safety check
@@ -280,19 +295,69 @@ class ModificationFramework:
             result.errors.append("CRITICAL: Original APK may have been modified!")
             result.status = StepStatus.FAILED
 
-        # 9. Set overall status
+        # Overall status, derived from the steps (a skipped step is not a success).
         if result.status != StepStatus.FAILED:
-            if result.all_succeeded:
-                result.status = StepStatus.DRY_RUN if dry_run else StepStatus.SUCCESS
-            else:
-                result.status = StepStatus.FAILED
+            result.status = result.aggregate_status()
+        if result.status == StepStatus.SKIPPED:
+            result.warnings.append("No change was executed: every step was skipped.")
+        elif result.status == StepStatus.PARTIAL:
+            result.warnings.append(
+                f"{result.skipped_steps} of {result.total_steps} change(s) were skipped "
+                f"(not executed)."
+            )
 
         _log.info(
-            "Plan %s execution complete: %d/%d steps succeeded.",
+            "Plan %s execution complete: status=%s, %d/%d executed, %d skipped, "
+            "%d failed, %d verified.",
             plan.plan_id,
-            result.successful_steps,
-            result.total_steps,
+            result.status.value,
+            result.executed_steps,
+            result.planned_steps,
+            result.skipped_steps,
+            result.failed_steps,
+            result.verified_steps,
         )
+
+    def _modifier_id_for(self, change: PlannedChange) -> str:
+        modifier = self._registry.get_modifier(change.change_type.value)
+        return getattr(modifier, "modifier_id", "unknown") if modifier else "unknown"
+
+    @staticmethod
+    def _apply_and_verify(
+        modifier: Modifier,
+        change: PlannedChange,
+        context: ModificationExecutionContext,
+    ) -> ModificationStepResult:
+        """Apply one change; if it was executed, run the modifier's optional verify()."""
+        modifier_id = getattr(modifier, "modifier_id", "unknown")
+        try:
+            step = modifier.apply(change, context)
+        except Exception as exc:
+            return ModificationStepResult(
+                change_id=change.id,
+                modifier_id=modifier_id,
+                status=StepStatus.FAILED,
+                message=f"Apply exception: {type(exc).__name__}: {exc}",
+                details={"exception_type": type(exc).__name__, "exception": str(exc)},
+            )
+
+        verify = getattr(modifier, "verify", None)
+        if step.status != StepStatus.SUCCESS or context.dry_run or not callable(verify):
+            return step
+
+        try:
+            check = verify(change, context, step)
+            passed = check.status == StepStatus.SUCCESS
+            detail = check.message
+        except Exception as exc:
+            passed = False
+            detail = f"Verify exception: {type(exc).__name__}: {exc}"
+            step.details["exception_type"] = type(exc).__name__
+        step.verified = passed
+        if not passed:
+            step.status = StepStatus.VERIFICATION_FAILED
+            step.message = f"{step.message} | verification failed: {detail}"
+        return step
 
     def _rollback_applied(
         self,
@@ -302,7 +367,7 @@ class ModificationFramework:
     ) -> None:
         """Attempt to roll back previously applied changes in reverse order."""
         for change, step in reversed(applied_steps):
-            if step.status not in (StepStatus.SUCCESS, StepStatus.DRY_RUN):
+            if not step.executed:
                 continue
 
             modifier = self._registry.get_modifier(change.change_type.value)
@@ -315,6 +380,7 @@ class ModificationFramework:
             try:
                 rb_result = modifier.rollback(change, context, step)
                 if rb_result.status == StepStatus.ROLLED_BACK:
+                    step.rolled_back = True
                     _log.info("Rolled back change %s.", change.id)
                 else:
                     result.warnings.append(

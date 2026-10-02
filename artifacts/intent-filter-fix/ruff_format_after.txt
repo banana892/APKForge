@@ -1,0 +1,1091 @@
+unformatted: File would be reformatted
+    --> src/apkforge/cli/main.py:825:40
+     |
+824  |                     if md.access_flags_before != md.access_flags_after:
+     -                         details.append(f"flags: {md.access_flags_before} -> {md.access_flags_after}")
+825  +                         details.append(
+826  +                             f"flags: {md.access_flags_before} -> {md.access_flags_after}"
+827  +                         )
+828  |                     if md.code_changed:
+829  |                         details.append("code changed")
+830  |                     detail_str = f" ({', '.join(details)})" if details else ""
+     -                     _console.print(
+     -                         f"      ~ method {md.method_name}{detail_str}"
+     -                     )
+831  +                     _console.print(f"      ~ method {md.method_name}{detail_str}")
+832  |             if len(dex.classes_modified) > 20:
+--------------------------------------------------------------------------------
+1956 |             plan = load_plan(plan_file)
+     -             _console.print(f"[green]Loaded plan:[/green] {plan.plan_id} ({plan.change_count} changes)")
+1957 +             _console.print(
+1958 +                 f"[green]Loaded plan:[/green] {plan.plan_id} ({plan.change_count} changes)"
+1959 +             )
+1960 |         except Exception as e:
+--------------------------------------------------------------------------------
+2030 |
+     -     status_color = "green" if result.status == StepStatus.SUCCESS else (
+     -         "cyan" if result.status == StepStatus.DRY_RUN else "red"
+2031 +     status_color = (
+2032 +         "green"
+2033 +         if result.status == StepStatus.SUCCESS
+2034 +         else ("cyan" if result.status == StepStatus.DRY_RUN else "red")
+2035 |     )
+     |
+
+unformatted: File would be reformatted
+   --> src/apkforge/core/config.py:98:42
+    |
+97  |     max_single_file_bytes: int = Field(
+    -         default_factory=lambda: _env_int("APKFORGE_EXTRACTION_MAX_SINGLE_FILE_BYTES", 256 * 1024 * 1024),
+98  +         default_factory=lambda: _env_int(
+99  +             "APKFORGE_EXTRACTION_MAX_SINGLE_FILE_BYTES", 256 * 1024 * 1024
+100 +         ),
+101 |         ge=1,
+--------------------------------------------------------------------------------
+124 |         return self
+    -
+125 |
+    |
+
+unformatted: File would be reformatted
+   --> src/apkforge/inspection/dex.py:386:20
+    |
+385 |                 s_val = s
+    -                 if (
+    -                     len(s_val) >= 4
+    -                     and s_val.isprintable()
+    -                     and s_val not in string_set
+    -                 ):
+386 +                 if len(s_val) >= 4 and s_val.isprintable() and s_val not in string_set:
+387 |                     string_set.add(s_val)
+    |
+
+unformatted: File would be reformatted
+   --> src/apkforge/inspection/models.py:377:1
+    |
+376 |
+    -
+377 | class NativeInspection(BaseModel):
+    |
+
+unformatted: File would be reformatted
+   --> src/apkforge/modification/framework.py:151:29
+    |
+150 |         # 4. Filter to accepted/approved changes only
+    -         accepted_changes = [
+    -             c for c in plan.changes if c.status == ChangeStatus.ACCEPTED
+    -         ]
+151 +         accepted_changes = [c for c in plan.changes if c.status == ChangeStatus.ACCEPTED]
+152 |         if not accepted_changes:
+--------------------------------------------------------------------------------
+207 |                     message=(
+    -                         f"No modifier registered for change type "
+    -                         f"'{change.change_type.value}'."
+208 +                         f"No modifier registered for change type '{change.change_type.value}'."
+209 |                     ),
+--------------------------------------------------------------------------------
+264 |                 result.errors.append(
+    -                     f"Change {change.id} failed: {step.message}. "
+    -                     f"Stopping execution."
+265 +                     f"Change {change.id} failed: {step.message}. Stopping execution."
+266 |                 )
+--------------------------------------------------------------------------------
+305 |             if modifier is None:
+    -                 result.warnings.append(
+    -                     f"Cannot rollback {change.id}: no modifier found."
+    -                 )
+306 +                 result.warnings.append(f"Cannot rollback {change.id}: no modifier found.")
+307 |                 continue
+--------------------------------------------------------------------------------
+313 |                 else:
+    -                     result.warnings.append(
+    -                         f"Rollback of {change.id} failed: {rb_result.message}"
+    -                     )
+314 +                     result.warnings.append(f"Rollback of {change.id} failed: {rb_result.message}")
+315 |             except Exception as exc:
+    -                 result.warnings.append(
+    -                     f"Rollback exception for {change.id}: {exc}"
+    -                 )
+316 +                 result.warnings.append(f"Rollback exception for {change.id}: {exc}")
+317 |
+    |
+
+unformatted: File would be reformatted
+   --> src/apkforge/modification/modifiers/component.py:154:24
+    |
+153 |             # If no android:enabled attribute exists, add it
+    -             pattern2 = (
+    -                 rf'(<{tag}\s+)(android:name\s*=\s*"{re.escape(component_name)}")'
+    -             )
+154 +             pattern2 = rf'(<{tag}\s+)(android:name\s*=\s*"{re.escape(component_name)}")'
+155 |             new_xml, count = re.subn(
+--------------------------------------------------------------------------------
+172 |                 rf'<{tag}\s+[^>]*android:name\s*=\s*"{re.escape(component_name)}"'
+    -                 rf'[^>]*/>'
+173 +                 rf"[^>]*/>"
+174 |             )
+--------------------------------------------------------------------------------
+181 |                 rf'<{tag}\s+[^>]*android:name\s*=\s*"{re.escape(component_name)}"'
+    -                 rf'[^>]*>.*?</{tag}>'
+182 +                 rf"[^>]*>.*?</{tag}>"
+183 |             )
+    |
+
+unformatted: File would be reformatted
+   --> src/apkforge/modification/modifiers/dex.py:126:46
+    |
+125 |                     for smali_file in target_dir.rglob("*.smali"):
+    -                         removed_files.append(
+    -                             str(smali_file.relative_to(context.workspace_dir))
+    -                         )
+126 +                         removed_files.append(str(smali_file.relative_to(context.workspace_dir)))
+127 |                     shutil.rmtree(target_dir)
+    |
+
+unformatted: File would be reformatted
+   --> src/apkforge/modification/modifiers/manifest.py:315:66
+    |
+314 |                         _log.debug(
+    -                             "AndroidManifest.xml is binary AXML; "
+    -                             "decoded text manifest required."
+315 +                             "AndroidManifest.xml is binary AXML; decoded text manifest required."
+316 |                         )
+--------------------------------------------------------------------------------
+322 |     @staticmethod
+    -     def _write_decoded_manifest(
+    -         context: ModificationExecutionContext, xml_content: str
+    -     ) -> bool:
+323 +     def _write_decoded_manifest(context: ModificationExecutionContext, xml_content: str) -> bool:
+324 |         """Write the modified manifest back to the workspace."""
+    |
+
+unformatted: File would be reformatted
+   --> src/apkforge/modification/modifiers/payload.py:56:30
+    |
+55  |             result.status = StepStatus.FAILED
+    -             result.message = (
+    -                 f"Payload file not found in workspace: {change.target}"
+    -             )
+56  +             result.message = f"Payload file not found in workspace: {change.target}"
+57  |             return result
+--------------------------------------------------------------------------------
+89  |             result.status = StepStatus.SUCCESS
+    -             result.message = (
+    -                 f"Removed embedded payload '{change.target}' ({file_size} bytes)."
+    -             )
+90  +             result.message = f"Removed embedded payload '{change.target}' ({file_size} bytes)."
+91  |             result.files_deleted = [change.target]
+--------------------------------------------------------------------------------
+114 |         result.message = (
+    -             "Payload removal rollback requires re-extraction from the "
+    -             "original APK backup."
+115 +             "Payload removal rollback requires re-extraction from the original APK backup."
+116 |         )
+    |
+
+unformatted: File would be reformatted
+  --> src/apkforge/modification/modifiers/permission.py:37:24
+   |
+36 |     name: str = "Permission Modifier"
+   -     description: str = (
+   -         "Removes or modifies Android permission declarations in AndroidManifest.xml."
+   -     )
+37 +     description: str = "Removes or modifies Android permission declarations in AndroidManifest.xml."
+38 |     supported_change_types: ClassVar[list[str]] = [
+   |
+
+unformatted: File would be reformatted
+   --> src/apkforge/modification/modifiers/tracker.py:90:72
+    |
+89  |         result.message = (
+    -             f"Preflight passed for tracker removal: '{change.target}'. "
+    -             f"Workspace is ready."
+90  +             f"Preflight passed for tracker removal: '{change.target}'. Workspace is ready."
+91  |         )
+--------------------------------------------------------------------------------
+148 |             result.message = (
+    -                 f"Removed tracker '{tracker_name}': "
+    -                 f"{len(removed_items)} items removed."
+149 +                 f"Removed tracker '{tracker_name}': {len(removed_items)} items removed."
+150 |             )
+--------------------------------------------------------------------------------
+216 |                         rf'{re.escape(java_pkg)}[^"]*"[^>]*/?>'
+    -                         rf'(?:\s*</{tag}>)?'
+217 +                         rf"(?:\s*</{tag}>)?"
+218 |                     )
+    |
+
+unformatted: File would be reformatted
+   --> src/apkforge/privacy/engine.py:239:1
+    |
+238 |
+    -
+239 |         return PrivacyResult(
+--------------------------------------------------------------------------------
+331 |             return default
+    -
+    |
+
+unformatted: File would be reformatted
+   --> src/apkforge/security/diff_analyzer.py:98:33
+    |
+97  |             c = diff_result.certificates
+    -             cert_changed = bool(
+    -                 c.status not in ("UNCHANGED", "SAME") or c.fingerprint_changes
+    -             )
+98  +             cert_changed = bool(c.status not in ("UNCHANGED", "SAME") or c.fingerprint_changes)
+99  |
+--------------------------------------------------------------------------------
+148 |                 for comp in comp_list:
+    -                     if (
+    -                         comp.change_type == ChangeType.ADDED
+    -                         and comp.exported_after is True
+    -                     ):
+149 +                     if comp.change_type == ChangeType.ADDED and comp.exported_after is True:
+150 |                         added_exported.append(comp)
+    |
+
+unformatted: File would be reformatted
+   --> src/apkforge/security/engine.py:375:37
+    |
+374 |                         "permission": a.permission,
+    -                         "actions": [
+    -                             act
+    -                             for f in a.intent_filters
+    -                             for act in f.actions
+    -                         ],
+375 +                         "actions": [act for f in a.intent_filters for act in f.actions],
+376 |                     }
+--------------------------------------------------------------------------------
+384 |                         "foreground_service_type": s.foreground_service_type,
+    -                         "actions": [
+    -                             act
+    -                             for f in s.intent_filters
+    -                             for act in f.actions
+    -                         ],
+385 +                         "actions": [act for f in s.intent_filters for act in f.actions],
+386 |                     }
+--------------------------------------------------------------------------------
+393 |                         "permission": r.permission,
+    -                         "actions": [
+    -                             act
+    -                             for f in r.intent_filters
+    -                             for act in f.actions
+    -                         ],
+394 +                         "actions": [act for f in r.intent_filters for act in f.actions],
+395 |                     }
+--------------------------------------------------------------------------------
+494 |                 if ent is not None and ent >= 7.0:
+    -                     high_entropy_assets.append(
+    -                         {"path": ast.path, "entropy": ent, "size": ast.size}
+    -                     )
+495 +                     high_entropy_assets.append({"path": ast.path, "entropy": ent, "size": ast.size})
+496 |
+--------------------------------------------------------------------------------
+502 |                     native_libs.add(lib_name)
+    -
+503 |
+    |
+
+unformatted: File would be reformatted
+   --> src/apkforge/security/rules.py:131:77
+    |
+130 |                 if any(
+    -                     c.startswith(("org.bouncycastle.", "org.spongycastle."))
+    -                     for c in prov_classes
+131 +                     c.startswith(("org.bouncycastle.", "org.spongycastle.")) for c in prov_classes
+132 |                 ):
+133 |                     return False
+134 |                 return False
+135 |             return not all(
+    -                 c.startswith(("org.bouncycastle.", "org.spongycastle."))
+    -                 for c in prov_classes
+136 +                 c.startswith(("org.bouncycastle.", "org.spongycastle.")) for c in prov_classes
+137 |             )
+138 |
+139 |         has_bundled_provider = any(
+    -             c.startswith(("org.bouncycastle.", "org.spongycastle."))
+    -             for c in self.classes
+140 +             c.startswith(("org.bouncycastle.", "org.spongycastle.")) for c in self.classes
+141 |         )
+--------------------------------------------------------------------------------
+417 |             for sub in cond.all:
+    -                 matched, sub_ev = self._evaluate_condition(
+    -                     sub, index, is_crypto=is_crypto
+    -                 )
+418 +                 matched, sub_ev = self._evaluate_condition(sub, index, is_crypto=is_crypto)
+419 |                 if not matched:
+--------------------------------------------------------------------------------
+427 |             for sub in cond.any:
+    -                 matched, sub_ev = self._evaluate_condition(
+    -                     sub, index, is_crypto=is_crypto
+    -                 )
+428 +                 matched, sub_ev = self._evaluate_condition(sub, index, is_crypto=is_crypto)
+429 |                 if matched:
+--------------------------------------------------------------------------------
+436 |             for sub in cond.none:
+    -                 matched, _ = self._evaluate_condition(
+    -                     sub, index, is_crypto=is_crypto
+    -                 )
+437 +                 matched, _ = self._evaluate_condition(sub, index, is_crypto=is_crypto)
+438 |                 if matched:
+    |
+
+unformatted: File would be reformatted
+   --> src/apkforge/security/vulnerabilities/crypto.py:164:45
+    |
+163 |             for s in index.strings
+    -             if s in ("MD5", "SHA-1", "SHA1")
+    -             and index.is_string_attributed_to_app(s)
+164 +             if s in ("MD5", "SHA-1", "SHA1") and index.is_string_attributed_to_app(s)
+165 |         ]
+    |
+
+unformatted: File would be reformatted
+    --> tests/corpus_runner.py:40:1
+     |
+39   |     from loguru import logger
+40   +
+41   |     logger.disable("androguard")
+42   | except Exception:
+43   |     pass
+     -
+44   |
+--------------------------------------------------------------------------------
+205  |         "has_hashes": pkg.hashes is not None,
+     -         "sha256": getattr(pkg.hashes, "sha256", None)[:16] + "..." if pkg.hashes and pkg.hashes.sha256 else None,
+206  +         "sha256": getattr(pkg.hashes, "sha256", None)[:16] + "..."
+207  +         if pkg.hashes and pkg.hashes.sha256
+208  +         else None,
+209  |         "errors": pkg.errors[:3] if pkg.errors else [],
+--------------------------------------------------------------------------------
+219  |         cap.message = f"Intake partial: {pkg.warnings}"
+     -     elif (pkg.identity and pkg.identity.package_name and
+     -           pkg.hashes and pkg.files and len(pkg.files) > 0):
+220  +     elif (
+221  +         pkg.identity
+222  +         and pkg.identity.package_name
+223  +         and pkg.hashes
+224  +         and pkg.files
+225  +         and len(pkg.files) > 0
+226  +     ):
+227  |         cap.verdict = Verdict.PASS
+--------------------------------------------------------------------------------
+254  |
+     -     insp, elapsed, exc = _timed(
+     -         lambda: InspectionEngine().inspect(apk_path, keep_workspace=False)
+     -     )
+255  +     insp, elapsed, exc = _timed(lambda: InspectionEngine().inspect(apk_path, keep_workspace=False))
+256  |     cap.duration_seconds = elapsed
+--------------------------------------------------------------------------------
+303  |         failed_inspectors = [
+     -             k for k, v in insp.inspector_statuses.items()
+     -             if v in ("failed", "error")
+304  +             k for k, v in insp.inspector_statuses.items() if v in ("failed", "error")
+305  |         ]
+--------------------------------------------------------------------------------
+321  |
+     - def validate_sub_inspector(insp, name: str, field_name: str,
+     -                            check_fn) -> CapabilityResult:
+322  + def validate_sub_inspector(insp, name: str, field_name: str, check_fn) -> CapabilityResult:
+323  |     """Validate a specific sub-inspector result from the InspectionResult."""
+--------------------------------------------------------------------------------
+381  |         return Verdict.PASS, msg, data
+     -     return (Verdict.PASS,
+     -             f"OK: {data['package_name']}, {data['permissions_count']} perms, "
+     -             f"{data['activities_count']} activities",
+     -             data)
+382  +     return (
+383  +         Verdict.PASS,
+384  +         f"OK: {data['package_name']}, {data['permissions_count']} perms, "
+385  +         f"{data['activities_count']} activities",
+386  +         data,
+387  +     )
+388  |
+--------------------------------------------------------------------------------
+408  |         return Verdict.PARTIAL, "DEX files found but 0 classes extracted", data
+     -     return (Verdict.PASS,
+     -             f"OK: {len(dex_files)} DEX, {total_classes} classes, {total_methods} methods",
+     -             data)
+409  +     return (
+410  +         Verdict.PASS,
+411  +         f"OK: {len(dex_files)} DEX, {total_classes} classes, {total_methods} methods",
+412  +         data,
+413  +     )
+414  |
+--------------------------------------------------------------------------------
+430  |         "has_resources_arsc": r.has_resources_arsc if hasattr(r, "has_resources_arsc") else None,
+     -         "resource_type_count": len(r.resource_types) if hasattr(r, "resource_types") and r.resource_types else 0,
+431  +         "resource_type_count": len(r.resource_types)
+432  +         if hasattr(r, "resource_types") and r.resource_types
+433  +         else 0,
+434  |         "total_resource_entries": r.total_entries if hasattr(r, "total_entries") else None,
+--------------------------------------------------------------------------------
+442  |         "asset_count": len(entries),
+     -         "total_size": sum(e.size for e in entries if hasattr(e, "size") and e.size) if entries else 0,
+443  +         "total_size": sum(e.size for e in entries if hasattr(e, "size") and e.size)
+444  +         if entries
+445  +         else 0,
+446  |     }
+--------------------------------------------------------------------------------
+459  |     }
+     -     return (Verdict.PASS,
+     -             f"OK: {len(urls)} URLs, {len(domains)} domains, {len(ips)} IPs",
+     -             data)
+460  +     return (Verdict.PASS, f"OK: {len(urls)} URLs, {len(domains)} domains, {len(ips)} IPs", data)
+461  |
+--------------------------------------------------------------------------------
+470  |     target = insp if insp is not None else apk_path
+     -     priv, elapsed, exc = _timed(
+     -         lambda: PrivacyEngine().analyze(target, keep_workspace=False)
+     -     )
+471  +     priv, elapsed, exc = _timed(lambda: PrivacyEngine().analyze(target, keep_workspace=False))
+472  |     cap.duration_seconds = elapsed
+--------------------------------------------------------------------------------
+506  |         "declared_permissions": len(perms.declared_permissions) if perms else 0,
+     -         "categorized_permission_groups": len(perms.categorized_permissions) if perms and perms.categorized_permissions else 0,
+507  +         "categorized_permission_groups": len(perms.categorized_permissions)
+508  +         if perms and perms.categorized_permissions
+509  +         else 0,
+510  |         "usage_details_count": len(perms.usage_details) if perms and perms.usage_details else 0,
+--------------------------------------------------------------------------------
+516  |         "endpoint_count": endpoints.total_endpoints if endpoints else 0,
+     -         "data_capabilities_count": len(data_col.capabilities) if data_col and data_col.capabilities else 0,
+517  +         "data_capabilities_count": len(data_col.capabilities)
+518  +         if data_col and data_col.capabilities
+519  +         else 0,
+520  |         "findings_count": len(priv.findings) if priv.findings else 0,
+--------------------------------------------------------------------------------
+585  |         "info": sec.summary.info_count if sec.summary else 0,
+     -         "finding_categories": list(set(
+     -             getattr(f.category, "value", str(f.category)) for f in findings
+     -         )),
+586  +         "finding_categories": list(
+587  +             set(getattr(f.category, "value", str(f.category)) for f in findings)
+588  +         ),
+589  |         "errors": sec.errors[:3] if sec.errors else [],
+--------------------------------------------------------------------------------
+611  |
+     - def validate_modification_planning(apk_path: Path, insp=None, priv=None,
+     -                                    sec=None) -> CapabilityResult:
+612  + def validate_modification_planning(
+613  +     apk_path: Path, insp=None, priv=None, sec=None
+614  + ) -> CapabilityResult:
+615  |     """Test 12: Modification planning."""
+--------------------------------------------------------------------------------
+661  |         cap.message = (
+     -             f"OK: {plan.change_count} changes proposed "
+     -             f"(types: {cap.data_summary['change_types']})"
+662  +             f"OK: {plan.change_count} changes proposed (types: {cap.data_summary['change_types']})"
+663  |         )
+--------------------------------------------------------------------------------
+714  |             len(result.permissions.added) + len(result.permissions.removed)
+     -             if result.permissions else 0
+715  +             if result.permissions
+716  +             else 0
+717  |         ),
+--------------------------------------------------------------------------------
+741  |     """Run all capability validations against a single APK."""
+     -     print(f"\n{'='*70}")
+742  +     print(f"\n{'=' * 70}")
+743  |     print(f"  Testing: {apk_path.name} ({apk_path.stat().st_size / 1024 / 1024:.1f} MB)")
+     -     print(f"{'='*70}")
+744  +     print(f"{'=' * 70}")
+745  |
+--------------------------------------------------------------------------------
+790  |             from apkforge.privacy.engine import PrivacyEngine
+791  +
+792  |             if insp_result is not None:
+--------------------------------------------------------------------------------
+806  |             from apkforge.security.engine import SecurityEngine
+807  +
+808  |             if insp_result is not None:
+809  |                 sec_result_obj = SecurityEngine().analyze(
+     -                     target=insp_result, privacy=priv_result_obj,
+     -                     apk_path=apk_path, keep_workspace=False,
+810  +                     target=insp_result,
+811  +                     privacy=priv_result_obj,
+812  +                     apk_path=apk_path,
+813  +                     keep_workspace=False,
+814  |                 )
+--------------------------------------------------------------------------------
+845  |         (sorted_apks[0], sorted_apks[1]),  # two smallest
+     -         (sorted_apks[0], sorted_apks[-1]), # smallest vs largest
+846  +         (sorted_apks[0], sorted_apks[-1]),  # smallest vs largest
+847  |     ]
+--------------------------------------------------------------------------------
+853  |     for i, (a, b) in enumerate(pairs):
+     -         print(f"\n  Diff pair {i+1}: {a.name} vs {b.name}...", end=" ", flush=True)
+854  +         print(f"\n  Diff pair {i + 1}: {a.name} vs {b.name}...", end=" ", flush=True)
+855  |         dr = validate_diff(a, b)
+--------------------------------------------------------------------------------
+893  |     # Run diff validations
+     -     print(f"\n{'='*70}")
+894  +     print(f"\n{'=' * 70}")
+895  |     print("  Diff Validation (selected pairs)")
+     -     print(f"{'='*70}")
+896  +     print(f"{'=' * 70}")
+897  |     diff_results = run_diff_validation(apks)
+--------------------------------------------------------------------------------
+918  |     # Print summary matrix
+     -     print(f"\n{'='*70}")
+919  +     print(f"\n{'=' * 70}")
+920  |     print("  SUMMARY MATRIX")
+     -     print(f"{'='*70}")
+921  +     print(f"{'=' * 70}")
+922  |
+--------------------------------------------------------------------------------
+930  |     max_cap_len = max(len(c) for c in capabilities)
+     -     header = f"{'Capability':<{max_cap_len+2}}"
+931  +     header = f"{'Capability':<{max_cap_len + 2}}"
+932  |     for r in all_results:
+--------------------------------------------------------------------------------
+939  |     for cap_name in capabilities:
+     -         row = f"{cap_name:<{max_cap_len+2}}"
+940  +         row = f"{cap_name:<{max_cap_len + 2}}"
+941  |         for r in all_results:
+--------------------------------------------------------------------------------
+951  |     # Summary counts
+     -     print(f"\n{'='*70}")
+952  +     print(f"\n{'=' * 70}")
+953  |     print("  AGGREGATE COUNTS")
+     -     print(f"{'='*70}")
+     -     total_pass = sum(
+     -         1 for r in all_results for c in r["capabilities"] if c["verdict"] == "PASS"
+     -     )
+954  +     print(f"{'=' * 70}")
+955  +     total_pass = sum(1 for r in all_results for c in r["capabilities"] if c["verdict"] == "PASS")
+956  |     total_partial = sum(
+957  |         1 for r in all_results for c in r["capabilities"] if c["verdict"] == "PARTIAL"
+     -     )
+     -     total_fail = sum(
+     -         1 for r in all_results for c in r["capabilities"] if c["verdict"] == "FAIL"
+958  |     )
+959  +     total_fail = sum(1 for r in all_results for c in r["capabilities"] if c["verdict"] == "FAIL")
+960  |     total_na = sum(
+--------------------------------------------------------------------------------
+982  |     if failures:
+     -         print(f"\n{'='*70}")
+983  +         print(f"\n{'=' * 70}")
+984  |         print(f"  FAILURES ({len(failures)})")
+     -         print(f"{'='*70}")
+985  +         print(f"{'=' * 70}")
+986  |         for f in failures:
+--------------------------------------------------------------------------------
+997  |     if partials:
+     -         print(f"\n{'='*70}")
+998  +         print(f"\n{'=' * 70}")
+999  |         print(f"  PARTIAL RESULTS ({len(partials)})")
+     -         print(f"{'='*70}")
+1000 +         print(f"{'=' * 70}")
+1001 |         for p in partials:
+--------------------------------------------------------------------------------
+1009 |     if diff_results:
+     -         print(f"\n{'='*70}")
+1010 +         print(f"\n{'=' * 70}")
+1011 |         print(f"  DIFF RESULTS ({len(diff_results)} pairs)")
+     -         print(f"{'='*70}")
+1012 +         print(f"{'=' * 70}")
+1013 |         for d in diff_results:
+--------------------------------------------------------------------------------
+1019 |
+     -     print(f"\n{'='*70}")
+1020 +     print(f"\n{'=' * 70}")
+1021 |     print(f"  Phase A Corpus Validation Complete")
+     -     print(f"{'='*70}\n")
+1022 +     print(f"{'=' * 70}\n")
+1023 |
+     |
+
+unformatted: File would be reformatted
+   --> tests/unit/test_cli.py:119:16
+    |
+118 |         # Should fail because the APK is not a valid APK for analysis
+    -         assert result.exit_code != 0 or "error" in result.output.lower() or "failed" in result.output.lower()
+119 +         assert (
+120 +             result.exit_code != 0
+121 +             or "error" in result.output.lower()
+122 +             or "failed" in result.output.lower()
+123 +         )
+124 |
+    |
+
+unformatted: File would be reformatted
+  --> tests/unit/test_config.py:59:1
+   |
+58 |
+   -
+59 | class TestAPKForgeConfig:
+   |
+
+unformatted: File would be reformatted
+   --> tests/unit/test_diff_gap_fixes.py:128:36
+    |
+127 |         r_a = BroadcastReceiverInfo(
+    -             name="com.example.Rec", enabled=True, exported=False, permission="perm.A", intent_filters=[f_a]
+128 +             name="com.example.Rec",
+129 +             enabled=True,
+130 +             exported=False,
+131 +             permission="perm.A",
+132 +             intent_filters=[f_a],
+133 |         )
+134 |         r_b = BroadcastReceiverInfo(
+    -             name="com.example.Rec", enabled=True, exported=True, permission="perm.B", intent_filters=[f_b]
+135 +             name="com.example.Rec",
+136 +             enabled=True,
+137 +             exported=True,
+138 +             permission="perm.B",
+139 +             intent_filters=[f_b],
+140 |         )
+--------------------------------------------------------------------------------
+187 |         inv_b = DEXClassInventory(classes=[cls_b], methods=[m_b])
+    -         dex_a = DEXInspection(dex_files=[DEXFileInspection(path="classes.dex", size=100, sha256="h1", inventory=inv_a)])
+    -         dex_b = DEXInspection(dex_files=[DEXFileInspection(path="classes.dex", size=100, sha256="h1", inventory=inv_b)])
+188 +         dex_a = DEXInspection(
+189 +             dex_files=[
+190 +                 DEXFileInspection(path="classes.dex", size=100, sha256="h1", inventory=inv_a)
+191 +             ]
+192 +         )
+193 +         dex_b = DEXInspection(
+194 +             dex_files=[
+195 +                 DEXFileInspection(path="classes.dex", size=100, sha256="h1", inventory=inv_b)
+196 +             ]
+197 +         )
+198 |
+--------------------------------------------------------------------------------
+226 |         inv_b = DEXClassInventory(classes=[cls_b], methods=[m_b])
+    -         dex_a = DEXInspection(dex_files=[DEXFileInspection(path="classes.dex", size=100, sha256="h1", inventory=inv_a)])
+    -         dex_b = DEXInspection(dex_files=[DEXFileInspection(path="classes.dex", size=100, sha256="h2", inventory=inv_b)])
+227 +         dex_a = DEXInspection(
+228 +             dex_files=[
+229 +                 DEXFileInspection(path="classes.dex", size=100, sha256="h1", inventory=inv_a)
+230 +             ]
+231 +         )
+232 +         dex_b = DEXInspection(
+233 +             dex_files=[
+234 +                 DEXFileInspection(path="classes.dex", size=100, sha256="h2", inventory=inv_b)
+235 +             ]
+236 +         )
+237 |
+--------------------------------------------------------------------------------
+258 |         inv_b = DEXClassInventory(classes=[cls_b], methods=[m_new])
+    -         dex_a = DEXInspection(dex_files=[DEXFileInspection(path="classes.dex", size=100, sha256="h1", inventory=inv_a)])
+    -         dex_b = DEXInspection(dex_files=[DEXFileInspection(path="classes.dex", size=100, sha256="h2", inventory=inv_b)])
+259 +         dex_a = DEXInspection(
+260 +             dex_files=[
+261 +                 DEXFileInspection(path="classes.dex", size=100, sha256="h1", inventory=inv_a)
+262 +             ]
+263 +         )
+264 +         dex_b = DEXInspection(
+265 +             dex_files=[
+266 +                 DEXFileInspection(path="classes.dex", size=100, sha256="h2", inventory=inv_b)
+267 +             ]
+268 +         )
+269 |
+--------------------------------------------------------------------------------
+298 |         inv_b = DEXClassInventory(classes=[cls_b], methods=[m_b])
+    -         dex_a = DEXInspection(dex_files=[DEXFileInspection(path="classes.dex", size=100, sha256="h1", inventory=inv_a)])
+    -         dex_b = DEXInspection(dex_files=[DEXFileInspection(path="classes.dex", size=100, sha256="h1", inventory=inv_b)])
+299 +         dex_a = DEXInspection(
+300 +             dex_files=[
+301 +                 DEXFileInspection(path="classes.dex", size=100, sha256="h1", inventory=inv_a)
+302 +             ]
+303 +         )
+304 +         dex_b = DEXInspection(
+305 +             dex_files=[
+306 +                 DEXFileInspection(path="classes.dex", size=100, sha256="h1", inventory=inv_b)
+307 +             ]
+308 +         )
+309 |
+--------------------------------------------------------------------------------
+327 |         # APK B has inlined literal string 'de.danoeh.antennapod.provider'
+    -         prov_a = ContentProviderInfo(name="androidx.core.content.FileProvider", authorities="@7F130332")
+328 +         prov_a = ContentProviderInfo(
+329 +             name="androidx.core.content.FileProvider", authorities="@7F130332"
+330 +         )
+331 |         prov_b = ContentProviderInfo(
+--------------------------------------------------------------------------------
+413 |         hash_img = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    -         entry_a = PackageFile(path="res/drawable-xhdpi-v4/icon.png", size=1024, compressed_size=1024, category=FileCategory.RESOURCE, sha256=hash_img)
+    -         entry_b = PackageFile(path="res/drawable/icon.png", size=1024, compressed_size=1024, category=FileCategory.RESOURCE, sha256=hash_img)
+414 +         entry_a = PackageFile(
+415 +             path="res/drawable-xhdpi-v4/icon.png",
+416 +             size=1024,
+417 +             compressed_size=1024,
+418 +             category=FileCategory.RESOURCE,
+419 +             sha256=hash_img,
+420 +         )
+421 +         entry_b = PackageFile(
+422 +             path="res/drawable/icon.png",
+423 +             size=1024,
+424 +             compressed_size=1024,
+425 +             category=FileCategory.RESOURCE,
+426 +             sha256=hash_img,
+427 +         )
+428 |
+--------------------------------------------------------------------------------
+450 |         """Differing file content at different paths remains separate REMOVED and ADDED entries."""
+    -         entry_a = PackageFile(path="res/drawable/old.png", size=100, compressed_size=100, category=FileCategory.RESOURCE, sha256="hash_old")
+    -         entry_b = PackageFile(path="res/drawable/new.png", size=200, compressed_size=200, category=FileCategory.RESOURCE, sha256="hash_new")
+451 +         entry_a = PackageFile(
+452 +             path="res/drawable/old.png",
+453 +             size=100,
+454 +             compressed_size=100,
+455 +             category=FileCategory.RESOURCE,
+456 +             sha256="hash_old",
+457 +         )
+458 +         entry_b = PackageFile(
+459 +             path="res/drawable/new.png",
+460 +             size=200,
+461 +             compressed_size=200,
+462 +             category=FileCategory.RESOURCE,
+463 +             sha256="hash_new",
+464 +         )
+465 |
+--------------------------------------------------------------------------------
+480 |         """Adding a completely new file and removing an unrelated file preserves normal add/remove."""
+    -         entry_rem = PackageFile(path="assets/removed_config.json", size=50, compressed_size=50, category=FileCategory.ASSET, sha256="hash_rem")
+    -         entry_add = PackageFile(path="assets/added_config.json", size=60, compressed_size=60, category=FileCategory.ASSET, sha256="hash_add")
+481 +         entry_rem = PackageFile(
+482 +             path="assets/removed_config.json",
+483 +             size=50,
+484 +             compressed_size=50,
+485 +             category=FileCategory.ASSET,
+486 +             sha256="hash_rem",
+487 +         )
+488 +         entry_add = PackageFile(
+489 +             path="assets/added_config.json",
+490 +             size=60,
+491 +             compressed_size=60,
+492 +             category=FileCategory.ASSET,
+493 +             sha256="hash_add",
+494 +         )
+495 |
+--------------------------------------------------------------------------------
+509 |         """A file at the same path with altered SHA-256 is correctly classified as MODIFIED."""
+    -         entry_a = PackageFile(path="AndroidManifest.xml", size=500, compressed_size=500, category=FileCategory.MANIFEST, sha256="hash_orig")
+    -         entry_b = PackageFile(path="AndroidManifest.xml", size=480, compressed_size=480, category=FileCategory.MANIFEST, sha256="hash_mod")
+510 +         entry_a = PackageFile(
+511 +             path="AndroidManifest.xml",
+512 +             size=500,
+513 +             compressed_size=500,
+514 +             category=FileCategory.MANIFEST,
+515 +             sha256="hash_orig",
+516 +         )
+517 +         entry_b = PackageFile(
+518 +             path="AndroidManifest.xml",
+519 +             size=480,
+520 +             compressed_size=480,
+521 +             category=FileCategory.MANIFEST,
+522 +             sha256="hash_mod",
+523 +         )
+524 |
+    |
+
+unformatted: File would be reformatted
+   --> tests/unit/test_intake_archive.py:106:63
+    |
+105 |
+    - def test_safe_zip_default_limits_accommodate_large_native_lib(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+106 + def test_safe_zip_default_limits_accommodate_large_native_lib(
+107 +     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+108 + ) -> None:
+109 |     arc = tmp_path / "mock_large.zip"
+--------------------------------------------------------------------------------
+114 |     real_zipfile = zipfile.ZipFile
+115 +
+116 |     class MockZipFile(real_zipfile):
+--------------------------------------------------------------------------------
+132 |     # Restrictive limits (128 MiB) should reject it
+    -     old_limits = ExtractionLimits(max_single_file_bytes=128 * 1024 * 1024, max_total_size_bytes=512 * 1024 * 1024)
+133 +     old_limits = ExtractionLimits(
+134 +         max_single_file_bytes=128 * 1024 * 1024, max_total_size_bytes=512 * 1024 * 1024
+135 +     )
+136 |     extractor_restrictive = SafeZipExtractor(arc, old_limits)
+137 |     with pytest.raises(ExtractionError, match="exceeds limit"):
+138 |         extractor_restrictive.list_entries()
+    -
+139 |
+    |
+
+unformatted: File would be reformatted
+    --> tests/unit/test_modification_framework.py:421:45
+     |
+420  |
+     -     def test_modify_configuration_cleartext(
+     -         self, decoded_workspace, sample_apk, sample_plan
+     -     ):
+421  +     def test_modify_configuration_cleartext(self, decoded_workspace, sample_apk, sample_plan):
+422  |         working = decoded_workspace / sample_apk.name
+--------------------------------------------------------------------------------
+446  |
+     -     def test_modify_configuration_backup(
+     -         self, decoded_workspace, sample_apk, sample_plan
+     -     ):
+447  +     def test_modify_configuration_backup(self, decoded_workspace, sample_apk, sample_plan):
+448  |         working = decoded_workspace / sample_apk.name
+--------------------------------------------------------------------------------
+505  | class TestComponentModifier:
+     -     def test_disable_component(
+     -         self, decoded_workspace, sample_apk, sample_plan
+     -     ):
+506  +     def test_disable_component(self, decoded_workspace, sample_apk, sample_plan):
+507  |         working = decoded_workspace / sample_apk.name
+--------------------------------------------------------------------------------
+531  |
+     -     def test_remove_component(
+     -         self, decoded_workspace, sample_apk, sample_plan
+     -     ):
+532  +     def test_remove_component(self, decoded_workspace, sample_apk, sample_plan):
+533  |         working = decoded_workspace / sample_apk.name
+--------------------------------------------------------------------------------
+677  |
+     -     def test_tracker_dry_run(
+     -         self, tmp_workspace, sample_apk, sample_plan, planned_change_tracker
+     -     ):
+678  +     def test_tracker_dry_run(self, tmp_workspace, sample_apk, sample_plan, planned_change_tracker):
+679  |         smali_dir = tmp_workspace / "smali" / "com" / "google" / "android" / "gms" / "ads"
+--------------------------------------------------------------------------------
+914  |
+     -     def test_empty_accepted_changes(
+     -         self, sample_apk, sample_apk_sha256, tmp_workspace
+     -     ):
+915  +     def test_empty_accepted_changes(self, sample_apk, sample_apk_sha256, tmp_workspace):
+916  |         plan = ModificationPlan(
+--------------------------------------------------------------------------------
+936  |
+     -     def test_execute_with_decoded_workspace(
+     -         self, sample_apk, sample_apk_sha256, decoded_workspace
+     -     ):
+937  +     def test_execute_with_decoded_workspace(self, sample_apk, sample_apk_sha256, decoded_workspace):
+938  |         # Create APK copy in decoded workspace
+--------------------------------------------------------------------------------
+959  |         framework = ModificationFramework()
+     -         result = framework.execute(
+     -             plan, sample_apk, workspace_dir=decoded_workspace
+     -         )
+960  +         result = framework.execute(plan, sample_apk, workspace_dir=decoded_workspace)
+961  |
+--------------------------------------------------------------------------------
+966  |
+     -     def test_dry_run_preserves_files(
+     -         self, sample_apk, sample_apk_sha256, decoded_workspace
+     -     ):
+967  +     def test_dry_run_preserves_files(self, sample_apk, sample_apk_sha256, decoded_workspace):
+968  |         working = decoded_workspace / sample_apk.name
+--------------------------------------------------------------------------------
+989  |         framework = ModificationFramework()
+     -         result = framework.execute(
+     -             plan, sample_apk, workspace_dir=decoded_workspace, dry_run=True
+     -         )
+990  +         result = framework.execute(plan, sample_apk, workspace_dir=decoded_workspace, dry_run=True)
+991  |
+--------------------------------------------------------------------------------
+997  |
+     -     def test_missing_modifier_fails_preflight(
+     -         self, sample_apk, sample_apk_sha256, tmp_workspace
+     -     ):
+998  +     def test_missing_modifier_fails_preflight(self, sample_apk, sample_apk_sha256, tmp_workspace):
+999  |         plan = ModificationPlan(
+--------------------------------------------------------------------------------
+1036 |
+     -     def test_multi_change_execution(
+     -         self, sample_apk, sample_apk_sha256, decoded_workspace
+     -     ):
+1037 +     def test_multi_change_execution(self, sample_apk, sample_apk_sha256, decoded_workspace):
+1038 |         working = decoded_workspace / sample_apk.name
+--------------------------------------------------------------------------------
+1071 |         framework = ModificationFramework()
+     -         result = framework.execute(
+     -             plan, sample_apk, workspace_dir=decoded_workspace
+     -         )
+1072 +         result = framework.execute(plan, sample_apk, workspace_dir=decoded_workspace)
+1073 |
+--------------------------------------------------------------------------------
+1082 |
+     -     def test_original_apk_never_modified(
+     -         self, sample_apk, sample_apk_sha256, decoded_workspace
+     -     ):
+1083 +     def test_original_apk_never_modified(self, sample_apk, sample_apk_sha256, decoded_workspace):
+1084 |         """The most important invariant: original APK must remain unchanged."""
+     |
+
+unformatted: File would be reformatted
+   --> tests/unit/test_phase_b_closeout.py:86:18
+    |
+85  | class _FakeCatchHandler:
+    -     def __init__(self, off: int, pairs: list[_FakeTypeAddrPair], catch_all: int | None = None) -> None:
+86  +     def __init__(
+87  +         self, off: int, pairs: list[_FakeTypeAddrPair], catch_all: int | None = None
+88  +     ) -> None:
+89  |         self._off = off
+--------------------------------------------------------------------------------
+168 |
+169 +
+170 | # A fixed, shared instruction body: every handler test below keeps these
+171 | # instructions byte-for-byte identical and varies only the try/catch data.
+172 | def _body() -> list[_FakeInstruction]:
+173 |     return [
+    -         _FakeInstruction("invoke-virtual", [(Operand.REGISTER, 0), (_KIND_METH, 7, "Lcom/x/Y;->z()V")]),
+174 +         _FakeInstruction(
+175 +             "invoke-virtual", [(Operand.REGISTER, 0), (_KIND_METH, 7, "Lcom/x/Y;->z()V")]
+176 +         ),
+177 |         _FakeInstruction("move-result-object", [(Operand.REGISTER, 1)]),
+--------------------------------------------------------------------------------
+325 |             tries=[_FakeTryItem(0, 3, 1)],
+    -             handlers=[
+    -                 _FakeCatchHandler(1001, [_FakeTypeAddrPair(5, 3), _FakeTypeAddrPair(6, 4)])
+    -             ],
+326 +             handlers=[_FakeCatchHandler(1001, [_FakeTypeAddrPair(5, 3), _FakeTypeAddrPair(6, 4)])],
+327 |             types=_IO,
+328 |         )
+329 |         b = _code(
+330 |             tries=[_FakeTryItem(0, 3, 1)],
+    -             handlers=[
+    -                 _FakeCatchHandler(1001, [_FakeTypeAddrPair(6, 4), _FakeTypeAddrPair(5, 3)])
+    -             ],
+331 +             handlers=[_FakeCatchHandler(1001, [_FakeTypeAddrPair(6, 4), _FakeTypeAddrPair(5, 3)])],
+332 |             types=_IO,
+    |
+
+unformatted: File would be reformatted
+   --> tests/unit/test_phase_b_final_closeout.py:224:20
+    |
+223 |         assert inspection.embedded_apks[0].has_code is True
+    -         assert any(
+    -             "rejected by extraction limits" in w and "Path traversal" in w for w in warnings
+    -         )
+224 +         assert any("rejected by extraction limits" in w and "Path traversal" in w for w in warnings)
+225 |         assert len(_payload_findings(inspection)) == 1
+    |
+
+unformatted: File would be reformatted
+   --> tests/unit/test_phase_b_step5.py:99:30
+    |
+98  |         ins_b = _FakeInstruction(
+    -             "invoke-virtual", [(Operand.REGISTER, 0), (_KIND_METH, 9999, "Lcom/example/Foo;->bar()V")]
+99  +             "invoke-virtual",
+100 +             [(Operand.REGISTER, 0), (_KIND_METH, 9999, "Lcom/example/Foo;->bar()V")],
+101 |         )
+--------------------------------------------------------------------------------
+130 |                 _FakeInstruction(
+    -                     "invoke-virtual", [(Operand.REGISTER, 1), (_KIND_METH, 5, "Lcom/example/Foo;->bar()V")]
+131 +                     "invoke-virtual",
+132 +                     [(Operand.REGISTER, 1), (_KIND_METH, 5, "Lcom/example/Foo;->bar()V")],
+133 |                 ),
+--------------------------------------------------------------------------------
+139 |                 _FakeInstruction(
+    -                     "invoke-virtual", [(Operand.REGISTER, 1), (_KIND_METH, 777, "Lcom/example/Foo;->bar()V")]
+140 +                     "invoke-virtual",
+141 +                     [(Operand.REGISTER, 1), (_KIND_METH, 777, "Lcom/example/Foo;->bar()V")],
+142 |                 ),
+--------------------------------------------------------------------------------
+152 |         """A genuinely different constant changes the method hash."""
+    -         code_a = _FakeCode([_FakeInstruction("const/4", [(Operand.REGISTER, 0), (Operand.LITERAL, 1)])])
+    -         code_b = _FakeCode([_FakeInstruction("const/4", [(Operand.REGISTER, 0), (Operand.LITERAL, 2)])])
+153 +         code_a = _FakeCode(
+154 +             [_FakeInstruction("const/4", [(Operand.REGISTER, 0), (Operand.LITERAL, 1)])]
+155 +         )
+156 +         code_b = _FakeCode(
+157 +             [_FakeInstruction("const/4", [(Operand.REGISTER, 0), (Operand.LITERAL, 2)])]
+158 +         )
+159 |         assert _hash_method_code(code_a) != _hash_method_code(code_b)
+--------------------------------------------------------------------------------
+336 | class TestResourceIdentityRenamePairing:
+    -     def test_resource_identity_pairs_differently_encoded_bytes(self, tmp_path: Path, monkeypatch) -> None:
+337 +     def test_resource_identity_pairs_differently_encoded_bytes(
+338 +         self, tmp_path: Path, monkeypatch
+339 +     ) -> None:
+340 |         """Obfuscated path -> canonical path, same resource identity, different bytes -> RENAMED."""
+--------------------------------------------------------------------------------
+346 |         entry_a = PackageFile(
+    -             path="res/bX.xml", size=100, compressed_size=100, category=FileCategory.RESOURCE, sha256="old_encoding"
+347 +             path="res/bX.xml",
+348 +             size=100,
+349 +             compressed_size=100,
+350 +             category=FileCategory.RESOURCE,
+351 +             sha256="old_encoding",
+352 |         )
+--------------------------------------------------------------------------------
+384 |
+    -     def test_genuinely_different_resources_stay_remove_and_add(self, tmp_path: Path, monkeypatch) -> None:
+385 +     def test_genuinely_different_resources_stay_remove_and_add(
+386 +         self, tmp_path: Path, monkeypatch
+387 +     ) -> None:
+388 |         """Different canonical identities on each side must never be paired."""
+--------------------------------------------------------------------------------
+394 |         entry_a = PackageFile(
+    -             path="res/aa.xml", size=50, compressed_size=50, category=FileCategory.RESOURCE, sha256="hash_a"
+395 +             path="res/aa.xml",
+396 +             size=50,
+397 +             compressed_size=50,
+398 +             category=FileCategory.RESOURCE,
+399 +             sha256="hash_a",
+400 |         )
+--------------------------------------------------------------------------------
+434 |         entry_a1 = PackageFile(
+    -             path="res/aa.xml", size=50, compressed_size=50, category=FileCategory.RESOURCE, sha256="hash_a1"
+435 +             path="res/aa.xml",
+436 +             size=50,
+437 +             compressed_size=50,
+438 +             category=FileCategory.RESOURCE,
+439 +             sha256="hash_a1",
+440 |         )
+441 |         entry_a2 = PackageFile(
+    -             path="res/bb.xml", size=55, compressed_size=55, category=FileCategory.RESOURCE, sha256="hash_a2"
+442 +             path="res/bb.xml",
+443 +             size=55,
+444 +             compressed_size=55,
+445 +             category=FileCategory.RESOURCE,
+446 +             sha256="hash_a2",
+447 |         )
+448 |         entry_b = PackageFile(
+    -             path="res/drawable/icon.xml", size=60, compressed_size=60, category=FileCategory.RESOURCE, sha256="hash_b"
+449 +             path="res/drawable/icon.xml",
+450 +             size=60,
+451 +             compressed_size=60,
+452 +             category=FileCategory.RESOURCE,
+453 +             sha256="hash_b",
+454 |         )
+    |
+
+unformatted: File would be reformatted
+   --> tests/unit/test_privacy_engine.py:528:16
+    |
+527 |     assert res_complete.status == AnalysisStatus.COMPLETE
+    -     assert any("Static analysis cannot establish actual runtime" in lim for lim in res_complete.limitations)
+528 +     assert any(
+529 +         "Static analysis cannot establish actual runtime" in lim for lim in res_complete.limitations
+530 +     )
+531 |
+--------------------------------------------------------------------------------
+565 |     assert any("Privacy analysis failed for trackers" in lim for lim in res.limitations)
+    -
+    |
+
+unformatted: File would be reformatted
+   --> tests/unit/test_security_engine.py:909:1
+    |
+908 |     assert len(result.errors) == 0
+    -
+    |
+
+unformatted: File would be reformatted
+   --> tests/unit/test_workspace_lifecycle.py:140:69
+    |
+139 |         base = tmp_path / "mods"
+    -         result = ModificationFramework(workspace_base=base).execute(
+    -             _approved_plan(apk), apk
+    -         )
+140 +         result = ModificationFramework(workspace_base=base).execute(_approved_plan(apk), apk)
+141 |         assert result.status == StepStatus.FAILED
+--------------------------------------------------------------------------------
+155 |         own.mkdir()
+    -         result = ModificationFramework().execute(
+    -             _approved_plan(apk), apk, workspace_dir=own
+    -         )
+156 +         result = ModificationFramework().execute(_approved_plan(apk), apk, workspace_dir=own)
+157 |         assert result.status == StepStatus.FAILED
+    |
+
+28 files would be reformatted, 152 files already formatted

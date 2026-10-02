@@ -1,0 +1,10 @@
+# FORCE_COLOR=3 (set in the shell this task ran in), source = git archive HEAD (7415f67) src, tests = working tree tests/unit.
+# The 6 CLI JSON tests below fail on HEAD source too: rich writes ANSI codes into --json output when FORCE_COLOR is set.
+# The other failures in that run are the new tests (intent-filter, status semantics) failing against the old source, as expected.
+FAILED tests/unit/test_diff_engine.py::test_cli_diff_command_text_and_json
+FAILED tests/unit/test_inspection_engine.py::test_cli_inspect_json_contains_all_phase2_fields
+FAILED tests/unit/test_intake_cli.py::test_cli_inspect_json
+FAILED tests/unit/test_privacy_engine.py::test_cli_privacy_command_text_and_json
+FAILED tests/unit/test_security_engine.py::test_cli_security_json_output
+FAILED tests/unit/test_security_engine.py::test_cli_analyze_json_output
+With FORCE_COLOR unset the same suite passes (see pytest_full_with_corpus.txt, pytest_full_rerun.txt).

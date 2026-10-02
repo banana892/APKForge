@@ -1,0 +1,198 @@
+{
+  "_meta": {
+    "apk_sha256": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+    "apkforge_module": "/home/naishring/APKForge/src/apkforge/__init__.py",
+    "generated_utc": "2026-10-02T19:14:36.862484+00:00",
+    "git_head": "7415f671aa5b0e56f2e865b2167d43f74176a013",
+    "id": "de.audioattack.openlink@28",
+    "src_dirty": [
+      "M src/apkforge/inspection/manifest.py"
+    ]
+  },
+  "inspector_status": "complete",
+  "manifest": {
+    "activities": [
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.SEND"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": "text/plain",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          }
+        ],
+        "name": "de.audioattack.openlink.ui.MenuActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.MAIN"
+            ],
+            "categories": [
+              "android.intent.category.INFO",
+              "android.intent.category.LAUNCHER"
+            ],
+            "data": []
+          }
+        ],
+        "name": "de.audioattack.openlink.ui.MainActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": false,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.SEND"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": "text/plain",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          }
+        ],
+        "name": "de.audioattack.openlink.ui.IncognitoActivity",
+        "permission": null,
+        "process": null
+      }
+    ],
+    "application": {
+      "allow_backup": true,
+      "debuggable": null,
+      "extract_native_libs": true,
+      "icon": "res/9w.png",
+      "label": "Easy Open Link",
+      "large_heap": null,
+      "network_security_config": null,
+      "test_only": null,
+      "theme": "@7F0A0001",
+      "uses_cleartext_traffic": null
+    },
+    "declared_permissions": [],
+    "min_sdk": 21,
+    "package_name": "de.audioattack.openlink",
+    "permissions": [
+      {
+        "name": "android.permission.RECEIVE_BOOT_COMPLETED",
+        "protection_level": null
+      },
+      {
+        "name": "de.audioattack.openlink.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+        "protection_level": null
+      }
+    ],
+    "providers": [
+      {
+        "authorities": "de.audioattack.openlink.androidx-startup",
+        "enabled": null,
+        "exported": false,
+        "grant_uri_permissions": null,
+        "name": "androidx.startup.InitializationProvider",
+        "permission": null,
+        "process": null,
+        "read_permission": null,
+        "write_permission": null
+      }
+    ],
+    "receivers": [
+      {
+        "enabled": true,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "androidx.profileinstaller.action.INSTALL_PROFILE"
+            ],
+            "categories": [],
+            "data": []
+          },
+          {
+            "actions": [
+              "androidx.profileinstaller.action.SKIP_FILE"
+            ],
+            "categories": [],
+            "data": []
+          },
+          {
+            "actions": [
+              "androidx.profileinstaller.action.SAVE_PROFILE"
+            ],
+            "categories": [],
+            "data": []
+          },
+          {
+            "actions": [
+              "androidx.profileinstaller.action.BENCHMARK_OPERATION"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "androidx.profileinstaller.ProfileInstallReceiver",
+        "permission": "android.permission.DUMP",
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.BOOT_COMPLETED",
+              "android.intent.action.MY_PACKAGE_REPLACED"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+        "permission": null,
+        "process": null
+      }
+    ],
+    "resource_map": {
+      "@7F080002": "res/9w.png"
+    },
+    "services": [],
+    "target_sdk": 36,
+    "version_code": 28,
+    "version_name": "1.5.11"
+  },
+  "overall_status": "complete",
+  "warnings": []
+}

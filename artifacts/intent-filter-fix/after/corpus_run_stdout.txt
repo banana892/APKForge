@@ -1,0 +1,210 @@
+======================================================================
+  APKForge Phase A — Corpus Validation Runner
+======================================================================
+
+Corpus directory: /home/naishring/APKForge/tests/corpus
+APK files found: 9
+  • com.emanuelef.remote_capture_95.apk (16.7 MB)
+  • com.oF2pks.applicationsinfo_19.apk (0.1 MB)
+  • de.audioattack.openlink_28.apk (0.2 MB)
+  • de.danoeh.antennapod_3120295.apk (16.9 MB)
+  • eu.siacs.conversations_4218104.apk (29.3 MB)
+  • godau.fynn.usagedirect_10.apk (3.3 MB)
+  • io.github.muntashirakon.AppManager_451.apk (26.8 MB)
+  • org.mozilla.fennec_fdroid_1560020.apk (121.7 MB)
+  • org.schabi.newpipe_1015_cb84069.apk (11.0 MB)
+
+======================================================================
+  Testing: com.emanuelef.remote_capture_95.apk (16.7 MB)
+======================================================================
+  [1/8] Intake... PASS (0.8s)
+  [2/8] Inspection... PASS (9.1s)
+  [3/8] manifest... PASS
+  [4/8] dex... PASS
+  [5/8] native_libraries... PASS
+  [6/8] resources_assets... PASS
+  [7/8] strings_urls_domains... PASS
+  [6/8] Privacy... PASS (0.3s)
+  [7/8] Security... PASS (0.2s)
+  [8/8] Mod planning... PASS (0.0s)
+
+======================================================================
+  Testing: com.oF2pks.applicationsinfo_19.apk (0.1 MB)
+======================================================================
+  [1/8] Intake... PASS (0.0s)
+  [2/8] Inspection... PASS (0.1s)
+  [3/8] manifest... PASS
+  [4/8] dex... PASS
+  [5/8] native_libraries... PASS
+  [6/8] resources_assets... PASS
+  [7/8] strings_urls_domains... PASS
+  [6/8] Privacy... PASS (0.0s)
+  [7/8] Security... PASS (0.0s)
+  [8/8] Mod planning... PASS (0.0s)
+
+======================================================================
+  Testing: de.audioattack.openlink_28.apk (0.2 MB)
+======================================================================
+  [1/8] Intake... PASS (0.0s)
+  [2/8] Inspection... PASS (0.1s)
+  [3/8] manifest... PASS
+  [4/8] dex... PASS
+  [5/8] native_libraries... PASS
+  [6/8] resources_assets... PASS
+  [7/8] strings_urls_domains... PASS
+  [6/8] Privacy... PASS (0.0s)
+  [7/8] Security... PASS (0.0s)
+  [8/8] Mod planning... PASS (0.0s)
+
+======================================================================
+  Testing: de.danoeh.antennapod_3120295.apk (16.9 MB)
+======================================================================
+  [1/8] Intake... PASS (0.6s)
+  [2/8] Inspection... PASS (18.0s)
+  [3/8] manifest... PASS
+  [4/8] dex... PASS
+  [5/8] native_libraries... PASS
+  [6/8] resources_assets... PASS
+  [7/8] strings_urls_domains... PASS
+  [6/8] Privacy... PASS (0.9s)
+  [7/8] Security... PASS (0.5s)
+  [8/8] Mod planning... PASS (0.0s)
+
+======================================================================
+  Testing: eu.siacs.conversations_4218104.apk (29.3 MB)
+======================================================================
+  [1/8] Intake... PASS (0.9s)
+  [2/8] Inspection... PASS (15.4s)
+  [3/8] manifest... PASS
+  [4/8] dex... PASS
+  [5/8] native_libraries... PASS
+  [6/8] resources_assets... PASS
+  [7/8] strings_urls_domains... PASS
+  [6/8] Privacy... PASS (0.7s)
+  [7/8] Security... PASS (0.3s)
+  [8/8] Mod planning... PASS (0.1s)
+
+======================================================================
+  Testing: godau.fynn.usagedirect_10.apk (3.3 MB)
+======================================================================
+  [1/8] Intake... PASS (0.1s)
+  [2/8] Inspection... PASS (8.7s)
+  [3/8] manifest... PASS
+  [4/8] dex... PASS
+  [5/8] native_libraries... PASS
+  [6/8] resources_assets... PASS
+  [7/8] strings_urls_domains... PASS
+  [6/8] Privacy... PASS (0.5s)
+  [7/8] Security... PASS (0.3s)
+  [8/8] Mod planning... PASS (0.0s)
+
+======================================================================
+  Testing: io.github.muntashirakon.AppManager_451.apk (26.8 MB)
+======================================================================
+  [1/8] Intake... PASS (1.1s)
+  [2/8] Inspection... PASS (51.3s)
+  [3/8] manifest... PASS
+  [4/8] dex... PASS
+  [5/8] native_libraries... PASS
+  [6/8] resources_assets... PASS
+  [7/8] strings_urls_domains... PASS
+  [6/8] Privacy... PASS (3.4s)
+  [7/8] Security... PASS (1.3s)
+  [8/8] Mod planning... PASS (0.1s)
+
+======================================================================
+  Testing: org.mozilla.fennec_fdroid_1560020.apk (121.7 MB)
+======================================================================
+  [1/8] Intake... PASS (4.2s)
+  [2/8] Inspection... PARTIAL (69.0s)
+  [3/8] manifest... PASS
+  [4/8] dex... PASS
+  [5/8] native_libraries... PASS
+  [6/8] resources_assets... PASS
+  [7/8] strings_urls_domains... PASS
+  [6/8] Privacy... PARTIAL (2.8s)
+  [7/8] Security... PARTIAL (1.2s)
+  [8/8] Mod planning... PASS (0.3s)
+
+======================================================================
+  Testing: org.schabi.newpipe_1015_cb84069.apk (11.0 MB)
+======================================================================
+  [1/8] Intake... PASS (0.9s)
+  [2/8] Inspection... PASS (20.0s)
+  [3/8] manifest... PASS
+  [4/8] dex... PASS
+  [5/8] native_libraries... PASS
+  [6/8] resources_assets... PASS
+  [7/8] strings_urls_domains... PASS
+  [6/8] Privacy... PASS (1.0s)
+  [7/8] Security... PASS (0.5s)
+  [8/8] Mod planning... PASS (0.0s)
+
+======================================================================
+  Diff Validation (selected pairs)
+======================================================================
+
+  Diff pair 1: com.oF2pks.applicationsinfo_19.apk vs de.audioattack.openlink_28.apk... PASS (0.4s)
+
+  Diff pair 2: com.oF2pks.applicationsinfo_19.apk vs org.mozilla.fennec_fdroid_1560020.apk... PARTIAL (75.7s)
+
+  Diff pair 3: com.emanuelef.remote_capture_95.apk vs de.danoeh.antennapod_3120295.apk... PASS (31.8s)
+
+
+Results saved to: /home/naishring/APKForge/tests/corpus_results.json
+
+======================================================================
+  SUMMARY MATRIX
+======================================================================
+Capability              com.emanuele com.oF2pks.a de.audioatta de.danoeh.an eu.siacs.con godau.fynn.u io.github.mu org.mozilla. org.schabi.n
+--------------------------------------------------------------------------------------------------------------------------------------------
+assets                             ✓            ✓            ✓            ✓            ✓            ✓            ✓            ✓            ✓
+dex                                ✓            ✓            ✓            ✓            ✓            ✓            ✓            ✓            ✓
+inspection_full                    ✓            ✓            ✓            ✓            ✓            ✓            ✓            ◐            ✓
+intake                             ✓            ✓            ✓            ✓            ✓            ✓            ✓            ✓            ✓
+manifest                           ✓            ✓            ✓            ✓            ✓            ✓            ✓            ✓            ✓
+modification_planning              ✓            ✓            ✓            ✓            ✓            ✓            ✓            ✓            ✓
+native_libraries                   ✓            ✓            ✓            ✓            ✓            ✓            ✓            ✓            ✓
+privacy                            ✓            ✓            ✓            ✓            ✓            ✓            ✓            ◐            ✓
+resources_assets                   ✓            ✓            ✓            ✓            ✓            ✓            ✓            ✓            ✓
+security                           ✓            ✓            ✓            ✓            ✓            ✓            ✓            ◐            ✓
+strings_urls_domains               ✓            ✓            ✓            ✓            ✓            ✓            ✓            ✓            ✓
+
+======================================================================
+  AGGREGATE COUNTS
+======================================================================
+  Total tests: 99
+  PASS:        96
+  PARTIAL:     3
+  FAIL:        0
+  N/A:         0
+  Duration:    341.1s
+
+======================================================================
+  PARTIAL RESULTS (3)
+======================================================================
+
+  APK:        org.mozilla.fennec_fdroid_1560020.apk
+  Capability: inspection_full
+  Message:    Inspection PARTIAL. Failed inspectors: []
+
+  APK:        org.mozilla.fennec_fdroid_1560020.apk
+  Capability: privacy
+  Message:    Privacy analysis PARTIAL: []
+
+  APK:        org.mozilla.fennec_fdroid_1560020.apk
+  Capability: security
+  Message:    Security analysis PARTIAL: []
+
+======================================================================
+  DIFF RESULTS (3 pairs)
+======================================================================
+  ✓ com.oF2pks.applicationsinfo_19.apk vs de.audioattack.openlink_28.apk: PASS
+  ◐ com.oF2pks.applicationsinfo_19.apk vs org.mozilla.fennec_fdroid_1560020.apk: PARTIAL
+  ✓ com.emanuelef.remote_capture_95.apk vs de.danoeh.antennapod_3120295.apk: PASS
+
+======================================================================
+  Phase A Corpus Validation Complete
+======================================================================
+
+exit 0

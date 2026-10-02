@@ -490,6 +490,9 @@ Entries 16–19 were added in C.5; no earlier entry was edited.
 
 ### 16. The manifest inspector extracts no intent filters from real APKs
 
+> **Pre-fix record — fixed.** The text below describes the inspector before the fix and
+> is kept as written. Current state: "Status update — intent-filter extraction fix (§16)".
+
 **Classification: unresolved defect** (pre-existing; found in C.5, not fixed in C.5).
 
 `ManifestInspector._extract_intent_filters` returns early unless it is given an
@@ -516,6 +519,9 @@ manifest independently and checks the target receiver's actions. DiffEngine itse
 not cover intent filters.
 
 ### 17. Legacy `ModificationFramework` reports SUCCESS when nothing was changed
+
+> **Pre-fix record — fixed.** The text below describes the framework before the fix and
+> is kept as written. Current state: "Status update — pre-Phase-D groundwork".
 
 **Classification: unresolved defect** (pre-existing, Phase D scope; C.5 does not use this path).
 
@@ -550,3 +556,144 @@ reuses one directory across runs under `workspace_base`. Regression tests:
 `tests/unit/test_workspace_lifecycle.py`.
 
 Directories leaked before the fix are not removed automatically.
+
+---
+
+## Status update — intent-filter extraction fix (§16)
+
+Recorded here rather than by editing §6 or §16. Evidence: `artifacts/intent-filter-fix/`
+(`report.md` summarises it; every figure below cites a file in that directory).
+
+**§16 — fixed.** `ManifestInspector` now accepts any ElementTree-compatible element, so it
+reads the `lxml.etree._Element` tree Androguard returns. An extraction failure is no longer
+swallowed: it adds a warning that names the component and the exception, which makes the
+manifest inspection PARTIAL. Components are now matched to their manifest element by
+resolved class name first, falling back to the old simple-name match. AntennaPod has two
+receivers named `MediaButtonReceiver`, and the simple-name match would have given the
+library one the app's filters. Regression tests:
+`tests/unit/test_inspection_manifest_intent_filters.py` (6 of 7 fail against the pre-fix
+source, `tests_against_prefix_src.txt`).
+
+Measured on the 9-APK corpus: 0 intent filters before, 200 after (`filter_counts.json` in
+`before/` and `after/`). Per filter, the actions, categories and number of `<data>` elements
+match `aapt2 dump xmltree` for every component in all 9 APKs (`aapt2_verification.json`).
+No manifest inspection became PARTIAL and nothing other than `intent_filters` changed
+(`comparison.json`).
+
+### Phase B security precision was measured with the pre-fix inspector
+
+The false-positive rates in §6 (59 findings, 37.3%) and the post-PRC rate (42 findings,
+5 FP, **11.9%**, `artifacts/security-validation/prc_validation/findings_review_post_prc.md`)
+were measured while every real APK had zero intent filters. Those numbers stay as recorded.
+Measured with the fixed inspector, same three apps and same method
+(`artifacts/intent-filter-fix/precision.json`):
+
+| | findings | TP | FP | unclear | FP rate |
+|---|---:|---:|---:|---:|---:|
+| post-PRC, pre-fix inspector (reproduced from `before/`) | 42 | 35 | 5 | 2 | 11.9% |
+| post-PRC, **post-fix inspector** | 44 | 37 | 5 | 2 | **11.4%** |
+
+Per app after the fix: OpenLink 0/5, PCAPdroid 2/10 (20.0%), AppManager 3/29 (10.3%).
+The two added findings are `SEC-MAL-BOOT-001` in PCAPdroid and AppManager, both classified
+true positive: each app's `BootReceiver` declares BOOT_COMPLETED (aapt2) and starts a
+service from `onReceive` (`boot_receiver_xrefs.json`). `SEC-MAL-PERSISTENCE-BOOT` moves from
+confidence `high` to `confirmed` in all three apps. Its severity is unchanged, and it now
+names the boot receiver as evidence.
+
+Outside the three reviewed apps (not hand-reviewed; `other_apps.json`):
+`SEC-MAL-BOOT-001` is added in AntennaPod, Conversations, Fennec and NewPipe, and the HIGH
+finding `SEC-COMB-PERSISTENT-LOC` (boot receiver + location) is added in Conversations and
+Fennec. Capability verdicts are unchanged: 96 PASS / 3 PARTIAL before and after
+(`corpus_comparison.json`).
+
+### Limitations found while measuring (not fixed here)
+
+- `SEC-MAL-BOOT-001` duplicates `SEC-MAL-PERSISTENCE-BOOT` (the §6 PRC-04 pattern). Its
+  evidence location `manifest:receiver:BOOT_COMPLETED` does not name the receiver. It also
+  lists every declared service, not the one the receiver starts.
+- Deep-link hosts from intent-filter `<data android:host>` are now fed into the network
+  inspector and counted as privacy endpoints (`network:extracted_domain`). NewPipe gains
+  13 domains, AntennaPod 1 (`new_domains_vs_aapt2_hosts.json`). They are hosts the app
+  *handles links for*, not hosts it is shown to contact.
+- `<activity-alias>` elements and their intent filters are not modelled. AppManager
+  declares 5 aliases.
+- Component and permission order in `ManifestInspection` comes from Androguard sets and
+  varies run to run. Compare these lists order-insensitively.
+- The C.5 runner's limitation text (`build-tests/run_c5_validation.py`) still says intent
+  filters of real APKs are not compared. That is no longer true for DiffEngine. It was left
+  unchanged in this step.
+
+### Baselines
+
+The C.5 semantic no-op baseline is identical before and after once timestamps and paths
+are removed. All 9 verdicts, noise-rule counts and residue are unchanged
+(`c5_comparison.json`), so it was not regenerated. The OpenLink C.5 result is also
+unchanged (VERIFIED, 2 expected, 74 noise, 0 unexpected/unknown). DiffEngine now sees the
+same 8 filters on both sides (`after/c5/openlink_filter_check.json`). The C.4 build
+baseline does not use the inspector. `tests/corpus_results.json` and
+`tests/corpus_results_baseline.json` were not updated. The tracked file already differed
+from a fresh pre-fix run in 7 unrelated fields, and the baseline file in 25 verdicts. The
+post-fix run is in `after/corpus_results.json`.
+
+---
+
+## Status update — pre-Phase-D groundwork
+
+Recorded here rather than by editing §16–§19. Evidence: `artifacts/pre-phase-d/`
+(`README.md` summarises it).
+
+**§17 — fixed.** A skipped step is no longer a success. `StepStatus` gains
+`VERIFICATION_FAILED` (a step that was executed and then failed verification) and
+`PARTIAL` (aggregate only).
+
+- `ModificationStepResult` records `verified` (True, False, or None for "not verified")
+  and `rolled_back`. A step is `executed` when its status is SUCCESS or
+  VERIFICATION_FAILED.
+- The framework calls a modifier's optional `verify()` after each real apply. A failed or
+  raising verification makes the step VERIFICATION_FAILED and rolls it back.
+- An exception in `apply()` is recorded as FAILED, with the exception type kept.
+- Changes after a failure are recorded as PENDING ("Not attempted").
+- The original APK is checked by full SHA-256, not just by existence.
+- `ModificationResult.aggregate_status()` derives the overall status from the steps:
+
+| steps | overall status |
+|---|---|
+| any failure, failed verification, rollback or not-attempted step | FAILED |
+| nothing executed (no accepted changes, or every step skipped) | SKIPPED |
+| some steps executed, others skipped | PARTIAL |
+| every step executed | SUCCESS (DRY_RUN in a dry run) |
+
+`all_succeeded` is False for an empty or skipped result. `apkforge modify` exits with 0
+(SUCCESS/DRY_RUN), 1 (failed) or 3 (SKIPPED/PARTIAL). Its report shows the planned,
+executed, verified, skipped, failed, not-attempted and rolled-back counts. The working copy
+is kept for SUCCESS and PARTIAL runs, because both contain executed changes. None of the
+built-in modifiers defines `verify()` yet, so their steps report `verified=None`, never
+True. Regression tests: `tests/unit/test_modification_status_semantics.py`. All 31 fail
+against the old code (`status_tests_against_old_framework.txt`). Two existing tests asserted
+the old semantics (an empty result counting as success, and "no accepted changes" reporting
+SUCCESS) and were updated. C.5 does not use this framework and its result is unchanged.
+
+**§16 follow-ups.** The C.5 runner's limitation text and `controlled-modification.md` now
+say that DiffEngine compares intent filters. The tracked `c5-openlink-result.{json,md}`
+was regenerated for that line alone. Its verdict, stages, classification counts (2
+expected, 74 noise, 0 unexpected/unknown) and original SHA-256 are unchanged. Only
+timestamps, paths, the commit and the per-signing output SHA-256 differ. The pre-fix copy
+is in `artifacts/intent-filter-fix/before/c5/`. The semantic no-op baseline was not
+regenerated: a fresh run differs from it only in `rebuilt_sha256`, which changes on every
+build. The changed security findings are tabulated with their review status in
+`artifacts/pre-phase-d/finding_changes.md`. In AntennaPod, Fennec and NewPipe the only
+boot receiver is androidx WorkManager's `RescheduleReceiver`. Those findings, including
+Fennec's HIGH `SEC-COMB-PERSISTENT-LOC`, have not been reviewed by hand. `<activity-alias>`
+is still not modelled.
+
+**§19 — verified.** The 543 directories in `/tmp/apkforge` all predated the fix and were
+removed. Two full test runs, the C.4 corpus build, the C.5 runs and the security corpus run
+then left the temp space unchanged.
+
+**Retired C.1 test key.** `build-tests/run_proof.py` and `run_noop_roundtrip.py` still name
+the deleted `tools/test-signing-key.jks` and its fixed throwaway password. Both scripts now
+stop at startup with exit code 2 and say that the key is retired and must not be recreated.
+
+**Test environment.** With `FORCE_COLOR` set, rich writes ANSI codes into `--json` output,
+and 6 CLI JSON tests fail. That also happens on unmodified HEAD source. Run the tests with
+`FORCE_COLOR` unset.

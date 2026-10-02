@@ -25,6 +25,9 @@ ROOT = Path(__file__).resolve().parent.parent
 SAMPLES_DIR = ROOT / "samples"
 WORK_DIR = ROOT / "work"
 LOGS_DIR = ROOT / "build-tests" / "logs"
+# Historical C.1 throwaway test key, retired in C.2 and deleted: these values are not a
+# usable credential and the key must not be recreated.  Current builds sign through
+# BuildService with the APKForge development key (docs/build-service.md, "Signing model").
 KEYSTORE = ROOT / "tools" / "test-signing-key.jks"
 KEYSTORE_PASS = "apkforge-test-pass"
 KEY_ALIAS = "apkforge-test-key"
@@ -472,6 +475,13 @@ def process_apk(apk_path: Path) -> APKProofResult:
 
 
 def main() -> None:
+    if not KEYSTORE.is_file():
+        print(
+            f"ERROR: {KEYSTORE.name} (the retired C.1 test key) is gone by design. This script "
+            "is kept as the historical C.1 record; use BuildService (`apkforge build`).",
+            file=sys.stderr,
+        )
+        sys.exit(2)
     apks = sorted(list(SAMPLES_DIR.glob("*.apk")))
     if not apks:
         print("ERROR: No sample APKs found in samples/", file=sys.stderr)

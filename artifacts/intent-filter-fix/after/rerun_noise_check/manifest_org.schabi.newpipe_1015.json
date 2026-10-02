@@ -1,0 +1,1693 @@
+{
+  "_meta": {
+    "apk_sha256": "18447bfb1e06d113edc88df93f471827280de06f6f3d4dc42f56f28b9c1bab79",
+    "apkforge_module": "/home/naishring/APKForge/src/apkforge/__init__.py",
+    "generated_utc": "2026-10-02T19:18:46.444214+00:00",
+    "git_head": "7415f671aa5b0e56f2e865b2167d43f74176a013",
+    "id": "org.schabi.newpipe@1015",
+    "src_dirty": [
+      "M src/apkforge/inspection/manifest.py"
+    ]
+  },
+  "inspector_status": "complete",
+  "manifest": {
+    "activities": [
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "info.guardianproject.panic.action.TRIGGER"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": []
+          }
+        ],
+        "name": "org.schabi.newpipe.PanicResponderActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.GET_CONTENT"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": []
+          }
+        ],
+        "name": "org.schabi.newpipe.util.FilePickerActivityHelper",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "com.jakewharton.processphoenix.PhoenixActivity",
+        "permission": null,
+        "process": ":phoenix"
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.MAIN"
+            ],
+            "categories": [
+              "android.intent.category.LAUNCHER",
+              "android.intent.category.LEANBACK_LAUNCHER"
+            ],
+            "data": []
+          }
+        ],
+        "name": "org.schabi.newpipe.MainActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "org.schabi.newpipe.ExitActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "org.schabi.newpipe.player.PlayQueueActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "net.newpipe.app.ComposeActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "org.schabi.newpipe.error.ErrorActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "org.schabi.newpipe.settings.SettingsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.VIEW",
+              "android.media.action.MEDIA_PLAY_FROM_SEARCH",
+              "android.nfc.action.NDEF_DISCOVERED"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "http"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "https"
+              },
+              {
+                "host": "youtube.com",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "m.youtube.com",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "www.youtube.com",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "music.youtube.com",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/v/",
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/embed/",
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/watch",
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/attribution_link",
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/shorts/",
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/live/",
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/channel/",
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/user/",
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/c/",
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/@",
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/playlist",
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW",
+              "android.media.action.MEDIA_PLAY_FROM_SEARCH",
+              "android.nfc.action.NDEF_DISCOVERED"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "http"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "https"
+              },
+              {
+                "host": "youtu.be",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/",
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW",
+              "android.media.action.MEDIA_PLAY_FROM_SEARCH",
+              "android.nfc.action.NDEF_DISCOVERED"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "http"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "https"
+              },
+              {
+                "host": "www.youtube-nocookie.com",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/embed/",
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW",
+              "android.media.action.MEDIA_PLAY_FROM_SEARCH",
+              "android.nfc.action.NDEF_DISCOVERED"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "vnd.youtube"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "vnd.youtube.launch"
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW",
+              "android.media.action.MEDIA_PLAY_FROM_SEARCH",
+              "android.nfc.action.NDEF_DISCOVERED"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "http"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "https"
+              },
+              {
+                "host": "hooktube.com",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "*.hooktube.com",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/v/",
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/embed/",
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/watch",
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/channel/",
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/user/",
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW",
+              "android.media.action.MEDIA_PLAY_FROM_SEARCH",
+              "android.nfc.action.NDEF_DISCOVERED"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "http"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "https"
+              },
+              {
+                "host": "tubus.eduvid.org",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "invidio.us",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "dev.invidio.us",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "www.invidio.us",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "redirect.invidious.io",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "invidious.snopyta.org",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "yewtu.be",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "tube.connect.cafe",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "invidious.kavin.rocks",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "invidious-us.kavin.rocks",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "piped.kavin.rocks",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "invidious.site",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "vid.mint.lgbt",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "invidiou.site",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "invidious.fdn.fr",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "invidious.048596.xyz",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "invidious.zee.li",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "vid.puffyan.us",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "ytprivate.com",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "invidious.namazso.eu",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "invidious.silkky.cloud",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "invidious.exonip.de",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "inv.riverside.rocks",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "invidious.blamefran.net",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "invidious.moomoo.me",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "ytb.trom.tf",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "yt.cyberhost.uk",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "y.com.cm",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/",
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW",
+              "android.media.action.MEDIA_PLAY_FROM_SEARCH",
+              "android.nfc.action.NDEF_DISCOVERED"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "http"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "https"
+              },
+              {
+                "host": "y2u.be",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/",
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW",
+              "android.media.action.MEDIA_PLAY_FROM_SEARCH",
+              "android.nfc.action.NDEF_DISCOVERED"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "http"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "https"
+              },
+              {
+                "host": "soundcloud.com",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "m.soundcloud.com",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "on.soundcloud.com",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "www.soundcloud.com",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/",
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.SEND"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": "text/plain",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW",
+              "android.media.action.MEDIA_PLAY_FROM_SEARCH",
+              "android.nfc.action.NDEF_DISCOVERED"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "http"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "https"
+              },
+              {
+                "host": "media.ccc.de",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/v/",
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/c/",
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/b/",
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW",
+              "android.media.action.MEDIA_PLAY_FROM_SEARCH",
+              "android.nfc.action.NDEF_DISCOVERED"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "http"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "https"
+              },
+              {
+                "host": "eduvid.org",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "framatube.org",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "indymotion.fr",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "media.assassinate-you.net",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "media.fsfe.org",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "peertube.co.uk",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "peertube.cpy.re",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "peertube.fr",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "peertube.mastodon.host",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "peertube.stream",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "skeptikon.fr",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "tilvids.com",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "video.lqdn.fr",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "video.ploud.fr",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": "subscribeto.me",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/videos/",
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/w/",
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/w/p/",
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/accounts/",
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/a/",
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/video-channels/",
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/c/",
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW",
+              "android.media.action.MEDIA_PLAY_FROM_SEARCH",
+              "android.nfc.action.NDEF_DISCOVERED"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "http"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "https"
+              },
+              {
+                "host": "*.bandcamp.com",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW",
+              "android.media.action.MEDIA_PLAY_FROM_SEARCH",
+              "android.nfc.action.NDEF_DISCOVERED"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "http"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "https"
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          }
+        ],
+        "name": "org.schabi.newpipe.RouterActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "org.schabi.newpipe.about.AboutActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "org.schabi.newpipe.error.ReCaptchaActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "org.schabi.newpipe.download.DownloadActivity",
+        "permission": null,
+        "process": null
+      }
+    ],
+    "application": {
+      "allow_backup": true,
+      "debuggable": null,
+      "extract_native_libs": false,
+      "icon": "res/9w.png",
+      "label": "NewPipe",
+      "large_heap": null,
+      "network_security_config": null,
+      "test_only": null,
+      "theme": "@7F140197",
+      "uses_cleartext_traffic": null
+    },
+    "declared_permissions": [],
+    "min_sdk": 23,
+    "package_name": "org.schabi.newpipe",
+    "permissions": [
+      {
+        "name": "android.permission.SYSTEM_ALERT_WINDOW",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.RECEIVE_BOOT_COMPLETED",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.POST_NOTIFICATIONS",
+        "protection_level": null
+      },
+      {
+        "name": "org.schabi.newpipe.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.WAKE_LOCK",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.FOREGROUND_SERVICE_DATA_SYNC",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.WRITE_EXTERNAL_STORAGE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.ACCESS_NETWORK_STATE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.INTERNET",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.FOREGROUND_SERVICE",
+        "protection_level": null
+      }
+    ],
+    "providers": [
+      {
+        "authorities": "org.schabi.newpipe.androidx-startup",
+        "enabled": null,
+        "exported": false,
+        "grant_uri_permissions": null,
+        "name": "androidx.startup.InitializationProvider",
+        "permission": null,
+        "process": null,
+        "read_permission": null,
+        "write_permission": null
+      },
+      {
+        "authorities": "org.schabi.newpipe.acra",
+        "enabled": null,
+        "exported": false,
+        "grant_uri_permissions": true,
+        "name": "org.acra.attachment.AcraContentProvider",
+        "permission": null,
+        "process": ":acra",
+        "read_permission": null,
+        "write_permission": null
+      },
+      {
+        "authorities": "org.schabi.newpipe.resources.AndroidContextProvider",
+        "enabled": true,
+        "exported": false,
+        "grant_uri_permissions": null,
+        "name": "org.jetbrains.compose.resources.AndroidContextProvider",
+        "permission": null,
+        "process": null,
+        "read_permission": null,
+        "write_permission": null
+      },
+      {
+        "authorities": "org.schabi.newpipe.provider",
+        "enabled": null,
+        "exported": false,
+        "grant_uri_permissions": true,
+        "name": "androidx.core.content.FileProvider",
+        "permission": null,
+        "process": null,
+        "read_permission": null,
+        "write_permission": null
+      }
+    ],
+    "receivers": [
+      {
+        "enabled": true,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "androidx.work.diagnostics.REQUEST_DIAGNOSTICS"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "androidx.work.impl.diagnostics.DiagnosticsReceiver",
+        "permission": "android.permission.DUMP",
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "androidx.profileinstaller.action.INSTALL_PROFILE"
+            ],
+            "categories": [],
+            "data": []
+          },
+          {
+            "actions": [
+              "androidx.profileinstaller.action.SKIP_FILE"
+            ],
+            "categories": [],
+            "data": []
+          },
+          {
+            "actions": [
+              "androidx.profileinstaller.action.SAVE_PROFILE"
+            ],
+            "categories": [],
+            "data": []
+          },
+          {
+            "actions": [
+              "androidx.profileinstaller.action.BENCHMARK_OPERATION"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "androidx.profileinstaller.ProfileInstallReceiver",
+        "permission": "android.permission.DUMP",
+        "process": null
+      },
+      {
+        "enabled": false,
+        "exported": false,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.BOOT_COMPLETED"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "androidx.work.impl.background.systemalarm.RescheduleReceiver",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": false,
+        "intent_filters": [],
+        "name": "androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.MEDIA_BUTTON"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "androidx.media.session.MediaButtonReceiver",
+        "permission": null,
+        "process": null
+      }
+    ],
+    "resource_map": {
+      "@7F100000": "res/9w.png"
+    },
+    "services": [
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.acra.sender.JobSenderService",
+        "permission": "android.permission.BIND_JOB_SERVICE",
+        "process": ":acra"
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x00000001",
+        "intent_filters": [],
+        "name": "androidx.work.impl.foreground.SystemForegroundService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "com.jakewharton.processphoenix.PhoenixService",
+        "permission": null,
+        "process": ":phoenix"
+      },
+      {
+        "enabled": null,
+        "exported": null,
+        "foreground_service_type": "0x00000001",
+        "intent_filters": [],
+        "name": "us.shandian.giga.service.DownloadManagerService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "org.acra.sender.LegacySenderService",
+        "permission": null,
+        "process": ":acra"
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "androidx.room.MultiInstanceInvalidationService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x00000001",
+        "intent_filters": [],
+        "name": "org.schabi.newpipe.RouterActivity$FetcherService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": true,
+        "foreground_service_type": "0x00000002",
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.MEDIA_BUTTON"
+            ],
+            "categories": [],
+            "data": []
+          },
+          {
+            "actions": [
+              "android.media.browse.MediaBrowserService"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "org.schabi.newpipe.player.PlayerService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": true,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "androidx.work.impl.background.systemjob.SystemJobService",
+        "permission": "android.permission.BIND_JOB_SERVICE",
+        "process": null
+      },
+      {
+        "enabled": false,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "androidx.appcompat.app.AppLocalesMetadataHolderService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": null,
+        "foreground_service_type": "0x00000001",
+        "intent_filters": [],
+        "name": "org.schabi.newpipe.local.feed.service.FeedLoadService",
+        "permission": null,
+        "process": null
+      }
+    ],
+    "target_sdk": 35,
+    "version_code": 1015,
+    "version_name": "0.29.1"
+  },
+  "overall_status": "complete",
+  "warnings": []
+}

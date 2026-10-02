@@ -1,0 +1,3225 @@
+{
+  "apkforge_module": "/home/naishring/APKForge/src/apkforge/__init__.py",
+  "apks": {
+    "de.danoeh.antennapod_3120295.apk": {
+      "findings": {
+        "SEC-VULN-CRYPTO-ECB": {
+          "severity": "high",
+          "confidence": "high",
+          "title": "Insecure Electronic Codebook (ECB) Cipher Mode Detected",
+          "evidence": [
+            {
+              "description": "ECB cipher mode string pattern: AES/ECB/NoPadding",
+              "location": "dex:strings",
+              "snippet": "AES/ECB/NoPadding",
+              "references": []
+            },
+            {
+              "description": "ECB cipher mode string pattern: AES/ECB/PKCS5Padding",
+              "location": "dex:strings",
+              "snippet": "AES/ECB/PKCS5Padding",
+              "references": []
+            },
+            {
+              "description": "ECB cipher mode string pattern: Alg.Alias.Cipher.AES/ECB/PKCS7Padding",
+              "location": "dex:strings",
+              "snippet": "Alg.Alias.Cipher.AES/ECB/PKCS7Padding",
+              "references": []
+            }
+          ]
+        },
+        "SEC-MAL-BOOT-001": {
+          "severity": "medium",
+          "confidence": "high",
+          "title": "Persistent Boot Startup Receiver",
+          "evidence": [
+            {
+              "description": "Observed broadcast receiver listening for device boot completion",
+              "location": "manifest:receiver:BOOT_COMPLETED",
+              "snippet": "BOOT_COMPLETED receiver",
+              "references": []
+            },
+            {
+              "description": "Observed component: type=service (de.danoeh.antennapod.playback.service.Media3PlaybackService, androidx.work.impl.background.systemalarm.SystemAlarmService, de.danoeh.antennapod.playback.service.QuickSettingsTileService)",
+              "location": "manifest:service",
+              "snippet": "Observed component: type=service (de.danoeh.antennapod.playback.service.Media3PlaybackService, androidx.work.impl.background.systemalarm.SystemAlarmService, de.danoeh.antennapod.playback.service.QuickSettingsTileService)",
+              "references": []
+            }
+          ]
+        },
+        "SEC-NET-CAPABILITY-FLOW": {
+          "severity": "medium",
+          "confidence": "medium",
+          "title": "Sensitive Data Capabilities Co-Occur with External NetworkCommunication",
+          "evidence": [
+            {
+              "description": "External domain endpoint: androidx.appcompat.app",
+              "location": "domain:androidx.appcompat.app",
+              "snippet": "androidx.appcompat.app",
+              "references": []
+            },
+            {
+              "description": "External domain endpoint: extra.de",
+              "location": "domain:extra.de",
+              "snippet": "extra.de",
+              "references": []
+            },
+            {
+              "description": "External domain endpoint: android.app",
+              "location": "domain:android.app",
+              "snippet": "android.app",
+              "references": []
+            },
+            {
+              "description": "External domain endpoint: api.fyyd.de",
+              "location": "domain:api.fyyd.de",
+              "snippet": "api.fyyd.de",
+              "references": []
+            },
+            {
+              "description": "External domain endpoint: itunes.apple.com",
+              "location": "domain:itunes.apple.com",
+              "snippet": "itunes.apple.com",
+              "references": []
+            }
+          ]
+        },
+        "SEC-NET-DIRECT-IP": {
+          "severity": "medium",
+          "confidence": "high",
+          "title": "Direct IP Address Network Endpoint Detected",
+          "evidence": [
+            {
+              "description": "Direct IP endpoint observed: https://127.0.0.1",
+              "location": "classes3.dex",
+              "snippet": "https://127.0.0.1",
+              "references": []
+            }
+          ]
+        },
+        "SEC-SPY-ACCESSIBILITY-001": {
+          "severity": "medium",
+          "confidence": "high",
+          "title": "Accessibility Service Implementation",
+          "evidence": [
+            {
+              "description": "Referenced API: android.accessibilityservice.AccessibilityService",
+              "location": "api:android.accessibilityservice.AccessibilityService",
+              "snippet": "android.accessibilityservice.AccessibilityService",
+              "references": []
+            }
+          ]
+        },
+        "SEC-SPY-ACCESSIBILITY-ABUSE": {
+          "severity": "medium",
+          "confidence": "high",
+          "title": "Android Accessibility Service Implementation",
+          "evidence": [
+            {
+              "description": "AccessibilityService API referenced in bytecode",
+              "location": "api:android.accessibilityservice.AccessibilityService",
+              "snippet": "AccessibilityService API",
+              "references": []
+            }
+          ]
+        },
+        "SEC-SPY-DEVICE-IDENTIFIERS": {
+          "severity": "medium",
+          "confidence": "high",
+          "title": "Hardware & Persistent Device Identifier Collection Capability",
+          "evidence": [
+            {
+              "description": "Telephony hardware identifier method reference: de.danoeh.antennapod.storage.preferences.SynchronizationCredentials.getDeviceId",
+              "location": "method:de.danoeh.antennapod.storage.preferences.SynchronizationCredentials.getDeviceId",
+              "snippet": "de.danoeh.antennapod.storage.preferences.SynchronizationCredentials.getDeviceId",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: getDeviceId",
+              "location": "method:getDeviceId",
+              "snippet": "getDeviceId",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: getDeviceIdFromContext",
+              "location": "method:getDeviceIdFromContext",
+              "snippet": "getDeviceIdFromContext",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: androidx.media3.exoplayer.audio.DefaultAudioSink.getDeviceIdFromContext",
+              "location": "method:androidx.media3.exoplayer.audio.DefaultAudioSink.getDeviceIdFromContext",
+              "snippet": "androidx.media3.exoplayer.audio.DefaultAudioSink.getDeviceIdFromContext",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: de.danoeh.antennapod.storage.preferences.SynchronizationCredentials;->getDeviceId()Ljava.lang.String",
+              "location": "method:de.danoeh.antennapod.storage.preferences.SynchronizationCredentials;->getDeviceId()Ljava.lang.String",
+              "snippet": "de.danoeh.antennapod.storage.preferences.SynchronizationCredentials;->getDeviceId()Ljava.lang.String",
+              "references": []
+            },
+            {
+              "description": "Settings.Secure.ANDROID_ID reference",
+              "location": "dex:strings",
+              "snippet": "android_id",
+              "references": []
+            },
+            {
+              "description": "Build.SERIAL hardware serial number reference",
+              "location": "dex:strings",
+              "snippet": "Build.SERIAL",
+              "references": []
+            }
+          ]
+        },
+        "SEC-VULN-CLEARTEXT-001": {
+          "severity": "medium",
+          "confidence": "confirmed",
+          "title": "Cleartext Network Traffic Allowed",
+          "evidence": [
+            {
+              "description": "Manifest attribute usesCleartextTraffic=true",
+              "location": "manifest:usesCleartextTraffic",
+              "snippet": "usesCleartextTraffic=true",
+              "references": []
+            }
+          ]
+        },
+        "SEC-VULN-EXPORTED-SERVICE": {
+          "severity": "medium",
+          "confidence": "confirmed",
+          "title": "Exported Service Component Lacks Permission Protection",
+          "evidence": [
+            {
+              "description": "Exported service lacking permission: de.danoeh.antennapod.playback.service.Media3PlaybackService",
+              "location": "manifest:service:de.danoeh.antennapod.playback.service.Media3PlaybackService",
+              "snippet": "Service: de.danoeh.antennapod.playback.service.Media3PlaybackService (exported=true, permission=None)",
+              "references": []
+            },
+            {
+              "description": "Exported service lacking permission: de.danoeh.antennapod.playback.service.PlaybackService",
+              "location": "manifest:service:de.danoeh.antennapod.playback.service.PlaybackService",
+              "snippet": "Service: de.danoeh.antennapod.playback.service.PlaybackService (exported=true, permission=None)",
+              "references": []
+            }
+          ]
+        },
+        "SEC-VULN-MANIFEST-CLEARTEXT": {
+          "severity": "medium",
+          "confidence": "confirmed",
+          "title": "Cleartext Network Traffic Allowed by Manifest",
+          "evidence": [
+            {
+              "description": "Manifest declaration: android:usesCleartextTraffic='true'",
+              "location": "manifest:application:usesCleartextTraffic",
+              "snippet": "android:usesCleartextTraffic='true'",
+              "references": []
+            }
+          ]
+        },
+        "SEC-MAL-PERSISTENCE-BOOT": {
+          "severity": "low",
+          "confidence": "confirmed",
+          "title": "Device Boot Persistence Mechanism Detected",
+          "evidence": [
+            {
+              "description": "Declared permission: RECEIVE_BOOT_COMPLETED",
+              "location": "permission:android.permission.RECEIVE_BOOT_COMPLETED",
+              "snippet": "RECEIVE_BOOT_COMPLETED",
+              "references": []
+            },
+            {
+              "description": "Boot startup broadcast receiver: androidx.work.impl.background.systemalarm.RescheduleReceiver",
+              "location": "manifest:receiver:androidx.work.impl.background.systemalarm.RescheduleReceiver",
+              "snippet": "Receiver: androidx.work.impl.background.systemalarm.RescheduleReceiver",
+              "references": []
+            }
+          ]
+        },
+        "SEC-NET-CLEARTEXT-URLS": {
+          "severity": "low",
+          "confidence": "high",
+          "title": "Cleartext HTTP URL References Detected",
+          "evidence": [
+            {
+              "description": "Cleartext HTTP URL: http://www.itunes.com/dtds/podcast-1.0.dtd",
+              "location": "classes.dex",
+              "snippet": "http://www.itunes.com/dtds/podcast-1.0.dtd",
+              "references": []
+            },
+            {
+              "description": "Cleartext HTTP URL: http://ns.adobe.com/xap/1.0/",
+              "location": "classes.dex",
+              "snippet": "http://ns.adobe.com/xap/1.0/",
+              "references": []
+            },
+            {
+              "description": "Cleartext HTTP URL: http://purl.org/rss/1.0/modules/content/",
+              "location": "classes.dex",
+              "snippet": "http://purl.org/rss/1.0/modules/content/",
+              "references": []
+            },
+            {
+              "description": "Cleartext HTTP URL: http://xmlpull.org/v1/doc/features.html#process-namespaces",
+              "location": "classes.dex",
+              "snippet": "http://xmlpull.org/v1/doc/features.html#process-namespaces",
+              "references": []
+            },
+            {
+              "description": "Cleartext HTTP URL: http://schemas.microsoft.com/DRM/2007/03/protocols/AcquireLicense",
+              "location": "classes.dex",
+              "snippet": "http://schemas.microsoft.com/DRM/2007/03/protocols/AcquireLicense",
+              "references": []
+            }
+          ]
+        },
+        "SEC-SPY-CLIPBOARD-001": {
+          "severity": "low",
+          "confidence": "medium",
+          "title": "Background Clipboard Access Capability",
+          "evidence": [
+            {
+              "description": "Referenced API: android.content.ClipboardManager",
+              "location": "api:android.content.ClipboardManager",
+              "snippet": "android.content.ClipboardManager",
+              "references": []
+            },
+            {
+              "description": "Observed component: type=service (de.danoeh.antennapod.playback.service.Media3PlaybackService, androidx.work.impl.background.systemalarm.SystemAlarmService, de.danoeh.antennapod.playback.service.QuickSettingsTileService)",
+              "location": "manifest:service",
+              "snippet": "Observed component: type=service (de.danoeh.antennapod.playback.service.Media3PlaybackService, androidx.work.impl.background.systemalarm.SystemAlarmService, de.danoeh.antennapod.playback.service.QuickSettingsTileService)",
+              "references": []
+            }
+          ]
+        },
+        "SEC-VULN-BACKUP-001": {
+          "severity": "low",
+          "confidence": "confirmed",
+          "title": "Application Backup Enabled Without Restriction",
+          "evidence": [
+            {
+              "description": "Manifest attribute allowBackup=true",
+              "location": "manifest:allowBackup",
+              "snippet": "allowBackup=true",
+              "references": []
+            }
+          ]
+        },
+        "SEC-VULN-CRYPTO-WEAK-HASH": {
+          "severity": "low",
+          "confidence": "medium",
+          "title": "Legacy Cryptographic Hash Algorithm Referenced (MD5/SHA-1)",
+          "evidence": [
+            {
+              "description": "Weak hash algorithm referenced in de.danoeh.antennapod.net.discovery.PodcastIndexPodcastSearcher: SHA-1",
+              "location": "class:de.danoeh.antennapod.net.discovery.PodcastIndexPodcastSearcher",
+              "snippet": "SHA-1",
+              "references": []
+            }
+          ]
+        },
+        "SEC-VULN-EXPORTED-RECEIVER": {
+          "severity": "low",
+          "confidence": "confirmed",
+          "title": "Exported Broadcast Receiver Lacks Permission Protection",
+          "evidence": [
+            {
+              "description": "Exported broadcast receiver lacking permission: de.danoeh.antennapod.net.download.service.ConnectivityActionReceiver",
+              "location": "manifest:receiver:de.danoeh.antennapod.net.download.service.ConnectivityActionReceiver",
+              "snippet": "Receiver: de.danoeh.antennapod.net.download.service.ConnectivityActionReceiver (exported=true, permission=None)",
+              "references": []
+            },
+            {
+              "description": "Exported broadcast receiver lacking permission: de.danoeh.antennapod.net.download.service.feed.FeedUpdateReceiver",
+              "location": "manifest:receiver:de.danoeh.antennapod.net.download.service.feed.FeedUpdateReceiver",
+              "snippet": "Receiver: de.danoeh.antennapod.net.download.service.feed.FeedUpdateReceiver (exported=true, permission=None)",
+              "references": []
+            },
+            {
+              "description": "Exported broadcast receiver lacking permission: androidx.media3.session.MediaButtonReceiver",
+              "location": "manifest:receiver:androidx.media3.session.MediaButtonReceiver",
+              "snippet": "Receiver: androidx.media3.session.MediaButtonReceiver (exported=true, permission=None)",
+              "references": []
+            },
+            {
+              "description": "Exported broadcast receiver lacking permission: de.danoeh.antennapod.ui.widget.PlayerWidget",
+              "location": "manifest:receiver:de.danoeh.antennapod.ui.widget.PlayerWidget",
+              "snippet": "Receiver: de.danoeh.antennapod.ui.widget.PlayerWidget (exported=true, permission=None)",
+              "references": []
+            },
+            {
+              "description": "Exported broadcast receiver lacking permission: de.danoeh.antennapod.playback.service.MediaButtonReceiver",
+              "location": "manifest:receiver:de.danoeh.antennapod.playback.service.MediaButtonReceiver",
+              "snippet": "Receiver: de.danoeh.antennapod.playback.service.MediaButtonReceiver (exported=true, permission=None)",
+              "references": []
+            }
+          ]
+        },
+        "SEC-VULN-MANIFEST-BACKUP": {
+          "severity": "low",
+          "confidence": "confirmed",
+          "title": "Application Data Backup Enabled (allowBackup=true)",
+          "evidence": [
+            {
+              "description": "Manifest declaration: android:allowBackup='true'",
+              "location": "manifest:application:allowBackup",
+              "snippet": "android:allowBackup='true'",
+              "references": []
+            }
+          ]
+        },
+        "SEC-VULN-WEAK-HASH-001": {
+          "severity": "low",
+          "confidence": "medium",
+          "title": "Weak Cryptographic Hash Algorithm Referenced",
+          "evidence": [
+            {
+              "description": "Discovered string pattern in de.danoeh.antennapod.net.discovery.PodcastIndexPodcastSearcher: SHA-1",
+              "location": "class:de.danoeh.antennapod.net.discovery.PodcastIndexPodcastSearcher",
+              "snippet": "SHA-1",
+              "references": []
+            }
+          ]
+        },
+        "SEC-MAL-PERSISTENCE-FG-SERVICE": {
+          "severity": "informational",
+          "confidence": "confirmed",
+          "title": "Foreground Service Declaration",
+          "evidence": [
+            {
+              "description": "Foreground service declared: de.danoeh.antennapod.playback.service.Media3PlaybackService (type=0x00000002)",
+              "location": "manifest:service:de.danoeh.antennapod.playback.service.Media3PlaybackService",
+              "snippet": "de.danoeh.antennapod.playback.service.Media3PlaybackService [type=0x00000002]",
+              "references": []
+            },
+            {
+              "description": "Foreground service declared: de.danoeh.antennapod.playback.service.PlaybackService (type=0x00000002)",
+              "location": "manifest:service:de.danoeh.antennapod.playback.service.PlaybackService",
+              "snippet": "de.danoeh.antennapod.playback.service.PlaybackService [type=0x00000002]",
+              "references": []
+            }
+          ]
+        }
+      },
+      "domains": [
+        "action.de",
+        "android.app",
+        "android.intent.extra.cc",
+        "android.net",
+        "android.support.v4.app",
+        "androidx.appcompat.app",
+        "androidx.car.app",
+        "androidx.core.app",
+        "androidx.fragment.app",
+        "antennapod.org",
+        "aomedia.org",
+        "api.fyyd.de",
+        "api.podcastindex.org",
+        "argument.de",
+        "avatars2.githubusercontent.com",
+        "com.android.org",
+        "com.google.android.gms.org",
+        "de.danoeh.antennapod.net",
+        "developer.android.com",
+        "developer.apple.com",
+        "dispatchers.io",
+        "extra.de",
+        "forum.antennapod.org",
+        "g.co",
+        "github.com",
+        "gpodder.net",
+        "issuetracker.google.com",
+        "itunes.apple.com",
+        "java.net",
+        "javax.net",
+        "kotlin.int",
+        "kotlinx.coroutines.io",
+        "libcore.io",
+        "log.info",
+        "openssl.org",
+        "org.openjsse.net",
+        "play.google.com",
+        "podcastindex.org",
+        "podlove.org",
+        "rx3.io",
+        "schemas.microsoft.com",
+        "search.yahoo.com",
+        "subscribeonandroid.com",
+        "sun.net",
+        "www.example.com",
+        "www.itunes.com",
+        "www.subscribeonandroid.com",
+        "youtrack.jetbrains.com"
+      ],
+      "privacy_endpoints": [
+        "action.de [unknown] provenance=['network:extracted_domain']",
+        "android.app [unknown] provenance=['network:extracted_domain']",
+        "android.intent.extra.cc [unknown] provenance=['network:extracted_domain']",
+        "android.net [unknown] provenance=['network:extracted_domain']",
+        "android.support.v4.app [unknown] provenance=['network:extracted_domain']",
+        "androidx.appcompat.app [unknown] provenance=['network:extracted_domain']",
+        "androidx.car.app [unknown] provenance=['network:extracted_domain']",
+        "androidx.core.app [unknown] provenance=['network:extracted_domain']",
+        "androidx.fragment.app [unknown] provenance=['network:extracted_domain']",
+        "antennapod.org [unknown] provenance=['network:extracted_domain']",
+        "aomedia.org [unknown] provenance=['network:extracted_domain']",
+        "api.fyyd.de [unknown] provenance=['network:extracted_domain']",
+        "api.podcastindex.org [unknown] provenance=['network:extracted_domain']",
+        "argument.de [unknown] provenance=['network:extracted_domain']",
+        "avatars2.githubusercontent.com [unknown] provenance=['network:extracted_domain']",
+        "com.android.org [unknown] provenance=['network:extracted_domain']",
+        "com.google.android.gms.org [unknown] provenance=['network:extracted_domain']",
+        "de.danoeh.antennapod.net [unknown] provenance=['network:extracted_domain']",
+        "developer.android.com [unknown] provenance=['network:extracted_domain']",
+        "developer.apple.com [unknown] provenance=['network:extracted_domain']",
+        "dispatchers.io [unknown] provenance=['network:extracted_domain']",
+        "extra.de [unknown] provenance=['network:extracted_domain']",
+        "forum.antennapod.org [unknown] provenance=['network:extracted_domain']",
+        "g.co [unknown] provenance=['network:extracted_domain']",
+        "github.com [unknown] provenance=['network:extracted_domain']",
+        "gpodder.net [unknown] provenance=['network:extracted_domain']",
+        "http://g.co/dev/packagevisibility [unknown] provenance=['classes.dex -> androidx.media3.datasource.RawResourceDataSource -> openAssetFileDescriptor']",
+        "http://ns.adobe.com/xap/1.0/ [unknown] provenance=['classes.dex']",
+        "http://podlove.org/simple-chapters [unknown] provenance=['classes.dex']",
+        "http://purl.org/dc/elements/1.1/ [unknown] provenance=['classes.dex']",
+        "http://purl.org/rss/1.0/modules/content/ [unknown] provenance=['classes.dex']",
+        "http://schemas.android.com/apk/com.bytehamster.lib.preferencesearch [unknown] provenance=['classes.dex']",
+        "http://schemas.android.com/apk/res-auto [unknown] provenance=['classes.dex']",
+        "http://schemas.android.com/apk/res/android [unknown] provenance=['classes.dex']",
+        "http://schemas.microsoft.com/DRM/2007/03/protocols/AcquireLicense [unknown] provenance=['classes.dex']",
+        "http://search.yahoo.com/mrss/ [unknown] provenance=['classes.dex']",
+        "http://undefined/ [unknown] provenance=['classes3.dex']",
+        "http://www.itunes.com/dtds/podcast-1.0.dtd [unknown] provenance=['classes.dex']",
+        "http://www.w3.org/2005/Atom [unknown] provenance=['classes.dex']",
+        "http://www.w3.org/XML/1998/namespace [unknown] provenance=['classes.dex']",
+        "http://www.w3.org/ns/ttml#parameter [unknown] provenance=['classes.dex']",
+        "http://xmlpull.org/v1/doc/features.html#indent-output [unknown] provenance=['classes2.dex']",
+        "http://xmlpull.org/v1/doc/features.html#process-namespaces [unknown] provenance=['classes.dex']",
+        "http://xmlpull.org/v1/doc/features.html#report-namespace-prefixes [unknown] provenance=['classes.dex']",
+        "https://127.0.0.1 [unknown] provenance=['classes3.dex']",
+        "https://antennapod.org/contribute/ [unknown] provenance=['classes3.dex']",
+        "https://antennapod.org/documentation/ [unknown] provenance=['classes3.dex']",
+        "https://antennapod.org/privacy/ [unknown] provenance=['classes3.dex']",
+        "https://aomedia.org/emsg/ID3 [unknown] provenance=['classes.dex']",
+        "https://api.fyyd.de/0.2/search/podcast?title=%s&count=10 [unknown] provenance=['classes.dex']",
+        "https://api.podcastindex.org/api/1.0/search/byterm?q=%s [unknown] provenance=['classes.dex']",
+        "https://avatars2.githubusercontent.com/u/ [unknown] provenance=['classes3.dex']",
+        "https://default.url [unknown] provenance=['classes.dex']",
+        "https://developer.android.com/guide/topics/media/issues/cleartext-not-permitted [unknown] provenance=['classes.dex']",
+        "https://developer.apple.com/streaming/emsg-id3 [unknown] provenance=['classes.dex']",
+        "https://forum.antennapod.org/ [unknown] provenance=['classes3.dex']",
+        "https://forum.antennapod.org/search [unknown] provenance=['classes3.dex']",
+        "https://github.com/ [unknown] provenance=['classes3.dex']",
+        "https://github.com/AntennaPod/AntennaPod/issues [unknown] provenance=['classes3.dex']",
+        "https://github.com/Podcastindex-org/podcast-namespace/blob/main/docs/1.0.md [unknown] provenance=['classes.dex']",
+        "https://github.com/ReactiveX/RxJava/wiki/Error-Handling [unknown] provenance=['classes3.dex']",
+        "https://github.com/ReactiveX/RxJava/wiki/Plugins [unknown] provenance=['classes3.dex -> io.reactivex.rxjava3.core.Completable -> subscribe']",
+        "https://github.com/ReactiveX/RxJava/wiki/What [unknown] provenance=['classes3.dex -> io.reactivex.rxjava3.exceptions.UndeliverableException -> <init>']",
+        "https://github.com/androidx/media/issues/1730 [unknown] provenance=['classes.dex -> androidx.media3.session.MediaSessionLegacyStub$Api31 -> setMediaButtonBroadcastReceiver']",
+        "https://issuetracker.google.com/issues/new?component=413107&template=1096568 [unknown] provenance=['classes.dex -> androidx.room.AutoCloser -> autoCloser$lambda$3']",
+        "https://itunes.apple.com/%s/rss/toppodcasts/limit=25/explicit=true/json [unknown] provenance=['classes.dex']",
+        "https://itunes.apple.com/lookup?id= [unknown] provenance=['classes.dex']",
+        "https://itunes.apple.com/search?media=podcast&term=%s [unknown] provenance=['classes.dex']",
+        "https://picsum.photos/400/400?random= [unknown] provenance=['classes2.dex']",
+        "https://play.google.com/store/apps/details?id=de.danoeh.antennapod [unknown] provenance=['classes3.dex']",
+        "https://podcastindex.org/namespace/1.0 [unknown] provenance=['classes.dex']",
+        "https://www.example.com [unknown] provenance=['classes3.dex']",
+        "https://youtrack.jetbrains.com/issue/KT-55980 [unknown] provenance=['classes3.dex -> kotlin.jvm.internal.PropertyReference -> getReflected']",
+        "issuetracker.google.com [unknown] provenance=['network:extracted_domain']",
+        "itunes.apple.com [unknown] provenance=['network:extracted_domain']",
+        "java.net [unknown] provenance=['network:extracted_domain']",
+        "javax.net [unknown] provenance=['network:extracted_domain']",
+        "kotlin.int [unknown] provenance=['network:extracted_domain']",
+        "kotlinx.coroutines.io [unknown] provenance=['network:extracted_domain']",
+        "libcore.io [unknown] provenance=['network:extracted_domain']",
+        "log.info [unknown] provenance=['network:extracted_domain']",
+        "openssl.org [unknown] provenance=['network:extracted_domain']",
+        "org.openjsse.net [unknown] provenance=['network:extracted_domain']",
+        "play.google.com [unknown] provenance=['network:extracted_domain']",
+        "podcastindex.org [unknown] provenance=['network:extracted_domain']",
+        "podlove.org [unknown] provenance=['network:extracted_domain']",
+        "rx3.io [unknown] provenance=['network:extracted_domain']",
+        "schemas.microsoft.com [unknown] provenance=['network:extracted_domain']",
+        "search.yahoo.com [unknown] provenance=['network:extracted_domain']",
+        "subscribeonandroid.com [unknown] provenance=['network:extracted_domain']",
+        "sun.net [unknown] provenance=['network:extracted_domain']",
+        "www.example.com [unknown] provenance=['network:extracted_domain']",
+        "www.itunes.com [unknown] provenance=['network:extracted_domain']",
+        "www.subscribeonandroid.com [unknown] provenance=['network:extracted_domain']",
+        "youtrack.jetbrains.com [unknown] provenance=['network:extracted_domain']"
+      ]
+    },
+    "eu.siacs.conversations_4218104.apk": {
+      "findings": {
+        "SEC-COMB-ACCESSIBILITY-OVERLAY": {
+          "severity": "high",
+          "confidence": "high",
+          "title": "Accessibility Service Combined with System Overlay",
+          "evidence": [
+            {
+              "description": "Referenced API: android.accessibilityservice.AccessibilityService",
+              "location": "api:android.accessibilityservice.AccessibilityService",
+              "snippet": "android.accessibilityservice.AccessibilityService",
+              "references": []
+            },
+            {
+              "description": "Declared permission: android.permission.SYSTEM_ALERT_WINDOW",
+              "location": "permission:android.permission.SYSTEM_ALERT_WINDOW",
+              "snippet": "android.permission.SYSTEM_ALERT_WINDOW",
+              "references": []
+            }
+          ]
+        },
+        "SEC-COMB-PERSISTENT-LOC": {
+          "severity": "high",
+          "confidence": "high",
+          "title": "Boot Persistence Combined with Location Tracking",
+          "evidence": [
+            {
+              "description": "Observed broadcast receiver listening for device boot completion",
+              "location": "manifest:receiver:BOOT_COMPLETED",
+              "snippet": "BOOT_COMPLETED receiver",
+              "references": []
+            },
+            {
+              "description": "Declared permission: android.permission.ACCESS_FINE_LOCATION",
+              "location": "permission:android.permission.ACCESS_FINE_LOCATION",
+              "snippet": "android.permission.ACCESS_FINE_LOCATION",
+              "references": []
+            },
+            {
+              "description": "Declared permission: android.permission.ACCESS_COARSE_LOCATION",
+              "location": "permission:android.permission.ACCESS_COARSE_LOCATION",
+              "snippet": "android.permission.ACCESS_COARSE_LOCATION",
+              "references": []
+            },
+            {
+              "description": "Referenced API: android.location.LocationManager",
+              "location": "api:android.location.LocationManager",
+              "snippet": "android.location.LocationManager",
+              "references": []
+            }
+          ]
+        },
+        "SEC-COMB-SURVEILLANCE-SUITE": {
+          "severity": "high",
+          "confidence": "high",
+          "title": "Multiple Concurrent Surveillance Capabilities",
+          "evidence": [
+            {
+              "description": "Declared permission: android.permission.RECORD_AUDIO",
+              "location": "permission:android.permission.RECORD_AUDIO",
+              "snippet": "android.permission.RECORD_AUDIO",
+              "references": []
+            },
+            {
+              "description": "Declared permission: android.permission.CAMERA",
+              "location": "permission:android.permission.CAMERA",
+              "snippet": "android.permission.CAMERA",
+              "references": []
+            },
+            {
+              "description": "Declared permission: android.permission.ACCESS_FINE_LOCATION",
+              "location": "permission:android.permission.ACCESS_FINE_LOCATION",
+              "snippet": "android.permission.ACCESS_FINE_LOCATION",
+              "references": []
+            },
+            {
+              "description": "Declared permission: android.permission.ACCESS_COARSE_LOCATION",
+              "location": "permission:android.permission.ACCESS_COARSE_LOCATION",
+              "snippet": "android.permission.ACCESS_COARSE_LOCATION",
+              "references": []
+            }
+          ]
+        },
+        "SEC-SPY-AUDIO-001": {
+          "severity": "high",
+          "confidence": "high",
+          "title": "Background Audio Collection Capability",
+          "evidence": [
+            {
+              "description": "Declared permission: android.permission.RECORD_AUDIO",
+              "location": "permission:android.permission.RECORD_AUDIO",
+              "snippet": "android.permission.RECORD_AUDIO",
+              "references": []
+            },
+            {
+              "description": "Referenced API: android.media.AudioRecord",
+              "location": "api:android.media.AudioRecord",
+              "snippet": "android.media.AudioRecord",
+              "references": []
+            },
+            {
+              "description": "Referenced API: android.media.MediaRecorder",
+              "location": "api:android.media.MediaRecorder",
+              "snippet": "android.media.MediaRecorder",
+              "references": []
+            },
+            {
+              "description": "Observed component: type=service (androidx.room.MultiInstanceInvalidationService, androidx.sharetarget.ChooserTargetServiceCompat, androidx.work.impl.background.systemjob.SystemJobService)",
+              "location": "manifest:service",
+              "snippet": "Observed component: type=service (androidx.room.MultiInstanceInvalidationService, androidx.sharetarget.ChooserTargetServiceCompat, androidx.work.impl.background.systemjob.SystemJobService)",
+              "references": []
+            }
+          ]
+        },
+        "SEC-SPY-AUDIO-SURVEILLANCE": {
+          "severity": "high",
+          "confidence": "high",
+          "title": "Audio Surveillance & Recording Capability",
+          "evidence": [
+            {
+              "description": "Declared permission: android.permission.RECORD_AUDIO",
+              "location": "permission:android.permission.RECORD_AUDIO",
+              "snippet": "RECORD_AUDIO",
+              "references": []
+            },
+            {
+              "description": "Audio recording API referenced: AudioRecord/MediaRecorder",
+              "location": "api:android.media",
+              "snippet": "Audio recording framework API",
+              "references": []
+            },
+            {
+              "description": "Background Service components declared in manifest (androidx.room.MultiInstanceInvalidationService, androidx.sharetarget.ChooserTargetServiceCompat, androidx.work.impl.background.systemjob.SystemJobService)",
+              "location": "manifest:service",
+              "snippet": "Background service present",
+              "references": []
+            },
+            {
+              "description": "External network communication endpoints present",
+              "location": "network:endpoints",
+              "snippet": "Network endpoints present",
+              "references": []
+            }
+          ]
+        },
+        "SEC-SPY-CAMERA-001": {
+          "severity": "high",
+          "confidence": "high",
+          "title": "Background Camera Capture Capability",
+          "evidence": [
+            {
+              "description": "Declared permission: android.permission.CAMERA",
+              "location": "permission:android.permission.CAMERA",
+              "snippet": "android.permission.CAMERA",
+              "references": []
+            },
+            {
+              "description": "Referenced API: android.hardware.Camera",
+              "location": "api:android.hardware.Camera",
+              "snippet": "android.hardware.Camera",
+              "references": []
+            },
+            {
+              "description": "Referenced API: android.hardware.camera2.CameraManager",
+              "location": "api:android.hardware.camera2.CameraManager",
+              "snippet": "android.hardware.camera2.CameraManager",
+              "references": []
+            },
+            {
+              "description": "Observed component: type=service (androidx.room.MultiInstanceInvalidationService, androidx.sharetarget.ChooserTargetServiceCompat, androidx.work.impl.background.systemjob.SystemJobService)",
+              "location": "manifest:service",
+              "snippet": "Observed component: type=service (androidx.room.MultiInstanceInvalidationService, androidx.sharetarget.ChooserTargetServiceCompat, androidx.work.impl.background.systemjob.SystemJobService)",
+              "references": []
+            }
+          ]
+        },
+        "SEC-SPY-CAMERA-SURVEILLANCE": {
+          "severity": "high",
+          "confidence": "high",
+          "title": "Camera Capture & Video Capability",
+          "evidence": [
+            {
+              "description": "Declared permission: android.permission.CAMERA",
+              "location": "permission:android.permission.CAMERA",
+              "snippet": "CAMERA",
+              "references": []
+            },
+            {
+              "description": "Camera capture framework API referenced",
+              "location": "api:android.hardware.camera2",
+              "snippet": "CameraManager API",
+              "references": []
+            },
+            {
+              "description": "Background service components declared in manifest",
+              "location": "manifest:service",
+              "snippet": "Background service present",
+              "references": []
+            }
+          ]
+        },
+        "SEC-SPY-MULTI-SURVEILLANCE": {
+          "severity": "high",
+          "confidence": "confirmed",
+          "title": "Multi-Vector Surveillance Capability (4 Channels)",
+          "evidence": [
+            {
+              "description": "Surveillance channel available: Microphone",
+              "location": "capability:microphone",
+              "snippet": "Channel: Microphone",
+              "references": []
+            },
+            {
+              "description": "Surveillance channel available: Camera",
+              "location": "capability:camera",
+              "snippet": "Channel: Camera",
+              "references": []
+            },
+            {
+              "description": "Surveillance channel available: Location",
+              "location": "capability:location",
+              "snippet": "Channel: Location",
+              "references": []
+            },
+            {
+              "description": "Surveillance channel available: Contacts",
+              "location": "capability:contacts",
+              "snippet": "Channel: Contacts",
+              "references": []
+            }
+          ]
+        },
+        "SEC-VULN-CRYPTO-ECB": {
+          "severity": "high",
+          "confidence": "high",
+          "title": "Insecure Electronic Codebook (ECB) Cipher Mode Detected",
+          "evidence": [
+            {
+              "description": "ECB cipher mode string pattern: AES/ECB/NoPadding",
+              "location": "dex:strings",
+              "snippet": "AES/ECB/NoPadding",
+              "references": []
+            },
+            {
+              "description": "ECB cipher mode string pattern: AES/ECB/PKCS5Padding",
+              "location": "dex:strings",
+              "snippet": "AES/ECB/PKCS5Padding",
+              "references": []
+            },
+            {
+              "description": "ECB cipher mode string pattern: Alg.Alias.Cipher.AES/ECB/PKCS7Padding",
+              "location": "dex:strings",
+              "snippet": "Alg.Alias.Cipher.AES/ECB/PKCS7Padding",
+              "references": []
+            }
+          ]
+        },
+        "SEC-MAL-BOOT-001": {
+          "severity": "medium",
+          "confidence": "high",
+          "title": "Persistent Boot Startup Receiver",
+          "evidence": [
+            {
+              "description": "Observed broadcast receiver listening for device boot completion",
+              "location": "manifest:receiver:BOOT_COMPLETED",
+              "snippet": "BOOT_COMPLETED receiver",
+              "references": []
+            },
+            {
+              "description": "Observed component: type=service (androidx.room.MultiInstanceInvalidationService, androidx.sharetarget.ChooserTargetServiceCompat, androidx.work.impl.background.systemjob.SystemJobService)",
+              "location": "manifest:service",
+              "snippet": "Observed component: type=service (androidx.room.MultiInstanceInvalidationService, androidx.sharetarget.ChooserTargetServiceCompat, androidx.work.impl.background.systemjob.SystemJobService)",
+              "references": []
+            }
+          ]
+        },
+        "SEC-MAL-PAYLOAD-ENTROPY-assets_NotoColorEmojiCompat_ttf": {
+          "severity": "medium",
+          "confidence": "high",
+          "title": "High-Entropy Asset Detected (Likely Encrypted/Compressed): assets/NotoColorEmojiCompat.ttf",
+          "evidence": [
+            {
+              "description": "High-entropy asset: assets/NotoColorEmojiCompat.ttf (entropy=7.87, size=10773992bytes)",
+              "location": "asset:assets/NotoColorEmojiCompat.ttf",
+              "snippet": "Shannon entropy: 7.87 (10773992 bytes)",
+              "references": []
+            }
+          ]
+        },
+        "SEC-NET-CAPABILITY-FLOW": {
+          "severity": "medium",
+          "confidence": "medium",
+          "title": "Sensitive Data Capabilities Co-Occur with External NetworkCommunication",
+          "evidence": [
+            {
+              "description": "External domain endpoint: gultsch.de",
+              "location": "domain:gultsch.de",
+              "snippet": "gultsch.de",
+              "references": []
+            },
+            {
+              "description": "External domain endpoint: androidx.appcompat.app",
+              "location": "domain:androidx.appcompat.app",
+              "snippet": "androidx.appcompat.app",
+              "references": []
+            },
+            {
+              "description": "External domain endpoint: buf.cc",
+              "location": "domain:buf.cc",
+              "snippet": "buf.cc",
+              "references": []
+            },
+            {
+              "description": "External domain endpoint: sdes.cc",
+              "location": "domain:sdes.cc",
+              "snippet": "sdes.cc",
+              "references": []
+            },
+            {
+              "description": "External domain endpoint: basemap.nationalmap.gov",
+              "location": "domain:basemap.nationalmap.gov",
+              "snippet": "basemap.nationalmap.gov",
+              "references": []
+            }
+          ]
+        },
+        "SEC-SPY-ACCESSIBILITY-001": {
+          "severity": "medium",
+          "confidence": "high",
+          "title": "Accessibility Service Implementation",
+          "evidence": [
+            {
+              "description": "Referenced API: android.accessibilityservice.AccessibilityService",
+              "location": "api:android.accessibilityservice.AccessibilityService",
+              "snippet": "android.accessibilityservice.AccessibilityService",
+              "references": []
+            }
+          ]
+        },
+        "SEC-SPY-ACCESSIBILITY-ABUSE": {
+          "severity": "medium",
+          "confidence": "high",
+          "title": "Android Accessibility Service Implementation",
+          "evidence": [
+            {
+              "description": "AccessibilityService API referenced in bytecode",
+              "location": "api:android.accessibilityservice.AccessibilityService",
+              "snippet": "AccessibilityService API",
+              "references": []
+            }
+          ]
+        },
+        "SEC-SPY-DEVICE-IDENTIFIERS": {
+          "severity": "medium",
+          "confidence": "high",
+          "title": "Hardware & Persistent Device Identifier Collection Capability",
+          "evidence": [
+            {
+              "description": "Settings.Secure.ANDROID_ID reference",
+              "location": "dex:strings",
+              "snippet": "android_id",
+              "references": []
+            },
+            {
+              "description": "Build.SERIAL hardware serial number reference",
+              "location": "dex:strings",
+              "snippet": "Build.SERIAL",
+              "references": []
+            }
+          ]
+        },
+        "SEC-SPY-LOCATION-001": {
+          "severity": "medium",
+          "confidence": "high",
+          "title": "Background Location Tracking Capability",
+          "evidence": [
+            {
+              "description": "Declared permission: android.permission.ACCESS_FINE_LOCATION",
+              "location": "permission:android.permission.ACCESS_FINE_LOCATION",
+              "snippet": "android.permission.ACCESS_FINE_LOCATION",
+              "references": []
+            },
+            {
+              "description": "Declared permission: android.permission.ACCESS_COARSE_LOCATION",
+              "location": "permission:android.permission.ACCESS_COARSE_LOCATION",
+              "snippet": "android.permission.ACCESS_COARSE_LOCATION",
+              "references": []
+            },
+            {
+              "description": "Referenced API: android.location.LocationManager",
+              "location": "api:android.location.LocationManager",
+              "snippet": "android.location.LocationManager",
+              "references": []
+            },
+            {
+              "description": "Observed component: type=service (androidx.room.MultiInstanceInvalidationService, androidx.sharetarget.ChooserTargetServiceCompat, androidx.work.impl.background.systemjob.SystemJobService)",
+              "location": "manifest:service",
+              "snippet": "Observed component: type=service (androidx.room.MultiInstanceInvalidationService, androidx.sharetarget.ChooserTargetServiceCompat, androidx.work.impl.background.systemjob.SystemJobService)",
+              "references": []
+            }
+          ]
+        },
+        "SEC-SPY-LOCATION-TRACKING": {
+          "severity": "medium",
+          "confidence": "high",
+          "title": "Physical Location Tracking Capability",
+          "evidence": [
+            {
+              "description": "Declared location permission: ACCESS_FINE_LOCATION /ACCESS_COARSE_LOCATION",
+              "location": "permission:location",
+              "snippet": "Location permission declared",
+              "references": []
+            },
+            {
+              "description": "Location provider framework API referenced: LocationManager",
+              "location": "api:android.location.LocationManager",
+              "snippet": "Location API",
+              "references": []
+            },
+            {
+              "description": "Background service components declared",
+              "location": "manifest:service",
+              "snippet": "Background service present",
+              "references": []
+            }
+          ]
+        },
+        "SEC-SPY-OVERLAY-001": {
+          "severity": "medium",
+          "confidence": "high",
+          "title": "System Alert Window (Overlay) Capability",
+          "evidence": [
+            {
+              "description": "Declared permission: android.permission.SYSTEM_ALERT_WINDOW",
+              "location": "permission:android.permission.SYSTEM_ALERT_WINDOW",
+              "snippet": "android.permission.SYSTEM_ALERT_WINDOW",
+              "references": []
+            }
+          ]
+        },
+        "SEC-MAL-PERSISTENCE-BOOT": {
+          "severity": "low",
+          "confidence": "confirmed",
+          "title": "Device Boot Persistence Mechanism Detected",
+          "evidence": [
+            {
+              "description": "Declared permission: RECEIVE_BOOT_COMPLETED",
+              "location": "permission:android.permission.RECEIVE_BOOT_COMPLETED",
+              "snippet": "RECEIVE_BOOT_COMPLETED",
+              "references": []
+            },
+            {
+              "description": "Boot startup broadcast receiver: androidx.work.impl.background.systemalarm.RescheduleReceiver",
+              "location": "manifest:receiver:androidx.work.impl.background.systemalarm.RescheduleReceiver",
+              "snippet": "Receiver: androidx.work.impl.background.systemalarm.RescheduleReceiver",
+              "references": []
+            },
+            {
+              "description": "Boot startup broadcast receiver: eu.siacs.conversations.receiver.SystemEventReceiver",
+              "location": "manifest:receiver:eu.siacs.conversations.receiver.SystemEventReceiver",
+              "snippet": "Receiver: eu.siacs.conversations.receiver.SystemEventReceiver",
+              "references": []
+            }
+          ]
+        },
+        "SEC-NET-CLEARTEXT-URLS": {
+          "severity": "low",
+          "confidence": "high",
+          "title": "Cleartext HTTP URL References Detected",
+          "evidence": [
+            {
+              "description": "Cleartext HTTP URL: http://conversations.im#",
+              "location": "classes.dex",
+              "snippet": "http://conversations.im#",
+              "references": []
+            },
+            {
+              "description": "Cleartext HTTP URL: http://jabber.org/protocol/muc#stable_id",
+              "location": "classes.dex",
+              "snippet": "http://jabber.org/protocol/muc#stable_id",
+              "references": []
+            },
+            {
+              "description": "Cleartext HTTP URL: http://jabber.org/protocol/muc#owner",
+              "location": "classes.dex",
+              "snippet": "http://jabber.org/protocol/muc#owner",
+              "references": []
+            },
+            {
+              "description": "Cleartext HTTP URL: http://jabber.org/protocol/pubsub#event",
+              "location": "classes.dex",
+              "snippet": "http://jabber.org/protocol/pubsub#event",
+              "references": []
+            },
+            {
+              "description": "Cleartext HTTP URL: http://jabber.org/protocol/rsm",
+              "location": "classes.dex",
+              "snippet": "http://jabber.org/protocol/rsm",
+              "references": []
+            }
+          ]
+        },
+        "SEC-SPY-CLIPBOARD-001": {
+          "severity": "low",
+          "confidence": "medium",
+          "title": "Background Clipboard Access Capability",
+          "evidence": [
+            {
+              "description": "Referenced API: android.content.ClipboardManager",
+              "location": "api:android.content.ClipboardManager",
+              "snippet": "android.content.ClipboardManager",
+              "references": []
+            },
+            {
+              "description": "Observed component: type=service (androidx.room.MultiInstanceInvalidationService, androidx.sharetarget.ChooserTargetServiceCompat, androidx.work.impl.background.systemjob.SystemJobService)",
+              "location": "manifest:service",
+              "snippet": "Observed component: type=service (androidx.room.MultiInstanceInvalidationService, androidx.sharetarget.ChooserTargetServiceCompat, androidx.work.impl.background.systemjob.SystemJobService)",
+              "references": []
+            }
+          ]
+        },
+        "SEC-VULN-BACKUP-001": {
+          "severity": "low",
+          "confidence": "confirmed",
+          "title": "Application Backup Enabled Without Restriction",
+          "evidence": [
+            {
+              "description": "Manifest attribute allowBackup=true",
+              "location": "manifest:allowBackup",
+              "snippet": "allowBackup=true",
+              "references": []
+            }
+          ]
+        },
+        "SEC-VULN-CRYPTO-WEAK-HASH": {
+          "severity": "low",
+          "confidence": "medium",
+          "title": "Legacy Cryptographic Hash Algorithm Referenced (MD5/SHA-1)",
+          "evidence": [
+            {
+              "description": "Weak hash algorithm referenced in eu.siacs.conversations.services.BarcodeProvider: SHA-1",
+              "location": "class:eu.siacs.conversations.services.BarcodeProvider",
+              "snippet": "SHA-1",
+              "references": []
+            }
+          ]
+        },
+        "SEC-VULN-EXPORTED-RECEIVER": {
+          "severity": "low",
+          "confidence": "confirmed",
+          "title": "Exported Broadcast Receiver Lacks Permission Protection",
+          "evidence": [
+            {
+              "description": "Exported broadcast receiver lacking permission: eu.siacs.conversations.receiver.UnifiedPushDistributor",
+              "location": "manifest:receiver:eu.siacs.conversations.receiver.UnifiedPushDistributor",
+              "snippet": "Receiver: eu.siacs.conversations.receiver.UnifiedPushDistributor (exported=true, permission=None)",
+              "references": []
+            },
+            {
+              "description": "Exported broadcast receiver lacking permission: eu.siacs.conversations.receiver.SystemEventReceiver",
+              "location": "manifest:receiver:eu.siacs.conversations.receiver.SystemEventReceiver",
+              "snippet": "Receiver: eu.siacs.conversations.receiver.SystemEventReceiver (exported=true, permission=None)",
+              "references": []
+            }
+          ]
+        },
+        "SEC-VULN-MANIFEST-BACKUP": {
+          "severity": "low",
+          "confidence": "confirmed",
+          "title": "Application Data Backup Enabled (allowBackup=true)",
+          "evidence": [
+            {
+              "description": "Manifest declaration: android:allowBackup='true'",
+              "location": "manifest:application:allowBackup",
+              "snippet": "android:allowBackup='true'",
+              "references": []
+            }
+          ]
+        },
+        "SEC-VULN-WEAK-HASH-001": {
+          "severity": "low",
+          "confidence": "medium",
+          "title": "Weak Cryptographic Hash Algorithm Referenced",
+          "evidence": [
+            {
+              "description": "Discovered string pattern in eu.siacs.conversations.services.BarcodeProvider: SHA-1",
+              "location": "class:eu.siacs.conversations.services.BarcodeProvider",
+              "snippet": "SHA-1",
+              "references": []
+            }
+          ]
+        },
+        "SEC-MAL-PERSISTENCE-FG-SERVICE": {
+          "severity": "informational",
+          "confidence": "confirmed",
+          "title": "Foreground Service Declaration",
+          "evidence": [
+            {
+              "description": "Foreground service declared: eu.siacs.conversations.services.XmppConnectionService (type=0x400004C0)",
+              "location": "manifest:service:eu.siacs.conversations.services.XmppConnectionService",
+              "snippet": "eu.siacs.conversations.services.XmppConnectionService [type=0x400004C0]",
+              "references": []
+            },
+            {
+              "description": "Foreground service declared: androidx.work.impl.foreground.SystemForegroundService (type=0x00000001)",
+              "location": "manifest:service:androidx.work.impl.foreground.SystemForegroundService",
+              "snippet": "androidx.work.impl.foreground.SystemForegroundService [type=0x00000001]",
+              "references": []
+            }
+          ]
+        }
+      },
+      "domains": [
+        "a.tile.opentopomap.org",
+        "add.cc",
+        "aead.cc",
+        "algorithm.cc",
+        "android.app",
+        "android.net",
+        "androidx.appcompat.app",
+        "androidx.core.app",
+        "b.tile.opentopomap.org",
+        "basemap.nationalmap.gov",
+        "bio.cc",
+        "bn.cc",
+        "buf.cc",
+        "bye.cc",
+        "c.tile.opentopomap.org",
+        "call.cc",
+        "cbb.cc",
+        "channel.cc",
+        "chartbundle.com",
+        "check.cc",
+        "cipher.cc",
+        "codec.cc",
+        "com.android.org",
+        "com.google.android.gms.org",
+        "com.samsung.android.app",
+        "com.simplemobiletools.contacts.pro",
+        "conf.cc",
+        "convert.cc",
+        "crbug.com",
+        "ctx.cc",
+        "digest.cc",
+        "digestsign.cc",
+        "dispatchers.io",
+        "ec.cc",
+        "ecdh.cc",
+        "etherx.jabber.org",
+        "evp.cc",
+        "exponentiation.cc",
+        "extensions.cc",
+        "file.cc",
+        "gcd.cc",
+        "github.com",
+        "gmail.com",
+        "googlemail.com",
+        "gultsch.de",
+        "invite.joinjabber.org",
+        "issuetracker.google.com",
+        "jabber.org",
+        "jacobi.cc",
+        "java.net",
+        "javax.net",
+        "jvm.cc",
+        "kotlin.int",
+        "kotlinx.coroutines.io",
+        "libcore.io",
+        "maps.wikimedia.org",
+        "montgomery.cc",
+        "mul.cc",
+        "nack.cc",
+        "obj.cc",
+        "openptmap.org",
+        "p256.cc",
+        "pair.cc",
+        "pkcs8.cc",
+        "pli.cc",
+        "policy.cc",
+        "predicates.in",
+        "print.cc",
+        "random.cc",
+        "remb.cc",
+        "resampler.cc",
+        "scalar.cc",
+        "scrypt.cc",
+        "sdes.cc",
+        "shift.cc",
+        "simple.cc",
+        "simulcast.cc",
+        "spake2plus.cc",
+        "stack.cc",
+        "thread.cc",
+        "tile.openstreetmap.org",
+        "tiles.wmflabs.org",
+        "timer.cc",
+        "timing.cc",
+        "tmmbr.cc",
+        "vad.cc",
+        "webrtc.googlesource.com",
+        "wms.chartbundle.com",
+        "www.openkeychain.org",
+        "youtrack.jetbrains.com"
+      ],
+      "privacy_endpoints": [
+        "a.tile.opentopomap.org [unknown] provenance=['network:extracted_domain']",
+        "add.cc [unknown] provenance=['network:extracted_domain']",
+        "aead.cc [unknown] provenance=['network:extracted_domain']",
+        "algorithm.cc [unknown] provenance=['network:extracted_domain']",
+        "android.app [unknown] provenance=['network:extracted_domain']",
+        "android.net [unknown] provenance=['network:extracted_domain']",
+        "androidx.appcompat.app [unknown] provenance=['network:extracted_domain']",
+        "androidx.core.app [unknown] provenance=['network:extracted_domain']",
+        "b.tile.opentopomap.org [unknown] provenance=['network:extracted_domain']",
+        "basemap.nationalmap.gov [unknown] provenance=['network:extracted_domain']",
+        "bio.cc [unknown] provenance=['network:extracted_domain']",
+        "bn.cc [unknown] provenance=['network:extracted_domain']",
+        "buf.cc [unknown] provenance=['network:extracted_domain']",
+        "bye.cc [unknown] provenance=['network:extracted_domain']",
+        "c.tile.opentopomap.org [unknown] provenance=['network:extracted_domain']",
+        "call.cc [unknown] provenance=['network:extracted_domain']",
+        "cbb.cc [unknown] provenance=['network:extracted_domain']",
+        "channel.cc [unknown] provenance=['network:extracted_domain']",
+        "chartbundle.com [unknown] provenance=['network:extracted_domain']",
+        "check.cc [unknown] provenance=['network:extracted_domain']",
+        "cipher.cc [unknown] provenance=['network:extracted_domain']",
+        "codec.cc [unknown] provenance=['network:extracted_domain']",
+        "com.android.org [unknown] provenance=['network:extracted_domain']",
+        "com.google.android.gms.org [unknown] provenance=['network:extracted_domain']",
+        "com.samsung.android.app [unknown] provenance=['network:extracted_domain']",
+        "com.simplemobiletools.contacts.pro [unknown] provenance=['network:extracted_domain']",
+        "conf.cc [unknown] provenance=['network:extracted_domain']",
+        "convert.cc [unknown] provenance=['network:extracted_domain']",
+        "crbug.com [unknown] provenance=['network:extracted_domain']",
+        "ctx.cc [unknown] provenance=['network:extracted_domain']",
+        "digest.cc [unknown] provenance=['network:extracted_domain']",
+        "digestsign.cc [unknown] provenance=['network:extracted_domain']",
+        "dispatchers.io [unknown] provenance=['network:extracted_domain']",
+        "ec.cc [unknown] provenance=['network:extracted_domain']",
+        "ecdh.cc [unknown] provenance=['network:extracted_domain']",
+        "etherx.jabber.org [unknown] provenance=['network:extracted_domain']",
+        "evp.cc [unknown] provenance=['network:extracted_domain']",
+        "exponentiation.cc [unknown] provenance=['network:extracted_domain']",
+        "extensions.cc [unknown] provenance=['network:extracted_domain']",
+        "file.cc [unknown] provenance=['network:extracted_domain']",
+        "gcd.cc [unknown] provenance=['network:extracted_domain']",
+        "github.com [unknown] provenance=['network:extracted_domain']",
+        "gmail.com [unknown] provenance=['network:extracted_domain']",
+        "googlemail.com [unknown] provenance=['network:extracted_domain']",
+        "gultsch.de [unknown] provenance=['network:extracted_domain']",
+        "http://conversations.im [unknown] provenance=['classes.dex -> eu.siacs.conversations.xmpp.manager.PresenceManager -> available']",
+        "http://conversations.im# [unknown] provenance=['classes.dex -> eu.siacs.conversations.parser.IqParser -> accept']",
+        "http://etherx.jabber.org/streams [unknown] provenance=['classes.dex']",
+        "http://gultsch.de/xmpp/drafts/jingle/transports/ice-udp/option [unknown] provenance=['classes.dex']",
+        "http://gultsch.de/xmpp/drafts/omemo/dlts-srtp-verification [unknown] provenance=['classes.dex']",
+        "http://gultsch.de/xmpp/drafts/unified-push [unknown] provenance=['classes.dex']",
+        "http://jabber.org/features/iq-register [unknown] provenance=['classes.dex']",
+        "http://jabber.org/protocol/address [unknown] provenance=['classes.dex']",
+        "http://jabber.org/protocol/bytestreams [unknown] provenance=['classes.dex']",
+        "http://jabber.org/protocol/caps [unknown] provenance=['classes.dex']",
+        "http://jabber.org/protocol/chatstates [unknown] provenance=['classes.dex']",
+        "http://jabber.org/protocol/commands [unknown] provenance=['classes.dex']",
+        "http://jabber.org/protocol/disco#info [unknown] provenance=['classes.dex']",
+        "http://jabber.org/protocol/disco#items [unknown] provenance=['classes.dex']",
+        "http://jabber.org/protocol/ibb [unknown] provenance=['classes.dex']",
+        "http://jabber.org/protocol/muc [unknown] provenance=['classes.dex']",
+        "http://jabber.org/protocol/muc#admin [unknown] provenance=['classes.dex']",
+        "http://jabber.org/protocol/muc#owner [unknown] provenance=['classes.dex']",
+        "http://jabber.org/protocol/muc#roominfo [unknown] provenance=['classes.dex']",
+        "http://jabber.org/protocol/muc#stable_id [unknown] provenance=['classes.dex']",
+        "http://jabber.org/protocol/muc#user [unknown] provenance=['classes.dex']",
+        "http://jabber.org/protocol/nick [unknown] provenance=['classes.dex']",
+        "http://jabber.org/protocol/offline [unknown] provenance=['classes.dex']",
+        "http://jabber.org/protocol/pubsub [unknown] provenance=['classes.dex']",
+        "http://jabber.org/protocol/pubsub#config-node-max [unknown] provenance=['classes.dex']",
+        "http://jabber.org/protocol/pubsub#errors [unknown] provenance=['classes.dex']",
+        "http://jabber.org/protocol/pubsub#event [unknown] provenance=['classes.dex']",
+        "http://jabber.org/protocol/pubsub#owner [unknown] provenance=['classes.dex']",
+        "http://jabber.org/protocol/pubsub#persistent-items [unknown] provenance=['classes.dex']",
+        "http://jabber.org/protocol/pubsub#publish-options [unknown] provenance=['classes.dex']",
+        "http://jabber.org/protocol/rsm [unknown] provenance=['classes.dex']",
+        "http://openptmap.org/tiles/ [unknown] provenance=['classes.dex']",
+        "http://prosody.im/protocol/muc [unknown] provenance=['classes.dex']",
+        "http://schemas.android.com/apk/res-auto [unknown] provenance=['classes.dex']",
+        "http://schemas.android.com/apk/res/android [unknown] provenance=['classes.dex']",
+        "http://www.openkeychain.org/ [unknown] provenance=['classes.dex']",
+        "http://xmlpull.org/v1/doc/features.html#process-namespaces [unknown] provenance=['classes.dex']",
+        "https://a.tile.opentopomap.org/ [unknown] provenance=['classes.dex']",
+        "https://b.tile.opentopomap.org/ [unknown] provenance=['classes.dex']",
+        "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/ [unknown] provenance=['classes.dex']",
+        "https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/ [unknown] provenance=['classes.dex']",
+        "https://c.tile.opentopomap.org/ [unknown] provenance=['classes.dex']",
+        "https://conversations.im/omemo [unknown] provenance=['classes.dex -> eu.siacs.conversations.services.XmppConnectionService -> sendMessage']",
+        "https://conversations.im/privacy.html [unknown] provenance=['classes.dex -> eu.siacs.conversations.ui.ConversationsOverviewFragment$3 -> onMenuItemSelected']",
+        "https://crbug.com/1053756 [unknown] provenance=['lib/arm64-v8a/libjingle_peerconnection_so.so']",
+        "https://github.com/felldo/JEmoji?tab=readme-ov-file#-jemoji-language-module [unknown] provenance=['classes.dex']",
+        "https://github.com/google/gson/blob/main/Troubleshooting.md# [unknown] provenance=['classes.dex']",
+        "https://help.conversations.im [unknown] provenance=['classes.dex -> eu.siacs.conversations.Config -> <clinit>']",
+        "https://issuetracker.google.com/issues/116541301 [unknown] provenance=['classes.dex']",
+        "https://maps.wikimedia.org/osm-intl/ [unknown] provenance=['classes.dex']",
+        "https://search.jabber.network [unknown] provenance=['classes.dex']",
+        "https://tile.openstreetmap.org/ [unknown] provenance=['classes.dex']",
+        "https://tiles.wmflabs.org/hikebike/ [unknown] provenance=['classes.dex']",
+        "https://webrtc.googlesource.com/src/+/refs/heads/main/docs/native-code/rtp-hdrext/playout-delay/ [unknown] provenance=['lib/arm64-v8a/libjingle_peerconnection_so.so']",
+        "https://wms.chartbundle.com/tms/v1.0/enrh/ [unknown] provenance=['classes.dex']",
+        "https://wms.chartbundle.com/tms/v1.0/enrl/ [unknown] provenance=['classes.dex']",
+        "https://wms.chartbundle.com/tms/v1.0/wac/ [unknown] provenance=['classes.dex']",
+        "https://xmpp.link/# [unknown] provenance=['classes.dex']",
+        "https://youtrack.jetbrains.com/issue/KT-55980 [unknown] provenance=['classes.dex -> kotlin.jvm.internal.MutablePropertyReference1Impl -> getGetter']",
+        "invite.joinjabber.org [unknown] provenance=['network:extracted_domain']",
+        "issuetracker.google.com [unknown] provenance=['network:extracted_domain']",
+        "jabber.org [unknown] provenance=['network:extracted_domain']",
+        "jacobi.cc [unknown] provenance=['network:extracted_domain']",
+        "java.net [unknown] provenance=['network:extracted_domain']",
+        "javax.net [unknown] provenance=['network:extracted_domain']",
+        "jvm.cc [unknown] provenance=['network:extracted_domain']",
+        "kotlin.int [unknown] provenance=['network:extracted_domain']",
+        "kotlinx.coroutines.io [unknown] provenance=['network:extracted_domain']",
+        "libcore.io [unknown] provenance=['network:extracted_domain']",
+        "maps.wikimedia.org [unknown] provenance=['network:extracted_domain']",
+        "montgomery.cc [unknown] provenance=['network:extracted_domain']",
+        "mul.cc [unknown] provenance=['network:extracted_domain']",
+        "nack.cc [unknown] provenance=['network:extracted_domain']",
+        "obj.cc [unknown] provenance=['network:extracted_domain']",
+        "openptmap.org [unknown] provenance=['network:extracted_domain']",
+        "p256.cc [unknown] provenance=['network:extracted_domain']",
+        "pair.cc [unknown] provenance=['network:extracted_domain']",
+        "pkcs8.cc [unknown] provenance=['network:extracted_domain']",
+        "pli.cc [unknown] provenance=['network:extracted_domain']",
+        "policy.cc [unknown] provenance=['network:extracted_domain']",
+        "predicates.in [unknown] provenance=['network:extracted_domain']",
+        "print.cc [unknown] provenance=['network:extracted_domain']",
+        "random.cc [unknown] provenance=['network:extracted_domain']",
+        "remb.cc [unknown] provenance=['network:extracted_domain']",
+        "resampler.cc [unknown] provenance=['network:extracted_domain']",
+        "scalar.cc [unknown] provenance=['network:extracted_domain']",
+        "scrypt.cc [unknown] provenance=['network:extracted_domain']",
+        "sdes.cc [unknown] provenance=['network:extracted_domain']",
+        "shift.cc [unknown] provenance=['network:extracted_domain']",
+        "simple.cc [unknown] provenance=['network:extracted_domain']",
+        "simulcast.cc [unknown] provenance=['network:extracted_domain']",
+        "spake2plus.cc [unknown] provenance=['network:extracted_domain']",
+        "stack.cc [unknown] provenance=['network:extracted_domain']",
+        "thread.cc [unknown] provenance=['network:extracted_domain']",
+        "tile.openstreetmap.org [unknown] provenance=['network:extracted_domain']",
+        "tiles.wmflabs.org [unknown] provenance=['network:extracted_domain']",
+        "timer.cc [unknown] provenance=['network:extracted_domain']",
+        "timing.cc [unknown] provenance=['network:extracted_domain']",
+        "tmmbr.cc [unknown] provenance=['network:extracted_domain']",
+        "vad.cc [unknown] provenance=['network:extracted_domain']",
+        "webrtc.googlesource.com [unknown] provenance=['network:extracted_domain']",
+        "wms.chartbundle.com [unknown] provenance=['network:extracted_domain']",
+        "www.openkeychain.org [unknown] provenance=['network:extracted_domain']",
+        "youtrack.jetbrains.com [unknown] provenance=['network:extracted_domain']"
+      ]
+    },
+    "org.mozilla.fennec_fdroid_1560020.apk": {
+      "findings": {
+        "SEC-COMB-PERSISTENT-LOC": {
+          "severity": "high",
+          "confidence": "high",
+          "title": "Boot Persistence Combined with Location Tracking",
+          "evidence": [
+            {
+              "description": "Observed broadcast receiver listening for device boot completion",
+              "location": "manifest:receiver:BOOT_COMPLETED",
+              "snippet": "BOOT_COMPLETED receiver",
+              "references": []
+            },
+            {
+              "description": "Declared permission: android.permission.ACCESS_FINE_LOCATION",
+              "location": "permission:android.permission.ACCESS_FINE_LOCATION",
+              "snippet": "android.permission.ACCESS_FINE_LOCATION",
+              "references": []
+            },
+            {
+              "description": "Declared permission: android.permission.ACCESS_COARSE_LOCATION",
+              "location": "permission:android.permission.ACCESS_COARSE_LOCATION",
+              "snippet": "android.permission.ACCESS_COARSE_LOCATION",
+              "references": []
+            },
+            {
+              "description": "Referenced API: android.location.LocationManager",
+              "location": "api:android.location.LocationManager",
+              "snippet": "android.location.LocationManager",
+              "references": []
+            }
+          ]
+        },
+        "SEC-COMB-SURVEILLANCE-SUITE": {
+          "severity": "high",
+          "confidence": "high",
+          "title": "Multiple Concurrent Surveillance Capabilities",
+          "evidence": [
+            {
+              "description": "Declared permission: android.permission.RECORD_AUDIO",
+              "location": "permission:android.permission.RECORD_AUDIO",
+              "snippet": "android.permission.RECORD_AUDIO",
+              "references": []
+            },
+            {
+              "description": "Declared permission: android.permission.CAMERA",
+              "location": "permission:android.permission.CAMERA",
+              "snippet": "android.permission.CAMERA",
+              "references": []
+            },
+            {
+              "description": "Declared permission: android.permission.ACCESS_FINE_LOCATION",
+              "location": "permission:android.permission.ACCESS_FINE_LOCATION",
+              "snippet": "android.permission.ACCESS_FINE_LOCATION",
+              "references": []
+            },
+            {
+              "description": "Declared permission: android.permission.ACCESS_COARSE_LOCATION",
+              "location": "permission:android.permission.ACCESS_COARSE_LOCATION",
+              "snippet": "android.permission.ACCESS_COARSE_LOCATION",
+              "references": []
+            }
+          ]
+        },
+        "SEC-MAL-CODE-EXEC": {
+          "severity": "high",
+          "confidence": "confirmed",
+          "title": "OS Command Execution Capability Detected",
+          "evidence": [
+            {
+              "description": "Command execution API reference: java.lang.ProcessBuilder;->start()Ljava.lang.Process",
+              "location": "api:java.lang.ProcessBuilder;->start()Ljava.lang.Process",
+              "snippet": "java.lang.ProcessBuilder;->start()Ljava.lang.Process",
+              "references": []
+            },
+            {
+              "description": "Command execution API reference: java.lang.ProcessBuilder;->command(Ljava.util.List;)Ljava.lang.ProcessBuilder",
+              "location": "api:java.lang.ProcessBuilder;->command(Ljava.util.List;)Ljava.lang.ProcessBuilder",
+              "snippet": "java.lang.ProcessBuilder;->command(Ljava.util.List;)Ljava.lang.ProcessBuilder",
+              "references": []
+            },
+            {
+              "description": "Command execution API reference: java.lang.ProcessBuilder",
+              "location": "api:java.lang.ProcessBuilder",
+              "snippet": "java.lang.ProcessBuilder",
+              "references": []
+            },
+            {
+              "description": "Shell / root binary string reference: /system/xbin/su",
+              "location": "dex:strings",
+              "snippet": "/system/xbin/su",
+              "references": []
+            }
+          ]
+        },
+        "SEC-MAL-DYN-LOAD": {
+          "severity": "high",
+          "confidence": "confirmed",
+          "title": "Dynamic Class Loading Capability Detected",
+          "evidence": [
+            {
+              "description": "Dynamic class loader API reference: dalvik.system.BaseDexClassLoader",
+              "location": "api:dalvik.system.BaseDexClassLoader",
+              "snippet": "dalvik.system.BaseDexClassLoader",
+              "references": []
+            },
+            {
+              "description": "Dynamic class loader API reference: dalvik.system.BaseDexClassLoader;->findLibrary(Ljava.lang.String;)Ljava.lang.String",
+              "location": "api:dalvik.system.BaseDexClassLoader;->findLibrary(Ljava.lang.String;)Ljava.lang.String",
+              "snippet": "dalvik.system.BaseDexClassLoader;->findLibrary(Ljava.lang.String;)Ljava.lang.String",
+              "references": []
+            }
+          ]
+        },
+        "SEC-MAL-EXEC-001": {
+          "severity": "high",
+          "confidence": "high",
+          "title": "Local Command Execution Capability",
+          "evidence": [
+            {
+              "description": "Referenced API: java.lang.ProcessBuilder",
+              "location": "api:java.lang.ProcessBuilder",
+              "snippet": "java.lang.ProcessBuilder",
+              "references": []
+            }
+          ]
+        },
+        "SEC-SPY-CAMERA-001": {
+          "severity": "high",
+          "confidence": "high",
+          "title": "Background Camera Capture Capability",
+          "evidence": [
+            {
+              "description": "Declared permission: android.permission.CAMERA",
+              "location": "permission:android.permission.CAMERA",
+              "snippet": "android.permission.CAMERA",
+              "references": []
+            },
+            {
+              "description": "Referenced API: android.hardware.Camera",
+              "location": "api:android.hardware.Camera",
+              "snippet": "android.hardware.Camera",
+              "references": []
+            },
+            {
+              "description": "Referenced API: android.hardware.camera2.CameraManager",
+              "location": "api:android.hardware.camera2.CameraManager",
+              "snippet": "android.hardware.camera2.CameraManager",
+              "references": []
+            },
+            {
+              "description": "Observed component: type=service (org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab35, org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab1, org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab36)",
+              "location": "manifest:service",
+              "snippet": "Observed component: type=service (org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab35, org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab1, org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab36)",
+              "references": []
+            }
+          ]
+        },
+        "SEC-SPY-CAMERA-SURVEILLANCE": {
+          "severity": "high",
+          "confidence": "high",
+          "title": "Camera Capture & Video Capability",
+          "evidence": [
+            {
+              "description": "Declared permission: android.permission.CAMERA",
+              "location": "permission:android.permission.CAMERA",
+              "snippet": "CAMERA",
+              "references": []
+            },
+            {
+              "description": "Camera capture framework API referenced",
+              "location": "api:android.hardware.camera2",
+              "snippet": "CameraManager API",
+              "references": []
+            },
+            {
+              "description": "Background service components declared in manifest",
+              "location": "manifest:service",
+              "snippet": "Background service present",
+              "references": []
+            }
+          ]
+        },
+        "SEC-VULN-EXPORTED-PROVIDER": {
+          "severity": "high",
+          "confidence": "confirmed",
+          "title": "Exported Content Provider Lacks Permission Protection",
+          "evidence": [
+            {
+              "description": "Exported content provider lacking permission: org.mozilla.gecko.GeckoClipboardContentProvider",
+              "location": "manifest:provider:org.mozilla.gecko.GeckoClipboardContentProvider",
+              "snippet": "Provider: org.mozilla.gecko.GeckoClipboardContentProvider (exported=true, permission=None)",
+              "references": []
+            }
+          ]
+        },
+        "SEC-MAL-BOOT-001": {
+          "severity": "medium",
+          "confidence": "high",
+          "title": "Persistent Boot Startup Receiver",
+          "evidence": [
+            {
+              "description": "Observed broadcast receiver listening for device boot completion",
+              "location": "manifest:receiver:BOOT_COMPLETED",
+              "snippet": "BOOT_COMPLETED receiver",
+              "references": []
+            },
+            {
+              "description": "Observed component: type=service (org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab35, org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab1, org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab36)",
+              "location": "manifest:service",
+              "snippet": "Observed component: type=service (org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab35, org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab1, org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab36)",
+              "references": []
+            }
+          ]
+        },
+        "SEC-MAL-PAYLOAD-ENTROPY-assets_dexopt_baseline_prof": {
+          "severity": "medium",
+          "confidence": "high",
+          "title": "High-Entropy Asset Detected (Likely Encrypted/Compressed): assets/dexopt/baseline.prof",
+          "evidence": [
+            {
+              "description": "High-entropy asset: assets/dexopt/baseline.prof (entropy=7.96, size=9747bytes)",
+              "location": "asset:assets/dexopt/baseline.prof",
+              "snippet": "Shannon entropy: 7.96 (9747 bytes)",
+              "references": []
+            }
+          ]
+        },
+        "SEC-MAL-PAYLOAD-ENTROPY-assets_omni_ja": {
+          "severity": "medium",
+          "confidence": "high",
+          "title": "High-Entropy Asset Detected (Likely Encrypted/Compressed): assets/omni.ja",
+          "evidence": [
+            {
+              "description": "High-entropy asset: assets/omni.ja (entropy=7.97, size=15775809bytes)",
+              "location": "asset:assets/omni.ja",
+              "snippet": "Shannon entropy: 7.97 (15775809 bytes)",
+              "references": []
+            }
+          ]
+        },
+        "SEC-NET-CAPABILITY-FLOW": {
+          "severity": "medium",
+          "confidence": "medium",
+          "title": "Sensitive Data Capabilities Co-Occur with External NetworkCommunication",
+          "evidence": [
+            {
+              "description": "External domain endpoint: profiler.firefox.com",
+              "location": "domain:profiler.firefox.com",
+              "snippet": "profiler.firefox.com",
+              "references": []
+            },
+            {
+              "description": "External domain endpoint: androidx.appcompat.app",
+              "location": "domain:androidx.appcompat.app",
+              "snippet": "androidx.appcompat.app",
+              "references": []
+            },
+            {
+              "description": "External domain endpoint: tv.apple.com",
+              "location": "domain:tv.apple.com",
+              "snippet": "tv.apple.com",
+              "references": []
+            },
+            {
+              "description": "External domain endpoint: roblox.com",
+              "location": "domain:roblox.com",
+              "snippet": "roblox.com",
+              "references": []
+            },
+            {
+              "description": "External domain endpoint: skype.com",
+              "location": "domain:skype.com",
+              "snippet": "skype.com",
+              "references": []
+            }
+          ]
+        },
+        "SEC-NET-DIRECT-IP": {
+          "severity": "medium",
+          "confidence": "high",
+          "title": "Direct IP Address Network Endpoint Detected",
+          "evidence": [
+            {
+              "description": "Direct IP endpoint observed: http://127.0.0.1:3030",
+              "location": "classes2.dex",
+              "snippet": "http://127.0.0.1:3030",
+              "references": []
+            }
+          ]
+        },
+        "SEC-SPY-ACCESSIBILITY-001": {
+          "severity": "medium",
+          "confidence": "high",
+          "title": "Accessibility Service Implementation",
+          "evidence": [
+            {
+              "description": "Referenced API: android.accessibilityservice.AccessibilityService",
+              "location": "api:android.accessibilityservice.AccessibilityService",
+              "snippet": "android.accessibilityservice.AccessibilityService",
+              "references": []
+            }
+          ]
+        },
+        "SEC-SPY-ACCESSIBILITY-ABUSE": {
+          "severity": "medium",
+          "confidence": "high",
+          "title": "Android Accessibility Service Implementation",
+          "evidence": [
+            {
+              "description": "AccessibilityService API referenced in bytecode",
+              "location": "api:android.accessibilityservice.AccessibilityService",
+              "snippet": "AccessibilityService API",
+              "references": []
+            }
+          ]
+        },
+        "SEC-SPY-DEVICE-IDENTIFIERS": {
+          "severity": "medium",
+          "confidence": "high",
+          "title": "Hardware & Persistent Device Identifier Collection Capability",
+          "evidence": [
+            {
+              "description": "Telephony hardware identifier method reference: mozilla.appservices.fxaclient.AccountEvent$DeviceDisconnected;->getDeviceId()Ljava.lang.String",
+              "location": "method:mozilla.appservices.fxaclient.AccountEvent$DeviceDisconnected;->getDeviceId()Ljava.lang.String",
+              "snippet": "mozilla.appservices.fxaclient.AccountEvent$DeviceDisconnected;->getDeviceId()Ljava.lang.String",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: mozilla.appservices.remotetabs.PendingCommand.getDeviceId",
+              "location": "method:mozilla.appservices.remotetabs.PendingCommand.getDeviceId",
+              "snippet": "mozilla.appservices.remotetabs.PendingCommand.getDeviceId",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: mozilla.appservices.fxaclient.AccountEvent$DeviceDisconnected.getDeviceId",
+              "location": "method:mozilla.appservices.fxaclient.AccountEvent$DeviceDisconnected.getDeviceId",
+              "snippet": "mozilla.appservices.fxaclient.AccountEvent$DeviceDisconnected.getDeviceId",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: getDeviceId",
+              "location": "method:getDeviceId",
+              "snippet": "getDeviceId",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: mozilla.appservices.remotetabs.PendingCommand;->getDeviceId()Ljava.lang.String",
+              "location": "method:mozilla.appservices.remotetabs.PendingCommand;->getDeviceId()Ljava.lang.String",
+              "snippet": "mozilla.appservices.remotetabs.PendingCommand;->getDeviceId()Ljava.lang.String",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: mozilla.appservices.fxaclient.AttachedClient;->getDeviceId()Ljava.lang.String",
+              "location": "method:mozilla.appservices.fxaclient.AttachedClient;->getDeviceId()Ljava.lang.String",
+              "snippet": "mozilla.appservices.fxaclient.AttachedClient;->getDeviceId()Ljava.lang.String",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: mozilla.appservices.fxaclient.AttachedClient.getDeviceId",
+              "location": "method:mozilla.appservices.fxaclient.AttachedClient.getDeviceId",
+              "snippet": "mozilla.appservices.fxaclient.AttachedClient.getDeviceId",
+              "references": []
+            },
+            {
+              "description": "Settings.Secure.ANDROID_ID reference",
+              "location": "dex:strings",
+              "snippet": "android_id",
+              "references": []
+            },
+            {
+              "description": "Build.SERIAL hardware serial number reference",
+              "location": "dex:strings",
+              "snippet": "Build.SERIAL",
+              "references": []
+            }
+          ]
+        },
+        "SEC-SPY-LOCATION-001": {
+          "severity": "medium",
+          "confidence": "high",
+          "title": "Background Location Tracking Capability",
+          "evidence": [
+            {
+              "description": "Declared permission: android.permission.ACCESS_FINE_LOCATION",
+              "location": "permission:android.permission.ACCESS_FINE_LOCATION",
+              "snippet": "android.permission.ACCESS_FINE_LOCATION",
+              "references": []
+            },
+            {
+              "description": "Declared permission: android.permission.ACCESS_COARSE_LOCATION",
+              "location": "permission:android.permission.ACCESS_COARSE_LOCATION",
+              "snippet": "android.permission.ACCESS_COARSE_LOCATION",
+              "references": []
+            },
+            {
+              "description": "Referenced API: android.location.LocationManager",
+              "location": "api:android.location.LocationManager",
+              "snippet": "android.location.LocationManager",
+              "references": []
+            },
+            {
+              "description": "Observed component: type=service (org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab35, org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab1, org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab36)",
+              "location": "manifest:service",
+              "snippet": "Observed component: type=service (org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab35, org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab1, org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab36)",
+              "references": []
+            }
+          ]
+        },
+        "SEC-SPY-LOCATION-TRACKING": {
+          "severity": "medium",
+          "confidence": "high",
+          "title": "Physical Location Tracking Capability",
+          "evidence": [
+            {
+              "description": "Declared location permission: ACCESS_FINE_LOCATION /ACCESS_COARSE_LOCATION",
+              "location": "permission:location",
+              "snippet": "Location permission declared",
+              "references": []
+            },
+            {
+              "description": "Location provider framework API referenced: LocationManager",
+              "location": "api:android.location.LocationManager",
+              "snippet": "Location API",
+              "references": []
+            },
+            {
+              "description": "Background service components declared",
+              "location": "manifest:service",
+              "snippet": "Background service present",
+              "references": []
+            }
+          ]
+        },
+        "SEC-VULN-CLEARTEXT-001": {
+          "severity": "medium",
+          "confidence": "confirmed",
+          "title": "Cleartext Network Traffic Allowed",
+          "evidence": [
+            {
+              "description": "Manifest attribute usesCleartextTraffic=true",
+              "location": "manifest:usesCleartextTraffic",
+              "snippet": "usesCleartextTraffic=true",
+              "references": []
+            }
+          ]
+        },
+        "SEC-VULN-EXPORTED-SERVICE": {
+          "severity": "medium",
+          "confidence": "confirmed",
+          "title": "Exported Service Component Lacks Permission Protection",
+          "evidence": [
+            {
+              "description": "Exported service lacking permission: org.unifiedpush.android.connector.internal.RaiseToForegroundService",
+              "location": "manifest:service:org.unifiedpush.android.connector.internal.RaiseToForegroundService",
+              "snippet": "Service: org.unifiedpush.android.connector.internal.RaiseToForegroundService (exported=true, permission=None)",
+              "references": []
+            },
+            {
+              "description": "Exported service lacking permission: org.mozilla.fenix.customtabs.CustomTabsService",
+              "location": "manifest:service:org.mozilla.fenix.customtabs.CustomTabsService",
+              "snippet": "Service: org.mozilla.fenix.customtabs.CustomTabsService (exported=true, permission=None)",
+              "references": []
+            }
+          ]
+        },
+        "SEC-VULN-MANIFEST-CLEARTEXT": {
+          "severity": "medium",
+          "confidence": "confirmed",
+          "title": "Cleartext Network Traffic Allowed by Manifest",
+          "evidence": [
+            {
+              "description": "Manifest declaration: android:usesCleartextTraffic='true'",
+              "location": "manifest:application:usesCleartextTraffic",
+              "snippet": "android:usesCleartextTraffic='true'",
+              "references": []
+            }
+          ]
+        },
+        "SEC-MAL-PERSISTENCE-BOOT": {
+          "severity": "low",
+          "confidence": "confirmed",
+          "title": "Device Boot Persistence Mechanism Detected",
+          "evidence": [
+            {
+              "description": "Declared permission: RECEIVE_BOOT_COMPLETED",
+              "location": "permission:android.permission.RECEIVE_BOOT_COMPLETED",
+              "snippet": "RECEIVE_BOOT_COMPLETED",
+              "references": []
+            },
+            {
+              "description": "Boot startup broadcast receiver: androidx.work.impl.background.systemalarm.RescheduleReceiver",
+              "location": "manifest:receiver:androidx.work.impl.background.systemalarm.RescheduleReceiver",
+              "snippet": "Receiver: androidx.work.impl.background.systemalarm.RescheduleReceiver",
+              "references": []
+            }
+          ]
+        },
+        "SEC-MAL-ROOT-INDICATORS": {
+          "severity": "low",
+          "confidence": "medium",
+          "title": "Root Environment Query / Su Reference Detected",
+          "evidence": [
+            {
+              "description": "Root indicator string observed: /system/app/Superuser.apk",
+              "location": "dex:strings",
+              "snippet": "/system/app/Superuser.apk",
+              "references": []
+            }
+          ]
+        },
+        "SEC-NET-CLEARTEXT-URLS": {
+          "severity": "low",
+          "confidence": "high",
+          "title": "Cleartext HTTP URL References Detected",
+          "evidence": [
+            {
+              "description": "Cleartext HTTP URL: http://xml.org/sax/properties/lexical-handler",
+              "location": "classes.dex",
+              "snippet": "http://xml.org/sax/properties/lexical-handler",
+              "references": []
+            },
+            {
+              "description": "Cleartext HTTP URL: http://xml.org/sax/features/external-parameter-entities",
+              "location": "classes.dex",
+              "snippet": "http://xml.org/sax/features/external-parameter-entities",
+              "references": []
+            },
+            {
+              "description": "Cleartext HTTP URL: http://a9.com/-/spec/opensearch/1.1/",
+              "location": "classes2.dex",
+              "snippet": "http://a9.com/-/spec/opensearch/1.1/",
+              "references": []
+            },
+            {
+              "description": "Cleartext HTTP URL: http://g.co/dev/packagevisibility",
+              "location": "classes.dex",
+              "snippet": "http://g.co/dev/packagevisibility",
+              "references": []
+            },
+            {
+              "description": "Cleartext HTTP URL: http://xmlpull.org/v1/doc/features.html#process-docdecl",
+              "location": "classes.dex",
+              "snippet": "http://xmlpull.org/v1/doc/features.html#process-docdecl",
+              "references": []
+            }
+          ]
+        },
+        "SEC-SPY-CLIPBOARD-001": {
+          "severity": "low",
+          "confidence": "medium",
+          "title": "Background Clipboard Access Capability",
+          "evidence": [
+            {
+              "description": "Referenced API: android.content.ClipboardManager",
+              "location": "api:android.content.ClipboardManager",
+              "snippet": "android.content.ClipboardManager",
+              "references": []
+            },
+            {
+              "description": "Observed component: type=service (org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab35, org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab1, org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab36)",
+              "location": "manifest:service",
+              "snippet": "Observed component: type=service (org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab35, org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab1, org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab36)",
+              "references": []
+            }
+          ]
+        },
+        "SEC-VULN-EXPORTED-RECEIVER": {
+          "severity": "low",
+          "confidence": "confirmed",
+          "title": "Exported Broadcast Receiver Lacks Permission Protection",
+          "evidence": [
+            {
+              "description": "Exported broadcast receiver lacking permission: org.unifiedpush.android.connector.internal.MessagingReceiverImpl",
+              "location": "manifest:receiver:org.unifiedpush.android.connector.internal.MessagingReceiverImpl",
+              "snippet": "Receiver: org.unifiedpush.android.connector.internal.MessagingReceiverImpl (exported=true, permission=None)",
+              "references": []
+            },
+            {
+              "description": "Exported broadcast receiver lacking permission: com.adjust.sdk.AdjustPreinstallReferrerReceiver",
+              "location": "manifest:receiver:com.adjust.sdk.AdjustPreinstallReferrerReceiver",
+              "snippet": "Receiver: com.adjust.sdk.AdjustPreinstallReferrerReceiver (exported=true, permission=None)",
+              "references": []
+            },
+            {
+              "description": "Exported broadcast receiver lacking permission: org.mozilla.fenix.onboarding.WidgetPinnedReceiver",
+              "location": "manifest:receiver:org.mozilla.fenix.onboarding.WidgetPinnedReceiver",
+              "snippet": "Receiver: org.mozilla.fenix.onboarding.WidgetPinnedReceiver (exported=true, permission=None)",
+              "references": []
+            },
+            {
+              "description": "Exported broadcast receiver lacking permission: org.ironfoxoss.unifiedpush.PushReceiver",
+              "location": "manifest:receiver:org.ironfoxoss.unifiedpush.PushReceiver",
+              "snippet": "Receiver: org.ironfoxoss.unifiedpush.PushReceiver (exported=true, permission=None)",
+              "references": []
+            },
+            {
+              "description": "Exported broadcast receiver lacking permission: org.mozilla.gecko.search.SearchWidgetProvider",
+              "location": "manifest:receiver:org.mozilla.gecko.search.SearchWidgetProvider",
+              "snippet": "Receiver: org.mozilla.gecko.search.SearchWidgetProvider (exported=true, permission=None)",
+              "references": []
+            }
+          ]
+        },
+        "SEC-MAL-PERSISTENCE-FG-SERVICE": {
+          "severity": "informational",
+          "confidence": "confirmed",
+          "title": "Foreground Service Declaration",
+          "evidence": [
+            {
+              "description": "Foreground service declared: mozilla.components.lib.crash.service.SendCrashTelemetryService (type=0x40000000)",
+              "location": "manifest:service:mozilla.components.lib.crash.service.SendCrashTelemetryService",
+              "snippet": "mozilla.components.lib.crash.service.SendCrashTelemetryService [type=0x40000000]",
+              "references": []
+            },
+            {
+              "description": "Foreground service declared: org.mozilla.fenix.perf.ProfilerService (type=0x40000000)",
+              "location": "manifest:service:org.mozilla.fenix.perf.ProfilerService",
+              "snippet": "org.mozilla.fenix.perf.ProfilerService [type=0x40000000]",
+              "references": []
+            },
+            {
+              "description": "Foreground service declared: org.mozilla.fenix.downloads.DownloadService (type=0x00000001)",
+              "location": "manifest:service:org.mozilla.fenix.downloads.DownloadService",
+              "snippet": "org.mozilla.fenix.downloads.DownloadService [type=0x00000001]",
+              "references": []
+            },
+            {
+              "description": "Foreground service declared: mozilla.components.lib.crash.handler.CrashHandlerService (type=0x40000000)",
+              "location": "manifest:service:mozilla.components.lib.crash.handler.CrashHandlerService",
+              "snippet": "mozilla.components.lib.crash.handler.CrashHandlerService [type=0x40000000]",
+              "references": []
+            },
+            {
+              "description": "Foreground service declared: org.mozilla.fenix.session.PrivateNotificationService (type=0x40000000)",
+              "location": "manifest:service:org.mozilla.fenix.session.PrivateNotificationService",
+              "snippet": "org.mozilla.fenix.session.PrivateNotificationService [type=0x40000000]",
+              "references": []
+            }
+          ]
+        }
+      },
+      "domains": [
+        "a9.com",
+        "abcnews.go.com",
+        "accounts.firefox.com",
+        "accounts.stage.mozaws.net",
+        "acelp.net",
+        "addons.mozilla.org",
+        "ads.mozilla.org",
+        "amazon.com",
+        "ameblo.jp",
+        "android.app",
+        "android.googlesource.com",
+        "android.net",
+        "androidx.appcompat.app",
+        "androidx.core.app",
+        "aol.com",
+        "aomedia.org",
+        "api.profiler.firefox.com",
+        "apnews.com",
+        "arun.com",
+        "asana.com",
+        "atlassian.com",
+        "bar.com",
+        "battle.net",
+        "bbc.com",
+        "bitbucket.org",
+        "blog.mozilla.org",
+        "bloomberg.com",
+        "box.com",
+        "broken.site",
+        "browser.toolbar.site.info",
+        "buzzfeednews.com",
+        "calendar.com",
+        "calendar.google.com",
+        "calendar.yahoo.com",
+        "cbsnews.com",
+        "chess.com",
+        "cnn.com",
+        "com.chrome.dev",
+        "com.samsung.android.app",
+        "com.sec.android.app",
+        "crash-reports.mozilla.com",
+        "crash-stats.mozilla.org",
+        "crunchyroll.com",
+        "data.rel.ro",
+        "debug-ping-preview.firebaseapp.com",
+        "developer.android.com",
+        "developer.apple.com",
+        "developer.mozilla.org",
+        "developers.google.com",
+        "discord.com",
+        "disneyplus.com",
+        "dispatchers.io",
+        "docs.google.com",
+        "drive.google.com",
+        "dropbox.com",
+        "edit.url.broken.site",
+        "example.org",
+        "facebook.com",
+        "ffmpeg.org",
+        "figma.com",
+        "firefox.dns.nextdns.io",
+        "foxnews.com",
+        "g.co",
+        "getpocket.com",
+        "github.com",
+        "gitlab.com",
+        "gmail.com",
+        "hbomax.com",
+        "huffpost.com",
+        "hulu.com",
+        "icloud.com",
+        "identity.mozilla.com",
+        "img-getpocket.cdn.mozilla.net",
+        "incoming.telemetry.mozilla.org",
+        "index.crates.io",
+        "input.it",
+        "instagram.com",
+        "issuetracker.google.com",
+        "itch.io",
+        "java.io",
+        "kotlin.int",
+        "kotlinx.coroutines.io",
+        "layout.css.stylo-local-work-queue.in",
+        "lens.google.com",
+        "libcore.io",
+        "lineheightstyle.alignment.top",
+        "linkedin.com",
+        "m.yahoo.co.jp",
+        "mail.google.com",
+        "mail.yahoo.com",
+        "mainmenu.desktop.site",
+        "malware-error.mozilla.com",
+        "merino.services.mozilla.com",
+        "messenger.com",
+        "miro.com",
+        "mlpa-nonprod-dev-mozilla.freetls.fastly.net",
+        "mlpa-prod-prod-mozilla.freetls.fastly.net",
+        "monday.com",
+        "mozac.org",
+        "mozilla.cloudflare-dns.com",
+        "mozilla.com",
+        "mozilla.components.feature.app",
+        "mozilla.components.feature.ipprotection.store",
+        "mozilla.components.feature.top",
+        "mozilla.components.lib.crash.store",
+        "mozilla.components.service.fxa.store",
+        "mozilla.org",
+        "nbcnews.com",
+        "netflix.com",
+        "newsweek.com",
+        "nintendo.com",
+        "npr.org",
+        "nytimes.com",
+        "office.com",
+        "ohttp-gateway-merino.services.mozilla.com",
+        "ohttp-merino.mozilla.fastly-edge.com",
+        "onedrive.live.com",
+        "org.mozilla.fenix.debugsettings.info",
+        "org.mozilla.fenix.debugsettings.store",
+        "org.mozilla.fenix.home.setup.store",
+        "org.mozilla.fenix.ipprotection.store",
+        "org.mozilla.fenix.onboarding.store",
+        "org.mozilla.fenix.settings.address.store",
+        "org.mozilla.fenix.tabstray.redux.store",
+        "outlook.com",
+        "outlook.live.com",
+        "pandora.com",
+        "paramountplus.com",
+        "phish-error.mozilla.com",
+        "pinterest.com",
+        "playstation.com",
+        "politico.com",
+        "primevideo.com",
+        "profiler.firefox.com",
+        "protonmail.com",
+        "reddit.com",
+        "relay.firefox.com",
+        "reuters.com",
+        "roblox.com",
+        "s.yimg.jp",
+        "safebrowsing.google.com",
+        "safebrowsing.googleapis.com",
+        "send.broken.site",
+        "services.addons.mozilla.org",
+        "sheets.google.com",
+        "signal.org",
+        "skype.com",
+        "slack.com",
+        "snapchat.com",
+        "soundcloud.com",
+        "spotify.com",
+        "stable.dev.lcip.org",
+        "stat100.ameba.jp",
+        "steamcommunity.com",
+        "steampowered.com",
+        "store.epicgames.com",
+        "streams.videolan.org",
+        "support.mozilla.org",
+        "teams.microsoft.com",
+        "telegram.org",
+        "tenki.jp",
+        "theguardian.com",
+        "tiktok.com",
+        "time.com",
+        "trello.com",
+        "tumblr.com",
+        "tv.apple.com",
+        "twitch.tv",
+        "twitter.com",
+        "updates.push.services.mozilla.com",
+        "usatoday.com",
+        "viber.com",
+        "washingtonpost.com",
+        "webcompat.com",
+        "whatsapp.com",
+        "wikipedia.org",
+        "wsj.com",
+        "www.example.com",
+        "www.google.com",
+        "www.googleapis.com",
+        "www.justanothersite123.com",
+        "www.mozilla.com",
+        "www.mozilla.org",
+        "www.wikipedia.org",
+        "www.youtube.com",
+        "x.com",
+        "xbox.com",
+        "xiph.org",
+        "yahoo.com",
+        "yaml.org",
+        "youtrack.jetbrains.com",
+        "youtube.com",
+        "zoho.com",
+        "zoom.us"
+      ],
+      "privacy_endpoints": [
+        "a9.com [unknown] provenance=['network:extracted_domain']",
+        "abcnews.go.com [unknown] provenance=['network:extracted_domain']",
+        "accounts.firefox.com [unknown] provenance=['network:extracted_domain']",
+        "accounts.stage.mozaws.net [unknown] provenance=['network:extracted_domain']",
+        "acelp.net [unknown] provenance=['network:extracted_domain']",
+        "addons.mozilla.org [first_party] provenance=['network:extracted_domain']",
+        "ads.mozilla.org [first_party] provenance=['network:extracted_domain']",
+        "amazon.com [unknown] provenance=['network:extracted_domain']",
+        "ameblo.jp [unknown] provenance=['network:extracted_domain']",
+        "android.app [unknown] provenance=['network:extracted_domain']",
+        "android.googlesource.com [unknown] provenance=['network:extracted_domain']",
+        "android.net [unknown] provenance=['network:extracted_domain']",
+        "androidx.appcompat.app [unknown] provenance=['network:extracted_domain']",
+        "androidx.core.app [unknown] provenance=['network:extracted_domain']",
+        "aol.com [unknown] provenance=['network:extracted_domain']",
+        "aomedia.org [unknown] provenance=['network:extracted_domain']",
+        "api.profiler.firefox.com [unknown] provenance=['network:extracted_domain']",
+        "apnews.com [unknown] provenance=['network:extracted_domain']",
+        "arun.com [unknown] provenance=['network:extracted_domain']",
+        "asana.com [unknown] provenance=['network:extracted_domain']",
+        "atlassian.com [unknown] provenance=['network:extracted_domain']",
+        "bar.com [unknown] provenance=['network:extracted_domain']",
+        "battle.net [unknown] provenance=['network:extracted_domain']",
+        "bbc.com [unknown] provenance=['network:extracted_domain']",
+        "bitbucket.org [unknown] provenance=['network:extracted_domain']",
+        "blog.mozilla.org [first_party] provenance=['network:extracted_domain']",
+        "bloomberg.com [unknown] provenance=['network:extracted_domain']",
+        "box.com [unknown] provenance=['network:extracted_domain']",
+        "broken.site [unknown] provenance=['network:extracted_domain']",
+        "browser.toolbar.site.info [unknown] provenance=['network:extracted_domain']",
+        "buzzfeednews.com [unknown] provenance=['network:extracted_domain']",
+        "calendar.com [unknown] provenance=['network:extracted_domain']",
+        "calendar.google.com [unknown] provenance=['network:extracted_domain']",
+        "calendar.yahoo.com [unknown] provenance=['network:extracted_domain']",
+        "cbsnews.com [unknown] provenance=['network:extracted_domain']",
+        "chess.com [unknown] provenance=['network:extracted_domain']",
+        "cnn.com [unknown] provenance=['network:extracted_domain']",
+        "com.chrome.dev [unknown] provenance=['network:extracted_domain']",
+        "com.samsung.android.app [unknown] provenance=['network:extracted_domain']",
+        "com.sec.android.app [unknown] provenance=['network:extracted_domain']",
+        "crash-reports.mozilla.com [unknown] provenance=['network:extracted_domain']",
+        "crash-stats.mozilla.org [first_party] provenance=['network:extracted_domain']",
+        "crunchyroll.com [unknown] provenance=['network:extracted_domain']",
+        "data.rel.ro [unknown] provenance=['network:extracted_domain']",
+        "debug-ping-preview.firebaseapp.com [unknown] provenance=['network:extracted_domain']",
+        "developer.android.com [unknown] provenance=['network:extracted_domain']",
+        "developer.apple.com [unknown] provenance=['network:extracted_domain']",
+        "developer.mozilla.org [first_party] provenance=['network:extracted_domain']",
+        "developers.google.com [unknown] provenance=['network:extracted_domain']",
+        "discord.com [unknown] provenance=['network:extracted_domain']",
+        "disneyplus.com [unknown] provenance=['network:extracted_domain']",
+        "dispatchers.io [unknown] provenance=['network:extracted_domain']",
+        "docs.google.com [unknown] provenance=['network:extracted_domain']",
+        "drive.google.com [unknown] provenance=['network:extracted_domain']",
+        "dropbox.com [unknown] provenance=['network:extracted_domain']",
+        "edit.url.broken.site [unknown] provenance=['network:extracted_domain']",
+        "example.org [unknown] provenance=['network:extracted_domain']",
+        "facebook.com [unknown] provenance=['network:extracted_domain']",
+        "ffmpeg.org [unknown] provenance=['network:extracted_domain']",
+        "figma.com [unknown] provenance=['network:extracted_domain']",
+        "firefox.dns.nextdns.io [unknown] provenance=['network:extracted_domain']",
+        "foxnews.com [unknown] provenance=['network:extracted_domain']",
+        "g.co [unknown] provenance=['network:extracted_domain']",
+        "getpocket.com [unknown] provenance=['network:extracted_domain']",
+        "github.com [unknown] provenance=['network:extracted_domain']",
+        "gitlab.com [unknown] provenance=['network:extracted_domain']",
+        "gmail.com [unknown] provenance=['network:extracted_domain']",
+        "hbomax.com [unknown] provenance=['network:extracted_domain']",
+        "http://127.0.0.1:3030 [unknown] provenance=['classes2.dex']",
+        "http://a9.com/-/spec/opensearch/1.1/ [unknown] provenance=['classes2.dex -> mozilla.components.feature.search.storage.SearchEngineWriter -> buildSearchEngineXML$feature_search']",
+        "http://g.co/dev/packagevisibility [unknown] provenance=['classes.dex -> androidx.media3.datasource.RawResourceDataSource -> open']",
+        "http://localhost [unknown] provenance=['classes2.dex']",
+        "http://schemas.android.com/apk/res-auto [unknown] provenance=['classes.dex']",
+        "http://schemas.android.com/apk/res/android [unknown] provenance=['classes.dex']",
+        "http://www.mozilla.org/2006/browser/search/ [first_party] provenance=['classes2.dex']",
+        "http://www.mozilla.org/index.html [first_party] provenance=['classes2.dex']",
+        "http://www.w3.org/1998/Math/MathML [unknown] provenance=['classes2.dex']",
+        "http://www.w3.org/1999/xhtml [unknown] provenance=['classes2.dex']",
+        "http://www.w3.org/1999/xlink [unknown] provenance=['classes.dex']",
+        "http://www.w3.org/2000/svg [unknown] provenance=['classes.dex']",
+        "http://www.w3.org/TR/SVG11/feature# [unknown] provenance=['classes.dex']",
+        "http://www.w3.org/ns/ttml#parameter [unknown] provenance=['classes.dex']",
+        "http://xml.org/sax/features/external-general-entities [unknown] provenance=['classes.dex']",
+        "http://xml.org/sax/features/external-parameter-entities [unknown] provenance=['classes.dex']",
+        "http://xml.org/sax/properties/lexical-handler [unknown] provenance=['classes.dex']",
+        "http://xmlpull.org/v1/doc/features.html#process-docdecl [unknown] provenance=['classes.dex -> com.caverock.androidsvg.SVGParser -> parseUsingXmlPullParser']",
+        "http://xmlpull.org/v1/doc/features.html#process-namespaces [unknown] provenance=['classes.dex']",
+        "https://%LOCALE%.malware-error.mozilla.com/?url= [unknown] provenance=['classes3.dex']",
+        "https://%LOCALE%.phish-error.mozilla.com/?url= [unknown] provenance=['classes3.dex']",
+        "https://accounts.firefox.com [unknown] provenance=['classes2.dex']",
+        "https://accounts.firefox.com/signin [unknown] provenance=['classes3.dex']",
+        "https://accounts.stage.mozaws.net [unknown] provenance=['classes2.dex']",
+        "https://addons.mozilla.org/android/ [first_party] provenance=['classes2.dex']",
+        "https://addons.mozilla.org/android/blocked-addon/ [first_party] provenance=['classes2.dex']",
+        "https://addons.mozilla.org/android/blocked-addon/%s/ [first_party] provenance=['classes2.dex']",
+        "https://addons.mozilla.org/android/feedback/addon/ [first_party] provenance=['classes2.dex']",
+        "https://ads.mozilla.org/v1/ads [first_party] provenance=['classes2.dex']",
+        "https://ads.mozilla.org/v1/delete_user [first_party] provenance=['classes2.dex']",
+        "https://ameblo.jp/ [unknown] provenance=['classes3.dex']",
+        "https://android.googlesource.com/toolchain/clang [unknown] provenance=['lib/arm64-v8a/libdatastore_shared_counter.so']",
+        "https://android.googlesource.com/toolchain/llvm [unknown] provenance=['lib/arm64-v8a/libdatastore_shared_counter.so']",
+        "https://android.googlesource.com/toolchain/llvm-project [unknown] provenance=['lib/arm64-v8a/libandroidx.graphics.path.so']",
+        "https://aomedia.org/emsg/ID3 [unknown] provenance=['classes.dex']",
+        "https://api.profiler.firefox.com/compressed-store [unknown] provenance=['classes3.dex']",
+        "https://blog.mozilla.org/ja/firefox-ja/android-guide/ [first_party] provenance=['classes3.dex']",
+        "https://crash-reports.mozilla.com/submit [unknown] provenance=['classes2.dex']",
+        "https://crash-reports.mozilla.com/submit?id=%1$s&version=%2$s&buildid=%3$s [unknown] provenance=['classes3.dex']",
+        "https://crash-stats.mozilla.org/report/index/ [first_party] provenance=['classes2.dex']",
+        "https://debug-ping-preview.firebaseapp.com/ [unknown] provenance=['classes3.dex']",
+        "https://debug-ping-preview.firebaseapp.com/pings/ [unknown] provenance=['classes3.dex']",
+        "https://developer.android.com/guide/topics/media/issues/cleartext-not-permitted [unknown] provenance=['classes.dex']",
+        "https://developer.apple.com/streaming/emsg-id3 [unknown] provenance=['classes.dex']",
+        "https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API [first_party] provenance=['classes2.dex']",
+        "https://developers.google.com/safe-browsing/v4/advisory [unknown] provenance=['classes3.dex']",
+        "https://example.com [unknown] provenance=['classes3.dex']",
+        "https://firefox.dns.nextdns.io/ [unknown] provenance=['classes3.dex']",
+        "https://getpocket.com/fenix-top-articles [unknown] provenance=['classes2.dex']",
+        "https://github.com/Kotlin/llvm-project [unknown] provenance=['lib/arm64-v8a/libdatastore_shared_counter.so']",
+        "https://gitlab.com/relan/fennecmedia/-/raw/master/wallpapers/android [unknown] provenance=['classes3.dex -> org.mozilla.fenix.wallpapers.WallpaperDownloader -> <init>']",
+        "https://goo.gle/compose-feedback [unknown] provenance=['classes.dex']",
+        "https://identity.mozilla.com/apps/oldsync [unknown] provenance=['classes2.dex']",
+        "https://identity.mozilla.com/apps/relay [unknown] provenance=['classes2.dex']",
+        "https://identity.mozilla.com/apps/vpn [unknown] provenance=['classes2.dex']",
+        "https://identity.mozilla.com/tokens/session [unknown] provenance=['classes2.dex']",
+        "https://img-getpocket.cdn.mozilla.net/{wh [unknown] provenance=['classes2.dex']",
+        "https://incoming.telemetry.mozilla.org [first_party] provenance=['classes2.dex']",
+        "https://issuetracker.google.com/issues/new?component=907884&template=1466542 [unknown] provenance=['classes.dex']",
+        "https://lens.google.com/upload? [unknown] provenance=['classes2.dex']",
+        "https://m.yahoo.co.jp/ [unknown] provenance=['classes3.dex']",
+        "https://merino.services.mozilla.com/api/v1/curated-recommendations [unknown] provenance=['classes2.dex -> mozilla.components.service.pocket.recommendations.ContentRecommendationsUseCases$FetchContentRecommendations -> invoke']",
+        "https://mlpa-nonprod-dev-mozilla.freetls.fastly.net [unknown] provenance=['classes2.dex']",
+        "https://mlpa-prod-prod-mozilla.freetls.fastly.net [unknown] provenance=['classes2.dex']",
+        "https://mozilla.cloudflare-dns.com/dns-query [unknown] provenance=['classes3.dex']",
+        "https://mozilla.com [unknown] provenance=['classes3.dex']",
+        "https://ohttp-merino.mozilla.fastly-edge.com [unknown] provenance=['classes2.dex']",
+        "https://profiler.firefox.com/public/ [unknown] provenance=['classes3.dex']",
+        "https://relay.firefox.com [unknown] provenance=['classes2.dex']",
+        "https://s.yimg.jp/c/icon/s/bsc/2.0/favicon.ico [unknown] provenance=['classes3.dex']",
+        "https://safebrowsing.google.com/safebrowsing/diagnostic?site= [unknown] provenance=['classes3.dex']",
+        "https://safebrowsing.google.com/safebrowsing/downloads?client=SAFEBROWSING_ID&appver=%MAJOR_VERSION%&pver=2.2&key=%GOOGLE_SAFEBROWSING_API_KEY% [unknown] provenance=['classes3.dex']",
+        "https://safebrowsing.google.com/safebrowsing/gethash?client=SAFEBROWSING_ID&appver=%MAJOR_VERSION%&pver=2.2 [unknown] provenance=['classes3.dex']",
+        "https://safebrowsing.google.com/safebrowsing/report_phish/?url= [unknown] provenance=['classes3.dex']",
+        "https://safebrowsing.googleapis.com/v4/fullHashes:find?$ct=application/x-protobuf&key=%GOOGLE_SAFEBROWSING_API_KEY%&$httpMethod=POST [unknown] provenance=['classes3.dex']",
+        "https://safebrowsing.googleapis.com/v4/threatHits?$ct=application/x-protobuf&key=%GOOGLE_SAFEBROWSING_API_KEY%&$httpMethod=POST [unknown] provenance=['classes3.dex']",
+        "https://safebrowsing.googleapis.com/v4/threatListUpdates:fetch?$ct=application/x-protobuf&key=%GOOGLE_SAFEBROWSING_API_KEY%&$httpMethod=POST [unknown] provenance=['classes3.dex']",
+        "https://safebrowsing.googleapis.com/v5/hashLists:batchGet?key=%GOOGLE_SAFEBROWSING_API_KEY% [unknown] provenance=['classes3.dex']",
+        "https://safebrowsing.googleapis.com/v5/hashes:search?key=%GOOGLE_SAFEBROWSING_API_KEY% [unknown] provenance=['classes3.dex']",
+        "https://services.addons.mozilla.org [first_party] provenance=['classes2.dex']",
+        "https://stable.dev.lcip.org [unknown] provenance=['classes2.dex']",
+        "https://stat100.ameba.jp/common_style/img/favicon.ico [unknown] provenance=['classes3.dex']",
+        "https://streams.videolan.org/upload/ [unknown] provenance=['lib/arm64-v8a/libmozavutil.so']",
+        "https://support.mozilla.org/ [first_party] provenance=['classes3.dex']",
+        "https://support.mozilla.org/1/ [first_party] provenance=['classes3.dex']",
+        "https://support.mozilla.org/kb/access-mozilla-services-firefox-account [first_party] provenance=['classes2.dex']",
+        "https://support.mozilla.org/kb/add-compatibility-firefox-preview [first_party] provenance=['classes2.dex']",
+        "https://support.mozilla.org/km/kb/report-breakage-due-blocking [first_party] provenance=['classes3.dex']",
+        "https://tenki.jp/ [unknown] provenance=['classes3.dex']",
+        "https://tenki.jp/favicon.ico [unknown] provenance=['classes3.dex']",
+        "https://webcompat.com/issues/new [unknown] provenance=['classes3.dex']",
+        "https://webcompat.com/issues/new?url= [unknown] provenance=['classes2.dex']",
+        "https://www.example.com [unknown] provenance=['classes3.dex']",
+        "https://www.google.com/ [unknown] provenance=['classes3.dex']",
+        "https://www.google.com/webhp?client=firefox-b-1-m&channel=ts [unknown] provenance=['classes3.dex']",
+        "https://www.google.com/webhp?client=firefox-b-m&channel=ts [unknown] provenance=['classes3.dex']",
+        "https://www.googleapis.com/auth/games [unknown] provenance=['classes.dex']",
+        "https://www.googleapis.com/auth/games_lite [unknown] provenance=['classes.dex']",
+        "https://www.justanothersite [unknown] provenance=['classes3.dex']",
+        "https://www.justanothersite123.com [unknown] provenance=['classes3.dex']",
+        "https://www.mozilla.org [first_party] provenance=['classes3.dex']",
+        "https://www.mozilla.org/ [first_party] provenance=['classes3.dex']",
+        "https://www.mozilla.org/firefox/android/notes [first_party] provenance=['classes3.dex']",
+        "https://www.mozilla.org/index.html [first_party] provenance=['classes2.dex']",
+        "https://www.wikipedia.org/ [unknown] provenance=['classes2.dex']",
+        "https://www.youtube.com/ [unknown] provenance=['classes2.dex']",
+        "https://youtrack.jetbrains.com/issue/KT-55980 [unknown] provenance=['classes.dex -> kotlin.jvm.internal.PropertyReference -> getReflected']",
+        "huffpost.com [unknown] provenance=['network:extracted_domain']",
+        "hulu.com [unknown] provenance=['network:extracted_domain']",
+        "icloud.com [unknown] provenance=['network:extracted_domain']",
+        "identity.mozilla.com [unknown] provenance=['network:extracted_domain']",
+        "img-getpocket.cdn.mozilla.net [unknown] provenance=['network:extracted_domain']",
+        "incoming.telemetry.mozilla.org [first_party] provenance=['network:extracted_domain']",
+        "index.crates.io [unknown] provenance=['network:extracted_domain']",
+        "input.it [unknown] provenance=['network:extracted_domain']",
+        "instagram.com [unknown] provenance=['network:extracted_domain']",
+        "issuetracker.google.com [unknown] provenance=['network:extracted_domain']",
+        "itch.io [unknown] provenance=['network:extracted_domain']",
+        "java.io [unknown] provenance=['network:extracted_domain']",
+        "kotlin.int [unknown] provenance=['network:extracted_domain']",
+        "kotlinx.coroutines.io [unknown] provenance=['network:extracted_domain']",
+        "layout.css.stylo-local-work-queue.in [unknown] provenance=['network:extracted_domain']",
+        "lens.google.com [unknown] provenance=['network:extracted_domain']",
+        "libcore.io [unknown] provenance=['network:extracted_domain']",
+        "lineheightstyle.alignment.top [unknown] provenance=['network:extracted_domain']",
+        "linkedin.com [unknown] provenance=['network:extracted_domain']",
+        "m.yahoo.co.jp [unknown] provenance=['network:extracted_domain']",
+        "mail.google.com [unknown] provenance=['network:extracted_domain']",
+        "mail.yahoo.com [unknown] provenance=['network:extracted_domain']",
+        "mainmenu.desktop.site [unknown] provenance=['network:extracted_domain']",
+        "malware-error.mozilla.com [unknown] provenance=['network:extracted_domain']",
+        "merino.services.mozilla.com [unknown] provenance=['network:extracted_domain']",
+        "messenger.com [unknown] provenance=['network:extracted_domain']",
+        "miro.com [unknown] provenance=['network:extracted_domain']",
+        "mlpa-nonprod-dev-mozilla.freetls.fastly.net [unknown] provenance=['network:extracted_domain']",
+        "mlpa-prod-prod-mozilla.freetls.fastly.net [unknown] provenance=['network:extracted_domain']",
+        "monday.com [unknown] provenance=['network:extracted_domain']",
+        "mozac.org [unknown] provenance=['network:extracted_domain']",
+        "mozilla.cloudflare-dns.com [unknown] provenance=['network:extracted_domain']",
+        "mozilla.com [unknown] provenance=['network:extracted_domain']",
+        "mozilla.components.feature.app [unknown] provenance=['network:extracted_domain']",
+        "mozilla.components.feature.ipprotection.store [unknown] provenance=['network:extracted_domain']",
+        "mozilla.components.feature.top [unknown] provenance=['network:extracted_domain']",
+        "mozilla.components.lib.crash.store [unknown] provenance=['network:extracted_domain']",
+        "mozilla.components.service.fxa.store [unknown] provenance=['network:extracted_domain']",
+        "mozilla.org [first_party] provenance=['network:extracted_domain']",
+        "nbcnews.com [unknown] provenance=['network:extracted_domain']",
+        "netflix.com [unknown] provenance=['network:extracted_domain']",
+        "newsweek.com [unknown] provenance=['network:extracted_domain']",
+        "nintendo.com [unknown] provenance=['network:extracted_domain']",
+        "npr.org [unknown] provenance=['network:extracted_domain']",
+        "nytimes.com [unknown] provenance=['network:extracted_domain']",
+        "office.com [unknown] provenance=['network:extracted_domain']",
+        "ohttp-gateway-merino.services.mozilla.com [unknown] provenance=['network:extracted_domain']",
+        "ohttp-merino.mozilla.fastly-edge.com [unknown] provenance=['network:extracted_domain']",
+        "onedrive.live.com [unknown] provenance=['network:extracted_domain']",
+        "org.mozilla.fenix.debugsettings.info [unknown] provenance=['network:extracted_domain']",
+        "org.mozilla.fenix.debugsettings.store [unknown] provenance=['network:extracted_domain']",
+        "org.mozilla.fenix.home.setup.store [unknown] provenance=['network:extracted_domain']",
+        "org.mozilla.fenix.ipprotection.store [unknown] provenance=['network:extracted_domain']",
+        "org.mozilla.fenix.onboarding.store [unknown] provenance=['network:extracted_domain']",
+        "org.mozilla.fenix.settings.address.store [unknown] provenance=['network:extracted_domain']",
+        "org.mozilla.fenix.tabstray.redux.store [unknown] provenance=['network:extracted_domain']",
+        "outlook.com [unknown] provenance=['network:extracted_domain']",
+        "outlook.live.com [unknown] provenance=['network:extracted_domain']",
+        "pandora.com [unknown] provenance=['network:extracted_domain']",
+        "paramountplus.com [unknown] provenance=['network:extracted_domain']",
+        "phish-error.mozilla.com [unknown] provenance=['network:extracted_domain']",
+        "pinterest.com [unknown] provenance=['network:extracted_domain']",
+        "playstation.com [unknown] provenance=['network:extracted_domain']",
+        "politico.com [unknown] provenance=['network:extracted_domain']",
+        "primevideo.com [unknown] provenance=['network:extracted_domain']",
+        "profiler.firefox.com [unknown] provenance=['network:extracted_domain']",
+        "protonmail.com [unknown] provenance=['network:extracted_domain']",
+        "reddit.com [unknown] provenance=['network:extracted_domain']",
+        "relay.firefox.com [unknown] provenance=['network:extracted_domain']",
+        "reuters.com [unknown] provenance=['network:extracted_domain']",
+        "roblox.com [unknown] provenance=['network:extracted_domain']",
+        "s.yimg.jp [unknown] provenance=['network:extracted_domain']",
+        "safebrowsing.google.com [unknown] provenance=['network:extracted_domain']",
+        "safebrowsing.googleapis.com [unknown] provenance=['network:extracted_domain']",
+        "send.broken.site [unknown] provenance=['network:extracted_domain']",
+        "services.addons.mozilla.org [first_party] provenance=['network:extracted_domain']",
+        "sheets.google.com [unknown] provenance=['network:extracted_domain']",
+        "signal.org [unknown] provenance=['network:extracted_domain']",
+        "skype.com [unknown] provenance=['network:extracted_domain']",
+        "slack.com [unknown] provenance=['network:extracted_domain']",
+        "snapchat.com [unknown] provenance=['network:extracted_domain']",
+        "soundcloud.com [unknown] provenance=['network:extracted_domain']",
+        "spotify.com [unknown] provenance=['network:extracted_domain']",
+        "stable.dev.lcip.org [unknown] provenance=['network:extracted_domain']",
+        "stat100.ameba.jp [unknown] provenance=['network:extracted_domain']",
+        "steamcommunity.com [unknown] provenance=['network:extracted_domain']",
+        "steampowered.com [unknown] provenance=['network:extracted_domain']",
+        "store.epicgames.com [unknown] provenance=['network:extracted_domain']",
+        "streams.videolan.org [unknown] provenance=['network:extracted_domain']",
+        "support.mozilla.org [first_party] provenance=['network:extracted_domain']",
+        "teams.microsoft.com [unknown] provenance=['network:extracted_domain']",
+        "telegram.org [unknown] provenance=['network:extracted_domain']",
+        "tenki.jp [unknown] provenance=['network:extracted_domain']",
+        "theguardian.com [unknown] provenance=['network:extracted_domain']",
+        "tiktok.com [unknown] provenance=['network:extracted_domain']",
+        "time.com [unknown] provenance=['network:extracted_domain']",
+        "trello.com [unknown] provenance=['network:extracted_domain']",
+        "tumblr.com [unknown] provenance=['network:extracted_domain']",
+        "tv.apple.com [unknown] provenance=['network:extracted_domain']",
+        "twitch.tv [unknown] provenance=['network:extracted_domain']",
+        "twitter.com [unknown] provenance=['network:extracted_domain']",
+        "updates.push.services.mozilla.com [unknown] provenance=['network:extracted_domain']",
+        "usatoday.com [unknown] provenance=['network:extracted_domain']",
+        "viber.com [unknown] provenance=['network:extracted_domain']",
+        "washingtonpost.com [unknown] provenance=['network:extracted_domain']",
+        "webcompat.com [unknown] provenance=['network:extracted_domain']",
+        "whatsapp.com [unknown] provenance=['network:extracted_domain']",
+        "wikipedia.org [unknown] provenance=['network:extracted_domain']",
+        "wsj.com [unknown] provenance=['network:extracted_domain']",
+        "www.example.com [unknown] provenance=['network:extracted_domain']",
+        "www.google.com [unknown] provenance=['network:extracted_domain']",
+        "www.googleapis.com [unknown] provenance=['network:extracted_domain']",
+        "www.justanothersite123.com [unknown] provenance=['network:extracted_domain']",
+        "www.mozilla.com [unknown] provenance=['network:extracted_domain']",
+        "www.mozilla.org [first_party] provenance=['network:extracted_domain']",
+        "www.wikipedia.org [unknown] provenance=['network:extracted_domain']",
+        "www.youtube.com [unknown] provenance=['network:extracted_domain']",
+        "x.com [unknown] provenance=['network:extracted_domain']",
+        "xbox.com [unknown] provenance=['network:extracted_domain']",
+        "xiph.org [unknown] provenance=['network:extracted_domain']",
+        "yahoo.com [unknown] provenance=['network:extracted_domain']",
+        "yaml.org [unknown] provenance=['network:extracted_domain']",
+        "youtrack.jetbrains.com [unknown] provenance=['network:extracted_domain']",
+        "youtube.com [unknown] provenance=['network:extracted_domain']",
+        "zoho.com [unknown] provenance=['network:extracted_domain']",
+        "zoom.us [unknown] provenance=['network:extracted_domain']"
+      ]
+    },
+    "org.schabi.newpipe_1015_cb84069.apk": {
+      "findings": {
+        "SEC-MAL-CODE-EXEC": {
+          "severity": "high",
+          "confidence": "high",
+          "title": "OS Command Execution Capability Detected",
+          "evidence": [
+            {
+              "description": "Command execution API reference: java.lang.ProcessBuilder;->redirectErrorStream(Z)Ljava.lang.ProcessBuilder",
+              "location": "api:java.lang.ProcessBuilder;->redirectErrorStream(Z)Ljava.lang.ProcessBuilder",
+              "snippet": "java.lang.ProcessBuilder;->redirectErrorStream(Z)Ljava.lang.ProcessBuilder",
+              "references": []
+            },
+            {
+              "description": "Command execution API reference: java.lang.ProcessBuilder",
+              "location": "api:java.lang.ProcessBuilder",
+              "snippet": "java.lang.ProcessBuilder",
+              "references": []
+            },
+            {
+              "description": "Command execution API reference: java.lang.ProcessBuilder;->start()Ljava.lang.Process",
+              "location": "api:java.lang.ProcessBuilder;->start()Ljava.lang.Process",
+              "snippet": "java.lang.ProcessBuilder;->start()Ljava.lang.Process",
+              "references": []
+            },
+            {
+              "description": "Command execution API reference: java.lang.ProcessBuilder;->command(Ljava.util.List;)Ljava.lang.ProcessBuilder",
+              "location": "api:java.lang.ProcessBuilder;->command(Ljava.util.List;)Ljava.lang.ProcessBuilder",
+              "snippet": "java.lang.ProcessBuilder;->command(Ljava.util.List;)Ljava.lang.ProcessBuilder",
+              "references": []
+            }
+          ]
+        },
+        "SEC-MAL-EXEC-001": {
+          "severity": "high",
+          "confidence": "high",
+          "title": "Local Command Execution Capability",
+          "evidence": [
+            {
+              "description": "Referenced API: java.lang.ProcessBuilder",
+              "location": "api:java.lang.ProcessBuilder",
+              "snippet": "java.lang.ProcessBuilder",
+              "references": []
+            }
+          ]
+        },
+        "SEC-MAL-BOOT-001": {
+          "severity": "medium",
+          "confidence": "high",
+          "title": "Persistent Boot Startup Receiver",
+          "evidence": [
+            {
+              "description": "Observed broadcast receiver listening for device boot completion",
+              "location": "manifest:receiver:BOOT_COMPLETED",
+              "snippet": "BOOT_COMPLETED receiver",
+              "references": []
+            },
+            {
+              "description": "Observed component: type=service (androidx.appcompat.app.AppLocalesMetadataHolderService, org.acra.sender.LegacySenderService, us.shandian.giga.service.DownloadManagerService)",
+              "location": "manifest:service",
+              "snippet": "Observed component: type=service (androidx.appcompat.app.AppLocalesMetadataHolderService, org.acra.sender.LegacySenderService, us.shandian.giga.service.DownloadManagerService)",
+              "references": []
+            }
+          ]
+        },
+        "SEC-MAL-PAYLOAD-ENTROPY-assets_dexopt_baseline_prof": {
+          "severity": "medium",
+          "confidence": "high",
+          "title": "High-Entropy Asset Detected (Likely Encrypted/Compressed): assets/dexopt/baseline.prof",
+          "evidence": [
+            {
+              "description": "High-entropy asset: assets/dexopt/baseline.prof (entropy=7.94, size=6097bytes)",
+              "location": "asset:assets/dexopt/baseline.prof",
+              "snippet": "Shannon entropy: 7.94 (6097 bytes)",
+              "references": []
+            }
+          ]
+        },
+        "SEC-NET-CAPABILITY-FLOW": {
+          "severity": "medium",
+          "confidence": "medium",
+          "title": "Sensitive Data Capabilities Co-Occur with External NetworkCommunication",
+          "evidence": [
+            {
+              "description": "External domain endpoint: androidx.appcompat.app",
+              "location": "domain:androidx.appcompat.app",
+              "snippet": "androidx.appcompat.app",
+              "references": []
+            },
+            {
+              "description": "External domain endpoint: charts.youtube.com",
+              "location": "domain:charts.youtube.com",
+              "snippet": "charts.youtube.com",
+              "references": []
+            },
+            {
+              "description": "External domain endpoint: youtube.com",
+              "location": "domain:youtube.com",
+              "snippet": "youtube.com",
+              "references": []
+            },
+            {
+              "description": "External domain endpoint: ns.adobe.com",
+              "location": "domain:ns.adobe.com",
+              "snippet": "ns.adobe.com",
+              "references": []
+            },
+            {
+              "description": "External domain endpoint: data.rel.ro",
+              "location": "domain:data.rel.ro",
+              "snippet": "data.rel.ro",
+              "references": []
+            }
+          ]
+        },
+        "SEC-SPY-DEVICE-IDENTIFIERS": {
+          "severity": "medium",
+          "confidence": "high",
+          "title": "Hardware & Persistent Device Identifier Collection Capability",
+          "evidence": [
+            {
+              "description": "Telephony hardware identifier method reference: android.telephony.TelephonyManager;->getDeviceId()Ljava.lang.String",
+              "location": "method:android.telephony.TelephonyManager;->getDeviceId()Ljava.lang.String",
+              "snippet": "android.telephony.TelephonyManager;->getDeviceId()Ljava.lang.String",
+              "references": []
+            },
+            {
+              "description": "Build.SERIAL hardware serial number reference",
+              "location": "dex:strings",
+              "snippet": "Build.SERIAL",
+              "references": []
+            }
+          ]
+        },
+        "SEC-SPY-OVERLAY-001": {
+          "severity": "medium",
+          "confidence": "high",
+          "title": "System Alert Window (Overlay) Capability",
+          "evidence": [
+            {
+              "description": "Declared permission: android.permission.SYSTEM_ALERT_WINDOW",
+              "location": "permission:android.permission.SYSTEM_ALERT_WINDOW",
+              "snippet": "android.permission.SYSTEM_ALERT_WINDOW",
+              "references": []
+            }
+          ]
+        },
+        "SEC-VULN-EXPORTED-SERVICE": {
+          "severity": "medium",
+          "confidence": "confirmed",
+          "title": "Exported Service Component Lacks Permission Protection",
+          "evidence": [
+            {
+              "description": "Exported service lacking permission: org.schabi.newpipe.player.PlayerService",
+              "location": "manifest:service:org.schabi.newpipe.player.PlayerService",
+              "snippet": "Service: org.schabi.newpipe.player.PlayerService (exported=true, permission=None)",
+              "references": []
+            }
+          ]
+        },
+        "SEC-MAL-PERSISTENCE-BOOT": {
+          "severity": "low",
+          "confidence": "confirmed",
+          "title": "Device Boot Persistence Mechanism Detected",
+          "evidence": [
+            {
+              "description": "Declared permission: RECEIVE_BOOT_COMPLETED",
+              "location": "permission:android.permission.RECEIVE_BOOT_COMPLETED",
+              "snippet": "RECEIVE_BOOT_COMPLETED",
+              "references": []
+            },
+            {
+              "description": "Boot startup broadcast receiver: androidx.work.impl.background.systemalarm.RescheduleReceiver",
+              "location": "manifest:receiver:androidx.work.impl.background.systemalarm.RescheduleReceiver",
+              "snippet": "Receiver: androidx.work.impl.background.systemalarm.RescheduleReceiver",
+              "references": []
+            }
+          ]
+        },
+        "SEC-NET-CLEARTEXT-URLS": {
+          "severity": "low",
+          "confidence": "high",
+          "title": "Cleartext HTTP URL References Detected",
+          "evidence": [
+            {
+              "description": "Cleartext HTTP URL: http://javax.xml.XMLConstants/property/accessExternalDTD",
+              "location": "classes.dex",
+              "snippet": "http://javax.xml.XMLConstants/property/accessExternalDTD",
+              "references": []
+            },
+            {
+              "description": "Cleartext HTTP URL: http://javax.xml.XMLConstants/property/accessExternalSchema",
+              "location": "classes.dex",
+              "snippet": "http://javax.xml.XMLConstants/property/accessExternalSchema",
+              "references": []
+            },
+            {
+              "description": "Cleartext HTTP URL: http://xmlpull.org/v1/doc/features.html#report-namespace-prefixes",
+              "location": "classes.dex",
+              "snippet": "http://xmlpull.org/v1/doc/features.html#report-namespace-prefixes",
+              "references": []
+            },
+            {
+              "description": "Cleartext HTTP URL: http://dashif.org/guidelines/thumbnail_tile",
+              "location": "classes.dex",
+              "snippet": "http://dashif.org/guidelines/thumbnail_tile",
+              "references": []
+            },
+            {
+              "description": "Cleartext HTTP URL: http://dashif.org/guidelines/last-segment-number",
+              "location": "classes.dex",
+              "snippet": "http://dashif.org/guidelines/last-segment-number",
+              "references": []
+            }
+          ]
+        },
+        "SEC-SPY-CLIPBOARD-001": {
+          "severity": "low",
+          "confidence": "medium",
+          "title": "Background Clipboard Access Capability",
+          "evidence": [
+            {
+              "description": "Referenced API: android.content.ClipboardManager",
+              "location": "api:android.content.ClipboardManager",
+              "snippet": "android.content.ClipboardManager",
+              "references": []
+            },
+            {
+              "description": "Observed component: type=service (androidx.appcompat.app.AppLocalesMetadataHolderService, org.acra.sender.LegacySenderService, us.shandian.giga.service.DownloadManagerService)",
+              "location": "manifest:service",
+              "snippet": "Observed component: type=service (androidx.appcompat.app.AppLocalesMetadataHolderService, org.acra.sender.LegacySenderService, us.shandian.giga.service.DownloadManagerService)",
+              "references": []
+            }
+          ]
+        },
+        "SEC-VULN-BACKUP-001": {
+          "severity": "low",
+          "confidence": "confirmed",
+          "title": "Application Backup Enabled Without Restriction",
+          "evidence": [
+            {
+              "description": "Manifest attribute allowBackup=true",
+              "location": "manifest:allowBackup",
+              "snippet": "allowBackup=true",
+              "references": []
+            }
+          ]
+        },
+        "SEC-VULN-EXPORTED-RECEIVER": {
+          "severity": "low",
+          "confidence": "confirmed",
+          "title": "Exported Broadcast Receiver Lacks Permission Protection",
+          "evidence": [
+            {
+              "description": "Exported broadcast receiver lacking permission: androidx.media.session.MediaButtonReceiver",
+              "location": "manifest:receiver:androidx.media.session.MediaButtonReceiver",
+              "snippet": "Receiver: androidx.media.session.MediaButtonReceiver (exported=true, permission=None)",
+              "references": []
+            }
+          ]
+        },
+        "SEC-VULN-MANIFEST-BACKUP": {
+          "severity": "low",
+          "confidence": "confirmed",
+          "title": "Application Data Backup Enabled (allowBackup=true)",
+          "evidence": [
+            {
+              "description": "Manifest declaration: android:allowBackup='true'",
+              "location": "manifest:application:allowBackup",
+              "snippet": "android:allowBackup='true'",
+              "references": []
+            }
+          ]
+        },
+        "SEC-MAL-PERSISTENCE-FG-SERVICE": {
+          "severity": "informational",
+          "confidence": "confirmed",
+          "title": "Foreground Service Declaration",
+          "evidence": [
+            {
+              "description": "Foreground service declared: us.shandian.giga.service.DownloadManagerService (type=0x00000001)",
+              "location": "manifest:service:us.shandian.giga.service.DownloadManagerService",
+              "snippet": "us.shandian.giga.service.DownloadManagerService [type=0x00000001]",
+              "references": []
+            },
+            {
+              "description": "Foreground service declared: org.schabi.newpipe.player.PlayerService (type=0x00000002)",
+              "location": "manifest:service:org.schabi.newpipe.player.PlayerService",
+              "snippet": "org.schabi.newpipe.player.PlayerService [type=0x00000002]",
+              "references": []
+            },
+            {
+              "description": "Foreground service declared: org.schabi.newpipe.RouterActivity$FetcherService (type=0x00000001)",
+              "location": "manifest:service:org.schabi.newpipe.RouterActivity$FetcherService",
+              "snippet": "org.schabi.newpipe.RouterActivity$FetcherService [type=0x00000001]",
+              "references": []
+            },
+            {
+              "description": "Foreground service declared: org.schabi.newpipe.local.feed.service.FeedLoadService (type=0x00000001)",
+              "location": "manifest:service:org.schabi.newpipe.local.feed.service.FeedLoadService",
+              "snippet": "org.schabi.newpipe.local.feed.service.FeedLoadService [type=0x00000001]",
+              "references": []
+            },
+            {
+              "description": "Foreground service declared: androidx.work.impl.foreground.SystemForegroundService (type=0x00000001)",
+              "location": "manifest:service:androidx.work.impl.foreground.SystemForegroundService",
+              "snippet": "androidx.work.impl.foreground.SystemForegroundService [type=0x00000001]",
+              "references": []
+            }
+          ]
+        }
+      },
+      "domains": [
+        "android.app",
+        "android.googlesource.com",
+        "android.net",
+        "androidx.appcompat.app",
+        "androidx.core.app",
+        "aomedia.org",
+        "api-v2.soundcloud.com",
+        "api-widget.soundcloud.com",
+        "api.media.ccc.de",
+        "api.soundcloud.com",
+        "bandcamp.com",
+        "blacktheme.media.ccc.de",
+        "charts.youtube.com",
+        "com.android.org",
+        "com.google.android.gms.org",
+        "daily.bandcamp.com",
+        "darktheme.media.ccc.de",
+        "dashif.org",
+        "data.rel.ro",
+        "dev.invidio.us",
+        "developer.android.com",
+        "developer.apple.com",
+        "dispatchers.io",
+        "dolby.com",
+        "dts.com",
+        "eduvid.org",
+        "f4.bcbits.com",
+        "framatube.org",
+        "github.com",
+        "googleads.g.doubleclick.net",
+        "hooktube.com",
+        "i.ytimg.com",
+        "indymotion.fr",
+        "invidio.us",
+        "invidiou.site",
+        "invidious.048596.xyz",
+        "invidious.blamefran.net",
+        "invidious.exonip.de",
+        "invidious.fdn.fr",
+        "invidious.moomoo.me",
+        "invidious.silkky.cloud",
+        "invidious.site",
+        "invidious.snopyta.org",
+        "java.io",
+        "keepandroidopen.org",
+        "kotlin.int",
+        "kotlinx.coroutines.io",
+        "libcore.io",
+        "lighttheme.media.ccc.de",
+        "lineheightstyle.alignment.top",
+        "m.soundcloud.com",
+        "m.youtube.com",
+        "media.assassinate-you.net",
+        "media.ccc.de",
+        "media.fsfe.org",
+        "msg.anon.no",
+        "msg.bad.computed.property.in",
+        "msg.bad.for.in",
+        "msg.constructor.no",
+        "msg.destruct.assign.no",
+        "msg.function.not.found.in",
+        "msg.in",
+        "msg.isnt.function.in",
+        "msg.let.decl.not.in",
+        "msg.max.lt",
+        "msg.no",
+        "msg.pkg.int",
+        "msg.set.prop.no",
+        "msg.str.match.all.no",
+        "msg.try.no",
+        "music.youtube.com",
+        "net.newpipe.app",
+        "newpipe.net",
+        "newpipe.schabi.org",
+        "on.soundcloud.com",
+        "peertube.co.uk",
+        "peertube.fr",
+        "play.google.com",
+        "redirect.invidious.io",
+        "rx3.io",
+        "schemas.microsoft.com",
+        "sepiasearch.org",
+        "skeptikon.fr",
+        "sndcdn.com",
+        "soundcloud.com",
+        "streaming.media.ccc.de",
+        "subscribeto.me",
+        "suggestqueries-clients6.youtube.com",
+        "takeout.google.com",
+        "tilvids.com",
+        "time.android.com",
+        "tubus.eduvid.org",
+        "vid.puffyan.us",
+        "video.lqdn.fr",
+        "video.ploud.fr",
+        "vnd.net",
+        "w.soundcloud.com",
+        "webcache.googleusercontent.com",
+        "www.invidio.us",
+        "www.soundcloud.com",
+        "www.youtube-nocookie.com",
+        "www.youtube.com",
+        "y.com",
+        "y2u.be",
+        "yewtu.be",
+        "youtrack.jetbrains.com",
+        "youtu.be",
+        "youtube.com",
+        "youtubei.googleapis.com",
+        "yt.cyberhost.uk",
+        "ytprivate.com"
+      ],
+      "privacy_endpoints": [
+        "android.app [unknown] provenance=['network:extracted_domain']",
+        "android.googlesource.com [unknown] provenance=['network:extracted_domain']",
+        "android.net [unknown] provenance=['network:extracted_domain']",
+        "androidx.appcompat.app [unknown] provenance=['network:extracted_domain']",
+        "androidx.core.app [unknown] provenance=['network:extracted_domain']",
+        "aomedia.org [unknown] provenance=['network:extracted_domain']",
+        "api-v2.soundcloud.com [unknown] provenance=['network:extracted_domain']",
+        "api-widget.soundcloud.com [unknown] provenance=['network:extracted_domain']",
+        "api.media.ccc.de [unknown] provenance=['network:extracted_domain']",
+        "api.soundcloud.com [unknown] provenance=['network:extracted_domain']",
+        "bandcamp.com [unknown] provenance=['network:extracted_domain']",
+        "blacktheme.media.ccc.de [unknown] provenance=['network:extracted_domain']",
+        "charts.youtube.com [unknown] provenance=['network:extracted_domain']",
+        "com.android.org [unknown] provenance=['network:extracted_domain']",
+        "com.google.android.gms.org [unknown] provenance=['network:extracted_domain']",
+        "daily.bandcamp.com [unknown] provenance=['network:extracted_domain']",
+        "darktheme.media.ccc.de [unknown] provenance=['network:extracted_domain']",
+        "dashif.org [unknown] provenance=['network:extracted_domain']",
+        "data.rel.ro [unknown] provenance=['network:extracted_domain']",
+        "dev.invidio.us [unknown] provenance=['network:extracted_domain']",
+        "developer.android.com [unknown] provenance=['network:extracted_domain']",
+        "developer.apple.com [unknown] provenance=['network:extracted_domain']",
+        "dispatchers.io [unknown] provenance=['network:extracted_domain']",
+        "dolby.com [unknown] provenance=['network:extracted_domain']",
+        "dts.com [unknown] provenance=['network:extracted_domain']",
+        "eduvid.org [unknown] provenance=['network:extracted_domain']",
+        "f4.bcbits.com [unknown] provenance=['network:extracted_domain']",
+        "framatube.org [unknown] provenance=['network:extracted_domain']",
+        "github.com [unknown] provenance=['network:extracted_domain']",
+        "googleads.g.doubleclick.net [advertising] provenance=['network:extracted_domain']",
+        "hooktube.com [unknown] provenance=['network:extracted_domain']",
+        "http://dashif.org/guidelines/last-segment-number [unknown] provenance=['classes.dex']",
+        "http://dashif.org/guidelines/thumbnail_tile [unknown] provenance=['classes.dex']",
+        "http://dashif.org/guidelines/trickmode [unknown] provenance=['classes.dex']",
+        "http://dashif.org/thumbnail_tile [unknown] provenance=['classes.dex']",
+        "http://javax.xml.XMLConstants/property/accessExternalDTD [unknown] provenance=['classes.dex']",
+        "http://javax.xml.XMLConstants/property/accessExternalSchema [unknown] provenance=['classes.dex']",
+        "http://ns.adobe.com/xap/1.0/ [unknown] provenance=['classes.dex']",
+        "http://schemas.android.com/aapt [unknown] provenance=['classes.dex']",
+        "http://schemas.android.com/apk/preferencesearch [unknown] provenance=['classes.dex']",
+        "http://schemas.android.com/apk/res-auto [unknown] provenance=['classes.dex']",
+        "http://schemas.android.com/apk/res/android [unknown] provenance=['classes.dex']",
+        "http://schemas.microsoft.com/DRM/2007/03/protocols/AcquireLicense [unknown] provenance=['classes.dex']",
+        "http://www.w3.org/1998/Math/MathML [unknown] provenance=['classes.dex']",
+        "http://www.w3.org/1999/xhtml [unknown] provenance=['classes.dex']",
+        "http://www.w3.org/2000/svg [unknown] provenance=['classes.dex']",
+        "http://www.w3.org/2001/XMLSchema-instance [unknown] provenance=['classes.dex']",
+        "http://www.w3.org/XML/1998/namespace [unknown] provenance=['classes.dex']",
+        "http://www.w3.org/ns/ttml#parameter [unknown] provenance=['classes.dex']",
+        "http://xmlpull.org/v1/doc/features.html#process-namespaces [unknown] provenance=['classes.dex']",
+        "http://xmlpull.org/v1/doc/features.html#report-namespace-prefixes [unknown] provenance=['classes.dex']",
+        "https://(api [unknown] provenance=['classes.dex']",
+        "https://android.googlesource.com/toolchain/llvm-project [unknown] provenance=['lib/arm64-v8a/libandroidx.graphics.path.so']",
+        "https://aomedia.org/emsg/ID3 [unknown] provenance=['classes.dex']",
+        "https://api-v2.soundcloud.com/charts?genre=soundcloud:genres:all-music&client_id= [unknown] provenance=['classes.dex']",
+        "https://api-v2.soundcloud.com/playlists/ [unknown] provenance=['classes.dex']",
+        "https://api-v2.soundcloud.com/resolve?url= [unknown] provenance=['classes.dex']",
+        "https://api-v2.soundcloud.com/search [unknown] provenance=['classes.dex']",
+        "https://api-v2.soundcloud.com/search/playlists [unknown] provenance=['classes.dex']",
+        "https://api-v2.soundcloud.com/search/queries?q= [unknown] provenance=['classes.dex']",
+        "https://api-v2.soundcloud.com/search/tracks [unknown] provenance=['classes.dex']",
+        "https://api-v2.soundcloud.com/search/users [unknown] provenance=['classes.dex']",
+        "https://api-v2.soundcloud.com/tracks/ [unknown] provenance=['classes.dex']",
+        "https://api-v2.soundcloud.com/tracks?client_id= [unknown] provenance=['classes.dex']",
+        "https://api-v2.soundcloud.com/users/ [unknown] provenance=['classes.dex']",
+        "https://api-widget.soundcloud.com/resolve?url= [unknown] provenance=['classes.dex']",
+        "https://api.media.ccc.de/public/conferences [unknown] provenance=['classes.dex']",
+        "https://api.media.ccc.de/public/conferences/ [unknown] provenance=['classes.dex']",
+        "https://api.media.ccc.de/public/events/ [unknown] provenance=['classes.dex']",
+        "https://api.media.ccc.de/public/events/recent [unknown] provenance=['classes.dex -> org.schabi.newpipe.extractor.services.media_ccc.extractors.MediaCCCRecentKiosk -> onFetchPage']",
+        "https://api.soundcloud.com/playlists/ [unknown] provenance=['classes.dex']",
+        "https://api.soundcloud.com/tracks/ [unknown] provenance=['classes.dex']",
+        "https://api.soundcloud.com/users/ [unknown] provenance=['classes.dex']",
+        "https://bandcamp.com/?show= [unknown] provenance=['classes.dex']",
+        "https://bandcamp.com/api/bcsearch_public_api/1/autocomplete_elastic [unknown] provenance=['classes.dex']",
+        "https://bandcamp.com/api/bcweekly/1/get?id= [unknown] provenance=['classes.dex']",
+        "https://bandcamp.com/api/bcweekly/3/list [unknown] provenance=['classes.dex']",
+        "https://bandcamp.com/api/mobile/22/band_details [unknown] provenance=['classes.dex']",
+        "https://bandcamp.com/api/mobile/22/tralbum_details?band_id= [unknown] provenance=['classes.dex']",
+        "https://bandcamp.com/api/mobile/24/bootstrap_data [unknown] provenance=['classes.dex']",
+        "https://bandcamp.com/api/mobile/24/feed_older_logged_out?story_groups=featured [unknown] provenance=['classes.dex']",
+        "https://bandcamp.com/api/tralbumcollectors/2/reviews [unknown] provenance=['classes.dex -> org.schabi.newpipe.extractor.services.bandcamp.extractors.BandcampCommentsExtractor -> getPage']",
+        "https://bandcamp.com/cart [unknown] provenance=['classes.dex']",
+        "https://bandcamp.com/img/buttons/bandcamp-button-circle-whitecolor-512.png [unknown] provenance=['classes.dex -> org.schabi.newpipe.extractor.services.bandcamp.extractors.BandcampRadioStreamExtractor -> getUploaderAvatars']",
+        "https://bandcamp.com/search?q= [unknown] provenance=['classes.dex']",
+        "https://charts.youtube.com [unknown] provenance=['classes.dex']",
+        "https://charts.youtube.com/charts/TrendingTrailers [unknown] provenance=['classes.dex']",
+        "https://charts.youtube.com/charts/TrendingVideos/RightNow [unknown] provenance=['classes.dex']",
+        "https://charts.youtube.com/youtubei/v1/browse?alt=json&prettyPrint=false [unknown] provenance=['classes.dex']",
+        "https://default.url [unknown] provenance=['classes.dex']",
+        "https://developer.android.com/guide/topics/media/issues/cleartext-not-permitted [unknown] provenance=['classes.dex']",
+        "https://developer.apple.com/streaming/emsg-id3 [unknown] provenance=['classes.dex']",
+        "https://f4.bcbits.com/img/ [unknown] provenance=['classes.dex']",
+        "https://framatube.org [unknown] provenance=['classes.dex']",
+        "https://github.com/ReactiveX/RxJava/wiki/Error-Handling [unknown] provenance=['classes.dex']",
+        "https://github.com/ReactiveX/RxJava/wiki/What [unknown] provenance=['classes.dex -> kotlin.math.MathKt -> onError']",
+        "https://github.com/TeamNewPipe/NewPipe [unknown] provenance=['classes.dex']",
+        "https://github.com/TeamNewPipe/NewPipe/issues [unknown] provenance=['classes3.dex']",
+        "https://github.com/woheller69/FreeDroidWarn#solutions [unknown] provenance=['classes.dex']",
+        "https://goo.gle/compose-feedback [unknown] provenance=['classes.dex']",
+        "https://i.ytimg.com/vi/ [unknown] provenance=['classes.dex']",
+        "https://keepandroidopen.org/ [unknown] provenance=['classes.dex']",
+        "https://media.ccc.de/b/conferences [unknown] provenance=['classes.dex']",
+        "https://media.ccc.de/c/ [unknown] provenance=['classes.dex']",
+        "https://media.ccc.de/live [unknown] provenance=['classes.dex']",
+        "https://media.ccc.de/public/conferences [unknown] provenance=['classes.dex']",
+        "https://media.ccc.de/public/events/ [unknown] provenance=['classes.dex']",
+        "https://media.ccc.de/public/events/search?q= [unknown] provenance=['classes.dex']",
+        "https://media.ccc.de/recent [unknown] provenance=['classes.dex -> org.schabi.newpipe.extractor.services.media_ccc.linkHandler.MediaCCCLiveListLinkHandlerFactory -> getUrl']",
+        "https://media.ccc.de/v/ [unknown] provenance=['classes.dex']",
+        "https://music.youtube.com [unknown] provenance=['classes.dex']",
+        "https://music.youtube.com/?ucbcb=1 [unknown] provenance=['classes.dex']",
+        "https://music.youtube.com/playlist?list= [unknown] provenance=['classes.dex']",
+        "https://music.youtube.com/search?q= [unknown] provenance=['classes.dex']",
+        "https://music.youtube.com/sw.js [unknown] provenance=['classes.dex']",
+        "https://music.youtube.com/watch?v= [unknown] provenance=['classes.dex']",
+        "https://music.youtube.com/youtubei/v1/music/get_search_suggestions?prettyPrint=false [unknown] provenance=['classes.dex']",
+        "https://music.youtube.com/youtubei/v1/search?ctoken= [unknown] provenance=['classes.dex']",
+        "https://music.youtube.com/youtubei/v1/search?prettyPrint=false [unknown] provenance=['classes.dex']",
+        "https://newpipe.net/ [unknown] provenance=['classes.dex']",
+        "https://newpipe.net/FAQ/ [unknown] provenance=['classes.dex']",
+        "https://newpipe.net/FAQ/#ip-banned-youtube [unknown] provenance=['classes.dex']",
+        "https://newpipe.net/api/data.json [unknown] provenance=['classes.dex']",
+        "https://newpipe.net/donate/ [unknown] provenance=['classes.dex']",
+        "https://newpipe.net/legal/privacy/ [unknown] provenance=['classes.dex']",
+        "https://play.google.com/store/apps/details?id= [unknown] provenance=['classes.dex']",
+        "https://sepiasearch.org [unknown] provenance=['classes.dex']",
+        "https://soundcloud.com [unknown] provenance=['classes.dex']",
+        "https://soundcloud.com/ [unknown] provenance=['classes.dex']",
+        "https://soundcloud.com/charts/new [unknown] provenance=['classes.dex']",
+        "https://soundcloud.com/you [unknown] provenance=['classes.dex']",
+        "https://streaming.media.ccc.de/ [unknown] provenance=['classes.dex']",
+        "https://streaming.media.ccc.de/streams/v2.json [unknown] provenance=['classes.dex']",
+        "https://suggestqueries-clients6.youtube.com/complete/search?client=youtube&ds=yt&gl= [unknown] provenance=['classes.dex']",
+        "https://takeout.google.com/takeout/custom/youtube [unknown] provenance=['classes.dex']",
+        "https://w.soundcloud.com/player/?url= [unknown] provenance=['classes.dex']",
+        "https://www.youtube.com [unknown] provenance=['classes.dex']",
+        "https://www.youtube.com/ [unknown] provenance=['classes.dex']",
+        "https://www.youtube.com/channel/ [unknown] provenance=['classes.dex']",
+        "https://www.youtube.com/channel/UC4R8DWoMoI7CAwX8_LjQHig/livetab?ss=CKEK [unknown] provenance=['classes.dex']",
+        "https://www.youtube.com/embed/ [unknown] provenance=['classes.dex']",
+        "https://www.youtube.com/feed/trending [unknown] provenance=['classes.dex']",
+        "https://www.youtube.com/feeds/videos.xml?channel_id= [unknown] provenance=['classes.dex']",
+        "https://www.youtube.com/feeds/videos.xml?user= [unknown] provenance=['classes.dex']",
+        "https://www.youtube.com/gaming/trending [unknown] provenance=['classes.dex']",
+        "https://www.youtube.com/iframe_api [unknown] provenance=['classes.dex']",
+        "https://www.youtube.com/playlist?list= [unknown] provenance=['classes.dex']",
+        "https://www.youtube.com/podcasts/popularepisodes [unknown] provenance=['classes.dex -> org.schabi.newpipe.extractor.services.youtube.linkHandler.YoutubeLiveLinkHandlerFactory -> getUrl']",
+        "https://www.youtube.com/redirect? [unknown] provenance=['classes.dex -> org.schabi.newpipe.extractor.services.youtube.YoutubeParsingHelper -> getUrlFromNavigationEndpoint']",
+        "https://www.youtube.com/results?search_query= [unknown] provenance=['classes.dex']",
+        "https://www.youtube.com/results?search_query=&ucbcb=1 [unknown] provenance=['classes.dex']",
+        "https://www.youtube.com/s/player/ [unknown] provenance=['classes.dex']",
+        "https://www.youtube.com/sw.js [unknown] provenance=['classes.dex']",
+        "https://www.youtube.com/watch?v= [unknown] provenance=['classes.dex']",
+        "https://www.youtube.com/watch_videos?video_ids= [unknown] provenance=['classes.dex']",
+        "https://www.youtube.com/youtubei/v1/ [unknown] provenance=['classes.dex']",
+        "https://www.youtube.com/youtubei/v1/browse [unknown] provenance=['classes.dex']",
+        "https://www.youtube.com/youtubei/v1/browse?prettyPrint=false [unknown] provenance=['classes.dex']",
+        "https://www.youtube.com/youtubei/v1/guide?prettyPrint=false [unknown] provenance=['classes.dex']",
+        "https://www.youtube.com/youtubei/v1/next?prettyPrint=false [unknown] provenance=['classes.dex']",
+        "https://www.youtube.com/youtubei/v1/player?prettyPrint=false&$fields=microformat,videoDetails.thumbnail.thumbnails,videoDetails.videoId [unknown] provenance=['classes.dex']",
+        "https://www.youtube.com/youtubei/v1/search?prettyPrint=false [unknown] provenance=['classes.dex']",
+        "https://youtrack.jetbrains.com/issue/KT-55980 [unknown] provenance=['classes.dex -> kotlin.jvm.internal.PropertyReference -> getReflected']",
+        "https://youtubei.googleapis.com/youtubei/v1/ [unknown] provenance=['classes.dex']",
+        "https://youtubei.googleapis.com/youtubei/v1/player?prettyPrint=false&t= [unknown] provenance=['classes.dex']",
+        "https://youtubei.googleapis.com/youtubei/v1/reel/reel_item_watch?prettyPrint=false&t= [unknown] provenance=['classes.dex']",
+        "i.ytimg.com [unknown] provenance=['network:extracted_domain']",
+        "indymotion.fr [unknown] provenance=['network:extracted_domain']",
+        "invidio.us [unknown] provenance=['network:extracted_domain']",
+        "invidiou.site [unknown] provenance=['network:extracted_domain']",
+        "invidious.048596.xyz [unknown] provenance=['network:extracted_domain']",
+        "invidious.blamefran.net [unknown] provenance=['network:extracted_domain']",
+        "invidious.exonip.de [unknown] provenance=['network:extracted_domain']",
+        "invidious.fdn.fr [unknown] provenance=['network:extracted_domain']",
+        "invidious.moomoo.me [unknown] provenance=['network:extracted_domain']",
+        "invidious.silkky.cloud [unknown] provenance=['network:extracted_domain']",
+        "invidious.site [unknown] provenance=['network:extracted_domain']",
+        "invidious.snopyta.org [unknown] provenance=['network:extracted_domain']",
+        "java.io [unknown] provenance=['network:extracted_domain']",
+        "keepandroidopen.org [unknown] provenance=['network:extracted_domain']",
+        "kotlin.int [unknown] provenance=['network:extracted_domain']",
+        "kotlinx.coroutines.io [unknown] provenance=['network:extracted_domain']",
+        "libcore.io [unknown] provenance=['network:extracted_domain']",
+        "lighttheme.media.ccc.de [unknown] provenance=['network:extracted_domain']",
+        "lineheightstyle.alignment.top [unknown] provenance=['network:extracted_domain']",
+        "m.soundcloud.com [unknown] provenance=['network:extracted_domain']",
+        "m.youtube.com [unknown] provenance=['network:extracted_domain']",
+        "media.assassinate-you.net [unknown] provenance=['network:extracted_domain']",
+        "media.ccc.de [unknown] provenance=['network:extracted_domain']",
+        "media.fsfe.org [unknown] provenance=['network:extracted_domain']",
+        "msg.anon.no [unknown] provenance=['network:extracted_domain']",
+        "msg.bad.computed.property.in [unknown] provenance=['network:extracted_domain']",
+        "msg.bad.for.in [unknown] provenance=['network:extracted_domain']",
+        "msg.constructor.no [unknown] provenance=['network:extracted_domain']",
+        "msg.destruct.assign.no [unknown] provenance=['network:extracted_domain']",
+        "msg.function.not.found.in [unknown] provenance=['network:extracted_domain']",
+        "msg.in [unknown] provenance=['network:extracted_domain']",
+        "msg.isnt.function.in [unknown] provenance=['network:extracted_domain']",
+        "msg.let.decl.not.in [unknown] provenance=['network:extracted_domain']",
+        "msg.max.lt [unknown] provenance=['network:extracted_domain']",
+        "msg.no [unknown] provenance=['network:extracted_domain']",
+        "msg.pkg.int [unknown] provenance=['network:extracted_domain']",
+        "msg.set.prop.no [unknown] provenance=['network:extracted_domain']",
+        "msg.str.match.all.no [unknown] provenance=['network:extracted_domain']",
+        "msg.try.no [unknown] provenance=['network:extracted_domain']",
+        "music.youtube.com [unknown] provenance=['network:extracted_domain']",
+        "net.newpipe.app [unknown] provenance=['network:extracted_domain']",
+        "newpipe.net [unknown] provenance=['network:extracted_domain']",
+        "newpipe.schabi.org [first_party] provenance=['network:extracted_domain']",
+        "on.soundcloud.com [unknown] provenance=['network:extracted_domain']",
+        "peertube.co.uk [unknown] provenance=['network:extracted_domain']",
+        "peertube.fr [unknown] provenance=['network:extracted_domain']",
+        "play.google.com [unknown] provenance=['network:extracted_domain']",
+        "redirect.invidious.io [unknown] provenance=['network:extracted_domain']",
+        "rx3.io [unknown] provenance=['network:extracted_domain']",
+        "schemas.microsoft.com [unknown] provenance=['network:extracted_domain']",
+        "sepiasearch.org [unknown] provenance=['network:extracted_domain']",
+        "skeptikon.fr [unknown] provenance=['network:extracted_domain']",
+        "sndcdn.com [unknown] provenance=['network:extracted_domain']",
+        "soundcloud.com [unknown] provenance=['network:extracted_domain']",
+        "streaming.media.ccc.de [unknown] provenance=['network:extracted_domain']",
+        "subscribeto.me [unknown] provenance=['network:extracted_domain']",
+        "suggestqueries-clients6.youtube.com [unknown] provenance=['network:extracted_domain']",
+        "takeout.google.com [unknown] provenance=['network:extracted_domain']",
+        "tilvids.com [unknown] provenance=['network:extracted_domain']",
+        "time.android.com [unknown] provenance=['network:extracted_domain']",
+        "tubus.eduvid.org [unknown] provenance=['network:extracted_domain']",
+        "vid.puffyan.us [unknown] provenance=['network:extracted_domain']",
+        "video.lqdn.fr [unknown] provenance=['network:extracted_domain']",
+        "video.ploud.fr [unknown] provenance=['network:extracted_domain']",
+        "vnd.net [unknown] provenance=['network:extracted_domain']",
+        "w.soundcloud.com [unknown] provenance=['network:extracted_domain']",
+        "webcache.googleusercontent.com [unknown] provenance=['network:extracted_domain']",
+        "www.invidio.us [unknown] provenance=['network:extracted_domain']",
+        "www.soundcloud.com [unknown] provenance=['network:extracted_domain']",
+        "www.youtube-nocookie.com [unknown] provenance=['network:extracted_domain']",
+        "www.youtube.com [unknown] provenance=['network:extracted_domain']",
+        "y.com [unknown] provenance=['network:extracted_domain']",
+        "y2u.be [unknown] provenance=['network:extracted_domain']",
+        "yewtu.be [unknown] provenance=['network:extracted_domain']",
+        "youtrack.jetbrains.com [unknown] provenance=['network:extracted_domain']",
+        "youtu.be [unknown] provenance=['network:extracted_domain']",
+        "youtube.com [unknown] provenance=['network:extracted_domain']",
+        "youtubei.googleapis.com [unknown] provenance=['network:extracted_domain']",
+        "yt.cyberhost.uk [unknown] provenance=['network:extracted_domain']",
+        "ytprivate.com [unknown] provenance=['network:extracted_domain']"
+      ]
+    }
+  }
+}

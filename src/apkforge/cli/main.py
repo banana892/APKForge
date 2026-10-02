@@ -43,7 +43,7 @@ if TYPE_CHECKING:
     from apkforge.diff.models import DiffResult
     from apkforge.inspection import InspectionResult
     from apkforge.modification.models import ModificationPlan
-    from apkforge.modification.modifiers.base import ModificationResult
+    from apkforge.modification.modifiers.base import ModificationResult, StepStatus
     from apkforge.privacy.models import PrivacyResult
     from apkforge.security.models import FullAnalysisResult, SecurityResult
 
@@ -1936,13 +1936,14 @@ def cmd_modify(
 
     The original APK file is never modified.  All changes happen inside
     an isolated workspace.  Use --dry-run to simulate without writing.
+
+    Exit codes: 0 every change executed (or simulated) successfully;
+    1 failed (execution, verification, or the plan itself);
+    3 incomplete: one or more changes were skipped, nothing failed.
     """
     import logging
 
-    from apkforge.modification import (
-        ModificationFramework,
-        StepStatus,
-    )
+    from apkforge.modification import ModificationFramework
     from apkforge.modification.models import ChangeStatus, PlanStatus
     from apkforge.modification.serialization import load_plan
 
@@ -2018,27 +2019,46 @@ def cmd_modify(
     else:
         _render_modification_result(result)
 
-    if result.status == StepStatus.FAILED:
-        raise typer.Exit(code=1)
+    exit_code = _modification_exit_code(result.status)
+    if exit_code:
+        raise typer.Exit(code=exit_code)
+
+
+def _modification_exit_code(status: StepStatus) -> int:
+    """Exit code for an overall modification status (see ``cmd_modify``)."""
+    from apkforge.modification.modifiers.base import StepStatus
+
+    if status in (StepStatus.SUCCESS, StepStatus.DRY_RUN):
+        return 0
+    if status in (StepStatus.SKIPPED, StepStatus.PARTIAL):
+        return 3
+    return 1
 
 
 def _render_modification_result(result: ModificationResult) -> None:
     """Render human-readable modification result to the console."""
     from apkforge.modification.modifiers.base import StepStatus
 
-    status_color = "green" if result.status == StepStatus.SUCCESS else (
-        "cyan" if result.status == StepStatus.DRY_RUN else "red"
-    )
+    status_color = {
+        StepStatus.SUCCESS: "green",
+        StepStatus.DRY_RUN: "cyan",
+        StepStatus.SKIPPED: "yellow",
+        StepStatus.PARTIAL: "yellow",
+    }.get(result.status, "red")
     mode_str = " [DRY RUN]" if result.dry_run else ""
 
     _console.print(
         Panel(
             f"[bold]Plan ID:[/bold] {result.plan_id}{mode_str}\n"
             f"[bold]Status:[/bold] [{status_color}]{result.status.value.upper()}[/{status_color}]\n"
-            f"[bold]Total Steps:[/bold] {result.total_steps}\n"
-            f"[bold]Successful:[/bold] {result.successful_steps}\n"
-            f"[bold]Failed:[/bold] {result.failed_steps}\n"
-            f"[bold]Skipped:[/bold] {result.skipped_steps}",
+            f"[bold]Planned:[/bold] {result.planned_steps}\n"
+            f"[bold]Executed:[/bold] {result.executed_steps}"
+            f" (verified: {result.verified_steps})\n"
+            f"[bold]Skipped (not executed):[/bold] {result.skipped_steps}\n"
+            f"[bold]Failed:[/bold] {result.failed_steps}"
+            f" (verification: {result.verification_failed_steps})\n"
+            f"[bold]Not attempted:[/bold] {result.not_attempted_steps}\n"
+            f"[bold]Rolled back:[/bold] {result.rolled_back_steps}",
             title="[bold green]APKForge Modification Result[/bold green]",
             expand=False,
         )
@@ -2056,11 +2076,18 @@ def _render_modification_result(result: ModificationResult) -> None:
                 StepStatus.DRY_RUN: "cyan",
                 StepStatus.SKIPPED: "yellow",
                 StepStatus.FAILED: "red",
+                StepStatus.VERIFICATION_FAILED: "red",
+                StepStatus.PENDING: "dim",
                 StepStatus.ROLLED_BACK: "magenta",
             }.get(step.status, "white")
+            flags = ""
+            if step.verified is not None:
+                flags += " verified" if step.verified else " verification-failed"
+            if step.rolled_back:
+                flags += " rolled-back"
             _console.print(
                 f"  [{step_color}][{step.status.value.upper()}][/{step_color}] "
-                f"[bold]{step.change_id}[/bold] ({step.modifier_id})"
+                f"[bold]{step.change_id}[/bold] ({step.modifier_id}){flags}"
             )
             _console.print(f"    {step.message}")
             if step.files_modified:

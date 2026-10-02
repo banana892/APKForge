@@ -582,9 +582,10 @@ def render_modify(d: dict[str, Any], r: ControlledModificationResult) -> str:
         "- The modified APK is not shown to be behaviourally equivalent apart from the intended "
         "change, malware-free, spyware-free, safe to install, or runnable on a device.",
         "- DiffEngine compares a subset of the manifest (5 application attributes, SDK levels, "
-        "permissions, component exported/permission/enabled/process); other manifest content "
-        "is covered only by the source-level edit check above, and intent filters of real APKs "
-        "are not extracted by the inspector (see docs/known-limitations.md).",
+        "permissions, component exported/permission/enabled/process, and the actions, "
+        "categories and data of activity/service/receiver intent filters); other manifest "
+        "content (e.g. `<queries>`, `<meta-data>`, `<activity-alias>`) is covered only by the "
+        "source-level edit check above (see docs/known-limitations.md).",
         "- resources.arsc and recompiled res/ files are accepted as rebuild noise without "
         "semantic comparison.",
     ]

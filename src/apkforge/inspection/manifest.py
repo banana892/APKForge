@@ -13,8 +13,7 @@ permissions as dangerous or activities as malicious.
 from __future__ import annotations
 
 import contextlib
-import xml.etree.ElementTree as ET
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Protocol
 
 from apkforge.core.logging import get_logger
 from apkforge.inspection.models import (
@@ -30,6 +29,7 @@ from apkforge.inspection.models import (
 )
 
 if TYPE_CHECKING:
+    from collections.abc import Iterable
     from pathlib import Path
 
     from apkforge.intake import AndroidPackage
@@ -37,6 +37,14 @@ if TYPE_CHECKING:
 __all__ = ["ManifestInspector"]
 
 _log = get_logger(__name__)
+
+
+class _XmlElement(Protocol):
+    """The part of the ElementTree element API used here (xml.etree and lxml both satisfy it)."""
+
+    def findall(self, path: str) -> Iterable[_XmlElement]: ...
+
+    def get(self, key: str) -> str | None: ...
 
 
 def _safe_bool(value: object) -> bool | None:
@@ -59,6 +67,15 @@ def _safe_int(value: object) -> int | None:
         return int(str(value))
     except (ValueError, TypeError):
         return None
+
+
+def _resolve_class_name(package: str, name: str) -> str:
+    """Resolve a manifest component name (``.Foo``, ``Foo`` or fully qualified) to a class name."""
+    if name.startswith("."):
+        return package + name
+    if "." not in name and package:
+        return f"{package}.{name}"
+    return name
 
 
 def _resolve_resource_value(
@@ -199,57 +216,132 @@ class ManifestInspector:
                 if name not in declared_names:
                     result.permissions.append(PermissionInfo(name=name, protection_level=None))
 
-    def _extract_intent_filters(self, component_xml: object) -> list[IntentFilterInfo]:
-        """Extract intent filters from a component XML element."""
+    def _component_intent_filters(
+        self,
+        apk: object,
+        tag: str,
+        component_name: str,
+        warnings: list[str],
+    ) -> list[IntentFilterInfo]:
+        """Find the <tag> element for *component_name* and extract its intent filters.
+
+        Any failure is recorded in *warnings* (the manifest inspection becomes PARTIAL);
+        an empty list is only returned silently when the component declares no filters.
+        """
+        ns = "{http://schemas.android.com/apk/res/android}"
+        try:
+            xml_obj = apk.get_android_manifest_xml()  # type: ignore[union-attr]
+            app_elem = xml_obj.find("application") if xml_obj is not None else None
+            if app_elem is None:
+                warnings.append(
+                    f"intent-filter extraction failed for {tag} {component_name}: "
+                    "no <application> element in the parsed manifest"
+                )
+                return []
+            package = xml_obj.get("package") or ""
+            candidates = [
+                (elem, elem.get(f"{ns}name") or elem.get("name")) for elem in app_elem.findall(tag)
+            ]
+            # Exact match on the resolved class name first; two components can share a
+            # simple class name (e.g. AntennaPod's two MediaButtonReceivers).
+            elem = next(
+                (
+                    e
+                    for e, n in candidates
+                    if n and _resolve_class_name(package, n) == component_name
+                ),
+                None,
+            )
+            if elem is None:
+                elem = next(
+                    (
+                        e
+                        for e, n in candidates
+                        if n
+                        and (
+                            n == component_name
+                            or n.endswith(f".{component_name.split('.')[-1]}")
+                            or component_name.endswith(n)
+                        )
+                    ),
+                    None,
+                )
+            if elem is None:
+                warnings.append(
+                    f"intent-filter extraction failed for {tag} {component_name}: "
+                    "component element not found in the parsed manifest"
+                )
+                return []
+            return self._extract_intent_filters(elem)
+        except Exception as exc:
+            warnings.append(
+                f"intent-filter extraction failed for {tag} {component_name}: "
+                f"{type(exc).__name__}: {exc}"
+            )
+            return []
+
+    def _fallback_intent_filters(
+        self, elem: _XmlElement, tag: str, name: str, warnings: list[str]
+    ) -> list[IntentFilterInfo]:
+        """Text-XML fallback path: extract filters, recording any failure in *warnings*."""
+        try:
+            return self._extract_intent_filters(elem)
+        except Exception as exc:
+            warnings.append(
+                f"intent-filter extraction failed for {tag} {name}: {type(exc).__name__}: {exc}"
+            )
+            return []
+
+    def _extract_intent_filters(self, component_xml: _XmlElement | None) -> list[IntentFilterInfo]:
+        """Extract intent filters from a component XML element.
+
+        Accepts any ElementTree-compatible element (``xml.etree`` from the text fallback,
+        ``lxml.etree._Element`` from Androguard). Errors propagate to the caller.
+        """
         filters: list[IntentFilterInfo] = []
         if component_xml is None:
             return filters
 
-        with contextlib.suppress(Exception):
-            ns = "{http://schemas.android.com/apk/res/android}"
+        ns = "{http://schemas.android.com/apk/res/android}"
+        for intent_filter in component_xml.findall("intent-filter"):
+            actions = []
+            categories = []
+            data_items: list[IntentDataInfo] = []
 
-            if not isinstance(component_xml, ET.Element):
-                return filters
+            for action in intent_filter.findall("action"):
+                name = action.get(f"{ns}name") or action.get("name")
+                if name:
+                    actions.append(name)
 
-            for intent_filter in component_xml.findall("intent-filter"):
-                actions = []
-                categories = []
-                data_items: list[IntentDataInfo] = []
+            for category in intent_filter.findall("category"):
+                name = category.get(f"{ns}name") or category.get("name")
+                if name:
+                    categories.append(name)
 
-                for action in intent_filter.findall("action"):
-                    name = action.get(f"{ns}name") or action.get("name")
-                    if name:
-                        actions.append(name)
-
-                for category in intent_filter.findall("category"):
-                    name = category.get(f"{ns}name") or category.get("name")
-                    if name:
-                        categories.append(name)
-
-                for data_elem in intent_filter.findall("data"):
-                    data_items.append(
-                        IntentDataInfo(
-                            scheme=data_elem.get(f"{ns}scheme") or data_elem.get("scheme"),
-                            host=data_elem.get(f"{ns}host") or data_elem.get("host"),
-                            port=data_elem.get(f"{ns}port") or data_elem.get("port"),
-                            path=data_elem.get(f"{ns}path") or data_elem.get("path"),
-                            pathPrefix=(
-                                data_elem.get(f"{ns}pathPrefix") or data_elem.get("pathPrefix")
-                            ),
-                            pathPattern=(
-                                data_elem.get(f"{ns}pathPattern") or data_elem.get("pathPattern")
-                            ),
-                            mimeType=(data_elem.get(f"{ns}mimeType") or data_elem.get("mimeType")),
-                        )
-                    )
-
-                filters.append(
-                    IntentFilterInfo(
-                        actions=actions,
-                        categories=categories,
-                        data=data_items,
+            for data_elem in intent_filter.findall("data"):
+                data_items.append(
+                    IntentDataInfo(
+                        scheme=data_elem.get(f"{ns}scheme") or data_elem.get("scheme"),
+                        host=data_elem.get(f"{ns}host") or data_elem.get("host"),
+                        port=data_elem.get(f"{ns}port") or data_elem.get("port"),
+                        path=data_elem.get(f"{ns}path") or data_elem.get("path"),
+                        pathPrefix=(
+                            data_elem.get(f"{ns}pathPrefix") or data_elem.get("pathPrefix")
+                        ),
+                        pathPattern=(
+                            data_elem.get(f"{ns}pathPattern") or data_elem.get("pathPattern")
+                        ),
+                        mimeType=(data_elem.get(f"{ns}mimeType") or data_elem.get("mimeType")),
                     )
                 )
+
+            filters.append(
+                IntentFilterInfo(
+                    actions=actions,
+                    categories=categories,
+                    data=data_items,
+                )
+            )
 
         return filters
 
@@ -268,7 +360,6 @@ class ManifestInspector:
                 enabled = None
                 direct_boot = None
                 process = None
-                intent_filters: list[IntentFilterInfo] = []
 
                 with contextlib.suppress(Exception):
                     exp_val = apk.get_attribute_value("activity", "exported", name=act_name)  # type: ignore[union-attr]
@@ -292,22 +383,9 @@ class ManifestInspector:
                     if proc_val:
                         process = str(proc_val)
 
-                # Try extracting intent filters from the XML tree
-                with contextlib.suppress(Exception):
-                    xml_obj = apk.get_android_manifest_xml()  # type: ignore[union-attr]
-                    if xml_obj is not None:
-                        ns = "{http://schemas.android.com/apk/res/android}"
-                        app_elem = xml_obj.find("application")
-                        if app_elem is not None:
-                            for act_elem in app_elem.findall("activity"):
-                                name_attr = act_elem.get(f"{ns}name") or act_elem.get("name")
-                                if name_attr and (
-                                    name_attr == act_name
-                                    or name_attr.endswith(f".{act_name.split('.')[-1]}")
-                                    or act_name.endswith(name_attr)
-                                ):
-                                    intent_filters = self._extract_intent_filters(act_elem)
-                                    break
+                intent_filters = self._component_intent_filters(
+                    apk, "activity", str(act_name), warnings
+                )
 
                 result.activities.append(
                     ActivityInfo(
@@ -336,7 +414,6 @@ class ManifestInspector:
                 enabled = None
                 fg_type = None
                 process = None
-                intent_filters: list[IntentFilterInfo] = []
 
                 with contextlib.suppress(Exception):
                     exp_val = apk.get_attribute_value("service", "exported", name=svc_name)  # type: ignore[union-attr]
@@ -363,21 +440,9 @@ class ManifestInspector:
                     if proc_val:
                         process = str(proc_val)
 
-                with contextlib.suppress(Exception):
-                    xml_obj = apk.get_android_manifest_xml()  # type: ignore[union-attr]
-                    if xml_obj is not None:
-                        ns = "{http://schemas.android.com/apk/res/android}"
-                        app_elem = xml_obj.find("application")
-                        if app_elem is not None:
-                            for svc_elem in app_elem.findall("service"):
-                                name_attr = svc_elem.get(f"{ns}name") or svc_elem.get("name")
-                                if name_attr and (
-                                    name_attr == svc_name
-                                    or name_attr.endswith(f".{svc_name.split('.')[-1]}")
-                                    or svc_name.endswith(name_attr)
-                                ):
-                                    intent_filters = self._extract_intent_filters(svc_elem)
-                                    break
+                intent_filters = self._component_intent_filters(
+                    apk, "service", str(svc_name), warnings
+                )
 
                 result.services.append(
                     ServiceInfo(
@@ -405,7 +470,6 @@ class ManifestInspector:
                 permission = None
                 enabled = None
                 process = None
-                intent_filters: list[IntentFilterInfo] = []
 
                 with contextlib.suppress(Exception):
                     exp_val = apk.get_attribute_value("receiver", "exported", name=rec_name)  # type: ignore[union-attr]
@@ -425,21 +489,9 @@ class ManifestInspector:
                     if proc_val:
                         process = str(proc_val)
 
-                with contextlib.suppress(Exception):
-                    xml_obj = apk.get_android_manifest_xml()  # type: ignore[union-attr]
-                    if xml_obj is not None:
-                        ns = "{http://schemas.android.com/apk/res/android}"
-                        app_elem = xml_obj.find("application")
-                        if app_elem is not None:
-                            for rec_elem in app_elem.findall("receiver"):
-                                name_attr = rec_elem.get(f"{ns}name") or rec_elem.get("name")
-                                if name_attr and (
-                                    name_attr == rec_name
-                                    or name_attr.endswith(f".{rec_name.split('.')[-1]}")
-                                    or rec_name.endswith(name_attr)
-                                ):
-                                    intent_filters = self._extract_intent_filters(rec_elem)
-                                    break
+                intent_filters = self._component_intent_filters(
+                    apk, "receiver", str(rec_name), warnings
+                )
 
                 result.receivers.append(
                     BroadcastReceiverInfo(
@@ -679,7 +731,9 @@ class ManifestInspector:
                                     exported=_safe_bool(
                                         act_elem.get(f"{ns}exported") or act_elem.get("exported")
                                     ),
-                                    intent_filters=self._extract_intent_filters(act_elem),
+                                    intent_filters=self._fallback_intent_filters(
+                                        act_elem, "activity", name, warnings
+                                    ),
                                 )
                             )
 
@@ -697,7 +751,9 @@ class ManifestInspector:
                                         svc_elem.get(f"{ns}permission")
                                         or svc_elem.get("permission")
                                     ),
-                                    intent_filters=self._extract_intent_filters(svc_elem),
+                                    intent_filters=self._fallback_intent_filters(
+                                        svc_elem, "service", name, warnings
+                                    ),
                                 )
                             )
 
@@ -711,7 +767,9 @@ class ManifestInspector:
                                     exported=_safe_bool(
                                         rec_elem.get(f"{ns}exported") or rec_elem.get("exported")
                                     ),
-                                    intent_filters=self._extract_intent_filters(rec_elem),
+                                    intent_filters=self._fallback_intent_filters(
+                                        rec_elem, "receiver", name, warnings
+                                    ),
                                 )
                             )
 

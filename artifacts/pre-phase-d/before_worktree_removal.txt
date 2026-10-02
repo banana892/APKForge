@@ -1,0 +1,7 @@
+# work/intent-filter-fix-before-wt removal check (2026-10-03T02:07:56+05:30)
+HEAD: 7415f67 (detached; same commit as main HEAD, so all source is in git history)
+tracked changes: tests/corpus_results.json — byte-identical to artifacts/intent-filter-fix/before/corpus_results.json
+work/c5/20261002T191421Z-noop/c5-semantic-noop-baseline.{json,md} — byte-identical to artifacts/intent-filter-fix/before/c5/
+work/c5/20261002T192501Z-modify/c5-openlink-result.{json,md} — byte-identical to artifacts/intent-filter-fix/before/c5/
+other content: copied corpus APKs (git-ignored, SHA-pinned in tests/corpus/manifest.json), caches, rebuild intermediates (apk/smali/xml/png/log)
+stash entries: none

@@ -1,0 +1,46 @@
+{
+  "c5-semantic-noop-baseline.json": {
+    "identical_after_normalisation": true,
+    "differences": []
+  },
+  "c5-openlink-result.json": {
+    "identical_after_normalisation": false,
+    "differences": [
+      [
+        "/result/stages[0]/log_file",
+        "<ROOT>/work/intent-filter-fix-before-wt/work/c5/<RUN>/builds/<RUN>/logs/stage-prepare.log",
+        "<ROOT>/work/c5/<RUN>/builds/<RUN>/logs/stage-prepare.log"
+      ],
+      [
+        "/result/stages[1]/log_file",
+        "<ROOT>/work/intent-filter-fix-before-wt/work/c5/<RUN>/builds/<RUN>/logs/stage-decode.log",
+        "<ROOT>/work/c5/<RUN>/builds/<RUN>/logs/stage-decode.log"
+      ],
+      [
+        "/result/stages[2]/log_file",
+        "<ROOT>/work/intent-filter-fix-before-wt/work/c5/<RUN>/builds/<RUN>/logs/stage-build.log",
+        "<ROOT>/work/c5/<RUN>/builds/<RUN>/logs/stage-build.log"
+      ],
+      [
+        "/result/stages[3]/log_file",
+        "<ROOT>/work/intent-filter-fix-before-wt/work/c5/<RUN>/builds/<RUN>/logs/stage-align.log",
+        "<ROOT>/work/c5/<RUN>/builds/<RUN>/logs/stage-align.log"
+      ],
+      [
+        "/result/stages[4]/log_file",
+        "<ROOT>/work/intent-filter-fix-before-wt/work/c5/<RUN>/builds/<RUN>/logs/stage-sign.log",
+        "<ROOT>/work/c5/<RUN>/builds/<RUN>/logs/stage-sign.log"
+      ],
+      [
+        "/result/stages[5]/log_file",
+        "<ROOT>/work/intent-filter-fix-before-wt/work/c5/<RUN>/builds/<RUN>/logs/stage-verify.log",
+        "<ROOT>/work/c5/<RUN>/builds/<RUN>/logs/stage-verify.log"
+      ],
+      [
+        "/result/toolchain/apktool",
+        "/home/naishring/APKForge/tools/apktool",
+        "/home/naishring/APKForge/tools/apktool_3.0.3.jar"
+      ]
+    ]
+  }
+}

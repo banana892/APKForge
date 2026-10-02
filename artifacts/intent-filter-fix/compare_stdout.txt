@@ -1,0 +1,18 @@
+com.emanuelef.remote_capture@95            status ['complete', 'complete'] act 0->1 ser 0->1 rec 0->5 changed=4 other_fields_same=True
+com.oF2pks.applicationsinfo@19             status ['complete', 'complete'] act 0->1 ser 0->0 rec 0->0 changed=1 other_fields_same=True
+de.audioattack.openlink@28                 status ['complete', 'complete'] act 0->3 ser 0->0 rec 0->5 changed=5 other_fields_same=True
+de.danoeh.antennapod@3120295               status ['complete', 'complete'] act 0->18 ser 0->3 rec 0->17 changed=27 other_fields_same=True
+eu.siacs.conversations@4218104             status ['complete', 'complete'] act 0->18 ser 0->2 rec 0->9 changed=16 other_fields_same=True
+godau.fynn.usagedirect@10                  status ['complete', 'complete'] act 0->1 ser 0->0 rec 0->5 changed=3 other_fields_same=True
+io.github.muntashirakon.AppManager@451     status ['complete', 'complete'] act 0->42 ser 0->1 rec 0->11 changed=18 other_fields_same=True
+org.mozilla.fennec_fdroid@1560020          status ['complete', 'complete'] act 0->13 ser 0->4 rec 0->15 changed=19 other_fields_same=True
+org.schabi.newpipe@1015                    status ['complete', 'complete'] act 0->16 ser 0->2 rec 0->7 changed=9 other_fields_same=True
+openlink [5, 5] added [] removed [] changed [('SEC-MAL-PERSISTENCE-BOOT', ['confidence'], [1, 2])]
+pcapdroid [9, 10] added ['SEC-MAL-BOOT-001'] removed [] changed [('SEC-MAL-PERSISTENCE-BOOT', ['confidence'], [1, 2])]
+appmanager [28, 29] added ['SEC-MAL-BOOT-001'] removed [] changed [('SEC-MAL-PERSISTENCE-BOOT', ['confidence'], [1, 2]), ('SEC-MAL-PERSISTENCE-FG-SERVICE', [], [5, 5]), ('SEC-SPY-CLIPBOARD-001', [], [2, 2])]
+ noise openlink before_vs_before_rerun [5, 5] 0 0 []
+ noise openlink after_vs_after_rerun [5, 5] 0 0 []
+ noise pcapdroid before_vs_before_rerun [9, 9] 0 0 [('SEC-SPY-CLIPBOARD-001', [])]
+ noise pcapdroid after_vs_after_rerun [10, 10] 0 0 []
+ noise appmanager before_vs_before_rerun [28, 28] 0 0 [('SEC-MAL-PERSISTENCE-FG-SERVICE', []), ('SEC-SPY-CLIPBOARD-001', [])]
+ noise appmanager after_vs_after_rerun [29, 29] 0 0 [('SEC-MAL-BOOT-001', []), ('SEC-MAL-PERSISTENCE-FG-SERVICE', []), ('SEC-SPY-CLIPBOARD-001', [])]

@@ -1,0 +1,36 @@
+# tests/unit/test_modification_status_semantics.py run against HEAD (7415f67) versions of
+# modification/modifiers/base.py, modification/framework.py and cli/main.py (rest of src = working tree).
+# Command: PYTHONPATH=<copy> pytest --tb=line. One line per failing test: the first failing assertion.
+
+.venv-validation/lib64/python3.14/site-packages/pydantic/main.py:1042: AttributeError: 'ModificationStepResult' object has no attribute 'executed'
+.venv-validation/lib64/python3.14/site-packages/pydantic/main.py:1042: AttributeError: 'ModificationStepResult' object has no attribute 'executed'
+.venv-validation/lib64/python3.14/site-packages/pydantic/main.py:1042: AttributeError: 'ModificationStepResult' object has no attribute 'executed'
+tests/unit/test_modification_status_semantics.py:217: AttributeError: type object 'StepStatus' has no attribute 'VERIFICATION_FAILED'
+tests/unit/test_modification_status_semantics.py:229: AttributeError: type object 'StepStatus' has no attribute 'VERIFICATION_FAILED'
+tests/unit/test_modification_status_semantics.py:240: AssertionError: assert 'RuntimeError: modifier exploded' in 'Apply exception: modifier exploded'
+.venv-validation/lib64/python3.14/site-packages/pydantic/main.py:1042: AttributeError: 'ModificationStepResult' object has no attribute 'verified'
+tests/unit/test_modification_status_semantics.py:258: AssertionError: assert <StepStatus.S...SS: 'success'> == <StepStatus.FAILED: 'failed'>
+.venv-validation/lib64/python3.14/site-packages/pydantic/main.py:1042: AttributeError: 'ModificationResult' object has no attribute 'aggregate_status'
+tests/unit/test_modification_status_semantics.py:285: AssertionError: assert <StepStatus.S...SS: 'success'> == 'partial'
+tests/unit/test_modification_status_semantics.py:285: AssertionError: assert <StepStatus.S...SS: 'success'> == 'partial'
+.venv-validation/lib64/python3.14/site-packages/pydantic/main.py:1042: AttributeError: 'ModificationResult' object has no attribute 'aggregate_status'
+tests/unit/test_modification_status_semantics.py:285: AssertionError: assert <StepStatus.S...SS: 'success'> == 'skipped'
+tests/unit/test_modification_status_semantics.py:285: AssertionError: assert <StepStatus.S...SS: 'success'> == 'failed'
+.venv-validation/lib64/python3.14/site-packages/pydantic/main.py:1042: AttributeError: 'ModificationResult' object has no attribute 'aggregate_status'
+.venv-validation/lib64/python3.14/site-packages/pydantic/main.py:1042: AttributeError: 'ModificationResult' object has no attribute 'aggregate_status'
+.venv-validation/lib64/python3.14/site-packages/pydantic/main.py:1042: AttributeError: 'ModificationResult' object has no attribute 'planned_steps'. Did you mean: 'failed_steps'?
+tests/unit/test_modification_status_semantics.py:304: AssertionError: assert [<StepStatus....ED: 'failed'>] == [<StepStatus....G: 'pending'>]
+.venv-validation/lib64/python3.14/site-packages/pydantic/main.py:1042: AttributeError: 'ModificationStepResult' object has no attribute 'verified'
+tests/unit/test_modification_status_semantics.py:331: AssertionError: assert <StepStatus.S...SS: 'success'> == <StepStatus.S...ED: 'skipped'>
+tests/unit/test_modification_status_semantics.py:341: AssertionError: assert True is False
+tests/unit/test_modification_status_semantics.py:353: AssertionError: assert <StepStatus.S...SS: 'success'> == <StepStatus.FAILED: 'failed'>
+tests/unit/test_modification_status_semantics.py:368: AssertionError: assert 'Status: PARTIAL' in '╭─ APKForge Modification Result ─╮\n│ Plan ID: PLAN-STATUS           │\n│ Status: SUCCESS            
+tests/unit/test_modification_status_semantics.py:388: ImportError: cannot import name '_modification_exit_code' from 'apkforge.cli.main' (apkforge/cli/main.py)
+tests/unit/test_modification_status_semantics.py:388: ImportError: cannot import name '_modification_exit_code' from 'apkforge.cli.main' (apkforge/cli/main.py)
+tests/unit/test_modification_status_semantics.py:388: ImportError: cannot import name '_modification_exit_code' from 'apkforge.cli.main' (apkforge/cli/main.py)
+tests/unit/test_modification_status_semantics.py:388: ImportError: cannot import name '_modification_exit_code' from 'apkforge.cli.main' (apkforge/cli/main.py)
+tests/unit/test_modification_status_semantics.py:388: ImportError: cannot import name '_modification_exit_code' from 'apkforge.cli.main' (apkforge/cli/main.py)
+tests/unit/test_modification_status_semantics.py:388: ImportError: cannot import name '_modification_exit_code' from 'apkforge.cli.main' (apkforge/cli/main.py)
+tests/unit/test_modification_status_semantics.py:388: ImportError: cannot import name '_modification_exit_code' from 'apkforge.cli.main' (apkforge/cli/main.py)
+tests/unit/test_modification_status_semantics.py:422: AssertionError: assert <StepStatus.S...SS: 'success'> == <StepStatus.S...ED: 'skipped'>
+31 failed in 0.14s

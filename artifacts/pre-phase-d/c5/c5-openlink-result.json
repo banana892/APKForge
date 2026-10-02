@@ -1,0 +1,1422 @@
+{
+  "name": "C.5 OpenLink controlled modification",
+  "generated_at": "2026-10-02T20:44:54.559000+00:00",
+  "corpus_id": "de.audioattack.openlink@28",
+  "toolchain": {
+    "versions": {
+      "java": "25.0.4.1",
+      "apktool": "3.0.3",
+      "zipalign": "35.0.0",
+      "apksigner": "0.9",
+      "build_tools": "35.0.0",
+      "android_platform": "android-35"
+    },
+    "android_platform": "/home/naishring/Android/Sdk/platforms/android-35/android.jar",
+    "signing_mode": "development",
+    "apkforge": {
+      "version": "0.1.0-dev",
+      "git_commit": "7415f671aa5b0e56f2e865b2167d43f74176a013",
+      "git_dirty": true
+    }
+  },
+  "result": {
+    "status": "VERIFIED",
+    "failures": [],
+    "apk": "/home/naishring/APKForge/tests/corpus/de.audioattack.openlink_28.apk",
+    "original_sha256_before": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+    "original_sha256_after": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+    "original_preserved": true,
+    "toolchain": {
+      "java": "/usr/lib/jvm/java-25-openjdk/bin/java",
+      "keytool": "/usr/lib/jvm/java-25-openjdk/bin/keytool",
+      "apktool": "/home/naishring/APKForge/tools/apktool_3.0.3.jar",
+      "zipalign": "/home/naishring/Android/Sdk/build-tools/35.0.0/zipalign",
+      "apksigner": "/home/naishring/Android/Sdk/build-tools/35.0.0/apksigner",
+      "android_sdk": "/home/naishring/Android/Sdk",
+      "android_platform": "/home/naishring/Android/Sdk/platforms/android-35/android.jar",
+      "platform_name": "android-35",
+      "build_tools": "/home/naishring/Android/Sdk/build-tools/35.0.0",
+      "build_tools_version": "35.0.0",
+      "framework_dir": "/home/naishring/.local/share/apkforge/apktool-framework/android-35"
+    },
+    "signing_mode": "development",
+    "baseline": {
+      "package": "de.audioattack.openlink",
+      "version_name": "1.5.11",
+      "version_code": 28,
+      "uses_permissions": [
+        "android.permission.RECEIVE_BOOT_COMPLETED",
+        "de.audioattack.openlink.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+      ],
+      "receivers": {
+        "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver": {
+          "enabled": true,
+          "exported": true
+        },
+        "androidx.profileinstaller.ProfileInstallReceiver": {
+          "enabled": true,
+          "exported": true
+        }
+      },
+      "inspection_status": "complete"
+    },
+    "plan": {
+      "modifier": "c5.disable_boot_receiver",
+      "operation": "Remove the RECEIVE_BOOT_COMPLETED uses-permission and disable the receiver that handles the boot broadcast (android:enabled=false).",
+      "target_apk": "/home/naishring/APKForge/tests/corpus/de.audioattack.openlink_28.apk",
+      "target_sha256": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+      "package": "de.audioattack.openlink",
+      "permission": "android.permission.RECEIVE_BOOT_COMPLETED",
+      "receiver": "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+      "status": "ready",
+      "preconditions": [
+        {
+          "name": "permission_declared_once",
+          "satisfied": true,
+          "detail": "android.permission.RECEIVE_BOOT_COMPLETED declarations: ['uses-permission']"
+        },
+        {
+          "name": "boot_receiver_identified",
+          "satisfied": true,
+          "detail": "boot receivers: ['de.audioattack.openlink.conf.PackageChangeBroadcastReceiver']; receivers in manifest: 2; requested: (derive)"
+        },
+        {
+          "name": "receiver_currently_enabled",
+          "satisfied": true,
+          "detail": "android:enabled='true'"
+        }
+      ],
+      "source_edits": [
+        {
+          "kind": "remove_element",
+          "element": "manifest/uses-permission[name=android.permission.RECEIVE_BOOT_COMPLETED]",
+          "attribute": null,
+          "before": null,
+          "after": null
+        },
+        {
+          "kind": "set_attribute",
+          "element": "manifest/application[0]/receiver[name=de.audioattack.openlink.conf.PackageChangeBroadcastReceiver]",
+          "attribute": "android:enabled",
+          "before": "true",
+          "after": "false"
+        }
+      ],
+      "expected_changes": [
+        {
+          "category": "uses_permission",
+          "kind": "removed",
+          "identifier": "android.permission.RECEIVE_BOOT_COMPLETED",
+          "detail": {},
+          "description": "android.permission.RECEIVE_BOOT_COMPLETED removed"
+        },
+        {
+          "category": "component",
+          "kind": "modified",
+          "identifier": "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+          "detail": {
+            "component_type": "receiver",
+            "enabled": [
+              true,
+              false
+            ]
+          },
+          "description": "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver disabled (enabled -> false), nothing else changed"
+        }
+      ],
+      "consequences": [
+        "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver also handles android.intent.action.MY_PACKAGE_REPLACED; disabling the component stops those broadcasts too."
+      ],
+      "limitations": [
+        "Manifest-level change only: no DEX/smali code is changed. Code that handles BOOT_COMPLETED is still present in the APK.",
+        "The receiver is disabled for every action it handles, not only for the boot action.",
+        "Code can re-enable components at runtime (PackageManager.setComponentEnabledSetting); static analysis cannot rule that out.",
+        "Other components or mechanisms (alarms, WorkManager, other receivers) that start work at or after boot are not addressed.",
+        "Does not establish runtime behaviour: the modified APK is not installed or run."
+      ],
+      "problems": [],
+      "decoded_manifest_sha256": "9ee5141f7515252d600641cc3b05f25491368648bbc75ca78592f63497a97087"
+    },
+    "apply": {
+      "applied": true,
+      "observed_edits": [
+        {
+          "kind": "remove_element",
+          "element": "manifest/uses-permission[name=android.permission.RECEIVE_BOOT_COMPLETED]",
+          "attribute": null,
+          "before": null,
+          "after": null
+        },
+        {
+          "kind": "set_attribute",
+          "element": "manifest/application[0]/receiver[name=de.audioattack.openlink.conf.PackageChangeBroadcastReceiver]",
+          "attribute": "android:enabled",
+          "before": "true",
+          "after": "false"
+        }
+      ],
+      "matches_plan": true,
+      "manifest_sha256_before": "9ee5141f7515252d600641cc3b05f25491368648bbc75ca78592f63497a97087",
+      "manifest_sha256_after": "33423436eb6e130154fa491ef26901a4e41759eba5f46d86cdc02af7083fe4ae",
+      "errors": []
+    },
+    "stages": [
+      {
+        "stage": "prepare",
+        "status": "PASS",
+        "failure_category": null,
+        "failure_cause": "",
+        "log_file": "/home/naishring/APKForge/work/c5/20261002T204450Z-modify/builds/20261002T204451Z-5110edee/logs/stage-prepare.log"
+      },
+      {
+        "stage": "decode",
+        "status": "PASS",
+        "failure_category": null,
+        "failure_cause": "",
+        "log_file": "/home/naishring/APKForge/work/c5/20261002T204450Z-modify/builds/20261002T204451Z-5110edee/logs/stage-decode.log"
+      },
+      {
+        "stage": "build",
+        "status": "PASS",
+        "failure_category": null,
+        "failure_cause": "",
+        "log_file": "/home/naishring/APKForge/work/c5/20261002T204450Z-modify/builds/20261002T204451Z-5110edee/logs/stage-build.log"
+      },
+      {
+        "stage": "align",
+        "status": "PASS",
+        "failure_category": null,
+        "failure_cause": "",
+        "log_file": "/home/naishring/APKForge/work/c5/20261002T204450Z-modify/builds/20261002T204451Z-5110edee/logs/stage-align.log"
+      },
+      {
+        "stage": "sign",
+        "status": "PASS",
+        "failure_category": null,
+        "failure_cause": "",
+        "log_file": "/home/naishring/APKForge/work/c5/20261002T204450Z-modify/builds/20261002T204451Z-5110edee/logs/stage-sign.log"
+      },
+      {
+        "stage": "verify",
+        "status": "PASS",
+        "failure_category": null,
+        "failure_cause": "",
+        "log_file": "/home/naishring/APKForge/work/c5/20261002T204450Z-modify/builds/20261002T204451Z-5110edee/logs/stage-verify.log"
+      }
+    ],
+    "verification": {
+      "valid": true,
+      "zipalign_verified": true,
+      "signature_verified": true,
+      "expected_signer_matched": true,
+      "zip_integrity_verified": true,
+      "manifest_present": true,
+      "certificate": {
+        "subject_dn": "CN=APKForge Development Key - NOT FOR RELEASE, O=APKForge",
+        "sha256_digest": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+        "signer_count": 1,
+        "v1_scheme": true,
+        "v2_scheme": true,
+        "v3_scheme": true,
+        "v31_scheme": false,
+        "v4_scheme": false
+      },
+      "expected_certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+      "apksigner_warnings": [
+        "META-INF/version-control-info.textproto not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+        "META-INF/androidx.annotation_annotation-experimental.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+        "META-INF/androidx.arch.core_core-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+        "META-INF/androidx.core_core-viewtree.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+        "META-INF/androidx.core_core.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+        "META-INF/androidx.interpolator_interpolator.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+        "META-INF/androidx.lifecycle_lifecycle-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+        "META-INF/androidx.profileinstaller_profileinstaller.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+        "META-INF/androidx.startup_startup-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+        "META-INF/androidx.tracing_tracing.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+        "META-INF/androidx.versionedparcelable_versionedparcelable.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+        "META-INF/kotlinx_coroutines_android.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+        "META-INF/kotlinx_coroutines_core.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+        "META-INF/com/android/build/gradle/app-metadata.properties not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+        "META-INF/androidx/annotation/annotation/LICENSE.txt not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+        "META-INF/versions/9/OSGI-INF/MANIFEST.MF not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/."
+      ],
+      "errors": []
+    },
+    "output_apk": "/home/naishring/APKForge/work/c5/20261002T204450Z-modify/openlink-c5-modified.apk",
+    "output_sha256": "99bdaf75743e6ba716e794e2facb92bfe01ef77c3e92046b44658d1575e5c351",
+    "noise_floor": {
+      "source": "semantic no-op baseline",
+      "allowed_noise_rules": [
+        "certificate_replaced",
+        "dex_compiler_marker_removed",
+        "dex_reencoded",
+        "manifest_reencoded",
+        "resource_path_canonicalized",
+        "resource_table_reencoded",
+        "signature_replaced"
+      ],
+      "allowed_residue": []
+    },
+    "verdict": {
+      "passed": true,
+      "diff_status": "complete",
+      "observations": [
+        {
+          "observation": {
+            "category": "uses_permission",
+            "kind": "removed",
+            "identifier": "android.permission.RECEIVE_BOOT_COMPLETED",
+            "detail": {}
+          },
+          "classification": "expected_modification",
+          "rule": null,
+          "reason": "android.permission.RECEIVE_BOOT_COMPLETED removed"
+        },
+        {
+          "observation": {
+            "category": "component",
+            "kind": "modified",
+            "identifier": "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+            "detail": {
+              "component_type": "receiver",
+              "enabled": [
+                true,
+                false
+              ]
+            }
+          },
+          "classification": "expected_modification",
+          "rule": null,
+          "reason": "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver disabled (enabled -> false), nothing else changed"
+        },
+        {
+          "observation": {
+            "category": "dex_string",
+            "kind": "removed",
+            "identifier": "~~R8{\"backend\":\"dex\",\"compilation-mode\":\"release\",\"has-checksums\":false,\"min-api\":21,\"pg-map-id\":\"5d00a76\",\"r8-mode\":\"full\",\"version\":\"8.11.18\"}",
+            "detail": {}
+          },
+          "classification": "rebuild_noise",
+          "rule": "dex_compiler_marker_removed",
+          "reason": "R8/D8/L8 build-marker string (~~R8{...}) dropped by smali reassembly."
+        },
+        {
+          "observation": {
+            "category": "certificate",
+            "kind": "modified",
+            "identifier": "signing_certificate",
+            "detail": {
+              "status": "CHANGED"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "certificate_replaced",
+          "reason": "Signing certificate differs because the APK was re-signed."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "modified",
+            "identifier": "AndroidManifest.xml",
+            "detail": {
+              "file_category": "manifest"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "manifest_reencoded",
+          "reason": "Binary AndroidManifest.xml bytes differ after AAPT2 recompilation. Its semantic content (permissions, components, compared attributes) is observed separately."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "added",
+            "identifier": "META-INF/APKFORGE.RSA",
+            "detail": {
+              "file_category": "certificate",
+              "size": 1658
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "signature_replaced",
+          "reason": "APK signature files (META-INF/MANIFEST.MF, *.SF, *.RSA/DSA/EC) replaced by re-signing; other META-INF entries are not covered."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "added",
+            "identifier": "META-INF/APKFORGE.SF",
+            "detail": {
+              "file_category": "signature",
+              "size": 10703
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "signature_replaced",
+          "reason": "APK signature files (META-INF/MANIFEST.MF, *.SF, *.RSA/DSA/EC) replaced by re-signing; other META-INF entries are not covered."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/C4961B96.RSA",
+            "detail": {
+              "file_category": "certificate",
+              "size": 1334
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "signature_replaced",
+          "reason": "APK signature files (META-INF/MANIFEST.MF, *.SF, *.RSA/DSA/EC) replaced by re-signing; other META-INF entries are not covered."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/C4961B96.SF",
+            "detail": {
+              "file_category": "signature",
+              "size": 8683
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "signature_replaced",
+          "reason": "APK signature files (META-INF/MANIFEST.MF, *.SF, *.RSA/DSA/EC) replaced by re-signing; other META-INF entries are not covered."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "modified",
+            "identifier": "META-INF/MANIFEST.MF",
+            "detail": {
+              "file_category": "signature"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "signature_replaced",
+          "reason": "APK signature files (META-INF/MANIFEST.MF, *.SF, *.RSA/DSA/EC) replaced by re-signing; other META-INF entries are not covered."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "modified",
+            "identifier": "classes.dex",
+            "detail": {
+              "file_category": "dex"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "dex_reencoded",
+          "reason": "classesN.dex bytes differ after smali disassembly/reassembly. Class- and method-level changes are separate observations and are never noise."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable-anydpi-v26/ic_incognito_foreground.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/Q7.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable-anydpi-v26/ic_launcher_foreground.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/pd.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable-anydpi-v26/ic_launcher_monochrome.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/-U.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable-hdpi/notification_bg_low_normal.9.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/je.9.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable-hdpi/notification_bg_low_pressed.9.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/2K.9.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable-hdpi/notification_bg_normal.9.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/sA.9.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable-hdpi/notification_bg_normal_pressed.9.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/wN.9.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable-hdpi/notification_oversize_large_icon_bg.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/pu.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable-hdpi/notify_panel_notification_icon_bg.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/pY.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable-mdpi/notification_bg_low_normal.9.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/gK.9.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable-mdpi/notification_bg_low_pressed.9.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/U-.9.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable-mdpi/notification_bg_normal.9.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/C_.9.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable-mdpi/notification_bg_normal_pressed.9.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/vL.9.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable-mdpi/notify_panel_notification_icon_bg.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/s4.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable-xhdpi/notification_bg_low_normal.9.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/xa.9.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable-xhdpi/notification_bg_low_pressed.9.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/o_.9.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable-xhdpi/notification_bg_normal.9.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/z-.9.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable-xhdpi/notification_bg_normal_pressed.9.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/Ma.9.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable-xhdpi/notify_panel_notification_icon_bg.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/5c.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable/ic_call_answer.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/bX.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable/ic_call_answer_low.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/Ce.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable/ic_call_answer_video.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/WU.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable/ic_call_answer_video_low.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/N3.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable/ic_call_decline.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/x4.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable/ic_call_decline_low.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/Xk.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable/notification_action_background.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/Ws.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable/notification_bg.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/nz.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable/notification_bg_low.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/df.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable/notification_icon_background.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/c6.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/drawable/notification_tile_bg.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/9m.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/layout/activity_main.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/v9.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/layout/custom_dialog.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/_y.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/layout/ime_base_split_test_activity.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/cr.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/layout/ime_secondary_split_test_activity.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/4z.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/layout/notification_action.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/S8.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/layout/notification_action_tombstone.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/a0.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/layout/notification_template_custom_big.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/xN.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/layout/notification_template_icon_group.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/iQ.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/layout/notification_template_part_chronometer.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/lR.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/layout/notification_template_part_time.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/cV.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/mipmap-anydpi-v26/ic_incognito.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/LC.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/mipmap-anydpi-v26/ic_incognito_round.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/2H.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/mipmap-anydpi-v26/ic_launcher.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/BW.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/mipmap-anydpi-v26/ic_launcher_round.xml",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/0K.xml",
+              "match_basis": "resource_identity"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/mipmap-hdpi/ic_incognito.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/Dd.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/mipmap-hdpi/ic_incognito_round.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/Ml.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/mipmap-hdpi/ic_launcher.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/yn.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/mipmap-hdpi/ic_launcher_round.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/8c.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/mipmap-mdpi/ic_incognito.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/5q.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/mipmap-mdpi/ic_incognito_round.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/5t.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/mipmap-mdpi/ic_launcher.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/9w.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/mipmap-mdpi/ic_launcher_round.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/zR.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/mipmap-xhdpi/ic_incognito.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/G7.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/mipmap-xhdpi/ic_incognito_round.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/in.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/mipmap-xhdpi/ic_launcher.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/FS.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/mipmap-xhdpi/ic_launcher_round.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/wb.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/mipmap-xxhdpi/ic_incognito.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/Sx.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/mipmap-xxhdpi/ic_incognito_round.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/No.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/mipmap-xxhdpi/ic_launcher.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/RJ.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/mipmap-xxhdpi/ic_launcher_round.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/fO.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/mipmap-xxxhdpi/ic_incognito.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/7n.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/mipmap-xxxhdpi/ic_incognito_round.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/Pu.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/mipmap-xxxhdpi/ic_launcher.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/o-.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "renamed",
+            "identifier": "res/mipmap-xxxhdpi/ic_launcher_round.png",
+            "detail": {
+              "file_category": "resource",
+              "old_path": "res/Gc.png",
+              "match_basis": "content_hash"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_path_canonicalized",
+          "reason": "Collapsed resource path (res/Xy.xml) restored to its canonical res/<type>/<name> path; paired by ARSC resource identity or content hash."
+        },
+        {
+          "observation": {
+            "category": "file",
+            "kind": "modified",
+            "identifier": "resources.arsc",
+            "detail": {
+              "file_category": "resource_table"
+            }
+          },
+          "classification": "rebuild_noise",
+          "rule": "resource_table_reencoded",
+          "reason": "resources.arsc regenerated by AAPT2. Its entries are NOT compared semantically (known limitation)."
+        }
+      ],
+      "expected_observed": [
+        {
+          "category": "uses_permission",
+          "kind": "removed",
+          "identifier": "android.permission.RECEIVE_BOOT_COMPLETED",
+          "detail": {},
+          "description": "android.permission.RECEIVE_BOOT_COMPLETED removed"
+        },
+        {
+          "category": "component",
+          "kind": "modified",
+          "identifier": "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+          "detail": {
+            "component_type": "receiver",
+            "enabled": [
+              true,
+              false
+            ]
+          },
+          "description": "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver disabled (enabled -> false), nothing else changed"
+        }
+      ],
+      "expected_missing": [],
+      "noise_rule_counts": {
+        "dex_compiler_marker_removed": 1,
+        "certificate_replaced": 1,
+        "manifest_reencoded": 1,
+        "signature_replaced": 5,
+        "dex_reencoded": 1,
+        "resource_path_canonicalized": 64,
+        "resource_table_reencoded": 1
+      },
+      "failures": []
+    },
+    "workspace": "/home/naishring/APKForge/work/c5/20261002T204450Z-modify/builds/20261002T204451Z-5110edee",
+    "workspace_kept": true
+  }
+}

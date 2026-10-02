@@ -242,7 +242,8 @@ class TestModificationResult:
         assert result.successful_steps == 0
         assert result.failed_steps == 0
         assert result.skipped_steps == 0
-        assert result.all_succeeded is True  # vacuously true
+        # Nothing executed is not success (known-limitations §17).
+        assert result.all_succeeded is False
 
     def test_step_counting(self):
         result = ModificationResult(
@@ -943,7 +944,8 @@ class TestModificationFramework:
         framework = ModificationFramework()
         result = framework.execute(plan, sample_apk, workspace_dir=tmp_workspace)
 
-        assert result.status == StepStatus.SUCCESS
+        # Nothing executed: SKIPPED, not SUCCESS (known-limitations §17).
+        assert result.status == StepStatus.SKIPPED
         assert "nothing to apply" in result.warnings[0].lower()
 
     def test_execute_with_decoded_workspace(

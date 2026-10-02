@@ -1,6 +1,6 @@
 {
   "name": "C.5 OpenLink controlled modification",
-  "generated_at": "2026-10-02T18:48:01.680699+00:00",
+  "generated_at": "2026-10-02T20:44:54.559000+00:00",
   "corpus_id": "de.audioattack.openlink@28",
   "toolchain": {
     "versions": {
@@ -15,7 +15,7 @@
     "signing_mode": "development",
     "apkforge": {
       "version": "0.1.0-dev",
-      "git_commit": "f9b6cdcd98db4506ee99cf1c3fcb609f4f7b34cf",
+      "git_commit": "7415f671aa5b0e56f2e865b2167d43f74176a013",
       "git_dirty": true
     }
   },
@@ -49,11 +49,11 @@
         "de.audioattack.openlink.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
       ],
       "receivers": {
-        "androidx.profileinstaller.ProfileInstallReceiver": {
+        "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver": {
           "enabled": true,
           "exported": true
         },
-        "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver": {
+        "androidx.profileinstaller.ProfileInstallReceiver": {
           "enabled": true,
           "exported": true
         }
@@ -166,42 +166,42 @@
         "status": "PASS",
         "failure_category": null,
         "failure_cause": "",
-        "log_file": "/home/naishring/APKForge/work/c5/20261002T184757Z-modify/builds/20261002T184758Z-137c69a8/logs/stage-prepare.log"
+        "log_file": "/home/naishring/APKForge/work/c5/20261002T204450Z-modify/builds/20261002T204451Z-5110edee/logs/stage-prepare.log"
       },
       {
         "stage": "decode",
         "status": "PASS",
         "failure_category": null,
         "failure_cause": "",
-        "log_file": "/home/naishring/APKForge/work/c5/20261002T184757Z-modify/builds/20261002T184758Z-137c69a8/logs/stage-decode.log"
+        "log_file": "/home/naishring/APKForge/work/c5/20261002T204450Z-modify/builds/20261002T204451Z-5110edee/logs/stage-decode.log"
       },
       {
         "stage": "build",
         "status": "PASS",
         "failure_category": null,
         "failure_cause": "",
-        "log_file": "/home/naishring/APKForge/work/c5/20261002T184757Z-modify/builds/20261002T184758Z-137c69a8/logs/stage-build.log"
+        "log_file": "/home/naishring/APKForge/work/c5/20261002T204450Z-modify/builds/20261002T204451Z-5110edee/logs/stage-build.log"
       },
       {
         "stage": "align",
         "status": "PASS",
         "failure_category": null,
         "failure_cause": "",
-        "log_file": "/home/naishring/APKForge/work/c5/20261002T184757Z-modify/builds/20261002T184758Z-137c69a8/logs/stage-align.log"
+        "log_file": "/home/naishring/APKForge/work/c5/20261002T204450Z-modify/builds/20261002T204451Z-5110edee/logs/stage-align.log"
       },
       {
         "stage": "sign",
         "status": "PASS",
         "failure_category": null,
         "failure_cause": "",
-        "log_file": "/home/naishring/APKForge/work/c5/20261002T184757Z-modify/builds/20261002T184758Z-137c69a8/logs/stage-sign.log"
+        "log_file": "/home/naishring/APKForge/work/c5/20261002T204450Z-modify/builds/20261002T204451Z-5110edee/logs/stage-sign.log"
       },
       {
         "stage": "verify",
         "status": "PASS",
         "failure_category": null,
         "failure_cause": "",
-        "log_file": "/home/naishring/APKForge/work/c5/20261002T184757Z-modify/builds/20261002T184758Z-137c69a8/logs/stage-verify.log"
+        "log_file": "/home/naishring/APKForge/work/c5/20261002T204450Z-modify/builds/20261002T204451Z-5110edee/logs/stage-verify.log"
       }
     ],
     "verification": {
@@ -242,8 +242,8 @@
       ],
       "errors": []
     },
-    "output_apk": "/home/naishring/APKForge/work/c5/20261002T184757Z-modify/openlink-c5-modified.apk",
-    "output_sha256": "00d7a6f4691ec3bbd534a1640f47a4250a70971dc7455216e0457fd43e97d8a3",
+    "output_apk": "/home/naishring/APKForge/work/c5/20261002T204450Z-modify/openlink-c5-modified.apk",
+    "output_sha256": "99bdaf75743e6ba716e794e2facb92bfe01ef77c3e92046b44658d1575e5c351",
     "noise_floor": {
       "source": "semantic no-op baseline",
       "allowed_noise_rules": [
@@ -1416,7 +1416,7 @@
       },
       "failures": []
     },
-    "workspace": "/home/naishring/APKForge/work/c5/20261002T184757Z-modify/builds/20261002T184758Z-137c69a8",
+    "workspace": "/home/naishring/APKForge/work/c5/20261002T204450Z-modify/builds/20261002T204451Z-5110edee",
     "workspace_kept": true
   }
 }

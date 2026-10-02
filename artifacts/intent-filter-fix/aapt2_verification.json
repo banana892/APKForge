@@ -1,0 +1,69 @@
+{
+  "tool": "aapt2 dump xmltree (build-tools 35.0.0)",
+  "apks": {
+    "com.emanuelef.remote_capture@95": {
+      "aapt2_filters_total": 7,
+      "inspector_filters_total": 7,
+      "aapt2_components": 31,
+      "match": true,
+      "mismatches": []
+    },
+    "com.oF2pks.applicationsinfo@19": {
+      "aapt2_filters_total": 1,
+      "inspector_filters_total": 1,
+      "aapt2_components": 4,
+      "match": true,
+      "mismatches": []
+    },
+    "de.audioattack.openlink@28": {
+      "aapt2_filters_total": 8,
+      "inspector_filters_total": 8,
+      "aapt2_components": 5,
+      "match": true,
+      "mismatches": []
+    },
+    "de.danoeh.antennapod@3120295": {
+      "aapt2_filters_total": 38,
+      "inspector_filters_total": 38,
+      "aapt2_components": 35,
+      "match": true,
+      "mismatches": []
+    },
+    "eu.siacs.conversations@4218104": {
+      "aapt2_filters_total": 29,
+      "inspector_filters_total": 29,
+      "aapt2_components": 52,
+      "match": true,
+      "mismatches": []
+    },
+    "godau.fynn.usagedirect@10": {
+      "aapt2_filters_total": 6,
+      "inspector_filters_total": 6,
+      "aapt2_components": 9,
+      "match": true,
+      "mismatches": []
+    },
+    "io.github.muntashirakon.AppManager@451": {
+      "aapt2_filters_total": 54,
+      "inspector_filters_total": 54,
+      "aapt2_components": 57,
+      "match": true,
+      "mismatches": []
+    },
+    "org.mozilla.fennec_fdroid@1560020": {
+      "aapt2_filters_total": 32,
+      "inspector_filters_total": 32,
+      "aapt2_components": 139,
+      "match": true,
+      "mismatches": []
+    },
+    "org.schabi.newpipe@1015": {
+      "aapt2_filters_total": 25,
+      "inspector_filters_total": 25,
+      "aapt2_components": 29,
+      "match": true,
+      "mismatches": []
+    }
+  },
+  "all_match": true
+}

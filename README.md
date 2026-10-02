@@ -17,6 +17,7 @@ The modification framework turns approved modification plans into controlled, ex
 - **Preflight Validation**: All changes are validated before any modification is applied.
 - **Dry-Run Mode**: Simulate all modifications without writing any changes.
 - **Rollback Support**: Automatic rollback of applied changes on failure.
+- **Truthful Status**: Each step is reported as executed (and verified, where the modifier can verify), skipped, failed, verification-failed or not attempted. A skipped change is never counted as a success: the run is `skipped` or `partial` and `apkforge modify` exits with code 3.
 - **CLI Modify Command**: `apkforge modify` command with `--dry-run`, `--approve-all`, `--plan`, and `--json` support.
 
 ---

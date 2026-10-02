@@ -1,0 +1,627 @@
+[
+  {
+    "apk": "com.emanuelef.remote_capture_95",
+    "finding": "SEC-MAL-BOOT-001",
+    "change": "added",
+    "severity": [
+      null,
+      "medium"
+    ],
+    "confidence": [
+      null,
+      "high"
+    ],
+    "boot_receivers": [
+      {
+        "component": "com.emanuelef.remote_capture.BootReceiver",
+        "exported": false,
+        "enabled": null,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.BOOT_COMPLETED",
+              "android.intent.action.QUICKBOOT_POWERON"
+            ],
+            "categories": []
+          }
+        ]
+      }
+    ],
+    "permissions": [
+      "android.permission.RECEIVE_BOOT_COMPLETED"
+    ],
+    "rule_evidence": [
+      "manifest:receiver:BOOT_COMPLETED: Observed broadcast receiver listening for device boot completion",
+      "manifest:service: Observed component: type=service (com.emanuelef.remote_capture.VpnReconnectService, com.emanuelef.remote_capture.CaptureService)"
+    ],
+    "status": "supported_by_evidence",
+    "review": "hand-reviewed after the fix: TRUE_POSITIVE"
+  },
+  {
+    "apk": "com.emanuelef.remote_capture_95",
+    "finding": "SEC-MAL-PERSISTENCE-BOOT",
+    "change": "changed",
+    "severity": [
+      "low",
+      "low"
+    ],
+    "confidence": [
+      "high",
+      "confirmed"
+    ],
+    "boot_receivers": [
+      {
+        "component": "com.emanuelef.remote_capture.BootReceiver",
+        "exported": false,
+        "enabled": null,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.BOOT_COMPLETED",
+              "android.intent.action.QUICKBOOT_POWERON"
+            ],
+            "categories": []
+          }
+        ]
+      }
+    ],
+    "permissions": [
+      "android.permission.RECEIVE_BOOT_COMPLETED"
+    ],
+    "rule_evidence": [
+      "permission:android.permission.RECEIVE_BOOT_COMPLETED: Declared permission: RECEIVE_BOOT_COMPLETED",
+      "manifest:receiver:com.emanuelef.remote_capture.BootReceiver: Boot startup broadcast receiver: com.emanuelef.remote_capture.BootReceiver"
+    ],
+    "status": "existing_reviewed",
+    "review": "Phase B review verdict retained: TRUE_POSITIVE"
+  },
+  {
+    "apk": "de.audioattack.openlink_28",
+    "finding": "SEC-MAL-PERSISTENCE-BOOT",
+    "change": "changed",
+    "severity": [
+      "low",
+      "low"
+    ],
+    "confidence": [
+      "high",
+      "confirmed"
+    ],
+    "boot_receivers": [
+      {
+        "component": "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+        "exported": true,
+        "enabled": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.BOOT_COMPLETED",
+              "android.intent.action.MY_PACKAGE_REPLACED"
+            ],
+            "categories": []
+          }
+        ]
+      }
+    ],
+    "permissions": [
+      "android.permission.RECEIVE_BOOT_COMPLETED"
+    ],
+    "rule_evidence": [
+      "permission:android.permission.RECEIVE_BOOT_COMPLETED: Declared permission: RECEIVE_BOOT_COMPLETED",
+      "manifest:receiver:de.audioattack.openlink.conf.PackageChangeBroadcastReceiver: Boot startup broadcast receiver: de.audioattack.openlink.conf.PackageChangeBroadcastReceiver"
+    ],
+    "status": "existing_reviewed",
+    "review": "Phase B review verdict retained: TRUE_POSITIVE"
+  },
+  {
+    "apk": "de.danoeh.antennapod_3120295",
+    "finding": "SEC-MAL-BOOT-001",
+    "change": "added",
+    "severity": [
+      null,
+      "medium"
+    ],
+    "confidence": [
+      null,
+      "high"
+    ],
+    "boot_receivers": [
+      {
+        "component": "androidx.work.impl.background.systemalarm.RescheduleReceiver",
+        "exported": false,
+        "enabled": false,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.BOOT_COMPLETED",
+              "android.intent.action.TIMEZONE_CHANGED",
+              "android.intent.action.TIME_SET"
+            ],
+            "categories": []
+          }
+        ]
+      }
+    ],
+    "permissions": [
+      "android.permission.RECEIVE_BOOT_COMPLETED"
+    ],
+    "rule_evidence": [
+      "manifest:receiver:BOOT_COMPLETED: Observed broadcast receiver listening for device boot completion",
+      "manifest:service: Observed component: type=service (de.danoeh.antennapod.playback.service.Media3PlaybackService, androidx.work.impl.background.systemalarm.SystemAlarmService, de.danoeh.antennapod.playback.service.QuickSettingsTileService)"
+    ],
+    "status": "observed_unreviewed",
+    "review": "not reviewed (outside the three hand-reviewed apps)"
+  },
+  {
+    "apk": "de.danoeh.antennapod_3120295",
+    "finding": "SEC-MAL-PERSISTENCE-BOOT",
+    "change": "changed",
+    "severity": [
+      "low",
+      "low"
+    ],
+    "confidence": [
+      "high",
+      "confirmed"
+    ],
+    "boot_receivers": [
+      {
+        "component": "androidx.work.impl.background.systemalarm.RescheduleReceiver",
+        "exported": false,
+        "enabled": false,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.BOOT_COMPLETED",
+              "android.intent.action.TIMEZONE_CHANGED",
+              "android.intent.action.TIME_SET"
+            ],
+            "categories": []
+          }
+        ]
+      }
+    ],
+    "permissions": [
+      "android.permission.RECEIVE_BOOT_COMPLETED"
+    ],
+    "rule_evidence": [
+      "permission:android.permission.RECEIVE_BOOT_COMPLETED: Declared permission: RECEIVE_BOOT_COMPLETED",
+      "manifest:receiver:androidx.work.impl.background.systemalarm.RescheduleReceiver: Boot startup broadcast receiver: androidx.work.impl.background.systemalarm.RescheduleReceiver"
+    ],
+    "status": "observed_unreviewed",
+    "review": "not reviewed"
+  },
+  {
+    "apk": "eu.siacs.conversations_4218104",
+    "finding": "SEC-COMB-PERSISTENT-LOC",
+    "change": "added",
+    "severity": [
+      null,
+      "high"
+    ],
+    "confidence": [
+      null,
+      "high"
+    ],
+    "boot_receivers": [
+      {
+        "component": "androidx.work.impl.background.systemalarm.RescheduleReceiver",
+        "exported": false,
+        "enabled": false,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.BOOT_COMPLETED"
+            ],
+            "categories": []
+          }
+        ]
+      },
+      {
+        "component": "eu.siacs.conversations.receiver.SystemEventReceiver",
+        "exported": true,
+        "enabled": null,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.ACTION_SHUTDOWN",
+              "android.intent.action.AIRPLANE_MODE_CHANGED",
+              "android.intent.action.BOOT_COMPLETED",
+              "android.intent.action.MY_PACKAGE_REPLACED",
+              "android.media.RINGER_MODE_CHANGED",
+              "android.net.conn.CONNECTIVITY_CHANGE"
+            ],
+            "categories": []
+          }
+        ]
+      }
+    ],
+    "permissions": [
+      "android.permission.ACCESS_COARSE_LOCATION",
+      "android.permission.ACCESS_FINE_LOCATION",
+      "android.permission.RECEIVE_BOOT_COMPLETED"
+    ],
+    "rule_evidence": [
+      "manifest:receiver:BOOT_COMPLETED: Observed broadcast receiver listening for device boot completion",
+      "permission:android.permission.ACCESS_FINE_LOCATION: Declared permission: android.permission.ACCESS_FINE_LOCATION",
+      "permission:android.permission.ACCESS_COARSE_LOCATION: Declared permission: android.permission.ACCESS_COARSE_LOCATION",
+      "api:android.location.LocationManager: Referenced API: android.location.LocationManager"
+    ],
+    "status": "observed_unreviewed",
+    "review": "not reviewed (outside the three hand-reviewed apps)"
+  },
+  {
+    "apk": "eu.siacs.conversations_4218104",
+    "finding": "SEC-MAL-BOOT-001",
+    "change": "added",
+    "severity": [
+      null,
+      "medium"
+    ],
+    "confidence": [
+      null,
+      "high"
+    ],
+    "boot_receivers": [
+      {
+        "component": "androidx.work.impl.background.systemalarm.RescheduleReceiver",
+        "exported": false,
+        "enabled": false,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.BOOT_COMPLETED"
+            ],
+            "categories": []
+          }
+        ]
+      },
+      {
+        "component": "eu.siacs.conversations.receiver.SystemEventReceiver",
+        "exported": true,
+        "enabled": null,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.ACTION_SHUTDOWN",
+              "android.intent.action.AIRPLANE_MODE_CHANGED",
+              "android.intent.action.BOOT_COMPLETED",
+              "android.intent.action.MY_PACKAGE_REPLACED",
+              "android.media.RINGER_MODE_CHANGED",
+              "android.net.conn.CONNECTIVITY_CHANGE"
+            ],
+            "categories": []
+          }
+        ]
+      }
+    ],
+    "permissions": [
+      "android.permission.RECEIVE_BOOT_COMPLETED"
+    ],
+    "rule_evidence": [
+      "manifest:receiver:BOOT_COMPLETED: Observed broadcast receiver listening for device boot completion",
+      "manifest:service: Observed component: type=service (androidx.room.MultiInstanceInvalidationService, androidx.sharetarget.ChooserTargetServiceCompat, androidx.work.impl.background.systemjob.SystemJobService)"
+    ],
+    "status": "observed_unreviewed",
+    "review": "not reviewed (outside the three hand-reviewed apps)"
+  },
+  {
+    "apk": "eu.siacs.conversations_4218104",
+    "finding": "SEC-MAL-PERSISTENCE-BOOT",
+    "change": "changed",
+    "severity": [
+      "low",
+      "low"
+    ],
+    "confidence": [
+      "high",
+      "confirmed"
+    ],
+    "boot_receivers": [
+      {
+        "component": "androidx.work.impl.background.systemalarm.RescheduleReceiver",
+        "exported": false,
+        "enabled": false,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.BOOT_COMPLETED"
+            ],
+            "categories": []
+          }
+        ]
+      },
+      {
+        "component": "eu.siacs.conversations.receiver.SystemEventReceiver",
+        "exported": true,
+        "enabled": null,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.ACTION_SHUTDOWN",
+              "android.intent.action.AIRPLANE_MODE_CHANGED",
+              "android.intent.action.BOOT_COMPLETED",
+              "android.intent.action.MY_PACKAGE_REPLACED",
+              "android.media.RINGER_MODE_CHANGED",
+              "android.net.conn.CONNECTIVITY_CHANGE"
+            ],
+            "categories": []
+          }
+        ]
+      }
+    ],
+    "permissions": [
+      "android.permission.RECEIVE_BOOT_COMPLETED"
+    ],
+    "rule_evidence": [
+      "permission:android.permission.RECEIVE_BOOT_COMPLETED: Declared permission: RECEIVE_BOOT_COMPLETED",
+      "manifest:receiver:androidx.work.impl.background.systemalarm.RescheduleReceiver: Boot startup broadcast receiver: androidx.work.impl.background.systemalarm.RescheduleReceiver",
+      "manifest:receiver:eu.siacs.conversations.receiver.SystemEventReceiver: Boot startup broadcast receiver: eu.siacs.conversations.receiver.SystemEventReceiver"
+    ],
+    "status": "observed_unreviewed",
+    "review": "not reviewed"
+  },
+  {
+    "apk": "io.github.muntashirakon.AppManager_451",
+    "finding": "SEC-MAL-BOOT-001",
+    "change": "added",
+    "severity": [
+      null,
+      "medium"
+    ],
+    "confidence": [
+      null,
+      "high"
+    ],
+    "boot_receivers": [
+      {
+        "component": "io.github.muntashirakon.AppManager.self.BootReceiver",
+        "exported": false,
+        "enabled": null,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.BOOT_COMPLETED"
+            ],
+            "categories": []
+          }
+        ]
+      }
+    ],
+    "permissions": [
+      "android.permission.RECEIVE_BOOT_COMPLETED"
+    ],
+    "rule_evidence": [
+      "manifest:receiver:BOOT_COMPLETED: Observed broadcast receiver listening for device boot completion",
+      "manifest:service: Observed component: type=service (io.github.muntashirakon.AppManager.apk.behavior.FreezeUnfreezeService, io.github.muntashirakon.AppManager.accessibility.NoRootAccessibilityService, io.github.muntashirakon.AppManager.self.filecache.InternalCacheCleanerService)"
+    ],
+    "status": "supported_by_evidence",
+    "review": "hand-reviewed after the fix: TRUE_POSITIVE"
+  },
+  {
+    "apk": "io.github.muntashirakon.AppManager_451",
+    "finding": "SEC-MAL-PERSISTENCE-BOOT",
+    "change": "changed",
+    "severity": [
+      "low",
+      "low"
+    ],
+    "confidence": [
+      "high",
+      "confirmed"
+    ],
+    "boot_receivers": [
+      {
+        "component": "io.github.muntashirakon.AppManager.self.BootReceiver",
+        "exported": false,
+        "enabled": null,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.BOOT_COMPLETED"
+            ],
+            "categories": []
+          }
+        ]
+      }
+    ],
+    "permissions": [
+      "android.permission.RECEIVE_BOOT_COMPLETED"
+    ],
+    "rule_evidence": [
+      "permission:android.permission.RECEIVE_BOOT_COMPLETED: Declared permission: RECEIVE_BOOT_COMPLETED",
+      "manifest:receiver:io.github.muntashirakon.AppManager.self.BootReceiver: Boot startup broadcast receiver: io.github.muntashirakon.AppManager.self.BootReceiver"
+    ],
+    "status": "existing_reviewed",
+    "review": "Phase B review verdict retained: TRUE_POSITIVE"
+  },
+  {
+    "apk": "org.mozilla.fennec_fdroid_1560020",
+    "finding": "SEC-COMB-PERSISTENT-LOC",
+    "change": "added",
+    "severity": [
+      null,
+      "high"
+    ],
+    "confidence": [
+      null,
+      "high"
+    ],
+    "boot_receivers": [
+      {
+        "component": "androidx.work.impl.background.systemalarm.RescheduleReceiver",
+        "exported": false,
+        "enabled": false,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.BOOT_COMPLETED"
+            ],
+            "categories": []
+          }
+        ]
+      }
+    ],
+    "permissions": [
+      "android.permission.ACCESS_COARSE_LOCATION",
+      "android.permission.ACCESS_FINE_LOCATION",
+      "android.permission.RECEIVE_BOOT_COMPLETED"
+    ],
+    "rule_evidence": [
+      "manifest:receiver:BOOT_COMPLETED: Observed broadcast receiver listening for device boot completion",
+      "permission:android.permission.ACCESS_FINE_LOCATION: Declared permission: android.permission.ACCESS_FINE_LOCATION",
+      "permission:android.permission.ACCESS_COARSE_LOCATION: Declared permission: android.permission.ACCESS_COARSE_LOCATION",
+      "api:android.location.LocationManager: Referenced API: android.location.LocationManager"
+    ],
+    "status": "observed_unreviewed",
+    "review": "not reviewed (outside the three hand-reviewed apps)"
+  },
+  {
+    "apk": "org.mozilla.fennec_fdroid_1560020",
+    "finding": "SEC-MAL-BOOT-001",
+    "change": "added",
+    "severity": [
+      null,
+      "medium"
+    ],
+    "confidence": [
+      null,
+      "high"
+    ],
+    "boot_receivers": [
+      {
+        "component": "androidx.work.impl.background.systemalarm.RescheduleReceiver",
+        "exported": false,
+        "enabled": false,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.BOOT_COMPLETED"
+            ],
+            "categories": []
+          }
+        ]
+      }
+    ],
+    "permissions": [
+      "android.permission.RECEIVE_BOOT_COMPLETED"
+    ],
+    "rule_evidence": [
+      "manifest:receiver:BOOT_COMPLETED: Observed broadcast receiver listening for device boot completion",
+      "manifest:service: Observed component: type=service (org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab35, org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab1, org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab36)"
+    ],
+    "status": "observed_unreviewed",
+    "review": "not reviewed (outside the three hand-reviewed apps)"
+  },
+  {
+    "apk": "org.mozilla.fennec_fdroid_1560020",
+    "finding": "SEC-MAL-PERSISTENCE-BOOT",
+    "change": "changed",
+    "severity": [
+      "low",
+      "low"
+    ],
+    "confidence": [
+      "high",
+      "confirmed"
+    ],
+    "boot_receivers": [
+      {
+        "component": "androidx.work.impl.background.systemalarm.RescheduleReceiver",
+        "exported": false,
+        "enabled": false,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.BOOT_COMPLETED"
+            ],
+            "categories": []
+          }
+        ]
+      }
+    ],
+    "permissions": [
+      "android.permission.RECEIVE_BOOT_COMPLETED"
+    ],
+    "rule_evidence": [
+      "permission:android.permission.RECEIVE_BOOT_COMPLETED: Declared permission: RECEIVE_BOOT_COMPLETED",
+      "manifest:receiver:androidx.work.impl.background.systemalarm.RescheduleReceiver: Boot startup broadcast receiver: androidx.work.impl.background.systemalarm.RescheduleReceiver"
+    ],
+    "status": "observed_unreviewed",
+    "review": "not reviewed"
+  },
+  {
+    "apk": "org.schabi.newpipe_1015_cb84069",
+    "finding": "SEC-MAL-BOOT-001",
+    "change": "added",
+    "severity": [
+      null,
+      "medium"
+    ],
+    "confidence": [
+      null,
+      "high"
+    ],
+    "boot_receivers": [
+      {
+        "component": "androidx.work.impl.background.systemalarm.RescheduleReceiver",
+        "exported": false,
+        "enabled": false,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.BOOT_COMPLETED"
+            ],
+            "categories": []
+          }
+        ]
+      }
+    ],
+    "permissions": [
+      "android.permission.RECEIVE_BOOT_COMPLETED"
+    ],
+    "rule_evidence": [
+      "manifest:receiver:BOOT_COMPLETED: Observed broadcast receiver listening for device boot completion",
+      "manifest:service: Observed component: type=service (androidx.appcompat.app.AppLocalesMetadataHolderService, org.acra.sender.LegacySenderService, us.shandian.giga.service.DownloadManagerService)"
+    ],
+    "status": "observed_unreviewed",
+    "review": "not reviewed (outside the three hand-reviewed apps)"
+  },
+  {
+    "apk": "org.schabi.newpipe_1015_cb84069",
+    "finding": "SEC-MAL-PERSISTENCE-BOOT",
+    "change": "changed",
+    "severity": [
+      "low",
+      "low"
+    ],
+    "confidence": [
+      "high",
+      "confirmed"
+    ],
+    "boot_receivers": [
+      {
+        "component": "androidx.work.impl.background.systemalarm.RescheduleReceiver",
+        "exported": false,
+        "enabled": false,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.BOOT_COMPLETED"
+            ],
+            "categories": []
+          }
+        ]
+      }
+    ],
+    "permissions": [
+      "android.permission.RECEIVE_BOOT_COMPLETED"
+    ],
+    "rule_evidence": [
+      "permission:android.permission.RECEIVE_BOOT_COMPLETED: Declared permission: RECEIVE_BOOT_COMPLETED",
+      "manifest:receiver:androidx.work.impl.background.systemalarm.RescheduleReceiver: Boot startup broadcast receiver: androidx.work.impl.background.systemalarm.RescheduleReceiver"
+    ],
+    "status": "observed_unreviewed",
+    "review": "not reviewed"
+  }
+]

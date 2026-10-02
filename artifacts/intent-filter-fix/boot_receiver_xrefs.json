@@ -1,0 +1,74 @@
+{
+  "pcapdroid": {
+    "receiver": "com.emanuelef.remote_capture.BootReceiver",
+    "aapt2_manifest_mentions_receiver": true,
+    "calls": {
+      "<init>": [
+        "Landroid/content/BroadcastReceiver;-><init>"
+      ],
+      "onReceive": [
+        "Landroid/content/Context;->startService",
+        "Landroid/content/Intent;-><init>",
+        "Landroid/content/Intent;->getAction",
+        "Landroid/content/Intent;->putExtra",
+        "Landroid/net/VpnService;->prepare",
+        "Landroidx/core/view/MenuItemCompat$Api26Impl;->startForegroundService",
+        "Landroidx/preference/PreferenceManager;->getDefaultSharedPreferences",
+        "Lcom/emanuelef/remote_capture/CaptureService;->isServiceActive",
+        "Lcom/emanuelef/remote_capture/Log;->d",
+        "Lcom/emanuelef/remote_capture/Log;->i",
+        "Lcom/emanuelef/remote_capture/Log;->w",
+        "Lcom/emanuelef/remote_capture/Utils;->showToastLong",
+        "Lcom/emanuelef/remote_capture/model/CaptureSettings;-><init>",
+        "Lcom/emanuelef/remote_capture/model/Prefs;->startAtBoot",
+        "Ljava/lang/String;->concat",
+        "Ljava/lang/String;->equals",
+        "Ljava/lang/StringBuilder;-><init>",
+        "Ljava/lang/StringBuilder;->append",
+        "Ljava/lang/StringBuilder;->toString"
+      ]
+    }
+  },
+  "appmanager": {
+    "receiver": "io.github.muntashirakon.AppManager.self.BootReceiver",
+    "aapt2_manifest_mentions_receiver": true,
+    "calls": {
+      "<init>": [
+        "Landroid/content/BroadcastReceiver;-><init>"
+      ],
+      "onReceive": [
+        "Landroid/content/Context;->getApplicationContext",
+        "Landroid/content/Intent;-><init>",
+        "Landroid/content/Intent;->getAction",
+        "Landroidx/core/content/ContextCompat;->startForegroundService",
+        "Lio/github/muntashirakon/AppManager/permission/PermissionOverrideManager;->reconcileAll",
+        "Lio/github/muntashirakon/AppManager/self/filecache/InternalCacheCleanerService;->scheduleAlarm",
+        "Lio/github/muntashirakon/AppManager/settings/Ops;->getMode",
+        "Ljava/lang/String;->equals"
+      ]
+    }
+  },
+  "openlink": {
+    "receiver": "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+    "aapt2_manifest_mentions_receiver": true,
+    "calls": {
+      "<init>": [
+        "Landroid/content/BroadcastReceiver;-><init>"
+      ],
+      "a": [
+        "Landroid/content/Context;->getApplicationContext",
+        "Landroid/content/Context;->registerReceiver",
+        "Landroid/content/IntentFilter;-><init>",
+        "Landroid/content/IntentFilter;->addAction"
+      ],
+      "onReceive": [
+        "Landroid/content/Intent;->getAction",
+        "Lde/audioattack/openlink/conf/PackageChangeBroadcastReceiver;->a",
+        "Lj/a;-><init>",
+        "Lj/a;->c",
+        "Lj/b;->d",
+        "Ljava/lang/String;->equals"
+      ]
+    }
+  }
+}

@@ -1,13 +1,13 @@
 # C.5 result: VERIFIED
 
-Generated 2026-10-02T18:48:01.680699+00:00. Corpus entry `de.audioattack.openlink@28`.
+Generated 2026-10-02T20:44:54.559000+00:00. Corpus entry `de.audioattack.openlink@28`.
 
 ## Identity and toolchain (observed)
 
 - APK: `de.audioattack.openlink_28.apk`, package `de.audioattack.openlink` 1.5.11 (28)
 - original SHA-256: `3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed`
 - toolchain: java 25.0.4.1, apktool 3.0.3, zipalign 35.0.0, apksigner 0.9, build_tools 35.0.0, android_platform android-35, platform /home/naishring/Android/Sdk/platforms/android-35/android.jar; signing: development
-- APKForge commit: `f9b6cdcd98db4506ee99cf1c3fcb609f4f7b34cf` (dirty: True)
+- APKForge commit: `7415f671aa5b0e56f2e865b2167d43f74176a013` (dirty: True)
 
 ## Modification plan (declared before applying)
 
@@ -48,7 +48,7 @@ Generated 2026-10-02T18:48:01.680699+00:00. Corpus entry `de.audioattack.openlin
 
 - verification: valid=True, zipalign=True, signature=True, expected signer=True, zip integrity=True
 - signer: `CN=APKForge Development Key - NOT FOR RELEASE, O=APKForge` sha256 `f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b`; schemes v1=True v2=True v3=True
-- modified APK SHA-256: `00d7a6f4691ec3bbd534a1640f47a4250a70971dc7455216e0457fd43e97d8a3`
+- modified APK SHA-256: `99bdaf75743e6ba716e794e2facb92bfe01ef77c3e92046b44658d1575e5c351`
 
 ## Expected vs actual (DiffEngine, original vs modified)
 
@@ -86,5 +86,5 @@ Unexpected / unknown:
 - Other components or mechanisms (alarms, WorkManager, other receivers) that start work at or after boot are not addressed.
 - Does not establish runtime behaviour: the modified APK is not installed or run.
 - The modified APK is not shown to be behaviourally equivalent apart from the intended change, malware-free, spyware-free, safe to install, or runnable on a device.
-- DiffEngine compares a subset of the manifest (5 application attributes, SDK levels, permissions, component exported/permission/enabled/process); other manifest content is covered only by the source-level edit check above, and intent filters of real APKs are not extracted by the inspector (see docs/known-limitations.md).
+- DiffEngine compares a subset of the manifest (5 application attributes, SDK levels, permissions, component exported/permission/enabled/process, and the actions, categories and data of activity/service/receiver intent filters); other manifest content (e.g. `<queries>`, `<meta-data>`, `<activity-alias>`) is covered only by the source-level edit check above (see docs/known-limitations.md).
 - resources.arsc and recompiled res/ files are accepted as rebuild noise without semantic comparison.

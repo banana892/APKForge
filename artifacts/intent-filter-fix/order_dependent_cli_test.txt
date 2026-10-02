@@ -1,0 +1,8 @@
+# test_cli_inspect_json_contains_all_phase2_fields: order-dependent, pre-existing
+## fixed tree, alone
+1 passed in 0.31s
+## fixed tree, with test_inspection_engine.py
+1 failed, 3 passed in 0.54s
+## HEAD 7415f67 (worktree), with test_inspection_engine.py
+1 failed, 3 passed in 0.75s
+## full suite, fixed tree: see pytest_full_with_corpus.txt (656 passed)

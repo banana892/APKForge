@@ -1,0 +1,1402 @@
+{
+  "_meta": {
+    "apk_sha256": "3fae646e33b59b95f049ce9bd828022e2edbb374fa82e517bd782aced71ba980",
+    "apkforge_module": "/home/naishring/APKForge/src/apkforge/__init__.py",
+    "generated_utc": "2026-10-02T19:18:46.444214+00:00",
+    "git_head": "7415f671aa5b0e56f2e865b2167d43f74176a013",
+    "id": "eu.siacs.conversations@4218104",
+    "src_dirty": [
+      "M src/apkforge/inspection/manifest.py"
+    ]
+  },
+  "inspector_status": "complete",
+  "manifest": {
+    "activities": [
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.MagicCreateActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.RecordingActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.ShowLocationActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.PickServerActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.ChangePasswordActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": false,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.EditAccountActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.MAIN"
+            ],
+            "categories": [
+              "android.intent.category.LAUNCHER"
+            ],
+            "data": []
+          }
+        ],
+        "name": "eu.siacs.conversations.ui.ConversationActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.ConferenceDetailsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.ChannelDiscoveryActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.ShareLocationActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.ManageAccountActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.AddReactionActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.VIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "xmpp"
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "https"
+              },
+              {
+                "host": "conversations.im",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/i/",
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": "/j/",
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": "invite.joinjabber.org",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "https"
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": "xmpp.link",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "https"
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.SENDTO"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "imto"
+              },
+              {
+                "host": "jabber",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.SENDTO"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "imto"
+              },
+              {
+                "host": "xmpp",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          }
+        ],
+        "name": "eu.siacs.conversations.ui.YuriLauncherActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.PublishGroupChatProfilePictureActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": false,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.VIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": [
+              {
+                "host": "link",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "unifiedpush"
+              }
+            ]
+          }
+        ],
+        "name": "eu.siacs.conversations.ui.UnifiedPushDistributor",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.EasyOnboardingInviteActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.SearchActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.RtpSessionActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.EditHistoryActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.WelcomeActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.MemorizingActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.AboutActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.ChooseContactActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.CREATE_SHORTCUT"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "eu.siacs.conversations.ui.ShortcutActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.MucUsersActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.MediaBrowserActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [],
+        "name": "com.canhub.cropper.CropImageActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.ViewProfilePictureActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.TrustKeysActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.ConversationsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.VIEW"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "eu.siacs.conversations.ui.StartConversationActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.VIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": "application/vnd.conversations.backup",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "content"
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": "application/vnd.conversations.backup",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "file"
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "content"
+              },
+              {
+                "host": "*",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "*/*",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\.ceb",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\.ceb",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\.ceb",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\.ceb",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\..*\\.ceb",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\..*\\..*\\.ceb",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\..*\\..*\\..*\\.ceb",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.VIEW"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT",
+              "android.intent.category.BROWSABLE"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "file"
+              },
+              {
+                "host": "*",
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": "*/*",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\.ceb",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\.ceb",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\.ceb",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\.ceb",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\..*\\.ceb",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\..*\\..*\\.ceb",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              },
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": ".*\\..*\\..*\\..*\\..*\\..*\\..*\\.ceb",
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          }
+        ],
+        "name": "eu.siacs.conversations.ui.ImportBackupActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": false,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.ATTACH_DATA"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": "image/*",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          }
+        ],
+        "name": "eu.siacs.conversations.ui.ChooseAccountForProfilePictureActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.ScanQrCodeActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.BlocklistActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.PublishProfilePictureActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.ShareViaAccountActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": null,
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.ui.ContactDetailsActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.SEND",
+              "android.intent.action.SEND_MULTIPLE"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": "text/plain",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          },
+          {
+            "actions": [
+              "android.intent.action.SEND",
+              "android.intent.action.SEND_MULTIPLE"
+            ],
+            "categories": [
+              "android.intent.category.DEFAULT"
+            ],
+            "data": [
+              {
+                "host": null,
+                "mime_type": "*/*",
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": null
+              }
+            ]
+          }
+        ],
+        "name": "eu.siacs.conversations.ui.ShareWithActivity",
+        "permission": null,
+        "process": null
+      },
+      {
+        "direct_boot_aware": null,
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.MAIN"
+            ],
+            "categories": [
+              "android.intent.category.NOTIFICATION_PREFERENCES"
+            ],
+            "data": []
+          }
+        ],
+        "name": "eu.siacs.conversations.ui.activity.SettingsActivity",
+        "permission": null,
+        "process": null
+      }
+    ],
+    "application": {
+      "allow_backup": true,
+      "debuggable": null,
+      "extract_native_libs": false,
+      "icon": "res/hp.png",
+      "label": "Conversations",
+      "large_heap": true,
+      "network_security_config": "res/jC.xml",
+      "test_only": null,
+      "theme": "@7F1302D6",
+      "uses_cleartext_traffic": null
+    },
+    "declared_permissions": [],
+    "min_sdk": 23,
+    "package_name": "eu.siacs.conversations",
+    "permissions": [
+      {
+        "name": "android.permission.POST_NOTIFICATIONS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.FOREGROUND_SERVICE",
+        "protection_level": null
+      },
+      {
+        "name": "com.oppo.launcher.permission.WRITE_SETTINGS",
+        "protection_level": null
+      },
+      {
+        "name": "eu.siacs.conversations.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.FOREGROUND_SERVICE_SPECIAL_USE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.READ_MEDIA_IMAGES",
+        "protection_level": null
+      },
+      {
+        "name": "com.huawei.android.launcher.permission.WRITE_SETTINGS",
+        "protection_level": null
+      },
+      {
+        "name": "com.huawei.android.launcher.permission.READ_SETTINGS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.CAMERA",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.MODIFY_AUDIO_SETTINGS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.FOREGROUND_SERVICE_SYSTEM_EXEMPTED",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.FOREGROUND_SERVICE_CAMERA",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.RECORD_AUDIO",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.BLUETOOTH",
+        "protection_level": null
+      },
+      {
+        "name": "com.sonyericsson.home.permission.BROADCAST_BADGE",
+        "protection_level": null
+      },
+      {
+        "name": "com.majeur.launcher.permission.UPDATE_BADGE",
+        "protection_level": null
+      },
+      {
+        "name": "com.anddoes.launcher.permission.UPDATE_COUNT",
+        "protection_level": null
+      },
+      {
+        "name": "com.huawei.android.launcher.permission.CHANGE_BADGE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.ACCESS_FINE_LOCATION",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.MANAGE_OWN_CALLS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.READ_MEDIA_AUDIO",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.VIBRATE",
+        "protection_level": null
+      },
+      {
+        "name": "com.sonymobile.home.permission.PROVIDER_INSERT_BADGE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.READ_CONTACTS",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.SYSTEM_ALERT_WINDOW",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.FOREGROUND_SERVICE_MICROPHONE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.ACCESS_WIFI_STATE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.WAKE_LOCK",
+        "protection_level": null
+      },
+      {
+        "name": "me.everything.badger.permission.BADGE_COUNT_WRITE",
+        "protection_level": null
+      },
+      {
+        "name": "com.htc.launcher.permission.UPDATE_SHORTCUT",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.ACCESS_LOCAL_NETWORK",
+        "protection_level": null
+      },
+      {
+        "name": "com.htc.launcher.permission.READ_SETTINGS",
+        "protection_level": null
+      },
+      {
+        "name": "com.oppo.launcher.permission.READ_SETTINGS",
+        "protection_level": null
+      },
+      {
+        "name": "me.everything.badger.permission.BADGE_COUNT_READ",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.READ_APP_BADGE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.READ_EXTERNAL_STORAGE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.RECEIVE_BOOT_COMPLETED",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.BLUETOOTH_CONNECT",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.READ_MEDIA_VISUAL_USER_SELECTED",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.REQUEST_INSTALL_PACKAGES",
+        "protection_level": null
+      },
+      {
+        "name": "com.sec.android.provider.badge.permission.READ",
+        "protection_level": null
+      },
+      {
+        "name": "com.sec.android.provider.badge.permission.WRITE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.USE_FULL_SCREEN_INTENT",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.READ_MEDIA_VIDEO",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.WRITE_EXTERNAL_STORAGE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.ACCESS_NETWORK_STATE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.READ_PROFILE",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.FOREGROUND_SERVICE_DATA_SYNC",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.INTERNET",
+        "protection_level": null
+      },
+      {
+        "name": "android.permission.ACCESS_COARSE_LOCATION",
+        "protection_level": null
+      }
+    ],
+    "providers": [
+      {
+        "authorities": "eu.siacs.conversations.barcodes",
+        "enabled": null,
+        "exported": false,
+        "grant_uri_permissions": true,
+        "name": "eu.siacs.conversations.services.BarcodeProvider",
+        "permission": null,
+        "process": null,
+        "read_permission": null,
+        "write_permission": null
+      },
+      {
+        "authorities": "eu.siacs.conversations.androidx-startup",
+        "enabled": null,
+        "exported": false,
+        "grant_uri_permissions": null,
+        "name": "androidx.startup.InitializationProvider",
+        "permission": null,
+        "process": null,
+        "read_permission": null,
+        "write_permission": null
+      },
+      {
+        "authorities": "eu.siacs.conversations.cropper.fileprovider",
+        "enabled": null,
+        "exported": false,
+        "grant_uri_permissions": true,
+        "name": "com.canhub.cropper.CropFileProvider",
+        "permission": null,
+        "process": null,
+        "read_permission": null,
+        "write_permission": null
+      },
+      {
+        "authorities": "eu.siacs.conversations.files",
+        "enabled": null,
+        "exported": false,
+        "grant_uri_permissions": true,
+        "name": "androidx.core.content.FileProvider",
+        "permission": null,
+        "process": null,
+        "read_permission": null,
+        "write_permission": null
+      }
+    ],
+    "receivers": [
+      {
+        "enabled": true,
+        "exported": false,
+        "intent_filters": [],
+        "name": "androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.BOOT_COMPLETED",
+              "android.intent.action.MY_PACKAGE_REPLACED",
+              "android.net.conn.CONNECTIVITY_CHANGE",
+              "android.intent.action.ACTION_SHUTDOWN",
+              "android.media.RINGER_MODE_CHANGED",
+              "android.intent.action.AIRPLANE_MODE_CHANGED"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "eu.siacs.conversations.receiver.SystemEventReceiver",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "androidx.work.diagnostics.REQUEST_DIAGNOSTICS"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "androidx.work.impl.diagnostics.DiagnosticsReceiver",
+        "permission": "android.permission.DUMP",
+        "process": null
+      },
+      {
+        "enabled": true,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "androidx.profileinstaller.action.INSTALL_PROFILE"
+            ],
+            "categories": [],
+            "data": []
+          },
+          {
+            "actions": [
+              "androidx.profileinstaller.action.SKIP_FILE"
+            ],
+            "categories": [],
+            "data": []
+          },
+          {
+            "actions": [
+              "androidx.profileinstaller.action.SAVE_PROFILE"
+            ],
+            "categories": [],
+            "data": []
+          },
+          {
+            "actions": [
+              "androidx.profileinstaller.action.BENCHMARK_OPERATION"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "androidx.profileinstaller.ProfileInstallReceiver",
+        "permission": "android.permission.DUMP",
+        "process": null
+      },
+      {
+        "enabled": false,
+        "exported": false,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.intent.action.BOOT_COMPLETED"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "androidx.work.impl.background.systemalarm.RescheduleReceiver",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": false,
+        "exported": true,
+        "intent_filters": [
+          {
+            "actions": [
+              "org.unifiedpush.android.distributor.REGISTER",
+              "org.unifiedpush.android.distributor.UNREGISTER",
+              "org.unifiedpush.android.distributor.feature.BYTES_MESSAGE",
+              "org.unifiedpush.android.distributor.feature.MESSENGER",
+              "org.unifiedpush.android.distributor.feature.APP_VALIDATION"
+            ],
+            "categories": [],
+            "data": []
+          },
+          {
+            "actions": [
+              "android.intent.action.PACKAGE_FULLY_REMOVED"
+            ],
+            "categories": [],
+            "data": [
+              {
+                "host": null,
+                "mime_type": null,
+                "path": null,
+                "path_pattern": null,
+                "path_prefix": null,
+                "port": null,
+                "scheme": "package"
+              }
+            ]
+          }
+        ],
+        "name": "eu.siacs.conversations.receiver.UnifiedPushDistributor",
+        "permission": null,
+        "process": null
+      }
+    ],
+    "resource_map": {
+      "@7F0F0000": "res/hp.png",
+      "@7F15000B": "res/jC.xml"
+    },
+    "services": [
+      {
+        "enabled": null,
+        "exported": true,
+        "foreground_service_type": null,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.telecom.ConnectionService"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "eu.siacs.conversations.services.CallIntegrationConnectionService",
+        "permission": "android.permission.BIND_TELECOM_CONNECTION_SERVICE",
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": true,
+        "foreground_service_type": null,
+        "intent_filters": [
+          {
+            "actions": [
+              "android.service.chooser.ChooserTargetService"
+            ],
+            "categories": [],
+            "data": []
+          }
+        ],
+        "name": "androidx.sharetarget.ChooserTargetServiceCompat",
+        "permission": "android.permission.BIND_CHOOSER_TARGET_SERVICE",
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": true,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "androidx.work.impl.background.systemjob.SystemJobService",
+        "permission": "android.permission.BIND_JOB_SERVICE",
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": null,
+        "intent_filters": [],
+        "name": "androidx.room.MultiInstanceInvalidationService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x400004C0",
+        "intent_filters": [],
+        "name": "eu.siacs.conversations.services.XmppConnectionService",
+        "permission": null,
+        "process": null
+      },
+      {
+        "enabled": null,
+        "exported": false,
+        "foreground_service_type": "0x00000001",
+        "intent_filters": [],
+        "name": "androidx.work.impl.foreground.SystemForegroundService",
+        "permission": null,
+        "process": null
+      }
+    ],
+    "target_sdk": 37,
+    "version_code": 4218104,
+    "version_name": "2.20.4+free"
+  },
+  "overall_status": "complete",
+  "warnings": []
+}

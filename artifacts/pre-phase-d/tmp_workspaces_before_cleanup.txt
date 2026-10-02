@@ -1,0 +1,11 @@
+# /tmp/apkforge inventory before historical cleanup (2026-10-03T01:59:40+05:30)
+fix commit c555e83 time: 2026-10-02T23:28:45+05:30
+entries: 543
+entries newer than fix commit: 0
+entries not matching apkforge_*: 0
+empty entries: 24
+entries with only input/: 519
+size: 292M
+apk files: 546; >1MiB: 10, all SHA-256-identical to tests/corpus/*.apk
+mtime range: 2026-10-02T21:58:02 2026-10-02T23:26:34 
+repo references to contents: none (grep /tmp/apkforge in artifacts docs src tests build-tests: only prose/defaults)

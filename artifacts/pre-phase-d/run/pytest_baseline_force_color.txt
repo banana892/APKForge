@@ -1,0 +1,7 @@
+FAILED tests/unit/test_diff_engine.py::test_cli_diff_command_text_and_json - json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+FAILED tests/unit/test_inspection_engine.py::test_cli_inspect_json_contains_all_phase2_fields - json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+FAILED tests/unit/test_intake_cli.py::test_cli_inspect_json - json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+FAILED tests/unit/test_privacy_engine.py::test_cli_privacy_command_text_and_json - json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+FAILED tests/unit/test_security_engine.py::test_cli_security_json_output - json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+FAILED tests/unit/test_security_engine.py::test_cli_analyze_json_output - json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+6 failed, 641 passed, 9 skipped in 30.54s

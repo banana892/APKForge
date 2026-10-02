@@ -1,0 +1,48 @@
+=== pytest-full-with-corpus start 2026-10-03T02:07:28+05:30
+tmp/apkforge entries: 0
+/tmp/apkforge_* : 0
+/tmp apkforge_mod_* : 0
+/tmp APKTOOL*.tmp : 8
+/tmp total entries: 76
+pytest exit=0
+=== c4 start 2026-10-03T02:10:14+05:30
+tmp/apkforge entries: 0
+/tmp/apkforge_* : 0
+/tmp apkforge_mod_* : 0
+/tmp APKTOOL*.tmp : 8
+/tmp total entries: 76
+c4 exit=0
+=== c5-modify start 2026-10-03T02:14:50+05:30
+tmp/apkforge entries: 0
+/tmp/apkforge_* : 0
+/tmp apkforge_mod_* : 0
+/tmp APKTOOL*.tmp : 8
+/tmp total entries: 76
+c5 modify exit=0
+=== c5-noop start 2026-10-03T02:14:54+05:30
+tmp/apkforge entries: 0
+/tmp/apkforge_* : 0
+/tmp apkforge_mod_* : 0
+/tmp APKTOOL*.tmp : 8
+/tmp total entries: 76
+c5 noop exit=0
+=== security-corpus start 2026-10-03T02:24:35+05:30
+tmp/apkforge entries: 0
+/tmp/apkforge_* : 0
+/tmp apkforge_mod_* : 0
+/tmp APKTOOL*.tmp : 8
+/tmp total entries: 76
+corpus_runner exit=0
+=== pytest-full second run (leak check) start 2026-10-03T02:30:06+05:30
+tmp/apkforge entries: 0
+/tmp/apkforge_* : 0
+/tmp apkforge_mod_* : 0
+/tmp APKTOOL*.tmp : 8
+/tmp total entries: 76
+pytest rerun exit=0
+=== done 2026-10-03T02:30:38+05:30
+tmp/apkforge entries: 0
+/tmp/apkforge_* : 0
+/tmp apkforge_mod_* : 0
+/tmp APKTOOL*.tmp : 8
+/tmp total entries: 76

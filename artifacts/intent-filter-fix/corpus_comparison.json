@@ -1,0 +1,281 @@
+{
+  "verdicts_before": {
+    "PASS": 96,
+    "PARTIAL": 3
+  },
+  "verdicts_after": {
+    "PASS": 96,
+    "PARTIAL": 3
+  },
+  "verdict_differences": [],
+  "field_differences": [
+    {
+      "apk": "com.emanuelef.remote_capture_95.apk",
+      "capability": "security",
+      "path": "/data_summary/finding_categories",
+      "before": [
+        "collection",
+        "configuration",
+        "network",
+        "persistence",
+        "spyware_indicator",
+        "vulnerability"
+      ],
+      "after": [
+        "collection",
+        "configuration",
+        "malware_indicator",
+        "network",
+        "persistence",
+        "spyware_indicator",
+        "vulnerability"
+      ]
+    },
+    {
+      "apk": "com.emanuelef.remote_capture_95.apk",
+      "capability": "security",
+      "path": "/data_summary/medium",
+      "before": 3,
+      "after": 4
+    },
+    {
+      "apk": "com.emanuelef.remote_capture_95.apk",
+      "capability": "security",
+      "path": "/data_summary/total_findings",
+      "before": 9,
+      "after": 10
+    },
+    {
+      "apk": "com.emanuelef.remote_capture_95.apk",
+      "capability": "security",
+      "path": "/message",
+      "before": "OK: 9 findings (C:0 H:0 M:3 L:5 I:1)",
+      "after": "OK: 10 findings (C:0 H:0 M:4 L:5 I:1)"
+    },
+    {
+      "apk": "de.danoeh.antennapod_3120295.apk",
+      "capability": "privacy",
+      "path": "/data_summary/endpoint_count",
+      "before": 94,
+      "after": 95
+    },
+    {
+      "apk": "de.danoeh.antennapod_3120295.apk",
+      "capability": "privacy",
+      "path": "/message",
+      "before": "OK: 11 perms, 0 SDKs, 94 endpoints",
+      "after": "OK: 11 perms, 0 SDKs, 95 endpoints"
+    },
+    {
+      "apk": "de.danoeh.antennapod_3120295.apk",
+      "capability": "security",
+      "path": "/data_summary/finding_categories",
+      "before": [
+        "collection",
+        "configuration",
+        "crypto",
+        "exported_component",
+        "network",
+        "persistence",
+        "spyware_indicator",
+        "vulnerability"
+      ],
+      "after": [
+        "collection",
+        "configuration",
+        "crypto",
+        "exported_component",
+        "malware_indicator",
+        "network",
+        "persistence",
+        "spyware_indicator",
+        "vulnerability"
+      ]
+    },
+    {
+      "apk": "de.danoeh.antennapod_3120295.apk",
+      "capability": "security",
+      "path": "/data_summary/medium",
+      "before": 8,
+      "after": 9
+    },
+    {
+      "apk": "de.danoeh.antennapod_3120295.apk",
+      "capability": "security",
+      "path": "/data_summary/total_findings",
+      "before": 18,
+      "after": 19
+    },
+    {
+      "apk": "de.danoeh.antennapod_3120295.apk",
+      "capability": "security",
+      "path": "/message",
+      "before": "OK: 18 findings (C:0 H:1 M:8 L:8 I:1)",
+      "after": "OK: 19 findings (C:0 H:1 M:9 L:8 I:1)"
+    },
+    {
+      "apk": "de.danoeh.antennapod_3120295.apk",
+      "capability": "strings_urls_domains",
+      "path": "/data_summary/domain_count",
+      "before": 47,
+      "after": 48
+    },
+    {
+      "apk": "de.danoeh.antennapod_3120295.apk",
+      "capability": "strings_urls_domains",
+      "path": "/message",
+      "before": "OK: 47 URLs, 47 domains, 10 IPs",
+      "after": "OK: 47 URLs, 48 domains, 10 IPs"
+    },
+    {
+      "apk": "eu.siacs.conversations_4218104.apk",
+      "capability": "security",
+      "path": "/data_summary/finding_categories",
+      "before": [
+        "collection",
+        "configuration",
+        "crypto",
+        "exported_component",
+        "network",
+        "payload",
+        "persistence",
+        "spyware_indicator",
+        "surveillance",
+        "vulnerability"
+      ],
+      "after": [
+        "collection",
+        "configuration",
+        "crypto",
+        "exported_component",
+        "malware_indicator",
+        "network",
+        "payload",
+        "persistence",
+        "spyware_indicator",
+        "surveillance",
+        "vulnerability"
+      ]
+    },
+    {
+      "apk": "eu.siacs.conversations_4218104.apk",
+      "capability": "security",
+      "path": "/data_summary/high",
+      "before": 8,
+      "after": 9
+    },
+    {
+      "apk": "eu.siacs.conversations_4218104.apk",
+      "capability": "security",
+      "path": "/data_summary/medium",
+      "before": 8,
+      "after": 9
+    },
+    {
+      "apk": "eu.siacs.conversations_4218104.apk",
+      "capability": "security",
+      "path": "/data_summary/total_findings",
+      "before": 25,
+      "after": 27
+    },
+    {
+      "apk": "eu.siacs.conversations_4218104.apk",
+      "capability": "security",
+      "path": "/message",
+      "before": "OK: 25 findings (C:0 H:8 M:8 L:8 I:1)",
+      "after": "OK: 27 findings (C:0 H:9 M:9 L:8 I:1)"
+    },
+    {
+      "apk": "io.github.muntashirakon.AppManager_451.apk",
+      "capability": "security",
+      "path": "/data_summary/medium",
+      "before": 13,
+      "after": 14
+    },
+    {
+      "apk": "io.github.muntashirakon.AppManager_451.apk",
+      "capability": "security",
+      "path": "/data_summary/total_findings",
+      "before": 28,
+      "after": 29
+    },
+    {
+      "apk": "io.github.muntashirakon.AppManager_451.apk",
+      "capability": "security",
+      "path": "/message",
+      "before": "OK: 28 findings (C:0 H:5 M:13 L:9 I:1)",
+      "after": "OK: 29 findings (C:0 H:5 M:14 L:9 I:1)"
+    },
+    {
+      "apk": "org.mozilla.fennec_fdroid_1560020.apk",
+      "capability": "security",
+      "path": "/data_summary/high",
+      "before": 7,
+      "after": 8
+    },
+    {
+      "apk": "org.mozilla.fennec_fdroid_1560020.apk",
+      "capability": "security",
+      "path": "/data_summary/medium",
+      "before": 12,
+      "after": 13
+    },
+    {
+      "apk": "org.mozilla.fennec_fdroid_1560020.apk",
+      "capability": "security",
+      "path": "/data_summary/total_findings",
+      "before": 25,
+      "after": 27
+    },
+    {
+      "apk": "org.schabi.newpipe_1015_cb84069.apk",
+      "capability": "privacy",
+      "path": "/data_summary/endpoint_count",
+      "before": 233,
+      "after": 246
+    },
+    {
+      "apk": "org.schabi.newpipe_1015_cb84069.apk",
+      "capability": "privacy",
+      "path": "/message",
+      "before": "OK: 11 perms, 2 SDKs, 233 endpoints",
+      "after": "OK: 11 perms, 2 SDKs, 246 endpoints"
+    },
+    {
+      "apk": "org.schabi.newpipe_1015_cb84069.apk",
+      "capability": "security",
+      "path": "/data_summary/medium",
+      "before": 5,
+      "after": 6
+    },
+    {
+      "apk": "org.schabi.newpipe_1015_cb84069.apk",
+      "capability": "security",
+      "path": "/data_summary/total_findings",
+      "before": 14,
+      "after": 15
+    },
+    {
+      "apk": "org.schabi.newpipe_1015_cb84069.apk",
+      "capability": "security",
+      "path": "/message",
+      "before": "OK: 14 findings (C:0 H:2 M:5 L:6 I:1)",
+      "after": "OK: 15 findings (C:0 H:2 M:6 L:6 I:1)"
+    },
+    {
+      "apk": "org.schabi.newpipe_1015_cb84069.apk",
+      "capability": "strings_urls_domains",
+      "path": "/data_summary/domain_count",
+      "before": 98,
+      "after": 111
+    },
+    {
+      "apk": "org.schabi.newpipe_1015_cb84069.apk",
+      "capability": "strings_urls_domains",
+      "path": "/message",
+      "before": "OK: 135 URLs, 98 domains, 0 IPs",
+      "after": "OK: 135 URLs, 111 domains, 0 IPs"
+    }
+  ],
+  "diff_pair_differences": []
+}
