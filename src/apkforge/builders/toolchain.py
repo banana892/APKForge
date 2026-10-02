@@ -122,6 +122,19 @@ class ToolchainConfig:
     def build_tools_version(self) -> str | None:
         return self.build_tools.name if self.build_tools else None
 
+    def unavailable(self, *names: str) -> list[str]:
+        """Which of the named tools (``java``, ``keytool``, ``apktool``, ``zipalign``,
+        ``apksigner``) are not configured or do not exist. ``java`` is only
+        required when Apktool is a jar."""
+        missing = []
+        for name in names:
+            if name == "java" and self.apktool is not None and self.apktool.suffix != ".jar":
+                continue
+            path: Path | None = getattr(self, name)
+            if path is None or not path.exists():
+                missing.append(name)
+        return missing
+
     def to_dict(self) -> dict[str, Any]:
         return {
             "java": str(self.java) if self.java else None,
@@ -274,16 +287,17 @@ class ToolchainCheckResult:
     warnings: list[str] = field(default_factory=list)
     errors: list[str] = field(default_factory=list)
     framework_only: bool = False  # all errors concern the Android platform/framework
+    unavailable_only: bool = False  # every failing (non-platform) tool is simply MISSING
 
     @property
     def failure_category(self) -> BuildFailureCategory:
         if self.valid:
             return BuildFailureCategory.SUCCESS
-        return (
-            BuildFailureCategory.FRAMEWORK_FAILURE
-            if self.framework_only
-            else BuildFailureCategory.TOOLCHAIN_FAILURE
-        )
+        if self.framework_only:
+            return BuildFailureCategory.FRAMEWORK_FAILURE
+        if self.unavailable_only:
+            return BuildFailureCategory.TOOL_UNAVAILABLE
+        return BuildFailureCategory.TOOLCHAIN_FAILURE
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -312,9 +326,12 @@ def validate_toolchain(
     errors: list[str] = []
     framework_errors: list[str] = []
     warnings: list[str] = []
+    failed_statuses: list[str] = []
 
     def _fail(diag: ToolDiagnostic, msg: str, *, framework: bool = False) -> None:
         (framework_errors if framework else errors).append(f"{diag.name}: {msg}")
+        if not framework:
+            failed_statuses.append(diag.status)
 
     # Java
     d = _check_exists("java", config.java, "Set APKFORGE_JAVA or JAVA_HOME, or put java on PATH.")
@@ -439,6 +456,7 @@ def validate_toolchain(
         warnings=warnings,
         errors=all_errors,
         framework_only=bool(framework_errors) and not errors,
+        unavailable_only=bool(errors) and all(st == "MISSING" for st in failed_statuses),
     )
 
 

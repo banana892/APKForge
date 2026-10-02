@@ -1,8 +1,10 @@
 """APKForge builders package.
 
 :class:`BuildService` is the single abstraction the rest of APKForge uses to
-rebuild an APK (decode -> build -> zipalign -> sign -> verify). No other module
-should invoke Apktool, zipalign or apksigner directly.
+rebuild an APK. Its stages (``prepare_workspace``, ``decode``, ``build``,
+``align``, ``sign``, ``verify``) are individually callable and composed by
+``build_pipeline``. No other module should invoke Apktool, zipalign or
+apksigner directly; CLI and GUI share this one service.
 
 Security principles:
 - APKForge never executes the APK being built.
@@ -20,6 +22,7 @@ from apkforge.builders.models import (
     BuildStage,
     BuildVerificationResult,
     CertificateInfo,
+    SigningMode,
     StageResult,
     StageStatus,
 )
@@ -47,6 +50,7 @@ __all__ = [
     "CommandRunner",
     "FailureDiagnosis",
     "SigningConfig",
+    "SigningMode",
     "StageResult",
     "StageStatus",
     "ToolDiagnostic",

@@ -2112,12 +2112,13 @@ def cmd_build(
     ),
     json_output: bool = typer.Option(False, "--json", help="Print the BuildResult as JSON."),
 ) -> None:
-    """[green]⚡ Phase C.2[/green] — No-op rebuild: decode → build → zipalign → sign → verify.
+    """[green]⚡ Phase C.3[/green] — No-op rebuild: decode → build → zipalign → sign → verify.
 
     Tool paths come from APKFORGE_* / ANDROID_HOME / JAVA_HOME (see docs/build-service.md).
     Signs with APKFORGE_SIGNING_* if set, otherwise with the APKForge development key.
     """
     import json
+    import shlex
 
     from apkforge.builders import BuildOptions, BuildService, SigningConfig, ToolchainConfig
     from apkforge.builders.signing import ensure_dev_keystore
@@ -2141,7 +2142,7 @@ def cmd_build(
         if show_toolchain or not check.valid:
             _render_toolchain(check)
 
-    result = service.build(
+    result = service.build_pipeline(
         apk,
         BuildOptions(
             output_apk=output, overwrite_output=force, keep_workspace_on_success=keep_workspace
@@ -2159,7 +2160,7 @@ def cmd_build(
         f"Input:     {apk}",
         f"Status:    [bold {color}]{'SUCCESS' if result.success else 'FAILED'}[/bold {color}]",
         f"Duration:  {result.duration_seconds:.1f}s",
-        f"Signing:   {signing.describe()}",
+        f"Signing:   {result.signing_mode} ({signing.describe()})",
     ]
     if result.output_apk:
         lines.append(f"Output:    [bold green]{result.output_apk}[/bold green]")
@@ -2171,6 +2172,8 @@ def cmd_build(
         ]
         if result.failure_evidence:
             lines.append(f"Evidence:  [dim]{result.failure_evidence}[/dim]")
+        if result.failure_command:
+            lines.append(f"Command:   [dim]{shlex.join(result.failure_command)}[/dim]")
     if result.workspace:
         lines.append(f"Workspace: [dim]{result.workspace}[/dim]")
         lines.append(f"Log:       [dim]{result.log_file}[/dim]")

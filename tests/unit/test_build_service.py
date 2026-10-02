@@ -1,4 +1,4 @@
-"""Unit tests for the Phase C.2 BuildService and its components.
+"""Unit tests for BuildService (Phases C.2/C.3) and its components.
 
 External tools are simulated by :class:`FakeToolRunner`, so these tests run
 without Java, Apktool or the Android SDK. Real-tool coverage lives in
@@ -411,8 +411,8 @@ class TestToolchain:
     def test_validate_reports_every_missing_tool(self, tmp_path: Path) -> None:
         cfg = ToolchainConfig(framework_dir=tmp_path / "fw")
         res = validate_toolchain(cfg, runner=FakeToolRunner(cfg))  # type: ignore[arg-type]
-        assert not res.valid
-        assert res.failure_category == BuildFailureCategory.TOOLCHAIN_FAILURE
+        assert not res.valid and res.unavailable_only
+        assert res.failure_category == BuildFailureCategory.TOOL_UNAVAILABLE
         for name in (
             "java",
             "keytool",
@@ -657,7 +657,7 @@ class TestBuildService:
     ) -> None:
         before = _sha(input_apk)
         out = tmp_path / "out" / "rebuilt.apk"
-        res = service.build(input_apk, BuildOptions(output_apk=out))
+        res = service.build_pipeline(input_apk, BuildOptions(output_apk=out))
         assert res.success, res.to_dict()
         assert [s.stage for s in res.stages] == list(BuildStage)
         assert all(s.status == StageStatus.PASS for s in res.stages)
@@ -682,8 +682,13 @@ class TestBuildService:
         assert all(str(input_apk) not in " ".join(argv) for argv, _ in runner.calls)
 
     def test_logs_and_metadata(self, service: BuildService, input_apk: Path) -> None:
-        res = service.build(input_apk, BuildOptions(keep_workspace_on_success=True))
-        assert res.workspace and res.log_file and res.log_file.read_text().count("PASS") >= 6
+        res = service.build_pipeline(input_apk, BuildOptions(keep_workspace_on_success=True))
+        assert res.workspace and res.log_file
+        master = res.log_file.read_text()
+        done = {BuildStage.PREPARE: "workspace ready", BuildStage.VERIFY: "passed"}
+        for stage in BuildStage:
+            assert f"[{stage.upper()}] starting" in master, stage
+            assert f"[{stage.upper()}] {done.get(stage, 'completed')} (" in master, stage
         for s in res.stages:
             assert s.log_file and s.log_file.is_file(), s.stage
             assert s.log_file != res.log_file
@@ -694,7 +699,7 @@ class TestBuildService:
     def test_password_never_leaks(
         self, service: BuildService, input_apk: Path, runner: FakeToolRunner
     ) -> None:
-        res = service.build(input_apk, BuildOptions(keep_workspace_on_success=True))
+        res = service.build_pipeline(input_apk, BuildOptions(keep_workspace_on_success=True))
         assert res.success and res.workspace
         assert PASSWORD not in _all_text_under(res.workspace)
         assert PASSWORD not in json.dumps(res.to_dict())
@@ -710,7 +715,7 @@ class TestBuildService:
             rc=1,
             out="W: res/color/x.xml:3: error: attribute state_dragged (aka org.schabi.newpipe:state_dragged) not found.\n",  # noqa: E501 - verbatim tool output
         )
-        res = service.build(input_apk)
+        res = service.build_pipeline(input_apk)
         assert not res.success and res.output_apk is None
         assert res.failure_stage == BuildStage.BUILD
         assert res.failure_category == BuildFailureCategory.RESOURCE_FAILURE
@@ -730,7 +735,7 @@ class TestBuildService:
         runner.overrides["zipalign:check"] = lambda a, e: _cr(
             a, out="Verifying alignment...\nVerification FAILED\n"
         )
-        res = service.build(input_apk)
+        res = service.build_pipeline(input_apk)
         assert res.failure_stage == BuildStage.ALIGN
         assert res.failure_category == BuildFailureCategory.ALIGNMENT_FAILURE
 
@@ -740,7 +745,7 @@ class TestBuildService:
         runner.overrides["apksigner:sign"] = lambda a, e: _cr(
             a, rc=1, err="Failed to load signer: wrong password"
         )
-        res = service.build(input_apk)
+        res = service.build_pipeline(input_apk)
         assert (
             res.failure_stage == BuildStage.SIGN
             and res.failure_category == BuildFailureCategory.SIGNING_FAILURE
@@ -750,7 +755,7 @@ class TestBuildService:
         self, service: BuildService, runner: FakeToolRunner, input_apk: Path
     ) -> None:
         runner.verify_digest = "00" * 32
-        res = service.build(input_apk)
+        res = service.build_pipeline(input_apk)
         assert not res.success
         assert res.failure_stage == BuildStage.VERIFY
         assert res.failure_category == BuildFailureCategory.VERIFICATION_FAILURE
@@ -767,7 +772,7 @@ class TestBuildService:
         runner.overrides["apksigner:verify"] = lambda a, e: _cr(
             a, out="DOES NOT VERIFY\nERROR: JAR signer CERT.RSA\n"
         )
-        res = service.build(input_apk)
+        res = service.build_pipeline(input_apk)
         assert res.failure_category == BuildFailureCategory.VERIFICATION_FAILURE
 
     def test_decode_timeout(
@@ -776,7 +781,7 @@ class TestBuildService:
         runner.overrides["apktool:d"] = lambda a, e: _cr(
             a, rc=TIMEOUT_RETURNCODE, out="I: Decoding...", timed_out=True
         )
-        res = service.build(input_apk)
+        res = service.build_pipeline(input_apk)
         assert (
             res.failure_stage == BuildStage.DECODE
             and res.failure_category == BuildFailureCategory.TIMEOUT
@@ -786,7 +791,9 @@ class TestBuildService:
         self, service: BuildService, input_apk: Path, runner: FakeToolRunner
     ) -> None:
         before = _sha(input_apk)
-        res = service.build(input_apk, BuildOptions(output_apk=input_apk, overwrite_output=True))
+        res = service.build_pipeline(
+            input_apk, BuildOptions(output_apk=input_apk, overwrite_output=True)
+        )
         assert res.failure_stage == BuildStage.PREPARE
         assert res.failure_category == BuildFailureCategory.CONFIGURATION_FAILURE
         assert _sha(input_apk) == before and not runner.calls
@@ -796,19 +803,21 @@ class TestBuildService:
     ) -> None:
         out = tmp_path / "exists.apk"
         out.write_bytes(b"keep me")
-        res = service.build(input_apk, BuildOptions(output_apk=out))
+        res = service.build_pipeline(input_apk, BuildOptions(output_apk=out))
         assert (
             res.failure_category == BuildFailureCategory.CONFIGURATION_FAILURE
             and out.read_bytes() == b"keep me"
         )
-        assert service.build(input_apk, BuildOptions(output_apk=out, overwrite_output=True)).success
+        assert service.build_pipeline(
+            input_apk, BuildOptions(output_apk=out, overwrite_output=True)
+        ).success
 
     @pytest.mark.parametrize("kind", ["missing", "not-zip"])
     def test_invalid_input(self, service: BuildService, tmp_path: Path, kind: str) -> None:
         p = tmp_path / "bad.apk"
         if kind == "not-zip":
             p.write_text("not an apk")
-        res = service.build(p)
+        res = service.build_pipeline(p)
         assert (
             res.failure_stage == BuildStage.PREPARE
             and res.failure_category == BuildFailureCategory.INPUT_FAILURE
@@ -820,8 +829,8 @@ class TestBuildService:
     ) -> None:
         cfg = ToolchainConfig()
         svc = BuildService(cfg, signing, runner=FakeToolRunner(cfg), work_dir=tmp_path / "w")  # type: ignore[arg-type]
-        res = svc.build(input_apk)
-        assert res.failure_category == BuildFailureCategory.TOOLCHAIN_FAILURE and res.errors
+        res = svc.build_pipeline(input_apk)
+        assert res.failure_category == BuildFailureCategory.TOOL_UNAVAILABLE and res.errors
         assert not (tmp_path / "w").exists()
 
     def test_invalid_signing(
@@ -829,7 +838,7 @@ class TestBuildService:
     ) -> None:
         bad = SigningConfig(tmp_path / "missing.p12", "a", password_env="NOPE")
         svc = BuildService(toolchain, bad, runner=runner, work_dir=tmp_path / "w")  # type: ignore[arg-type]
-        res = svc.build(input_apk)
+        res = svc.build_pipeline(input_apk)
         assert res.failure_category == BuildFailureCategory.CONFIGURATION_FAILURE
 
     def test_framework_install_failure(
@@ -838,7 +847,7 @@ class TestBuildService:
         runner.overrides["apktool:if"] = lambda a, e: _cr(
             a, rc=1, err="Could not install framework"
         )
-        res = service.build(input_apk)
+        res = service.build_pipeline(input_apk)
         assert res.failure_stage == BuildStage.PREPARE
         assert res.failure_category == BuildFailureCategory.FRAMEWORK_FAILURE
         assert res.workspace is not None
@@ -848,7 +857,7 @@ class TestBuildService:
     ) -> None:
         assert signing.password_file is not None
         signing.password_file.write_text("")
-        res = service.build(input_apk)
+        res = service.build_pipeline(input_apk)
         assert res.failure_stage == BuildStage.PREPARE
         assert res.failure_category == BuildFailureCategory.CONFIGURATION_FAILURE
 
@@ -859,10 +868,11 @@ class TestBuildService:
             raise OSError("disk full")
 
         runner.overrides["zipalign:align"] = boom
-        res = service.build(input_apk)
+        res = service.build_pipeline(input_apk)
         assert not res.success and res.failure_stage == BuildStage.ALIGN
-        assert res.failure_category == BuildFailureCategory.ALIGNMENT_FAILURE
-        assert "disk full" in res.failure_cause
+        assert res.failure_category == BuildFailureCategory.UNEXPECTED_FAILURE
+        assert "OSError: disk full" in res.failure_cause  # original error preserved
+        assert "Traceback" in (res.workspace / "logs" / "stage-align.log").read_text()  # type: ignore[operator]
         assert res.workspace and (res.workspace / "metadata" / "result.json").is_file()
 
     def test_unwritable_framework_dir_is_framework_failure(
@@ -871,7 +881,7 @@ class TestBuildService:
         blocker = tmp_path / "blocker"
         blocker.write_text("a file, not a directory")
         toolchain.framework_dir = blocker / "fw"
-        res = service.build(input_apk)
+        res = service.build_pipeline(input_apk)
         assert res.failure_stage == BuildStage.PREPARE
         assert res.failure_category == BuildFailureCategory.FRAMEWORK_FAILURE
         assert res.workspace and (res.workspace / "metadata" / "result.json").is_file()
@@ -881,7 +891,7 @@ class TestBuildService:
         threads = [
             threading.Thread(
                 target=lambda: results.append(
-                    service.build(input_apk, BuildOptions(keep_workspace_on_success=True))
+                    service.build_pipeline(input_apk, BuildOptions(keep_workspace_on_success=True))
                 )
             )
             for _ in range(4)
@@ -892,3 +902,438 @@ class TestBuildService:
             t.join()
         assert len(results) == 4 and all(r.success for r in results)
         assert len({r.workspace for r in results}) == 4
+
+
+# ---------------------------------------------------------------------------
+# Phase C.3: individually callable stages, failure categories, path safety
+# ---------------------------------------------------------------------------
+
+
+def _actions(runner: FakeToolRunner) -> list[str]:
+    return [runner._action(argv) for argv, _ in runner.calls]
+
+
+@pytest.fixture()
+def ws(service: BuildService) -> BuildWorkspace:
+    workspace, sr = service.prepare_workspace()
+    assert workspace is not None and sr.passed, sr.to_dict()
+    return workspace
+
+
+@pytest.fixture()
+def decoded(service: BuildService, ws: BuildWorkspace, input_apk: Path) -> Path:
+    sr = service.decode(input_apk, ws)
+    assert sr.passed, sr.to_dict()
+    return ws.decoded_dir
+
+
+def _unaligned(tmp_path: Path) -> Path:
+    apk = tmp_path / "stage-in" / "unaligned.apk"
+    apk.parent.mkdir(exist_ok=True)
+    with zipfile.ZipFile(apk, "w") as z:
+        z.writestr("AndroidManifest.xml", b"\x03\x00manifest")
+    return apk
+
+
+class TestWorkspaceSafety:
+    @pytest.mark.parametrize("bad", ["../escape", "a/b", "/abs", "..", ".hidden", "x" * 200, ""])
+    def test_rejects_unsafe_build_ids(self, tmp_path: Path, bad: str) -> None:
+        base = tmp_path / "base"
+        if bad == "":
+            # empty means "generate one"; must still produce a safe id
+            assert BuildWorkspace.create(base, bad).root.parent == base.resolve()
+            return
+        with pytest.raises(WorkspaceError):
+            BuildWorkspace.create(base, bad)
+        assert not (tmp_path / "escape").exists() and not Path("/abs").exists()
+
+    def test_problems_and_reimport(self, tmp_path: Path, input_apk: Path) -> None:
+        w = BuildWorkspace.create(tmp_path)
+        assert w.problems() == []
+        w.import_input(input_apk)
+        w.import_input(input_apk)  # read-only copy from a previous attempt is replaced
+        shutil.rmtree(w.aligned_dir)
+        assert any("aligned" in p for p in w.problems())
+
+
+class TestToolAvailability:
+    def test_unavailable_lists_missing_tools(self, toolchain: ToolchainConfig) -> None:
+        assert toolchain.unavailable("java", "apktool", "zipalign", "apksigner", "keytool") == []
+        toolchain.zipalign = None
+        toolchain.apksigner = toolchain.apksigner.parent / "nope"  # type: ignore[union-attr]
+        assert toolchain.unavailable("zipalign", "apksigner") == ["zipalign", "apksigner"]
+
+    def test_java_not_required_for_executable_apktool(self, toolchain: ToolchainConfig) -> None:
+        toolchain.java = None
+        assert toolchain.unavailable("java", "apktool") == ["java"]
+        toolchain.apktool = toolchain.keytool  # any existing non-jar executable
+        assert toolchain.unavailable("java", "apktool") == []
+
+    def test_broken_plus_missing_is_toolchain_failure(self, toolchain: ToolchainConfig) -> None:
+        toolchain.zipalign = None
+        fake = FakeToolRunner(toolchain)
+        fake.overrides["apksigner:--version"] = lambda a, e: _cr(a, rc=1, err="boom")
+        res = validate_toolchain(toolchain, runner=fake)  # type: ignore[arg-type]
+        assert not res.unavailable_only
+        assert res.failure_category == BuildFailureCategory.TOOLCHAIN_FAILURE
+
+
+class TestPrepareWorkspace:
+    def test_creates_unique_layout(self, service: BuildService, tmp_path: Path) -> None:
+        a, sra = service.prepare_workspace()
+        b, _ = service.prepare_workspace()
+        assert a and b and a.root != b.root and sra.output_path == a.root
+        assert a.root.parent == (tmp_path / "work").resolve()
+        assert sra.events[0] == "[PREPARE] starting" and "workspace created" in sra.events[1]
+        assert sra.log_file and sra.log_file.is_file()
+
+    def test_unusable_base_is_workspace_failure(
+        self, service: BuildService, tmp_path: Path
+    ) -> None:
+        blocker = tmp_path / "file"
+        blocker.write_text("not a dir")
+        w, sr = service.prepare_workspace(work_dir=blocker / "sub")
+        assert w is None and sr.failure_category == BuildFailureCategory.WORKSPACE_FAILURE
+        w, sr = service.prepare_workspace(build_id="../../etc")
+        assert w is None and sr.failure_category == BuildFailureCategory.WORKSPACE_FAILURE
+
+
+class TestDecodeStage:
+    def test_success(
+        self, service: BuildService, ws: BuildWorkspace, input_apk: Path, runner: FakeToolRunner
+    ) -> None:
+        before = _sha(input_apk)
+        sr = service.decode(input_apk, ws)
+        assert sr.passed and sr.output_path == ws.decoded_dir
+        assert (ws.decoded_dir / "apktool.yml").is_file()
+        assert ws.input_apk and _sha(ws.input_apk) == before == _sha(input_apk)
+        argv = next(a for a, _ in runner.calls if "d" in a and "-o" in a)
+        assert str(input_apk) not in argv and str(ws.input_apk) in argv
+        assert sr.events[0] == "[DECODE] starting" and sr.events[-1].startswith(
+            "[DECODE] completed"
+        )
+        assert "EXIT CODE: 0" in sr.log_file.read_text()  # type: ignore[union-attr]
+
+    @pytest.mark.parametrize("kind", ["missing", "not-zip", "directory"])
+    def test_input_failure(
+        self, service: BuildService, ws: BuildWorkspace, tmp_path: Path, kind: str,
+        runner: FakeToolRunner,
+    ) -> None:  # fmt: skip
+        p = tmp_path / "bad.apk"
+        if kind == "not-zip":
+            p.write_text("nope")
+        elif kind == "directory":
+            p.mkdir()
+        n = len(runner.calls)
+        sr = service.decode(p, ws)
+        assert sr.failure_category == BuildFailureCategory.INPUT_FAILURE
+        assert len(runner.calls) == n and not ws.decoded_dir.exists()
+
+    def test_tool_unavailable(
+        self, service: BuildService, ws: BuildWorkspace, input_apk: Path, runner: FakeToolRunner
+    ) -> None:
+        service.toolchain.apktool = None
+        sr = service.decode(input_apk, ws)
+        assert sr.failure_category == BuildFailureCategory.TOOL_UNAVAILABLE
+        assert "apktool" in sr.failure_cause and not runner.calls
+
+    def test_decode_failure_records_command(
+        self, service: BuildService, ws: BuildWorkspace, input_apk: Path, runner: FakeToolRunner
+    ) -> None:
+        runner.overrides["apktool:d"] = lambda a, e: _cr(a, rc=1, err="brut.common.Weird: boom")
+        sr = service.decode(input_apk, ws)
+        assert sr.failure_category == BuildFailureCategory.DECODE_FAILURE
+        assert sr.exit_code == 1 and "boom" in sr.stderr and sr.evidence
+        assert sr.failed_command and sr.failed_command[-1] == str(ws.input_apk)
+
+    def test_exit_zero_without_output_is_output_missing(
+        self, service: BuildService, ws: BuildWorkspace, input_apk: Path, runner: FakeToolRunner
+    ) -> None:
+        runner.overrides["apktool:d"] = lambda a, e: _cr(a, out="I: Using Apktool 3.0.3\n")
+        sr = service.decode(input_apk, ws)
+        assert not sr.passed and sr.failure_category == BuildFailureCategory.OUTPUT_MISSING
+
+    def test_stale_decoded_output_is_refused(
+        self, service: BuildService, ws: BuildWorkspace, input_apk: Path
+    ) -> None:
+        assert service.decode(input_apk, ws).passed
+        sr = service.decode(input_apk, ws)
+        assert sr.failure_category == BuildFailureCategory.WORKSPACE_FAILURE
+
+    def test_symlink_in_decoded_tree_is_rejected(
+        self, service: BuildService, ws: BuildWorkspace, input_apk: Path, runner: FakeToolRunner
+    ) -> None:
+        def decode_with_link(a: list[str], e: dict[str, str]) -> CommandResult:
+            out = Path(_arg_after(a, "-o"))
+            out.mkdir(parents=True)
+            (out / "AndroidManifest.xml").write_text("<manifest/>")
+            (out / "apktool.yml").write_text("version: 3.0.3\n")
+            (out / "evil").symlink_to("/etc")
+            return _cr(a)
+
+        runner.overrides["apktool:d"] = decode_with_link
+        sr = service.decode(input_apk, ws)
+        assert sr.failure_category == BuildFailureCategory.DECODE_FAILURE
+        assert "symlink" in sr.failure_cause
+
+
+class TestBuildStage:
+    def test_success(self, service: BuildService, decoded: Path, tmp_path: Path) -> None:
+        out = tmp_path / "o" / "unaligned.apk"
+        sr = service.build(decoded, out)
+        assert sr.passed and sr.output_path == out and zipfile.is_zipfile(out)
+        assert any("unsigned" in n for n in sr.notes)
+
+    def test_not_a_project(self, service: BuildService, tmp_path: Path) -> None:
+        (tmp_path / "empty").mkdir()
+        sr = service.build(tmp_path / "empty", tmp_path / "o.apk")
+        assert sr.failure_category == BuildFailureCategory.INPUT_FAILURE
+
+    def test_exit_zero_without_apk_is_output_missing(
+        self, service: BuildService, decoded: Path, tmp_path: Path, runner: FakeToolRunner
+    ) -> None:
+        runner.overrides["apktool:b"] = lambda a, e: _cr(a, out="I: Building apk file...\n")
+        sr = service.build(decoded, tmp_path / "o.apk")
+        assert not sr.passed and sr.failure_category == BuildFailureCategory.OUTPUT_MISSING
+        assert sr.exit_code == 0 and sr.failed_command
+
+    def test_non_zip_output_is_build_failure(
+        self, service: BuildService, decoded: Path, tmp_path: Path, runner: FakeToolRunner
+    ) -> None:
+        def junk(a: list[str], e: dict[str, str]) -> CommandResult:
+            Path(_arg_after(a, "-o")).write_text("not a zip")
+            return _cr(a)
+
+        runner.overrides["apktool:b"] = junk
+        sr = service.build(decoded, tmp_path / "o.apk")
+        assert sr.failure_category == BuildFailureCategory.BUILD_FAILURE
+
+    def test_existing_output_is_never_silently_replaced(
+        self, service: BuildService, decoded: Path, tmp_path: Path, runner: FakeToolRunner
+    ) -> None:
+        out = tmp_path / "o.apk"
+        out.write_bytes(b"stale")
+        sr = service.build(decoded, out)
+        assert sr.failure_category == BuildFailureCategory.CONFIGURATION_FAILURE
+        assert out.read_bytes() == b"stale"
+        # With overwrite the stale file is removed first, so it can never pass as new output.
+        runner.overrides["apktool:b"] = lambda a, e: _cr(a)
+        sr = service.build(decoded, out, overwrite=True)
+        assert sr.failure_category == BuildFailureCategory.OUTPUT_MISSING and not out.exists()
+
+    def test_output_inside_project_refused(self, service: BuildService, decoded: Path) -> None:
+        sr = service.build(decoded, decoded / "dist" / "x.apk")
+        assert sr.failure_category == BuildFailureCategory.CONFIGURATION_FAILURE
+
+
+class TestAlignStage:
+    def test_success(self, service: BuildService, tmp_path: Path) -> None:
+        src = _unaligned(tmp_path)
+        before = _sha(src)
+        sr = service.align(src, tmp_path / "aligned.apk")
+        assert sr.passed and (tmp_path / "aligned.apk").is_file() and _sha(src) == before
+        assert len(sr.commands) == 2 and "-c" in sr.commands[1]  # explicit alignment check
+
+    def test_refuses_to_overwrite_input(
+        self, service: BuildService, tmp_path: Path, runner: FakeToolRunner
+    ) -> None:
+        src = _unaligned(tmp_path)
+        before = _sha(src)
+        sr = service.align(src, src, overwrite=True)
+        assert sr.failure_category == BuildFailureCategory.CONFIGURATION_FAILURE
+        assert _sha(src) == before and not runner.calls
+
+    def test_empty_output_is_output_missing(
+        self, service: BuildService, tmp_path: Path, runner: FakeToolRunner
+    ) -> None:
+        def empty(a: list[str], e: dict[str, str]) -> CommandResult:
+            Path(a[-1]).write_bytes(b"")
+            return _cr(a)
+
+        runner.overrides["zipalign:align"] = empty
+        sr = service.align(_unaligned(tmp_path), tmp_path / "a.apk")
+        assert sr.failure_category == BuildFailureCategory.OUTPUT_MISSING
+
+    def test_tool_unavailable(self, service: BuildService, tmp_path: Path) -> None:
+        service.toolchain.zipalign = tmp_path / "gone"
+        sr = service.align(_unaligned(tmp_path), tmp_path / "a.apk")
+        assert sr.failure_category == BuildFailureCategory.TOOL_UNAVAILABLE
+
+
+class TestSignStage:
+    def test_development_signing(
+        self, service: BuildService, tmp_path: Path, runner: FakeToolRunner
+    ) -> None:
+        sr = service.sign(_unaligned(tmp_path), tmp_path / "s.apk")
+        assert sr.passed and sr.certificate_sha256 == FAKE_CERT_SHA256
+        assert any("Signing mode: development" in n for n in sr.notes)
+        blob = json.dumps(sr.to_dict()) + sr.log_file.read_text() if sr.log_file else ""
+        assert PASSWORD not in json.dumps(sr.to_dict()) and PASSWORD not in blob
+        assert all(PASSWORD not in " ".join(a) for a, _ in runner.calls)
+
+    def test_user_provided_signing_override(
+        self, service: BuildService, signing: SigningConfig, tmp_path: Path
+    ) -> None:
+        user = SigningConfig(
+            keystore=signing.keystore, alias="release", password_file=signing.password_file
+        )
+        sr = service.sign(_unaligned(tmp_path), tmp_path / "s.apk", user)
+        assert sr.passed and any("Signing mode: user_provided" in n for n in sr.notes)
+        assert "--ks-key-alias" in sr.commands[-1] and "release" in sr.commands[-1]
+
+    def test_no_signing_config_stays_unsigned(
+        self, toolchain: ToolchainConfig, runner: FakeToolRunner, tmp_path: Path
+    ) -> None:
+        svc = BuildService(toolchain, runner=runner, work_dir=tmp_path / "w")  # type: ignore[arg-type]
+        out = tmp_path / "s.apk"
+        sr = svc.sign(_unaligned(tmp_path), out)
+        assert sr.failure_category == BuildFailureCategory.CONFIGURATION_FAILURE
+        assert "unsigned" in sr.failure_cause and not out.exists() and not runner.calls
+
+    def test_exit_zero_without_output_is_output_missing(
+        self, service: BuildService, tmp_path: Path, runner: FakeToolRunner
+    ) -> None:
+        runner.overrides["apksigner:sign"] = lambda a, e: _cr(a)
+        sr = service.sign(_unaligned(tmp_path), tmp_path / "s.apk")
+        assert sr.failure_category == BuildFailureCategory.OUTPUT_MISSING
+        assert sr.certificate_sha256 is None
+
+
+class TestVerifyStage:
+    def test_standalone_without_expected_signer(
+        self, service: BuildService, tmp_path: Path
+    ) -> None:
+        sr = service.verify(_unaligned(tmp_path))
+        v = sr.verification
+        assert sr.passed and v and v.valid and v.expected_signer_matched is None
+        assert v.certificate and v.certificate.sha256_digest == FAKE_CERT_SHA256
+        assert "Verifies" in v.apksigner_output and v.apksigner_warnings
+        assert sr.events[-1].startswith("[VERIFY] passed")
+
+    def test_expected_signer_enforced(self, service: BuildService, tmp_path: Path) -> None:
+        sr = service.verify(_unaligned(tmp_path), expected_certificate_sha256="ab" * 32)
+        assert sr.failure_category == BuildFailureCategory.VERIFICATION_FAILURE
+        assert sr.verification and sr.verification.expected_signer_matched is False
+
+    def test_invalid_signature(
+        self, service: BuildService, tmp_path: Path, runner: FakeToolRunner
+    ) -> None:
+        runner.overrides["apksigner:verify"] = lambda a, e: _cr(
+            a, rc=1, out="DOES NOT VERIFY\nERROR: Missing META-INF/MANIFEST.MF\n"
+        )
+        sr = service.verify(_unaligned(tmp_path))
+        v = sr.verification
+        assert sr.failure_category == BuildFailureCategory.VERIFICATION_FAILURE
+        assert v and not v.valid and not v.signature_verified and v.errors
+        assert "DOES NOT VERIFY" in v.apksigner_output
+        assert sr.failed_command and sr.failed_command[1] == "verify"
+
+    def test_missing_apk_is_input_failure(self, service: BuildService, tmp_path: Path) -> None:
+        sr = service.verify(tmp_path / "nope.apk")
+        assert sr.failure_category == BuildFailureCategory.INPUT_FAILURE
+        assert sr.verification is None  # nothing was verified, nothing is claimed
+
+
+class TestUnexpectedErrors:
+    def test_stage_method_never_raises(
+        self, service: BuildService, decoded: Path, tmp_path: Path, runner: FakeToolRunner
+    ) -> None:
+        def boom(a: list[str], e: dict[str, str]) -> CommandResult:
+            raise RuntimeError("kaboom")
+
+        runner.overrides["apktool:b"] = boom
+        sr = service.build(decoded, tmp_path / "o.apk")
+        assert sr.failure_category == BuildFailureCategory.UNEXPECTED_FAILURE
+        assert "RuntimeError: kaboom" in sr.failure_cause and not sr.classified
+
+    def test_keyboard_interrupt_propagates(
+        self, service: BuildService, tmp_path: Path, runner: FakeToolRunner
+    ) -> None:
+        def stop(a: list[str], e: dict[str, str]) -> CommandResult:
+            raise KeyboardInterrupt
+
+        runner.overrides["zipalign:align"] = stop
+        with pytest.raises(KeyboardInterrupt):
+            service.align(_unaligned(tmp_path), tmp_path / "a.apk")
+
+
+class TestPipelineC3:
+    def test_structured_logs_and_signing_mode(self, service: BuildService, input_apk: Path) -> None:
+        res = service.build_pipeline(input_apk)
+        assert res.success and res.signing_mode == "development"
+        starts = [ln.split("]")[0] + "]" for ln in res.logs if ln.endswith("] starting")]
+        assert starts == [f"[{s.upper()}]" for s in BuildStage]
+        assert any(ln.startswith("[VERIFY] passed") for ln in res.logs)
+        assert res.logs[-1].startswith("SUCCESS")
+        d = json.loads(json.dumps(res.to_dict()))  # fully JSON-serializable
+        assert d["signing_mode"] == "development" and d["failure_command"] is None
+        assert d["stages"][-1]["verification"]["valid"] is True
+
+    def test_user_provided_mode(
+        self, toolchain: ToolchainConfig, signing: SigningConfig, runner: FakeToolRunner,
+        input_apk: Path, tmp_path: Path,
+    ) -> None:  # fmt: skip
+        user = SigningConfig(signing.keystore, "rel", password_file=signing.password_file)
+        svc = BuildService(toolchain, user, runner=runner, work_dir=tmp_path / "w")  # type: ignore[arg-type]
+        assert svc.build_pipeline(input_apk).signing_mode == "user_provided"
+
+    def test_stops_after_decode_failure(
+        self, service: BuildService, runner: FakeToolRunner, input_apk: Path
+    ) -> None:
+        runner.overrides["apktool:d"] = lambda a, e: _cr(a, rc=1, err="decode exploded")
+        res = service.build_pipeline(input_apk)
+        assert not res.success and res.failure_stage == BuildStage.DECODE
+        assert res.failure_category == BuildFailureCategory.DECODE_FAILURE
+        assert res.signing_mode == "unsigned" and res.output_apk is None
+        assert res.failure_command and "d" in res.failure_command
+        acts = _actions(runner)
+        assert "apktool:b" not in acts and "zipalign:align" not in acts
+        assert "apksigner:sign" not in acts and "apksigner:verify" not in acts
+        assert [s.status for s in res.stages[2:]] == [StageStatus.SKIPPED] * 4
+
+    def test_build_output_missing_stops_pipeline(
+        self, service: BuildService, runner: FakeToolRunner, input_apk: Path
+    ) -> None:
+        runner.overrides["apktool:b"] = lambda a, e: _cr(a)
+        res = service.build_pipeline(input_apk)
+        assert res.failure_stage == BuildStage.BUILD
+        assert res.failure_category == BuildFailureCategory.OUTPUT_MISSING
+        assert "zipalign:align" not in _actions(runner)
+
+    def test_verification_failure_means_no_success(
+        self, service: BuildService, runner: FakeToolRunner, input_apk: Path, tmp_path: Path
+    ) -> None:
+        out = tmp_path / "out.apk"
+        runner.overrides["apksigner:verify"] = lambda a, e: _cr(a, rc=1, out="DOES NOT VERIFY\n")
+        res = service.build_pipeline(input_apk, BuildOptions(output_apk=out))
+        assert not res.success and res.failure_stage == BuildStage.VERIFY
+        assert res.output_apk is None and not out.exists()  # an unverified APK is never exported
+
+    def test_prepare_failure_skips_every_stage(self, service: BuildService, tmp_path: Path) -> None:
+        res = service.build_pipeline(tmp_path / "missing.apk")
+        assert res.failure_stage == BuildStage.PREPARE
+        assert [s.status for s in res.stages] == [StageStatus.FAIL] + [StageStatus.SKIPPED] * 5
+        assert res.logs and res.logs[-1].startswith("[PREPARE] FAILED INPUT_FAILURE")
+
+    def test_pipeline_requires_signing(
+        self, toolchain: ToolchainConfig, runner: FakeToolRunner, input_apk: Path, tmp_path: Path
+    ) -> None:
+        svc = BuildService(toolchain, runner=runner, work_dir=tmp_path / "w")  # type: ignore[arg-type]
+        res = svc.build_pipeline(input_apk)
+        assert res.failure_category == BuildFailureCategory.CONFIGURATION_FAILURE
+        assert not (tmp_path / "w").exists()
+
+    def test_composes_public_stage_methods(
+        self, service: BuildService, input_apk: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        called: list[str] = []
+        for name in ("decode", "build", "align", "sign", "verify"):
+            orig = getattr(service, name)
+
+            def spy(*a: object, _o: Callable[..., object] = orig, _n: str = name, **k: object):  # type: ignore[no-untyped-def]
+                called.append(_n)
+                return _o(*a, **k)
+
+            monkeypatch.setattr(service, name, spy)
+        assert service.build_pipeline(input_apk).success
+        assert called == ["decode", "build", "align", "sign", "verify"]

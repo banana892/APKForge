@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Phase C.2 corpus run: no-op rebuild of every corpus APK through BuildService.
 
-    original APK -> BuildService.build() (decode/build/align/sign/verify)
+    original APK -> BuildService.build_pipeline() (decode/build/align/sign/verify)
                  -> no-op integrity baseline -> build-tests/c2_results.json
 
 The corpus is read-only input. Workspaces and rebuilt APKs go to work/c2/<run-id>/;
@@ -81,7 +81,7 @@ def main() -> int:
     for i, apk in enumerate(apks, 1):
         print(f"[{i}/{len(apks)}] {apk.name} ({apk.stat().st_size:,} B) ...", flush=True)
         before = sha256(apk)
-        res = service.build(
+        res = service.build_pipeline(
             apk,
             BuildOptions(
                 output_apk=out_dir / f"{apk.stem}.rebuilt.apk",

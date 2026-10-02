@@ -2,7 +2,8 @@
 
 Skipped automatically when the toolchain or corpus is unavailable.
 
-- Two small corpus APKs run by default (stage-by-stage assertions).
+- Two small corpus APKs run by default (stage-by-stage assertions), plus the
+  individually callable stage methods (Phase C.3) on the smallest APK.
 - The full 9-APK no-op corpus runs when ``APKFORGE_CORPUS_BUILD=1`` (several minutes).
   ``build-tests/run_c2_corpus.py`` runs the same pipeline and records c2_results.json.
 
@@ -24,6 +25,8 @@ from apkforge.builders import (
     BuildResult,
     BuildService,
     BuildStage,
+    SigningMode,
+    StageResult,
     StageStatus,
     ToolchainConfig,
     ensure_dev_keystore,
@@ -67,8 +70,9 @@ def _require(apk: Path) -> None:
 
 def test_stage_by_stage_small_apk(real_service: BuildService) -> None:
     _require(SMALL)
-    res = real_service.build(SMALL, BuildOptions(keep_workspace_on_success=True))
+    res = real_service.build_pipeline(SMALL, BuildOptions(keep_workspace_on_success=True))
     assert res.success, _stage_row(res)
+    assert res.signing_mode == SigningMode.DEVELOPMENT and res.logs
     ws = res.workspace
     assert ws is not None
 
@@ -98,10 +102,66 @@ def test_stage_by_stage_small_apk(real_service: BuildService) -> None:
     assert integrity["manifest"]["identity_and_component_counts_match"]
 
 
+def _ok(sr: StageResult) -> StageResult:
+    assert sr.passed, (
+        f"{sr.stage}: {sr.failure_category}: {sr.failure_cause} | evidence={sr.evidence} "
+        f"| log={sr.log_file}"
+    )
+    return sr
+
+
+def test_individual_stage_methods_real_toolchain(real_service: BuildService) -> None:
+    """prepare_workspace -> decode -> build -> align -> sign -> verify, called one by one."""
+    _require(SMALL)
+    before = SMALL.read_bytes()
+
+    ws, prep = real_service.prepare_workspace()
+    _ok(prep)
+    assert ws is not None
+
+    dec = _ok(real_service.decode(SMALL, ws))
+    assert dec.output_path == ws.decoded_dir and (ws.decoded_dir / "apktool.yml").is_file()
+    assert "Apktool 3." in dec.stdout
+
+    built = _ok(real_service.build(ws.decoded_dir, ws.unaligned_apk, workspace=ws))
+    assert built.output_path == ws.unaligned_apk and zipfile.is_zipfile(ws.unaligned_apk)
+
+    aligned = _ok(real_service.align(ws.unaligned_apk, ws.aligned_apk, workspace=ws))
+    assert "Verification succes" in aligned.stdout
+
+    # An aligned-but-unsigned APK must not verify.
+    unsigned = real_service.verify(ws.aligned_apk, workspace=ws)
+    assert unsigned.failure_category == BuildFailureCategory.VERIFICATION_FAILURE
+    assert unsigned.verification and not unsigned.verification.signature_verified
+
+    signed = _ok(real_service.sign(ws.aligned_apk, ws.signed_apk, workspace=ws))
+    assert signed.certificate_sha256 and "Signing mode: development" in " ".join(signed.notes)
+
+    ver = _ok(
+        real_service.verify(
+            ws.signed_apk, expected_certificate_sha256=signed.certificate_sha256, workspace=ws
+        )
+    )
+    v = ver.verification
+    assert v and v.valid and v.signature_verified and v.expected_signer_matched
+    assert v.certificate and v.certificate.sha256_digest == signed.certificate_sha256
+    assert "Verifies" in v.apksigner_output
+
+    # A different expected signer must fail verification of the same APK.
+    wrong = real_service.verify(ws.signed_apk, expected_certificate_sha256="00" * 32)
+    assert wrong.failure_category == BuildFailureCategory.VERIFICATION_FAILURE
+
+    assert SMALL.read_bytes() == before  # the original APK is never modified
+    master = ws.master_log.read_text()
+    for tag in ("[DECODE] completed", "[BUILD] completed", "[ALIGN] completed",
+                "[SIGN] completed", "[VERIFY] passed"):  # fmt: skip
+        assert tag in master, tag
+
+
 def test_openlink_export_and_retention(real_service: BuildService, tmp_path: Path) -> None:
     _require(OPENLINK)
     out = tmp_path / "openlink-rebuilt.apk"
-    res = real_service.build(OPENLINK, BuildOptions(output_apk=out))
+    res = real_service.build_pipeline(OPENLINK, BuildOptions(output_apk=out))
     assert res.success, _stage_row(res)
     assert res.output_apk == out and out.is_file()
     assert res.workspace is not None
@@ -117,7 +177,7 @@ def test_openlink_export_and_retention(real_service: BuildService, tmp_path: Pat
 )
 @pytest.mark.parametrize("apk", CORPUS, ids=[p.stem for p in CORPUS])
 def test_corpus_noop_rebuild(real_service: BuildService, apk: Path) -> None:
-    res = real_service.build(apk, BuildOptions())
+    res = real_service.build_pipeline(apk, BuildOptions())
     assert res.success, _stage_row(res)
     assert res.failure_category == BuildFailureCategory.SUCCESS
     assert res.input_unchanged is True

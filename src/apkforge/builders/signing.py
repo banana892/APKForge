@@ -24,6 +24,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import TYPE_CHECKING
 
+from apkforge.builders.models import SigningMode
 from apkforge.builders.runner import CommandRunner
 from apkforge.builders.toolchain import default_data_dir
 from apkforge.core.exceptions import ConfigurationError
@@ -85,6 +86,10 @@ class SigningConfig:
         if not pw:
             raise ConfigurationError("Signing password source is empty.", context="signing")
         return pw
+
+    @property
+    def mode(self) -> SigningMode:
+        return SigningMode.DEVELOPMENT if self.development_key else SigningMode.USER_PROVIDED
 
     def describe(self) -> str:
         source = f"file {self.password_file}" if self.password_file else f"env ${self.password_env}"

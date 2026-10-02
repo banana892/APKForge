@@ -1,9 +1,15 @@
-# BuildService (Phase C.2)
+# BuildService (Phases C.2 / C.3)
 
 `apkforge.builders.BuildService` is the single APK rebuild abstraction in APKForge.
-No other module invokes Apktool, zipalign or apksigner. In Phase C.2 it performs a
+No other module invokes Apktool, zipalign or apksigner. It performs a
 **no-op rebuild** only — nothing is modified between decode and build. The
-modification engine (C.3+) will plug in between those stages later.
+modification engine will plug in between those stages in a later phase.
+
+Phase C.2 introduced the pipeline; Phase C.3 made every stage an individually
+callable public method (`prepare_workspace`, `decode`, `build`, `align`, `sign`,
+`verify`) that `build_pipeline` composes, and added the `TOOL_UNAVAILABLE`,
+`WORKSPACE_FAILURE`, `OUTPUT_MISSING` and `UNEXPECTED_FAILURE` categories, explicit
+signing modes and structured `[STAGE]` logs.
 
 Evidence and corpus results: [`build-tests/phase-c2-report.md`](../build-tests/phase-c2-report.md).
 Toolchain decisions come from Phase C.1/C.1b
@@ -43,12 +49,35 @@ signing = SigningConfig.from_env() or ensure_dev_keystore(toolchain.keytool)
 service = BuildService(toolchain, signing)
 
 check = service.check_toolchain()          # structured diagnostics, cached per service
-result = service.build("app.apk", BuildOptions(output_apk=Path("app.rebuilt.apk")))
-result.success, result.failure_stage, result.failure_category, result.log_file
+result = service.build_pipeline("app.apk", BuildOptions(output_apk=Path("app.rebuilt.apk")))
+result.success, result.failure_stage, result.failure_category, result.failure_command
+result.logs, result.signing_mode, result.verification, result.log_file
 ```
 
-`build()` never raises for tool failures; every outcome is a `BuildResult`.
-Signing is a required constructor argument — the service never silently picks a key.
+Individual stages (each returns a `StageResult`; `output_path` is the artifact it produced):
+
+```python
+ws, prep = service.prepare_workspace()                        # fresh unique workspace
+dec = service.decode("app.apk", ws)                           # -> ws.decoded_dir
+blt = service.build(ws.decoded_dir, ws.unaligned_apk, workspace=ws)
+aln = service.align(ws.unaligned_apk, ws.aligned_apk, workspace=ws)
+sgn = service.sign(ws.aligned_apk, ws.signed_apk, workspace=ws)   # optional SigningConfig override
+ver = service.verify(ws.signed_apk, expected_certificate_sha256=sgn.certificate_sha256)
+ver.verification.valid, ver.verification.certificate, ver.verification.apksigner_output
+```
+
+`build`, `align`, `sign` and `verify` also work on arbitrary paths without a workspace
+(no log files are written then; events and tool output are still in the `StageResult`).
+They refuse to write over their input, refuse an existing output unless
+`overwrite=True`, and with `overwrite=True` delete the old file *before* the tool runs
+so stale output can never pass as new output.
+
+No stage method or `build_pipeline` raises for tool or internal failures; every outcome
+is a `StageResult` / `BuildResult` (internal exceptions become `UNEXPECTED_FAILURE` with
+the original type and message, and the traceback in the stage log). `KeyboardInterrupt`
+still propagates. Signing is optional at construction for decode/build/align/verify-only
+use, but `sign()` and `build_pipeline()` then fail with `CONFIGURATION_FAILURE` — the
+service never silently picks a key.
 
 CLI:
 
@@ -116,6 +145,12 @@ remove `input/ decoded/ build/ aligned/` unless `keep_workspace_on_success=True`
 and `metadata/` are always kept; `signed/` is removed only when the APK was exported to
 `output_apk`.
 
+Path safety: caller-supplied build ids must be a single plain path component
+(`[A-Za-z0-9][A-Za-z0-9._-]{0,127}`, no `..`), otherwise `WorkspaceError` /
+`WORKSPACE_FAILURE`. No path is derived from APK contents; the input copy is always
+`input/original.apk`. `decode()` refuses a workspace that already has `decoded/`
+(stale output) and rejects a decoded tree containing any symlink.
+
 The input APK is hashed before and after the build; `BuildResult.input_unchanged`
 must be true for success. `output_apk` equal to the input is rejected, and an existing
 `output_apk` is only replaced with `overwrite_output=True`.
@@ -124,16 +159,23 @@ must be true for success. `output_apk` equal to the input is rejected, and an ex
 
 | Stage | Commands | Pass condition |
 |---|---|---|
-| prepare | — / `apktool if` | input exists and is a ZIP; output path safe; toolchain valid; signing config valid; workspace created; framework current |
-| decode | `apktool d -o decoded -p <fw> input/original.apk` | exit 0 and `decoded/AndroidManifest.xml` + `apktool.yml` exist |
-| build | `apktool b -o build/unaligned.apk -p <fw> decoded` | exit 0 and output is a ZIP |
-| align | `zipalign -f -p 4 …`, then `zipalign -c -v -p 4 …` | `Verification succesful` printed (zipalign exits 0 even on `Verification FAILED`) |
-| sign | `keytool -exportcert` (expected digest), `apksigner sign --ks-pass env:… --key-pass env:…` | exit 0 and output exists |
+| prepare | — / `apktool if` | input exists and is a ZIP; output path safe; toolchain valid; signing config valid; workspace created and usable; framework current |
+| decode | `apktool d -o decoded -p <fw> input/original.apk` | exit 0, `decoded/AndroidManifest.xml` + `apktool.yml` exist, no symlinks in `decoded/` |
+| build | `apktool b -o build/unaligned.apk -p <fw> decoded` | exit 0, output exists, is non-empty and is a ZIP |
+| align | `zipalign -f -p 4 …`, then `zipalign -c -v -p 4 …` | output non-empty and `Verification succesful` printed (zipalign exits 0 even on `Verification FAILED`) |
+| sign | `keytool -exportcert` (expected digest), `apksigner sign --ks-pass env:… --key-pass env:…` | exit 0 and output exists and is non-empty |
 | verify | `zipalign -c -v -p 4`, `apksigner verify --verbose --print-certs`, ZIP `testzip` | all of: aligned, `Verifies`, exactly one signer whose SHA-256 equals the configured certificate, ZIP intact, manifest present |
 
-When a stage fails, later stages are recorded as `SKIPPED`. Each `StageResult` carries
-the (masked) commands, exit code, stdout/stderr, timestamps, duration, log file, and on
-failure its category, cause, evidence line and whether a known pattern matched.
+When a stage fails (including prepare), later stages are recorded as `SKIPPED` and no
+later tool runs. Each `StageResult` carries the (masked) commands, exit code,
+stdout/stderr, timestamps, duration, log file, `events`, `output_path`, and on failure
+its category, cause, evidence line, `failed_command` and whether a known pattern matched.
+
+Structured logs: every stage emits `[STAGE] starting`, then `[STAGE] completed (Ns)`
+(`[PREPARE] workspace ready`, `[VERIFY] passed`) or `[STAGE] FAILED <CATEGORY>: <cause>`.
+They are in `StageResult.events`, concatenated in `BuildResult.logs`, written to
+`logs/build.log` and the stage log, and sent to the `apkforge.builders.service` logger at
+DEBUG. No password, key material or environment dump is ever logged.
 Default stage timeout: 900 s (`BuildOptions.stage_timeout_seconds`); on timeout the whole
 process group is killed and partial output is kept.
 
@@ -141,9 +183,13 @@ process group is killed and partial output is kept.
 
 | Category | Assigned when |
 |---|---|
-| `INPUT_FAILURE` | input missing / not a ZIP, or input changed during the build |
-| `CONFIGURATION_FAILURE` | unsafe output path, invalid signing configuration, workspace not creatable |
-| `TOOLCHAIN_FAILURE` | toolchain validation failed; tool not executable; `UnsupportedClassVersionError`; aapt2 not executable |
+| `INPUT_FAILURE` | input missing / not a file / not a ZIP; not an Apktool project (`build()`); input changed during the build |
+| `CONFIGURATION_FAILURE` | unsafe or existing output path, output equals input, no/invalid signing configuration |
+| `TOOL_UNAVAILABLE` | a required tool is not configured or its path does not exist (only `MISSING` tools failed validation) |
+| `TOOLCHAIN_FAILURE` | a tool is present but broken/unsupported; tool not executable; `UnsupportedClassVersionError`; aapt2 not executable |
+| `WORKSPACE_FAILURE` | workspace not creatable or unusable, invalid build id, input copy failed, stale `decoded/` present |
+| `OUTPUT_MISSING` | the tool exited 0 but its expected output is missing or empty |
+| `UNEXPECTED_FAILURE` | internal exception inside a stage or the pipeline (type and message kept, traceback in stage log) |
 | `FRAMEWORK_FAILURE` | platform missing; framework install failed; `attribute android:… not found`, `style attribute 'android:attr/…' not found` |
 | `RESOURCE_FAILURE` | build: `error: attribute X not found` (non-android), `failed linking references/file resources`; decode: ARSC/AXML decoder exceptions |
 | `DECODE_FAILURE` / `BUILD_FAILURE` | stage failed, no known pattern matched (`classified=False`) |
@@ -170,7 +216,11 @@ meaningful stderr line, with JVM `WARNING: A restricted method…` noise exclude
   `CN=APKForge Development Key - NOT FOR RELEASE, O=APKForge`. It is outside the
   repository; `*.p12`/`*.jks` are also gitignored.
 - Another key can be selected with `APKFORGE_SIGNING_KEYSTORE`/`_ALIAS`/`_PASSWORD_FILE`
-  (or `_PASSWORD_ENV`). Do not use production keys in C.2.
+  (or `_PASSWORD_ENV`), or passed to `sign(..., signing)`. Do not use production keys.
+- Signing modes (`SigningMode`, `BuildResult.signing_mode`): `unsigned` (default; any
+  pipeline that did not pass the sign stage, and the outputs of `build()`/`align()`),
+  `development` (`SigningConfig.development_key=True`, the APKForge dev key) and
+  `user_provided` (any other explicitly configured keystore).
 - The old C.1 `tools/test-signing-key.jks` (fixed password) is no longer used.
 
 ## 8. Verification model
@@ -184,6 +234,11 @@ Verification is a separate stage on the final APK and does not trust earlier exi
    signing). A valid signature by any other key is a `VERIFICATION_FAILURE`.
 3. The ZIP must pass `testzip()` and contain `AndroidManifest.xml`.
 
+Standalone `verify(apk)` without `expected_certificate_sha256` skips the signer check
+(`expected_signer_matched` is `None`, not `True`); all other checks still apply, so an
+APK that is not `-p 4` aligned fails. The raw apksigner output is kept in
+`verification.apksigner_output`.
+
 apksigner `WARNING:` lines are kept in `verification.apksigner_warnings`; the common
 "META-INF/… not protected by signature" family (non-signature files carried over from
 the original APK) is summarized as one `BuildResult.warnings` entry.
@@ -191,7 +246,8 @@ the original APK) is summarized as one `BuildResult.warnings` entry.
 ## 9. Corpus testing
 
 - Unit tests (`tests/unit/test_build_service.py`) use a fake tool runner and need no
-  external tools.
+  external tools. They cover every stage method on its own (input, tool-unavailable,
+  command-failure, output-missing, stale-output and path-safety cases) and the pipeline.
 - Integration tests (`tests/integration/test_build_service_corpus.py`) run the real
   toolchain on two small corpus APKs, provisioning framework and key in pytest temp dirs;
   skipped when the toolchain is unavailable. The full 9-APK test runs with
@@ -203,7 +259,9 @@ the original APK) is summarized as one `BuildResult.warnings` entry.
 
 ## 10. Known limitations
 
-- **Runtime install/launch validation is not part of C.2.** No emulator or device was
+- The `apkforge verify` CLI command is still the Phase 3 placeholder; its intended
+  backend is `BuildService.verify()`.
+- **Runtime install/launch validation is not part of C.2/C.3.** No emulator or device was
   available (`adb devices` empty during C.1b) and provisioning one is out of scope. A
   rebuilt APK that verifies is not proven to install or run.
 - No semantic equivalence check: DEX and `resources.arsc` differ byte-wise after a round

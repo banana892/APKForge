@@ -12,7 +12,10 @@ Layout::
         metadata/result.json    serialized BuildResult
 
 Build ids embed a UTC timestamp and a random suffix and the directory is created
-with ``exist_ok=False``, so concurrent builds can never share a workspace.
+with ``exist_ok=False``, so concurrent builds can never share a workspace and no
+stale output from an earlier build can be mistaken for current output.
+Caller-supplied build ids must be a single plain path component. No path is
+ever derived from APK contents: the input copy is always ``input/original.apk``.
 
 Retention: a failed build keeps everything (by default). A successful build
 without ``keep`` removes the bulky intermediates (input/, decoded/, build/,
@@ -23,6 +26,8 @@ exported elsewhere.
 from __future__ import annotations
 
 import datetime
+import os
+import re
 import shutil
 import uuid
 from pathlib import Path
@@ -32,6 +37,7 @@ from apkforge.core.exceptions import WorkspaceError
 __all__ = ["BuildWorkspace", "new_build_id"]
 
 _INTERMEDIATE_DIRS = ("input", "decoded", "build", "aligned")
+_BUILD_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}")
 
 
 def new_build_id() -> str:
@@ -62,6 +68,11 @@ class BuildWorkspace:
     @classmethod
     def create(cls, base_dir: Path, build_id: str | None = None) -> BuildWorkspace:
         build_id = build_id or new_build_id()
+        if not _BUILD_ID.fullmatch(build_id) or ".." in build_id:
+            raise WorkspaceError(
+                f"Invalid build id {build_id!r}: must be a single plain path component.",
+                context="build-workspace",
+            )
         base_dir = base_dir.resolve()
         base_dir.mkdir(parents=True, exist_ok=True)
         root = base_dir / build_id
@@ -78,9 +89,28 @@ class BuildWorkspace:
             d.mkdir()
         return ws
 
+    def problems(self) -> list[str]:
+        """Reasons this workspace is unusable (empty when it is usable)."""
+        out: list[str] = []
+        for d in (
+            self.root,
+            self.input_dir,
+            self.build_dir,
+            self.aligned_dir,
+            self.signed_dir,
+            self.logs_dir,
+            self.metadata_dir,
+        ):
+            if d.is_symlink() or not d.is_dir():
+                out.append(f"{d} is not a directory")
+            elif not os.access(d, os.W_OK | os.X_OK):
+                out.append(f"{d} is not writable")
+        return out
+
     def import_input(self, apk: Path) -> Path:
         """Copy the input APK into ``input/``; the original is never handed to a tool."""
         dest = self.subpath("input", "original.apk")
+        dest.unlink(missing_ok=True)  # read-only copy from an earlier attempt
         shutil.copyfile(apk, dest)
         dest.chmod(0o444)
         self.input_apk = dest

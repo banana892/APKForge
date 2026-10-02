@@ -15,15 +15,19 @@ if TYPE_CHECKING:
     from pathlib import Path
 
 __all__ = [
+    "DEFAULT_STAGE_TIMEOUT_SECONDS",
     "BuildFailureCategory",
     "BuildOptions",
     "BuildResult",
     "BuildStage",
     "BuildVerificationResult",
     "CertificateInfo",
+    "SigningMode",
     "StageResult",
     "StageStatus",
 ]
+
+DEFAULT_STAGE_TIMEOUT_SECONDS = 900
 
 
 class BuildStage(StrEnum):
@@ -49,12 +53,20 @@ class BuildFailureCategory(StrEnum):
     Stage-generic categories (``DECODE_FAILURE``, ``BUILD_FAILURE``, ...) are used
     when the tool output matched no specific pattern; in that case
     ``StageResult.classified`` is ``False`` so unknown errors stay identifiable.
+
+    ``TOOL_UNAVAILABLE`` means a required tool is not configured or not present;
+    ``TOOLCHAIN_FAILURE`` means it is present but broken, unsupported or not
+    executable. ``OUTPUT_MISSING`` means a tool reported success but its expected
+    output does not exist (or is empty). ``UNEXPECTED_FAILURE`` is an internal
+    exception, reported with its type and message instead of being raised.
     """
 
     SUCCESS = "SUCCESS"
     INPUT_FAILURE = "INPUT_FAILURE"
     CONFIGURATION_FAILURE = "CONFIGURATION_FAILURE"
+    TOOL_UNAVAILABLE = "TOOL_UNAVAILABLE"
     TOOLCHAIN_FAILURE = "TOOLCHAIN_FAILURE"
+    WORKSPACE_FAILURE = "WORKSPACE_FAILURE"
     FRAMEWORK_FAILURE = "FRAMEWORK_FAILURE"
     DECODE_FAILURE = "DECODE_FAILURE"
     RESOURCE_FAILURE = "RESOURCE_FAILURE"
@@ -62,8 +74,18 @@ class BuildFailureCategory(StrEnum):
     ALIGNMENT_FAILURE = "ALIGNMENT_FAILURE"
     SIGNING_FAILURE = "SIGNING_FAILURE"
     VERIFICATION_FAILURE = "VERIFICATION_FAILURE"
+    OUTPUT_MISSING = "OUTPUT_MISSING"
     TIMEOUT = "TIMEOUT"
     UNSUPPORTED = "UNSUPPORTED"
+    UNEXPECTED_FAILURE = "UNEXPECTED_FAILURE"
+
+
+class SigningMode(StrEnum):
+    """How an APK produced by BuildService is signed."""
+
+    UNSIGNED = "unsigned"
+    DEVELOPMENT = "development"  # the APKForge development/test key
+    USER_PROVIDED = "user_provided"  # an explicitly configured keystore
 
 
 @dataclass
@@ -85,6 +107,11 @@ class StageResult:
     evidence: str | None = None  # the tool-output line that justified the category
     classified: bool = True
     notes: list[str] = field(default_factory=list)
+    events: list[str] = field(default_factory=list)  # "[STAGE] ..." progress lines
+    output_path: Path | None = None  # the artifact this stage produced (on PASS)
+    failed_command: list[str] | None = None  # secret-masked argv of the failing command
+    certificate_sha256: str | None = None  # sign: digest of the configured certificate
+    verification: BuildVerificationResult | None = None  # verify only
 
     @property
     def passed(self) -> bool:
@@ -107,6 +134,11 @@ class StageResult:
             "evidence": self.evidence,
             "classified": self.classified,
             "notes": self.notes,
+            "events": self.events,
+            "output_path": str(self.output_path) if self.output_path else None,
+            "failed_command": self.failed_command,
+            "certificate_sha256": self.certificate_sha256,
+            "verification": self.verification.to_dict() if self.verification else None,
         }
 
 
@@ -129,18 +161,23 @@ class CertificateInfo:
 
 @dataclass
 class BuildVerificationResult:
-    """Independent checks on the final signed APK."""
+    """Independent checks on the final signed APK.
+
+    ``expected_signer_matched`` is ``None`` when no expected certificate was
+    given (standalone :meth:`BuildService.verify`); the pipeline always gives one.
+    """
 
     valid: bool = False
     zipalign_verified: bool = False
     signature_verified: bool = False
-    expected_signer_matched: bool = False
+    expected_signer_matched: bool | None = None
     zip_integrity_verified: bool = False
     manifest_present: bool = False
     certificate: CertificateInfo | None = None
     expected_certificate_sha256: str | None = None
     apksigner_warnings: list[str] = field(default_factory=list)
     errors: list[str] = field(default_factory=list)
+    apksigner_output: str = ""
 
     def to_dict(self) -> dict[str, Any]:
         d = asdict(self)
@@ -157,12 +194,12 @@ class BuildOptions:
     work_dir: Path | None = None
     keep_workspace_on_success: bool = False
     keep_workspace_on_failure: bool = True
-    stage_timeout_seconds: int = 900
+    stage_timeout_seconds: int = DEFAULT_STAGE_TIMEOUT_SECONDS
 
 
 @dataclass
 class BuildResult:
-    """Structured outcome of :meth:`BuildService.build`."""
+    """Structured outcome of :meth:`BuildService.build_pipeline`."""
 
     success: bool
     build_id: str
@@ -175,8 +212,11 @@ class BuildResult:
     failure_category: BuildFailureCategory = BuildFailureCategory.SUCCESS
     failure_cause: str = ""
     failure_evidence: str | None = None
+    failure_command: list[str] | None = None
     warnings: list[str] = field(default_factory=list)
     errors: list[str] = field(default_factory=list)
+    logs: list[str] = field(default_factory=list)
+    signing_mode: SigningMode = SigningMode.UNSIGNED
     certificate: CertificateInfo | None = None
     verification: BuildVerificationResult | None = None
     workspace: Path | None = None
@@ -200,8 +240,11 @@ class BuildResult:
             "failure_category": str(self.failure_category),
             "failure_cause": self.failure_cause,
             "failure_evidence": self.failure_evidence,
+            "failure_command": self.failure_command,
             "warnings": self.warnings,
             "errors": self.errors,
+            "logs": self.logs,
+            "signing_mode": str(self.signing_mode),
             "certificate": self.certificate.to_dict() if self.certificate else None,
             "verification": self.verification.to_dict() if self.verification else None,
             "workspace": str(self.workspace) if self.workspace else None,
