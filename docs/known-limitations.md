@@ -480,3 +480,73 @@ Phase C.4 (corpus regression baseline): the corpus definition and expected outco
 `tests/corpus/manifest.json`, the baseline result in `tests/corpus/results/baseline.json`
 and `baseline-report.md`. The baseline only covers the no-op rebuild of these 9 APKs with
 the recorded toolchain; it says nothing about install/runtime behaviour or other APKs.
+
+---
+
+## Phase C.5 — controlled modification
+
+Workflow, noise rules and the semantic no-op baseline: [controlled-modification.md](controlled-modification.md).
+Entries 16–19 were added in C.5; no earlier entry was edited.
+
+### 16. The manifest inspector extracts no intent filters from real APKs
+
+**Classification: unresolved defect** (pre-existing; found in C.5, not fixed in C.5).
+
+`ManifestInspector._extract_intent_filters` returns early unless it is given an
+`xml.etree.ElementTree.Element`. Androguard's `get_android_manifest_xml()` returns
+`lxml.etree._Element`, and the whole extraction runs inside `contextlib.suppress(Exception)`.
+So every activity, service and receiver of a real APK has `intent_filters == []`. Measured
+on OpenLink and AntennaPod: 0 filters across all component types, although OpenLink's
+manifest declares 8. Synthetic test APKs take the text-XML fallback path, which is why the
+unit tests did not catch it.
+
+Consequences:
+
+- `ComponentDiffer`'s intent-filter comparison never fires on real APKs.
+- Everything downstream that reads `intent_filters` sees none: deep-link hosts in the
+  network inspector, and security/privacy rules about exported components with filters.
+
+Why not fixed in C.5: the fix is small (accept any element with `findall`/`get`), but it
+changes security and privacy results on real APKs and therefore invalidates the Phase B
+precision evidence. That needs a deliberate re-validation, not a side effect of C.5.
+
+C.5 mitigation: the modifier verifies the complete decoded-manifest structure, intent
+filters included, before the build. The integration test decodes the output's binary
+manifest independently and checks the target receiver's actions. DiffEngine itself does
+not cover intent filters.
+
+### 17. Legacy `ModificationFramework` reports SUCCESS when nothing was changed
+
+**Classification: unresolved defect** (pre-existing, Phase D scope; C.5 does not use this path).
+
+`ModificationResult.all_succeeded` counts `SKIPPED` as success. `ComponentModifier` returns
+`SKIPPED` when the component is not found. So an approved plan to disable a non-existent
+component finishes with overall status `success` and nothing changed. Reproduced with a
+synthetic APK during C.5.
+
+### 18. Failed intakes keep their workspace by default
+
+**Classification: accepted behaviour** (documented setting; recorded because it looks like a leak).
+
+`WorkspaceSettings.keep_on_failure` defaults to `True`. `APKIntakeService.process()` with
+default config therefore retains the workspace of every failed intake under
+`/tmp/apkforge/` for debugging. In C.5 the intake security tests, which fail on purpose,
+were moved to pytest temp directories. Changing the default is a separate decision.
+
+### 19. Workspace leak (`InspectionEngine`) — fixed in C.5
+
+Repeated test runs left `/tmp/apkforge/apkforge_*` directories behind: 58 per unit-suite
+run before the fix, 0 after (three consecutive full-suite runs). The cause:
+`InspectionEngine.inspect()` searched the *original* APK's parent directories for an
+`apkforge_*` directory, so it never found the intake workspace of a standalone APK. Its
+cleanup also ran on the success path only, and it could delete an unrelated user
+directory named `apkforge_*`.
+
+Intake now hands the retained workspace to the caller (`AndroidPackage.workspace_root`),
+and the engine removes exactly that directory in a `finally` block. `ModificationFramework`
+removes a workspace it created when the run does not succeed, unless
+`keep_workspace=True`. It never removes a caller-supplied workspace, and it no longer
+reuses one directory across runs under `workspace_base`. Regression tests:
+`tests/unit/test_workspace_lifecycle.py`.
+
+Directories leaked before the fix are not removed automatically.

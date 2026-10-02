@@ -1,0 +1,1268 @@
+{
+  "name": "C.5 toolchain comparison (no-op, old vs current)",
+  "generated_at": "2026-10-02T18:47:57.381758+00:00",
+  "old_toolchain": {
+    "image": "apkforge-toolchain:pinned",
+    "image_id": "sha256:79434918ee5e180f89345fa73e6c14fea2d1d14e95c863e022613d0d30226379",
+    "apktool": "2.10.0",
+    "build_tools": "34.0.0",
+    "java": "OpenJDK 17.0.20.1 (Temurin)",
+    "signing": "throwaway PKCS12 key generated per APK, deleted after signing"
+  },
+  "current_toolchain": {
+    "versions": {
+      "java": "25.0.4.1",
+      "apktool": "3.0.3",
+      "zipalign": "35.0.0",
+      "apksigner": "0.9",
+      "build_tools": "35.0.0",
+      "android_platform": "android-35"
+    },
+    "android_platform": "/home/naishring/Android/Sdk/platforms/android-35/android.jar",
+    "signing_mode": "development",
+    "apkforge": {
+      "version": "0.1.0-dev",
+      "git_commit": "f9b6cdcd98db4506ee99cf1c3fcb609f4f7b34cf",
+      "git_dirty": false
+    }
+  },
+  "rows": [
+    {
+      "id": "de.audioattack.openlink@28",
+      "sha256": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+      "old_build": "SUCCESS",
+      "old": {
+        "id": "de.audioattack.openlink@28",
+        "filename": "de.audioattack.openlink_28.apk",
+        "sha256": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+        "package_name": null,
+        "build_success": true,
+        "build_failure": null,
+        "input_unchanged": null,
+        "rebuilt_sha256": null,
+        "signer_sha256": null,
+        "diff_status": "complete",
+        "observation_counts": {
+          "certificate:modified": 1,
+          "dex_string:removed": 1,
+          "file:added": 2,
+          "file:modified": 4,
+          "file:removed": 18,
+          "file:renamed": 64
+        },
+        "noise_rule_counts": {
+          "certificate_replaced": 1,
+          "dex_compiler_marker_removed": 1,
+          "dex_reencoded": 1,
+          "manifest_reencoded": 1,
+          "resource_path_canonicalized": 64,
+          "resource_table_reencoded": 1,
+          "signature_replaced": 5
+        },
+        "residue": [],
+        "unexpected": [
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.annotation_annotation-experimental.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.arch.core_core-runtime.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 67
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.core_core-viewtree.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.core_core.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 7
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.interpolator_interpolator.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.lifecycle_lifecycle-runtime.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 72
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.profileinstaller_profileinstaller.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.startup_startup-runtime.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.tracing_tracing.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.versionedparcelable_versionedparcelable.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx/annotation/annotation/LICENSE.txt",
+            "detail": {
+              "file_category": "signature",
+              "size": 10175
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/com/android/build/gradle/app-metadata.properties",
+            "detail": {
+              "file_category": "signature",
+              "size": 57
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/kotlinx_coroutines_android.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 5
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/kotlinx_coroutines_core.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 5
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/version-control-info.textproto",
+            "detail": {
+              "file_category": "signature",
+              "size": 120
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/versions/9/OSGI-INF/MANIFEST.MF",
+            "detail": {
+              "file_category": "signature",
+              "size": 145
+            }
+          }
+        ],
+        "unknown": [],
+        "diff_failures": [],
+        "result": "NOT_EQUIVALENT",
+        "notes": []
+      },
+      "apktool_version": "2.10.0",
+      "current": {
+        "id": "de.audioattack.openlink@28",
+        "filename": "de.audioattack.openlink_28.apk",
+        "sha256": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+        "package_name": "de.audioattack.openlink",
+        "build_success": true,
+        "build_failure": null,
+        "input_unchanged": true,
+        "rebuilt_sha256": "f8fb0d3346ce58a7e1c304f785fa751d55169d3b9dba7a1fa21f687acb18ea50",
+        "signer_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+        "diff_status": "complete",
+        "observation_counts": {
+          "certificate:modified": 1,
+          "dex_string:removed": 1,
+          "file:added": 2,
+          "file:modified": 4,
+          "file:removed": 2,
+          "file:renamed": 64
+        },
+        "noise_rule_counts": {
+          "certificate_replaced": 1,
+          "dex_compiler_marker_removed": 1,
+          "dex_reencoded": 1,
+          "manifest_reencoded": 1,
+          "resource_path_canonicalized": 64,
+          "resource_table_reencoded": 1,
+          "signature_replaced": 5
+        },
+        "residue": [],
+        "unexpected": [],
+        "unknown": [],
+        "diff_failures": [],
+        "result": "EQUIVALENT",
+        "notes": []
+      },
+      "original_unchanged": true,
+      "classification": "DIFFERENT",
+      "conclusion": "result NOT_EQUIVALENT (old) vs EQUIVALENT (current); 16 unexplained only with old toolchain, e.g. ['file removed META-INF/androidx.annotation_annotation-experimental.version', 'file removed META-INF/androidx.arch.core_core-runtime.version', 'file removed META-INF/androidx.core_core-viewtree.version', 'file removed META-INF/androidx.core_core.version', 'file removed META-INF/androidx.interpolator_interpolator.version']"
+    },
+    {
+      "id": "de.danoeh.antennapod@3120295",
+      "sha256": "3f43a4337a693cdb49141afe06cb596e88c796009ed77bff51e9444ce2d1ebfc",
+      "old_build": "SUCCESS",
+      "old": {
+        "id": "de.danoeh.antennapod@3120295",
+        "filename": "de.danoeh.antennapod_3120295.apk",
+        "sha256": "3f43a4337a693cdb49141afe06cb596e88c796009ed77bff51e9444ce2d1ebfc",
+        "package_name": null,
+        "build_success": true,
+        "build_failure": null,
+        "input_unchanged": null,
+        "rebuilt_sha256": null,
+        "signer_sha256": null,
+        "diff_status": "complete",
+        "observation_counts": {
+          "certificate:modified": 1,
+          "dex_string:removed": 1,
+          "file:added": 4,
+          "file:modified": 189,
+          "file:removed": 77,
+          "file:renamed": 1214,
+          "manifest_attribute:modified": 1
+        },
+        "noise_rule_counts": {
+          "certificate_replaced": 1,
+          "dex_compiler_marker_removed": 1,
+          "dex_reencoded": 3,
+          "manifest_reencoded": 1,
+          "manifest_resource_path_canonicalized": 1,
+          "resource_path_canonicalized": 1214,
+          "resource_reencoded": 183,
+          "resource_table_reencoded": 1,
+          "signature_replaced": 5
+        },
+        "residue": [
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "res/WK.xml",
+            "detail": {
+              "file_category": "resource",
+              "size": 712
+            }
+          },
+          {
+            "category": "file",
+            "kind": "added",
+            "identifier": "res/drawable/material_ic_keyboard_arrow_left_black_24dp.xml",
+            "detail": {
+              "file_category": "resource",
+              "size": 712
+            }
+          },
+          {
+            "category": "file",
+            "kind": "added",
+            "identifier": "res/drawable/material_ic_keyboard_arrow_right_black_24dp.xml",
+            "detail": {
+              "file_category": "resource",
+              "size": 700
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "res/sO.xml",
+            "detail": {
+              "file_category": "resource",
+              "size": 700
+            }
+          }
+        ],
+        "unexpected": [
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.activity_activity-ktx.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.activity_activity.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.annotation_annotation-experimental.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.appcompat_appcompat-resources.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.appcompat_appcompat.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.arch.core_core-runtime.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 67
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.asynclayoutinflater_asynclayoutinflater.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.car.app_app.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 11
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.cardview_cardview.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.coordinatorlayout_coordinatorlayout.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.core_core-ktx.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 7
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.core_core-splashscreen.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.core_core-viewtree.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.core_core.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 7
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.cursoradapter_cursoradapter.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.customview_customview-poolingcontainer.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.customview_customview.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.databinding_viewbinding.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.documentfile_documentfile.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.drawerlayout_drawerlayout.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 70
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.dynamicanimation_dynamicanimation.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.emoji2_emoji2-views-helper.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.emoji2_emoji2.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.exifinterface_exifinterface.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.fragment_fragment-ktx.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.fragment_fragment.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.gridlayout_gridlayout.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.interpolator_interpolator.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.legacy_legacy-support-core-ui.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.legacy_legacy-support-core-utils.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.lifecycle_lifecycle-livedata-core-ktx.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 82
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.lifecycle_lifecycle-livedata-core.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 78
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.lifecycle_lifecycle-livedata.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 73
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.lifecycle_lifecycle-process.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 72
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.lifecycle_lifecycle-runtime-ktx.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 76
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.lifecycle_lifecycle-runtime.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 72
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.lifecycle_lifecycle-service.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 72
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.lifecycle_lifecycle-viewmodel-ktx.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 78
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.lifecycle_lifecycle-viewmodel-savedstate.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 85
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.lifecycle_lifecycle-viewmodel.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 74
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.loader_loader.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.localbroadcastmanager_localbroadcastmanager.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.media_media.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.palette_palette.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.preference_preference.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.print_print.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.profileinstaller_profileinstaller.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.recyclerview_recyclerview.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.room_room-ktx.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.room_room-runtime.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.savedstate_savedstate-ktx.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.savedstate_savedstate.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.slidingpanelayout_slidingpanelayout.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.sqlite_sqlite-framework.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.sqlite_sqlite.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.startup_startup-runtime.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.swiperefreshlayout_swiperefreshlayout.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.tracing_tracing-ktx.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.tracing_tracing.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.transition_transition.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.vectordrawable_vectordrawable-animated.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.vectordrawable_vectordrawable.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.versionedparcelable_versionedparcelable.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.viewpager2_viewpager2.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.viewpager_viewpager.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.window_window.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 6
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx.work_work-runtime.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 7
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/com.google.android.material_material.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 7
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/com/android/build/gradle/app-metadata.properties",
+            "detail": {
+              "file_category": "signature",
+              "size": 57
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/kotlinx_coroutines_android.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 5
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/kotlinx_coroutines_core.version",
+            "detail": {
+              "file_category": "signature",
+              "size": 5
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/version-control-info.textproto",
+            "detail": {
+              "file_category": "signature",
+              "size": 120
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/versions/9/OSGI-INF/MANIFEST.MF",
+            "detail": {
+              "file_category": "signature",
+              "size": 145
+            }
+          }
+        ],
+        "unknown": [],
+        "diff_failures": [],
+        "result": "NOT_EQUIVALENT",
+        "notes": []
+      },
+      "apktool_version": "2.10.0",
+      "current": {
+        "id": "de.danoeh.antennapod@3120295",
+        "filename": "de.danoeh.antennapod_3120295.apk",
+        "sha256": "3f43a4337a693cdb49141afe06cb596e88c796009ed77bff51e9444ce2d1ebfc",
+        "package_name": "de.danoeh.antennapod",
+        "build_success": true,
+        "build_failure": null,
+        "input_unchanged": true,
+        "rebuilt_sha256": "04d268fb178a66e21e68010f14693007f298fd77c373931ba823f646011f8ea3",
+        "signer_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+        "diff_status": "complete",
+        "observation_counts": {
+          "certificate:modified": 1,
+          "dex_string:removed": 1,
+          "file:added": 4,
+          "file:modified": 189,
+          "file:removed": 4,
+          "file:renamed": 1214,
+          "manifest_attribute:modified": 1
+        },
+        "noise_rule_counts": {
+          "certificate_replaced": 1,
+          "dex_compiler_marker_removed": 1,
+          "dex_reencoded": 3,
+          "manifest_reencoded": 1,
+          "manifest_resource_path_canonicalized": 1,
+          "resource_path_canonicalized": 1214,
+          "resource_reencoded": 183,
+          "resource_table_reencoded": 1,
+          "signature_replaced": 5
+        },
+        "residue": [
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "res/WK.xml",
+            "detail": {
+              "file_category": "resource",
+              "size": 712
+            }
+          },
+          {
+            "category": "file",
+            "kind": "added",
+            "identifier": "res/drawable/material_ic_keyboard_arrow_left_black_24dp.xml",
+            "detail": {
+              "file_category": "resource",
+              "size": 712
+            }
+          },
+          {
+            "category": "file",
+            "kind": "added",
+            "identifier": "res/drawable/material_ic_keyboard_arrow_right_black_24dp.xml",
+            "detail": {
+              "file_category": "resource",
+              "size": 700
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "res/sO.xml",
+            "detail": {
+              "file_category": "resource",
+              "size": 700
+            }
+          }
+        ],
+        "unexpected": [],
+        "unknown": [],
+        "diff_failures": [],
+        "result": "EQUIVALENT_WITH_RESIDUE",
+        "notes": []
+      },
+      "original_unchanged": true,
+      "classification": "DIFFERENT",
+      "conclusion": "result NOT_EQUIVALENT (old) vs EQUIVALENT_WITH_RESIDUE (current); 73 unexplained only with old toolchain, e.g. ['file removed META-INF/androidx.activity_activity-ktx.version', 'file removed META-INF/androidx.activity_activity.version', 'file removed META-INF/androidx.annotation_annotation-experimental.version', 'file removed META-INF/androidx.appcompat_appcompat-resources.version', 'file removed META-INF/androidx.appcompat_appcompat.version']"
+    },
+    {
+      "id": "io.github.muntashirakon.AppManager@451",
+      "sha256": "e1f6ba10812c74016ad626e11e27a1ae450aec2c0964a11466abb9e7a9c8ef84",
+      "old_build": "SUCCESS",
+      "old": {
+        "id": "io.github.muntashirakon.AppManager@451",
+        "filename": "io.github.muntashirakon.AppManager_451.apk",
+        "sha256": "e1f6ba10812c74016ad626e11e27a1ae450aec2c0964a11466abb9e7a9c8ef84",
+        "package_name": null,
+        "build_success": true,
+        "build_failure": null,
+        "input_unchanged": null,
+        "rebuilt_sha256": null,
+        "signer_sha256": null,
+        "diff_status": "complete",
+        "observation_counts": {
+          "certificate:modified": 1,
+          "dex_string:removed": 3,
+          "file:added": 4,
+          "file:modified": 267,
+          "file:removed": 8,
+          "file:renamed": 1183,
+          "manifest_attribute:modified": 1
+        },
+        "noise_rule_counts": {
+          "certificate_replaced": 1,
+          "dex_compiler_marker_removed": 3,
+          "dex_reencoded": 6,
+          "manifest_reencoded": 1,
+          "manifest_resource_path_canonicalized": 1,
+          "resource_path_canonicalized": 1183,
+          "resource_reencoded": 258,
+          "resource_table_reencoded": 1,
+          "signature_replaced": 5
+        },
+        "residue": [
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "res/WK.xml",
+            "detail": {
+              "file_category": "resource",
+              "size": 712
+            }
+          },
+          {
+            "category": "file",
+            "kind": "added",
+            "identifier": "res/drawable/material_ic_keyboard_arrow_left_black_24dp.xml",
+            "detail": {
+              "file_category": "resource",
+              "size": 712
+            }
+          },
+          {
+            "category": "file",
+            "kind": "added",
+            "identifier": "res/drawable/material_ic_keyboard_arrow_right_black_24dp.xml",
+            "detail": {
+              "file_category": "resource",
+              "size": 700
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "res/sO.xml",
+            "detail": {
+              "file_category": "resource",
+              "size": 700
+            }
+          }
+        ],
+        "unexpected": [
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx/annotation/annotation/LICENSE.txt",
+            "detail": {
+              "file_category": "signature",
+              "size": 10175
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/androidx/room/room-common/LICENSE.txt",
+            "detail": {
+              "file_category": "signature",
+              "size": 10175
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/com/android/build/gradle/app-metadata.properties",
+            "detail": {
+              "file_category": "signature",
+              "size": 57
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "META-INF/version-control-info.textproto",
+            "detail": {
+              "file_category": "signature",
+              "size": 120
+            }
+          }
+        ],
+        "unknown": [],
+        "diff_failures": [],
+        "result": "NOT_EQUIVALENT",
+        "notes": []
+      },
+      "apktool_version": "2.10.0",
+      "current": {
+        "id": "io.github.muntashirakon.AppManager@451",
+        "filename": "io.github.muntashirakon.AppManager_451.apk",
+        "sha256": "e1f6ba10812c74016ad626e11e27a1ae450aec2c0964a11466abb9e7a9c8ef84",
+        "package_name": "io.github.muntashirakon.AppManager",
+        "build_success": true,
+        "build_failure": null,
+        "input_unchanged": true,
+        "rebuilt_sha256": "2f9e6c8e03d70f3afb1d041af5f2f718cd35c5db73e773fc9007f099e4c45f4b",
+        "signer_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+        "diff_status": "complete",
+        "observation_counts": {
+          "certificate:modified": 1,
+          "dex_string:removed": 3,
+          "file:added": 4,
+          "file:modified": 267,
+          "file:removed": 4,
+          "file:renamed": 1183,
+          "manifest_attribute:modified": 1
+        },
+        "noise_rule_counts": {
+          "certificate_replaced": 1,
+          "dex_compiler_marker_removed": 3,
+          "dex_reencoded": 6,
+          "manifest_reencoded": 1,
+          "manifest_resource_path_canonicalized": 1,
+          "resource_path_canonicalized": 1183,
+          "resource_reencoded": 258,
+          "resource_table_reencoded": 1,
+          "signature_replaced": 5
+        },
+        "residue": [
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "res/WK.xml",
+            "detail": {
+              "file_category": "resource",
+              "size": 712
+            }
+          },
+          {
+            "category": "file",
+            "kind": "added",
+            "identifier": "res/drawable/material_ic_keyboard_arrow_left_black_24dp.xml",
+            "detail": {
+              "file_category": "resource",
+              "size": 712
+            }
+          },
+          {
+            "category": "file",
+            "kind": "added",
+            "identifier": "res/drawable/material_ic_keyboard_arrow_right_black_24dp.xml",
+            "detail": {
+              "file_category": "resource",
+              "size": 700
+            }
+          },
+          {
+            "category": "file",
+            "kind": "removed",
+            "identifier": "res/sO.xml",
+            "detail": {
+              "file_category": "resource",
+              "size": 700
+            }
+          }
+        ],
+        "unexpected": [],
+        "unknown": [],
+        "diff_failures": [],
+        "result": "EQUIVALENT_WITH_RESIDUE",
+        "notes": []
+      },
+      "original_unchanged": true,
+      "classification": "DIFFERENT",
+      "conclusion": "result NOT_EQUIVALENT (old) vs EQUIVALENT_WITH_RESIDUE (current); 4 unexplained only with old toolchain, e.g. ['file removed META-INF/androidx/annotation/annotation/LICENSE.txt', 'file removed META-INF/androidx/room/room-common/LICENSE.txt', 'file removed META-INF/com/android/build/gradle/app-metadata.properties', 'file removed META-INF/version-control-info.textproto']"
+    }
+  ]
+}

@@ -276,6 +276,14 @@ itself.
 
 See `tests/corpus/README.md` for identity rules, categories and how to change the baseline.
 
+### Phase C.5: semantic no-op baseline and first modification
+
+C.4 shows that the corpus *builds*. C.5 adds `tests/corpus/results/c5-semantic-noop-baseline.*`:
+for every corpus APK, an unmodified `build_pipeline` round trip is compared with the original
+by `DiffEngine`, and every difference is classified as documented rebuild noise or not. The
+first modification (OpenLink: remove `RECEIVE_BOOT_COMPLETED`, disable the boot receiver)
+runs over the individual stage methods. See [controlled-modification.md](controlled-modification.md).
+
 ## 10. Known limitations
 
 - The `apkforge verify` CLI command is still the Phase 3 placeholder; its intended

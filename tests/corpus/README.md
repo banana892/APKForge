@@ -11,6 +11,9 @@ Real F-Droid APKs used as the regression baseline for `BuildService`
 | `manifest.json` | Corpus definition: per-APK id, filename, **SHA-256**, size, metadata, expected outcome, notes. |
 | `results/baseline.json` | Authoritative machine-readable result of the C.4 baseline run. |
 | `results/baseline-report.md` | Human-readable report for the same run. |
+| `results/c5-semantic-noop-baseline.{json,md}` | C.5 precondition: semantic classification of each no-op rebuild (separate from the C.4 build baseline). |
+| `results/c5-toolchain-comparison.{json,md}` | C.5: no-op output of the Phase B toolchain vs the current one (3 APKs). |
+| `results/c5-openlink-result.{json,md}` | C.5: the OpenLink boot-receiver modification and its expected-vs-actual verdict. |
 | `*.apk` | The corpus APKs (local only). |
 
 ## Identity
