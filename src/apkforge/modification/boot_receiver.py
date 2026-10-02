@@ -1,7 +1,9 @@
 """C.5 modifier: remove RECEIVE_BOOT_COMPLETED and disable the app's boot receiver.
 
-Deliberately narrow (not the Phase D framework). It works on an Apktool-decoded
-``AndroidManifest.xml`` inside a BuildService workspace and has four separate steps:
+Deliberately narrow. Phase D runs it through the general pipeline via the adapter
+:class:`apkforge.modification.builtin.BootReceiverModifier`; the functions here are
+unchanged. It works on an Apktool-decoded ``AndroidManifest.xml`` inside a BuildService
+workspace and has four separate steps:
 
 1. **inspect** (:func:`discover`): find the permission and every ``<receiver>`` whose
    intent filters handle a boot action. Nothing is assumed about names.
@@ -24,12 +26,13 @@ import hashlib
 import re
 import xml.etree.ElementTree as ET
 from enum import StrEnum
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING
 from xml.sax.saxutils import escape
 
 from pydantic import BaseModel, Field
 
 from apkforge.diff.expectations import ExpectedChange
+from apkforge.modification.edits import SourceEdit, manifest_edits, same_edits
 
 if TYPE_CHECKING:
     from pathlib import Path
@@ -107,16 +110,6 @@ class Precondition(BaseModel):
     name: str
     satisfied: bool
     detail: str = ""
-
-
-class SourceEdit(BaseModel):
-    """One structural edit of the decoded manifest."""
-
-    kind: str  # remove_element | add_element | set_attribute
-    element: str  # stable element key, e.g. manifest/receiver[name=a.B]
-    attribute: str | None = None
-    before: str | None = None
-    after: str | None = None
 
 
 class BootReceiverPlan(BaseModel):
@@ -370,60 +363,6 @@ def plan_disable_boot_receiver(
 # ---------------------------------------------------------------------------
 
 
-def _element_index(manifest_xml: str) -> dict[str, dict[str, str]]:
-    """Map a stable key per element to its attributes (android: prefix restored)."""
-    root = ET.fromstring(manifest_xml)  # noqa: S314 - Apktool output from our workspace
-    index: dict[str, dict[str, str]] = {}
-
-    def attrs(el: ET.Element) -> dict[str, str]:
-        out = {k.replace(_A, "android:"): v for k, v in el.attrib.items()}
-        if (el.text or "").strip():
-            out["#text"] = (el.text or "").strip()
-        return out
-
-    def walk(el: ET.Element, prefix: str) -> None:
-        unnamed: dict[str, int] = {}
-        for child in el:
-            name = child.get(f"{_A}name")
-            if name is not None:
-                key = f"{prefix}/{child.tag}[name={name}]"
-            else:
-                n = unnamed.get(child.tag, 0)
-                unnamed[child.tag] = n + 1
-                key = f"{prefix}/{child.tag}[{n}]"
-            while key in index:  # duplicate names: disambiguate deterministically
-                key += "+"
-            index[key] = attrs(child)
-            walk(child, key)
-
-    index[root.tag] = attrs(root)
-    walk(root, root.tag)
-    return index
-
-
-def manifest_edits(before_xml: str, after_xml: str) -> list[SourceEdit]:
-    """Structural difference between two decoded manifests."""
-    a, b = _element_index(before_xml), _element_index(after_xml)
-    edits: list[SourceEdit] = []
-    for key in sorted(a.keys() - b.keys()):
-        edits.append(SourceEdit(kind="remove_element", element=key))
-    for key in sorted(b.keys() - a.keys()):
-        edits.append(SourceEdit(kind="add_element", element=key))
-    for key in sorted(a.keys() & b.keys()):
-        for attr in sorted(a[key].keys() | b[key].keys()):
-            if a[key].get(attr) != b[key].get(attr):
-                edits.append(
-                    SourceEdit(
-                        kind="set_attribute",
-                        element=key,
-                        attribute=attr,
-                        before=a[key].get(attr),
-                        after=b[key].get(attr),
-                    )
-                )
-    return edits
-
-
 def _edit_text(text: str, plan: BootReceiverPlan) -> str:
     """Apply the plan as minimal text edits; raises ValueError if a target is not unique."""
     perm = re.compile(
@@ -480,7 +419,7 @@ def apply_plan(plan: BootReceiverPlan, manifest_path: Path) -> ApplyResult:
         return result
 
     result.observed_edits = observed
-    result.matches_plan = _same_edits(observed, plan.source_edits)
+    result.matches_plan = same_edits(observed, plan.source_edits)
     if not result.matches_plan:
         result.errors.append("Observed manifest edits differ from the planned edits; reverted.")
         return result
@@ -493,10 +432,3 @@ def apply_plan(plan: BootReceiverPlan, manifest_path: Path) -> ApplyResult:
         return result
     result.applied = True
     return result
-
-
-def _same_edits(a: list[SourceEdit], b: list[SourceEdit]) -> bool:
-    def key(e: SourceEdit) -> tuple[Any, ...]:
-        return (e.kind, e.element, e.attribute, e.before, e.after)
-
-    return sorted(map(key, a), key=repr) == sorted(map(key, b), key=repr)

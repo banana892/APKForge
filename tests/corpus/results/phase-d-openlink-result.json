@@ -1,0 +1,539 @@
+{
+  "name": "Phase D validation (generalized modification pipeline, OpenLink)",
+  "generated_at": "2026-10-02T21:33:41.996251+00:00",
+  "original_sha256": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+  "original_unchanged_after_all_runs": true,
+  "revision": {
+    "version": "0.1.0-dev",
+    "git_commit": "ad32566c72ea615e3dc18a7c6021d846dc2c1a00",
+    "git_dirty": true
+  },
+  "toolchain_versions": {
+    "java": "25.0.4.1",
+    "apktool": "3.0.3",
+    "zipalign": "35.0.0",
+    "apksigner": "0.9",
+    "build_tools": "35.0.0",
+    "android_platform": "android-35"
+  },
+  "scenarios": [
+    {
+      "id": "A",
+      "modifiers": [
+        "c5.disable_boot_receiver"
+      ],
+      "expect": "verified",
+      "expected_changes": 2,
+      "result": {
+        "status": "verified",
+        "order": [
+          "c5.disable_boot_receiver"
+        ],
+        "counts": {
+          "requested": 1,
+          "planned": 1,
+          "executed": 1,
+          "dry_run": 0,
+          "skipped": 0,
+          "failed": 0,
+          "verified": 1,
+          "verification_failed": 0,
+          "not_verified": 0,
+          "not_attempted": 0,
+          "rolled_back": 0
+        },
+        "steps": [
+          {
+            "modifier": "c5.disable_boot_receiver",
+            "status": "success",
+            "verification": "verified",
+            "rolled_back": false,
+            "message": "remove <uses-permission android:name=android.permission.RECEIVE_BOOT_COMPLETED>; set android:enabled=\"false\" on <receiver de.audioattack.openlink.conf.PackageChangeBroadcastReceiver>",
+            "expected_observed": 2,
+            "expected_missing": 0
+          }
+        ],
+        "conflicts": [],
+        "rollback": null,
+        "stages": [
+          "prepare=PASS",
+          "decode=PASS",
+          "build=PASS",
+          "align=PASS",
+          "sign=PASS",
+          "verify=PASS"
+        ],
+        "build_passed": true,
+        "apk_verified": true,
+        "verdict_passed": true,
+        "classification": {
+          "expected_modification": 2,
+          "rebuild_noise": 74,
+          "unexpected": 0,
+          "unknown": 0
+        },
+        "noise_rule_counts": {
+          "dex_compiler_marker_removed": 1,
+          "certificate_replaced": 1,
+          "manifest_reencoded": 1,
+          "signature_replaced": 5,
+          "dex_reencoded": 1,
+          "resource_path_canonicalized": 64,
+          "resource_table_reencoded": 1
+        },
+        "expected_modifications": [
+          "component modified de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+          "uses_permission removed android.permission.RECEIVE_BOOT_COMPLETED"
+        ],
+        "unexpected": [],
+        "original_sha256_before": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+        "original_sha256_after": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+        "original_preserved": true,
+        "original_checkpoints": [
+          "planning",
+          "apply c5.disable_boot_receiver",
+          "build pipeline",
+          "diff"
+        ],
+        "output_sha256": "4b2c63bf418073ccb10e0caef0f793682dc1c9ed99cd8aee8444f0d2938fba47",
+        "failures": [],
+        "warnings": []
+      },
+      "problems": []
+    },
+    {
+      "id": "B",
+      "modifiers": [
+        "test.marker_asset"
+      ],
+      "expect": "verified",
+      "expected_changes": 1,
+      "result": {
+        "status": "verified",
+        "order": [
+          "test.marker_asset"
+        ],
+        "counts": {
+          "requested": 1,
+          "planned": 1,
+          "executed": 1,
+          "dry_run": 0,
+          "skipped": 0,
+          "failed": 0,
+          "verified": 1,
+          "verification_failed": 0,
+          "not_verified": 0,
+          "not_attempted": 0,
+          "rolled_back": 0
+        },
+        "steps": [
+          {
+            "modifier": "test.marker_asset",
+            "status": "success",
+            "verification": "verified",
+            "rolled_back": false,
+            "message": "added assets/apkforge-test/marker.txt",
+            "expected_observed": 1,
+            "expected_missing": 0
+          }
+        ],
+        "conflicts": [],
+        "rollback": null,
+        "stages": [
+          "prepare=PASS",
+          "decode=PASS",
+          "build=PASS",
+          "align=PASS",
+          "sign=PASS",
+          "verify=PASS"
+        ],
+        "build_passed": true,
+        "apk_verified": true,
+        "verdict_passed": true,
+        "classification": {
+          "expected_modification": 1,
+          "rebuild_noise": 74,
+          "unexpected": 0,
+          "unknown": 0
+        },
+        "noise_rule_counts": {
+          "dex_compiler_marker_removed": 1,
+          "certificate_replaced": 1,
+          "manifest_reencoded": 1,
+          "signature_replaced": 5,
+          "dex_reencoded": 1,
+          "resource_path_canonicalized": 64,
+          "resource_table_reencoded": 1
+        },
+        "expected_modifications": [
+          "file added assets/apkforge-test/marker.txt"
+        ],
+        "unexpected": [],
+        "original_sha256_before": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+        "original_sha256_after": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+        "original_preserved": true,
+        "original_checkpoints": [
+          "planning",
+          "apply test.marker_asset",
+          "build pipeline",
+          "diff"
+        ],
+        "output_sha256": "6c50f3fcf9f33ded80f3da06bd6357b94dd6b13a42dc52ce7897e0eb27a7c7d1",
+        "failures": [],
+        "warnings": []
+      },
+      "problems": []
+    },
+    {
+      "id": "C",
+      "modifiers": [
+        "c5.disable_boot_receiver",
+        "test.marker_asset"
+      ],
+      "expect": "verified",
+      "expected_changes": 3,
+      "result": {
+        "status": "verified",
+        "order": [
+          "c5.disable_boot_receiver",
+          "test.marker_asset"
+        ],
+        "counts": {
+          "requested": 2,
+          "planned": 2,
+          "executed": 2,
+          "dry_run": 0,
+          "skipped": 0,
+          "failed": 0,
+          "verified": 2,
+          "verification_failed": 0,
+          "not_verified": 0,
+          "not_attempted": 0,
+          "rolled_back": 0
+        },
+        "steps": [
+          {
+            "modifier": "c5.disable_boot_receiver",
+            "status": "success",
+            "verification": "verified",
+            "rolled_back": false,
+            "message": "remove <uses-permission android:name=android.permission.RECEIVE_BOOT_COMPLETED>; set android:enabled=\"false\" on <receiver de.audioattack.openlink.conf.PackageChangeBroadcastReceiver>",
+            "expected_observed": 2,
+            "expected_missing": 0
+          },
+          {
+            "modifier": "test.marker_asset",
+            "status": "success",
+            "verification": "verified",
+            "rolled_back": false,
+            "message": "added assets/apkforge-test/marker.txt",
+            "expected_observed": 1,
+            "expected_missing": 0
+          }
+        ],
+        "conflicts": [],
+        "rollback": null,
+        "stages": [
+          "prepare=PASS",
+          "decode=PASS",
+          "build=PASS",
+          "align=PASS",
+          "sign=PASS",
+          "verify=PASS"
+        ],
+        "build_passed": true,
+        "apk_verified": true,
+        "verdict_passed": true,
+        "classification": {
+          "expected_modification": 3,
+          "rebuild_noise": 74,
+          "unexpected": 0,
+          "unknown": 0
+        },
+        "noise_rule_counts": {
+          "dex_compiler_marker_removed": 1,
+          "certificate_replaced": 1,
+          "manifest_reencoded": 1,
+          "signature_replaced": 5,
+          "dex_reencoded": 1,
+          "resource_path_canonicalized": 64,
+          "resource_table_reencoded": 1
+        },
+        "expected_modifications": [
+          "component modified de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+          "file added assets/apkforge-test/marker.txt",
+          "uses_permission removed android.permission.RECEIVE_BOOT_COMPLETED"
+        ],
+        "unexpected": [],
+        "original_sha256_before": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+        "original_sha256_after": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+        "original_preserved": true,
+        "original_checkpoints": [
+          "planning",
+          "apply c5.disable_boot_receiver",
+          "apply test.marker_asset",
+          "build pipeline",
+          "diff"
+        ],
+        "output_sha256": "bb710127faa39ee31bf6528d37198312d4082d89d1c37a479dc8f7293538dd83",
+        "failures": [],
+        "warnings": []
+      },
+      "problems": []
+    },
+    {
+      "id": "D",
+      "modifiers": [
+        "test.marker_asset",
+        "test.failing",
+        "c5.disable_boot_receiver"
+      ],
+      "expect": "failed",
+      "result": {
+        "status": "failed",
+        "order": [
+          "test.marker_asset",
+          "test.failing",
+          "c5.disable_boot_receiver"
+        ],
+        "counts": {
+          "requested": 3,
+          "planned": 3,
+          "executed": 1,
+          "dry_run": 0,
+          "skipped": 0,
+          "failed": 1,
+          "verified": 0,
+          "verification_failed": 0,
+          "not_verified": 1,
+          "not_attempted": 1,
+          "rolled_back": 1
+        },
+        "steps": [
+          {
+            "modifier": "test.marker_asset",
+            "status": "success",
+            "verification": "not_verified",
+            "rolled_back": true,
+            "message": "added assets/apkforge-test/marker.txt",
+            "expected_observed": 0,
+            "expected_missing": 0
+          },
+          {
+            "modifier": "test.failing",
+            "status": "failed",
+            "verification": "not_executed",
+            "rolled_back": false,
+            "message": "Apply exception: RuntimeError: simulated modifier failure",
+            "expected_observed": 0,
+            "expected_missing": 0
+          },
+          {
+            "modifier": "c5.disable_boot_receiver",
+            "status": "pending",
+            "verification": "not_executed",
+            "rolled_back": false,
+            "message": "Not attempted: execution stopped at test.failing",
+            "expected_observed": 0,
+            "expected_missing": 0
+          }
+        ],
+        "conflicts": [],
+        "rollback": {
+          "attempted": true,
+          "restored": true,
+          "modifiers": [
+            "test.marker_asset"
+          ],
+          "errors": [],
+          "scope": "decoded project in the BuildService workspace"
+        },
+        "stages": [
+          "prepare=PASS",
+          "decode=PASS"
+        ],
+        "build_passed": null,
+        "apk_verified": null,
+        "verdict_passed": null,
+        "classification": null,
+        "noise_rule_counts": null,
+        "expected_modifications": [],
+        "unexpected": [],
+        "original_sha256_before": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+        "original_sha256_after": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+        "original_preserved": true,
+        "original_checkpoints": [
+          "planning",
+          "apply test.marker_asset",
+          "apply test.failing"
+        ],
+        "output_sha256": null,
+        "failures": [
+          "apply: test.failing: Apply exception: RuntimeError: simulated modifier failure"
+        ],
+        "warnings": []
+      },
+      "problems": []
+    },
+    {
+      "id": "E",
+      "modifiers": [
+        "c5.disable_boot_receiver",
+        "test.marker_asset"
+      ],
+      "expect": "dry_run",
+      "dry_run": true,
+      "result": {
+        "status": "dry_run",
+        "order": [
+          "c5.disable_boot_receiver",
+          "test.marker_asset"
+        ],
+        "counts": {
+          "requested": 2,
+          "planned": 2,
+          "executed": 0,
+          "dry_run": 2,
+          "skipped": 0,
+          "failed": 0,
+          "verified": 0,
+          "verification_failed": 0,
+          "not_verified": 0,
+          "not_attempted": 0,
+          "rolled_back": 0
+        },
+        "steps": [
+          {
+            "modifier": "c5.disable_boot_receiver",
+            "status": "dry_run",
+            "verification": "not_executed",
+            "rolled_back": false,
+            "message": "Would apply: remove <uses-permission android:name=android.permission.RECEIVE_BOOT_COMPLETED>; set android:enabled=\"false\" on <receiver de.audioattack.openlink.conf.PackageChangeBroadcastReceiver>",
+            "expected_observed": 0,
+            "expected_missing": 0
+          },
+          {
+            "modifier": "test.marker_asset",
+            "status": "dry_run",
+            "verification": "not_executed",
+            "rolled_back": false,
+            "message": "Would apply: add assets/apkforge-test/marker.txt (125 bytes, fixed text)",
+            "expected_observed": 0,
+            "expected_missing": 0
+          }
+        ],
+        "conflicts": [],
+        "rollback": null,
+        "stages": [
+          "prepare=PASS",
+          "decode=PASS"
+        ],
+        "build_passed": null,
+        "apk_verified": null,
+        "verdict_passed": null,
+        "classification": null,
+        "noise_rule_counts": null,
+        "expected_modifications": [],
+        "unexpected": [],
+        "original_sha256_before": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+        "original_sha256_after": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+        "original_preserved": true,
+        "original_checkpoints": [
+          "planning"
+        ],
+        "output_sha256": null,
+        "failures": [],
+        "warnings": []
+      },
+      "problems": []
+    },
+    {
+      "id": "F",
+      "modifiers": [
+        "test.undeclared"
+      ],
+      "expect": "failed",
+      "unexpected": 1,
+      "result": {
+        "status": "failed",
+        "order": [
+          "test.undeclared"
+        ],
+        "counts": {
+          "requested": 1,
+          "planned": 1,
+          "executed": 1,
+          "dry_run": 0,
+          "skipped": 0,
+          "failed": 0,
+          "verified": 0,
+          "verification_failed": 0,
+          "not_verified": 1,
+          "not_attempted": 0,
+          "rolled_back": 0
+        },
+        "steps": [
+          {
+            "modifier": "test.undeclared",
+            "status": "success",
+            "verification": "not_verified",
+            "rolled_back": false,
+            "message": "add assets/apkforge-test/undeclared.txt",
+            "expected_observed": 0,
+            "expected_missing": 0
+          }
+        ],
+        "conflicts": [],
+        "rollback": null,
+        "stages": [
+          "prepare=PASS",
+          "decode=PASS",
+          "build=PASS",
+          "align=PASS",
+          "sign=PASS",
+          "verify=PASS"
+        ],
+        "build_passed": true,
+        "apk_verified": true,
+        "verdict_passed": false,
+        "classification": {
+          "expected_modification": 0,
+          "rebuild_noise": 74,
+          "unexpected": 1,
+          "unknown": 0
+        },
+        "noise_rule_counts": {
+          "dex_compiler_marker_removed": 1,
+          "certificate_replaced": 1,
+          "manifest_reencoded": 1,
+          "signature_replaced": 5,
+          "dex_reencoded": 1,
+          "resource_path_canonicalized": 64,
+          "resource_table_reencoded": 1
+        },
+        "expected_modifications": [],
+        "unexpected": [
+          "file added assets/apkforge-test/undeclared.txt"
+        ],
+        "original_sha256_before": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+        "original_sha256_after": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+        "original_preserved": true,
+        "original_checkpoints": [
+          "planning",
+          "apply test.undeclared",
+          "build pipeline",
+          "diff"
+        ],
+        "output_sha256": "b81dd3a7538dbfb9b65fc49c161b28c8a680c7c63111f1a1eef931c91d8b8b5a",
+        "failures": [
+          "semantic: 1 unexpected change(s)"
+        ],
+        "warnings": [
+          "test.undeclared has no verification; its modification is reported as not verified"
+        ]
+      },
+      "problems": []
+    }
+  ],
+  "passed": true
+}

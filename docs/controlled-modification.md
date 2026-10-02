@@ -2,7 +2,18 @@
 
 C.5 is the first real APK modification made by APKForge. It is deliberately narrow: one
 modifier, one target APK, and a verification step that compares what was planned with
-what actually changed. It is **not** the Phase D modifier framework.
+what actually changed.
+
+> **Since Phase D** the pipeline below is executed by the general
+> `ModificationPipeline` (see `modification-framework.md`). `run_disable_boot_receiver`
+> runs the `c5.disable_boot_receiver` modifier through it and maps the result back to
+> `ControlledModificationResult`. The modifier logic in `boot_receiver.py`, the
+> refusal rules, the expected changes and the verdict are unchanged; the C.5 unit and
+> integration tests pass without modification. Phase D adds a post-build `verify()`
+> (permission removed and receiver `enabled_after=False` in the re-analysis) and a
+> framework source check (only `AndroidManifest.xml` changed, with exactly the planned
+> structural edits). `SourceEdit` and `manifest_edits` moved to
+> `apkforge/modification/edits.py` and are re-exported by `boot_receiver.py`.
 
 ```
 original APK (never written)

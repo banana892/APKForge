@@ -19,7 +19,8 @@ Command structure (Phase 0 — stubs)::
     ├── analyze  <apk>   — (stub) full security/privacy analysis
     ├── scan     <apk>   — (stub) quick security scan
     ├── diff     <a> <b> — (stub) compare two APKs
-    ├── modify   <apk>   — (stub) apply modifications
+    ├── modify   <apk>   — apply a plan, or Phase D modifiers (--modifier)
+    ├── modifiers        — list Phase D modifiers
     └── verify   <apk>   — (stub) verify a built APK
 """
 
@@ -39,11 +40,12 @@ from apkforge.core.logging import setup_logging
 from apkforge.core.models import AnalysisStatus, Severity
 
 if TYPE_CHECKING:
-    from apkforge.builders import ToolchainCheckResult
+    from apkforge.builders import BuildService, ToolchainCheckResult
     from apkforge.diff.models import DiffResult
     from apkforge.inspection import InspectionResult
     from apkforge.modification.models import ModificationPlan
     from apkforge.modification.modifiers.base import ModificationResult, StepStatus
+    from apkforge.modification.pipeline import PipelineResult
     from apkforge.privacy.models import PrivacyResult
     from apkforge.security.models import FullAnalysisResult, SecurityResult
 
@@ -822,13 +824,13 @@ def _render_diff_summary(
                 for md in cm.methods_modified:
                     details = []
                     if md.access_flags_before != md.access_flags_after:
-                        details.append(f"flags: {md.access_flags_before} -> {md.access_flags_after}")
+                        details.append(
+                            f"flags: {md.access_flags_before} -> {md.access_flags_after}"
+                        )
                     if md.code_changed:
                         details.append("code changed")
                     detail_str = f" ({', '.join(details)})" if details else ""
-                    _console.print(
-                        f"      ~ method {md.method_name}{detail_str}"
-                    )
+                    _console.print(f"      ~ method {md.method_name}{detail_str}")
             if len(dex.classes_modified) > 20:
                 _console.print(
                     f"    [dim]... and {len(dex.classes_modified) - 20} more classes modified[/dim]"
@@ -1884,6 +1886,35 @@ def _render_plan_summary(plan: ModificationPlan, verbose: bool = False) -> None:
     _console.print()
 
 
+@app.command("modifiers")
+def cmd_modifiers(
+    json_output: bool = typer.Option(False, "--json", help="Print the list as JSON."),
+) -> None:
+    """[green]⚡ Phase D[/green] — List the modifiers available to modify --modifier."""
+    import json
+
+    from apkforge.modification.catalog import default_catalog
+
+    infos = default_catalog().list()
+    if json_output:
+        typer.echo(json.dumps([i.model_dump(mode="json") for i in infos], indent=2))
+        return
+    table = Table(title="APKForge modifiers", border_style="dim")
+    table.add_column("ID", style="bold", no_wrap=True)
+    table.add_column("Name")
+    table.add_column("Description", overflow="fold")
+    table.add_column("Verification")
+    table.add_column("Risk")
+    table.add_column("Parameters", style="dim", overflow="fold")
+    for i in infos:
+        name = f"[yellow]{i.name}[/yellow]" if i.test_only else i.name
+        verification = "[green]yes[/green]" if i.verification_available else "[yellow]no[/yellow]"
+        table.add_row(
+            i.id, name, i.description, verification, str(i.risk), ", ".join(i.parameters) or "-"
+        )
+    _console.print(table)
+
+
 @app.command("modify")
 def cmd_modify(
     apk: Path = typer.Argument(
@@ -1931,17 +1962,103 @@ def cmd_modify(
         "--keep-workspace",
         help="Retain workspace directory after modification.",
     ),
+    modifier_ids: list[str] | None = typer.Option(
+        None,
+        "--modifier",
+        "-m",
+        help=(
+            "Phase D: run this modifier through decode -> apply -> build -> align -> sign "
+            "-> verify -> diff. Repeat for several; they run in the order given. "
+            "See 'apkforge modifiers'."
+        ),
+    ),
+    params: list[str] | None = typer.Option(
+        None,
+        "--param",
+        help="Modifier parameter as MODIFIER_ID:KEY=VALUE (repeatable; with --modifier).",
+    ),
+    allow_partial: bool = typer.Option(
+        False,
+        "--allow-partial",
+        help="With --modifier: build even if some modifiers were skipped (exit 3, PARTIAL).",
+    ),
+    output: Path | None = typer.Option(
+        None,
+        "--output",
+        "-o",
+        help="With --modifier: copy the rebuilt APK here when the run has no failure.",
+    ),
+    noop_baseline_file: Path | None = typer.Option(
+        None,
+        "--noop-baseline",
+        help="With --modifier: semantic no-op baseline JSON that contains this APK.",
+        exists=True,
+        dir_okay=False,
+        readable=True,
+        resolve_path=True,
+    ),
+    measure_noise_floor: bool = typer.Option(
+        False,
+        "--measure-noise-floor",
+        help="With --modifier: measure this APK's no-op rebuild noise first (one extra build).",
+    ),
+    report_file: Path | None = typer.Option(
+        None,
+        "--report",
+        help="With --modifier: write the full JSON result to this file.",
+    ),
 ) -> None:
     """Apply an approved modification plan to a working copy of the APK.
 
     The original APK file is never modified.  All changes happen inside
     an isolated workspace.  Use --dry-run to simulate without writing.
 
-    Exit codes: 0 every change executed (or simulated) successfully;
+    With [bold]--modifier[/bold] (Phase D) the named modifiers are planned and, unless
+    --dry-run, applied to the decoded APK, rebuilt, aligned, signed and verified by
+    BuildService, and the rebuilt APK is compared with the plan. --dry-run then only
+    plans and checks preconditions and conflicts; no modified APK is produced.
+
+    Exit codes: 0 every change executed (or simulated) successfully
+    (--modifier: VERIFIED or DRY_RUN);
     1 failed (execution, verification, or the plan itself);
-    3 incomplete: one or more changes were skipped, nothing failed.
+    2 invalid request or toolchain unavailable (--modifier);
+    3 incomplete: one or more changes were skipped, nothing failed
+    (--modifier: UNVERIFIED, PARTIAL, SKIPPED or REFUSED).
     """
     import logging
+
+    if modifier_ids:
+        if plan_file is not None or approve_all:
+            _console.print("[red]--modifier cannot be combined with --plan or --approve-all.[/red]")
+            raise typer.Exit(code=2)
+        _run_modifier_pipeline(
+            apk,
+            modifier_ids,
+            params or [],
+            dry_run=dry_run,
+            allow_partial=allow_partial,
+            output=output,
+            noop_baseline_file=noop_baseline_file,
+            measure_noise_floor=measure_noise_floor,
+            work_dir=workspace_dir,
+            keep_workspace=keep_workspace,
+            json_output=json_output,
+            report_file=report_file,
+        )
+        return
+    if (
+        params
+        or allow_partial
+        or output
+        or noop_baseline_file
+        or measure_noise_floor
+        or report_file
+    ):
+        _console.print(
+            "[red]--param/--allow-partial/--output/--noop-baseline/"
+            "--measure-noise-floor/--report require --modifier.[/red]"
+        )
+        raise typer.Exit(code=2)
 
     from apkforge.modification import ModificationFramework
     from apkforge.modification.models import ChangeStatus, PlanStatus
@@ -1955,7 +2072,9 @@ def cmd_modify(
     if plan_file:
         try:
             plan = load_plan(plan_file)
-            _console.print(f"[green]Loaded plan:[/green] {plan.plan_id} ({plan.change_count} changes)")
+            _console.print(
+                f"[green]Loaded plan:[/green] {plan.plan_id} ({plan.change_count} changes)"
+            )
         except Exception as e:
             _console.print(f"[bold red]Failed to load plan:[/bold red] {e}")
             raise typer.Exit(code=1) from e
@@ -2033,6 +2152,242 @@ def _modification_exit_code(status: StepStatus) -> int:
     if status in (StepStatus.SKIPPED, StepStatus.PARTIAL):
         return 3
     return 1
+
+
+def _build_service(work_dir: Path | None) -> BuildService:
+    """BuildService from the environment (APKFORGE_*), signing with the dev key by default.
+
+    Exits with code 2 when keytool is missing or the signing configuration is invalid.
+    """
+    from apkforge.builders import BuildService, SigningConfig, ToolchainConfig
+    from apkforge.builders.signing import ensure_dev_keystore
+    from apkforge.core.exceptions import ConfigurationError
+
+    toolchain = ToolchainConfig.discover()
+    signing = SigningConfig.from_env()
+    if signing is None:
+        if toolchain.keytool is None:
+            _console.print("[red]keytool not found; cannot provision the development key.[/red]")
+            raise typer.Exit(code=2)
+        try:
+            signing = ensure_dev_keystore(toolchain.keytool)
+        except ConfigurationError as exc:
+            _console.print(f"[red]{exc}[/red]")
+            raise typer.Exit(code=2) from exc
+    return BuildService(toolchain, signing, work_dir=work_dir)
+
+
+_PIPELINE_EXIT = {
+    "verified": 0,
+    "dry_run": 0,
+    "unverified": 3,
+    "partial": 3,
+    "skipped": 3,
+    "refused": 3,
+    "failed": 1,
+}
+
+
+def _parse_modifier_params(modifier_ids: list[str], params: list[str]) -> dict[str, dict[str, str]]:
+    out: dict[str, dict[str, str]] = {m: {} for m in modifier_ids}
+    for raw in params:
+        target, sep, rest = raw.partition(":")
+        key, eq, value = rest.partition("=")
+        if not sep or not eq or not key or target not in out:
+            _console.print(
+                f"[red]Invalid --param {raw!r}: expected MODIFIER_ID:KEY=VALUE for a requested "
+                "modifier.[/red]"
+            )
+            raise typer.Exit(code=2)
+        out[target][key] = value
+    return out
+
+
+def _run_modifier_pipeline(
+    apk: Path,
+    modifier_ids: list[str],
+    params: list[str],
+    *,
+    dry_run: bool,
+    allow_partial: bool,
+    output: Path | None,
+    noop_baseline_file: Path | None,
+    measure_noise_floor: bool,
+    work_dir: Path | None,
+    keep_workspace: bool,
+    json_output: bool,
+    report_file: Path | None,
+) -> None:
+    """``modify --modifier``: run the Phase D pipeline and exit with its status code."""
+    import contextlib
+    import json
+    import shutil
+    import tempfile
+
+    from apkforge.builders.semantic_baseline import NoopSemanticBaseline
+    from apkforge.core.exceptions import APKForgeError
+    from apkforge.modification.pipeline import (
+        ModificationPipeline,
+        ModifierRequest,
+    )
+    from apkforge.modification.pipeline import (
+        measure_noise_floor as measure,
+    )
+
+    with contextlib.suppress(ImportError):
+        from loguru import logger
+
+        logger.disable("androguard")  # androguard logs every AXML chunk at DEBUG
+
+    parsed = _parse_modifier_params(modifier_ids, params)
+    requests = [ModifierRequest(modifier_id=m, parameters=parsed[m]) for m in modifier_ids]
+    service = _build_service(work_dir)
+    pipeline = ModificationPipeline(service)
+    try:
+        pipeline.resolve(requests)
+    except APKForgeError as exc:
+        _console.print(f"[red]{exc}[/red]")
+        raise typer.Exit(code=2) from exc
+
+    check = service.check_toolchain()
+    if not check.valid:
+        _render_toolchain(check)
+        raise typer.Exit(code=2)
+
+    baseline: NoopSemanticBaseline | None = None
+    if noop_baseline_file is not None:
+        baseline = NoopSemanticBaseline.model_validate_json(noop_baseline_file.read_text())
+    elif measure_noise_floor and not dry_run:
+        tmp = Path(tempfile.mkdtemp(prefix="noise-floor-", dir=_ensure_dir(service.work_dir)))
+        try:
+            baseline = measure(service, apk, work_dir=tmp)
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
+        entry = baseline.entries[0]
+        if not json_output:
+            _console.print(f"Noise floor (no-op rebuild of this APK): [bold]{entry.result}[/bold]")
+
+    result = pipeline.run(
+        apk,
+        requests,
+        noop_baseline=baseline,
+        dry_run=dry_run,
+        allow_partial=allow_partial,
+        work_dir=work_dir,
+        output_apk=output,
+        keep_workspace=keep_workspace,
+    )
+    payload = result.model_dump_json(indent=2)
+    if report_file is not None:
+        report_file.parent.mkdir(parents=True, exist_ok=True)
+        report_file.write_text(payload + "\n", encoding="utf-8")
+    if json_output:
+        typer.echo(json.dumps({"counts": result.counts(), **json.loads(payload)}, indent=2))
+    else:
+        _render_pipeline_result(result)
+        if report_file is not None:
+            _console.print(f"[dim]Report written to {report_file}[/dim]")
+    code = _PIPELINE_EXIT[str(result.status)]
+    if code:
+        raise typer.Exit(code=code)
+
+
+def _ensure_dir(path: Path) -> Path:
+    path.mkdir(parents=True, exist_ok=True)
+    return path
+
+
+def _render_pipeline_result(result: PipelineResult) -> None:
+    """Human-readable Phase D pipeline result."""
+    color = {
+        "verified": "green",
+        "dry_run": "cyan",
+        "unverified": "yellow",
+        "partial": "yellow",
+        "skipped": "yellow",
+        "refused": "yellow",
+    }.get(str(result.status), "red")
+    c = result.counts()
+
+    def flag(value: bool | None) -> str:
+        return {True: "[green]yes[/green]", False: "[red]no[/red]"}.get(
+            value,  # type: ignore[arg-type]
+            "[dim]not attempted[/dim]",
+        )
+
+    lines = [
+        f"APK:        {result.apk}",
+        f"Status:     [bold {color}]{str(result.status).upper()}[/bold {color}]"
+        + (" (dry run: nothing applied or built)" if result.dry_run else ""),
+        f"Order:      {' -> '.join(result.order)}",
+        f"Modifiers:  requested {c['requested']}, planned {c['planned']}, "
+        f"executed {c['executed']}, skipped {c['skipped']}, failed {c['failed']}, "
+        f"not attempted {c['not_attempted']}",
+        f"Verified:   verified {c['verified']}, not verified {c['not_verified']}, "
+        f"verification failed {c['verification_failed']}, rolled back {c['rolled_back']}",
+        f"Build:      {flag(result.build_passed)}   APK verified: {flag(result.apk_verified)}",
+        "Original:   "
+        + ("[green]unchanged[/green]" if result.original_preserved else "[red]CHANGED[/red]")
+        + f"  sha256={result.original_sha256_before}",
+    ]
+    if result.verdict is not None:
+        counts = result.verdict.counts
+        lines.append(
+            "Diff:       "
+            + ", ".join(f"{k} {v}" for k, v in counts.items())
+            + (
+                " [green](as planned)[/green]"
+                if result.verdict.passed
+                else " [red](NOT as planned)[/red]"
+            )
+        )
+    if result.output_apk:
+        lines.append(f"Output:     [bold green]{result.output_apk}[/bold green]")
+    if result.workspace and result.workspace_kept:
+        lines.append(f"Workspace:  [dim]{result.workspace}[/dim]")
+    _console.print(Panel("\n".join(lines), title="APKForge modification", border_style=color))
+
+    table = Table(title="Modifiers", border_style="dim")
+    table.add_column("#", justify="right")
+    table.add_column("Modifier", style="bold")
+    table.add_column("Step")
+    table.add_column("Verification")
+    table.add_column("Detail", overflow="fold")
+    for r in result.modifiers:
+        state = r.verification_state.replace("_", " ")
+        if r.step.rolled_back:
+            state += ", rolled back"
+        table.add_row(str(r.order), r.info.id, str(r.step.status).upper(), state, r.step.message)
+    _console.print(table)
+
+    for r in result.modifiers:
+        plan = r.plan
+        if plan is None:
+            continue
+        _console.print(f"\n[bold]Plan: {plan.modifier_id}[/bold] ({plan.readiness})")
+        for p in plan.preconditions:
+            mark = "[green]✓[/green]" if p.satisfied else "[red]✗[/red]"
+            _console.print(f"  {mark} {p.name}: expected {p.expected}; actual {p.actual}")
+        for t in plan.targets:
+            _console.print(f"  [dim]target[/dim] {t.access} {t.kind} {t.identifier}")
+        for ch in plan.changes:
+            _console.print(f"  [cyan]change[/cyan] {ch}")
+        for e in plan.expected_changes:
+            _console.print(f"  [dim]expects[/dim] {e.category} {e.kind} {e.identifier}")
+        for v in plan.verification:
+            _console.print(f"  [dim]verifies[/dim] {v}")
+        for w in [*plan.warnings, *plan.consequences]:
+            _console.print(f"  [yellow]![/yellow] {w}")
+
+    for cf in result.conflicts:
+        pair = " vs ".join(cf.modifiers)
+        _console.print(f"[yellow]conflict[/yellow] {cf.kind} {cf.subject}: {pair} — {cf.reason}")
+    if result.stages:
+        _console.print("\nStages: " + ", ".join(f"{s.stage}={s.status}" for s in result.stages))
+    for w in result.warnings:
+        _console.print(f"[yellow]warning:[/yellow] {w}")
+    for f in result.failures:
+        _console.print(f"[red]failure:[/red] {f}")
 
 
 def _render_modification_result(result: ModificationResult) -> None:
@@ -2147,23 +2502,11 @@ def cmd_build(
     import json
     import shlex
 
-    from apkforge.builders import BuildOptions, BuildService, SigningConfig, ToolchainConfig
-    from apkforge.builders.signing import ensure_dev_keystore
-    from apkforge.core.exceptions import ConfigurationError
+    from apkforge.builders import BuildOptions
 
-    toolchain = ToolchainConfig.discover()
-    signing = SigningConfig.from_env()
-    if signing is None:
-        if toolchain.keytool is None:
-            _console.print("[red]keytool not found; cannot provision the development key.[/red]")
-            raise typer.Exit(code=2)
-        try:
-            signing = ensure_dev_keystore(toolchain.keytool)
-        except ConfigurationError as exc:
-            _console.print(f"[red]{exc}[/red]")
-            raise typer.Exit(code=2) from exc
-
-    service = BuildService(toolchain, signing, work_dir=work_dir)
+    service = _build_service(work_dir)
+    signing = service.signing
+    assert signing is not None
     if show_toolchain or not json_output:
         check = service.check_toolchain()
         if show_toolchain or not check.valid:

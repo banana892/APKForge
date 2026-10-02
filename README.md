@@ -5,6 +5,16 @@
 
 ---
 
+## Phase D — Modification framework
+
+`apkforge modifiers` lists the available modifiers; `apkforge modify app.apk -m <id> [-m <id>]`
+plans them (`--dry-run`) or applies them to the decoded APK, rebuilds, aligns, signs and
+verifies it through BuildService, and compares the rebuilt APK with the plan
+(expected change / rebuild noise / unexpected / unknown). Modification verification is
+reported separately from APK signature verification, and a modifier without a
+verification is reported *not verified*. A verified result does not mean the APK is safe.
+See [docs/modification-framework.md](docs/modification-framework.md).
+
 ## 📦 Current Status — Phase 7: Modification Framework Complete
 
 APKForge has completed **Phase 0 (Foundation)**, **Phase 1 (Intake & Identification)**, **Phase 2 (Core APK Inspection)**, **Phase 3 (APK Diff Engine)**, **Phase 4 (Privacy & Tracker Engine)**, **Phase 5 (Security Analysis Engine)**, **Phase 6 (Modification Planning Engine)**, and **Phase 7 (Modification Framework)**.

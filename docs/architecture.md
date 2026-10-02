@@ -145,7 +145,14 @@ APK / InspectionResult
                           (Text CLI / JSON)
 ```
 
-### Modification Pipeline (Phase 5+)
+### Modification Pipeline (Phase D)
+
+The implemented pipeline is `apkforge.modification.pipeline.ModificationPipeline`; see
+`docs/modification-framework.md`. Modifiers plan and edit decoded files, BuildService
+decodes/builds/aligns/signs/verifies, DiffEngine + `verify_expectations` compare the
+rebuilt APK with the combined plan. The diagram below is the original Phase 5 sketch.
+
+### Modification Pipeline (Phase 5+, original sketch)
 
 ```
 Original APK (immutable read-only)

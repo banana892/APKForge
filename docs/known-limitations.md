@@ -697,3 +697,43 @@ stop at startup with exit code 2 and say that the key is retired and must not be
 **Test environment.** With `FORCE_COLOR` set, rich writes ANSI codes into `--json` output,
 and 6 CLI JSON tests fail. That also happens on unmodified HEAD source. Run the tests with
 `FORCE_COLOR` unset.
+
+---
+
+## Status update — Phase D modification framework
+
+Recorded here rather than by editing earlier entries. Design and usage:
+`docs/modification-framework.md`. Evidence: `tests/corpus/results/phase-d-openlink-result.{json,md}`
+(`build-tests/run_phase_d_validation.py`).
+
+**C.5 now runs through the general pipeline.** `run_disable_boot_receiver` is a wrapper
+around `ModificationPipeline` with the `c5.disable_boot_receiver` modifier. The C.5 unit
+and integration tests pass unchanged. A fresh `run_c5_validation.py modify` matches the
+committed `c5-openlink-result.json` in status, failures, stages, classification counts
+(2 expected, 74 noise, 0 unexpected/unknown), noise per rule, planned and observed edits,
+original SHA-256 and the verification flags. The committed result was not regenerated.
+No baseline (C.4 build baseline, C.5 semantic no-op baseline, C.5 OpenLink result) was
+changed.
+
+**The legacy framework is unchanged.** `ModificationFramework` and its seven
+change-type modifiers (§17) still never decode, build or verify an APK. Phase D does not
+route through them; it reuses their `StepStatus`/`ModificationStepResult` semantics.
+
+**Phase D limitations** (known limitations, not defects):
+
+- Expected changes can only name what DiffEngine observes. `resources.arsc` entries,
+  recompiled resources and uncompared manifest content (`<queries>`, `<meta-data>`,
+  `<activity-alias>`) are covered only by the framework's pre-build source check.
+- Conflict detection is syntactic: shared targets, files and expected-change subjects.
+  Interactions that do not show there are caught only when a later modifier is
+  re-planned before it is applied, or by the source check.
+- Rollback restores declared files and removes unplanned new files. An unplanned edit
+  of an existing file cannot be undone; it is reported as a rollback failure, and
+  `rolled_back` stays False.
+- Modifiers are trusted in-process code and are not sandboxed. The source check and the
+  original's SHA-256 detect what they do to the decoded project and the original. They
+  do not detect writes elsewhere.
+- Outside the 9 corpus APKs there is no recorded noise floor. `--measure-noise-floor`
+  measures one with an extra unmodified build. Without one, a run is FAILED by design.
+- `apkforge diff` (unlike `modify --modifier`) still lets androguard's loguru DEBUG
+  output through to stderr. This is pre-existing and cosmetic.
