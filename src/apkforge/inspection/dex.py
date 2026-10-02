@@ -674,7 +674,29 @@ def _normalize_exception_handlers(
     # Try blocks are required by the DEX spec to be sorted by start address
     # and non-overlapping; sort defensively so the representation is
     # order-independent with respect to the parser's iteration order.
-    return tuple(sorted(normalized, key=repr))
+    return tuple(sorted(_coalesce_adjacent_tries(normalized), key=repr))
+
+
+def _coalesce_adjacent_tries(blocks: list[tuple[Any, ...]]) -> list[tuple[Any, ...]]:
+    """Merge try blocks that abut and have identical handlers into one block.
+
+    ``[a, b) -> H`` followed by ``[b, c) -> H`` protects exactly the same instructions
+    with exactly the same handlers as ``[a, c) -> H``; smali/Apktool 3 emits the merged
+    form on reassembly (observed on AppManager 451 in the C.5 no-op baseline). Only
+    blocks whose bounds resolved to plain instruction ordinals are merged; anything
+    unresolved is kept verbatim so it can never be hidden.
+    """
+    resolved = [
+        b for b in blocks if len(b) == 4 and isinstance(b[0], int) and isinstance(b[1], int)
+    ]
+    others = [b for b in blocks if b not in resolved]
+    merged: list[tuple[Any, ...]] = []
+    for block in sorted(resolved, key=lambda b: (b[0], b[1])):
+        if merged and merged[-1][1] == block[0] and merged[-1][2:] == block[2:]:
+            merged[-1] = (merged[-1][0], block[1], *block[2:])
+        else:
+            merged.append(block)
+    return merged + others
 
 
 def _hash_method_code(code: Any) -> str | None:  # noqa: ANN401 - untyped Androguard code item

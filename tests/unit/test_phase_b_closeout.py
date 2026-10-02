@@ -194,6 +194,55 @@ _IO = {5: "Ljava/io/IOException;", 6: "Ljava/lang/IllegalStateException;"}
 
 
 class TestExceptionHandlerNormalization:
+    # C.5 no-op baseline: smali (Apktool 3) merges abutting try ranges that share a handler.
+    def test_split_adjacent_tries_with_same_handler_equal_merged(self) -> None:
+        merged = _code(
+            tries=[_FakeTryItem(0, 3, 1)],
+            handlers=[_FakeCatchHandler(1001, [_FakeTypeAddrPair(5, 3)])],
+            types=_IO,
+        )
+        split = _code(
+            tries=[_FakeTryItem(0, 1, 1), _FakeTryItem(1, 2, 5)],
+            handlers=[
+                _FakeCatchHandler(1001, [_FakeTypeAddrPair(5, 3)]),
+                _FakeCatchHandler(1005, [_FakeTypeAddrPair(5, 3)]),
+            ],
+            types=_IO,
+        )
+        assert _hash_method_code(split) == _hash_method_code(merged)
+
+    def test_adjacent_tries_with_different_handlers_not_merged(self) -> None:
+        merged = _code(
+            tries=[_FakeTryItem(0, 3, 1)],
+            handlers=[_FakeCatchHandler(1001, [_FakeTypeAddrPair(5, 3)])],
+            types=_IO,
+        )
+        split = _code(
+            tries=[_FakeTryItem(0, 1, 1), _FakeTryItem(1, 2, 5)],
+            handlers=[
+                _FakeCatchHandler(1001, [_FakeTypeAddrPair(5, 3)]),
+                _FakeCatchHandler(1005, [_FakeTypeAddrPair(6, 3)]),
+            ],
+            types=_IO,
+        )
+        assert _hash_method_code(split) != _hash_method_code(merged)
+
+    def test_tries_with_gap_not_merged(self) -> None:
+        merged = _code(
+            tries=[_FakeTryItem(0, 3, 1)],
+            handlers=[_FakeCatchHandler(1001, [_FakeTypeAddrPair(5, 3)])],
+            types=_IO,
+        )
+        gapped = _code(
+            tries=[_FakeTryItem(0, 1, 1), _FakeTryItem(2, 1, 5)],
+            handlers=[
+                _FakeCatchHandler(1001, [_FakeTypeAddrPair(5, 3)]),
+                _FakeCatchHandler(1005, [_FakeTypeAddrPair(5, 3)]),
+            ],
+            types=_IO,
+        )
+        assert _hash_method_code(gapped) != _hash_method_code(merged)
+
     def test_identical_handlers_produce_identical_hash(self) -> None:
         """Same instructions + same try/catch == same hash (no false positive)."""
 
