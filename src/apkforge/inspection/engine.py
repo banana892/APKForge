@@ -13,7 +13,6 @@ Security invariants:
 
 from __future__ import annotations
 
-import contextlib
 import shutil
 import zipfile
 from pathlib import Path
@@ -114,6 +113,21 @@ class InspectionEngine:
                 created_workspace = True
                 apk_path = self._resolve_apk_path(pkg, fallback_path=path)
 
+        try:
+            return self._inspect_package(pkg, apk_path, enabled_inspectors)
+        finally:
+            # Remove the intake workspace this call created, on every exit path.
+            if created_workspace and not keep_workspace and pkg.workspace_root is not None:
+                shutil.rmtree(pkg.workspace_root, ignore_errors=True)
+                pkg.workspace_root = None
+
+    def _inspect_package(
+        self,
+        pkg: AndroidPackage,
+        apk_path: Path | None,
+        enabled_inspectors: set[str] | None,
+    ) -> InspectionResult:
+        """Run the inspectors on a resolved package (steps 2-12 of :meth:`inspect`)."""
         # 2. Check if intake failed fatally
         if pkg.status == AnalysisStatus.FAILED:
             return InspectionResult(
@@ -296,10 +310,6 @@ class InspectionEngine:
         else:
             result.status = AnalysisStatus.COMPLETE
 
-        # 13. Clean up workspace if we created one and not asked to keep it
-        if created_workspace and not keep_workspace:
-            self._cleanup_workspace_if_needed(apk_path)
-
         return result
 
     def _resolve_apk_path(
@@ -380,12 +390,3 @@ class InspectionEngine:
                 inv.total_file_count = 0
 
         return inv
-
-    def _cleanup_workspace_if_needed(self, apk_path: Path) -> None:
-        """Attempt to remove temporary extracted files in workspace."""
-        # Find if apk_path is inside an APKForge workspace and clean up
-        with contextlib.suppress(Exception):
-            for parent in apk_path.parents:
-                if parent.name.startswith("apkforge_"):
-                    shutil.rmtree(parent, ignore_errors=True)
-                    break

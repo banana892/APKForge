@@ -5,11 +5,16 @@ from __future__ import annotations
 import zipfile
 from pathlib import Path
 
-from apkforge.core.config import APKForgeConfig, ExtractionLimits
+from apkforge.core.config import APKForgeConfig, ExtractionLimits, WorkspaceSettings
 from apkforge.core.models import AnalysisStatus
 from apkforge.intake.hashing import compute_file_hashes
 from apkforge.intake.service import APKIntakeService
 from tests.fixtures import create_synthetic_apk, create_synthetic_apks
+
+
+def _ws(tmp_path: Path) -> WorkspaceSettings:
+    # Failed intakes keep their workspace by default (keep_on_failure); keep it in tmp_path.
+    return WorkspaceSettings(base_directory=tmp_path / "ws")
 
 
 def test_original_input_immutability(tmp_path: Path) -> None:
@@ -19,7 +24,7 @@ def test_original_input_immutability(tmp_path: Path) -> None:
 
     hash_before = compute_file_hashes(apk_path).sha256
 
-    service = APKIntakeService()
+    service = APKIntakeService(APKForgeConfig(workspace=_ws(tmp_path)))
     pkg = service.process(apk_path)
 
     hash_after = compute_file_hashes(apk_path).sha256
@@ -36,7 +41,7 @@ def test_apks_container_immutability(tmp_path: Path) -> None:
 
     hash_before = compute_file_hashes(apks_path).sha256
 
-    service = APKIntakeService()
+    service = APKIntakeService(APKForgeConfig(workspace=_ws(tmp_path)))
     service.process(apks_path)
 
     hash_after = compute_file_hashes(apks_path).sha256
@@ -50,7 +55,7 @@ def test_zip_slip_prevention(tmp_path: Path) -> None:
         zf.writestr("AndroidManifest.xml", b"<manifest />")
         zf.writestr("../../../../../evil.sh", b"#!/bin/sh\nrm -rf /")
 
-    service = APKIntakeService()
+    service = APKIntakeService(APKForgeConfig(workspace=_ws(tmp_path)))
     pkg = service.process(malicious_apk)
 
     assert pkg.status == AnalysisStatus.FAILED
@@ -68,6 +73,7 @@ def test_archive_limits_enforced_by_service(tmp_path: Path) -> None:
     # Configure very strict limit: max 5 files
     cfg = APKForgeConfig(
         extraction=ExtractionLimits(max_file_count=5),
+        workspace=_ws(tmp_path),
     )
     service = APKIntakeService(config=cfg)
     pkg = service.process(bomb_apk)

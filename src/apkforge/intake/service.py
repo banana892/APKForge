@@ -99,6 +99,7 @@ class APKIntakeService:
 
         # 4. Process with handler inside workspace
         success = False
+        package: AndroidPackage | None = None
         try:
             package = handler.process(
                 input_path=path,
@@ -106,10 +107,9 @@ class APKIntakeService:
                 limits=self._config.extraction,
             )
             success = package.status != AnalysisStatus.FAILED
-            return package
         except Exception as exc:
             _log.exception("Unhandled error during intake processing: %s", exc)
-            return AndroidPackage(
+            package = AndroidPackage(
                 input_path=path,
                 package_type=detection.package_type,
                 input_format=detection.format,
@@ -117,7 +117,7 @@ class APKIntakeService:
                 errors=[f"Intake pipeline failed unexpectedly: {exc}"],
             )
         finally:
-            # Deterministic workspace lifecycle cleanup
+            # Deterministic workspace lifecycle cleanup (also on BaseException)
             should_keep = (
                 keep_workspace
                 if keep_workspace is not None
@@ -127,7 +127,10 @@ class APKIntakeService:
                     else self._config.workspace.keep_on_failure
                 )
             )
-            if not should_keep:
+            if not should_keep or package is None:
                 workspace.cleanup(success=success)
             else:
+                # Hand ownership of the retained workspace to the caller.
+                package.workspace_root = workspace.root
                 _log.info("Retaining workspace at: %s", workspace.root)
+        return package

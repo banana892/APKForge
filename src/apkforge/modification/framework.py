@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import hashlib
 import logging
+import shutil
 import tempfile
 from pathlib import Path
 from typing import TYPE_CHECKING
@@ -91,6 +92,7 @@ class ModificationFramework:
         inspection: InspectionResult | None = None,
         dry_run: bool = False,
         workspace_dir: Path | None = None,
+        keep_workspace: bool = False,
     ) -> ModificationResult:
         """Execute an approved modification plan.
 
@@ -99,7 +101,11 @@ class ModificationFramework:
             apk_path: Path to the original APK file.
             inspection: Optional inspection result for structural lookups.
             dry_run: If True, simulate all modifications without writing.
-            workspace_dir: Optional custom workspace directory.
+            workspace_dir: Optional custom workspace directory.  A caller-supplied
+                directory is never deleted.
+            keep_workspace: Keep a framework-created workspace even when the run
+                fails (debugging).  A successful run always keeps it: the working
+                copy is the run's output.
 
         Returns:
             ModificationResult with the outcome of each step.
@@ -151,7 +157,30 @@ class ModificationFramework:
             return result
 
         # 5. Create isolated workspace
+        created_ws = workspace_dir is None
         ws_dir = workspace_dir or self._create_workspace_dir(apk_path)
+        try:
+            self._execute_in_workspace(
+                plan, apk_path, accepted_changes, ws_dir, inspection, dry_run, result
+            )
+        finally:
+            if created_ws and not keep_workspace and result.status != StepStatus.SUCCESS:
+                # A failed (or interrupted) run's working copy is not an output.
+                shutil.rmtree(ws_dir, ignore_errors=True)
+                result.working_copy_path = None
+        return result
+
+    def _execute_in_workspace(
+        self,
+        plan: ModificationPlan,
+        apk_path: Path,
+        accepted_changes: list[PlannedChange],
+        ws_dir: Path,
+        inspection: InspectionResult | None,
+        dry_run: bool,
+        result: ModificationResult,
+    ) -> None:
+        """Steps 5-9 of :meth:`execute`: preflight and apply inside *ws_dir*."""
         context = ModificationExecutionContext.create(
             apk_path=apk_path,
             plan=plan,
@@ -205,7 +234,7 @@ class ModificationFramework:
                 f"{len(preflight_failures)} preflight check(s) failed. "
                 f"No modifications were applied."
             )
-            return result
+            return
 
         # 7. Apply changes in order
         applied_steps: list[tuple[PlannedChange, ModificationStepResult]] = []
@@ -265,8 +294,6 @@ class ModificationFramework:
             result.total_steps,
         )
 
-        return result
-
     def _rollback_applied(
         self,
         applied_steps: list[tuple[PlannedChange, ModificationStepResult]],
@@ -300,11 +327,11 @@ class ModificationFramework:
 
     def _create_workspace_dir(self, apk_path: Path) -> Path:
         """Create a temporary workspace directory."""
-        if self._workspace_base:
-            ws = self._workspace_base / f"apkforge_mod_{apk_path.stem}"
-            ws.mkdir(parents=True, exist_ok=True)
-            return ws
-        return Path(tempfile.mkdtemp(prefix="apkforge_mod_"))
+        # Unique per run, so cleaning one run never touches another's workspace.
+        base = self._workspace_base
+        if base is not None:
+            base.mkdir(parents=True, exist_ok=True)
+        return Path(tempfile.mkdtemp(prefix=f"apkforge_mod_{apk_path.stem}_", dir=base))
 
     @staticmethod
     def _compute_sha256(path: Path) -> str:

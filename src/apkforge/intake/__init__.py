@@ -297,6 +297,8 @@ class AndroidPackage(BaseModel):
         warnings: Non-fatal issues encountered during intake.
         errors: Fatal errors encountered during intake.
         extra: Additional format-specific metadata (e.g. XAPK manifest data).
+        workspace_root: Intake workspace retained for the caller (``keep_workspace=True``);
+            the caller owns it and must remove it.  ``None`` when intake cleaned it up.
     """
 
     input_path: Path
@@ -314,6 +316,7 @@ class AndroidPackage(BaseModel):
     warnings: list[str] = Field(default_factory=list)
     errors: list[str] = Field(default_factory=list)
     extra: dict[str, Any] = Field(default_factory=dict)
+    workspace_root: Path | None = Field(default=None, exclude=True)
 
     model_config = {"arbitrary_types_allowed": True}
 
