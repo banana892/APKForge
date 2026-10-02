@@ -771,11 +771,14 @@ def _render_diff_summary(
                     else ("-" if c.change_type == ChangeType.REMOVED else "~")
                 )
                 col = "green" if pfx == "+" else ("red" if pfx == "-" else "yellow")
-                exp = (
-                    f" (exported: {c.exported_before} -> {c.exported_after})"
-                    if c.exported_before != c.exported_after
-                    else ""
-                )
+                extras = []
+                if c.exported_before != c.exported_after:
+                    extras.append(f"exported: {c.exported_before} -> {c.exported_after}")
+                if c.enabled_before != c.enabled_after:
+                    extras.append(f"enabled: {c.enabled_before} -> {c.enabled_after}")
+                if c.permission_before != c.permission_after:
+                    extras.append(f"permission: {c.permission_before} -> {c.permission_after}")
+                exp = f" ({', '.join(extras)})" if extras else ""
                 _console.print(f"  [{col}]{pfx} [{c.component_type}] {c.name}{exp}[/{col}]")
                 if c.intent_filter_diff and c.intent_filter_diff.has_changes:
                     if c.intent_filter_diff.actions_added:
@@ -816,9 +819,14 @@ def _render_diff_summary(
                 for m in cm.methods_removed:
                     _console.print(f"      - method {m}")
                 for md in cm.methods_modified:
+                    details = []
+                    if md.access_flags_before != md.access_flags_after:
+                        details.append(f"flags: {md.access_flags_before} -> {md.access_flags_after}")
+                    if md.code_changed:
+                        details.append("code changed")
+                    detail_str = f" ({', '.join(details)})" if details else ""
                     _console.print(
-                        f"      ~ method {md.method_name} "
-                        f"(flags: {md.access_flags_before} -> {md.access_flags_after})"
+                        f"      ~ method {md.method_name}{detail_str}"
                     )
             if len(dex.classes_modified) > 20:
                 _console.print(

@@ -61,6 +61,16 @@ class ReportFormat(StrEnum):
 # ---------------------------------------------------------------------------
 
 
+def _env_int(key: str, default: int) -> int:
+    val = os.getenv(key)
+    if val is not None:
+        try:
+            return int(val)
+        except ValueError:
+            pass
+    return default
+
+
 class ExtractionLimits(BaseModel):
     """Hard limits applied during APK extraction.
 
@@ -69,23 +79,28 @@ class ExtractionLimits(BaseModel):
 
     Attributes:
         max_total_size_bytes: Maximum total uncompressed bytes extracted.
+            Default: 1024 MiB (1 GiB) or APKFORGE_EXTRACTION_MAX_TOTAL_BYTES.
         max_single_file_bytes: Maximum uncompressed size for a single entry.
+            Default: 256 MiB or APKFORGE_EXTRACTION_MAX_SINGLE_FILE_BYTES.
+            Accommodates legitimate modern native libraries (such as libxul.so
+            at ~157 MB) while preserving strict bounds against decompression bombs.
         max_file_count: Maximum number of files extracted from a single APK.
+            Default: 10,000 or APKFORGE_EXTRACTION_MAX_FILE_COUNT.
         max_recursion_depth: Maximum nesting depth when extracting nested archives.
     """
 
     max_total_size_bytes: int = Field(
-        default=512 * 1024 * 1024,  # 512 MiB
+        default_factory=lambda: _env_int("APKFORGE_EXTRACTION_MAX_TOTAL_BYTES", 1024 * 1024 * 1024),
         ge=1,
         description="Maximum total extracted size in bytes.",
     )
     max_single_file_bytes: int = Field(
-        default=128 * 1024 * 1024,  # 128 MiB
+        default_factory=lambda: _env_int("APKFORGE_EXTRACTION_MAX_SINGLE_FILE_BYTES", 256 * 1024 * 1024),
         ge=1,
         description="Maximum size for a single extracted file in bytes.",
     )
     max_file_count: int = Field(
-        default=10_000,
+        default_factory=lambda: _env_int("APKFORGE_EXTRACTION_MAX_FILE_COUNT", 10_000),
         ge=1,
         description="Maximum number of files to extract.",
     )
@@ -105,6 +120,7 @@ class ExtractionLimits(BaseModel):
             )
             raise ValueError(msg)
         return self
+
 
 
 class AnalysisSettings(BaseModel):

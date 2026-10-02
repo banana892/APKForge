@@ -507,3 +507,58 @@ def test_cli_privacy_command_text_and_json(tmp_path: Path) -> None:
     assert "data_collection" in data
     assert "findings" in data
     assert "limitations" in data
+
+
+def test_privacy_status_resolution_complete_vs_degraded() -> None:
+    """Test that privacy status accurately reflects degradation vs complete analysis."""
+    engine = PrivacyEngine()
+
+    manifest = ManifestInspection(
+        package_name="com.example.statusapp",
+        permissions=[PermissionInfo(name="android.permission.INTERNET")],
+    )
+
+    # 1. Successful complete analysis reports COMPLETE and preserves disclaimer
+    insp_complete = InspectionResult(
+        status=AnalysisStatus.COMPLETE,
+        manifest=manifest,
+    )
+    res_complete = engine.analyze(insp_complete)
+    assert res_complete.status == AnalysisStatus.COMPLETE
+    assert any("Static analysis cannot establish actual runtime" in lim for lim in res_complete.limitations)
+
+    # 2. Informational static-analysis limitations alone do not force PARTIAL
+    assert res_complete.status == AnalysisStatus.COMPLETE
+
+    # 3. Actual inspection degradation reports PARTIAL
+    insp_partial = InspectionResult(
+        status=AnalysisStatus.PARTIAL,
+        manifest=manifest,
+    )
+    res_partial = engine.analyze(insp_partial)
+    assert res_partial.status == AnalysisStatus.PARTIAL
+
+    # 4. Actual failure reports FAILED
+    insp_failed = InspectionResult(
+        status=AnalysisStatus.FAILED,
+        manifest=manifest,
+    )
+    res_failed = engine.analyze(insp_failed)
+    assert res_failed.status == AnalysisStatus.FAILED
+
+
+def test_privacy_status_resolution_sub_analyzer_degradation() -> None:
+    """Test that failure in a sub-analyzer marks status as PARTIAL."""
+    engine = PrivacyEngine()
+    manifest = ManifestInspection(package_name="com.example.degradedsub")
+    insp = InspectionResult(status=AnalysisStatus.COMPLETE, manifest=manifest)
+
+    # Simulate sub-analyzer failure
+    def failing_analyzer(*args, **kwargs):
+        raise RuntimeError("Sub-analyzer simulated failure")
+
+    engine._tracker_detector.detect = failing_analyzer  # type: ignore[assignment]
+    res = engine.analyze(insp)
+    assert res.status == AnalysisStatus.PARTIAL
+    assert any("Privacy analysis failed for trackers" in lim for lim in res.limitations)
+

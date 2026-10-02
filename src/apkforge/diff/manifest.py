@@ -9,7 +9,27 @@ from apkforge.diff.models import ChangeType, DiffChange, ManifestDiff
 if TYPE_CHECKING:
     from apkforge.inspection.models import ApplicationInfo, InspectionResult
 
-__all__ = ["ManifestDiffer"]
+__all__ = ["ManifestDiffer", "is_semantically_equivalent"]
+
+
+def is_semantically_equivalent(
+    val_a: object,
+    val_b: object,
+    map_a: dict[str, str] | None = None,
+    map_b: dict[str, str] | None = None,
+) -> bool:
+    """Check if two manifest values are equal or represent the same resolved resource."""
+    if val_a == val_b:
+        return True
+    if val_a is None or val_b is None:
+        return False
+    if not isinstance(val_a, str) or not isinstance(val_b, str):
+        return False
+    ma = map_a or {}
+    mb = map_b or {}
+    norm_a = ma.get(val_a, val_a)
+    norm_b = mb.get(val_b, val_b)
+    return norm_a == norm_b or norm_a == val_b or norm_b == val_a
 
 
 class ManifestDiffer:
@@ -22,6 +42,8 @@ class ManifestDiffer:
 
         app_a: ApplicationInfo | None = insp_a.manifest.application if insp_a.manifest else None
         app_b: ApplicationInfo | None = insp_b.manifest.application if insp_b.manifest else None
+        res_map_a = insp_a.manifest.resource_map if insp_a.manifest else {}
+        res_map_b = insp_b.manifest.resource_map if insp_b.manifest else {}
 
         # 1. Application attributes
         attributes_to_check = [
@@ -35,6 +57,9 @@ class ManifestDiffer:
         for attr_field, attr_name in attributes_to_check:
             val_a = getattr(app_a, attr_field, None) if app_a else None
             val_b = getattr(app_b, attr_field, None) if app_b else None
+
+            if is_semantically_equivalent(val_a, val_b, res_map_a, res_map_b):
+                continue
 
             change = self._compare_scalar(
                 val_a, val_b, category="manifest.application", identifier=attr_name

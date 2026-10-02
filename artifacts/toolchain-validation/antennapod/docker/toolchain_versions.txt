@@ -1,0 +1,6 @@
+=== Toolchain Versions ===
+OS / Base: PRETTY_NAME="Ubuntu 22.04.5 LTS"
+JDK: OpenJDK 17.0.20.1 (Temurin-17.0.20.1+1)
+Apktool: 2.10.0
+Android Build Tools: 34.0.0 (zipalign, aapt, aapt2, apksigner)
+apksigner: 0.9

@@ -12,6 +12,7 @@ Security invariant: DEX code is never executed.
 from __future__ import annotations
 
 import contextlib
+import hashlib
 import re
 import struct
 import zipfile
@@ -258,6 +259,18 @@ class DEXInspector:
                 with contextlib.suppress(Exception):
                     m_flags = _access_flags_str(method.get_access_flags())
 
+                m_code_hash = None
+                code = None
+                with contextlib.suppress(Exception):
+                    code = method.get_code()
+                    if code:
+                        bc = getattr(code, "get_bc", lambda: None)()
+                        raw_bc = bc.get_raw() if bc and hasattr(bc, "get_raw") else None
+                        if not raw_bc and hasattr(code, "get_raw"):
+                            raw_bc = code.get_raw()
+                        if raw_bc:
+                            m_code_hash = hashlib.sha256(raw_bc).hexdigest()
+
                 methods.append(
                     MethodInfo(
                         name=m_name,
@@ -265,12 +278,12 @@ class DEXInspector:
                         return_type=m_return,
                         parameters=m_params,
                         access_flags=m_flags,
+                        code_hash=m_code_hash,
                     )
                 )
 
                 # API references from method code
                 with contextlib.suppress(Exception):
-                    code = method.get_code()
                     if code:
                         bc = code.get_bc()
                         if bc:

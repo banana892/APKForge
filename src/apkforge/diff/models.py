@@ -57,6 +57,7 @@ class ChangeType(StrEnum):
     REMOVED = "removed"
     MODIFIED = "modified"
     UNCHANGED = "unchanged"
+    RENAMED = "renamed"
 
 
 class SignificanceCategory(StrEnum):
@@ -115,6 +116,8 @@ class FileEntryDiff(BaseModel):
     sha256_before: str | None = None
     sha256_after: str | None = None
     category: str = "other"
+    old_path: str | None = None
+    details: dict[str, Any] = Field(default_factory=dict)
 
 
 class FileDiff(BaseModel):
@@ -123,6 +126,7 @@ class FileDiff(BaseModel):
     total_added: int = 0
     total_removed: int = 0
     total_modified: int = 0
+    total_renamed: int = 0
     total_unchanged: int = 0
     entries: list[FileEntryDiff] = Field(default_factory=list)
 
@@ -178,6 +182,8 @@ class ComponentChange(BaseModel):
     exported_after: bool | None = None
     permission_before: str | None = None
     permission_after: str | None = None
+    enabled_before: bool | None = None
+    enabled_after: bool | None = None
     intent_filter_diff: IntentFilterDiff | None = None
     details: dict[str, Any] = Field(default_factory=dict)
 
@@ -207,6 +213,9 @@ class MethodDiff(BaseModel):
     parameters_after: list[str] = Field(default_factory=list)
     access_flags_before: str | None = None
     access_flags_after: str | None = None
+    code_hash_before: str | None = None
+    code_hash_after: str | None = None
+    code_changed: bool = False
 
 
 class FieldDiff(BaseModel):
@@ -394,6 +403,7 @@ class DiffSummary(BaseModel):
     files_added: int = 0
     files_removed: int = 0
     files_modified: int = 0
+    files_renamed: int = 0
     certificate_status: str = "UNCHANGED"
     text_lines: list[str] = Field(default_factory=list)
 

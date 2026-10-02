@@ -494,8 +494,8 @@ class SecurityEngine:
         # 5. Assets & Entropy
         if inspection.assets and inspection.assets.assets:
             for ast in inspection.assets.assets:
-                ent = getattr(ast, "entropy", 0.0)
-                if ent >= 7.0:
+                ent = getattr(ast, "entropy", None)
+                if ent is not None and ent >= 7.0:
                     high_entropy_assets.append(
                         {
                             "path": ast.path,
@@ -507,7 +507,10 @@ class SecurityEngine:
         # 6. Native libraries
         if inspection.native and inspection.native.libraries:
             for nl in inspection.native.libraries:
-                native_libs.add(nl.name)
+                lib_name = Path(nl.path).name if getattr(nl, "path", None) else getattr(nl, "name", "")
+                if lib_name:
+                    native_libs.add(lib_name)
+
 
         # 7. Privacy results
         if privacy:

@@ -40,16 +40,21 @@ htmlcov/
 .DS_Store
 Thumbs.db
 
-# APK / Android artefacts — never commit samples without review
-samples/*.apk
-samples/*.zip
-samples/*.jar
-samples/*.aab
+# APK / Android artefacts — never commit binaries or rebuilds
+*.apk
+*.apks
+*.xapk
+*.aab
+*.jar
+*.zip
 
-# Extracted APK working directories
+# Third-party decompiled code and generated build trees
+**/decoded/
 workspace/
 tmp/
 .apkforge_tmp/
+artifacts/**/test_a/
+artifacts/**/test_b/
 
 # Logs
 *.log

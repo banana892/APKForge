@@ -61,6 +61,42 @@ def _safe_int(value: object) -> int | None:
         return None
 
 
+def _resolve_resource_value(
+    apk: object,
+    val: object,
+    res_map: dict[str, str] | None = None,
+) -> str | None:
+    """Resolve an Android resource reference (e.g. @7f130332 or @0x7f130332) to its string value."""
+    if val is None:
+        return None
+    val_str = str(val).strip()
+    if not val_str:
+        return val_str
+    if val_str.startswith("@") and len(val_str) > 1:
+        raw_id = val_str[1:]
+        res_id = None
+        try:
+            if raw_id.startswith(("0x", "0X")):
+                res_id = int(raw_id, 16)
+            elif all(c in "0123456789abcdefABCDEF" for c in raw_id):
+                res_id = int(raw_id, 16)
+        except (ValueError, TypeError):
+            pass
+
+        if res_id is not None and hasattr(apk, "get_android_resources"):
+            with contextlib.suppress(Exception):
+                arsc = apk.get_android_resources()
+                if arsc:
+                    configs = arsc.get_resolved_res_configs(res_id)
+                    if configs:
+                        for _, res_val in configs:
+                            if isinstance(res_val, str) and res_val:
+                                if res_map is not None:
+                                    res_map[val_str] = res_val
+                                return res_val
+    return val_str
+
+
 class ManifestInspector:
     """Extracts detailed information from the AndroidManifest.xml.
 
@@ -411,32 +447,37 @@ class ManifestInspector:
                 read_perm = None
                 write_perm = None
                 grant_uri = None
+                enabled = None
 
                 with contextlib.suppress(Exception):
                     exp_val = apk.get_attribute_value("provider", "exported", name=prov_name)  # type: ignore[union-attr]
                     exported = _safe_bool(exp_val)
 
                 with contextlib.suppress(Exception):
+                    en_val = apk.get_attribute_value("provider", "enabled", name=prov_name)  # type: ignore[union-attr]
+                    enabled = _safe_bool(en_val)
+
+                with contextlib.suppress(Exception):
                     auth_val = apk.get_attribute_value("provider", "authorities", name=prov_name)  # type: ignore[union-attr]
                     if auth_val:
-                        authorities = str(auth_val)
+                        authorities = _resolve_resource_value(apk, auth_val, result.resource_map)
 
                 with contextlib.suppress(Exception):
                     perm_val = apk.get_attribute_value("provider", "permission", name=prov_name)  # type: ignore[union-attr]
                     if perm_val:
-                        permission = str(perm_val)
+                        permission = _resolve_resource_value(apk, perm_val, result.resource_map)
 
                 with contextlib.suppress(Exception):
                     rp_val = apk.get_attribute_value("provider", "readPermission", name=prov_name)  # type: ignore[union-attr]
                     if rp_val:
-                        read_perm = str(rp_val)
+                        read_perm = _resolve_resource_value(apk, rp_val, result.resource_map)
 
                 with contextlib.suppress(Exception):
                     wp_val = apk.get_attribute_value(  # type: ignore[union-attr]
                         "provider", "writePermission", name=prov_name
                     )
                     if wp_val:
-                        write_perm = str(wp_val)
+                        write_perm = _resolve_resource_value(apk, wp_val, result.resource_map)
 
                 with contextlib.suppress(Exception):
                     gu_val = apk.get_attribute_value(  # type: ignore[union-attr]
@@ -449,6 +490,7 @@ class ManifestInspector:
                         name=str(prov_name),
                         authorities=authorities,
                         exported=exported,
+                        enabled=enabled,
                         permission=permission,
                         read_permission=read_perm,
                         write_permission=write_perm,
@@ -496,7 +538,11 @@ class ManifestInspector:
                     ):
                         setattr(app_info, model_attr, _safe_bool(val))
                     else:
-                        setattr(app_info, model_attr, str(val))
+                        setattr(
+                            app_info,
+                            model_attr,
+                            _resolve_resource_value(apk, val, result.resource_map),
+                        )
 
         result.application = app_info
 

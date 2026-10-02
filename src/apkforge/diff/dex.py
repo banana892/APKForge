@@ -201,7 +201,9 @@ class DEXDiffer:
         for k in common:
             ma = map_a[k]
             mb = map_b[k]
-            if ma.access_flags != mb.access_flags:
+            access_changed = ma.access_flags != mb.access_flags
+            code_changed = ma.code_hash != mb.code_hash
+            if access_changed or code_changed:
                 modified.append(
                     MethodDiff(
                         class_name=class_name,
@@ -213,6 +215,9 @@ class DEXDiffer:
                         parameters_after=mb.parameters,
                         access_flags_before=ma.access_flags,
                         access_flags_after=mb.access_flags,
+                        code_hash_before=ma.code_hash,
+                        code_hash_after=mb.code_hash,
+                        code_changed=code_changed,
                     )
                 )
 

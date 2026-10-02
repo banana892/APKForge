@@ -103,6 +103,37 @@ def test_safe_zip_single_file_size_limit(tmp_path: Path) -> None:
         extractor.list_entries()
 
 
+def test_safe_zip_default_limits_accommodate_large_native_lib(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    arc = tmp_path / "mock_large.zip"
+    with zipfile.ZipFile(arc, "w") as zf:
+        zf.writestr("lib/arm64-v8a/libxul.so", b"dummy")
+
+    # Mock infolist to simulate a 160MB uncompressed entry
+    real_zipfile = zipfile.ZipFile
+    class MockZipFile(real_zipfile):
+        def infolist(self):
+            entries = super().infolist()
+            for e in entries:
+                if e.filename == "lib/arm64-v8a/libxul.so":
+                    e.file_size = 160 * 1024 * 1024
+            return entries
+
+    monkeypatch.setattr(zipfile, "ZipFile", MockZipFile)
+
+    # Default limits (256 MiB single / 1024 MiB total) should pass without error
+    extractor = SafeZipExtractor(arc, ExtractionLimits())
+    entries = extractor.list_entries()
+    assert len(entries) == 1
+    assert entries[0].file_size == 160 * 1024 * 1024
+
+    # Restrictive limits (128 MiB) should reject it
+    old_limits = ExtractionLimits(max_single_file_bytes=128 * 1024 * 1024, max_total_size_bytes=512 * 1024 * 1024)
+    extractor_restrictive = SafeZipExtractor(arc, old_limits)
+    with pytest.raises(ExtractionError, match="exceeds limit"):
+        extractor_restrictive.list_entries()
+
+
+
 def test_safe_zip_total_size_limit(tmp_path: Path) -> None:
     arc = tmp_path / "large_total.zip"
     with zipfile.ZipFile(arc, "w") as zf:

@@ -1,0 +1,44 @@
+{
+  "filename": "de.audioattack.openlink_28.apk",
+  "file_size_bytes": 235707,
+  "sha256": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+  "intake_status": "complete",
+  "intake_files_count": 96,
+  "manifest": {
+    "package_name": "de.audioattack.openlink",
+    "version_name": "1.5.11",
+    "version_code": 28,
+    "min_sdk": 21,
+    "target_sdk": 36,
+    "permissions": [
+      "android.permission.RECEIVE_BOOT_COMPLETED",
+      "de.audioattack.openlink.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+    ],
+    "activities": [
+      "de.audioattack.openlink.ui.MenuActivity",
+      "de.audioattack.openlink.ui.IncognitoActivity",
+      "de.audioattack.openlink.ui.MainActivity"
+    ],
+    "services": [],
+    "receivers": [
+      "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+      "androidx.profileinstaller.ProfileInstallReceiver"
+    ],
+    "providers": [
+      "androidx.startup.InitializationProvider"
+    ],
+    "total_components": 6
+  },
+  "dex": {
+    "dex_file_count": 1,
+    "total_classes": 108
+  },
+  "native": {
+    "native_library_count": 0
+  },
+  "network": {
+    "url_count": 1,
+    "domain_count": 1,
+    "ip_count": 0
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "filename": "de.danoeh.antennapod_3120295.apk",
+  "file_size_bytes": 17749828,
+  "sha256": "3f43a4337a693cdb49141afe06cb596e88c796009ed77bff51e9444ce2d1ebfc",
+  "sha1": "4d2a5447305d72e65dd1ae97d6ac928487514f71",
+  "md5": "8ee0221ea85a60b81811f94dbe5f4531",
+  "intake_status": "complete",
+  "intake_files_count": 1516,
+  "intake_certificates": 1,
+  "inspection_status": "complete",
+  "manifest": {
+    "package_name": "de.danoeh.antennapod",
+    "version_name": "3.12.2",
+    "version_code": 3120295,
+    "min_sdk": 23,
+    "target_sdk": 36,
+    "permissions_count": 11,
+    "permissions": [
+      "android.permission.BLUETOOTH",
+      "android.permission.WAKE_LOCK",
+      "android.permission.VIBRATE",
+      "android.permission.RECEIVE_BOOT_COMPLETED",
+      "android.permission.INTERNET",
+      "android.permission.POST_NOTIFICATIONS",
+      "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK",
+      "android.permission.ACCESS_NETWORK_STATE",
+      "android.permission.FOREGROUND_SERVICE",
+      "de.danoeh.antennapod.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+      "android.permission.ACCESS_WIFI_STATE"
+    ],
+    "activities_count": 12,
+    "services_count": 7,
+    "receivers_count": 16,
+    "providers_count": 3,
+    "total_components": 38
+  },
+  "dex": {
+    "dex_file_count": 3,
+    "total_classes": 12065,
+    "total_methods": 70360
+  },
+  "native": {
+    "native_library_count": 4,
+    "libraries": [
+      "lib/arm64-v8a/libconscrypt_jni.so",
+      "lib/armeabi-v7a/libconscrypt_jni.so",
+      "lib/x86/libconscrypt_jni.so",
+      "lib/x86_64/libconscrypt_jni.so"
+    ],
+    "abis": [
+      "x86",
+      "arm64-v8a",
+      "x86_64",
+      "armeabi-v7a"
+    ]
+  },
+  "network": {
+    "url_count": 47,
+    "domain_count": 47,
+    "ip_count": 10
+  }
+}

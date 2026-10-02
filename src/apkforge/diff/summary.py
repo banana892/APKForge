@@ -62,6 +62,7 @@ class SummaryEngine:
         f_add = file_diff.total_added
         f_rem = file_diff.total_removed
         f_mod = file_diff.total_modified
+        f_ren = file_diff.total_renamed
 
         cert_status = cert_diff.status
 
@@ -107,6 +108,8 @@ class SummaryEngine:
             text_lines.append(f"~ {cls_mod} class{'es' if cls_mod != 1 else ''} modified")
         if f_mod > 0:
             text_lines.append(f"~ {f_mod} file{'s' if f_mod != 1 else ''} modified")
+        if f_ren > 0:
+            text_lines.append(f"~ {f_ren} file{'s' if f_ren != 1 else ''} renamed/canonicalized")
 
         # Certificate status
         text_lines.append(f"Certificate: {cert_status}")
@@ -133,6 +136,7 @@ class SummaryEngine:
             files_added=f_add,
             files_removed=f_rem,
             files_modified=f_mod,
+            files_renamed=f_ren,
             certificate_status=cert_status,
             text_lines=text_lines,
         )

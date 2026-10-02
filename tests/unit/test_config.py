@@ -22,10 +22,20 @@ class TestExtractionLimits:
     @pytest.mark.unit()
     def test_defaults_are_sane(self) -> None:
         limits = ExtractionLimits()
-        assert limits.max_total_size_bytes > 0
-        assert limits.max_single_file_bytes > 0
-        assert limits.max_file_count > 0
-        assert limits.max_recursion_depth >= 0
+        assert limits.max_total_size_bytes == 1024 * 1024 * 1024
+        assert limits.max_single_file_bytes == 256 * 1024 * 1024
+        assert limits.max_file_count == 10_000
+        assert limits.max_recursion_depth == 4
+
+    @pytest.mark.unit()
+    def test_env_var_overrides(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        monkeypatch.setenv("APKFORGE_EXTRACTION_MAX_SINGLE_FILE_BYTES", str(300 * 1024 * 1024))
+        monkeypatch.setenv("APKFORGE_EXTRACTION_MAX_TOTAL_BYTES", str(2048 * 1024 * 1024))
+        monkeypatch.setenv("APKFORGE_EXTRACTION_MAX_FILE_COUNT", "25000")
+        limits = ExtractionLimits()
+        assert limits.max_single_file_bytes == 300 * 1024 * 1024
+        assert limits.max_total_size_bytes == 2048 * 1024 * 1024
+        assert limits.max_file_count == 25_000
 
     @pytest.mark.unit()
     def test_single_must_not_exceed_total(self) -> None:
@@ -44,6 +54,7 @@ class TestExtractionLimits:
     def test_recursion_depth_limit(self) -> None:
         with pytest.raises(ValidationError):
             ExtractionLimits(max_recursion_depth=100)  # pyright: ignore[reportArgumentType]  # exceeds maximum of 16
+
 
 
 class TestAPKForgeConfig:

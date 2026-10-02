@@ -76,6 +76,7 @@ class PrivacyEngine:
         warnings: list[str] = []
         errors: list[str] = []
         limitations: list[str] = []
+        degraded_categories: list[str] = []
 
         # 1. Resolve inspection and intake package
         if isinstance(apk_or_inspection, InspectionResult):
@@ -117,6 +118,7 @@ class PrivacyEngine:
             lambda: self._permission_analyzer.analyze(inspection, index),
             default=PermissionPrivacyResult(),
             limitations=limitations,
+            degraded=degraded_categories,
         )
 
         # 4. Run SDK / Tracker Detectors
@@ -125,24 +127,28 @@ class PrivacyEngine:
             lambda: self._tracker_detector.detect(index),
             default=TrackerResult(),
             limitations=limitations,
+            degraded=degraded_categories,
         )
         advertising_result = self._safe_run(
             "advertising",
             lambda: self._advertising_detector.detect(index),
             default=AdvertisingResult(),
             limitations=limitations,
+            degraded=degraded_categories,
         )
         analytics_result = self._safe_run(
             "analytics",
             lambda: self._analytics_detector.detect(index),
             default=AnalyticsResult(),
             limitations=limitations,
+            degraded=degraded_categories,
         )
         telemetry_result = self._safe_run(
             "telemetry",
             lambda: self._telemetry_detector.detect(index),
             default=TelemetryResult(),
             limitations=limitations,
+            degraded=degraded_categories,
         )
 
         # Collect all detected SDKs for correlation
@@ -161,6 +167,7 @@ class PrivacyEngine:
             ),
             default=EndpointResult(),
             limitations=limitations,
+            degraded=degraded_categories,
         )
 
         # 6. Run Data Collection Capability Analysis
@@ -174,6 +181,7 @@ class PrivacyEngine:
             ),
             default=(DataCollectionResult(), []),
             limitations=limitations,
+            degraded=degraded_categories,
         )
 
         # 7. Synthesize Privacy Findings
@@ -215,7 +223,7 @@ class PrivacyEngine:
                 )
             )
 
-        # Global analysis limitations
+        # Global analysis limitations (informational static-analysis disclaimer)
         limitations.append(
             "Static analysis cannot establish actual runtime data collection, transmission, "
             "or dynamic execution."
@@ -223,10 +231,11 @@ class PrivacyEngine:
 
         # Status resolution
         overall_status = AnalysisStatus.COMPLETE
-        if inspection.status == AnalysisStatus.PARTIAL or limitations:
-            overall_status = AnalysisStatus.PARTIAL
         if inspection.status == AnalysisStatus.FAILED:
             overall_status = AnalysisStatus.FAILED
+        elif inspection.status == AnalysisStatus.PARTIAL or degraded_categories:
+            overall_status = AnalysisStatus.PARTIAL
+
 
         return PrivacyResult(
             status=overall_status,
@@ -320,6 +329,7 @@ class PrivacyEngine:
         func: Callable[[], _T],
         default: _T,
         limitations: list[str],
+        degraded: list[str] | None = None,
     ) -> _T:
         """Run an analysis task with error isolation."""
         try:
@@ -327,4 +337,7 @@ class PrivacyEngine:
         except Exception as exc:
             _log.exception("Privacy analysis failed for category %s: %s", category, exc)
             limitations.append(f"Privacy analysis failed for {category}: {exc}")
+            if degraded is not None:
+                degraded.append(category)
             return default
+

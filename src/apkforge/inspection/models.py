@@ -157,6 +157,7 @@ class ContentProviderInfo(BaseModel):
     name: str
     authorities: str | None = None
     exported: bool | None = None
+    enabled: bool | None = None
     permission: str | None = None
     read_permission: str | None = None
     write_permission: str | None = None
@@ -203,6 +204,7 @@ class ManifestInspection(BaseModel):
     receivers: list[BroadcastReceiverInfo] = Field(default_factory=list)
     providers: list[ContentProviderInfo] = Field(default_factory=list)
     application: ApplicationInfo = Field(default_factory=ApplicationInfo)
+    resource_map: dict[str, str] = Field(default_factory=dict)
 
 
 # ===========================================================================
@@ -227,6 +229,7 @@ class MethodInfo(BaseModel):
     return_type: str = ""
     parameters: list[str] = Field(default_factory=list)
     access_flags: str = ""
+    code_hash: str | None = None
 
 
 class ClassInfo(BaseModel):
@@ -357,9 +360,15 @@ class NativeLibraryInspection(BaseModel):
     strings: list[NativeStringReference] = Field(default_factory=list)
 
     @property
+    def name(self) -> str:
+        """Library filename (e.g. 'libnative.so')."""
+        return Path(self.path).name
+
+    @property
     def file_size(self) -> int:
         """Alias for size."""
         return self.size
+
 
 
 class NativeInspection(BaseModel):

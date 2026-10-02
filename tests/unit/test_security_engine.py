@@ -43,6 +43,8 @@ from apkforge.inspection.models import (
     InspectionResult,
     IntentFilterInfo,
     ManifestInspection,
+    NativeInspection,
+    NativeLibraryInspection,
     NetworkInspection,
     PermissionInfo,
     ServiceInfo,
@@ -822,3 +824,61 @@ def test_cli_analyze_json_output(tmp_path: Path) -> None:
     assert "inspection_summary" in parsed
     assert "privacy_summary" in parsed
     assert "security_summary" in parsed
+
+
+def test_security_engine_with_native_libraries() -> None:
+    """Regression test: SecurityEngine handles NativeLibraryInspection without AttributeError."""
+    nl1 = NativeLibraryInspection(
+        path="lib/arm64-v8a/libnative-core.so",
+        size=50000,
+        sha256="abc1234",
+        abi="arm64-v8a",
+    )
+    nl2 = NativeLibraryInspection(
+        path="lib/x86_64/libhelper.so",
+        size=30000,
+        sha256="def5678",
+        abi="x86_64",
+    )
+    # Verify the property on the model directly
+    assert nl1.name == "libnative-core.so"
+    assert nl2.name == "libhelper.so"
+
+    inspection = InspectionResult(
+        manifest=ManifestInspection(package_name="com.example.nativetest"),
+        native=NativeInspection(
+            libraries=[nl1, nl2],
+            total_libraries=2,
+            abis_found=["arm64-v8a", "x86_64"],
+        ),
+    )
+
+    engine = SecurityEngine()
+    result = engine.analyze(inspection)
+
+    assert result.status == AnalysisStatus.COMPLETE
+    assert result.package_name == "com.example.nativetest"
+    assert len(result.errors) == 0
+
+
+def test_security_engine_with_none_entropy_assets() -> None:
+    """Regression test: SecurityEngine handles assets with None entropy without TypeError."""
+    ast_none = AssetEntry(path="assets/config.json", size=150, entropy=None)
+    ast_high = AssetEntry(path="assets/encrypted_blob.dat", size=8192, entropy=7.8)
+    ast_normal = AssetEntry(path="assets/plain.txt", size=500, entropy=4.2)
+
+    inspection = InspectionResult(
+        manifest=ManifestInspection(package_name="com.example.entropytest"),
+        assets=AssetInspection(
+            assets=[ast_none, ast_high, ast_normal],
+            total_assets=3,
+        ),
+    )
+
+    engine = SecurityEngine()
+    result = engine.analyze(inspection)
+
+    assert result.status == AnalysisStatus.COMPLETE
+    assert result.package_name == "com.example.entropytest"
+    assert len(result.errors) == 0
+
