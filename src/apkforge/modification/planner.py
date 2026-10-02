@@ -69,7 +69,7 @@ class ModificationPlanner:
                 limitations.append(
                     "Inspection failed; proposals requiring manifest or bytecode cannot run."
                 )
-            if not inspection.dex or not getattr(inspection.dex, "dex_files", []):
+            if not inspection.dex or not inspection.dex.dex_files:
                 limitations.append(
                     "DEX bytecode was not analyzed; API-based permission checks are degraded."
                 )

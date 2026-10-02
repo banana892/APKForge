@@ -1,0 +1,33 @@
+# ruff on tests/corpus_runner.py: HEAD version vs working tree (rule codes, line numbers stripped)
+## HEAD
+C401 Unnecessary generator (rewrite as a set comprehension)
+C401 Unnecessary generator (rewrite as a set comprehension)
+C401 Unnecessary generator (rewrite as a set comprehension)
+E501 Line too long (102 > 100)
+E501 Line too long (107 > 100)
+E501 Line too long (113 > 100)
+E501 Line too long (113 > 100)
+E501 Line too long (126 > 100)
+F541 [*] f-string without any placeholders
+F541 [*] f-string without any placeholders
+I001 [*] Import block is un-sorted or un-formatted
+I001 [*] Import block is un-sorted or un-formatted
+I001 [*] Import block is un-sorted or un-formatted
+I001 [*] Import block is un-sorted or un-formatted
+I001 [*] Import block is un-sorted or un-formatted
+## working tree
+C401 Unnecessary generator (rewrite as a set comprehension)
+C401 Unnecessary generator (rewrite as a set comprehension)
+C401 Unnecessary generator (rewrite as a set comprehension)
+E501 Line too long (102 > 100)
+E501 Line too long (107 > 100)
+E501 Line too long (113 > 100)
+E501 Line too long (113 > 100)
+E501 Line too long (126 > 100)
+F541 [*] f-string without any placeholders
+F541 [*] f-string without any placeholders
+I001 [*] Import block is un-sorted or un-formatted
+I001 [*] Import block is un-sorted or un-formatted
+I001 [*] Import block is un-sorted or un-formatted
+I001 [*] Import block is un-sorted or un-formatted
+I001 [*] Import block is un-sorted or un-formatted

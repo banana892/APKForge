@@ -1,0 +1,30 @@
+{
+  "measurement": "AntennaPod DEX class count re-measured at Phase B close-out",
+  "apk": "tests/corpus/de.danoeh.antennapod_3120295.apk",
+  "counting_method": "DEXInspector.inspect() iterates androguard DEX.get_classes() per DEX file entry matching classes\\d*\\.dex, sums DEXFileInspection.class_count into DEXInspection.total_classes",
+  "code_reference": "src/apkforge/inspection/dex.py (_inspect_with_androguard, result.class_count = len(classes))",
+  "total_classes": 12065,
+  "total_methods": 70360,
+  "dex_file_count": 3,
+  "per_dex": [
+    {
+      "dex": "classes.dex",
+      "class_count": 8391,
+      "method_count": 50902,
+      "inventory_classes": 8391
+    },
+    {
+      "dex": "classes2.dex",
+      "class_count": 643,
+      "method_count": 2581,
+      "inventory_classes": 643
+    },
+    {
+      "dex": "classes3.dex",
+      "class_count": 3031,
+      "method_count": 16877,
+      "inventory_classes": 3031
+    }
+  ],
+  "warnings": []
+}

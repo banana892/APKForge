@@ -1,0 +1,2538 @@
+{
+  "meta": {
+    "runner_version": "1.0.0",
+    "corpus_dir": "/home/naishring/APKForge/tests/corpus",
+    "total_apks": 9,
+    "total_duration_seconds": 343.3
+  },
+  "per_apk_results": [
+    {
+      "filename": "com.emanuelef.remote_capture_95.apk",
+      "file_size_bytes": 17560048,
+      "capabilities": [
+        {
+          "capability": "intake",
+          "verdict": "PASS",
+          "duration_seconds": 0.6867748069998925,
+          "message": "OK: com.emanuelef.remote_capture (2326 files, 2 DEX, 1 certs)",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "package_type": "apk",
+            "input_format": "single_apk",
+            "package_name": "com.emanuelef.remote_capture",
+            "version_name": "2.0.2",
+            "file_count": 2326,
+            "dex_count": 2,
+            "certificate_count": 1,
+            "has_hashes": true,
+            "sha256": "e03f79082278b375...",
+            "errors": [],
+            "warnings": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "inspection_full",
+          "verdict": "PASS",
+          "duration_seconds": 9.426862205000361,
+          "message": "OK: 2326 files, 2 DEX, 20 native",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "inspector_statuses": {
+              "manifest": "complete",
+              "dex": "complete",
+              "native": "complete",
+              "resources": "complete",
+              "assets": "complete",
+              "network": "complete",
+              "embedded": "complete",
+              "obfuscation": "complete"
+            },
+            "inventory": {
+              "total_files": 2326,
+              "dex_count": 2,
+              "native_libs": 20,
+              "resources": 2227,
+              "assets": 2,
+              "embedded_apks": 0,
+              "certificates": 1
+            },
+            "has_manifest": true,
+            "has_dex": true,
+            "has_native": true,
+            "has_resources": true,
+            "has_assets": true,
+            "has_network": true,
+            "has_embedded": true,
+            "has_obfuscation": true,
+            "errors": [],
+            "warnings": [],
+            "limitations": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "manifest",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: com.emanuelef.remote_capture, 13 perms, 26 activities",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "package_name": "com.emanuelef.remote_capture",
+            "version_name": "2.0.2",
+            "version_code": 95,
+            "min_sdk": 23,
+            "target_sdk": 37,
+            "permissions_count": 13,
+            "activities_count": 26,
+            "services_count": 2,
+            "receivers_count": 3,
+            "providers_count": 2,
+            "has_application_info": true
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "dex",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 2 DEX, 2845 classes, 20232 methods",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "dex_file_count": 2,
+            "total_classes": 2845,
+            "total_methods": 20232,
+            "total_strings": 34113
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "native_libraries",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 20 native libs, ABIs: ['arm64-v8a', 'x86', 'x86_64', 'armeabi-v7a']",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "library_count": 20,
+            "abis": [
+              "arm64-v8a",
+              "x86",
+              "x86_64",
+              "armeabi-v7a"
+            ]
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "resources_assets",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "Resources inspection completed",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "has_resources_arsc": true,
+            "resource_type_count": 1926,
+            "total_resource_entries": null
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "strings_urls_domains",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 32 URLs, 95 domains, 101 IPs",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "url_count": 32,
+            "domain_count": 95,
+            "ip_count": 101,
+            "sample_domains": [
+              "adblock.dns.mullvad.net",
+              "addlive.io",
+              "adult-filter-dns.cleanbrowsing.org",
+              "akamaiedge.net",
+              "akamaihd.net"
+            ]
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "assets",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 0 assets catalogued",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "asset_count": 0,
+            "total_size": 0
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "privacy",
+          "verdict": "PASS",
+          "duration_seconds": 0.42614148299981025,
+          "message": "OK: 13 perms, 0 SDKs, 127 endpoints",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "package_name": "com.emanuelef.remote_capture",
+            "declared_permissions": 13,
+            "categorized_permission_groups": 4,
+            "usage_details_count": 13,
+            "total_detected_sdks": 0,
+            "tracker_count": 0,
+            "advertising_count": 0,
+            "analytics_count": 0,
+            "telemetry_count": 0,
+            "endpoint_count": 127,
+            "data_capabilities_count": 3,
+            "findings_count": 3,
+            "errors": [],
+            "warnings": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "security",
+          "verdict": "PASS",
+          "duration_seconds": 0.18505369900049118,
+          "message": "OK: 9 findings (C:0 H:0 M:3 L:5 I:1)",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "security_status": "findings_present",
+            "total_findings": 9,
+            "critical": 0,
+            "high": 0,
+            "medium": 3,
+            "low": 5,
+            "info": 1,
+            "finding_categories": [
+              "network",
+              "collection",
+              "persistence",
+              "vulnerability",
+              "spyware_indicator",
+              "configuration"
+            ],
+            "errors": [],
+            "warnings": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "modification_planning",
+          "verdict": "PASS",
+          "duration_seconds": 0.03656824700010475,
+          "message": "OK: 1 changes proposed (types: ['modify_configuration'])",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "plan_id": "PLAN-7004A26AE47E",
+            "status": "review_required",
+            "change_count": 1,
+            "change_types": [
+              "modify_configuration"
+            ],
+            "has_conflicts": false,
+            "conflict_count": 0,
+            "dependency_count": 0,
+            "warnings": [],
+            "limitations": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        }
+      ]
+    },
+    {
+      "filename": "com.oF2pks.applicationsinfo_19.apk",
+      "file_size_bytes": 120970,
+      "capabilities": [
+        {
+          "capability": "intake",
+          "verdict": "PASS",
+          "duration_seconds": 0.014844295001239516,
+          "message": "OK: com.oF2pks.applicationsinfo (37 files, 1 DEX, 1 certs)",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "package_type": "apk",
+            "input_format": "single_apk",
+            "package_name": "com.oF2pks.applicationsinfo",
+            "version_name": "1.7-19",
+            "file_count": 37,
+            "dex_count": 1,
+            "certificate_count": 1,
+            "has_hashes": true,
+            "sha256": "c0188f5f1f566e12...",
+            "errors": [],
+            "warnings": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "inspection_full",
+          "verdict": "PASS",
+          "duration_seconds": 0.12853659899883496,
+          "message": "OK: 37 files, 1 DEX, 0 native",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "inspector_statuses": {
+              "manifest": "complete",
+              "dex": "complete",
+              "native": "complete",
+              "resources": "complete",
+              "assets": "complete",
+              "network": "complete",
+              "embedded": "complete",
+              "obfuscation": "complete"
+            },
+            "inventory": {
+              "total_files": 37,
+              "dex_count": 1,
+              "native_libs": 0,
+              "resources": 30,
+              "assets": 0,
+              "embedded_apks": 0,
+              "certificates": 1
+            },
+            "has_manifest": true,
+            "has_dex": true,
+            "has_native": true,
+            "has_resources": true,
+            "has_assets": true,
+            "has_network": true,
+            "has_embedded": true,
+            "has_obfuscation": true,
+            "errors": [],
+            "warnings": [],
+            "limitations": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "manifest",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: com.oF2pks.applicationsinfo, 4 perms, 4 activities",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "package_name": "com.oF2pks.applicationsinfo",
+            "version_name": "1.7-19",
+            "version_code": 19,
+            "min_sdk": 16,
+            "target_sdk": 32,
+            "permissions_count": 4,
+            "activities_count": 4,
+            "services_count": 0,
+            "receivers_count": 0,
+            "providers_count": 0,
+            "has_application_info": true
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "dex",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 1 DEX, 63 classes, 413 methods",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "dex_file_count": 1,
+            "total_classes": 63,
+            "total_methods": 413,
+            "total_strings": 1406
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "native_libraries",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "No native libraries (may be valid for pure-Java apps)",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "library_count": 0,
+            "abis": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "resources_assets",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "Resources inspection completed",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "has_resources_arsc": true,
+            "resource_type_count": 30,
+            "total_resource_entries": null
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "strings_urls_domains",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 1 URLs, 1 domains, 0 IPs",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "url_count": 1,
+            "domain_count": 1,
+            "ip_count": 0,
+            "sample_domains": [
+              "xml.apache.org"
+            ]
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "assets",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 0 assets catalogued",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "asset_count": 0,
+            "total_size": 0
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "privacy",
+          "verdict": "PASS",
+          "duration_seconds": 0.04440107299888041,
+          "message": "OK: 4 perms, 0 SDKs, 2 endpoints",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "package_name": "com.oF2pks.applicationsinfo",
+            "declared_permissions": 4,
+            "categorized_permission_groups": 2,
+            "usage_details_count": 4,
+            "total_detected_sdks": 0,
+            "tracker_count": 0,
+            "advertising_count": 0,
+            "analytics_count": 0,
+            "telemetry_count": 0,
+            "endpoint_count": 2,
+            "data_capabilities_count": 0,
+            "findings_count": 0,
+            "errors": [],
+            "warnings": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "security",
+          "verdict": "PASS",
+          "duration_seconds": 0.03226969800016377,
+          "message": "OK: 1 findings (C:0 H:0 M:0 L:1 I:0)",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "security_status": "findings_present",
+            "total_findings": 1,
+            "critical": 0,
+            "high": 0,
+            "medium": 0,
+            "low": 1,
+            "info": 0,
+            "finding_categories": [
+              "network"
+            ],
+            "errors": [],
+            "warnings": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "modification_planning",
+          "verdict": "PASS",
+          "duration_seconds": 0.0005175999995117309,
+          "message": "Plan generated with 0 changes (no modifications proposed)",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "plan_id": "PLAN-BDF93A6D00D1",
+            "status": "review_required",
+            "change_count": 0,
+            "change_types": [],
+            "has_conflicts": false,
+            "conflict_count": 0,
+            "dependency_count": 0,
+            "warnings": [],
+            "limitations": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        }
+      ]
+    },
+    {
+      "filename": "de.audioattack.openlink_28.apk",
+      "file_size_bytes": 235707,
+      "capabilities": [
+        {
+          "capability": "intake",
+          "verdict": "PASS",
+          "duration_seconds": 0.029684962999454,
+          "message": "OK: de.audioattack.openlink (96 files, 1 DEX, 1 certs)",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "package_type": "apk",
+            "input_format": "single_apk",
+            "package_name": "de.audioattack.openlink",
+            "version_name": "1.5.11",
+            "file_count": 96,
+            "dex_count": 1,
+            "certificate_count": 1,
+            "has_hashes": true,
+            "sha256": "3d28923f08bd7173...",
+            "errors": [],
+            "warnings": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "inspection_full",
+          "verdict": "PASS",
+          "duration_seconds": 0.13127130499924533,
+          "message": "OK: 96 files, 1 DEX, 0 native",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "inspector_statuses": {
+              "manifest": "complete",
+              "dex": "complete",
+              "native": "complete",
+              "resources": "complete",
+              "assets": "complete",
+              "network": "complete",
+              "embedded": "complete",
+              "obfuscation": "complete"
+            },
+            "inventory": {
+              "total_files": 96,
+              "dex_count": 1,
+              "native_libs": 0,
+              "resources": 64,
+              "assets": 2,
+              "embedded_apks": 0,
+              "certificates": 1
+            },
+            "has_manifest": true,
+            "has_dex": true,
+            "has_native": true,
+            "has_resources": true,
+            "has_assets": true,
+            "has_network": true,
+            "has_embedded": true,
+            "has_obfuscation": true,
+            "errors": [],
+            "warnings": [],
+            "limitations": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "manifest",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: de.audioattack.openlink, 2 perms, 3 activities",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "package_name": "de.audioattack.openlink",
+            "version_name": "1.5.11",
+            "version_code": 28,
+            "min_sdk": 21,
+            "target_sdk": 36,
+            "permissions_count": 2,
+            "activities_count": 3,
+            "services_count": 0,
+            "receivers_count": 2,
+            "providers_count": 1,
+            "has_application_info": true
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "dex",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 1 DEX, 108 classes, 489 methods",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "dex_file_count": 1,
+            "total_classes": 108,
+            "total_methods": 489,
+            "total_strings": 719
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "native_libraries",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "No native libraries (may be valid for pure-Java apps)",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "library_count": 0,
+            "abis": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "resources_assets",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "Resources inspection completed",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "has_resources_arsc": true,
+            "resource_type_count": 64,
+            "total_resource_entries": null
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "strings_urls_domains",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 1 URLs, 1 domains, 0 IPs",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "url_count": 1,
+            "domain_count": 1,
+            "ip_count": 0,
+            "sample_domains": [
+              "example.org"
+            ]
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "assets",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 0 assets catalogued",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "asset_count": 0,
+            "total_size": 0
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "privacy",
+          "verdict": "PASS",
+          "duration_seconds": 0.04175887000019429,
+          "message": "OK: 2 perms, 0 SDKs, 2 endpoints",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "package_name": "de.audioattack.openlink",
+            "declared_permissions": 2,
+            "categorized_permission_groups": 1,
+            "usage_details_count": 2,
+            "total_detected_sdks": 0,
+            "tracker_count": 0,
+            "advertising_count": 0,
+            "analytics_count": 0,
+            "telemetry_count": 0,
+            "endpoint_count": 2,
+            "data_capabilities_count": 0,
+            "findings_count": 0,
+            "errors": [],
+            "warnings": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "security",
+          "verdict": "PASS",
+          "duration_seconds": 0.029672016000404255,
+          "message": "OK: 5 findings (C:0 H:0 M:0 L:5 I:0)",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "security_status": "findings_present",
+            "total_findings": 5,
+            "critical": 0,
+            "high": 0,
+            "medium": 0,
+            "low": 5,
+            "info": 0,
+            "finding_categories": [
+              "exported_component",
+              "network",
+              "persistence",
+              "vulnerability",
+              "configuration"
+            ],
+            "errors": [],
+            "warnings": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "modification_planning",
+          "verdict": "PASS",
+          "duration_seconds": 0.0007808009995642351,
+          "message": "OK: 1 changes proposed (types: ['modify_configuration'])",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "plan_id": "PLAN-1E0D1233C0C5",
+            "status": "review_required",
+            "change_count": 1,
+            "change_types": [
+              "modify_configuration"
+            ],
+            "has_conflicts": false,
+            "conflict_count": 0,
+            "dependency_count": 0,
+            "warnings": [],
+            "limitations": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        }
+      ]
+    },
+    {
+      "filename": "de.danoeh.antennapod_3120295.apk",
+      "file_size_bytes": 17749828,
+      "capabilities": [
+        {
+          "capability": "intake",
+          "verdict": "PASS",
+          "duration_seconds": 0.5899382419993344,
+          "message": "OK: de.danoeh.antennapod (1516 files, 3 DEX, 1 certs)",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "package_type": "apk",
+            "input_format": "single_apk",
+            "package_name": "de.danoeh.antennapod",
+            "version_name": "3.12.2",
+            "file_count": 1516,
+            "dex_count": 3,
+            "certificate_count": 1,
+            "has_hashes": true,
+            "sha256": "3f43a4337a693cdb...",
+            "errors": [],
+            "warnings": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "inspection_full",
+          "verdict": "PASS",
+          "duration_seconds": 18.381580512001165,
+          "message": "OK: 1516 files, 3 DEX, 4 native",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "inspector_statuses": {
+              "manifest": "complete",
+              "dex": "complete",
+              "native": "complete",
+              "resources": "complete",
+              "assets": "complete",
+              "network": "complete",
+              "embedded": "complete",
+              "obfuscation": "complete"
+            },
+            "inventory": {
+              "total_files": 1516,
+              "dex_count": 3,
+              "native_libs": 4,
+              "resources": 1400,
+              "assets": 17,
+              "embedded_apks": 0,
+              "certificates": 1
+            },
+            "has_manifest": true,
+            "has_dex": true,
+            "has_native": true,
+            "has_resources": true,
+            "has_assets": true,
+            "has_network": true,
+            "has_embedded": true,
+            "has_obfuscation": true,
+            "errors": [],
+            "warnings": [],
+            "limitations": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "manifest",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: de.danoeh.antennapod, 11 perms, 12 activities",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "package_name": "de.danoeh.antennapod",
+            "version_name": "3.12.2",
+            "version_code": 3120295,
+            "min_sdk": 23,
+            "target_sdk": 36,
+            "permissions_count": 11,
+            "activities_count": 12,
+            "services_count": 7,
+            "receivers_count": 16,
+            "providers_count": 3,
+            "has_application_info": true
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "dex",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 3 DEX, 12065 classes, 70360 methods",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "dex_file_count": 3,
+            "total_classes": 12065,
+            "total_methods": 70360,
+            "total_strings": 103379
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "native_libraries",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 4 native libs, ABIs: ['arm64-v8a', 'x86', 'x86_64', 'armeabi-v7a']",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "library_count": 4,
+            "abis": [
+              "arm64-v8a",
+              "x86",
+              "x86_64",
+              "armeabi-v7a"
+            ]
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "resources_assets",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "Resources inspection completed",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "has_resources_arsc": true,
+            "resource_type_count": 1187,
+            "total_resource_entries": null
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "strings_urls_domains",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 47 URLs, 47 domains, 10 IPs",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "url_count": 47,
+            "domain_count": 47,
+            "ip_count": 10,
+            "sample_domains": [
+              "action.de",
+              "android.app",
+              "android.intent.extra.cc",
+              "android.net",
+              "android.support.v4.app"
+            ]
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "assets",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 0 assets catalogued",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "asset_count": 0,
+            "total_size": 0
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "privacy",
+          "verdict": "PASS",
+          "duration_seconds": 0.9925138799990236,
+          "message": "OK: 11 perms, 0 SDKs, 94 endpoints",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "package_name": "de.danoeh.antennapod",
+            "declared_permissions": 11,
+            "categorized_permission_groups": 4,
+            "usage_details_count": 11,
+            "total_detected_sdks": 0,
+            "tracker_count": 0,
+            "advertising_count": 0,
+            "analytics_count": 0,
+            "telemetry_count": 0,
+            "endpoint_count": 94,
+            "data_capabilities_count": 5,
+            "findings_count": 3,
+            "errors": [],
+            "warnings": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "security",
+          "verdict": "PASS",
+          "duration_seconds": 0.5602697289996286,
+          "message": "OK: 20 findings (C:0 H:2 M:9 L:8 I:1)",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "security_status": "findings_present",
+            "total_findings": 20,
+            "critical": 0,
+            "high": 2,
+            "medium": 9,
+            "low": 8,
+            "info": 1,
+            "finding_categories": [
+              "crypto",
+              "exported_component",
+              "network",
+              "collection",
+              "vulnerability",
+              "persistence",
+              "spyware_indicator",
+              "configuration"
+            ],
+            "errors": [],
+            "warnings": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "modification_planning",
+          "verdict": "PASS",
+          "duration_seconds": 0.046466251000310876,
+          "message": "OK: 4 changes proposed (types: ['modify_configuration', 'modify_component'])",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "plan_id": "PLAN-178F1E6C9152",
+            "status": "review_required",
+            "change_count": 4,
+            "change_types": [
+              "modify_configuration",
+              "modify_component"
+            ],
+            "has_conflicts": false,
+            "conflict_count": 0,
+            "dependency_count": 0,
+            "warnings": [],
+            "limitations": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        }
+      ]
+    },
+    {
+      "filename": "eu.siacs.conversations_4218104.apk",
+      "file_size_bytes": 30749589,
+      "capabilities": [
+        {
+          "capability": "intake",
+          "verdict": "PASS",
+          "duration_seconds": 0.8800849660001404,
+          "message": "OK: eu.siacs.conversations (1339 files, 2 DEX, 1 certs)",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "package_type": "apk",
+            "input_format": "single_apk",
+            "package_name": "eu.siacs.conversations",
+            "version_name": "2.20.4+free",
+            "file_count": 1339,
+            "dex_count": 2,
+            "certificate_count": 1,
+            "has_hashes": true,
+            "sha256": "3fae646e33b59b95...",
+            "errors": [],
+            "warnings": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "inspection_full",
+          "verdict": "PASS",
+          "duration_seconds": 15.88825109299978,
+          "message": "OK: 1339 files, 2 DEX, 2 native",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "inspector_statuses": {
+              "manifest": "complete",
+              "dex": "complete",
+              "native": "complete",
+              "resources": "complete",
+              "assets": "complete",
+              "network": "complete",
+              "embedded": "complete",
+              "obfuscation": "complete"
+            },
+            "inventory": {
+              "total_files": 1339,
+              "dex_count": 2,
+              "native_libs": 2,
+              "resources": 1226,
+              "assets": 4,
+              "embedded_apks": 0,
+              "certificates": 1
+            },
+            "has_manifest": true,
+            "has_dex": true,
+            "has_native": true,
+            "has_resources": true,
+            "has_assets": true,
+            "has_network": true,
+            "has_embedded": true,
+            "has_obfuscation": true,
+            "errors": [],
+            "warnings": [],
+            "limitations": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "manifest",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: eu.siacs.conversations, 51 perms, 40 activities",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "package_name": "eu.siacs.conversations",
+            "version_name": "2.20.4+free",
+            "version_code": 4218104,
+            "min_sdk": 23,
+            "target_sdk": 37,
+            "permissions_count": 51,
+            "activities_count": 40,
+            "services_count": 6,
+            "receivers_count": 6,
+            "providers_count": 4,
+            "has_application_info": true
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "dex",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 2 DEX, 7686 classes, 40927 methods",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "dex_file_count": 2,
+            "total_classes": 7686,
+            "total_methods": 40927,
+            "total_strings": 57376
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "native_libraries",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 2 native libs, ABIs: ['arm64-v8a']",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "library_count": 2,
+            "abis": [
+              "arm64-v8a"
+            ]
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "resources_assets",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "Resources inspection completed",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "has_resources_arsc": true,
+            "resource_type_count": 1010,
+            "total_resource_entries": null
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "strings_urls_domains",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 59 URLs, 90 domains, 145 IPs",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "url_count": 59,
+            "domain_count": 90,
+            "ip_count": 145,
+            "sample_domains": [
+              "a.tile.opentopomap.org",
+              "add.cc",
+              "aead.cc",
+              "algorithm.cc",
+              "android.app"
+            ]
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "assets",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 0 assets catalogued",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "asset_count": 0,
+            "total_size": 0
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "privacy",
+          "verdict": "PASS",
+          "duration_seconds": 0.7068589110003813,
+          "message": "OK: 51 perms, 0 SDKs, 149 endpoints",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "package_name": "eu.siacs.conversations",
+            "declared_permissions": 51,
+            "categorized_permission_groups": 10,
+            "usage_details_count": 51,
+            "total_detected_sdks": 0,
+            "tracker_count": 0,
+            "advertising_count": 0,
+            "analytics_count": 0,
+            "telemetry_count": 0,
+            "endpoint_count": 149,
+            "data_capabilities_count": 6,
+            "findings_count": 4,
+            "errors": [],
+            "warnings": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "security",
+          "verdict": "PASS",
+          "duration_seconds": 0.33156822899945837,
+          "message": "OK: 27 findings (C:0 H:9 M:9 L:8 I:1)",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "security_status": "findings_present",
+            "total_findings": 27,
+            "critical": 0,
+            "high": 9,
+            "medium": 9,
+            "low": 8,
+            "info": 1,
+            "finding_categories": [
+              "crypto",
+              "exported_component",
+              "network",
+              "collection",
+              "payload",
+              "vulnerability",
+              "persistence",
+              "surveillance",
+              "spyware_indicator",
+              "configuration"
+            ],
+            "errors": [],
+            "warnings": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "modification_planning",
+          "verdict": "PASS",
+          "duration_seconds": 0.07130038399918703,
+          "message": "OK: 2 changes proposed (types: ['modify_configuration', 'remove_permission'])",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "plan_id": "PLAN-16889266213A",
+            "status": "review_required",
+            "change_count": 2,
+            "change_types": [
+              "modify_configuration",
+              "remove_permission"
+            ],
+            "has_conflicts": false,
+            "conflict_count": 0,
+            "dependency_count": 0,
+            "warnings": [],
+            "limitations": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        }
+      ]
+    },
+    {
+      "filename": "godau.fynn.usagedirect_10.apk",
+      "file_size_bytes": 3469642,
+      "capabilities": [
+        {
+          "capability": "intake",
+          "verdict": "PASS",
+          "duration_seconds": 0.15570428499995614,
+          "message": "OK: godau.fynn.usagedirect (528 files, 2 DEX, 1 certs)",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "package_type": "apk",
+            "input_format": "single_apk",
+            "package_name": "godau.fynn.usagedirect",
+            "version_name": "0.8.1",
+            "file_count": 528,
+            "dex_count": 2,
+            "certificate_count": 1,
+            "has_hashes": true,
+            "sha256": "c55079192a77fc66...",
+            "errors": [],
+            "warnings": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "inspection_full",
+          "verdict": "PASS",
+          "duration_seconds": 8.71759645900056,
+          "message": "OK: 528 files, 2 DEX, 0 native",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "inspector_statuses": {
+              "manifest": "complete",
+              "dex": "complete",
+              "native": "complete",
+              "resources": "complete",
+              "assets": "complete",
+              "network": "complete",
+              "embedded": "complete",
+              "obfuscation": "complete"
+            },
+            "inventory": {
+              "total_files": 528,
+              "dex_count": 2,
+              "native_libs": 0,
+              "resources": 463,
+              "assets": 2,
+              "embedded_apks": 0,
+              "certificates": 1
+            },
+            "has_manifest": true,
+            "has_dex": true,
+            "has_native": true,
+            "has_resources": true,
+            "has_assets": true,
+            "has_network": true,
+            "has_embedded": true,
+            "has_obfuscation": true,
+            "errors": [],
+            "warnings": [],
+            "limitations": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "manifest",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: godau.fynn.usagedirect, 2 perms, 5 activities",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "package_name": "godau.fynn.usagedirect",
+            "version_name": "0.8.1",
+            "version_code": 10,
+            "min_sdk": 21,
+            "target_sdk": 28,
+            "permissions_count": 2,
+            "activities_count": 5,
+            "services_count": 2,
+            "receivers_count": 2,
+            "providers_count": 1,
+            "has_application_info": true
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "dex",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 2 DEX, 5902 classes, 41733 methods",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "dex_file_count": 2,
+            "total_classes": 5902,
+            "total_methods": 41733,
+            "total_strings": 44978
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "native_libraries",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "No native libraries (may be valid for pure-Java apps)",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "library_count": 0,
+            "abis": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "resources_assets",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "Resources inspection completed",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "has_resources_arsc": true,
+            "resource_type_count": 433,
+            "total_resource_entries": null
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "strings_urls_domains",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 12 URLs, 16 domains, 0 IPs",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "url_count": 12,
+            "domain_count": 16,
+            "ip_count": 0,
+            "sample_domains": [
+              "android.app",
+              "android.intent.extra.cc",
+              "android.support.v4.app",
+              "androidx.core.app",
+              "androidx.fragment.app"
+            ]
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "assets",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 0 assets catalogued",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "asset_count": 0,
+            "total_size": 0
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "privacy",
+          "verdict": "PASS",
+          "duration_seconds": 0.4368624050002836,
+          "message": "OK: 2 perms, 0 SDKs, 28 endpoints",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "package_name": "godau.fynn.usagedirect",
+            "declared_permissions": 2,
+            "categorized_permission_groups": 2,
+            "usage_details_count": 2,
+            "total_detected_sdks": 0,
+            "tracker_count": 0,
+            "advertising_count": 0,
+            "analytics_count": 0,
+            "telemetry_count": 0,
+            "endpoint_count": 28,
+            "data_capabilities_count": 5,
+            "findings_count": 4,
+            "errors": [],
+            "warnings": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "security",
+          "verdict": "PASS",
+          "duration_seconds": 0.28896330799943826,
+          "message": "OK: 7 findings (C:0 H:0 M:3 L:4 I:0)",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "security_status": "findings_present",
+            "total_findings": 7,
+            "critical": 0,
+            "high": 0,
+            "medium": 3,
+            "low": 4,
+            "info": 0,
+            "finding_categories": [
+              "collection",
+              "persistence",
+              "vulnerability",
+              "spyware_indicator",
+              "configuration"
+            ],
+            "errors": [],
+            "warnings": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "modification_planning",
+          "verdict": "PASS",
+          "duration_seconds": 0.011507309000080568,
+          "message": "OK: 1 changes proposed (types: ['modify_configuration'])",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "plan_id": "PLAN-73F9BA3E7FE7",
+            "status": "review_required",
+            "change_count": 1,
+            "change_types": [
+              "modify_configuration"
+            ],
+            "has_conflicts": false,
+            "conflict_count": 0,
+            "dependency_count": 0,
+            "warnings": [],
+            "limitations": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        }
+      ]
+    },
+    {
+      "filename": "io.github.muntashirakon.AppManager_451.apk",
+      "file_size_bytes": 28145654,
+      "capabilities": [
+        {
+          "capability": "intake",
+          "verdict": "PASS",
+          "duration_seconds": 1.182153998001013,
+          "message": "OK: io.github.muntashirakon.AppManager (2310 files, 6 DEX, 1 certs)",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "package_type": "apk",
+            "input_format": "single_apk",
+            "package_name": "io.github.muntashirakon.AppManager",
+            "version_name": "4.1.1",
+            "file_count": 2310,
+            "dex_count": 6,
+            "certificate_count": 1,
+            "has_hashes": true,
+            "sha256": "e1f6ba10812c7401...",
+            "errors": [],
+            "warnings": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "inspection_full",
+          "verdict": "PASS",
+          "duration_seconds": 53.74882626600083,
+          "message": "OK: 2310 files, 6 DEX, 16 native",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "inspector_statuses": {
+              "manifest": "complete",
+              "dex": "complete",
+              "native": "complete",
+              "resources": "complete",
+              "assets": "complete",
+              "network": "complete",
+              "embedded": "complete",
+              "obfuscation": "complete"
+            },
+            "inventory": {
+              "total_files": 2310,
+              "dex_count": 6,
+              "native_libs": 16,
+              "resources": 1443,
+              "assets": 31,
+              "embedded_apks": 14,
+              "certificates": 1
+            },
+            "has_manifest": true,
+            "has_dex": true,
+            "has_native": true,
+            "has_resources": true,
+            "has_assets": true,
+            "has_network": true,
+            "has_embedded": true,
+            "has_obfuscation": true,
+            "errors": [],
+            "warnings": [],
+            "limitations": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "manifest",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: io.github.muntashirakon.AppManager, 63 perms, 39 activities",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "package_name": "io.github.muntashirakon.AppManager",
+            "version_name": "4.1.1",
+            "version_code": 451,
+            "min_sdk": 21,
+            "target_sdk": 36,
+            "permissions_count": 63,
+            "activities_count": 39,
+            "services_count": 11,
+            "receivers_count": 7,
+            "providers_count": 2,
+            "has_application_info": true
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "dex",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 6 DEX, 30717 classes, 225186 methods",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "dex_file_count": 6,
+            "total_classes": 30717,
+            "total_methods": 225186,
+            "total_strings": 231004
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "native_libraries",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 16 native libs, ABIs: ['arm64-v8a', 'x86', 'x86_64', 'armeabi-v7a']",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "library_count": 16,
+            "abis": [
+              "arm64-v8a",
+              "x86",
+              "x86_64",
+              "armeabi-v7a"
+            ]
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "resources_assets",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "Resources inspection completed",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "has_resources_arsc": true,
+            "resource_type_count": 1162,
+            "total_resource_entries": null
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "strings_urls_domains",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 51 URLs, 62 domains, 199 IPs",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "url_count": 51,
+            "domain_count": 62,
+            "ip_count": 199,
+            "sample_domains": [
+              "android.app",
+              "android.googlesource.com",
+              "android.intent.category.info",
+              "android.intent.extra.cc",
+              "android.support.v4.app"
+            ]
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "assets",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 0 assets catalogued",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "asset_count": 0,
+            "total_size": 0
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "privacy",
+          "verdict": "PASS",
+          "duration_seconds": 3.801698093999221,
+          "message": "OK: 63 perms, 0 SDKs, 113 endpoints",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "package_name": "io.github.muntashirakon.AppManager",
+            "declared_permissions": 63,
+            "categorized_permission_groups": 6,
+            "usage_details_count": 63,
+            "total_detected_sdks": 0,
+            "tracker_count": 0,
+            "advertising_count": 0,
+            "analytics_count": 0,
+            "telemetry_count": 0,
+            "endpoint_count": 113,
+            "data_capabilities_count": 5,
+            "findings_count": 4,
+            "errors": [],
+            "warnings": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "security",
+          "verdict": "PASS",
+          "duration_seconds": 1.3847045860002254,
+          "message": "OK: 45 findings (C:0 H:21 M:14 L:9 I:1)",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "security_status": "findings_present",
+            "total_findings": 45,
+            "critical": 0,
+            "high": 21,
+            "medium": 14,
+            "low": 9,
+            "info": 1,
+            "finding_categories": [
+              "dynamic_code",
+              "credential_access",
+              "code_execution",
+              "crypto",
+              "exported_component",
+              "network",
+              "collection",
+              "malware_indicator",
+              "payload",
+              "vulnerability",
+              "persistence",
+              "spyware_indicator",
+              "configuration"
+            ],
+            "errors": [],
+            "warnings": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "modification_planning",
+          "verdict": "PASS",
+          "duration_seconds": 0.06002586399881693,
+          "message": "OK: 15 changes proposed (types: ['remove_embedded_payload', 'modify_configuration'])",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "plan_id": "PLAN-7E6C49182F0F",
+            "status": "review_required",
+            "change_count": 15,
+            "change_types": [
+              "remove_embedded_payload",
+              "modify_configuration"
+            ],
+            "has_conflicts": false,
+            "conflict_count": 0,
+            "dependency_count": 0,
+            "warnings": [],
+            "limitations": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        }
+      ]
+    },
+    {
+      "filename": "org.mozilla.fennec_fdroid_1560020.apk",
+      "file_size_bytes": 127634542,
+      "capabilities": [
+        {
+          "capability": "intake",
+          "verdict": "PASS",
+          "duration_seconds": 4.73357983599999,
+          "message": "OK: org.mozilla.fennec_fdroid (3257 files, 3 DEX, 1 certs)",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "package_type": "apk",
+            "input_format": "single_apk",
+            "package_name": "org.mozilla.fennec_fdroid",
+            "version_name": "156.0.0",
+            "file_count": 3257,
+            "dex_count": 3,
+            "certificate_count": 1,
+            "has_hashes": true,
+            "sha256": "27f2951376ca1085...",
+            "errors": [],
+            "warnings": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "inspection_full",
+          "verdict": "PARTIAL",
+          "duration_seconds": 67.35693350099973,
+          "message": "Inspection PARTIAL. Failed inspectors: []",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "partial",
+            "inspector_statuses": {
+              "manifest": "complete",
+              "dex": "complete",
+              "native": "complete",
+              "resources": "complete",
+              "assets": "complete",
+              "network": "complete",
+              "embedded": "partial",
+              "obfuscation": "complete"
+            },
+            "inventory": {
+              "total_files": 3257,
+              "dex_count": 3,
+              "native_libs": 15,
+              "resources": 2503,
+              "assets": 566,
+              "embedded_apks": 0,
+              "certificates": 1
+            },
+            "has_manifest": true,
+            "has_dex": true,
+            "has_native": true,
+            "has_resources": true,
+            "has_assets": true,
+            "has_network": true,
+            "has_embedded": true,
+            "has_obfuscation": true,
+            "errors": [],
+            "warnings": [
+              "File 'lib/arm64-v8a/libxul.so' too large for embedded detection (156864024 bytes)."
+            ],
+            "limitations": []
+          },
+          "likely_cause": "",
+          "blame": "apkforge"
+        },
+        {
+          "capability": "manifest",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: org.mozilla.fennec_fdroid, 32 perms, 20 activities",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "package_name": "org.mozilla.fennec_fdroid",
+            "version_name": "156.0.0",
+            "version_code": 1560020,
+            "min_sdk": 26,
+            "target_sdk": 37,
+            "permissions_count": 32,
+            "activities_count": 20,
+            "services_count": 105,
+            "receivers_count": 14,
+            "providers_count": 9,
+            "has_application_info": true
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "dex",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 3 DEX, 37886 classes, 142151 methods",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "dex_file_count": 3,
+            "total_classes": 37886,
+            "total_methods": 142151,
+            "total_strings": 178105
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "native_libraries",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 15 native libs, ABIs: ['arm64-v8a']",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "library_count": 15,
+            "abis": [
+              "arm64-v8a"
+            ]
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "resources_assets",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "Resources inspection completed",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "has_resources_arsc": true,
+            "resource_type_count": 2191,
+            "total_resource_entries": null
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "strings_urls_domains",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 107 URLs, 194 domains, 7 IPs",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "url_count": 107,
+            "domain_count": 194,
+            "ip_count": 7,
+            "sample_domains": [
+              "a9.com",
+              "abcnews.go.com",
+              "accounts.firefox.com",
+              "accounts.stage.mozaws.net",
+              "acelp.net"
+            ]
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "assets",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 0 assets catalogued",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "asset_count": 0,
+            "total_size": 0
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "privacy",
+          "verdict": "PARTIAL",
+          "duration_seconds": 2.643976626000949,
+          "message": "Privacy analysis PARTIAL: []",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "partial",
+            "package_name": "org.mozilla.fennec_fdroid",
+            "declared_permissions": 32,
+            "categorized_permission_groups": 7,
+            "usage_details_count": 32,
+            "total_detected_sdks": 4,
+            "tracker_count": 0,
+            "advertising_count": 2,
+            "analytics_count": 0,
+            "telemetry_count": 2,
+            "endpoint_count": 301,
+            "data_capabilities_count": 7,
+            "findings_count": 10,
+            "errors": [],
+            "warnings": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "security",
+          "verdict": "PARTIAL",
+          "duration_seconds": 1.135478988999239,
+          "message": "Security analysis PARTIAL: []",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "partial",
+            "security_status": "findings_present",
+            "total_findings": 27,
+            "critical": 0,
+            "high": 7,
+            "medium": 12,
+            "low": 7,
+            "info": 1,
+            "finding_categories": [
+              "dynamic_code",
+              "code_execution",
+              "crypto",
+              "exported_component",
+              "network",
+              "collection",
+              "malware_indicator",
+              "payload",
+              "vulnerability",
+              "persistence",
+              "surveillance",
+              "spyware_indicator",
+              "configuration"
+            ],
+            "errors": [],
+            "warnings": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "modification_planning",
+          "verdict": "PASS",
+          "duration_seconds": 0.2803279100007785,
+          "message": "OK: 7 changes proposed (types: ['remove_tracker', 'modify_configuration', 'modify_component', 'remove_permission'])",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "plan_id": "PLAN-115838AE9870",
+            "status": "review_required",
+            "change_count": 7,
+            "change_types": [
+              "remove_tracker",
+              "modify_configuration",
+              "modify_component",
+              "remove_permission"
+            ],
+            "has_conflicts": false,
+            "conflict_count": 0,
+            "dependency_count": 0,
+            "warnings": [
+              "Inspection status is PARTIAL; some artifacts were unparsed.",
+              "Privacy analysis status is PARTIAL.",
+              "Security analysis status is PARTIAL."
+            ],
+            "limitations": [
+              "Inspection was partial; proposal generation may miss uninspected components."
+            ]
+          },
+          "likely_cause": "",
+          "blame": ""
+        }
+      ]
+    },
+    {
+      "filename": "org.schabi.newpipe_1015_cb84069.apk",
+      "file_size_bytes": 11507122,
+      "capabilities": [
+        {
+          "capability": "intake",
+          "verdict": "PASS",
+          "duration_seconds": 0.843923802000063,
+          "message": "OK: org.schabi.newpipe (1375 files, 3 DEX, 1 certs)",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "package_type": "apk",
+            "input_format": "single_apk",
+            "package_name": "org.schabi.newpipe",
+            "version_name": "0.29.1",
+            "file_count": 1375,
+            "dex_count": 3,
+            "certificate_count": 1,
+            "has_hashes": true,
+            "sha256": "18447bfb1e06d113...",
+            "errors": [],
+            "warnings": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "inspection_full",
+          "verdict": "PASS",
+          "duration_seconds": 18.240046027000062,
+          "message": "OK: 1375 files, 3 DEX, 4 native",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "inspector_statuses": {
+              "manifest": "complete",
+              "dex": "complete",
+              "native": "complete",
+              "resources": "complete",
+              "assets": "complete",
+              "network": "complete",
+              "embedded": "complete",
+              "obfuscation": "complete"
+            },
+            "inventory": {
+              "total_files": 1375,
+              "dex_count": 3,
+              "native_libs": 4,
+              "resources": 1078,
+              "assets": 136,
+              "embedded_apks": 0,
+              "certificates": 1
+            },
+            "has_manifest": true,
+            "has_dex": true,
+            "has_native": true,
+            "has_resources": true,
+            "has_assets": true,
+            "has_network": true,
+            "has_embedded": true,
+            "has_obfuscation": true,
+            "errors": [],
+            "warnings": [],
+            "limitations": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "manifest",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: org.schabi.newpipe, 11 perms, 13 activities",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "package_name": "org.schabi.newpipe",
+            "version_name": "0.29.1",
+            "version_code": 1015,
+            "min_sdk": 23,
+            "target_sdk": 35,
+            "permissions_count": 11,
+            "activities_count": 13,
+            "services_count": 11,
+            "receivers_count": 5,
+            "providers_count": 4,
+            "has_application_info": true
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "dex",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 3 DEX, 10671 classes, 65538 methods",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "dex_file_count": 3,
+            "total_classes": 10671,
+            "total_methods": 65538,
+            "total_strings": 78404
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "native_libraries",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 4 native libs, ABIs: ['arm64-v8a', 'x86', 'x86_64', 'armeabi-v7a']",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "library_count": 4,
+            "abis": [
+              "arm64-v8a",
+              "x86",
+              "x86_64",
+              "armeabi-v7a"
+            ]
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "resources_assets",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "Resources inspection completed",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "has_resources_arsc": true,
+            "resource_type_count": 1011,
+            "total_resource_entries": null
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "strings_urls_domains",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 135 URLs, 98 domains, 0 IPs",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "url_count": 135,
+            "domain_count": 98,
+            "ip_count": 0,
+            "sample_domains": [
+              "android.app",
+              "android.googlesource.com",
+              "android.net",
+              "androidx.appcompat.app",
+              "androidx.core.app"
+            ]
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "assets",
+          "verdict": "PASS",
+          "duration_seconds": 0.0,
+          "message": "OK: 0 assets catalogued",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "asset_count": 0,
+            "total_size": 0
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "privacy",
+          "verdict": "PASS",
+          "duration_seconds": 0.7958410699993692,
+          "message": "OK: 11 perms, 2 SDKs, 233 endpoints",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "package_name": "org.schabi.newpipe",
+            "declared_permissions": 11,
+            "categorized_permission_groups": 5,
+            "usage_details_count": 11,
+            "total_detected_sdks": 2,
+            "tracker_count": 0,
+            "advertising_count": 2,
+            "analytics_count": 0,
+            "telemetry_count": 0,
+            "endpoint_count": 233,
+            "data_capabilities_count": 4,
+            "findings_count": 5,
+            "errors": [],
+            "warnings": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "security",
+          "verdict": "PASS",
+          "duration_seconds": 0.4884270899983676,
+          "message": "OK: 16 findings (C:0 H:2 M:5 L:8 I:1)",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "status": "complete",
+            "security_status": "findings_present",
+            "total_findings": 16,
+            "critical": 0,
+            "high": 2,
+            "medium": 5,
+            "low": 8,
+            "info": 1,
+            "finding_categories": [
+              "code_execution",
+              "crypto",
+              "exported_component",
+              "network",
+              "collection",
+              "malware_indicator",
+              "payload",
+              "persistence",
+              "vulnerability",
+              "spyware_indicator",
+              "configuration"
+            ],
+            "errors": [],
+            "warnings": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        },
+        {
+          "capability": "modification_planning",
+          "verdict": "PASS",
+          "duration_seconds": 0.031890743999611004,
+          "message": "OK: 3 changes proposed (types: ['modify_configuration', 'modify_component', 'remove_tracker'])",
+          "error": "",
+          "exception_type": "",
+          "traceback_snippet": "",
+          "data_summary": {
+            "plan_id": "PLAN-8F6015A2B039",
+            "status": "review_required",
+            "change_count": 3,
+            "change_types": [
+              "modify_configuration",
+              "modify_component",
+              "remove_tracker"
+            ],
+            "has_conflicts": false,
+            "conflict_count": 0,
+            "dependency_count": 0,
+            "warnings": [],
+            "limitations": []
+          },
+          "likely_cause": "",
+          "blame": ""
+        }
+      ]
+    }
+  ],
+  "diff_results": [
+    {
+      "capability": "diff",
+      "verdict": "PASS",
+      "duration_seconds": 0.3225210580003477,
+      "message": "OK: diff produced with 12 summary lines",
+      "error": "",
+      "exception_type": "",
+      "traceback_snippet": "",
+      "data_summary": {
+        "status": "complete",
+        "apk_a": "com.oF2pks.applicationsinfo_19.apk",
+        "apk_b": "de.audioattack.openlink_28.apk",
+        "summary_lines": 12,
+        "identity_changes": 5,
+        "permission_changes": 6,
+        "errors": []
+      },
+      "likely_cause": "",
+      "blame": "",
+      "apk_a": "com.oF2pks.applicationsinfo_19.apk",
+      "apk_b": "de.audioattack.openlink_28.apk"
+    },
+    {
+      "capability": "diff",
+      "verdict": "PARTIAL",
+      "duration_seconds": 75.52954526100075,
+      "message": "Diff PARTIAL: [\"File 'lib/arm64-v8a/libxul.so' too large for embedded detection (156864024 bytes).\", \"Package identities differ: 'com.oF2pks.applicationsinfo' vs 'org.mozilla.fennec_fdroid'\"]",
+      "error": "",
+      "exception_type": "",
+      "traceback_snippet": "",
+      "data_summary": {
+        "status": "partial",
+        "apk_a": "com.oF2pks.applicationsinfo_19.apk",
+        "apk_b": "org.mozilla.fennec_fdroid_1560020.apk",
+        "summary_lines": 14,
+        "identity_changes": 5,
+        "permission_changes": 32,
+        "errors": []
+      },
+      "likely_cause": "",
+      "blame": "",
+      "apk_a": "com.oF2pks.applicationsinfo_19.apk",
+      "apk_b": "org.mozilla.fennec_fdroid_1560020.apk"
+    },
+    {
+      "capability": "diff",
+      "verdict": "PASS",
+      "duration_seconds": 32.5494449680009,
+      "message": "OK: diff produced with 18 summary lines",
+      "error": "",
+      "exception_type": "",
+      "traceback_snippet": "",
+      "data_summary": {
+        "status": "complete",
+        "apk_a": "com.emanuelef.remote_capture_95.apk",
+        "apk_b": "de.danoeh.antennapod_3120295.apk",
+        "summary_lines": 18,
+        "identity_changes": 4,
+        "permission_changes": 12,
+        "errors": []
+      },
+      "likely_cause": "",
+      "blame": "",
+      "apk_a": "com.emanuelef.remote_capture_95.apk",
+      "apk_b": "de.danoeh.antennapod_3120295.apk"
+    }
+  ]
+}

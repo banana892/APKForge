@@ -1,0 +1,1250 @@
+{
+  "review": "Post PRC-05 / PRC-07 / PRC-08 Security Validation",
+  "status": "completed",
+  "disposition_of_reviewed_fps": [
+    {
+      "app_id": "pcapdroid",
+      "rule_id": "SEC-SPY-ACCESSIBILITY-001",
+      "status": "STILL_PRESENT",
+      "reason": "Out-of-scope rule (PRC-01 / PRC-03); retained as known issue",
+      "evidence": [
+        {
+          "description": "Referenced API: android.accessibilityservice.AccessibilityService",
+          "location": "api:android.accessibilityservice.AccessibilityService",
+          "snippet": "android.accessibilityservice.AccessibilityService",
+          "references": []
+        }
+      ]
+    },
+    {
+      "app_id": "pcapdroid",
+      "rule_id": "SEC-SPY-ACCESSIBILITY-ABUSE",
+      "status": "STILL_PRESENT",
+      "reason": "Out-of-scope rule (PRC-01 / PRC-03); retained as known issue",
+      "evidence": [
+        {
+          "description": "AccessibilityService API referenced in bytecode",
+          "location": "api:android.accessibilityservice.AccessibilityService",
+          "snippet": "AccessibilityService API",
+          "references": []
+        }
+      ]
+    },
+    {
+      "app_id": "appmanager",
+      "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-23_apk",
+      "status": "ELIMINATED",
+      "reason": "Eliminated by PRC-05, PRC-06"
+    },
+    {
+      "app_id": "appmanager",
+      "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-24_apk",
+      "status": "ELIMINATED",
+      "reason": "Eliminated by PRC-05, PRC-06"
+    },
+    {
+      "app_id": "appmanager",
+      "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-25_apk",
+      "status": "ELIMINATED",
+      "reason": "Eliminated by PRC-05, PRC-06"
+    },
+    {
+      "app_id": "appmanager",
+      "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-26_apk",
+      "status": "ELIMINATED",
+      "reason": "Eliminated by PRC-05, PRC-06"
+    },
+    {
+      "app_id": "appmanager",
+      "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-27_apk",
+      "status": "ELIMINATED",
+      "reason": "Eliminated by PRC-05, PRC-06"
+    },
+    {
+      "app_id": "appmanager",
+      "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-28_apk",
+      "status": "ELIMINATED",
+      "reason": "Eliminated by PRC-05, PRC-06"
+    },
+    {
+      "app_id": "appmanager",
+      "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-29_apk",
+      "status": "ELIMINATED",
+      "reason": "Eliminated by PRC-05, PRC-06"
+    },
+    {
+      "app_id": "appmanager",
+      "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-30_apk",
+      "status": "ELIMINATED",
+      "reason": "Eliminated by PRC-05, PRC-06"
+    },
+    {
+      "app_id": "appmanager",
+      "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-31_apk",
+      "status": "ELIMINATED",
+      "reason": "Eliminated by PRC-05, PRC-06"
+    },
+    {
+      "app_id": "appmanager",
+      "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-32_apk",
+      "status": "ELIMINATED",
+      "reason": "Eliminated by PRC-05, PRC-06"
+    },
+    {
+      "app_id": "appmanager",
+      "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-33_apk",
+      "status": "ELIMINATED",
+      "reason": "Eliminated by PRC-05, PRC-06"
+    },
+    {
+      "app_id": "appmanager",
+      "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-34_apk",
+      "status": "ELIMINATED",
+      "reason": "Eliminated by PRC-05, PRC-06"
+    },
+    {
+      "app_id": "appmanager",
+      "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-35_apk",
+      "status": "ELIMINATED",
+      "reason": "Eliminated by PRC-05, PRC-06"
+    },
+    {
+      "app_id": "appmanager",
+      "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-36_apk",
+      "status": "ELIMINATED",
+      "reason": "Eliminated by PRC-05, PRC-06"
+    },
+    {
+      "app_id": "appmanager",
+      "rule_id": "SEC-VULN-SECRET-GENERIC_PRIVATE_KEY_HEADER",
+      "status": "ELIMINATED",
+      "reason": "Eliminated by PRC-07"
+    },
+    {
+      "app_id": "appmanager",
+      "rule_id": "SEC-VULN-WEAK-CIPHER-001",
+      "status": "ELIMINATED",
+      "reason": "Eliminated by PRC-08"
+    },
+    {
+      "app_id": "appmanager",
+      "rule_id": "SEC-VULN-CRYPTO-WEAK-CIPHER",
+      "status": "ELIMINATED",
+      "reason": "Eliminated by PRC-08, PRC-04"
+    },
+    {
+      "app_id": "appmanager",
+      "rule_id": "SEC-NET-CLEARTEXT-URLS",
+      "status": "STILL_PRESENT",
+      "reason": "Out-of-scope rule (PRC-01 / PRC-03); retained as known issue",
+      "evidence": [
+        {
+          "description": "Cleartext HTTP URL: http://smali.org",
+          "location": "classes4.dex",
+          "snippet": "http://smali.org",
+          "references": []
+        },
+        {
+          "description": "Cleartext HTTP URL: http://xml.org/sax/features/external-general-entities",
+          "location": "classes5.dex",
+          "snippet": "http://xml.org/sax/features/external-general-entities",
+          "references": []
+        },
+        {
+          "description": "Cleartext HTTP URL: http://xmlpull.org/v1/doc/features.html#report-namespace-prefixes",
+          "location": "classes.dex",
+          "snippet": "http://xmlpull.org/v1/doc/features.html#report-namespace-prefixes",
+          "references": []
+        },
+        {
+          "description": "Cleartext HTTP URL: http://xmlpull.org/v1/doc/properties.html#location",
+          "location": "classes5.dex",
+          "snippet": "http://xmlpull.org/v1/doc/properties.html#location",
+          "references": []
+        },
+        {
+          "description": "Cleartext HTTP URL: http://xmlpull.org/v1/doc/features.html#validation",
+          "location": "classes6.dex",
+          "snippet": "http://xmlpull.org/v1/doc/features.html#validation",
+          "references": []
+        }
+      ]
+    },
+    {
+      "app_id": "appmanager",
+      "rule_id": "SEC-VULN-CRYPTO-WEAK-HASH",
+      "status": "STILL_PRESENT",
+      "reason": "Bundled BouncyCastle SHA1 eliminated; app-owned SHA-1 in Signer retained and attributed to app",
+      "evidence": [
+        {
+          "description": "Weak hash algorithm referenced in io.github.muntashirakon.AppManager.apk.signing.Signer: SHA-1",
+          "location": "class:io.github.muntashirakon.AppManager.apk.signing.Signer",
+          "snippet": "SHA-1",
+          "references": []
+        }
+      ]
+    },
+    {
+      "app_id": "appmanager",
+      "rule_id": "SEC-VULN-WEAK-HASH-001",
+      "status": "STILL_PRESENT",
+      "reason": "Bundled BouncyCastle SHA1 eliminated; app-owned SHA-1 in Signer retained and attributed to app",
+      "evidence": [
+        {
+          "description": "Discovered string pattern in io.github.muntashirakon.AppManager.apk.signing.Signer: SHA-1",
+          "location": "class:io.github.muntashirakon.AppManager.apk.signing.Signer",
+          "snippet": "SHA-1",
+          "references": []
+        }
+      ]
+    }
+  ],
+  "apps": {
+    "pcapdroid": {
+      "package": "com.emanuelef.remote_capture",
+      "apk": "tests/corpus/com.emanuelef.remote_capture_95.apk",
+      "baseline_total": 9,
+      "current_total": 9,
+      "eliminated_count": 0,
+      "findings": [
+        {
+          "rule_id": "SEC-SPY-ACCESSIBILITY-001",
+          "title": "Accessibility Service Implementation",
+          "baseline_verdict": "FALSE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Referenced API: android.accessibilityservice.AccessibilityService",
+              "location": "api:android.accessibilityservice.AccessibilityService",
+              "snippet": "android.accessibilityservice.AccessibilityService",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-SPY-ACCESSIBILITY-ABUSE",
+          "title": "Android Accessibility Service Implementation",
+          "baseline_verdict": "FALSE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "AccessibilityService API referenced in bytecode",
+              "location": "api:android.accessibilityservice.AccessibilityService",
+              "snippet": "AccessibilityService API",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-SPY-DEVICE-IDENTIFIERS",
+          "title": "Hardware & Persistent Device Identifier Collection Capability",
+          "baseline_verdict": "UNCLEAR",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Settings.Secure.ANDROID_ID reference",
+              "location": "dex:strings",
+              "snippet": "android_id",
+              "references": []
+            },
+            {
+              "description": "Build.SERIAL hardware serial number reference",
+              "location": "dex:strings",
+              "snippet": "Build.SERIAL",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-MAL-PERSISTENCE-BOOT",
+          "title": "Device Boot Persistence Mechanism Detected",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Declared permission: RECEIVE_BOOT_COMPLETED",
+              "location": "permission:android.permission.RECEIVE_BOOT_COMPLETED",
+              "snippet": "RECEIVE_BOOT_COMPLETED",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-NET-CLEARTEXT-URLS",
+          "title": "Cleartext HTTP URL References Detected",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Cleartext HTTP URL: http://etherx.jabber.org/streams",
+              "location": "lib/arm64-v8a/libndpi.so",
+              "snippet": "http://etherx.jabber.org/streams",
+              "references": []
+            },
+            {
+              "description": "Cleartext HTTP URL: http://jabber.org/protocol/commands",
+              "location": "lib/arm64-v8a/libndpi.so",
+              "snippet": "http://jabber.org/protocol/commands",
+              "references": []
+            },
+            {
+              "description": "Cleartext HTTP URL: http://jabber.org/protocol/",
+              "location": "lib/arm64-v8a/libndpi.so",
+              "snippet": "http://jabber.org/protocol/",
+              "references": []
+            },
+            {
+              "description": "Cleartext HTTP URL: http://t.me/PCAPdroid",
+              "location": "classes.dex",
+              "snippet": "http://t.me/PCAPdroid",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-SPY-CLIPBOARD-001",
+          "title": "Background Clipboard Access Capability",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Referenced API: android.content.ClipboardManager",
+              "location": "api:android.content.ClipboardManager",
+              "snippet": "android.content.ClipboardManager",
+              "references": []
+            },
+            {
+              "description": "Observed component: type=service (com.emanuelef.remote_capture.CaptureService, com.emanuelef.remote_capture.VpnReconnectService)",
+              "location": "manifest:service",
+              "snippet": "Observed component: type=service (com.emanuelef.remote_capture.CaptureService, com.emanuelef.remote_capture.VpnReconnectService)",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-VULN-BACKUP-001",
+          "title": "Application Backup Enabled Without Restriction",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Manifest attribute allowBackup=true",
+              "location": "manifest:allowBackup",
+              "snippet": "allowBackup=true",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-VULN-MANIFEST-BACKUP",
+          "title": "Application Data Backup Enabled (allowBackup=true)",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Manifest declaration: android:allowBackup='true'",
+              "location": "manifest:application:allowBackup",
+              "snippet": "android:allowBackup='true'",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-MAL-PERSISTENCE-FG-SERVICE",
+          "title": "Foreground Service Declaration",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Foreground service declared: com.emanuelef.remote_capture.CaptureService (type=0x40000000)",
+              "location": "manifest:service:com.emanuelef.remote_capture.CaptureService",
+              "snippet": "com.emanuelef.remote_capture.CaptureService ",
+              "references": []
+            },
+            {
+              "description": "Foreground service declared: com.emanuelef.remote_capture.VpnReconnectService (type=0x40000000)",
+              "location": "manifest:service:com.emanuelef.remote_capture.VpnReconnectService",
+              "snippet": "com.emanuelef.remote_capture.VpnReconnectService ",
+              "references": []
+            }
+          ]
+        }
+      ]
+    },
+    "openlink": {
+      "package": "de.audioattack.openlink",
+      "apk": "tests/corpus/de.audioattack.openlink_28.apk",
+      "baseline_total": 5,
+      "current_total": 5,
+      "eliminated_count": 0,
+      "findings": [
+        {
+          "rule_id": "SEC-MAL-PERSISTENCE-BOOT",
+          "title": "Device Boot Persistence Mechanism Detected",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Declared permission: RECEIVE_BOOT_COMPLETED",
+              "location": "permission:android.permission.RECEIVE_BOOT_COMPLETED",
+              "snippet": "RECEIVE_BOOT_COMPLETED",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-NET-CLEARTEXT-URLS",
+          "title": "Cleartext HTTP URL References Detected",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Cleartext HTTP URL: http://example.org",
+              "location": "classes.dex",
+              "snippet": "http://example.org",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-VULN-BACKUP-001",
+          "title": "Application Backup Enabled Without Restriction",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Manifest attribute allowBackup=true",
+              "location": "manifest:allowBackup",
+              "snippet": "allowBackup=true",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-VULN-EXPORTED-RECEIVER",
+          "title": "Exported Broadcast Receiver Lacks Permission Protection",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Exported broadcast receiver lacking permission: de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+              "location": "manifest:receiver:de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+              "snippet": "Receiver: de.audioattack.openlink.conf.PackageChangeBroadcastReceiver (exported=true, permission=None)",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-VULN-MANIFEST-BACKUP",
+          "title": "Application Data Backup Enabled (allowBackup=true)",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Manifest declaration: android:allowBackup='true'",
+              "location": "manifest:application:allowBackup",
+              "snippet": "android:allowBackup='true'",
+              "references": []
+            }
+          ]
+        }
+      ]
+    },
+    "appmanager": {
+      "package": "io.github.muntashirakon.AppManager",
+      "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+      "baseline_total": 45,
+      "current_total": 28,
+      "eliminated_count": 17,
+      "findings": [
+        {
+          "rule_id": "SEC-COMB-ACCESSIBILITY-OVERLAY",
+          "title": "Accessibility Service Combined with System Overlay",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Referenced API: android.accessibilityservice.AccessibilityService",
+              "location": "api:android.accessibilityservice.AccessibilityService",
+              "snippet": "android.accessibilityservice.AccessibilityService",
+              "references": []
+            },
+            {
+              "description": "Declared permission: android.permission.SYSTEM_ALERT_WINDOW",
+              "location": "permission:android.permission.SYSTEM_ALERT_WINDOW",
+              "snippet": "android.permission.SYSTEM_ALERT_WINDOW",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-MAL-CODE-EXEC",
+          "title": "OS Command Execution Capability Detected",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Command execution API reference: java.lang.ProcessBuilder;->redirectErrorStream(Z)Ljava.lang.ProcessBuilder",
+              "location": "api:java.lang.ProcessBuilder;->redirectErrorStream(Z)Ljava.lang.ProcessBuilder",
+              "snippet": "java.lang.ProcessBuilder;->redirectErrorStream(Z)Ljava.lang.ProcessBuilder",
+              "references": []
+            },
+            {
+              "description": "Command execution API reference: java.lang.ProcessBuilder;->start()Ljava.lang.Process",
+              "location": "api:java.lang.ProcessBuilder;->start()Ljava.lang.Process",
+              "snippet": "java.lang.ProcessBuilder;->start()Ljava.lang.Process",
+              "references": []
+            },
+            {
+              "description": "Command execution API reference: java.lang.ProcessBuilder",
+              "location": "api:java.lang.ProcessBuilder",
+              "snippet": "java.lang.ProcessBuilder",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-MAL-DYN-LOAD",
+          "title": "Dynamic Class Loading Capability Detected",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Dynamic class loader API reference: dalvik.system.PathClassLoader;-><init>(Ljava.lang.String",
+              "location": "api:dalvik.system.PathClassLoader;-><init>(Ljava.lang.String",
+              "snippet": "dalvik.system.PathClassLoader;-><init>(Ljava.lang.String",
+              "references": []
+            },
+            {
+              "description": "Dynamic class loader API reference: dalvik.system.PathClassLoader;->loadClass(Ljava.lang.String;)Ljava.lang.Class",
+              "location": "api:dalvik.system.PathClassLoader;->loadClass(Ljava.lang.String;)Ljava.lang.Class",
+              "snippet": "dalvik.system.PathClassLoader;->loadClass(Ljava.lang.String;)Ljava.lang.Class",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-MAL-DYNLOAD-001",
+          "title": "Dynamic Bytecode Loading Capability",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Referenced API: dalvik.system.PathClassLoader",
+              "location": "api:dalvik.system.PathClassLoader",
+              "snippet": "dalvik.system.PathClassLoader",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-MAL-EXEC-001",
+          "title": "Local Command Execution Capability",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Referenced API: java.lang.ProcessBuilder",
+              "location": "api:java.lang.ProcessBuilder",
+              "snippet": "java.lang.ProcessBuilder",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-23_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-23.apk",
+          "baseline_verdict": "FALSE_POSITIVE",
+          "current_status": "ELIMINATED"
+        },
+        {
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-24_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-24.apk",
+          "baseline_verdict": "FALSE_POSITIVE",
+          "current_status": "ELIMINATED"
+        },
+        {
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-25_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-25.apk",
+          "baseline_verdict": "FALSE_POSITIVE",
+          "current_status": "ELIMINATED"
+        },
+        {
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-26_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-26.apk",
+          "baseline_verdict": "FALSE_POSITIVE",
+          "current_status": "ELIMINATED"
+        },
+        {
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-27_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-27.apk",
+          "baseline_verdict": "FALSE_POSITIVE",
+          "current_status": "ELIMINATED"
+        },
+        {
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-28_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-28.apk",
+          "baseline_verdict": "FALSE_POSITIVE",
+          "current_status": "ELIMINATED"
+        },
+        {
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-29_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-29.apk",
+          "baseline_verdict": "FALSE_POSITIVE",
+          "current_status": "ELIMINATED"
+        },
+        {
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-30_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-30.apk",
+          "baseline_verdict": "FALSE_POSITIVE",
+          "current_status": "ELIMINATED"
+        },
+        {
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-31_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-31.apk",
+          "baseline_verdict": "FALSE_POSITIVE",
+          "current_status": "ELIMINATED"
+        },
+        {
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-32_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-32.apk",
+          "baseline_verdict": "FALSE_POSITIVE",
+          "current_status": "ELIMINATED"
+        },
+        {
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-33_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-33.apk",
+          "baseline_verdict": "FALSE_POSITIVE",
+          "current_status": "ELIMINATED"
+        },
+        {
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-34_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-34.apk",
+          "baseline_verdict": "FALSE_POSITIVE",
+          "current_status": "ELIMINATED"
+        },
+        {
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-35_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-35.apk",
+          "baseline_verdict": "FALSE_POSITIVE",
+          "current_status": "ELIMINATED"
+        },
+        {
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-36_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-36.apk",
+          "baseline_verdict": "FALSE_POSITIVE",
+          "current_status": "ELIMINATED"
+        },
+        {
+          "rule_id": "SEC-VULN-SECRET-GENERIC_PRIVATE_KEY_HEADER",
+          "title": "Potential Hardcoded Secret Detected: Generic Private Key Header",
+          "baseline_verdict": "FALSE_POSITIVE",
+          "current_status": "ELIMINATED"
+        },
+        {
+          "rule_id": "SEC-VULN-WEAK-CIPHER-001",
+          "title": "Insecure or Broken Cryptographic Cipher Mode",
+          "baseline_verdict": "FALSE_POSITIVE",
+          "current_status": "ELIMINATED"
+        },
+        {
+          "rule_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_am_jar",
+          "title": "High-Entropy Asset Detected (Likely Encrypted/Compressed): assets/am.jar",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "High-entropy asset: assets/am.jar (entropy=7.97, size=18963bytes)",
+              "location": "asset:assets/am.jar",
+              "snippet": "Shannon entropy: 7.97 (18963 bytes)",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_blanks_blank_odp",
+          "title": "High-Entropy Asset Detected (Likely Encrypted/Compressed): assets/blanks/blank.odp",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "High-entropy asset: assets/blanks/blank.odp (entropy=7.97, size=23502bytes)",
+              "location": "asset:assets/blanks/blank.odp",
+              "snippet": "Shannon entropy: 7.97 (23502 bytes)",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_blanks_blank_odt",
+          "title": "High-Entropy Asset Detected (Likely Encrypted/Compressed): assets/blanks/blank.odt",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "High-entropy asset: assets/blanks/blank.odt (entropy=7.75, size=4454bytes)",
+              "location": "asset:assets/blanks/blank.odt",
+              "snippet": "Shannon entropy: 7.75 (4454 bytes)",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_blanks_blank_pdf",
+          "title": "High-Entropy Asset Detected (Likely Encrypted/Compressed): assets/blanks/blank.pdf",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "High-entropy asset: assets/blanks/blank.pdf (entropy=7.86, size=11448bytes)",
+              "location": "asset:assets/blanks/blank.pdf",
+              "snippet": "Shannon entropy: 7.86 (11448 bytes)",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_blanks_blank_pptx",
+          "title": "High-Entropy Asset Detected (Likely Encrypted/Compressed): assets/blanks/blank.pptx",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "High-entropy asset: assets/blanks/blank.pptx (entropy=7.51, size=32353bytes)",
+              "location": "asset:assets/blanks/blank.pptx",
+              "snippet": "Shannon entropy: 7.51 (32353 bytes)",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_dexopt_baseline_prof",
+          "title": "High-Entropy Asset Detected (Likely Encrypted/Compressed): assets/dexopt/baseline.prof",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "High-entropy asset: assets/dexopt/baseline.prof (entropy=7.86, size=4219bytes)",
+              "location": "asset:assets/dexopt/baseline.prof",
+              "snippet": "Shannon entropy: 7.86 (4219 bytes)",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_main_jar",
+          "title": "High-Entropy Asset Detected (Likely Encrypted/Compressed): assets/main.jar",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "High-entropy asset: assets/main.jar (entropy=7.95, size=6335bytes)",
+              "location": "asset:assets/main.jar",
+              "snippet": "Shannon entropy: 7.95 (6335 bytes)",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-NET-CAPABILITY-FLOW",
+          "title": "Sensitive Data Capabilities Co-Occur with External NetworkCommunication",
+          "baseline_verdict": "UNCLEAR",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "External domain endpoint: input.lt",
+              "location": "domain:input.lt",
+              "snippet": "input.lt",
+              "references": []
+            },
+            {
+              "description": "External domain endpoint: www.virustotal.com",
+              "location": "domain:www.virustotal.com",
+              "snippet": "www.virustotal.com",
+              "references": []
+            },
+            {
+              "description": "External domain endpoint: javax.xml.xmlconstants",
+              "location": "domain:javax.xml.xmlconstants",
+              "snippet": "javax.xml.xmlconstants",
+              "references": []
+            },
+            {
+              "description": "External domain endpoint: androidx.core.app",
+              "location": "domain:androidx.core.app",
+              "snippet": "androidx.core.app",
+              "references": []
+            },
+            {
+              "description": "External domain endpoint: github.com",
+              "location": "domain:github.com",
+              "snippet": "github.com",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-SPY-ACCESSIBILITY-001",
+          "title": "Accessibility Service Implementation",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Referenced API: android.accessibilityservice.AccessibilityService",
+              "location": "api:android.accessibilityservice.AccessibilityService",
+              "snippet": "android.accessibilityservice.AccessibilityService",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-SPY-ACCESSIBILITY-ABUSE",
+          "title": "Android Accessibility Service Implementation",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Declared AccessibilityService component: io.github.muntashirakon.AppManager.accessibility.NoRootAccessibilityService",
+              "location": "manifest:service:io.github.muntashirakon.AppManager.accessibility.NoRootAccessibilityService",
+              "snippet": "Service: io.github.muntashirakon.AppManager.accessibility.NoRootAccessibilityService (BIND_ACCESSIBILITY_SERVICE)",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-SPY-CALLS-001",
+          "title": "Phone Call State & Log Monitoring Capability",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Declared permission: android.permission.READ_PHONE_STATE",
+              "location": "permission:android.permission.READ_PHONE_STATE",
+              "snippet": "android.permission.READ_PHONE_STATE",
+              "references": []
+            },
+            {
+              "description": "Referenced API: android.telephony.TelephonyManager",
+              "location": "api:android.telephony.TelephonyManager",
+              "snippet": "android.telephony.TelephonyManager",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-SPY-DEVICE-IDENTIFIERS",
+          "title": "Hardware & Persistent Device Identifier Collection Capability",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Telephony hardware identifier method reference: io.github.muntashirakon.AppManager.usage.AppUsageStatsManager.getSubscriberIds",
+              "location": "method:io.github.muntashirakon.AppManager.usage.AppUsageStatsManager.getSubscriberIds",
+              "snippet": "io.github.muntashirakon.AppManager.usage.AppUsageStatsManager.getSubscriberIds",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: com.android.internal.telephony.IPhoneSubInfo;->getSubscriberIdForSubscriber(I)Ljava.lang.String",
+              "location": "method:com.android.internal.telephony.IPhoneSubInfo;->getSubscriberIdForSubscriber(I)Ljava.lang.String",
+              "snippet": "com.android.internal.telephony.IPhoneSubInfo;->getSubscriberIdForSubscriber(I)Ljava.lang.String",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: getImei",
+              "location": "method:getImei",
+              "snippet": "getImei",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: io.github.muntashirakon.AppManager.compat.DeviceIdleManagerCompat.getDeviceIdleController",
+              "location": "method:io.github.muntashirakon.AppManager.compat.DeviceIdleManagerCompat.getDeviceIdleController",
+              "snippet": "io.github.muntashirakon.AppManager.compat.DeviceIdleManagerCompat.getDeviceIdleController",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: androidx.core.telephony.TelephonyManagerCompat$Api23Impl;->getDeviceId(Landroid.telephony.TelephonyManager",
+              "location": "method:androidx.core.telephony.TelephonyManagerCompat$Api23Impl;->getDeviceId(Landroid.telephony.TelephonyManager",
+              "snippet": "androidx.core.telephony.TelephonyManagerCompat$Api23Impl;->getDeviceId(Landroid.telephony.TelephonyManager",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: getDeviceIdleController",
+              "location": "method:getDeviceIdleController",
+              "snippet": "getDeviceIdleController",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: getDeviceId",
+              "location": "method:getDeviceId",
+              "snippet": "getDeviceId",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: getSubscriberIdForSubscriber",
+              "location": "method:getSubscriberIdForSubscriber",
+              "snippet": "getSubscriberIdForSubscriber",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: com.android.internal.telephony.IPhoneSubInfo;->getSubscriberIdForSubscriber(J)Ljava.lang.String",
+              "location": "method:com.android.internal.telephony.IPhoneSubInfo;->getSubscriberIdForSubscriber(J)Ljava.lang.String",
+              "snippet": "com.android.internal.telephony.IPhoneSubInfo;->getSubscriberIdForSubscriber(J)Ljava.lang.String",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: androidx.core.telephony.TelephonyManagerCompat$Api23Impl.getDeviceId",
+              "location": "method:androidx.core.telephony.TelephonyManagerCompat$Api23Impl.getDeviceId",
+              "snippet": "androidx.core.telephony.TelephonyManagerCompat$Api23Impl.getDeviceId",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: androidx.core.telephony.TelephonyManagerCompat$Api26Impl;->getImei(Landroid.telephony.TelephonyManager;)Ljava.lang.String",
+              "location": "method:androidx.core.telephony.TelephonyManagerCompat$Api26Impl;->getImei(Landroid.telephony.TelephonyManager;)Ljava.lang.String",
+              "snippet": "androidx.core.telephony.TelephonyManagerCompat$Api26Impl;->getImei(Landroid.telephony.TelephonyManager;)Ljava.lang.String",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: android.telephony.TelephonyManager;->getDeviceId(I)Ljava.lang.String",
+              "location": "method:android.telephony.TelephonyManager;->getDeviceId(I)Ljava.lang.String",
+              "snippet": "android.telephony.TelephonyManager;->getDeviceId(I)Ljava.lang.String",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: io.github.muntashirakon.AppManager.compat.SubscriptionManagerCompat;->getSubscriberIdForSubscriber(J)Ljava.lang.String",
+              "location": "method:io.github.muntashirakon.AppManager.compat.SubscriptionManagerCompat;->getSubscriberIdForSubscriber(J)Ljava.lang.String",
+              "snippet": "io.github.muntashirakon.AppManager.compat.SubscriptionManagerCompat;->getSubscriberIdForSubscriber(J)Ljava.lang.String",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: io.github.muntashirakon.AppManager.compat.SubscriptionManagerCompat.getSubscriberIdForSubscriber",
+              "location": "method:io.github.muntashirakon.AppManager.compat.SubscriptionManagerCompat.getSubscriberIdForSubscriber",
+              "snippet": "io.github.muntashirakon.AppManager.compat.SubscriptionManagerCompat.getSubscriberIdForSubscriber",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: io.github.muntashirakon.AppManager.compat.DeviceIdleManagerCompat;->getDeviceIdleController()Landroid.os.IDeviceIdleController",
+              "location": "method:io.github.muntashirakon.AppManager.compat.DeviceIdleManagerCompat;->getDeviceIdleController()Landroid.os.IDeviceIdleController",
+              "snippet": "io.github.muntashirakon.AppManager.compat.DeviceIdleManagerCompat;->getDeviceIdleController()Landroid.os.IDeviceIdleController",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: androidx.core.telephony.TelephonyManagerCompat$Api26Impl.getImei",
+              "location": "method:androidx.core.telephony.TelephonyManagerCompat$Api26Impl.getImei",
+              "snippet": "androidx.core.telephony.TelephonyManagerCompat$Api26Impl.getImei",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: android.telephony.TelephonyManager;->getImei()Ljava.lang.String",
+              "location": "method:android.telephony.TelephonyManager;->getImei()Ljava.lang.String",
+              "snippet": "android.telephony.TelephonyManager;->getImei()Ljava.lang.String",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: android.telephony.TelephonyManager;->getDeviceId()Ljava.lang.String",
+              "location": "method:android.telephony.TelephonyManager;->getDeviceId()Ljava.lang.String",
+              "snippet": "android.telephony.TelephonyManager;->getDeviceId()Ljava.lang.String",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: io.github.muntashirakon.AppManager.usage.AppUsageStatsManager;->getSubscriberIds(I)Ljava.util.List",
+              "location": "method:io.github.muntashirakon.AppManager.usage.AppUsageStatsManager;->getSubscriberIds(I)Ljava.util.List",
+              "snippet": "io.github.muntashirakon.AppManager.usage.AppUsageStatsManager;->getSubscriberIds(I)Ljava.util.List",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: getSubscriberIds",
+              "location": "method:getSubscriberIds",
+              "snippet": "getSubscriberIds",
+              "references": []
+            },
+            {
+              "description": "Telephony hardware identifier method reference: androidx.core.telephony.TelephonyManagerCompat.getImei",
+              "location": "method:androidx.core.telephony.TelephonyManagerCompat.getImei",
+              "snippet": "androidx.core.telephony.TelephonyManagerCompat.getImei",
+              "references": []
+            },
+            {
+              "description": "Settings.Secure.ANDROID_ID reference",
+              "location": "dex:strings",
+              "snippet": "android_id",
+              "references": []
+            },
+            {
+              "description": "Build.SERIAL hardware serial number reference",
+              "location": "dex:strings",
+              "snippet": "Build.SERIAL",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-SPY-OVERLAY-001",
+          "title": "System Alert Window (Overlay) Capability",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Declared permission: android.permission.SYSTEM_ALERT_WINDOW",
+              "location": "permission:android.permission.SYSTEM_ALERT_WINDOW",
+              "snippet": "android.permission.SYSTEM_ALERT_WINDOW",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-VULN-CRYPTO-WEAK-CIPHER",
+          "title": "Legacy or Deprecated Cryptographic Cipher Referenced",
+          "baseline_verdict": "FALSE_POSITIVE",
+          "current_status": "ELIMINATED"
+        },
+        {
+          "rule_id": "SEC-MAL-PERSISTENCE-BOOT",
+          "title": "Device Boot Persistence Mechanism Detected",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Declared permission: RECEIVE_BOOT_COMPLETED",
+              "location": "permission:android.permission.RECEIVE_BOOT_COMPLETED",
+              "snippet": "RECEIVE_BOOT_COMPLETED",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-MAL-ROOT-INDICATORS",
+          "title": "Root Environment Query / Su Reference Detected",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Root indicator string observed: mMagiskDeniedProcesses",
+              "location": "dex:strings",
+              "snippet": "mMagiskDeniedProcesses",
+              "references": []
+            },
+            {
+              "description": "Root indicator string observed: MagiskDenyListRule.java",
+              "location": "dex:strings",
+              "snippet": "MagiskDenyListRule.java",
+              "references": []
+            },
+            {
+              "description": "Root indicator string observed: lambda$displayMagiskHideDialog$86",
+              "location": "dex:strings",
+              "snippet": "lambda$displayMagiskHideDialog$86",
+              "references": []
+            },
+            {
+              "description": "Root indicator string observed: isMagiskHideEnabled",
+              "location": "dex:strings",
+              "snippet": "isMagiskHideEnabled",
+              "references": []
+            },
+            {
+              "description": "Root indicator string observed: displayMagiskDenyListDialog",
+              "location": "dex:strings",
+              "snippet": "displayMagiskDenyListDialog",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-NET-CLEARTEXT-URLS",
+          "title": "Cleartext HTTP URL References Detected",
+          "baseline_verdict": "FALSE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Cleartext HTTP URL: http://smali.org",
+              "location": "classes4.dex",
+              "snippet": "http://smali.org",
+              "references": []
+            },
+            {
+              "description": "Cleartext HTTP URL: http://xml.org/sax/features/external-general-entities",
+              "location": "classes5.dex",
+              "snippet": "http://xml.org/sax/features/external-general-entities",
+              "references": []
+            },
+            {
+              "description": "Cleartext HTTP URL: http://xmlpull.org/v1/doc/features.html#report-namespace-prefixes",
+              "location": "classes.dex",
+              "snippet": "http://xmlpull.org/v1/doc/features.html#report-namespace-prefixes",
+              "references": []
+            },
+            {
+              "description": "Cleartext HTTP URL: http://xmlpull.org/v1/doc/properties.html#location",
+              "location": "classes5.dex",
+              "snippet": "http://xmlpull.org/v1/doc/properties.html#location",
+              "references": []
+            },
+            {
+              "description": "Cleartext HTTP URL: http://xmlpull.org/v1/doc/features.html#validation",
+              "location": "classes6.dex",
+              "snippet": "http://xmlpull.org/v1/doc/features.html#validation",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-SPY-CLIPBOARD-001",
+          "title": "Background Clipboard Access Capability",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Referenced API: android.content.ClipboardManager",
+              "location": "api:android.content.ClipboardManager",
+              "snippet": "android.content.ClipboardManager",
+              "references": []
+            },
+            {
+              "description": "Observed component: type=service (io.github.muntashirakon.AppManager.adb.AdbPairingService, io.github.muntashirakon.AppManager.logcat.LogcatRecordingService, io.github.muntashirakon.AppManager.session.SessionMonitoringService)",
+              "location": "manifest:service",
+              "snippet": "Observed component: type=service (io.github.muntashirakon.AppManager.adb.AdbPairingService, io.github.muntashirakon.AppManager.logcat.LogcatRecordingService, io.github.muntashirakon.AppManager.session.SessionMonitoringService)",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-VULN-BACKUP-001",
+          "title": "Application Backup Enabled Without Restriction",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Manifest attribute allowBackup=true",
+              "location": "manifest:allowBackup",
+              "snippet": "allowBackup=true",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-VULN-CRYPTO-WEAK-HASH",
+          "title": "Legacy Cryptographic Hash Algorithm Referenced (MD5/SHA-1)",
+          "baseline_verdict": "FALSE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Weak hash algorithm referenced in io.github.muntashirakon.AppManager.apk.signing.Signer: SHA-1",
+              "location": "class:io.github.muntashirakon.AppManager.apk.signing.Signer",
+              "snippet": "SHA-1",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-VULN-EXPORTED-RECEIVER",
+          "title": "Exported Broadcast Receiver Lacks Permission Protection",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Exported broadcast receiver lacking permission: io.github.muntashirakon.AppManager.usage.ScreenTimeAppWidget",
+              "location": "manifest:receiver:io.github.muntashirakon.AppManager.usage.ScreenTimeAppWidget",
+              "snippet": "Receiver: io.github.muntashirakon.AppManager.usage.ScreenTimeAppWidget (exported=true, permission=None)",
+              "references": []
+            },
+            {
+              "description": "Exported broadcast receiver lacking permission: io.github.muntashirakon.AppManager.oneclickops.ClearCacheAppWidget",
+              "location": "manifest:receiver:io.github.muntashirakon.AppManager.oneclickops.ClearCacheAppWidget",
+              "snippet": "Receiver: io.github.muntashirakon.AppManager.oneclickops.ClearCacheAppWidget (exported=true, permission=None)",
+              "references": []
+            },
+            {
+              "description": "Exported broadcast receiver lacking permission: io.github.muntashirakon.AppManager.logcat.RecordingWidgetProvider",
+              "location": "manifest:receiver:io.github.muntashirakon.AppManager.logcat.RecordingWidgetProvider",
+              "snippet": "Receiver: io.github.muntashirakon.AppManager.logcat.RecordingWidgetProvider (exported=true, permission=None)",
+              "references": []
+            },
+            {
+              "description": "Exported broadcast receiver lacking permission: io.github.muntashirakon.AppManager.usage.DataUsageAppWidget",
+              "location": "manifest:receiver:io.github.muntashirakon.AppManager.usage.DataUsageAppWidget",
+              "snippet": "Receiver: io.github.muntashirakon.AppManager.usage.DataUsageAppWidget (exported=true, permission=None)",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-VULN-MANIFEST-BACKUP",
+          "title": "Application Data Backup Enabled (allowBackup=true)",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Manifest declaration: android:allowBackup='true'",
+              "location": "manifest:application:allowBackup",
+              "snippet": "android:allowBackup='true'",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-VULN-WEAK-HASH-001",
+          "title": "Weak Cryptographic Hash Algorithm Referenced",
+          "baseline_verdict": "FALSE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Discovered string pattern in io.github.muntashirakon.AppManager.apk.signing.Signer: SHA-1",
+              "location": "class:io.github.muntashirakon.AppManager.apk.signing.Signer",
+              "snippet": "SHA-1",
+              "references": []
+            }
+          ]
+        },
+        {
+          "rule_id": "SEC-MAL-PERSISTENCE-FG-SERVICE",
+          "title": "Foreground Service Declaration",
+          "baseline_verdict": "TRUE_POSITIVE",
+          "current_status": "PRESENT",
+          "evidence": [
+            {
+              "description": "Foreground service declared: io.github.muntashirakon.AppManager.adb.AdbPairingService (type=0x40000000)",
+              "location": "manifest:service:io.github.muntashirakon.AppManager.adb.AdbPairingService",
+              "snippet": "io.github.muntashirakon.AppManager.adb.AdbPairingService ",
+              "references": []
+            },
+            {
+              "description": "Foreground service declared: io.github.muntashirakon.AppManager.logcat.LogcatRecordingService (type=0x40000001)",
+              "location": "manifest:service:io.github.muntashirakon.AppManager.logcat.LogcatRecordingService",
+              "snippet": "io.github.muntashirakon.AppManager.logcat.LogcatRecordingService ",
+              "references": []
+            },
+            {
+              "description": "Foreground service declared: io.github.muntashirakon.AppManager.session.SessionMonitoringService (type=0x40000001)",
+              "location": "manifest:service:io.github.muntashirakon.AppManager.session.SessionMonitoringService",
+              "snippet": "io.github.muntashirakon.AppManager.session.SessionMonitoringService ",
+              "references": []
+            },
+            {
+              "description": "Foreground service declared: io.github.muntashirakon.AppManager.servermanager.WifiWaitService (type=0x40000000)",
+              "location": "manifest:service:io.github.muntashirakon.AppManager.servermanager.WifiWaitService",
+              "snippet": "io.github.muntashirakon.AppManager.servermanager.WifiWaitService ",
+              "references": []
+            },
+            {
+              "description": "Foreground service declared: io.github.muntashirakon.AppManager.batchops.BatchOpsService (type=0x40000001)",
+              "location": "manifest:service:io.github.muntashirakon.AppManager.batchops.BatchOpsService",
+              "snippet": "io.github.muntashirakon.AppManager.batchops.BatchOpsService ",
+              "references": []
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "totals": {
+    "baseline_total_findings": 59,
+    "current_total_findings": 42,
+    "true_positives": 35,
+    "false_positives": 5,
+    "unclear": 2,
+    "baseline_fp_rate": "37.3%",
+    "current_fp_rate": "11.9%",
+    "eliminated_fps_count": 17,
+    "retained_fps_count": 5
+  }
+}

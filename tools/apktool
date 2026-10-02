@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Wrapper for Apktool
+set -euo pipefail
+
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do
+    DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+    SOURCE="$(readlink "$SOURCE")"
+    [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+HERE="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+
+APKTOOL_JAR="${APKTOOL_JAR:-${HERE}/apktool.jar}"
+
+if [ ! -f "${APKTOOL_JAR}" ]; then
+    echo "ERROR: apktool.jar not found at ${APKTOOL_JAR}" >&2
+    exit 1
+fi
+
+exec java -jar "${APKTOOL_JAR}" "$@"

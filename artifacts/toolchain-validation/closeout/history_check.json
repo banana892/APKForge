@@ -1,0 +1,74 @@
+{
+  "check": "Phase B close-out - artifact/history preservation check (Part 3, item 10)",
+  "historical_tracked_evidence": [
+    {
+      "file": "artifacts/toolchain-validation/antennapod/result.md",
+      "unchanged_vs_HEAD": true,
+      "sha256_16": "fd94de9cc5f43426"
+    },
+    {
+      "file": "artifacts/toolchain-validation/openlink/result.md",
+      "unchanged_vs_HEAD": true,
+      "sha256_16": "93e5927a20addce4"
+    },
+    {
+      "file": "artifacts/toolchain-validation/openlink/expected_changes.md",
+      "unchanged_vs_HEAD": true,
+      "sha256_16": "b53149facb889509"
+    },
+    {
+      "file": "artifacts/toolchain-validation/antennapod/original_baseline.json",
+      "unchanged_vs_HEAD": true,
+      "sha256_16": "02cf6943b79ae14f"
+    },
+    {
+      "file": "artifacts/toolchain-validation/openlink/original_baseline.json",
+      "unchanged_vs_HEAD": true,
+      "sha256_16": "4e88e70ecc6677a5"
+    },
+    {
+      "file": "artifacts/toolchain-validation/antennapod/docker/toolchain_versions.txt",
+      "unchanged_vs_HEAD": true,
+      "sha256_16": "f0c3b9b49842c2d9"
+    },
+    {
+      "file": "artifacts/toolchain-validation/Dockerfile",
+      "unchanged_vs_HEAD": true,
+      "sha256_16": "ecf1b61a7b9bfa04"
+    }
+  ],
+  "step5_untracked_evidence": [
+    {
+      "file": "artifacts/toolchain-validation/step5_verifier_robustness.md",
+      "present": true,
+      "bytes": 25638,
+      "sha256_16": "c9d99e89bd4f96cb"
+    },
+    {
+      "file": "artifacts/toolchain-validation/step5/table_shift_experiment.json",
+      "present": true,
+      "bytes": 2106,
+      "sha256_16": "079e90429bea7744"
+    },
+    {
+      "file": "artifacts/toolchain-validation/step5/rename_pairing_before_after.json",
+      "present": true,
+      "bytes": 1876,
+      "sha256_16": "2fe106c01d42923d"
+    }
+  ],
+  "additive_only": true,
+  "step5_content_spot_checks": {
+    "table_shift_old_false_positive_methods": 234,
+    "table_shift_new_classes_modified": 0,
+    "table_shift_classes_removed": 9,
+    "rename_antennapod_after_renamed": 1214,
+    "note": "values re-read from the artifacts at close-out and found identical to Step 5"
+  },
+  "mtime_note": "Step 5 artifact mtimes changed during this task because two `git stash push --include-untracked` / `git stash pop` cycles (used to measure the mypy/ruff baseline at HEAD) remove and restore untracked files. Content was verified byte-for-byte intact afterwards; no Step 5 value changed.",
+  "step4_evidence": "Step 4 produced no standalone report. Its persisted outputs are tests/corpus_results.json and tests/unit/test_diff_gap_fixes.py, both committed in 212227f. test_diff_gap_fixes.py is unmodified by this task. tests/corpus_results.json is intentionally overwritten by each corpus run; the Step 4 version remains retrievable via `git show 212227f:tests/corpus_results.json`, and the close-out run is additionally snapshotted to artifacts/toolchain-validation/closeout/corpus_results_closeout.json.",
+  "corpus_apks_present": 9,
+  "leftover_git_stashes": 0,
+  "committed": false,
+  "binaries_or_decoded_trees_added_to_git": false
+}

@@ -186,6 +186,11 @@ class SigningCertificate(BaseModel):
         sha256_fingerprint: SHA-256 fingerprint of the DER-encoded certificate.
         sha1_fingerprint: SHA-1 fingerprint of the DER-encoded certificate.
         signature_version: Signing scheme version if detectable (v1, v2, v3).
+        extraction_backend: Which extraction strategy produced this record
+            (``"androguard"`` or ``"pkcs7_fallback"``).
+        extraction_notes: Informational notes about how the record was obtained,
+            e.g. a recoverable primary-backend failure that the PKCS#7 fallback
+            recovered from.  Notes never affect intake status.
     """
 
     subject: str | None = None
@@ -196,6 +201,8 @@ class SigningCertificate(BaseModel):
     sha256_fingerprint: str | None = None
     sha1_fingerprint: str | None = None
     signature_version: str | None = None
+    extraction_backend: str | None = None
+    extraction_notes: list[str] = Field(default_factory=list)
 
 
 class SplitAPKInfo(BaseModel):

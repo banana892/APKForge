@@ -673,7 +673,7 @@ def test_negative_legitimate_audio_recorder_app() -> None:
         ]
     )
 
-    insp = InspectionResult(manifest=manifest, dex=dex)
+    insp = InspectionResult(status=AnalysisStatus.COMPLETE, manifest=manifest, dex=dex)
     engine = SecurityEngine()
     result = engine.analyze(insp)
 
@@ -709,7 +709,7 @@ def test_negative_clean_calculator_app() -> None:
         ]
     )
 
-    insp = InspectionResult(manifest=manifest, dex=dex)
+    insp = InspectionResult(status=AnalysisStatus.COMPLETE, manifest=manifest, dex=dex)
     engine = SecurityEngine()
     result = engine.analyze(insp)
 
@@ -767,6 +767,29 @@ def test_partial_analysis_when_dex_parsing_incomplete() -> None:
 
     assert res.status == AnalysisStatus.PARTIAL
     assert any("DEX inspection was not completed" in lim for lim in res.limitations)
+
+
+def test_failed_inspection_never_reports_clean_security_verdict() -> None:
+    """Security contract (Phase B Step 5, item 13): a FAILED inspection must
+    never be reported as COMPLETE or as a clean/no-findings security verdict.
+
+    Regression guard for a prior bug where SecurityEngine escalated a FAILED
+    inspection.status to COMPLETE whenever `inspection.package` was truthy --
+    which InspectionEngine sets unconditionally before any inspector runs,
+    so the escalation fired on every genuine total-inspection-failure case
+    and a failed analysis silently became "no significant static findings".
+    """
+    # No manifest, dex, package, or any other evidence populated: this is
+    # exactly the all-inspectors-failed case InspectionEngine produces when
+    # none of its sub-inspectors could run (e.g. an unparseable input file).
+    failed_inspection = InspectionResult(status=AnalysisStatus.FAILED)
+
+    engine = SecurityEngine()
+    result = engine.analyze(failed_inspection)
+
+    assert result.status == AnalysisStatus.FAILED
+    assert result.security_status == SecurityStatus.ANALYSIS_INCOMPLETE
+    assert result.security_status != SecurityStatus.NO_SIGNIFICANT_STATIC_FINDINGS
 
 
 # ===========================================================================
@@ -845,6 +868,7 @@ def test_security_engine_with_native_libraries() -> None:
     assert nl2.name == "libhelper.so"
 
     inspection = InspectionResult(
+        status=AnalysisStatus.COMPLETE,
         manifest=ManifestInspection(package_name="com.example.nativetest"),
         native=NativeInspection(
             libraries=[nl1, nl2],
@@ -868,6 +892,7 @@ def test_security_engine_with_none_entropy_assets() -> None:
     ast_normal = AssetEntry(path="assets/plain.txt", size=500, entropy=4.2)
 
     inspection = InspectionResult(
+        status=AnalysisStatus.COMPLETE,
         manifest=ManifestInspection(package_name="com.example.entropytest"),
         assets=AssetInspection(
             assets=[ast_none, ast_high, ast_normal],

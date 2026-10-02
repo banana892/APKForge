@@ -32,6 +32,28 @@ def is_semantically_equivalent(
     return norm_a == norm_b or norm_a == val_b or norm_b == val_a
 
 
+_APPLICATION_ATTRIBUTE_NAMES = (
+    "debuggable",
+    "allowBackup",
+    "usesCleartextTraffic",
+    "networkSecurityConfig",
+    "label",
+)
+
+
+def _application_attributes(app: ApplicationInfo | None) -> dict[str, object | None]:
+    """Map the compared `<application>` attributes to their manifest-facing names."""
+    if app is None:
+        return {}
+    return {
+        "debuggable": app.debuggable,
+        "allowBackup": app.allow_backup,
+        "usesCleartextTraffic": app.uses_cleartext_traffic,
+        "networkSecurityConfig": app.network_security_config,
+        "label": app.label,
+    }
+
+
 class ManifestDiffer:
     """Compares application attributes and SDK specifications."""
 
@@ -45,18 +67,17 @@ class ManifestDiffer:
         res_map_a = insp_a.manifest.resource_map if insp_a.manifest else {}
         res_map_b = insp_b.manifest.resource_map if insp_b.manifest else {}
 
-        # 1. Application attributes
-        attributes_to_check = [
-            ("debuggable", "debuggable"),
-            ("allow_backup", "allowBackup"),
-            ("uses_cleartext_traffic", "usesCleartextTraffic"),
-            ("network_security_config", "networkSecurityConfig"),
-            ("label", "label"),
-        ]
+        # 1. Application attributes.
+        #
+        # Read with direct typed access off ApplicationInfo rather than by
+        # dynamic attribute name, so a renamed or removed model field is a
+        # type error instead of a silently-skipped comparison.
+        attrs_a = _application_attributes(app_a)
+        attrs_b = _application_attributes(app_b)
 
-        for attr_field, attr_name in attributes_to_check:
-            val_a = getattr(app_a, attr_field, None) if app_a else None
-            val_b = getattr(app_b, attr_field, None) if app_b else None
+        for attr_name in _APPLICATION_ATTRIBUTE_NAMES:
+            val_a = attrs_a.get(attr_name)
+            val_b = attrs_b.get(attr_name)
 
             if is_semantically_equivalent(val_a, val_b, res_map_a, res_map_b):
                 continue

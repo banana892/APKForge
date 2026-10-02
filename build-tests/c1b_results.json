@@ -1,0 +1,212 @@
+{
+  "environment": {
+    "os": "Fedora Linux 44 (Workstation Edition), x86_64, kernel 7.2.7-200.fc44.x86_64",
+    "python": "Python 3.14.7 (/usr/bin/python3)",
+    "java": "OpenJDK 25.0.4.1 (build 25.0.4.1+1-2) at /usr/bin/java (JAVA_HOME=/usr/lib/jvm/java-25-openjdk)",
+    "android_sdk": "/home/naishring/Android/Sdk (platforms/android-35, build-tools 35.0.0, platform-tools adb 37.0.1)",
+    "build_tools_version": "35.0.0",
+    "apktool_c1_version": "2.10.0 (/home/naishring/APKForge/tools/apktool)",
+    "apktool_alt_version": "3.0.3 (work/c1b/apktool_alt/apktool_3.0.3.jar)",
+    "framework_installed": "/home/naishring/.local/share/apktool/framework/1.apk (Android SDK 35 android.jar)"
+  },
+  "failure_investigations": {
+    "eu.siacs.conversations_4218104.apk": {
+      "target_resource": "state_swiped",
+      "missing_resource_id": "0x7f040515",
+      "referenced_in_files": [
+        "res/color/m3_list_item_background_color_selector.xml",
+        "res/color/m3_segmented_list_item_background_color_selector.xml"
+      ],
+      "axml_string_pool_presence": true,
+      "axml_res_id_mapped": "0x7f040515",
+      "arsc_presence": false,
+      "arsc_context": "0x7f040514 is state_lifted, 0x7f040516 is state_with_icon; 0x7f040515 is NO_ENTRY (hole in table)",
+      "apktool_2_10_0_attrs_generated": false,
+      "apktool_2_10_0_public_generated": false,
+      "apktool_2_10_0_build_status": "FAIL (error: attribute state_swiped not found)",
+      "apktool_3_0_3_attrs_generated": true,
+      "apktool_3_0_3_public_generated": true,
+      "apktool_3_0_3_build_status": "PASS (successfully rebuilt into rebuilt.apk)",
+      "classification": "APKTOOL_RESOURCE_RECONSTRUCTION",
+      "root_cause": "Interplay between upstream Gradle R8 resource shrinking (which removed unused attr definition 0x7f040515 from resources.arsc while retaining precompiled library XML reference) and Apktool 2.10.0 resource reconstruction (which generated attrs.xml strictly from ARSC rather than synthesizing missing attribute definitions referenced in decoded XMLs)."
+    },
+    "org.schabi.newpipe_1015_cb84069.apk": {
+      "target_resource": "state_dragged",
+      "missing_resource_id": "0x7f040473",
+      "referenced_in_files": [
+        "res/color/mtrl_card_view_foreground.xml",
+        "res/color/mtrl_card_view_ripple.xml",
+        "res/animator/mtrl_card_state_list_anim.xml"
+      ],
+      "axml_string_pool_presence": true,
+      "axml_res_id_mapped": "0x7f040473",
+      "arsc_presence": false,
+      "arsc_context": "0x7f040472 is state_collapsible, 0x7f040474 is state_error; 0x7f040473 is NO_ENTRY (hole in table)",
+      "apktool_2_10_0_attrs_generated": false,
+      "apktool_2_10_0_public_generated": false,
+      "apktool_2_10_0_build_status": "FAIL (error: attribute state_dragged not found)",
+      "apktool_3_0_3_attrs_generated": true,
+      "apktool_3_0_3_public_generated": true,
+      "apktool_3_0_3_build_status": "PASS (successfully rebuilt into rebuilt.apk)",
+      "classification": "APKTOOL_RESOURCE_RECONSTRUCTION",
+      "root_cause": "Upstream R8 resource shrinking stripped 0x7f040473 from resources.arsc while preserving precompiled Material Components XML selectors referencing it. Apktool 2.10.0 omits undeclared ARSC attributes during attrs.xml generation, triggering AAPT2 linking rejection. Apktool 3.0.3 synthesizes the missing attribute, resolving the failure."
+    }
+  },
+  "framework_experiment": {
+    "default_internal_apktool_framework": {
+      "conversations_result": "FAIL (W: AndroidManifest.xml error: attribute android:allow not found, android:fragmentPattern not found)",
+      "newpipe_result": "FAIL (W: styles.xml error: style attribute android:attr/windowOptOutEdgeToEdgeEnforcement not found)",
+      "conclusion": "Default internal Apktool framework lacks Android 15/API 35 definitions, causing manifest and style failures on modern target SDK apps."
+    },
+    "android_35_sdk_framework": {
+      "conversations_result": "Manifest framework errors resolved; execution progresses to resource linking where state_swiped fails.",
+      "newpipe_result": "Style framework errors resolved; execution progresses to resource linking where state_dragged fails.",
+      "conclusion": "Android SDK 35 framework successfully resolves all OS-level attributes (android:*), confirming that the remaining failures are strictly in the app private namespace (app:*)."
+    }
+  },
+  "apktool_experiment": {
+    "current_version": "2.10.0",
+    "alternate_version": "3.0.3 (downloaded from official iBotPeaches/Apktool releases)",
+    "conversations_with_v3": "PASS (AAPT2 linking succeeds; built apk into work/c1b/apktool_alt/conversations/rebuilt.apk)",
+    "newpipe_with_v3": "PASS (AAPT2 linking succeeds; built apk into work/c1b/apktool_alt/newpipe/rebuilt.apk)",
+    "difference_analysis": "Apktool 3.0.3 includes a parser enhancement that scans AXML attribute references and synthesizes missing <attr name=\"...\" /> definitions in res/values/attrs.xml and public.xml, allowing AAPT2 to link resources that were partially stripped by upstream R8."
+  },
+  "noop_roundtrip": {
+    "total_tested": 9,
+    "passed": 7,
+    "failed": 2,
+    "summary": [
+      {
+        "apk": "com.emanuelef.remote_capture_95.apk",
+        "decode": "PASS",
+        "build": "PASS",
+        "align": "PASS",
+        "sign": "PASS",
+        "verify": "PASS",
+        "overall": "PASS",
+        "native_libs_identical": true,
+        "orig_size": 17560048,
+        "rebuilt_size": 17839092
+      },
+      {
+        "apk": "com.oF2pks.applicationsinfo_19.apk",
+        "decode": "PASS",
+        "build": "PASS",
+        "align": "PASS",
+        "sign": "PASS",
+        "verify": "PASS",
+        "overall": "PASS",
+        "native_libs_identical": true,
+        "orig_size": 120970,
+        "rebuilt_size": 125881
+      },
+      {
+        "apk": "de.audioattack.openlink_28.apk",
+        "decode": "PASS",
+        "build": "PASS",
+        "align": "PASS",
+        "sign": "PASS",
+        "verify": "PASS",
+        "overall": "PASS",
+        "native_libs_identical": true,
+        "orig_size": 235707,
+        "rebuilt_size": 236216
+      },
+      {
+        "apk": "de.danoeh.antennapod_3120295.apk",
+        "decode": "PASS",
+        "build": "PASS",
+        "align": "PASS",
+        "sign": "PASS",
+        "verify": "PASS",
+        "overall": "PASS",
+        "native_libs_identical": true,
+        "orig_size": 17749828,
+        "rebuilt_size": 17904459
+      },
+      {
+        "apk": "eu.siacs.conversations_4218104.apk",
+        "decode": "PASS",
+        "build": "FAIL",
+        "align": "SKIPPED",
+        "sign": "SKIPPED",
+        "verify": "SKIPPED",
+        "overall": "FAIL",
+        "native_libs_identical": null,
+        "orig_size": 30749589,
+        "rebuilt_size": 0
+      },
+      {
+        "apk": "godau.fynn.usagedirect_10.apk",
+        "decode": "PASS",
+        "build": "PASS",
+        "align": "PASS",
+        "sign": "PASS",
+        "verify": "PASS",
+        "overall": "PASS",
+        "native_libs_identical": true,
+        "orig_size": 3469642,
+        "rebuilt_size": 3559142
+      },
+      {
+        "apk": "io.github.muntashirakon.AppManager_451.apk",
+        "decode": "PASS",
+        "build": "PASS",
+        "align": "PASS",
+        "sign": "PASS",
+        "verify": "PASS",
+        "overall": "PASS",
+        "native_libs_identical": true,
+        "orig_size": 28145654,
+        "rebuilt_size": 28510683
+      },
+      {
+        "apk": "org.mozilla.fennec_fdroid_1560020.apk",
+        "decode": "PASS",
+        "build": "PASS",
+        "align": "PASS",
+        "sign": "PASS",
+        "verify": "PASS",
+        "overall": "PASS",
+        "native_libs_identical": true,
+        "orig_size": 127634542,
+        "rebuilt_size": 128593346
+      },
+      {
+        "apk": "org.schabi.newpipe_1015_cb84069.apk",
+        "decode": "PASS",
+        "build": "FAIL",
+        "align": "SKIPPED",
+        "sign": "SKIPPED",
+        "verify": "SKIPPED",
+        "overall": "FAIL",
+        "native_libs_identical": null,
+        "orig_size": 11507122,
+        "rebuilt_size": 0
+      }
+    ],
+    "structural_diff_observations": {
+      "native_libraries": "100% byte-for-byte identical across all passing APKs containing native code (PCAPdroid, AntennaPod, AppManager, Fennec). Shared objects are untouched.",
+      "dex_files": "Binary diffs exist across all DEX files due to baksmali disassembling to smali and smali reassembling to dex. Semantics preserved, but binary layout/offsets regenerated.",
+      "resources_arsc": "Differ in bytes and slightly larger across all passing APKs due to AAPT2 recompilation, table reorganization, and standard 4-byte chunk padding.",
+      "manifest": "AXML representation re-encoded by AAPT2; binary diff exists, but all components, permissions, and metadata structures are preserved.",
+      "meta_inf": "Original publisher signatures replaced by test keystore signature files."
+    }
+  },
+  "runtime_validation": {
+    "status": "NOT RUN",
+    "reason": "No suitable existing runtime environment (adb devices returned 0 attached devices/emulators; per instructions, emulator setup was not performed)."
+  },
+  "conclusions": {
+    "verdict": "DEMONSTRATED ROOT CAUSE",
+    "shared_mechanism": true,
+    "summary": "Both C.1 build failures (Conversations and NewPipe) share the exact same demonstrated root cause: upstream AGP/R8 resource shrinking left orphaned attribute references in precompiled library XML files while deleting the attribute definitions from resources.arsc. Apktool 2.10.0 omits undeclared ARSC attributes from attrs.xml, causing AAPT2 link failure. Newer Apktool 3.0.3 resolves this by synthesizing missing attrs, achieving 100% build success on both apps.",
+    "recommendations_for_c2": [
+      "Support Apktool 3.0.3 or higher in the BuildService to natively handle R8 resource-shrunk applications.",
+      "Ensure the Android 35 SDK framework (platforms/android-35/android.jar) is always installed in the build environment to resolve modern Android 15 manifest/style attributes.",
+      "For Apktool 2.x compatibility fallback, BuildService can implement a pre-link attribute synthesis step that injects <attr name=\"...\"> into res/values/attrs.xml for any orphaned attributes reported by AAPT2.",
+      "Preserve native libraries directly (as validated, Apktool already preserves native .so files byte-for-byte).",
+      "Account for expected binary differences in DEX and ARSC during semantic verification (exact SHA-256 matching of DEX/ARSC is impossible after decompilation)."
+    ]
+  }
+}

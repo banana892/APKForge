@@ -26,6 +26,29 @@ if TYPE_CHECKING:
 __all__ = ["ComponentDiffer"]
 
 
+def _effective_enabled(value: bool | None) -> bool:
+    """Resolve the Android-semantic enabled state.
+
+    Android treats an absent ``android:enabled`` attribute as enabled by
+    default (matching the platform's ``PackageManager`` component-state
+    semantics). Inspection represents "attribute absent" as ``None``, which
+    must compare equal to an explicit ``True`` -- only an explicit
+    ``False`` disables a component.
+    """
+    return True if value is None else value
+
+
+def _describe_intent_data(data: IntentDataInfo) -> dict[str, Any]:
+    """Serialise an intent-filter <data> element for diff reporting."""
+    return {
+        "scheme": data.scheme,
+        "host": data.host,
+        "port": data.port,
+        "path": data.path_prefix or data.path or data.path_pattern,
+        "mime_type": data.mime_type,
+    }
+
+
 class ComponentDiffer:
     """Compares activities, services, broadcast receivers, and content providers."""
 
@@ -117,12 +140,18 @@ class ComponentDiffer:
                 a = map_a[name]
                 b = map_b[name]
                 filter_diff = self._diff_intent_filters(a.intent_filters, b.intent_filters)
-                en_changed = a.enabled != b.enabled
-                perm_changed = not is_semantically_equivalent(a.permission, b.permission, res_map_a, res_map_b)
+                en_changed = _effective_enabled(a.enabled) != _effective_enabled(b.enabled)
+                perm_changed = not is_semantically_equivalent(
+                    a.permission, b.permission, res_map_a, res_map_b
+                )
+                dba_changed = a.direct_boot_aware != b.direct_boot_aware
+                proc_changed = a.process != b.process
                 is_mod = (
                     a.exported != b.exported
                     or perm_changed
                     or en_changed
+                    or dba_changed
+                    or proc_changed
                     or filter_diff.has_changes
                 )
                 details: dict[str, Any] = {}
@@ -132,6 +161,12 @@ class ComponentDiffer:
                 if perm_changed:
                     details["permission_before"] = a.permission
                     details["permission_after"] = b.permission
+                if dba_changed:
+                    details["direct_boot_aware_before"] = a.direct_boot_aware
+                    details["direct_boot_aware_after"] = b.direct_boot_aware
+                if proc_changed:
+                    details["process_before"] = a.process
+                    details["process_after"] = b.process
                 changes.append(
                     ComponentChange(
                         name=name,
@@ -193,19 +228,26 @@ class ComponentDiffer:
                 b = map_b[name]
                 filter_diff = self._diff_intent_filters(a.intent_filters, b.intent_filters)
                 fg_changed = a.foreground_service_type != b.foreground_service_type
-                en_changed = a.enabled != b.enabled
-                perm_changed = not is_semantically_equivalent(a.permission, b.permission, res_map_a, res_map_b)
+                en_changed = _effective_enabled(a.enabled) != _effective_enabled(b.enabled)
+                perm_changed = not is_semantically_equivalent(
+                    a.permission, b.permission, res_map_a, res_map_b
+                )
+                proc_changed = a.process != b.process
                 is_mod = (
                     a.exported != b.exported
                     or perm_changed
                     or en_changed
                     or fg_changed
+                    or proc_changed
                     or filter_diff.has_changes
                 )
                 details: dict[str, Any] = {}
                 if fg_changed:
                     details["foreground_service_type_before"] = a.foreground_service_type
                     details["foreground_service_type_after"] = b.foreground_service_type
+                if proc_changed:
+                    details["process_before"] = a.process
+                    details["process_after"] = b.process
                 if en_changed:
                     details["enabled_before"] = a.enabled
                     details["enabled_after"] = b.enabled
@@ -270,12 +312,16 @@ class ComponentDiffer:
                 a = map_a[name]
                 b = map_b[name]
                 filter_diff = self._diff_intent_filters(a.intent_filters, b.intent_filters)
-                en_changed = a.enabled != b.enabled
-                perm_changed = not is_semantically_equivalent(a.permission, b.permission, res_map_a, res_map_b)
+                en_changed = _effective_enabled(a.enabled) != _effective_enabled(b.enabled)
+                perm_changed = not is_semantically_equivalent(
+                    a.permission, b.permission, res_map_a, res_map_b
+                )
+                proc_changed = a.process != b.process
                 is_mod = (
                     a.exported != b.exported
                     or perm_changed
                     or en_changed
+                    or proc_changed
                     or filter_diff.has_changes
                 )
                 details: dict[str, Any] = {}
@@ -285,6 +331,9 @@ class ComponentDiffer:
                 if perm_changed:
                     details["permission_before"] = a.permission
                     details["permission_after"] = b.permission
+                if proc_changed:
+                    details["process_before"] = a.process
+                    details["process_after"] = b.process
                 changes.append(
                     ComponentChange(
                         name=name,
@@ -324,7 +373,7 @@ class ComponentDiffer:
                         change_type=ChangeType.ADDED,
                         exported_after=b.exported,
                         permission_after=b.read_permission or b.write_permission,
-                        enabled_after=getattr(b, "enabled", None),
+                        enabled_after=b.enabled,
                         details={"authorities": b.authorities},
                     )
                 )
@@ -337,20 +386,29 @@ class ComponentDiffer:
                         change_type=ChangeType.REMOVED,
                         exported_before=a.exported,
                         permission_before=a.read_permission or a.write_permission,
-                        enabled_before=getattr(a, "enabled", None),
+                        enabled_before=a.enabled,
                         details={"authorities": a.authorities},
                     )
                 )
             else:
                 a = map_a[name]
                 b = map_b[name]
-                en_a = getattr(a, "enabled", None)
-                en_b = getattr(b, "enabled", None)
-                en_changed = en_a != en_b
-                auth_changed = not is_semantically_equivalent(a.authorities, b.authorities, res_map_a, res_map_b)
-                perm_changed = not is_semantically_equivalent(a.permission, b.permission, res_map_a, res_map_b)
-                read_perm_changed = not is_semantically_equivalent(a.read_permission, b.read_permission, res_map_a, res_map_b)
-                write_perm_changed = not is_semantically_equivalent(a.write_permission, b.write_permission, res_map_a, res_map_b)
+                en_a = a.enabled
+                en_b = b.enabled
+                en_changed = _effective_enabled(en_a) != _effective_enabled(en_b)
+                auth_changed = not is_semantically_equivalent(
+                    a.authorities, b.authorities, res_map_a, res_map_b
+                )
+                perm_changed = not is_semantically_equivalent(
+                    a.permission, b.permission, res_map_a, res_map_b
+                )
+                read_perm_changed = not is_semantically_equivalent(
+                    a.read_permission, b.read_permission, res_map_a, res_map_b
+                )
+                write_perm_changed = not is_semantically_equivalent(
+                    a.write_permission, b.write_permission, res_map_a, res_map_b
+                )
+                proc_changed = a.process != b.process
                 is_mod = (
                     a.exported != b.exported
                     or auth_changed
@@ -358,6 +416,7 @@ class ComponentDiffer:
                     or perm_changed
                     or read_perm_changed
                     or write_perm_changed
+                    or proc_changed
                     or a.grant_uri_permissions != b.grant_uri_permissions
                 )
                 details: dict[str, Any] = {}
@@ -376,6 +435,9 @@ class ComponentDiffer:
                 if write_perm_changed:
                     details["write_permission_before"] = a.write_permission
                     details["write_permission_after"] = b.write_permission
+                if proc_changed:
+                    details["process_before"] = a.process
+                    details["process_after"] = b.process
 
                 changes.append(
                     ComponentChange(
@@ -418,19 +480,11 @@ class ComponentDiffer:
         data_a_map = {_data_key(d): d for f in filters_a for d in f.data}
 
         data_added: list[dict[str, Any]] = [
-            {
-                "scheme": data_b_map[k].scheme,
-                "host": data_b_map[k].host,
-                "path": data_b_map[k].path_prefix or data_b_map[k].path,
-            }
+            _describe_intent_data(data_b_map[k])
             for k in sorted(set(data_b_map.keys()) - data_a_keys)
         ]
         data_removed: list[dict[str, Any]] = [
-            {
-                "scheme": data_a_map[k].scheme,
-                "host": data_a_map[k].host,
-                "path": data_a_map[k].path_prefix or data_a_map[k].path,
-            }
+            _describe_intent_data(data_a_map[k])
             for k in sorted(data_a_keys - set(data_b_map.keys()))
         ]
 

@@ -1,0 +1,509 @@
+{
+  "task_start_marker": "requirements/validation.in",
+  "task_start_epoch": 1790939515.6211517,
+  "files_checked": 31215,
+  "files_modified_during_this_task": [],
+  "tracked_artifacts_diff_vs_HEAD": "",
+  "reconciliation_corpus_sha256": "584e65513dc79e530da1484ecca40a0c1ce1dd694b224335e7689fe9050851cd",
+  "reconciliation_corpus_sha256_expected": "584e65513dc79e530da1484ecca40a0c1ce1dd694b224335e7689fe9050851cd",
+  "head": "212227f793ea7e45021b0060785e01b8b144dc65",
+  "staged": "",
+  "files": [
+    {
+      "path": "artifacts/toolchain-validation/closeout/antennapod_class_count_remeasure.json",
+      "sha256": "7522afffb47d94cb6620c69f2a3da2f156ea590fdf9ffb6f735633eb45557ea0",
+      "mtime_epoch": 1790927967.4185917,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/corpus_results_closeout.json",
+      "sha256": "8ba88d75d592cdde899ace513dacd98d3e108d538633787ecacd4c5a9f5b7941",
+      "mtime_epoch": 1790926883.3711476,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/corpus_run_stdout.txt",
+      "sha256": "ccb7657e9ae78653c361d1a2330798e6711890b60959d3a5169630cad6eb2c78",
+      "mtime_epoch": 1790926883.3712099,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/dex_control_build.log",
+      "sha256": "35ad208b75bb0435ed60e0b8152f6985555756379c2c46402b5c0dc91fa6723e",
+      "mtime_epoch": 1790926302.1223488,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/dex_control_sign.log",
+      "sha256": "d87fd0db4a1c2a7855ee546926f3b5ac2ae00815976b40192ef19076a99a7751",
+      "mtime_epoch": 1790926302.690352,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/dex_control_verify.log",
+      "sha256": "76267c008fa3da1eeb5b6264fb5e7f64ceb69e8883f7b9a12151ac0c6fcee94e",
+      "mtime_epoch": 1790926303.6313572,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/dex_control_zipalign.log",
+      "sha256": "a4a9f6f441cc3f8224ecf01f683cd912c5097728bc5bd2995d85c40b1187b0be",
+      "mtime_epoch": 1790926302.4222746,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/dex_exception_handler_experiment.json",
+      "sha256": "2629c6e184577f8ea7f939756c1bb125e63c8bc55e4b85fb037ff726d4ce55e1",
+      "mtime_epoch": 1790926883.3712697,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/dex_handler_build.log",
+      "sha256": "005fee6da0e849532c150f988859b3e362b82ab4866524c0bb312ab35c2fd770",
+      "mtime_epoch": 1790926304.5623622,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/dex_handler_sign.log",
+      "sha256": "d87fd0db4a1c2a7855ee546926f3b5ac2ae00815976b40192ef19076a99a7751",
+      "mtime_epoch": 1790926305.1553655,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/dex_handler_verify.log",
+      "sha256": "76267c008fa3da1eeb5b6264fb5e7f64ceb69e8883f7b9a12151ac0c6fcee94e",
+      "mtime_epoch": 1790926306.024619,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/dex_handler_zipalign.log",
+      "sha256": "e0a98eb829962a5ad150a5fba81836c4ccdb907c99a76cf600f5c9eec9e18903",
+      "mtime_epoch": 1790926304.8769615,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/dex_rmclass_build.log",
+      "sha256": "fb655c649481310a533021f40d568a230fce0dabddc7b0ce636c7ea70011425f",
+      "mtime_epoch": 1790926351.7146208,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/dex_rmclass_sign.log",
+      "sha256": "d87fd0db4a1c2a7855ee546926f3b5ac2ae00815976b40192ef19076a99a7751",
+      "mtime_epoch": 1790926352.286624,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/dex_rmclass_verify.log",
+      "sha256": "76267c008fa3da1eeb5b6264fb5e7f64ceb69e8883f7b9a12151ac0c6fcee94e",
+      "mtime_epoch": 1790926353.1686287,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/dex_rmclass_zipalign.log",
+      "sha256": "e03872abba636a41e06d7f623c130b056f4467df767e5c50745ca2183d8c9e4c",
+      "mtime_epoch": 1790928211.9699636,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/getattr_audit.json",
+      "sha256": "da6744e306e3db33809c00a1a031b2738c7ecc9a07757876eeb05514d1cac33e",
+      "mtime_epoch": 1790927903.2016501,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/history_check.json",
+      "sha256": "883d4bb349a766958991346cb75feb7f7ebba024a86521f018e5158a7138491b",
+      "mtime_epoch": 1790928153.1043775,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/mypy_baseline_HEAD_212227f.txt",
+      "sha256": "d4c6030c79fb92bff904b85ef3117dc3920e84f3569e56a40106b003f8470757",
+      "mtime_epoch": 1790927036.025388,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/mypy_closeout.txt",
+      "sha256": "891d6f61b469d2bdad8d6d8df67a5f607f092c83b4b7fce383dca15e19953b84",
+      "mtime_epoch": 1790927035.999833,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/openlink_acceptance/acceptance.json",
+      "sha256": "d56d1ca6b2ae2b811b103545dd2aba932789d55d5cc7c507ecaff1071d3df042",
+      "mtime_epoch": 1790926883.3712697,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/openlink_acceptance/diff_noop_vs_modified.json",
+      "sha256": "8af6d9905648c73e4dfae1fe88df52759d7266a909dc06c8b82496fc3f1f50e0",
+      "mtime_epoch": 1790926883.3713975,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/openlink_acceptance/diff_original_vs_noop.json",
+      "sha256": "532feb0b88de282c4d2794b7e6412d16d3b0b173f5855a9afdf4b66b5a76cab4",
+      "mtime_epoch": 1790926883.3715808,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/openlink_acceptance/mod_build.log",
+      "sha256": "0006d79fdcc2ad965f4193375ee477879e53477f733565fe9f10a9071d7432f8",
+      "mtime_epoch": 1790926414.0319624,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/openlink_acceptance/mod_inspect.json",
+      "sha256": "2cecd8cc82793502663da65c1f077a7ee2afb63df7a97c49b1819c0e0ac69856",
+      "mtime_epoch": 1790926883.3717744,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/openlink_acceptance/mod_sign.log",
+      "sha256": "d87fd0db4a1c2a7855ee546926f3b5ac2ae00815976b40192ef19076a99a7751",
+      "mtime_epoch": 1790926414.5999656,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/openlink_acceptance/mod_verify.log",
+      "sha256": "76267c008fa3da1eeb5b6264fb5e7f64ceb69e8883f7b9a12151ac0c6fcee94e",
+      "mtime_epoch": 1790926415.4459703,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/openlink_acceptance/mod_zipalign.log",
+      "sha256": "8604b38fd823554aeae0d31c367784789b0d714bae5f748a0a71baed6813cb57",
+      "mtime_epoch": 1790926414.3359642,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/openlink_acceptance/noop_build.log",
+      "sha256": "fa56e3bad79deaa1e50e7173a9991552557097cfa9c3d0a18b0e76ee91eaeb1c",
+      "mtime_epoch": 1790926411.7979503,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/openlink_acceptance/noop_inspect.json",
+      "sha256": "3d3a145458ccf91207d437900b9aca71c5e5b16ac6840afd51c889be947cecac",
+      "mtime_epoch": 1790926883.3722675,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/openlink_acceptance/noop_sign.log",
+      "sha256": "d87fd0db4a1c2a7855ee546926f3b5ac2ae00815976b40192ef19076a99a7751",
+      "mtime_epoch": 1790926412.3569534,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/openlink_acceptance/noop_verify.log",
+      "sha256": "76267c008fa3da1eeb5b6264fb5e7f64ceb69e8883f7b9a12151ac0c6fcee94e",
+      "mtime_epoch": 1790926413.1449575,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/openlink_acceptance/noop_zipalign.log",
+      "sha256": "e8da9749e2b8dbd7665734aa616cd3e8988fd0d1fb2a3fdcd1bf96d00ff9072d",
+      "mtime_epoch": 1790926412.0869517,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/openlink_acceptance/planned_manifest_diff.txt",
+      "sha256": "04216bb77ee265f27750aad69eb16d72ff6a4404ac1b88b30d8b4325d37d8d71",
+      "mtime_epoch": 1790926883.3727467,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/openlink_acceptance/toolchain_versions.txt",
+      "sha256": "5e297d73642e67afd733ff17314b00d8d88a244f1bd97305accfbdedb8ca7c39",
+      "mtime_epoch": 1790926883.3727467,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/process_attribute_evidence.json",
+      "sha256": "11056e36e4130bfe3a58413546a17dbe9e84f99da418ab09fd7262a01cc0cd3f",
+      "mtime_epoch": 1790927923.087654,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/recount_getattr.py",
+      "sha256": "c7ca9d335227e0e8a33b6dd8b06a1fedc332733769d6d04f4ab45341f75bc138",
+      "mtime_epoch": 1790927895.4478538,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/ruff_baseline_HEAD_212227f.txt",
+      "sha256": "d3919e8df8cc9710534ea76ce7737de24e88db984f90be2a78fd698b136d3e07",
+      "mtime_epoch": 1790927036.0262434,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/ruff_closeout.txt",
+      "sha256": "7571e8c8b73c81f4294fbc3b03fb0e171196600c402d33882d11febbccc59715",
+      "mtime_epoch": 1790927036.0233011,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/table_shift_rerun.json",
+      "sha256": "0f8be73d45e7a7aeddcb7a1e6bf5d7ad37ca142e46303dc499ff7338d6e16658",
+      "mtime_epoch": 1790926883.3727467,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/closeout/unit_test_run.txt",
+      "sha256": "61368f96873c0606465f7c3fc29abedcbe6748ca7443798c9f9be7d7c0ebf3c7",
+      "mtime_epoch": 1790927057.702492,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/reconciliation/controlled_runs/controlled_intake.py",
+      "sha256": "e2d4c3102f878e36e02f9ad3235508baab09b5b2e265b93591956c5700c405f0",
+      "mtime_epoch": 1790937693.175223,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/reconciliation/controlled_runs/state_A_commit_212227f.json",
+      "sha256": "05a9957a8c63ab8cd765e8752b464fad3288b7e5cf5942ded2e4969c423e938c",
+      "mtime_epoch": 1790937693.1751044,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/reconciliation/controlled_runs/state_B_working_tree.json",
+      "sha256": "7b025f911ece9fbfd56a53e795998edbadb150103c14e45a42aca1f7de61db29",
+      "mtime_epoch": 1790937693.1751606,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/reconciliation/corpus_results_post_prc_preserved.json",
+      "sha256": "03295e58d9903abd1058bc85d32ecf68662005e857cdf44f88d846ffc319b3d4",
+      "mtime_epoch": 1790937693.1784382,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/reconciliation/corpus_results_reconciliation.json",
+      "sha256": "584e65513dc79e530da1484ecca40a0c1ce1dd694b224335e7689fe9050851cd",
+      "mtime_epoch": 1790937693.1771321,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/reconciliation/corpus_run_reconciliation_stdout.txt",
+      "sha256": "25c1f7c4e58e415d0ab7937f5faf41c9e29f75b6a2ff5d667a4bda867956bf4a",
+      "mtime_epoch": 1790937693.1772408,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/reconciliation/environment_manifest.txt",
+      "sha256": "4da17e70af0886bdc21a87c237d4c4c5abb17bbfa4d6fff72596b2530c1d7221",
+      "mtime_epoch": 1790937693.1794949,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/reconciliation/final_security/raw_appmanager_security.json",
+      "sha256": "84c00a173886255cea5450e52717c209eb0324fb14c1221a1f9809d8bbfe6717",
+      "mtime_epoch": 1790937693.1816807,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/reconciliation/final_security/raw_openlink_security.json",
+      "sha256": "e3d8f5c1d440709a7a1e8df5ba7d1c0ba1d4fa36bc052868da9401fd1883f277",
+      "mtime_epoch": 1790937693.1817667,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/reconciliation/final_security/raw_pcapdroid_security.json",
+      "sha256": "34788e3fd15d1860455aa707ab7b12084e60b0451caf95665b9dee773df85208",
+      "mtime_epoch": 1790937693.1818776,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/reconciliation/flaky_probe.py",
+      "sha256": "4a7daefcbb07126864997e12ea49ace3b941ae561ec3ae52f2dc5151a610e0c5",
+      "mtime_epoch": 1790937693.1834254,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/reconciliation/mypy_reconciliation.txt",
+      "sha256": "f746c5091bd5c4c2877a793036ab336b91ce28320a0e8f3eaab0bb94f3bc7f2b",
+      "mtime_epoch": 1790937693.180639,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/reconciliation/phase_b_regression_reconciliation.md",
+      "sha256": "54a9b549c595daa32a3fae6c1063d535eeaa444eb589e6bfb2109ba5077e9426",
+      "mtime_epoch": 1790937913.5780942,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/reconciliation/pytest_reconciliation.txt",
+      "sha256": "0114efe8d3dbb83fb02f97a3a49660a34f4c79956d675f5bc35fd04bfe5117e1",
+      "mtime_epoch": 1790937693.1805005,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/reconciliation/regen_security.py",
+      "sha256": "20c452c913d6fee33b1e8f1ec651036f7ddf37c8796519670e47124cab4f168a",
+      "mtime_epoch": 1790937693.183302,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/reconciliation/ruff_reconciliation_src.txt",
+      "sha256": "7571e8c8b73c81f4294fbc3b03fb0e171196600c402d33882d11febbccc59715",
+      "mtime_epoch": 1790937693.1805673,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/reconciliation/sha1_provenance.json",
+      "sha256": "c61240ee79df9984ee82bcbef4b9fa27ad5a3dd747fd41e15f03f3b542809048",
+      "mtime_epoch": 1790937693.1796207,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/reconciliation/sha1_provenance.py",
+      "sha256": "b26e023927864b43ae356b6f8fd3e0bf5b9770f3644a055319e8bfa1335c8a80",
+      "mtime_epoch": 1790937699.3166578,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/reconciliation/tp_matrix.json",
+      "sha256": "7fc6320f85bfe2ceb9945b014c01655f54bc9ab598785842556f2e1a38198ff7",
+      "mtime_epoch": 1790937693.179554,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/step5/rename_pairing_before_after.json",
+      "sha256": "2fe106c01d42923d46d28a1a2360a54b2219614310bf07caa765bf438541b45d",
+      "mtime_epoch": 1790926883.372891,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/step5/table_shift_experiment.json",
+      "sha256": "079e90429bea77443a988962b19dd02e76e3f7240b8ef63de925daa8144cd809",
+      "mtime_epoch": 1790926883.3729424,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/security-validation/build_review.py",
+      "sha256": "c7734ff4f6918e157a080092e49782f9cc65ef3ad9a605ed053f91d3b3f0c54b",
+      "mtime_epoch": 1790927707.816075,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/security-validation/findings_review.json",
+      "sha256": "5de9c182a0e0646c3044babceec4d0cfd654347d0761d8dbb461c4abd981794a",
+      "mtime_epoch": 1790927722.2938917,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/security-validation/findings_review.md",
+      "sha256": "c46766951f489d4f2fa79255f8f08485297d986190f2bb6941723be55b34122d",
+      "mtime_epoch": 1790927768.3095808,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/security-validation/prc_validation/build_review_post_prc.py",
+      "sha256": "ad5705383a6eab648bec504cc61e72e353874886bfe321b177027270c72657c8",
+      "mtime_epoch": 1790935107.4358466,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/security-validation/prc_validation/corpus_results_post_prc.json",
+      "sha256": "03295e58d9903abd1058bc85d32ecf68662005e857cdf44f88d846ffc319b3d4",
+      "mtime_epoch": 1790935646.6586955,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/security-validation/prc_validation/corpus_run_stdout.txt",
+      "sha256": "ad0df7cda1629e3393d3b531b103319b24d520c56b71f3382324e08a7640cd4a",
+      "mtime_epoch": 1790935571.8664334,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/security-validation/prc_validation/findings_review_post_prc.json",
+      "sha256": "c726214b1a613f0f6ebc5d489edca22853f368331105fe6e57fafb003d50097c",
+      "mtime_epoch": 1790935121.2419195,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/security-validation/prc_validation/findings_review_post_prc.md",
+      "sha256": "98f37af1fcd854d2d532b71977dfe3273f4f2ba9ff382439ae6d2964f36f99f2",
+      "mtime_epoch": 1790935121.2426183,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/security-validation/prc_validation/mypy_validation.txt",
+      "sha256": "5597bb820435ea183094ff01a51d9a9bd4342cb8f53c6ad22c479669e1e3f1cc",
+      "mtime_epoch": 1790935752.5766504,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/security-validation/prc_validation/raw_appmanager_security.json",
+      "sha256": "8ede49de142c97190cada84e25423501ff0fec2adf481d93c727e6ab8757267a",
+      "mtime_epoch": 1790934874.5506186,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/security-validation/prc_validation/raw_openlink_security.json",
+      "sha256": "d8fdb5ddd2793791fe7fe00c23e5ed1c0c970cc0f0832e58c8259f4fbc18afa4",
+      "mtime_epoch": 1790933198.0985942,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/security-validation/prc_validation/raw_pcapdroid_security.json",
+      "sha256": "5344e863cd3f2d1412e437af76b82ac77a11ae475b77b3c15a835656234b346e",
+      "mtime_epoch": 1790933241.426826,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/security-validation/prc_validation/ruff_validation.txt",
+      "sha256": "7571e8c8b73c81f4294fbc3b03fb0e171196600c402d33882d11febbccc59715",
+      "mtime_epoch": 1790935737.7125044,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/security-validation/raw_appmanager_security.json",
+      "sha256": "ad257fae037dc5bda3bdf24f0ee4af684c242d2593724c9b35e953339a004ed4",
+      "mtime_epoch": 1790926883.3708272,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/security-validation/raw_openlink_security.json",
+      "sha256": "d8fdb5ddd2793791fe7fe00c23e5ed1c0c970cc0f0832e58c8259f4fbc18afa4",
+      "mtime_epoch": 1790926883.3709075,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/security-validation/raw_pcapdroid_security.json",
+      "sha256": "1ee5884a0c555a5624390cb219b521c3b46838796080eb633677bd7ce30445a3",
+      "mtime_epoch": 1790926883.370983,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/phase_b_closeout.md",
+      "sha256": "dd852eab782bff21d9baa62f76481bf5a18c3ff8f5ede7862c65319fbb8f4254",
+      "mtime_epoch": 1790928426.1943257,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/step5_verifier_robustness.md",
+      "sha256": "c9d99e89bd4f96cb1632a16e0c84163e7cb07ddf9a583d7ac6e34ea0bf1a11f5",
+      "mtime_epoch": 1790926883.3730857,
+      "modified_during_this_task": false
+    },
+    {
+      "path": "artifacts/toolchain-validation/step4_unverified_claims.md",
+      "sha256": "bc5fe7076ad05d69051b4b17975454d5fdd7d475b352b53a80287b1d3138e979",
+      "mtime_epoch": 1790928008.1880217,
+      "modified_during_this_task": false
+    }
+  ],
+  "decoded_trees": {
+    "artifacts/toolchain-validation/antennapod/": {
+      "file_count": 30343,
+      "aggregate_sha256_of_sorted_path_sha_lines": "5ae9329e13d28ec8b7b9d4d14c842c0a37ea69c060264268056094dc343c83b7"
+    },
+    "artifacts/toolchain-validation/openlink/": {
+      "file_count": 791,
+      "aggregate_sha256_of_sorted_path_sha_lines": "f8cc7eb76c284084943d31fd6ebb109d062b704c43ce02622f79689ad2024992"
+    }
+  }
+}

@@ -16,7 +16,7 @@ import hashlib
 import re
 import struct
 import zipfile
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from apkforge.core.logging import get_logger
 from apkforge.inspection.models import (
@@ -212,6 +212,7 @@ class DEXInspector:
         fields: list[FieldInfo] = []
         api_refs: set[str] = set()
         string_set: set[str] = set()
+        seen_string_class: set[tuple[str, str]] = set()
 
         for cls_def in dex.get_classes():
             if len(classes) >= _MAX_CLASSES:
@@ -227,7 +228,7 @@ class DEXInspector:
             with contextlib.suppress(Exception):
                 ifaces = cls_def.get_interfaces()
                 if ifaces:
-                    interfaces = [_dalvik_to_java(str(i)) for i in ifaces]
+                    interfaces = [_dalvik_to_java(i) for i in ifaces]
 
             access_flags = _access_flags_str(cls_def.get_access_flags())
 
@@ -264,12 +265,7 @@ class DEXInspector:
                 with contextlib.suppress(Exception):
                     code = method.get_code()
                     if code:
-                        bc = getattr(code, "get_bc", lambda: None)()
-                        raw_bc = bc.get_raw() if bc and hasattr(bc, "get_raw") else None
-                        if not raw_bc and hasattr(code, "get_raw"):
-                            raw_bc = code.get_raw()
-                        if raw_bc:
-                            m_code_hash = hashlib.sha256(raw_bc).hexdigest()
+                        m_code_hash = _hash_method_code(code)
 
                 methods.append(
                     MethodInfo(
@@ -297,6 +293,52 @@ class DEXInspector:
                                                 if part.startswith("L") and part.endswith(";"):
                                                     ref = _dalvik_to_java(part)
                                                     api_refs.add(ref)
+
+                                if inst.get_name().startswith("const-string"):
+                                    ops = inst.get_operands()
+                                    if (
+                                        len(ops) > 1
+                                        and isinstance(ops[1], tuple)
+                                        and len(ops[1]) >= 3
+                                    ):
+                                        op_entry: tuple[Any, ...] = ops[1]
+                                        s_val = op_entry[2]
+                                        if (
+                                            isinstance(s_val, str)
+                                            and len(s_val) >= 4
+                                            and s_val.isprintable()
+                                            and any(
+                                                k in s_val.lower()
+                                                for k in (
+                                                    "des",
+                                                    "blowfish",
+                                                    "rc2",
+                                                    "rc4",
+                                                    "arcfour",
+                                                    "pbe",
+                                                    "md5",
+                                                    "sha-1",
+                                                    "sha1",
+                                                    "rsa",
+                                                    "ec",
+                                                    "aes",
+                                                    "cipher",
+                                                    "secret",
+                                                    "private key",
+                                                )
+                                            )
+                                            and (s_val, cls_name) not in seen_string_class
+                                        ):
+                                            seen_string_class.add((s_val, cls_name))
+                                            string_set.add(s_val)
+                                            all_strings.append(
+                                                StringReference(
+                                                    value=s_val,
+                                                    dex_file=dex_name,
+                                                    class_name=cls_name,
+                                                    method_name=m_name,
+                                                )
+                                            )
 
             # Fields
             for field in cls_def.get_fields():
@@ -340,8 +382,12 @@ class DEXInspector:
             for s in dex.get_strings():
                 if len(string_set) >= _MAX_STRINGS:
                     break
-                s_val = str(s)
-                if len(s_val) >= 4 and s_val.isprintable():  # Filter noise
+                s_val = s
+                if (
+                    len(s_val) >= 4
+                    and s_val.isprintable()
+                    and s_val not in string_set
+                ):
                     string_set.add(s_val)
                     all_strings.append(
                         StringReference(
@@ -413,6 +459,266 @@ class DEXInspector:
         if len(current) >= min_length and count < _MAX_STRINGS:
             s = bytes(current).decode("ascii")
             all_strings.append(StringReference(value=s, dex_file=dex_name))
+
+
+def _normalize_operand(op: tuple[Any, ...]) -> tuple[Any, ...]:
+    """Normalize a single Androguard instruction operand.
+
+    Androguard represents a pool reference (method/field/type/string/...) as
+    a 3-tuple ``(kind_tag, raw_pool_index, resolved_symbol)`` where
+    ``resolved_symbol`` is already a fully-qualified symbolic identity (e.g.
+    ``"Lcom/example/Foo;->bar(I)V"`` for a method, or the literal string
+    content for a string reference) produced by Androguard's own class
+    manager. That resolved symbol -- not the raw pool index -- is what we
+    hash, since the raw index shifts whenever the DEX's string/type/method/
+    field tables are reordered by an unrelated edit (e.g. adding or removing
+    a class), while the resolved symbol does not.
+
+    Register operands, literals, raw byte payloads, and branch offsets are
+    already table-index-independent and are preserved as-is.
+    """
+    from androguard.core.dex import Operand
+
+    tag = op[0]
+    if tag == Operand.REGISTER:
+        return ("reg", op[1])
+    if tag == Operand.LITERAL:
+        return ("lit", op[1])
+    if tag == Operand.OFFSET:
+        return ("off", op[1])
+    if tag == Operand.RAW:
+        return ("raw", op[1])
+
+    # tag is Operand.KIND + Kind.<X> for a pool reference.
+    kind_value = int(tag) - int(Operand.KIND)
+    resolved = op[2] if len(op) > 2 else None
+    if resolved is not None:
+        return ("sym", kind_value, resolved)
+
+    # Documented fallback: a small number of Kind values (METH_PROTO,
+    # CALL_SITE, VARIES, and the odex-only INLINE_METHOD/VTABLE_OFFSET/
+    # FIELD_OFFSET kinds) are not resolved to a symbolic name by Androguard's
+    # get_kind(). These are rare in standard (non-odex) classes.dex files
+    # (invoke-polymorphic / invoke-custom call sites, primarily). For these
+    # only, we fall back to the raw pool index, which is NOT table-index
+    # stable -- a documented, narrow limitation rather than a fabricated
+    # identity.
+    raw_index = op[1] if len(op) > 1 else None
+    return ("sym_unresolved", kind_value, raw_index)
+
+
+def _normalize_instruction(ins: Any) -> tuple[Any, ...]:  # noqa: ANN401 - untyped Androguard instruction
+    """Build a deterministic, symbol-resolved representation of one instruction.
+
+    Preserves opcode/instruction identity (the mnemonic), register operands,
+    literals, branch targets (already relative, so unaffected by table
+    shifts), and resolved string/method/type/field references. Two
+    instructions with the same mnemonic and normalized operands are
+    considered identical; any genuine difference in opcode, constants,
+    references, or branch structure changes the result.
+    """
+    from androguard.core.dex import FillArrayData, PackedSwitch, SparseSwitch
+
+    name = ins.get_name()
+
+    # packed-switch/sparse-switch/fill-array-data payloads are pseudo-
+    # instructions (not Instruction subclasses) carrying inline literal
+    # data; they have no pool references to normalize, so we hash their
+    # literal content directly via their dedicated accessors.
+    if isinstance(ins, PackedSwitch):
+        return (name, tuple(ins.get_keys()), tuple(ins.get_targets()))
+    if isinstance(ins, SparseSwitch):
+        return (name, tuple(ins.get_keys()), tuple(ins.get_targets()))
+    if isinstance(ins, FillArrayData):
+        return (name, ins.get_data().hex())
+
+    try:
+        operands = ins.get_operands(0) or []
+        return (name, tuple(_normalize_operand(o) for o in operands))
+    except Exception:
+        # Documented fallback for any operand shape not handled above: use
+        # the textual disassembly. Still opcode-aware and still distinguishes
+        # genuinely different instructions, but may retain a raw pool index
+        # for exotic/unsupported operand encodings.
+        return (name, "fallback_output", ins.get_output(0))
+
+
+def _build_address_index(instructions: list[Any]) -> dict[int, int]:
+    """Map each instruction's bytecode address to its ordinal position.
+
+    DEX addresses are counted in 16-bit code units; ``get_length()`` reports
+    bytes. The resulting map lets exception-handler addresses be expressed as
+    instruction ordinals, which stay stable when an unrelated instruction
+    elsewhere in the method is re-encoded at a different width.
+    """
+    mapping: dict[int, int] = {}
+    addr = 0
+    for index, ins in enumerate(instructions):
+        mapping[addr] = index
+        addr += ins.get_length() // 2
+    return mapping
+
+
+def _resolve_handler_target(
+    addr: int, addr_index: dict[int, int], total: int
+) -> int | tuple[str, int]:
+    """Express a handler/try bytecode address as a semantic instruction ordinal.
+
+    Returns the ordinal of the instruction at *addr*. ``total`` (one past the
+    last ordinal) is returned for an address exactly at the end of the code,
+    which is how an end-exclusive try range is expressed. Documented
+    fallback: an address that does not land on an instruction boundary is
+    represented as ``("raw_addr", addr)`` -- deterministic, but not
+    re-encoding-stable; this should not occur for well-formed DEX input.
+    """
+    if addr in addr_index:
+        return addr_index[addr]
+    if addr == 0 and total == 0:
+        return 0
+    return ("raw_addr", addr)
+
+
+def _normalize_exception_handlers(
+    code: Any,  # noqa: ANN401 - untyped Androguard code item
+    instructions: list[Any],
+) -> tuple[Any, ...]:
+    """Build a deterministic, semantic representation of a method's try/catch structure.
+
+    Each try block becomes::
+
+        (start_ordinal, end_ordinal_exclusive, typed_handlers, catch_all)
+
+    where ``typed_handlers`` is a tuple of
+    ``(resolved_exception_type, handler_ordinal)`` pairs **in DEX order**
+    (order is semantically significant -- the runtime tests caught types in
+    sequence, so reordering them changes behaviour and must change the hash),
+    and ``catch_all`` is the catch-all handler's ordinal or ``None``.
+
+    Deliberately excluded: the raw ``handler_off`` byte offsets into the
+    encoded-catch-handler list and the absolute file offsets used to join
+    tries to handlers. Those are unstable binary-layout artifacts. What is
+    kept is semantic: which instruction range is protected, which exception
+    types are caught in which order, and which instruction each handler
+    jumps to -- all expressed as resolved type descriptors and instruction
+    ordinals rather than pool indexes or byte addresses.
+
+    Returns an empty tuple for methods with no try blocks, and the documented
+    marker ``(("unavailable",),)`` if the structure is present but cannot be
+    decoded (so an undecodable handler table is never silently treated as
+    "no handlers").
+    """
+    try:
+        tries_size = code.get_tries_size()
+    except Exception:
+        return (("unavailable",),)
+
+    if not tries_size:
+        return ()
+
+    try:
+        tries = list(code.get_tries())
+        handler_list = code.get_handlers()
+        handlers = list(handler_list.get_list())
+        list_base_off = handler_list.get_off()
+        class_manager = code.CM
+    except Exception:
+        return (("unavailable",),)
+
+    # Join each try block to its handler via offsets, then discard the
+    # offsets -- they are layout, not semantics.
+    by_offset: dict[int, Any] = {}
+    for handler in handlers:
+        try:
+            by_offset[handler.get_off()] = handler
+        except Exception as exc:
+            _log.debug("Skipping undecodable exception handler: %s", exc)
+
+    addr_index = _build_address_index(instructions)
+    total = len(instructions)
+    normalized: list[tuple[Any, ...]] = []
+
+    for try_item in tries:
+        try:
+            start_addr = try_item.get_start_addr()
+            insn_count = try_item.get_insn_count()
+            handler = by_offset.get(list_base_off + try_item.get_handler_off())
+        except Exception:
+            normalized.append(("unavailable",))
+            continue
+
+        start_ord = _resolve_handler_target(start_addr, addr_index, total)
+        end_ord = _resolve_handler_target(start_addr + insn_count, addr_index, total)
+
+        typed: list[tuple[Any, ...]] = []
+        catch_all: int | tuple[str, int] | None = None
+        if handler is not None:
+            try:
+                for pair in handler.get_handlers():
+                    type_name = class_manager.get_type(pair.get_type_idx())
+                    typed.append(
+                        (
+                            type_name,
+                            _resolve_handler_target(pair.get_addr(), addr_index, total),
+                        )
+                    )
+                # catch_all_addr exists only when the encoded size is non-positive.
+                if handler.get_size() <= 0:
+                    catch_all = _resolve_handler_target(
+                        handler.get_catch_all_addr(), addr_index, total
+                    )
+            except Exception:
+                typed.append(("unavailable", None))
+
+        normalized.append((start_ord, end_ord, tuple(typed), catch_all))
+
+    # Try blocks are required by the DEX spec to be sorted by start address
+    # and non-overlapping; sort defensively so the representation is
+    # order-independent with respect to the parser's iteration order.
+    return tuple(sorted(normalized, key=repr))
+
+
+def _hash_method_code(code: Any) -> str | None:  # noqa: ANN401 - untyped Androguard code item
+    """Compute a SHA-256 hash of a method's normalized instruction stream.
+
+    This replaces hashing the method's raw instruction bytes. Raw-byte
+    hashing is not robust: DEX instructions reference the string/type/
+    method/field pools by numeric index, and those indexes shift whenever
+    an unrelated class or method is added or removed elsewhere in the DEX
+    (table-index drift), making every method whose encoding touches a
+    shifted index appear "changed" even though nothing about it actually
+    changed.
+
+    Instead, each instruction is normalized (see ``_normalize_instruction``)
+    into a form where pool references are replaced by their resolved
+    symbolic identity, then the full ordered sequence is hashed.
+
+    The hash also covers the method's exception-handler structure (see
+    ``_normalize_exception_handlers``), so a change to a try/catch range,
+    a caught exception type, the order in which types are tested, or a
+    handler target is detected even when every instruction is byte-for-byte
+    identical.
+
+    Returns ``None`` for methods with no code (abstract, native, and
+    interface method declarations) or if the instruction stream cannot be
+    decoded.
+    """
+    try:
+        bc = code.get_bc() if hasattr(code, "get_bc") else None
+        if bc is None:
+            return None
+        instructions = list(bc.get_instructions())
+    except Exception:
+        return None
+
+    try:
+        parts = [repr(_normalize_instruction(ins)) for ins in instructions]
+    except Exception:
+        return None
+
+    parts.append(repr(("exception_handlers", _normalize_exception_handlers(code, instructions))))
+
+    digest_input = "\n".join(parts).encode("utf-8", errors="surrogateescape")
+    return hashlib.sha256(digest_input).hexdigest()
 
 
 def _parse_params(param_str: str) -> list[str]:

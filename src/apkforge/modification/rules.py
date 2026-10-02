@@ -56,13 +56,9 @@ class ModificationContext:
         if not self.inspection or not self.inspection.dex:
             return False
         sub = api_substr.lower()
-        for df in getattr(self.inspection.dex, "dex_files", []):
-            for api_ref in getattr(df, "api_references", []):
+        for df in self.inspection.dex.dex_files:
+            for api_ref in df.api_references:
                 if sub in api_ref.lower():
-                    return True
-            for call in getattr(df, "framework_api_calls", []):
-                val = getattr(call, "api", str(call)).lower()
-                if sub in val:
                     return True
         return False
 
@@ -76,8 +72,8 @@ class ModificationContext:
 
     def has_obfuscation(self) -> bool:
         """Check if significant obfuscation was detected."""
-        if self.inspection and getattr(self.inspection, "obfuscation", None):
-            return getattr(self.inspection.obfuscation, "is_obfuscated", False)
+        if self.inspection and self.inspection.obfuscation:
+            return self.inspection.obfuscation.is_likely_obfuscated
         return False
 
 
@@ -617,8 +613,8 @@ class DiffRegressionMitigationRule:
             return changes
 
         # Check added permissions
-        if hasattr(context.diff, "permissions") and context.diff.permissions:
-            for p in getattr(context.diff.permissions, "added", []):
+        if context.diff.permissions:
+            for p in context.diff.permissions.added:
                 p_str = str(p)
                 cid = f"CHANGE-DIFF-REVERT-PERM-{p_str.split('.')[-1].upper()}"
                 ev = [

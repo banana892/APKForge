@@ -38,7 +38,11 @@ SECRET_PATTERNS = [
     ),
     (
         "Generic Private Key Header",
-        re.compile(r"(-----BEGIN [A-Z ]*PRIVATE KEY-----)"),
+        re.compile(
+            r"(-----BEGIN [A-Z ]*(?:PRIVATE|PUBLIC) KEY-----"
+            r"(?:[^\n-]*\n)*?\s*[A-Za-z0-9+/]{16,}[A-Za-z0-9+/=\s]*"
+            r"(?:-----END [A-Z ]*(?:PRIVATE|PUBLIC) KEY-----)?)"
+        ),
         "CWE-312: Cleartext Storage of Sensitive Information",
     ),
 ]
@@ -109,17 +113,26 @@ class CryptoVulnerabilityAnalyzer:
 
         # 2. Legacy / Broken Symmetric Ciphers (DES / 3DES / RC4)
         broken_ciphers = [
-            s for s in index.strings if s in ("DES", "DESede", "RC4", "ARCFOUR", "Blowfish")
+            s
+            for s in index.strings
+            if s in ("DES", "DESede", "RC4", "ARCFOUR", "Blowfish")
+            and index.is_string_attributed_to_app(s)
         ]
         if broken_ciphers:
-            ev = [
-                Evidence(
-                    description=f"Legacy cipher algorithm referenced: {s}",
-                    location="dex:strings",
-                    snippet=s,
+            ev = []
+            for s in broken_ciphers[:3]:
+                prov = index.string_provenance.get(s, [])
+                app_prov = [
+                    c for c in prov if index.package_name and c.startswith(index.package_name)
+                ]
+                owner = app_prov[0] if app_prov else (prov[0] if prov else None)
+                loc = f"class:{owner}" if owner else "dex:strings"
+                desc = (
+                    f"Legacy cipher algorithm referenced in {owner}: {s}"
+                    if owner
+                    else f"Legacy cipher algorithm referenced: {s}"
                 )
-                for s in broken_ciphers[:3]
-            ]
+                ev.append(Evidence(description=desc, location=loc, snippet=s))
             ciphers_str = ", ".join(broken_ciphers)
             findings.append(
                 SecurityFinding(
@@ -145,16 +158,27 @@ class CryptoVulnerabilityAnalyzer:
             )
 
         # 3. Weak Hash Algorithms (MD5 / SHA-1)
-        weak_hashes = [s for s in index.strings if s in ("MD5", "SHA-1", "SHA1")]
+        weak_hashes = [
+            s
+            for s in index.strings
+            if s in ("MD5", "SHA-1", "SHA1")
+            and index.is_string_attributed_to_app(s)
+        ]
         if weak_hashes:
-            ev = [
-                Evidence(
-                    description=f"Weak hash algorithm referenced: {s}",
-                    location="dex:strings",
-                    snippet=s,
+            ev = []
+            for s in weak_hashes[:3]:
+                prov = index.string_provenance.get(s, [])
+                app_prov = [
+                    c for c in prov if index.package_name and c.startswith(index.package_name)
+                ]
+                owner = app_prov[0] if app_prov else (prov[0] if prov else None)
+                loc = f"class:{owner}" if owner else "dex:strings"
+                desc = (
+                    f"Weak hash algorithm referenced in {owner}: {s}"
+                    if owner
+                    else f"Weak hash algorithm referenced: {s}"
                 )
-                for s in weak_hashes[:3]
-            ]
+                ev.append(Evidence(description=desc, location=loc, snippet=s))
             hashes_str = ", ".join(weak_hashes)
             findings.append(
                 SecurityFinding(

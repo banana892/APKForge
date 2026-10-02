@@ -111,12 +111,11 @@ class EndpointAnalyzer:
                 # Provenance from EvidenceSource
                 prov_list: list[str] = []
                 prov_str = "network:url"
-                if hasattr(u_ref, "source") and u_ref.source:
+                if u_ref.source:
                     src = u_ref.source
                     loc_parts = []
-                    file_src = getattr(src, "file", None) or getattr(src, "file_path", None)
-                    if file_src:
-                        loc_parts.append(str(file_src))
+                    if src.file:
+                        loc_parts.append(str(src.file))
                     if src.class_name:
                         loc_parts.append(src.class_name)
                     if src.method_name:

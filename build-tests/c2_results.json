@@ -1,0 +1,1955 @@
+{
+  "metadata": {
+    "phase": "C.2",
+    "title": "BuildService no-op rebuild corpus validation",
+    "run_id": "20261002T153924Z",
+    "timestamp": "2026-10-02T15:41:51.953116+00:00",
+    "host": "Linux 7.2.7-200.fc44.x86_64 x86_64",
+    "python": "3.14.7",
+    "corpus_dir": "/home/naishring/APKForge/samples",
+    "total": 9,
+    "passed": 9,
+    "failed": 0,
+    "total_duration_seconds": 146.9
+  },
+  "toolchain": {
+    "config": {
+      "java": "/usr/lib/jvm/java-25-openjdk/bin/java",
+      "keytool": "/usr/lib/jvm/java-25-openjdk/bin/keytool",
+      "apktool": "/home/naishring/APKForge/tools/apktool_3.0.3.jar",
+      "zipalign": "/home/naishring/Android/Sdk/build-tools/35.0.0/zipalign",
+      "apksigner": "/home/naishring/Android/Sdk/build-tools/35.0.0/apksigner",
+      "android_sdk": "/home/naishring/Android/Sdk",
+      "android_platform": "/home/naishring/Android/Sdk/platforms/android-35/android.jar",
+      "platform_name": "android-35",
+      "build_tools": "/home/naishring/Android/Sdk/build-tools/35.0.0",
+      "build_tools_version": "35.0.0",
+      "framework_dir": "/home/naishring/.local/share/apkforge/apktool-framework/android-35"
+    },
+    "check": {
+      "valid": true,
+      "tools": {
+        "java": {
+          "name": "java",
+          "path": "/usr/lib/jvm/java-25-openjdk/bin/java",
+          "version": "25.0.4.1",
+          "status": "FOUND",
+          "notes": ""
+        },
+        "keytool": {
+          "name": "keytool",
+          "path": "/usr/lib/jvm/java-25-openjdk/bin/keytool",
+          "version": null,
+          "status": "FOUND",
+          "notes": ""
+        },
+        "apktool": {
+          "name": "apktool",
+          "path": "/home/naishring/APKForge/tools/apktool_3.0.3.jar",
+          "version": "3.0.3",
+          "status": "FOUND",
+          "notes": ""
+        },
+        "android_sdk": {
+          "name": "android_sdk",
+          "path": "/home/naishring/Android/Sdk",
+          "version": null,
+          "status": "FOUND",
+          "notes": ""
+        },
+        "build_tools": {
+          "name": "build_tools",
+          "path": "/home/naishring/Android/Sdk/build-tools/35.0.0",
+          "version": "35.0.0",
+          "status": "FOUND",
+          "notes": ""
+        },
+        "android_platform": {
+          "name": "android_platform",
+          "path": "/home/naishring/Android/Sdk/platforms/android-35/android.jar",
+          "version": "android-35",
+          "status": "FOUND",
+          "notes": ""
+        },
+        "apktool_framework": {
+          "name": "apktool_framework",
+          "path": "/home/naishring/.local/share/apkforge/apktool-framework/android-35",
+          "version": "android-35",
+          "status": "INSTALLED",
+          "notes": "Installed from /home/naishring/Android/Sdk/platforms/android-35/android.jar (sha256 4566663c3876e022\u2026)."
+        },
+        "zipalign": {
+          "name": "zipalign",
+          "path": "/home/naishring/Android/Sdk/build-tools/35.0.0/zipalign",
+          "version": "35.0.0",
+          "status": "FOUND",
+          "notes": ""
+        },
+        "apksigner": {
+          "name": "apksigner",
+          "path": "/home/naishring/Android/Sdk/build-tools/35.0.0/apksigner",
+          "version": "0.9",
+          "status": "FOUND",
+          "notes": "build-tools 35.0.0"
+        }
+      },
+      "warnings": [],
+      "errors": []
+    }
+  },
+  "signing": {
+    "description": "development key: /home/naishring/.local/share/apkforge/dev-signing/apkforge-dev.p12 (alias apkforge-dev, password from file /home/naishring/.local/share/apkforge/dev-signing/apkforge-dev.password)",
+    "development_key": true
+  },
+  "results": [
+    {
+      "apk": "com.emanuelef.remote_capture_95.apk",
+      "original_size": 17560048,
+      "original_sha256": "e03f79082278b3754b4954c7537e7c9f7681e5995a44e70aa1589eca10190066",
+      "original_unchanged_after_build": true,
+      "success": true,
+      "stages": {
+        "prepare": "PASS",
+        "decode": "PASS",
+        "build": "PASS",
+        "align": "PASS",
+        "sign": "PASS",
+        "verify": "PASS"
+      },
+      "stage_durations_seconds": {
+        "prepare": 0.09,
+        "decode": 2.47,
+        "build": 6.07,
+        "align": 0.03,
+        "sign": 0.82,
+        "verify": 0.62
+      },
+      "failure_stage": null,
+      "failure_category": "SUCCESS",
+      "failure_cause": "",
+      "failure_evidence": null,
+      "duration_seconds": 10.5,
+      "output_apk": "/home/naishring/APKForge/work/c2/20261002T153924Z/outputs/com.emanuelef.remote_capture_95.rebuilt.apk",
+      "rebuilt_size": 17869626,
+      "workspace": "/home/naishring/APKForge/work/c2/20261002T153924Z/workspaces/20261002T153925Z-aeffa778",
+      "verification": {
+        "valid": true,
+        "zipalign_verified": true,
+        "signature_verified": true,
+        "expected_signer_matched": true,
+        "zip_integrity_verified": true,
+        "manifest_present": true,
+        "certificate": {
+          "subject_dn": "CN=APKForge Development Key - NOT FOR RELEASE, O=APKForge",
+          "sha256_digest": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "signer_count": 1,
+          "v1_scheme": true,
+          "v2_scheme": true,
+          "v3_scheme": true,
+          "v31_scheme": false,
+          "v4_scheme": false
+        },
+        "expected_certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+        "apksigner_warnings": [
+          "META-INF/version-control-info.textproto not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.activity_activity-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.activity_activity.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.annotation_annotation-experimental.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.appcompat_appcompat-resources.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.appcompat_appcompat.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.arch.core_core-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.cardview_cardview.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.constraintlayout_constraintlayout.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.coordinatorlayout_coordinatorlayout.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.core_core-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.core_core-viewtree.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.core_core.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.cursoradapter_cursoradapter.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.customview_customview-poolingcontainer.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.customview_customview.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.drawerlayout_drawerlayout.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.dynamicanimation_dynamicanimation.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.emoji2_emoji2-views-helper.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.emoji2_emoji2.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.fragment_fragment-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.fragment_fragment.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.graphics_graphics-shapes.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.interpolator_interpolator.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-livedata-core-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-livedata-core.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-livedata.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-process.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-runtime-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-viewmodel-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-viewmodel-savedstate.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-viewmodel.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.loader_loader.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.localbroadcastmanager_localbroadcastmanager.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.navigation_navigation-common.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.navigation_navigation-fragment.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.navigation_navigation-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.navigation_navigation-ui.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.preference_preference.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.profileinstaller_profileinstaller.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.recyclerview_recyclerview.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.savedstate_savedstate-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.savedstate_savedstate.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.slidingpanelayout_slidingpanelayout.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.startup_startup-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.tracing_tracing.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.transition_transition.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.vectordrawable_vectordrawable-animated.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.vectordrawable_vectordrawable.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.versionedparcelable_versionedparcelable.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.viewpager2_viewpager2.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.viewpager_viewpager.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.window_window.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/com.google.android.material_material.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/kotlinx_coroutines_android.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/kotlinx_coroutines_core.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/com/android/build/gradle/app-metadata.properties not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx/annotation/annotation/LICENSE.txt not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx/constraintlayout/constraintlayout-core/LICENSE.txt not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx/lifecycle/lifecycle-common/LICENSE.txt not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/."
+        ],
+        "errors": []
+      },
+      "warnings": [
+        "apksigner: 61 META-INF entries not covered by the v1 signature (non-signature files carried over from the original APK; see verification.apksigner_warnings)."
+      ],
+      "integrity": {
+        "native_libs": {
+          "count": 20,
+          "identical": 20,
+          "mismatched": [],
+          "missing_in_rebuilt": [],
+          "all_identical": true
+        },
+        "dex": {
+          "original_files": 2,
+          "rebuilt_files": 2,
+          "original_bytes": 4009712,
+          "rebuilt_bytes": 4655688,
+          "byte_identical_files": 0,
+          "same_file_set": true
+        },
+        "resources_arsc": {
+          "present_original": true,
+          "present_rebuilt": true,
+          "original_bytes": 2103772,
+          "rebuilt_bytes": 2155300,
+          "byte_identical": false
+        },
+        "manifest": {
+          "rebuilt_parseable": true,
+          "byte_identical": false,
+          "identity_and_component_counts_match": true,
+          "original": {
+            "parseable": true,
+            "package": "com.emanuelef.remote_capture",
+            "version_code": "95",
+            "version_name": "2.0.2",
+            "min_sdk": "23",
+            "target_sdk": "37",
+            "components": {
+              "uses-permission": 13,
+              "permission": 1,
+              "activity": 26,
+              "activity-alias": 0,
+              "service": 2,
+              "receiver": 3,
+              "provider": 2
+            }
+          },
+          "rebuilt": {
+            "parseable": true,
+            "package": "com.emanuelef.remote_capture",
+            "version_code": "95",
+            "version_name": "2.0.2",
+            "min_sdk": "23",
+            "target_sdk": "37",
+            "components": {
+              "uses-permission": 13,
+              "permission": 1,
+              "activity": 26,
+              "activity-alias": 0,
+              "service": 2,
+              "receiver": 3,
+              "provider": 2
+            }
+          }
+        },
+        "entries": {
+          "original_count": 2326,
+          "rebuilt_count": 2326,
+          "added_non_signature_count": 1974,
+          "removed_non_signature_count": 1974,
+          "added_non_signature_sample": [
+            "res/anim/abc_fade_in.xml",
+            "res/anim/abc_fade_out.xml",
+            "res/anim/abc_grow_fade_in_from_bottom.xml",
+            "res/anim/abc_popup_enter.xml",
+            "res/anim/abc_popup_exit.xml",
+            "res/anim/abc_shrink_fade_out_from_bottom.xml",
+            "res/anim/abc_slide_in_bottom.xml",
+            "res/anim/abc_slide_in_top.xml",
+            "res/anim/abc_slide_out_bottom.xml",
+            "res/anim/abc_slide_out_top.xml"
+          ],
+          "removed_non_signature_sample": [
+            "res/-0.png",
+            "res/-1.xml",
+            "res/-2.png",
+            "res/-4.png",
+            "res/-5.xml",
+            "res/-6.png",
+            "res/-7.xml",
+            "res/-71.xml",
+            "res/-9.png",
+            "res/-A.png"
+          ],
+          "original_signature_files": [
+            "META-INF/2C90F2C0.RSA",
+            "META-INF/2C90F2C0.SF",
+            "META-INF/MANIFEST.MF"
+          ],
+          "rebuilt_signature_files": [
+            "META-INF/APKFORGE.RSA",
+            "META-INF/APKFORGE.SF",
+            "META-INF/MANIFEST.MF"
+          ]
+        }
+      },
+      "exported_logs": "build-tests/logs/c2/com.emanuelef.remote_capture_95"
+    },
+    {
+      "apk": "com.oF2pks.applicationsinfo_19.apk",
+      "original_size": 120970,
+      "original_sha256": "c0188f5f1f566e12324bd6bf4bf4f1b9408d852c6cc6b113706503031f13eebd",
+      "original_unchanged_after_build": true,
+      "success": true,
+      "stages": {
+        "prepare": "PASS",
+        "decode": "PASS",
+        "build": "PASS",
+        "align": "PASS",
+        "sign": "PASS",
+        "verify": "PASS"
+      },
+      "stage_durations_seconds": {
+        "prepare": 0.07,
+        "decode": 0.77,
+        "build": 0.65,
+        "align": 0.0,
+        "sign": 0.4,
+        "verify": 0.19
+      },
+      "failure_stage": null,
+      "failure_category": "SUCCESS",
+      "failure_cause": "",
+      "failure_evidence": null,
+      "duration_seconds": 2.35,
+      "output_apk": "/home/naishring/APKForge/work/c2/20261002T153924Z/outputs/com.oF2pks.applicationsinfo_19.rebuilt.apk",
+      "rebuilt_size": 125984,
+      "workspace": "/home/naishring/APKForge/work/c2/20261002T153924Z/workspaces/20261002T153936Z-9957f018",
+      "verification": {
+        "valid": true,
+        "zipalign_verified": true,
+        "signature_verified": true,
+        "expected_signer_matched": true,
+        "zip_integrity_verified": true,
+        "manifest_present": true,
+        "certificate": {
+          "subject_dn": "CN=APKForge Development Key - NOT FOR RELEASE, O=APKForge",
+          "sha256_digest": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "signer_count": 1,
+          "v1_scheme": true,
+          "v2_scheme": true,
+          "v3_scheme": true,
+          "v31_scheme": false,
+          "v4_scheme": false
+        },
+        "expected_certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+        "apksigner_warnings": [
+          "META-INF/com/android/build/gradle/app-metadata.properties not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/."
+        ],
+        "errors": []
+      },
+      "warnings": [
+        "apksigner: 1 META-INF entry not covered by the v1 signature (non-signature files carried over from the original APK; see verification.apksigner_warnings)."
+      ],
+      "integrity": {
+        "native_libs": {
+          "count": 0,
+          "identical": 0,
+          "mismatched": [],
+          "missing_in_rebuilt": [],
+          "all_identical": true
+        },
+        "dex": {
+          "original_files": 1,
+          "rebuilt_files": 1,
+          "original_bytes": 107904,
+          "rebuilt_bytes": 107796,
+          "byte_identical_files": 0,
+          "same_file_set": true
+        },
+        "resources_arsc": {
+          "present_original": true,
+          "present_rebuilt": true,
+          "original_bytes": 21276,
+          "rebuilt_bytes": 22192,
+          "byte_identical": false
+        },
+        "manifest": {
+          "rebuilt_parseable": true,
+          "byte_identical": false,
+          "identity_and_component_counts_match": true,
+          "original": {
+            "parseable": true,
+            "package": "com.oF2pks.applicationsinfo",
+            "version_code": "19",
+            "version_name": "1.7-19",
+            "min_sdk": "16",
+            "target_sdk": "32",
+            "components": {
+              "uses-permission": 4,
+              "permission": 0,
+              "activity": 4,
+              "activity-alias": 0,
+              "service": 0,
+              "receiver": 0,
+              "provider": 0
+            }
+          },
+          "rebuilt": {
+            "parseable": true,
+            "package": "com.oF2pks.applicationsinfo",
+            "version_code": "19",
+            "version_name": "1.7-19",
+            "min_sdk": "16",
+            "target_sdk": "32",
+            "components": {
+              "uses-permission": 4,
+              "permission": 0,
+              "activity": 4,
+              "activity-alias": 0,
+              "service": 0,
+              "receiver": 0,
+              "provider": 0
+            }
+          }
+        },
+        "entries": {
+          "original_count": 37,
+          "rebuilt_count": 37,
+          "added_non_signature_count": 30,
+          "removed_non_signature_count": 30,
+          "added_non_signature_sample": [
+            "res/drawable-nodpi/icon_art_appinfos.png",
+            "res/drawable-xxhdpi/ic_action_overflow.png",
+            "res/drawable-xxhdpi/ic_arrow_right.png",
+            "res/drawable-xxhdpi/ic_launcher_appinfos.png",
+            "res/drawable-xxhdpi/ic_refresh.png",
+            "res/drawable-xxhdpi/ic_sort_descending.png",
+            "res/drawable-xxhdpi/item_favorite.png",
+            "res/layout-v17/appinfos_detail_activities.xml",
+            "res/layout-v17/appinfos_detail_configurations.xml",
+            "res/layout-v17/appinfos_detail_features.xml"
+          ],
+          "removed_non_signature_sample": [
+            "res/-l.xml",
+            "res/35.png",
+            "res/6u.xml",
+            "res/7W.png",
+            "res/8X.xml",
+            "res/9r.xml",
+            "res/B1.xml",
+            "res/Hr.xml",
+            "res/LQ.png",
+            "res/QT.xml"
+          ],
+          "original_signature_files": [
+            "META-INF/D8862F1D.RSA",
+            "META-INF/D8862F1D.SF",
+            "META-INF/MANIFEST.MF"
+          ],
+          "rebuilt_signature_files": [
+            "META-INF/APKFORGE.RSA",
+            "META-INF/APKFORGE.SF",
+            "META-INF/MANIFEST.MF"
+          ]
+        }
+      },
+      "exported_logs": "build-tests/logs/c2/com.oF2pks.applicationsinfo_19"
+    },
+    {
+      "apk": "de.audioattack.openlink_28.apk",
+      "original_size": 235707,
+      "original_sha256": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+      "original_unchanged_after_build": true,
+      "success": true,
+      "stages": {
+        "prepare": "PASS",
+        "decode": "PASS",
+        "build": "PASS",
+        "align": "PASS",
+        "sign": "PASS",
+        "verify": "PASS"
+      },
+      "stage_durations_seconds": {
+        "prepare": 0.06,
+        "decode": 0.9,
+        "build": 0.61,
+        "align": 0.0,
+        "sign": 0.41,
+        "verify": 0.2
+      },
+      "failure_stage": null,
+      "failure_category": "SUCCESS",
+      "failure_cause": "",
+      "failure_evidence": null,
+      "duration_seconds": 2.46,
+      "output_apk": "/home/naishring/APKForge/work/c2/20261002T153924Z/outputs/de.audioattack.openlink_28.rebuilt.apk",
+      "rebuilt_size": 245919,
+      "workspace": "/home/naishring/APKForge/work/c2/20261002T153924Z/workspaces/20261002T153938Z-f0697414",
+      "verification": {
+        "valid": true,
+        "zipalign_verified": true,
+        "signature_verified": true,
+        "expected_signer_matched": true,
+        "zip_integrity_verified": true,
+        "manifest_present": true,
+        "certificate": {
+          "subject_dn": "CN=APKForge Development Key - NOT FOR RELEASE, O=APKForge",
+          "sha256_digest": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "signer_count": 1,
+          "v1_scheme": true,
+          "v2_scheme": true,
+          "v3_scheme": true,
+          "v31_scheme": false,
+          "v4_scheme": false
+        },
+        "expected_certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+        "apksigner_warnings": [
+          "META-INF/version-control-info.textproto not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.annotation_annotation-experimental.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.arch.core_core-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.core_core-viewtree.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.core_core.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.interpolator_interpolator.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.profileinstaller_profileinstaller.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.startup_startup-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.tracing_tracing.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.versionedparcelable_versionedparcelable.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/kotlinx_coroutines_android.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/kotlinx_coroutines_core.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/com/android/build/gradle/app-metadata.properties not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx/annotation/annotation/LICENSE.txt not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/versions/9/OSGI-INF/MANIFEST.MF not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/."
+        ],
+        "errors": []
+      },
+      "warnings": [
+        "apksigner: 16 META-INF entries not covered by the v1 signature (non-signature files carried over from the original APK; see verification.apksigner_warnings)."
+      ],
+      "integrity": {
+        "native_libs": {
+          "count": 0,
+          "identical": 0,
+          "mismatched": [],
+          "missing_in_rebuilt": [],
+          "all_identical": true
+        },
+        "dex": {
+          "original_files": 1,
+          "rebuilt_files": 1,
+          "original_bytes": 79648,
+          "rebuilt_bytes": 90696,
+          "byte_identical_files": 0,
+          "same_file_set": true
+        },
+        "resources_arsc": {
+          "present_original": true,
+          "present_rebuilt": true,
+          "original_bytes": 67536,
+          "rebuilt_bytes": 69556,
+          "byte_identical": false
+        },
+        "manifest": {
+          "rebuilt_parseable": true,
+          "byte_identical": false,
+          "identity_and_component_counts_match": true,
+          "original": {
+            "parseable": true,
+            "package": "de.audioattack.openlink",
+            "version_code": "28",
+            "version_name": "1.5.11",
+            "min_sdk": "21",
+            "target_sdk": "36",
+            "components": {
+              "uses-permission": 2,
+              "permission": 1,
+              "activity": 3,
+              "activity-alias": 0,
+              "service": 0,
+              "receiver": 2,
+              "provider": 1
+            }
+          },
+          "rebuilt": {
+            "parseable": true,
+            "package": "de.audioattack.openlink",
+            "version_code": "28",
+            "version_name": "1.5.11",
+            "min_sdk": "21",
+            "target_sdk": "36",
+            "components": {
+              "uses-permission": 2,
+              "permission": 1,
+              "activity": 3,
+              "activity-alias": 0,
+              "service": 0,
+              "receiver": 2,
+              "provider": 1
+            }
+          }
+        },
+        "entries": {
+          "original_count": 96,
+          "rebuilt_count": 96,
+          "added_non_signature_count": 64,
+          "removed_non_signature_count": 64,
+          "added_non_signature_sample": [
+            "res/drawable-anydpi-v26/ic_incognito_foreground.xml",
+            "res/drawable-anydpi-v26/ic_launcher_foreground.xml",
+            "res/drawable-anydpi-v26/ic_launcher_monochrome.xml",
+            "res/drawable-hdpi/notification_bg_low_normal.9.png",
+            "res/drawable-hdpi/notification_bg_low_pressed.9.png",
+            "res/drawable-hdpi/notification_bg_normal.9.png",
+            "res/drawable-hdpi/notification_bg_normal_pressed.9.png",
+            "res/drawable-hdpi/notification_oversize_large_icon_bg.png",
+            "res/drawable-hdpi/notify_panel_notification_icon_bg.png",
+            "res/drawable-mdpi/notification_bg_low_normal.9.png"
+          ],
+          "removed_non_signature_sample": [
+            "res/-U.xml",
+            "res/0K.xml",
+            "res/2H.xml",
+            "res/2K.9.png",
+            "res/4z.xml",
+            "res/5c.png",
+            "res/5q.png",
+            "res/5t.png",
+            "res/7n.png",
+            "res/8c.png"
+          ],
+          "original_signature_files": [
+            "META-INF/C4961B96.RSA",
+            "META-INF/C4961B96.SF",
+            "META-INF/MANIFEST.MF"
+          ],
+          "rebuilt_signature_files": [
+            "META-INF/APKFORGE.RSA",
+            "META-INF/APKFORGE.SF",
+            "META-INF/MANIFEST.MF"
+          ]
+        }
+      },
+      "exported_logs": "build-tests/logs/c2/de.audioattack.openlink_28"
+    },
+    {
+      "apk": "de.danoeh.antennapod_3120295.apk",
+      "original_size": 17749828,
+      "original_sha256": "3f43a4337a693cdb49141afe06cb596e88c796009ed77bff51e9444ce2d1ebfc",
+      "original_unchanged_after_build": true,
+      "success": true,
+      "stages": {
+        "prepare": "PASS",
+        "decode": "PASS",
+        "build": "PASS",
+        "align": "PASS",
+        "sign": "PASS",
+        "verify": "PASS"
+      },
+      "stage_durations_seconds": {
+        "prepare": 0.1,
+        "decode": 3.43,
+        "build": 9.08,
+        "align": 0.02,
+        "sign": 0.74,
+        "verify": 0.58
+      },
+      "failure_stage": null,
+      "failure_category": "SUCCESS",
+      "failure_cause": "",
+      "failure_evidence": null,
+      "duration_seconds": 14.31,
+      "output_apk": "/home/naishring/APKForge/work/c2/20261002T153924Z/outputs/de.danoeh.antennapod_3120295.rebuilt.apk",
+      "rebuilt_size": 17919654,
+      "workspace": "/home/naishring/APKForge/work/c2/20261002T153924Z/workspaces/20261002T153940Z-8519535b",
+      "verification": {
+        "valid": true,
+        "zipalign_verified": true,
+        "signature_verified": true,
+        "expected_signer_matched": true,
+        "zip_integrity_verified": true,
+        "manifest_present": true,
+        "certificate": {
+          "subject_dn": "CN=APKForge Development Key - NOT FOR RELEASE, O=APKForge",
+          "sha256_digest": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "signer_count": 1,
+          "v1_scheme": true,
+          "v2_scheme": true,
+          "v3_scheme": true,
+          "v31_scheme": false,
+          "v4_scheme": false
+        },
+        "expected_certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+        "apksigner_warnings": [
+          "META-INF/version-control-info.textproto not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.activity_activity-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.activity_activity.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.annotation_annotation-experimental.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.appcompat_appcompat-resources.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.appcompat_appcompat.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.arch.core_core-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.asynclayoutinflater_asynclayoutinflater.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.car.app_app.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.cardview_cardview.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.coordinatorlayout_coordinatorlayout.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.core_core-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.core_core-splashscreen.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.core_core-viewtree.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.core_core.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.cursoradapter_cursoradapter.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.customview_customview-poolingcontainer.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.customview_customview.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.databinding_viewbinding.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.documentfile_documentfile.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.drawerlayout_drawerlayout.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.dynamicanimation_dynamicanimation.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.emoji2_emoji2-views-helper.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.emoji2_emoji2.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.exifinterface_exifinterface.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.fragment_fragment-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.fragment_fragment.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.gridlayout_gridlayout.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.interpolator_interpolator.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.legacy_legacy-support-core-ui.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.legacy_legacy-support-core-utils.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-livedata-core-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-livedata-core.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-livedata.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-process.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-runtime-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-service.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-viewmodel-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-viewmodel-savedstate.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-viewmodel.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.loader_loader.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.localbroadcastmanager_localbroadcastmanager.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.media_media.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.palette_palette.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.preference_preference.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.print_print.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.profileinstaller_profileinstaller.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.recyclerview_recyclerview.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.room_room-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.room_room-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.savedstate_savedstate-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.savedstate_savedstate.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.slidingpanelayout_slidingpanelayout.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.sqlite_sqlite-framework.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.sqlite_sqlite.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.startup_startup-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.swiperefreshlayout_swiperefreshlayout.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.tracing_tracing-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.tracing_tracing.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.transition_transition.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.vectordrawable_vectordrawable-animated.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.vectordrawable_vectordrawable.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.versionedparcelable_versionedparcelable.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.viewpager2_viewpager2.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.viewpager_viewpager.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.window_window.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.work_work-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/com.google.android.material_material.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/kotlinx_coroutines_android.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/kotlinx_coroutines_core.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/com/android/build/gradle/app-metadata.properties not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/services/kotlinx.coroutines.CoroutineExceptionHandler not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/services/kotlinx.coroutines.internal.MainDispatcherFactory not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/versions/9/OSGI-INF/MANIFEST.MF not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/."
+        ],
+        "errors": []
+      },
+      "warnings": [
+        "apksigner: 75 META-INF entries not covered by the v1 signature (non-signature files carried over from the original APK; see verification.apksigner_warnings)."
+      ],
+      "integrity": {
+        "native_libs": {
+          "count": 4,
+          "identical": 4,
+          "mismatched": [],
+          "missing_in_rebuilt": [],
+          "all_identical": true
+        },
+        "dex": {
+          "original_files": 3,
+          "rebuilt_files": 3,
+          "original_bytes": 13233368,
+          "rebuilt_bytes": 13254360,
+          "byte_identical_files": 0,
+          "same_file_set": true
+        },
+        "resources_arsc": {
+          "present_original": true,
+          "present_rebuilt": true,
+          "original_bytes": 3084668,
+          "rebuilt_bytes": 3123420,
+          "byte_identical": false
+        },
+        "manifest": {
+          "rebuilt_parseable": true,
+          "byte_identical": false,
+          "identity_and_component_counts_match": true,
+          "original": {
+            "parseable": true,
+            "package": "de.danoeh.antennapod",
+            "version_code": "3120295",
+            "version_name": "3.12.2",
+            "min_sdk": "23",
+            "target_sdk": "36",
+            "components": {
+              "uses-permission": 11,
+              "permission": 1,
+              "activity": 12,
+              "activity-alias": 0,
+              "service": 7,
+              "receiver": 16,
+              "provider": 3
+            }
+          },
+          "rebuilt": {
+            "parseable": true,
+            "package": "de.danoeh.antennapod",
+            "version_code": "3120295",
+            "version_name": "3.12.2",
+            "min_sdk": "23",
+            "target_sdk": "36",
+            "components": {
+              "uses-permission": 11,
+              "permission": 1,
+              "activity": 12,
+              "activity-alias": 0,
+              "service": 7,
+              "receiver": 16,
+              "provider": 3
+            }
+          }
+        },
+        "entries": {
+          "original_count": 1516,
+          "rebuilt_count": 1516,
+          "added_non_signature_count": 1216,
+          "removed_non_signature_count": 1216,
+          "added_non_signature_sample": [
+            "res/anim/abc_grow_fade_in_from_bottom.xml",
+            "res/anim/abc_popup_enter.xml",
+            "res/anim/abc_popup_exit.xml",
+            "res/anim/abc_shrink_fade_out_from_bottom.xml",
+            "res/anim/abc_tooltip_enter.xml",
+            "res/anim/abc_tooltip_exit.xml",
+            "res/anim/balloon_dispose_center.xml",
+            "res/anim/balloon_elastic_center.xml",
+            "res/anim/balloon_fade.xml",
+            "res/anim/balloon_fade_in.xml"
+          ],
+          "removed_non_signature_sample": [
+            "res/-1.xml",
+            "res/-5.xml",
+            "res/-7.xml",
+            "res/-8.xml",
+            "res/-B.png",
+            "res/-B.xml",
+            "res/-J.png",
+            "res/-N.png",
+            "res/-Q.xml",
+            "res/-R.xml"
+          ],
+          "original_signature_files": [
+            "META-INF/697C4250.RSA",
+            "META-INF/697C4250.SF",
+            "META-INF/MANIFEST.MF"
+          ],
+          "rebuilt_signature_files": [
+            "META-INF/APKFORGE.RSA",
+            "META-INF/APKFORGE.SF",
+            "META-INF/MANIFEST.MF"
+          ]
+        }
+      },
+      "exported_logs": "build-tests/logs/c2/de.danoeh.antennapod_3120295"
+    },
+    {
+      "apk": "eu.siacs.conversations_4218104.apk",
+      "original_size": 30749589,
+      "original_sha256": "3fae646e33b59b95f049ce9bd828022e2edbb374fa82e517bd782aced71ba980",
+      "original_unchanged_after_build": true,
+      "success": true,
+      "stages": {
+        "prepare": "PASS",
+        "decode": "PASS",
+        "build": "PASS",
+        "align": "PASS",
+        "sign": "PASS",
+        "verify": "PASS"
+      },
+      "stage_durations_seconds": {
+        "prepare": 0.11,
+        "decode": 2.89,
+        "build": 9.54,
+        "align": 0.02,
+        "sign": 0.8,
+        "verify": 0.68
+      },
+      "failure_stage": null,
+      "failure_category": "SUCCESS",
+      "failure_cause": "",
+      "failure_evidence": null,
+      "duration_seconds": 14.46,
+      "output_apk": "/home/naishring/APKForge/work/c2/20261002T153924Z/outputs/eu.siacs.conversations_4218104.rebuilt.apk",
+      "rebuilt_size": 31135619,
+      "workspace": "/home/naishring/APKForge/work/c2/20261002T153924Z/workspaces/20261002T153955Z-0280d910",
+      "verification": {
+        "valid": true,
+        "zipalign_verified": true,
+        "signature_verified": true,
+        "expected_signer_matched": true,
+        "zip_integrity_verified": true,
+        "manifest_present": true,
+        "certificate": {
+          "subject_dn": "CN=APKForge Development Key - NOT FOR RELEASE, O=APKForge",
+          "sha256_digest": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "signer_count": 1,
+          "v1_scheme": true,
+          "v2_scheme": true,
+          "v3_scheme": true,
+          "v31_scheme": false,
+          "v4_scheme": false
+        },
+        "expected_certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+        "apksigner_warnings": [
+          "META-INF/version-control-info.textproto not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.activity_activity-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.activity_activity.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.annotation_annotation-experimental.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.appcompat_appcompat-resources.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.appcompat_appcompat.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.arch.core_core-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.cardview_cardview.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.constraintlayout_constraintlayout.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.coordinatorlayout_coordinatorlayout.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.core_core-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.core_core-viewtree.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.core_core.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.cursoradapter_cursoradapter.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.customview_customview.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.databinding_baseAdapters.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.databinding_databindingKtx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.databinding_library.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.databinding_viewbinding.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.documentfile_documentfile.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.drawerlayout_drawerlayout.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.dynamicanimation_dynamicanimation.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.emoji2_emoji2-bundled.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.emoji2_emoji2-emojipicker.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.emoji2_emoji2-views-helper.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.emoji2_emoji2.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.exifinterface_exifinterface.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.fragment_fragment-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.fragment_fragment.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.graphics_graphics-shapes.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.heifwriter_heifwriter.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.interpolator_interpolator.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-livedata-core-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-livedata-core.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-livedata.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-process.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-runtime-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-service.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-viewmodel-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-viewmodel-savedstate.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-viewmodel.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.loader_loader.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.preference_preference.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.profileinstaller_profileinstaller.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.recyclerview_recyclerview.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.room_room-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.savedstate_savedstate-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.savedstate_savedstate.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.sharetarget_sharetarget.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.slidingpanelayout_slidingpanelayout.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.sqlite_sqlite-framework.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.sqlite_sqlite.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.startup_startup-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.swiperefreshlayout_swiperefreshlayout.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.tracing_tracing-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.tracing_tracing.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.transition_transition.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.vectordrawable_vectordrawable-animated.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.vectordrawable_vectordrawable.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.versionedparcelable_versionedparcelable.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.viewpager2_viewpager2.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.viewpager_viewpager.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.window_window.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.work_work-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/com.google.android.material_material.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/kotlinx_coroutines_android.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/kotlinx_coroutines_core.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/kotlinx_coroutines_guava.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/mailcap not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/com/android/build/gradle/app-metadata.properties not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx/annotation/annotation/LICENSE.txt not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx/concurrent/concurrent-futures-ktx/LICENSE.txt not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx/concurrent/concurrent-futures/LICENSE.txt not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx/constraintlayout/constraintlayout-core/LICENSE.txt not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx/emoji2/emoji2/LICENSE.txt not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx/room/room-common/LICENSE.txt not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/services/java.security.Provider not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/services/kotlinx.coroutines.android.AndroidDispatcherFactory not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/services/kotlinx.coroutines.android.AndroidExceptionPreHandler not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/."
+        ],
+        "errors": []
+      },
+      "warnings": [
+        "apksigner: 80 META-INF entries not covered by the v1 signature (non-signature files carried over from the original APK; see verification.apksigner_warnings)."
+      ],
+      "integrity": {
+        "native_libs": {
+          "count": 2,
+          "identical": 2,
+          "mismatched": [],
+          "missing_in_rebuilt": [],
+          "all_identical": true
+        },
+        "dex": {
+          "original_files": 2,
+          "rebuilt_files": 2,
+          "original_bytes": 8292252,
+          "rebuilt_bytes": 9765472,
+          "byte_identical_files": 0,
+          "same_file_set": true
+        },
+        "resources_arsc": {
+          "present_original": true,
+          "present_rebuilt": true,
+          "original_bytes": 3813284,
+          "rebuilt_bytes": 3847468,
+          "byte_identical": false
+        },
+        "manifest": {
+          "rebuilt_parseable": true,
+          "byte_identical": false,
+          "identity_and_component_counts_match": true,
+          "original": {
+            "parseable": true,
+            "package": "eu.siacs.conversations",
+            "version_code": "4218104",
+            "version_name": "2.20.4+free",
+            "min_sdk": "23",
+            "target_sdk": "37",
+            "components": {
+              "uses-permission": 51,
+              "permission": 1,
+              "activity": 40,
+              "activity-alias": 0,
+              "service": 6,
+              "receiver": 6,
+              "provider": 4
+            }
+          },
+          "rebuilt": {
+            "parseable": true,
+            "package": "eu.siacs.conversations",
+            "version_code": "4218104",
+            "version_name": "2.20.4+free",
+            "min_sdk": "23",
+            "target_sdk": "37",
+            "components": {
+              "uses-permission": 51,
+              "permission": 1,
+              "activity": 40,
+              "activity-alias": 0,
+              "service": 6,
+              "receiver": 6,
+              "provider": 4
+            }
+          }
+        },
+        "entries": {
+          "original_count": 1339,
+          "rebuilt_count": 1339,
+          "added_non_signature_count": 1035,
+          "removed_non_signature_count": 1035,
+          "added_non_signature_sample": [
+            "res/anim/abc_grow_fade_in_from_bottom.xml",
+            "res/anim/abc_popup_enter.xml",
+            "res/anim/abc_popup_exit.xml",
+            "res/anim/abc_shrink_fade_out_from_bottom.xml",
+            "res/anim/abc_tooltip_enter.xml",
+            "res/anim/abc_tooltip_exit.xml",
+            "res/anim/btn_checkbox_to_checked_box_inner_merged_animation.xml",
+            "res/anim/btn_checkbox_to_checked_box_outer_merged_animation.xml",
+            "res/anim/btn_checkbox_to_checked_icon_null_animation.xml",
+            "res/anim/btn_checkbox_to_unchecked_box_inner_merged_animation.xml"
+          ],
+          "removed_non_signature_sample": [
+            "res/-1.png",
+            "res/-1.xml",
+            "res/-9.xml",
+            "res/-B.png",
+            "res/-B.xml",
+            "res/-K.xml",
+            "res/-N.png",
+            "res/-P.xml",
+            "res/-V.xml",
+            "res/-Z.xml"
+          ],
+          "original_signature_files": [
+            "META-INF/CERT.RSA",
+            "META-INF/CERT.SF",
+            "META-INF/MANIFEST.MF"
+          ],
+          "rebuilt_signature_files": [
+            "META-INF/APKFORGE.RSA",
+            "META-INF/APKFORGE.SF",
+            "META-INF/MANIFEST.MF"
+          ]
+        }
+      },
+      "exported_logs": "build-tests/logs/c2/eu.siacs.conversations_4218104"
+    },
+    {
+      "apk": "godau.fynn.usagedirect_10.apk",
+      "original_size": 3469642,
+      "original_sha256": "c55079192a77fc6696a80c6d337c3f0c64fe4ebc27e5970aaf4baac0a60a3b31",
+      "original_unchanged_after_build": true,
+      "success": true,
+      "stages": {
+        "prepare": "PASS",
+        "decode": "PASS",
+        "build": "PASS",
+        "align": "PASS",
+        "sign": "PASS",
+        "verify": "PASS"
+      },
+      "stage_durations_seconds": {
+        "prepare": 0.07,
+        "decode": 2.56,
+        "build": 5.84,
+        "align": 0.01,
+        "sign": 0.51,
+        "verify": 0.32
+      },
+      "failure_stage": null,
+      "failure_category": "SUCCESS",
+      "failure_cause": "",
+      "failure_evidence": null,
+      "duration_seconds": 9.61,
+      "output_apk": "/home/naishring/APKForge/work/c2/20261002T153924Z/outputs/godau.fynn.usagedirect_10.rebuilt.apk",
+      "rebuilt_size": 3575706,
+      "workspace": "/home/naishring/APKForge/work/c2/20261002T153924Z/workspaces/20261002T154010Z-a60a7cca",
+      "verification": {
+        "valid": true,
+        "zipalign_verified": true,
+        "signature_verified": true,
+        "expected_signer_matched": true,
+        "zip_integrity_verified": true,
+        "manifest_present": true,
+        "certificate": {
+          "subject_dn": "CN=APKForge Development Key - NOT FOR RELEASE, O=APKForge",
+          "sha256_digest": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "signer_count": 1,
+          "v1_scheme": true,
+          "v2_scheme": true,
+          "v3_scheme": true,
+          "v31_scheme": false,
+          "v4_scheme": false
+        },
+        "expected_certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+        "apksigner_warnings": [
+          "META-INF/version-control-info.textproto not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.activity_activity.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.annotation_annotation-experimental.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.appcompat_appcompat.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.arch.core_core-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.asynclayoutinflater_asynclayoutinflater.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.coordinatorlayout_coordinatorlayout.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.core_core-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.core_core.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.cursoradapter_cursoradapter.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.customview_customview-poolingcontainer.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.customview_customview.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.documentfile_documentfile.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.drawerlayout_drawerlayout.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.fragment_fragment.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.interpolator_interpolator.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.legacy_legacy-support-core-ui.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.legacy_legacy-support-core-utils.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-livedata-core.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-livedata.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-viewmodel-savedstate.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-viewmodel.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.loader_loader.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.localbroadcastmanager_localbroadcastmanager.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.palette_palette.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.print_print.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.profileinstaller_profileinstaller.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.recyclerview_recyclerview.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.room_room-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.savedstate_savedstate.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.slidingpanelayout_slidingpanelayout.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.sqlite_sqlite-framework.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.sqlite_sqlite.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.startup_startup-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.swiperefreshlayout_swiperefreshlayout.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.tracing_tracing.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.vectordrawable_vectordrawable-animated.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.vectordrawable_vectordrawable.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.versionedparcelable_versionedparcelable.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.viewpager_viewpager.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/kotlinx_coroutines_android.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/kotlinx_coroutines_core.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/com/android/build/gradle/app-metadata.properties not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/services/kotlinx.coroutines.CoroutineExceptionHandler not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/services/kotlinx.coroutines.internal.MainDispatcherFactory not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/services/org.ocpsoft.prettytime.PrettyTime not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/."
+        ],
+        "errors": []
+      },
+      "warnings": [
+        "apksigner: 47 META-INF entries not covered by the v1 signature (non-signature files carried over from the original APK; see verification.apksigner_warnings)."
+      ],
+      "integrity": {
+        "native_libs": {
+          "count": 0,
+          "identical": 0,
+          "mismatched": [],
+          "missing_in_rebuilt": [],
+          "all_identical": true
+        },
+        "dex": {
+          "original_files": 2,
+          "rebuilt_files": 2,
+          "original_bytes": 7343744,
+          "rebuilt_bytes": 7359992,
+          "byte_identical_files": 0,
+          "same_file_set": true
+        },
+        "resources_arsc": {
+          "present_original": true,
+          "present_rebuilt": true,
+          "original_bytes": 345204,
+          "rebuilt_bytes": 361156,
+          "byte_identical": false
+        },
+        "manifest": {
+          "rebuilt_parseable": true,
+          "byte_identical": false,
+          "identity_and_component_counts_match": true,
+          "original": {
+            "parseable": true,
+            "package": "godau.fynn.usagedirect",
+            "version_code": "10",
+            "version_name": "0.8.1",
+            "min_sdk": "21",
+            "target_sdk": "28",
+            "components": {
+              "uses-permission": 2,
+              "permission": 0,
+              "activity": 5,
+              "activity-alias": 0,
+              "service": 2,
+              "receiver": 2,
+              "provider": 1
+            }
+          },
+          "rebuilt": {
+            "parseable": true,
+            "package": "godau.fynn.usagedirect",
+            "version_code": "10",
+            "version_name": "0.8.1",
+            "min_sdk": "21",
+            "target_sdk": "28",
+            "components": {
+              "uses-permission": 2,
+              "permission": 0,
+              "activity": 5,
+              "activity-alias": 0,
+              "service": 2,
+              "receiver": 2,
+              "provider": 1
+            }
+          }
+        },
+        "entries": {
+          "original_count": 528,
+          "rebuilt_count": 528,
+          "added_non_signature_count": 434,
+          "removed_non_signature_count": 434,
+          "added_non_signature_sample": [
+            "res/anim/abc_fade_in.xml",
+            "res/anim/abc_fade_out.xml",
+            "res/anim/abc_grow_fade_in_from_bottom.xml",
+            "res/anim/abc_popup_enter.xml",
+            "res/anim/abc_popup_exit.xml",
+            "res/anim/abc_shrink_fade_out_from_bottom.xml",
+            "res/anim/abc_slide_in_bottom.xml",
+            "res/anim/abc_slide_in_top.xml",
+            "res/anim/abc_slide_out_bottom.xml",
+            "res/anim/abc_slide_out_top.xml"
+          ],
+          "removed_non_signature_sample": [
+            "res/-6.xml",
+            "res/-B.png",
+            "res/0K.xml",
+            "res/0M.xml",
+            "res/0W.xml",
+            "res/0Z.png",
+            "res/0c.9.png",
+            "res/0x.9.png",
+            "res/13.xml",
+            "res/15.png"
+          ],
+          "original_signature_files": [
+            "META-INF/4F03C91F.RSA",
+            "META-INF/4F03C91F.SF",
+            "META-INF/MANIFEST.MF"
+          ],
+          "rebuilt_signature_files": [
+            "META-INF/APKFORGE.RSA",
+            "META-INF/APKFORGE.SF",
+            "META-INF/MANIFEST.MF"
+          ]
+        }
+      },
+      "exported_logs": "build-tests/logs/c2/godau.fynn.usagedirect_10"
+    },
+    {
+      "apk": "io.github.muntashirakon.AppManager_451.apk",
+      "original_size": 28145654,
+      "original_sha256": "e1f6ba10812c74016ad626e11e27a1ae450aec2c0964a11466abb9e7a9c8ef84",
+      "original_unchanged_after_build": true,
+      "success": true,
+      "stages": {
+        "prepare": "PASS",
+        "decode": "PASS",
+        "build": "PASS",
+        "align": "PASS",
+        "sign": "PASS",
+        "verify": "PASS"
+      },
+      "stage_durations_seconds": {
+        "prepare": 0.12,
+        "decode": 6.55,
+        "build": 14.0,
+        "align": 0.04,
+        "sign": 1.12,
+        "verify": 0.86
+      },
+      "failure_stage": null,
+      "failure_category": "SUCCESS",
+      "failure_cause": "",
+      "failure_evidence": null,
+      "duration_seconds": 23.22,
+      "output_apk": "/home/naishring/APKForge/work/c2/20261002T153924Z/outputs/io.github.muntashirakon.AppManager_451.rebuilt.apk",
+      "rebuilt_size": 28519252,
+      "workspace": "/home/naishring/APKForge/work/c2/20261002T153924Z/workspaces/20261002T154020Z-f286bcc1",
+      "verification": {
+        "valid": true,
+        "zipalign_verified": true,
+        "signature_verified": true,
+        "expected_signer_matched": true,
+        "zip_integrity_verified": true,
+        "manifest_present": true,
+        "certificate": {
+          "subject_dn": "CN=APKForge Development Key - NOT FOR RELEASE, O=APKForge",
+          "sha256_digest": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "signer_count": 1,
+          "v1_scheme": true,
+          "v2_scheme": true,
+          "v3_scheme": true,
+          "v31_scheme": false,
+          "v4_scheme": false
+        },
+        "expected_certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+        "apksigner_warnings": [
+          "META-INF/version-control-info.textproto not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/com/android/build/gradle/app-metadata.properties not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx/annotation/annotation/LICENSE.txt not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx/room/room-common/LICENSE.txt not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/services/jadx.api.plugins.JadxPlugin not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/services/java.nio.charset.spi.CharsetProvider not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/services/java.security.Provider not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/services/kotlinx.coroutines.CoroutineExceptionHandler not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/services/kotlinx.coroutines.internal.MainDispatcherFactory not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/."
+        ],
+        "errors": []
+      },
+      "warnings": [
+        "apksigner: 9 META-INF entries not covered by the v1 signature (non-signature files carried over from the original APK; see verification.apksigner_warnings)."
+      ],
+      "integrity": {
+        "native_libs": {
+          "count": 16,
+          "identical": 16,
+          "mismatched": [],
+          "missing_in_rebuilt": [],
+          "all_identical": true
+        },
+        "dex": {
+          "original_files": 6,
+          "rebuilt_files": 6,
+          "original_bytes": 35826628,
+          "rebuilt_bytes": 35861960,
+          "byte_identical_files": 0,
+          "same_file_set": true
+        },
+        "resources_arsc": {
+          "present_original": true,
+          "present_rebuilt": true,
+          "original_bytes": 4700772,
+          "rebuilt_bytes": 4738496,
+          "byte_identical": false
+        },
+        "manifest": {
+          "rebuilt_parseable": true,
+          "byte_identical": false,
+          "identity_and_component_counts_match": true,
+          "original": {
+            "parseable": true,
+            "package": "io.github.muntashirakon.AppManager",
+            "version_code": "451",
+            "version_name": "4.1.1",
+            "min_sdk": "21",
+            "target_sdk": "36",
+            "components": {
+              "uses-permission": 63,
+              "permission": 1,
+              "activity": 39,
+              "activity-alias": 5,
+              "service": 11,
+              "receiver": 7,
+              "provider": 2
+            }
+          },
+          "rebuilt": {
+            "parseable": true,
+            "package": "io.github.muntashirakon.AppManager",
+            "version_code": "451",
+            "version_name": "4.1.1",
+            "min_sdk": "21",
+            "target_sdk": "36",
+            "components": {
+              "uses-permission": 63,
+              "permission": 1,
+              "activity": 39,
+              "activity-alias": 5,
+              "service": 11,
+              "receiver": 7,
+              "provider": 2
+            }
+          }
+        },
+        "entries": {
+          "original_count": 2310,
+          "rebuilt_count": 2310,
+          "added_non_signature_count": 1185,
+          "removed_non_signature_count": 1185,
+          "added_non_signature_sample": [
+            "res/anim/abc_fade_in.xml",
+            "res/anim/abc_fade_out.xml",
+            "res/anim/abc_grow_fade_in_from_bottom.xml",
+            "res/anim/abc_popup_enter.xml",
+            "res/anim/abc_popup_exit.xml",
+            "res/anim/abc_shrink_fade_out_from_bottom.xml",
+            "res/anim/abc_slide_in_bottom.xml",
+            "res/anim/abc_slide_in_top.xml",
+            "res/anim/abc_slide_out_bottom.xml",
+            "res/anim/abc_slide_out_top.xml"
+          ],
+          "removed_non_signature_sample": [
+            "res/-1.xml",
+            "res/-5.xml",
+            "res/-7.xml",
+            "res/-B.png",
+            "res/-B.xml",
+            "res/-D.xml",
+            "res/-G.xml",
+            "res/-G1.xml",
+            "res/-I.png",
+            "res/-M.xml"
+          ],
+          "original_signature_files": [
+            "META-INF/718A221D.RSA",
+            "META-INF/718A221D.SF",
+            "META-INF/MANIFEST.MF"
+          ],
+          "rebuilt_signature_files": [
+            "META-INF/APKFORGE.RSA",
+            "META-INF/APKFORGE.SF",
+            "META-INF/MANIFEST.MF"
+          ]
+        }
+      },
+      "exported_logs": "build-tests/logs/c2/io.github.muntashirakon.AppManager_451"
+    },
+    {
+      "apk": "org.mozilla.fennec_fdroid_1560020.apk",
+      "original_size": 127634542,
+      "original_sha256": "27f2951376ca1085e0933066c902fdfe4d260916d381e233475c5fd6964f5745",
+      "original_unchanged_after_build": true,
+      "success": true,
+      "stages": {
+        "prepare": "PASS",
+        "decode": "PASS",
+        "build": "PASS",
+        "align": "PASS",
+        "sign": "PASS",
+        "verify": "PASS"
+      },
+      "stage_durations_seconds": {
+        "prepare": 0.35,
+        "decode": 9.19,
+        "build": 30.56,
+        "align": 0.09,
+        "sign": 2.79,
+        "verify": 1.03
+      },
+      "failure_stage": null,
+      "failure_category": "SUCCESS",
+      "failure_cause": "",
+      "failure_evidence": null,
+      "duration_seconds": 45.2,
+      "output_apk": "/home/naishring/APKForge/work/c2/20261002T153924Z/outputs/org.mozilla.fennec_fdroid_1560020.rebuilt.apk",
+      "rebuilt_size": 128697368,
+      "workspace": "/home/naishring/APKForge/work/c2/20261002T153924Z/workspaces/20261002T154045Z-b5948e20",
+      "verification": {
+        "valid": true,
+        "zipalign_verified": true,
+        "signature_verified": true,
+        "expected_signer_matched": true,
+        "zip_integrity_verified": true,
+        "manifest_present": true,
+        "certificate": {
+          "subject_dn": "CN=APKForge Development Key - NOT FOR RELEASE, O=APKForge",
+          "sha256_digest": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "signer_count": 1,
+          "v1_scheme": false,
+          "v2_scheme": true,
+          "v3_scheme": true,
+          "v31_scheme": false,
+          "v4_scheme": false
+        },
+        "expected_certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+        "apksigner_warnings": [],
+        "errors": []
+      },
+      "warnings": [],
+      "integrity": {
+        "native_libs": {
+          "count": 15,
+          "identical": 15,
+          "mismatched": [],
+          "missing_in_rebuilt": [],
+          "all_identical": true
+        },
+        "dex": {
+          "original_files": 3,
+          "rebuilt_files": 3,
+          "original_bytes": 29655040,
+          "rebuilt_bytes": 33173168,
+          "byte_identical_files": 0,
+          "same_file_set": true
+        },
+        "resources_arsc": {
+          "present_original": true,
+          "present_rebuilt": true,
+          "original_bytes": 17302880,
+          "rebuilt_bytes": 17378572,
+          "byte_identical": false
+        },
+        "manifest": {
+          "rebuilt_parseable": true,
+          "byte_identical": false,
+          "identity_and_component_counts_match": true,
+          "original": {
+            "parseable": true,
+            "package": "org.mozilla.fennec_fdroid",
+            "version_code": "1560020",
+            "version_name": "156.0.0",
+            "min_sdk": "26",
+            "target_sdk": "37",
+            "components": {
+              "uses-permission": 32,
+              "permission": 3,
+              "activity": 20,
+              "activity-alias": 26,
+              "service": 105,
+              "receiver": 14,
+              "provider": 9
+            }
+          },
+          "rebuilt": {
+            "parseable": true,
+            "package": "org.mozilla.fennec_fdroid",
+            "version_code": "1560020",
+            "version_name": "156.0.0",
+            "min_sdk": "26",
+            "target_sdk": "37",
+            "components": {
+              "uses-permission": 32,
+              "permission": 3,
+              "activity": 20,
+              "activity-alias": 26,
+              "service": 105,
+              "receiver": 14,
+              "provider": 9
+            }
+          }
+        },
+        "entries": {
+          "original_count": 3257,
+          "rebuilt_count": 3257,
+          "added_non_signature_count": 2241,
+          "removed_non_signature_count": 2241,
+          "added_non_signature_sample": [
+            "res/anim-ldrtl/menu_enter_bottom.xml",
+            "res/anim-ldrtl/menu_enter_top.xml",
+            "res/anim/abc_grow_fade_in_from_bottom.xml",
+            "res/anim/abc_popup_enter.xml",
+            "res/anim/abc_popup_exit.xml",
+            "res/anim/abc_shrink_fade_out_from_bottom.xml",
+            "res/anim/abc_tooltip_enter.xml",
+            "res/anim/abc_tooltip_exit.xml",
+            "res/anim/btn_checkbox_to_checked_box_inner_merged_animation.xml",
+            "res/anim/btn_checkbox_to_checked_box_outer_merged_animation.xml"
+          ],
+          "removed_non_signature_sample": [
+            "res/--.xml",
+            "res/-1.xml",
+            "res/-11.xml",
+            "res/-12.xml",
+            "res/-3.xml",
+            "res/-5.xml",
+            "res/-6.webp",
+            "res/-7.xml",
+            "res/-9.xml",
+            "res/-B.png"
+          ],
+          "original_signature_files": [
+            "META-INF/D0EF7A98.RSA",
+            "META-INF/D0EF7A98.SF",
+            "META-INF/MANIFEST.MF"
+          ],
+          "rebuilt_signature_files": [
+            "META-INF/APKFORGE.RSA",
+            "META-INF/APKFORGE.SF",
+            "META-INF/MANIFEST.MF"
+          ]
+        }
+      },
+      "exported_logs": "build-tests/logs/c2/org.mozilla.fennec_fdroid_1560020"
+    },
+    {
+      "apk": "org.schabi.newpipe_1015_cb84069.apk",
+      "original_size": 11507122,
+      "original_sha256": "18447bfb1e06d113edc88df93f471827280de06f6f3d4dc42f56f28b9c1bab79",
+      "original_unchanged_after_build": true,
+      "success": true,
+      "stages": {
+        "prepare": "PASS",
+        "decode": "PASS",
+        "build": "PASS",
+        "align": "PASS",
+        "sign": "PASS",
+        "verify": "PASS"
+      },
+      "stage_durations_seconds": {
+        "prepare": 0.09,
+        "decode": 3.78,
+        "build": 13.14,
+        "align": 0.02,
+        "sign": 0.71,
+        "verify": 0.53
+      },
+      "failure_stage": null,
+      "failure_category": "SUCCESS",
+      "failure_cause": "",
+      "failure_evidence": null,
+      "duration_seconds": 18.66,
+      "output_apk": "/home/naishring/APKForge/work/c2/20261002T153924Z/outputs/org.schabi.newpipe_1015_cb84069.rebuilt.apk",
+      "rebuilt_size": 12052161,
+      "workspace": "/home/naishring/APKForge/work/c2/20261002T153924Z/workspaces/20261002T154132Z-9ec5cb49",
+      "verification": {
+        "valid": true,
+        "zipalign_verified": true,
+        "signature_verified": true,
+        "expected_signer_matched": true,
+        "zip_integrity_verified": true,
+        "manifest_present": true,
+        "certificate": {
+          "subject_dn": "CN=APKForge Development Key - NOT FOR RELEASE, O=APKForge",
+          "sha256_digest": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "signer_count": 1,
+          "v1_scheme": true,
+          "v2_scheme": true,
+          "v3_scheme": true,
+          "v31_scheme": false,
+          "v4_scheme": false
+        },
+        "expected_certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+        "apksigner_warnings": [
+          "META-INF/version-control-info.textproto not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.activity_activity-compose.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.activity_activity-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.activity_activity.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.annotation_annotation-experimental.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.appcompat_appcompat-resources.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.appcompat_appcompat.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.arch.core_core-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.autofill_autofill.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.browser_browser.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.cardview_cardview.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.compose.animation_animation-core.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.compose.animation_animation.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.compose.foundation_foundation-layout.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.compose.foundation_foundation.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.compose.material3_material3.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.compose.material_material-ripple.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.compose.runtime_runtime-annotation.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.compose.runtime_runtime-retain.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.compose.runtime_runtime-saveable.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.compose.runtime_runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.compose.ui_ui-geometry.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.compose.ui_ui-graphics.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.compose.ui_ui-text.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.compose.ui_ui-tooling-preview.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.compose.ui_ui-unit.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.compose.ui_ui-util.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.compose.ui_ui.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.constraintlayout_constraintlayout.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.coordinatorlayout_coordinatorlayout.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.core_core-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.core_core-viewtree.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.core_core.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.cursoradapter_cursoradapter.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.customview_customview-poolingcontainer.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.customview_customview.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.databinding_viewbinding.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.documentfile_documentfile.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.drawerlayout_drawerlayout.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.dynamicanimation_dynamicanimation.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.emoji2_emoji2-views-helper.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.emoji2_emoji2.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.exifinterface_exifinterface.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.fragment_fragment-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.fragment_fragment.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.graphics_graphics-path.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.graphics_graphics-shapes.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.interpolator_interpolator.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.legacy_legacy-support-core-utils.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-livedata-core-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-livedata-core.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-livedata-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-livedata.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-process.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-runtime-compose.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-runtime-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-service.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-viewmodel-compose.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-viewmodel-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-viewmodel-navigation3.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-viewmodel-savedstate.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.lifecycle_lifecycle-viewmodel.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.loader_loader.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.localbroadcastmanager_localbroadcastmanager.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.media_media.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.navigation3_navigation3-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.navigation3_navigation3-ui.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.navigationevent_navigationevent-compose.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.navigationevent_navigationevent.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.preference_preference.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.print_print.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.profileinstaller_profileinstaller.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.recyclerview_recyclerview.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.room_room-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.room_room-rxjava3.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.savedstate_savedstate-compose.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.savedstate_savedstate-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.savedstate_savedstate.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.slidingpanelayout_slidingpanelayout.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.sqlite_sqlite-framework.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.sqlite_sqlite.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.startup_startup-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.swiperefreshlayout_swiperefreshlayout.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.tracing_tracing-ktx.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.tracing_tracing.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.transition_transition.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.vectordrawable_vectordrawable-animated.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.vectordrawable_vectordrawable.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.versionedparcelable_versionedparcelable.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.viewpager2_viewpager2.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.viewpager_viewpager.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.webkit_webkit.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.window_window-core.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.window_window.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.work_work-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx.work_work-rxjava3.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/com.google.android.material_material.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/kotlinx_coroutines_android.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/kotlinx_coroutines_core.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/kotlinx_coroutines_reactive.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/kotlinx_coroutines_rx3.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/com/android/build/gradle/app-metadata.properties not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx/annotation/annotation/LICENSE.txt not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx/collection/collection-ktx/LICENSE.txt not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx/collection/collection/LICENSE.txt not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx/constraintlayout/constraintlayout-core/LICENSE.txt not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx/lifecycle/lifecycle-common-java8/LICENSE.txt not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx/lifecycle/lifecycle-common/LICENSE.txt not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/androidx/room/room-common/LICENSE.txt not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/gradle/incremental.annotation.processors not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/jsoup/LICENSE not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/org/jetbrains/androidx/lifecycle/lifecycle-common/LICENSE.txt not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/verification.properties not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/services/coil3.network.okhttp.internal.OkHttpNetworkFetcherServiceLoaderTarget not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/services/javax.annotation.processing.Processor not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/services/javax.script.ScriptEngineFactory not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/services/kotlinx.coroutines.CoroutineExceptionHandler not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/services/kotlinx.coroutines.android.AndroidDispatcherFactory not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/services/org.acra.collector.Collector not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/services/org.acra.sender.ReportSenderFactory not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/services/org.acra.startup.StartupProcessor not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+          "META-INF/services/org.ocpsoft.prettytime.PrettyTime not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/."
+        ],
+        "errors": []
+      },
+      "warnings": [
+        "apksigner: 123 META-INF entries not covered by the v1 signature (non-signature files carried over from the original APK; see verification.apksigner_warnings)."
+      ],
+      "integrity": {
+        "native_libs": {
+          "count": 4,
+          "identical": 4,
+          "mismatched": [],
+          "missing_in_rebuilt": [],
+          "all_identical": true
+        },
+        "dex": {
+          "original_files": 3,
+          "rebuilt_files": 3,
+          "original_bytes": 11376836,
+          "rebuilt_bytes": 13517316,
+          "byte_identical_files": 0,
+          "same_file_set": true
+        },
+        "resources_arsc": {
+          "present_original": true,
+          "present_rebuilt": true,
+          "original_bytes": 5258564,
+          "rebuilt_bytes": 5291652,
+          "byte_identical": false
+        },
+        "manifest": {
+          "rebuilt_parseable": true,
+          "byte_identical": false,
+          "identity_and_component_counts_match": true,
+          "original": {
+            "parseable": true,
+            "package": "org.schabi.newpipe",
+            "version_code": "1015",
+            "version_name": "0.29.1",
+            "min_sdk": "23",
+            "target_sdk": "35",
+            "components": {
+              "uses-permission": 11,
+              "permission": 1,
+              "activity": 13,
+              "activity-alias": 0,
+              "service": 11,
+              "receiver": 5,
+              "provider": 4
+            }
+          },
+          "rebuilt": {
+            "parseable": true,
+            "package": "org.schabi.newpipe",
+            "version_code": "1015",
+            "version_name": "0.29.1",
+            "min_sdk": "23",
+            "target_sdk": "35",
+            "components": {
+              "uses-permission": 11,
+              "permission": 1,
+              "activity": 13,
+              "activity-alias": 0,
+              "service": 11,
+              "receiver": 5,
+              "provider": 4
+            }
+          }
+        },
+        "entries": {
+          "original_count": 1375,
+          "rebuilt_count": 1375,
+          "added_non_signature_count": 1033,
+          "removed_non_signature_count": 1033,
+          "added_non_signature_sample": [
+            "res/anim/abc_grow_fade_in_from_bottom.xml",
+            "res/anim/abc_popup_enter.xml",
+            "res/anim/abc_popup_exit.xml",
+            "res/anim/abc_shrink_fade_out_from_bottom.xml",
+            "res/anim/abc_tooltip_enter.xml",
+            "res/anim/abc_tooltip_exit.xml",
+            "res/anim/btn_checkbox_to_checked_box_inner_merged_animation.xml",
+            "res/anim/btn_checkbox_to_checked_box_outer_merged_animation.xml",
+            "res/anim/btn_checkbox_to_checked_icon_null_animation.xml",
+            "res/anim/btn_checkbox_to_unchecked_box_inner_merged_animation.xml"
+          ],
+          "removed_non_signature_sample": [
+            "res/-6.xml",
+            "res/-A.png",
+            "res/-B.png",
+            "res/-B.xml",
+            "res/-C.xml",
+            "res/-J.png",
+            "res/-N.png",
+            "res/-O.xml",
+            "res/-Y.xml",
+            "res/-g.xml"
+          ],
+          "original_signature_files": [
+            "META-INF/MANIFEST.MF",
+            "META-INF/SCHABI_K.RSA",
+            "META-INF/SCHABI_K.SF"
+          ],
+          "rebuilt_signature_files": [
+            "META-INF/APKFORGE.RSA",
+            "META-INF/APKFORGE.SF",
+            "META-INF/MANIFEST.MF"
+          ]
+        }
+      },
+      "exported_logs": "build-tests/logs/c2/org.schabi.newpipe_1015_cb84069"
+    }
+  ]
+}

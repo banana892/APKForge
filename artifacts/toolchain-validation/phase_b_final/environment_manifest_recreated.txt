@@ -1,0 +1,78 @@
+# Recreated Python validation environment (.venv-validation), built from requirements/validation.lock
+captured_utc: 2026-10-02T11:17:17Z
+host_os: Linux 7.2.7-200.fc44.x86_64 x86_64
+fedora_release: Fedora release 44 (Forty Four)
+python: Python 3.14.7
+python_executable: /home/naishring/APKForge/.venv-validation/bin/python (sys.prefix=/home/naishring/APKForge/.venv-validation, base interpreter /usr/bin/python3.14)
+lock_file: requirements/validation.lock
+lock_sha256: 62e61de0ddb41b87771f763c103f1dd1deae655035dc5d615c0fda35c9919acf
+in_file_sha256: a5a74bca51822709401ef9a6851377c30784b3ffddbe0129e9eaeacbd6b683f2
+cryptography: 50.0.1
+cryptography_bundled_openssl: OpenSSL 4.0.2 25 Aug 2026
+androguard: 4.1.4
+asn1crypto: 1.5.1
+apkforge_import_path: /home/naishring/APKForge/src/apkforge/__init__.py
+
+# --- uv pip freeze (recreated env) ---
+alembic==1.20.0
+androguard==4.1.4
+annotated-doc==0.0.5
+annotated-types==0.8.0
+-e file:///home/naishring/APKForge
+apkinspector==1.3.7
+asn1crypto==1.5.1
+asttokens==3.0.2
+cffi==2.1.1
+click==8.5.0
+colorama==0.4.6
+coverage==7.16.2
+cryptography==50.0.1
+dataset==2.0.0
+executing==2.2.1
+hatchling==1.32.4
+iniconfig==2.3.0
+ipython==9.17.1
+ipython-pygments-lexers==1.1.1
+jedi==0.20.0
+librt==0.16.0
+loguru==0.7.3
+lxml==6.1.3
+mako==1.4.3
+markdown-it-py==4.2.0
+markupsafe==3.0.3
+matplotlib-inline==0.2.2
+mdurl==0.1.2
+mutf8==1.1.0
+mypy==1.20.2
+mypy-extensions==1.1.0
+networkx==3.7
+packaging==26.3
+parso==0.8.7
+pathspec==1.1.1
+pexpect==4.9.0
+pluggy==1.6.0
+prompt-toolkit==3.0.53
+psutil==7.2.2
+ptyprocess==0.7.0
+pure-eval==0.2.4
+pycparser==3.0
+pydantic==2.13.5
+pydantic-core==2.46.5
+pydot==4.0.1
+pygments==2.21.0
+pyparsing==3.3.3
+pytest==8.4.2
+pytest-cov==5.0.0
+pyyaml==6.0.3
+rich==14.3.4
+ruff==0.16.9
+shellingham==1.5.4
+sqlalchemy==2.1.1
+stack-data==0.6.3
+tomlkit==0.15.1
+traitlets==5.16.1
+trove-classifiers==2026.9.21.13
+typer==0.27.2
+typing-extensions==4.16.0
+typing-inspection==0.4.4
+wcwidth==0.9.1

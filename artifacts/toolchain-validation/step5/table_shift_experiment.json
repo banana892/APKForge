@@ -1,0 +1,32 @@
+{
+  "experiment": "DEX table-index-shift regression (Phase B Step 5, item 2)",
+  "subject_apk": "tests/corpus/de.audioattack.openlink_28.apk",
+  "toolchain": "apkforge-toolchain:pinned (Apktool 2.10.0, Android Build Tools 34.0.0, Docker-only, no host SDK)",
+  "procedure": [
+    "apktool d (fresh decode) -> remove exactly one package of 9 smali classes (b/a, b/a$a..b/a$f, b/b, b/c) -> apktool b -> zipalign -p -f 4 -> apksigner sign (debug.keystore) -> apksigner verify -> APKForge inspect -> APKForge DEX diff",
+    "A no-op control (decode -> build, nothing removed) was built the same way to isolate apktool-recompilation noise from the class-removal effect."
+  ],
+  "baseline_noop_nothing_removed": {
+    "old_raw_byte_hash": {"common_methods": 462, "false_positive_changed_methods": 0, "affected_classes": 0},
+    "new_normalized_hash": {"classes_added": 0, "classes_removed": 0, "classes_modified": 0, "classes_unchanged": 108}
+  },
+  "table_shift_experiment_9_classes_removed": {
+    "old_raw_byte_hash": {
+      "common_methods": 367,
+      "false_positive_changed_methods": 234,
+      "false_positive_rate": "234/367 = 63.8% of common methods, spanning 67 of the 99 untouched classes",
+      "affected_classes_sample": [
+        "Landroidx/concurrent/futures/a$b;", "Landroidx/concurrent/futures/a$c;", "Landroidx/concurrent/futures/a;",
+        "Landroidx/core/app/CoreComponentFactory;", "Landroidx/core/app/RemoteActionCompat;",
+        "Landroidx/core/graphics/drawable/IconCompat;", "Landroidx/core/graphics/drawable/IconCompatParcelizer;"
+      ]
+    },
+    "new_normalized_hash": {
+      "classes_added": 0,
+      "classes_removed": ["b.a", "b.a$a", "b.a$b", "b.a$c", "b.a$d", "b.a$e", "b.a$f", "b.b", "b.c"],
+      "classes_modified": 0,
+      "classes_unchanged": 99
+    }
+  },
+  "acceptance_condition": "PASS: the 9 deliberately deleted classes are reported as removed; the 99 untouched classes are reported as unchanged (0 false-positive code_changed) under the new normalized hashing, versus 67/99 classes falsely flagged under the old raw-byte hashing for the identical rebuild."
+}

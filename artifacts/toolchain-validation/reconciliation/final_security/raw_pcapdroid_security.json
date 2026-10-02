@@ -1,0 +1,569 @@
+{
+  "status": "complete",
+  "security_status": "findings_present",
+  "package_name": "com.emanuelef.remote_capture",
+  "version_name": "2.0.2",
+  "version_code": "95",
+  "summary": {
+    "total_findings": 9,
+    "critical_count": 0,
+    "high_count": 0,
+    "medium_count": 3,
+    "low_count": 5,
+    "info_count": 1,
+    "malware_indicator_count": 0,
+    "spyware_indicator_count": 6,
+    "vulnerability_count": 2,
+    "diff_security_change_count": 0,
+    "overall_security_status": "findings_present"
+  },
+  "findings": [
+    {
+      "id": "SEC-SPY-ACCESSIBILITY-001",
+      "category": "spyware_indicator",
+      "title": "Accessibility Service Implementation",
+      "description": "The application declares an AccessibilityService component.\n",
+      "severity": "medium",
+      "confidence": "high",
+      "evidence": [
+        {
+          "description": "Referenced API: android.accessibilityservice.AccessibilityService",
+          "location": "api:android.accessibilityservice.AccessibilityService",
+          "snippet": "android.accessibilityservice.AccessibilityService",
+          "references": []
+        }
+      ],
+      "assessment": "The APK declares an AccessibilityService capable of inspecting UI windows and user actions.\n",
+      "limitations": [
+        "Accessibility services require explicit user approval in system settings before running."
+      ],
+      "references": [
+        "CWE-250: Execution with Unnecessary Privileges"
+      ],
+      "tags": [
+        "spyware",
+        "accessibility",
+        "surveillance"
+      ]
+    },
+    {
+      "id": "SEC-SPY-ACCESSIBILITY-ABUSE",
+      "category": "collection",
+      "title": "Android Accessibility Service Implementation",
+      "description": "Application implements an AccessibilityService component.",
+      "severity": "medium",
+      "confidence": "high",
+      "evidence": [
+        {
+          "description": "AccessibilityService API referenced in bytecode",
+          "location": "api:android.accessibilityservice.AccessibilityService",
+          "snippet": "AccessibilityService API",
+          "references": []
+        }
+      ],
+      "assessment": "Accessibility Services possess broad permissions to inspect screencontent, inject gestures,and read text across all applications on the device.",
+      "limitations": [
+        "Accessibility services are an essential Android feature for assistivetechnologies, screen readers, and automation."
+      ],
+      "references": [
+        "CWE-250: Execution with Unnecessary Privileges"
+      ],
+      "tags": [
+        "accessibility",
+        "privilege",
+        "surveillance"
+      ]
+    },
+    {
+      "id": "SEC-SPY-DEVICE-IDENTIFIERS",
+      "category": "collection",
+      "title": "Hardware & Persistent Device Identifier Collection Capability",
+      "description": "Application references persistent hardware identifiers (IMEI, IMSI,Serial Number, or Android ID).",
+      "severity": "medium",
+      "confidence": "high",
+      "evidence": [
+        {
+          "description": "Settings.Secure.ANDROID_ID reference",
+          "location": "dex:strings",
+          "snippet": "android_id",
+          "references": []
+        },
+        {
+          "description": "Build.SERIAL hardware serial number reference",
+          "location": "dex:strings",
+          "snippet": "Build.SERIAL",
+          "references": []
+        }
+      ],
+      "assessment": "The APK queries non-resettable hardware identifiers, which allowpersistent cross-installand cross-application device tracking that bypasses user privacy controls.",
+      "limitations": [
+        "Legacy SDKs and device management tools frequently query hardwareidentifiers for licensing."
+      ],
+      "references": [
+        "CWE-359: Exposure of Private Personal Information"
+      ],
+      "tags": [
+        "identifiers",
+        "hardware",
+        "tracking"
+      ]
+    },
+    {
+      "id": "SEC-MAL-PERSISTENCE-BOOT",
+      "category": "persistence",
+      "title": "Device Boot Persistence Mechanism Detected",
+      "description": "Application requests RECEIVE_BOOT_COMPLETED permission and/or declares broadcast receivers listening for device boot completion.",
+      "severity": "low",
+      "confidence": "high",
+      "evidence": [
+        {
+          "description": "Declared permission: RECEIVE_BOOT_COMPLETED",
+          "location": "permission:android.permission.RECEIVE_BOOT_COMPLETED",
+          "snippet": "RECEIVE_BOOT_COMPLETED",
+          "references": []
+        }
+      ],
+      "assessment": "The application contains components configured to automatically startor resume executionwhen the device is powered on or rebooted.",
+      "limitations": [
+        "Boot startup is standard for communication apps, alarm managers, andscheduled synchronization services."
+      ],
+      "references": [
+        "CWE-250: Execution with Unnecessary Privileges"
+      ],
+      "tags": [
+        "persistence",
+        "boot",
+        "receiver"
+      ]
+    },
+    {
+      "id": "SEC-NET-CLEARTEXT-URLS",
+      "category": "network",
+      "title": "Cleartext HTTP URL References Detected",
+      "description": "Discovered 4 unencrypted HTTP URLs in theapplication.",
+      "severity": "low",
+      "confidence": "high",
+      "evidence": [
+        {
+          "description": "Cleartext HTTP URL: http://jabber.org/protocol/",
+          "location": "lib/arm64-v8a/libndpi.so",
+          "snippet": "http://jabber.org/protocol/",
+          "references": []
+        },
+        {
+          "description": "Cleartext HTTP URL: http://jabber.org/protocol/commands",
+          "location": "lib/arm64-v8a/libndpi.so",
+          "snippet": "http://jabber.org/protocol/commands",
+          "references": []
+        },
+        {
+          "description": "Cleartext HTTP URL: http://t.me/PCAPdroid",
+          "location": "classes.dex",
+          "snippet": "http://t.me/PCAPdroid",
+          "references": []
+        },
+        {
+          "description": "Cleartext HTTP URL: http://etherx.jabber.org/streams",
+          "location": "lib/arm64-v8a/libndpi.so",
+          "snippet": "http://etherx.jabber.org/streams",
+          "references": []
+        }
+      ],
+      "assessment": "Using plain HTTP allows network adversaries on the same path (e.g.public Wi-Fi)to monitor or modify transmitted data.",
+      "limitations": [
+        "Static URL strings may be fallback endpoints or legacy protocoldocumentation references."
+      ],
+      "references": [
+        "CWE-319: Cleartext Transmission of Sensitive Information"
+      ],
+      "tags": [
+        "network",
+        "http",
+        "cleartext"
+      ]
+    },
+    {
+      "id": "SEC-SPY-CLIPBOARD-001",
+      "category": "spyware_indicator",
+      "title": "Background Clipboard Access Capability",
+      "description": "The application references ClipboardManager within background execution components.\n",
+      "severity": "low",
+      "confidence": "medium",
+      "evidence": [
+        {
+          "description": "Referenced API: android.content.ClipboardManager",
+          "location": "api:android.content.ClipboardManager",
+          "snippet": "android.content.ClipboardManager",
+          "references": []
+        },
+        {
+          "description": "Observed component: type=service (com.emanuelef.remote_capture.CaptureService, com.emanuelef.remote_capture.VpnReconnectService)",
+          "location": "manifest:service",
+          "snippet": "Observed component: type=service (com.emanuelef.remote_capture.CaptureService, com.emanuelef.remote_capture.VpnReconnectService)",
+          "references": []
+        }
+      ],
+      "assessment": "The APK contains static references to clipboard access in a background service context.\n",
+      "limitations": [
+        "Static reference does not prove unprompted clipboard reading during runtime."
+      ],
+      "references": [
+        "CWE-200: Exposure of Sensitive Information"
+      ],
+      "tags": [
+        "spyware",
+        "clipboard",
+        "background"
+      ]
+    },
+    {
+      "id": "SEC-VULN-BACKUP-001",
+      "category": "vulnerability",
+      "title": "Application Backup Enabled Without Restriction",
+      "description": "The AndroidManifest.xml has android:allowBackup=\"true\" without restrictive backup rules, allowing adb backup.\n",
+      "severity": "low",
+      "confidence": "confirmed",
+      "evidence": [
+        {
+          "description": "Manifest attribute allowBackup=true",
+          "location": "manifest:allowBackup",
+          "snippet": "allowBackup=true",
+          "references": []
+        }
+      ],
+      "assessment": "Application private data can be extracted using ADB backup if physical or debugging access is gained.\n",
+      "limitations": [
+        "System backup is standard for user data migration; risk depends on sensitivity of stored credentials."
+      ],
+      "references": [
+        "CWE-200: Exposure of Sensitive Information"
+      ],
+      "tags": [
+        "vulnerability",
+        "manifest",
+        "backup"
+      ]
+    },
+    {
+      "id": "SEC-VULN-MANIFEST-BACKUP",
+      "category": "configuration",
+      "title": "Application Data Backup Enabled (allowBackup=true)",
+      "description": "The application manifest sets android:allowBackup='true'. Application private databases and shared preferences can be backed upvia ADB.",
+      "severity": "low",
+      "confidence": "confirmed",
+      "evidence": [
+        {
+          "description": "Manifest declaration: android:allowBackup='true'",
+          "location": "manifest:application:allowBackup",
+          "snippet": "android:allowBackup='true'",
+          "references": []
+        }
+      ],
+      "assessment": "Anyone with physical access to an unlocked device or ADB authorizationcan run 'adb backup'to extract the application's internal files and local credentials.",
+      "limitations": [
+        "Google Drive auto-backup relies on allowBackup; applications may useandroid:fullBackupContent rules."
+      ],
+      "references": [
+        "CWE-200: Exposure of Sensitive Information"
+      ],
+      "tags": [
+        "manifest",
+        "backup",
+        "vulnerability"
+      ]
+    },
+    {
+      "id": "SEC-MAL-PERSISTENCE-FG-SERVICE",
+      "category": "persistence",
+      "title": "Foreground Service Declaration",
+      "description": "Application declares Android Foreground Service components withexplicit types.",
+      "severity": "informational",
+      "confidence": "confirmed",
+      "evidence": [
+        {
+          "description": "Foreground service declared: com.emanuelef.remote_capture.CaptureService (type=0x40000000)",
+          "location": "manifest:service:com.emanuelef.remote_capture.CaptureService",
+          "snippet": "com.emanuelef.remote_capture.CaptureService [type=0x40000000]",
+          "references": []
+        },
+        {
+          "description": "Foreground service declared: com.emanuelef.remote_capture.VpnReconnectService (type=0x40000000)",
+          "location": "manifest:service:com.emanuelef.remote_capture.VpnReconnectService",
+          "snippet": "com.emanuelef.remote_capture.VpnReconnectService [type=0x40000000]",
+          "references": []
+        }
+      ],
+      "assessment": "Foreground services run with elevated priority and are less likely tobe terminatedby the Android system during low-memory conditions.",
+      "limitations": [
+        "Foreground services require persistent user notifications and arestandard for media players and GPS navigation."
+      ],
+      "references": [
+        "CWE-250: Execution with Unnecessary Privileges"
+      ],
+      "tags": [
+        "persistence",
+        "service",
+        "foreground"
+      ]
+    }
+  ],
+  "malware_indicators": [],
+  "spyware_indicators": [
+    {
+      "id": "SEC-SPY-ACCESSIBILITY-001",
+      "category": "spyware_indicator",
+      "title": "Accessibility Service Implementation",
+      "description": "The application declares an AccessibilityService component.\n",
+      "severity": "medium",
+      "confidence": "high",
+      "evidence": [
+        {
+          "description": "Referenced API: android.accessibilityservice.AccessibilityService",
+          "location": "api:android.accessibilityservice.AccessibilityService",
+          "snippet": "android.accessibilityservice.AccessibilityService",
+          "references": []
+        }
+      ],
+      "assessment": "The APK declares an AccessibilityService capable of inspecting UI windows and user actions.\n",
+      "limitations": [
+        "Accessibility services require explicit user approval in system settings before running."
+      ],
+      "references": [
+        "CWE-250: Execution with Unnecessary Privileges"
+      ],
+      "tags": [
+        "spyware",
+        "accessibility",
+        "surveillance"
+      ]
+    },
+    {
+      "id": "SEC-SPY-ACCESSIBILITY-ABUSE",
+      "category": "collection",
+      "title": "Android Accessibility Service Implementation",
+      "description": "Application implements an AccessibilityService component.",
+      "severity": "medium",
+      "confidence": "high",
+      "evidence": [
+        {
+          "description": "AccessibilityService API referenced in bytecode",
+          "location": "api:android.accessibilityservice.AccessibilityService",
+          "snippet": "AccessibilityService API",
+          "references": []
+        }
+      ],
+      "assessment": "Accessibility Services possess broad permissions to inspect screencontent, inject gestures,and read text across all applications on the device.",
+      "limitations": [
+        "Accessibility services are an essential Android feature for assistivetechnologies, screen readers, and automation."
+      ],
+      "references": [
+        "CWE-250: Execution with Unnecessary Privileges"
+      ],
+      "tags": [
+        "accessibility",
+        "privilege",
+        "surveillance"
+      ]
+    },
+    {
+      "id": "SEC-SPY-DEVICE-IDENTIFIERS",
+      "category": "collection",
+      "title": "Hardware & Persistent Device Identifier Collection Capability",
+      "description": "Application references persistent hardware identifiers (IMEI, IMSI,Serial Number, or Android ID).",
+      "severity": "medium",
+      "confidence": "high",
+      "evidence": [
+        {
+          "description": "Settings.Secure.ANDROID_ID reference",
+          "location": "dex:strings",
+          "snippet": "android_id",
+          "references": []
+        },
+        {
+          "description": "Build.SERIAL hardware serial number reference",
+          "location": "dex:strings",
+          "snippet": "Build.SERIAL",
+          "references": []
+        }
+      ],
+      "assessment": "The APK queries non-resettable hardware identifiers, which allowpersistent cross-installand cross-application device tracking that bypasses user privacy controls.",
+      "limitations": [
+        "Legacy SDKs and device management tools frequently query hardwareidentifiers for licensing."
+      ],
+      "references": [
+        "CWE-359: Exposure of Private Personal Information"
+      ],
+      "tags": [
+        "identifiers",
+        "hardware",
+        "tracking"
+      ]
+    },
+    {
+      "id": "SEC-MAL-PERSISTENCE-BOOT",
+      "category": "persistence",
+      "title": "Device Boot Persistence Mechanism Detected",
+      "description": "Application requests RECEIVE_BOOT_COMPLETED permission and/or declares broadcast receivers listening for device boot completion.",
+      "severity": "low",
+      "confidence": "high",
+      "evidence": [
+        {
+          "description": "Declared permission: RECEIVE_BOOT_COMPLETED",
+          "location": "permission:android.permission.RECEIVE_BOOT_COMPLETED",
+          "snippet": "RECEIVE_BOOT_COMPLETED",
+          "references": []
+        }
+      ],
+      "assessment": "The application contains components configured to automatically startor resume executionwhen the device is powered on or rebooted.",
+      "limitations": [
+        "Boot startup is standard for communication apps, alarm managers, andscheduled synchronization services."
+      ],
+      "references": [
+        "CWE-250: Execution with Unnecessary Privileges"
+      ],
+      "tags": [
+        "persistence",
+        "boot",
+        "receiver"
+      ]
+    },
+    {
+      "id": "SEC-SPY-CLIPBOARD-001",
+      "category": "spyware_indicator",
+      "title": "Background Clipboard Access Capability",
+      "description": "The application references ClipboardManager within background execution components.\n",
+      "severity": "low",
+      "confidence": "medium",
+      "evidence": [
+        {
+          "description": "Referenced API: android.content.ClipboardManager",
+          "location": "api:android.content.ClipboardManager",
+          "snippet": "android.content.ClipboardManager",
+          "references": []
+        },
+        {
+          "description": "Observed component: type=service (com.emanuelef.remote_capture.CaptureService, com.emanuelef.remote_capture.VpnReconnectService)",
+          "location": "manifest:service",
+          "snippet": "Observed component: type=service (com.emanuelef.remote_capture.CaptureService, com.emanuelef.remote_capture.VpnReconnectService)",
+          "references": []
+        }
+      ],
+      "assessment": "The APK contains static references to clipboard access in a background service context.\n",
+      "limitations": [
+        "Static reference does not prove unprompted clipboard reading during runtime."
+      ],
+      "references": [
+        "CWE-200: Exposure of Sensitive Information"
+      ],
+      "tags": [
+        "spyware",
+        "clipboard",
+        "background"
+      ]
+    },
+    {
+      "id": "SEC-MAL-PERSISTENCE-FG-SERVICE",
+      "category": "persistence",
+      "title": "Foreground Service Declaration",
+      "description": "Application declares Android Foreground Service components withexplicit types.",
+      "severity": "informational",
+      "confidence": "confirmed",
+      "evidence": [
+        {
+          "description": "Foreground service declared: com.emanuelef.remote_capture.CaptureService (type=0x40000000)",
+          "location": "manifest:service:com.emanuelef.remote_capture.CaptureService",
+          "snippet": "com.emanuelef.remote_capture.CaptureService [type=0x40000000]",
+          "references": []
+        },
+        {
+          "description": "Foreground service declared: com.emanuelef.remote_capture.VpnReconnectService (type=0x40000000)",
+          "location": "manifest:service:com.emanuelef.remote_capture.VpnReconnectService",
+          "snippet": "com.emanuelef.remote_capture.VpnReconnectService [type=0x40000000]",
+          "references": []
+        }
+      ],
+      "assessment": "Foreground services run with elevated priority and are less likely tobe terminatedby the Android system during low-memory conditions.",
+      "limitations": [
+        "Foreground services require persistent user notifications and arestandard for media players and GPS navigation."
+      ],
+      "references": [
+        "CWE-250: Execution with Unnecessary Privileges"
+      ],
+      "tags": [
+        "persistence",
+        "service",
+        "foreground"
+      ]
+    }
+  ],
+  "vulnerability_indicators": [
+    {
+      "id": "SEC-VULN-BACKUP-001",
+      "category": "vulnerability",
+      "title": "Application Backup Enabled Without Restriction",
+      "description": "The AndroidManifest.xml has android:allowBackup=\"true\" without restrictive backup rules, allowing adb backup.\n",
+      "severity": "low",
+      "confidence": "confirmed",
+      "evidence": [
+        {
+          "description": "Manifest attribute allowBackup=true",
+          "location": "manifest:allowBackup",
+          "snippet": "allowBackup=true",
+          "references": []
+        }
+      ],
+      "assessment": "Application private data can be extracted using ADB backup if physical or debugging access is gained.\n",
+      "limitations": [
+        "System backup is standard for user data migration; risk depends on sensitivity of stored credentials."
+      ],
+      "references": [
+        "CWE-200: Exposure of Sensitive Information"
+      ],
+      "tags": [
+        "vulnerability",
+        "manifest",
+        "backup"
+      ]
+    },
+    {
+      "id": "SEC-VULN-MANIFEST-BACKUP",
+      "category": "configuration",
+      "title": "Application Data Backup Enabled (allowBackup=true)",
+      "description": "The application manifest sets android:allowBackup='true'. Application private databases and shared preferences can be backed upvia ADB.",
+      "severity": "low",
+      "confidence": "confirmed",
+      "evidence": [
+        {
+          "description": "Manifest declaration: android:allowBackup='true'",
+          "location": "manifest:application:allowBackup",
+          "snippet": "android:allowBackup='true'",
+          "references": []
+        }
+      ],
+      "assessment": "Anyone with physical access to an unlocked device or ADB authorizationcan run 'adb backup'to extract the application's internal files and local credentials.",
+      "limitations": [
+        "Google Drive auto-backup relies on allowBackup; applications may useandroid:fullBackupContent rules."
+      ],
+      "references": [
+        "CWE-200: Exposure of Sensitive Information"
+      ],
+      "tags": [
+        "manifest",
+        "backup",
+        "vulnerability"
+      ]
+    }
+  ],
+  "diff_findings": [],
+  "warnings": [],
+  "errors": [],
+  "limitations": [
+    "Static security analysis identifies capabilities, configuration states, and potential vulnerability patterns. It does not establish that code is actively executed, that vulnerabilities are exploitable in context, or that the application is malicious."
+  ],
+  "_regen_meta": {
+    "generated_utc": "2026-10-02T10:35:02.018017+00:00",
+    "apk": "tests/corpus/com.emanuelef.remote_capture_95.apk",
+    "apk_sha256": "e03f79082278b3754b4954c7537e7c9f7681e5995a44e70aa1589eca10190066",
+    "source_state": "working_tree"
+  }
+}

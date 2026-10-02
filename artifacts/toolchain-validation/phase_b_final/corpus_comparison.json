@@ -1,0 +1,728 @@
+{
+  "baseline": "artifacts/toolchain-validation/reconciliation/corpus_results_reconciliation.json",
+  "final": "artifacts/toolchain-validation/phase_b_final/corpus_results_final.json",
+  "baseline_verdicts": {
+    "PASS": 96,
+    "PARTIAL": 3
+  },
+  "baseline_duration_seconds": 341.1,
+  "final_verdicts": {
+    "PASS": 96,
+    "PARTIAL": 3
+  },
+  "final_duration_seconds": 358.0,
+  "verdict_differences": [],
+  "non_timing_field_differences": [
+    {
+      "apk": "com.emanuelef.remote_capture_95.apk",
+      "capability": "native_libraries",
+      "field": "data_summary",
+      "baseline": {
+        "library_count": 20,
+        "abis": [
+          "x86",
+          "armeabi-v7a",
+          "arm64-v8a",
+          "x86_64"
+        ]
+      },
+      "final": {
+        "library_count": 20,
+        "abis": [
+          "arm64-v8a",
+          "x86_64",
+          "armeabi-v7a",
+          "x86"
+        ]
+      }
+    },
+    {
+      "apk": "com.emanuelef.remote_capture_95.apk",
+      "capability": "native_libraries",
+      "field": "message",
+      "baseline": "OK: 20 native libs, ABIs: ['x86', 'armeabi-v7a', 'arm64-v8a', 'x86_64']",
+      "final": "OK: 20 native libs, ABIs: ['arm64-v8a', 'x86_64', 'armeabi-v7a', 'x86']"
+    },
+    {
+      "apk": "com.emanuelef.remote_capture_95.apk",
+      "capability": "security",
+      "field": "data_summary",
+      "baseline": {
+        "status": "complete",
+        "security_status": "findings_present",
+        "total_findings": 9,
+        "critical": 0,
+        "high": 0,
+        "medium": 3,
+        "low": 5,
+        "info": 1,
+        "finding_categories": [
+          "configuration",
+          "vulnerability",
+          "spyware_indicator",
+          "network",
+          "persistence",
+          "collection"
+        ],
+        "errors": [],
+        "warnings": []
+      },
+      "final": {
+        "status": "complete",
+        "security_status": "findings_present",
+        "total_findings": 9,
+        "critical": 0,
+        "high": 0,
+        "medium": 3,
+        "low": 5,
+        "info": 1,
+        "finding_categories": [
+          "network",
+          "configuration",
+          "collection",
+          "persistence",
+          "vulnerability",
+          "spyware_indicator"
+        ],
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "apk": "de.audioattack.openlink_28.apk",
+      "capability": "security",
+      "field": "data_summary",
+      "baseline": {
+        "status": "complete",
+        "security_status": "findings_present",
+        "total_findings": 5,
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 5,
+        "info": 0,
+        "finding_categories": [
+          "configuration",
+          "vulnerability",
+          "network",
+          "persistence",
+          "exported_component"
+        ],
+        "errors": [],
+        "warnings": []
+      },
+      "final": {
+        "status": "complete",
+        "security_status": "findings_present",
+        "total_findings": 5,
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 5,
+        "info": 0,
+        "finding_categories": [
+          "network",
+          "configuration",
+          "persistence",
+          "exported_component",
+          "vulnerability"
+        ],
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "apk": "de.danoeh.antennapod_3120295.apk",
+      "capability": "modification_planning",
+      "field": "data_summary",
+      "baseline": {
+        "plan_id": "PLAN-178F1E6C9152",
+        "status": "review_required",
+        "change_count": 4,
+        "change_types": [
+          "modify_component",
+          "modify_configuration"
+        ],
+        "has_conflicts": false,
+        "conflict_count": 0,
+        "dependency_count": 0,
+        "warnings": [],
+        "limitations": []
+      },
+      "final": {
+        "plan_id": "PLAN-178F1E6C9152",
+        "status": "review_required",
+        "change_count": 4,
+        "change_types": [
+          "modify_configuration",
+          "modify_component"
+        ],
+        "has_conflicts": false,
+        "conflict_count": 0,
+        "dependency_count": 0,
+        "warnings": [],
+        "limitations": []
+      }
+    },
+    {
+      "apk": "de.danoeh.antennapod_3120295.apk",
+      "capability": "modification_planning",
+      "field": "message",
+      "baseline": "OK: 4 changes proposed (types: ['modify_component', 'modify_configuration'])",
+      "final": "OK: 4 changes proposed (types: ['modify_configuration', 'modify_component'])"
+    },
+    {
+      "apk": "de.danoeh.antennapod_3120295.apk",
+      "capability": "native_libraries",
+      "field": "data_summary",
+      "baseline": {
+        "library_count": 4,
+        "abis": [
+          "x86",
+          "armeabi-v7a",
+          "arm64-v8a",
+          "x86_64"
+        ]
+      },
+      "final": {
+        "library_count": 4,
+        "abis": [
+          "arm64-v8a",
+          "x86_64",
+          "armeabi-v7a",
+          "x86"
+        ]
+      }
+    },
+    {
+      "apk": "de.danoeh.antennapod_3120295.apk",
+      "capability": "native_libraries",
+      "field": "message",
+      "baseline": "OK: 4 native libs, ABIs: ['x86', 'armeabi-v7a', 'arm64-v8a', 'x86_64']",
+      "final": "OK: 4 native libs, ABIs: ['arm64-v8a', 'x86_64', 'armeabi-v7a', 'x86']"
+    },
+    {
+      "apk": "de.danoeh.antennapod_3120295.apk",
+      "capability": "security",
+      "field": "data_summary",
+      "baseline": {
+        "status": "complete",
+        "security_status": "findings_present",
+        "total_findings": 18,
+        "critical": 0,
+        "high": 1,
+        "medium": 8,
+        "low": 8,
+        "info": 1,
+        "finding_categories": [
+          "configuration",
+          "vulnerability",
+          "spyware_indicator",
+          "crypto",
+          "network",
+          "persistence",
+          "exported_component",
+          "collection"
+        ],
+        "errors": [],
+        "warnings": []
+      },
+      "final": {
+        "status": "complete",
+        "security_status": "findings_present",
+        "total_findings": 18,
+        "critical": 0,
+        "high": 1,
+        "medium": 8,
+        "low": 8,
+        "info": 1,
+        "finding_categories": [
+          "network",
+          "configuration",
+          "collection",
+          "persistence",
+          "exported_component",
+          "vulnerability",
+          "spyware_indicator",
+          "crypto"
+        ],
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "apk": "eu.siacs.conversations_4218104.apk",
+      "capability": "security",
+      "field": "data_summary",
+      "baseline": {
+        "status": "complete",
+        "security_status": "findings_present",
+        "total_findings": 25,
+        "critical": 0,
+        "high": 8,
+        "medium": 8,
+        "low": 8,
+        "info": 1,
+        "finding_categories": [
+          "configuration",
+          "vulnerability",
+          "spyware_indicator",
+          "crypto",
+          "surveillance",
+          "network",
+          "persistence",
+          "exported_component",
+          "collection",
+          "payload"
+        ],
+        "errors": [],
+        "warnings": []
+      },
+      "final": {
+        "status": "complete",
+        "security_status": "findings_present",
+        "total_findings": 25,
+        "critical": 0,
+        "high": 8,
+        "medium": 8,
+        "low": 8,
+        "info": 1,
+        "finding_categories": [
+          "network",
+          "configuration",
+          "payload",
+          "collection",
+          "persistence",
+          "exported_component",
+          "vulnerability",
+          "surveillance",
+          "spyware_indicator",
+          "crypto"
+        ],
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "apk": "godau.fynn.usagedirect_10.apk",
+      "capability": "security",
+      "field": "data_summary",
+      "baseline": {
+        "status": "complete",
+        "security_status": "findings_present",
+        "total_findings": 7,
+        "critical": 0,
+        "high": 0,
+        "medium": 3,
+        "low": 4,
+        "info": 0,
+        "finding_categories": [
+          "configuration",
+          "vulnerability",
+          "spyware_indicator",
+          "persistence",
+          "collection"
+        ],
+        "errors": [],
+        "warnings": []
+      },
+      "final": {
+        "status": "complete",
+        "security_status": "findings_present",
+        "total_findings": 7,
+        "critical": 0,
+        "high": 0,
+        "medium": 3,
+        "low": 4,
+        "info": 0,
+        "finding_categories": [
+          "configuration",
+          "collection",
+          "persistence",
+          "vulnerability",
+          "spyware_indicator"
+        ],
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "apk": "io.github.muntashirakon.AppManager_451.apk",
+      "capability": "native_libraries",
+      "field": "data_summary",
+      "baseline": {
+        "library_count": 16,
+        "abis": [
+          "x86",
+          "armeabi-v7a",
+          "arm64-v8a",
+          "x86_64"
+        ]
+      },
+      "final": {
+        "library_count": 16,
+        "abis": [
+          "arm64-v8a",
+          "x86_64",
+          "armeabi-v7a",
+          "x86"
+        ]
+      }
+    },
+    {
+      "apk": "io.github.muntashirakon.AppManager_451.apk",
+      "capability": "native_libraries",
+      "field": "message",
+      "baseline": "OK: 16 native libs, ABIs: ['x86', 'armeabi-v7a', 'arm64-v8a', 'x86_64']",
+      "final": "OK: 16 native libs, ABIs: ['arm64-v8a', 'x86_64', 'armeabi-v7a', 'x86']"
+    },
+    {
+      "apk": "io.github.muntashirakon.AppManager_451.apk",
+      "capability": "security",
+      "field": "data_summary",
+      "baseline": {
+        "status": "complete",
+        "security_status": "findings_present",
+        "total_findings": 28,
+        "critical": 0,
+        "high": 5,
+        "medium": 13,
+        "low": 9,
+        "info": 1,
+        "finding_categories": [
+          "configuration",
+          "code_execution",
+          "dynamic_code",
+          "vulnerability",
+          "spyware_indicator",
+          "crypto",
+          "malware_indicator",
+          "network",
+          "persistence",
+          "exported_component",
+          "collection",
+          "payload"
+        ],
+        "errors": [],
+        "warnings": []
+      },
+      "final": {
+        "status": "complete",
+        "security_status": "findings_present",
+        "total_findings": 28,
+        "critical": 0,
+        "high": 5,
+        "medium": 13,
+        "low": 9,
+        "info": 1,
+        "finding_categories": [
+          "network",
+          "configuration",
+          "payload",
+          "collection",
+          "persistence",
+          "exported_component",
+          "vulnerability",
+          "malware_indicator",
+          "code_execution",
+          "spyware_indicator",
+          "dynamic_code",
+          "crypto"
+        ],
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "apk": "org.mozilla.fennec_fdroid_1560020.apk",
+      "capability": "modification_planning",
+      "field": "data_summary",
+      "baseline": {
+        "plan_id": "PLAN-115838AE9870",
+        "status": "review_required",
+        "change_count": 7,
+        "change_types": [
+          "remove_permission",
+          "modify_component",
+          "remove_tracker",
+          "modify_configuration"
+        ],
+        "has_conflicts": false,
+        "conflict_count": 0,
+        "dependency_count": 0,
+        "warnings": [
+          "Inspection status is PARTIAL; some artifacts were unparsed.",
+          "Privacy analysis status is PARTIAL.",
+          "Security analysis status is PARTIAL."
+        ],
+        "limitations": [
+          "Inspection was partial; proposal generation may miss uninspected components."
+        ]
+      },
+      "final": {
+        "plan_id": "PLAN-115838AE9870",
+        "status": "review_required",
+        "change_count": 7,
+        "change_types": [
+          "remove_permission",
+          "remove_tracker",
+          "modify_configuration",
+          "modify_component"
+        ],
+        "has_conflicts": false,
+        "conflict_count": 0,
+        "dependency_count": 0,
+        "warnings": [
+          "Inspection status is PARTIAL; some artifacts were unparsed.",
+          "Privacy analysis status is PARTIAL.",
+          "Security analysis status is PARTIAL."
+        ],
+        "limitations": [
+          "Inspection was partial; proposal generation may miss uninspected components."
+        ]
+      }
+    },
+    {
+      "apk": "org.mozilla.fennec_fdroid_1560020.apk",
+      "capability": "modification_planning",
+      "field": "message",
+      "baseline": "OK: 7 changes proposed (types: ['remove_permission', 'modify_component', 'remove_tracker', 'modify_configuration'])",
+      "final": "OK: 7 changes proposed (types: ['remove_permission', 'remove_tracker', 'modify_configuration', 'modify_component'])"
+    },
+    {
+      "apk": "org.mozilla.fennec_fdroid_1560020.apk",
+      "capability": "security",
+      "field": "data_summary",
+      "baseline": {
+        "status": "partial",
+        "security_status": "findings_present",
+        "total_findings": 25,
+        "critical": 0,
+        "high": 7,
+        "medium": 12,
+        "low": 5,
+        "info": 1,
+        "finding_categories": [
+          "configuration",
+          "code_execution",
+          "dynamic_code",
+          "vulnerability",
+          "spyware_indicator",
+          "malware_indicator",
+          "surveillance",
+          "network",
+          "persistence",
+          "exported_component",
+          "collection",
+          "payload"
+        ],
+        "errors": [],
+        "warnings": []
+      },
+      "final": {
+        "status": "partial",
+        "security_status": "findings_present",
+        "total_findings": 25,
+        "critical": 0,
+        "high": 7,
+        "medium": 12,
+        "low": 5,
+        "info": 1,
+        "finding_categories": [
+          "network",
+          "configuration",
+          "payload",
+          "collection",
+          "persistence",
+          "exported_component",
+          "vulnerability",
+          "malware_indicator",
+          "code_execution",
+          "surveillance",
+          "spyware_indicator",
+          "dynamic_code"
+        ],
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "apk": "org.schabi.newpipe_1015_cb84069.apk",
+      "capability": "modification_planning",
+      "field": "data_summary",
+      "baseline": {
+        "plan_id": "PLAN-8F6015A2B039",
+        "status": "review_required",
+        "change_count": 3,
+        "change_types": [
+          "modify_component",
+          "remove_tracker",
+          "modify_configuration"
+        ],
+        "has_conflicts": false,
+        "conflict_count": 0,
+        "dependency_count": 0,
+        "warnings": [],
+        "limitations": []
+      },
+      "final": {
+        "plan_id": "PLAN-8F6015A2B039",
+        "status": "review_required",
+        "change_count": 3,
+        "change_types": [
+          "remove_tracker",
+          "modify_configuration",
+          "modify_component"
+        ],
+        "has_conflicts": false,
+        "conflict_count": 0,
+        "dependency_count": 0,
+        "warnings": [],
+        "limitations": []
+      }
+    },
+    {
+      "apk": "org.schabi.newpipe_1015_cb84069.apk",
+      "capability": "modification_planning",
+      "field": "message",
+      "baseline": "OK: 3 changes proposed (types: ['modify_component', 'remove_tracker', 'modify_configuration'])",
+      "final": "OK: 3 changes proposed (types: ['remove_tracker', 'modify_configuration', 'modify_component'])"
+    },
+    {
+      "apk": "org.schabi.newpipe_1015_cb84069.apk",
+      "capability": "native_libraries",
+      "field": "data_summary",
+      "baseline": {
+        "library_count": 4,
+        "abis": [
+          "x86",
+          "armeabi-v7a",
+          "arm64-v8a",
+          "x86_64"
+        ]
+      },
+      "final": {
+        "library_count": 4,
+        "abis": [
+          "arm64-v8a",
+          "x86_64",
+          "armeabi-v7a",
+          "x86"
+        ]
+      }
+    },
+    {
+      "apk": "org.schabi.newpipe_1015_cb84069.apk",
+      "capability": "native_libraries",
+      "field": "message",
+      "baseline": "OK: 4 native libs, ABIs: ['x86', 'armeabi-v7a', 'arm64-v8a', 'x86_64']",
+      "final": "OK: 4 native libs, ABIs: ['arm64-v8a', 'x86_64', 'armeabi-v7a', 'x86']"
+    },
+    {
+      "apk": "org.schabi.newpipe_1015_cb84069.apk",
+      "capability": "security",
+      "field": "data_summary",
+      "baseline": {
+        "status": "complete",
+        "security_status": "findings_present",
+        "total_findings": 14,
+        "critical": 0,
+        "high": 2,
+        "medium": 5,
+        "low": 6,
+        "info": 1,
+        "finding_categories": [
+          "configuration",
+          "code_execution",
+          "vulnerability",
+          "spyware_indicator",
+          "malware_indicator",
+          "network",
+          "persistence",
+          "exported_component",
+          "collection",
+          "payload"
+        ],
+        "errors": [],
+        "warnings": []
+      },
+      "final": {
+        "status": "complete",
+        "security_status": "findings_present",
+        "total_findings": 14,
+        "critical": 0,
+        "high": 2,
+        "medium": 5,
+        "low": 6,
+        "info": 1,
+        "finding_categories": [
+          "network",
+          "configuration",
+          "payload",
+          "collection",
+          "persistence",
+          "exported_component",
+          "vulnerability",
+          "malware_indicator",
+          "code_execution",
+          "spyware_indicator"
+        ],
+        "errors": [],
+        "warnings": []
+      }
+    }
+  ],
+  "partials_final": [
+    "org.mozilla.fennec_fdroid_1560020.apk:inspection_full",
+    "org.mozilla.fennec_fdroid_1560020.apk:privacy",
+    "org.mozilla.fennec_fdroid_1560020.apk:security"
+  ],
+  "applicationsinfo_final": {
+    "intake": "PASS",
+    "inspection_full": "PASS",
+    "manifest": "PASS",
+    "dex": "PASS",
+    "native_libraries": "PASS",
+    "resources_assets": "PASS",
+    "strings_urls_domains": "PASS",
+    "assets": "PASS",
+    "privacy": "PASS",
+    "security": "PASS",
+    "modification_planning": "PASS"
+  },
+  "non_timing_differences_remaining_after_order_normalisation": [],
+  "non_timing_differences_order_only_count": 22,
+  "diff_pair_differences": [],
+  "diff_pairs_final": [
+    [
+      "com.oF2pks.applicationsinfo_19.apk",
+      "de.audioattack.openlink_28.apk",
+      "PASS"
+    ],
+    [
+      "com.oF2pks.applicationsinfo_19.apk",
+      "org.mozilla.fennec_fdroid_1560020.apk",
+      "PARTIAL"
+    ],
+    [
+      "com.emanuelef.remote_capture_95.apk",
+      "de.danoeh.antennapod_3120295.apk",
+      "PASS"
+    ]
+  ],
+  "nested_limit_warnings_in_final": [],
+  "environment_metadata_final": {
+    "python_version": "3.14.7",
+    "python_implementation": "CPython",
+    "python_executable": "/home/naishring/APKForge/.venv-validation/bin/python",
+    "platform": "Linux-7.2.7-200.fc44.x86_64-x86_64-with-glibc2.43",
+    "cryptography_version": "50.0.1",
+    "cryptography_bundled_openssl": "OpenSSL 4.0.2 25 Aug 2026",
+    "androguard_version": "4.1.4",
+    "asn1crypto_version": "1.5.1",
+    "pydantic_version": "2.13.5",
+    "lock_file": "requirements/validation.lock",
+    "lock_sha256": "62e61de0ddb41b87771f763c103f1dd1deae655035dc5d615c0fda35c9919acf"
+  },
+  "environment_metadata_baseline_present": false
+}

@@ -39,6 +39,7 @@ from apkforge.core.logging import setup_logging
 from apkforge.core.models import AnalysisStatus, Severity
 
 if TYPE_CHECKING:
+    from apkforge.builders import ToolchainCheckResult
     from apkforge.diff.models import DiffResult
     from apkforge.inspection import InspectionResult
     from apkforge.modification.models import ModificationPlan
@@ -1522,7 +1523,7 @@ def _render_security_summary(
                 f"[{sev_color}][{f.severity.value.upper()}][/{sev_color}] "
                 f"[bold]{f.id}[/bold]: {f.title}"
             )
-            cat_val = getattr(f.category, "value", str(f.category))
+            cat_val = f.category
             conf_val = f.confidence.value.upper()
             _console.print(
                 f"  [dim]Category:[/dim] {cat_val} | [dim]Confidence:[/dim] [cyan]{conf_val}[/cyan]"
@@ -2078,6 +2079,146 @@ def _render_modification_result(result: ModificationResult) -> None:
             _console.print(f"  [red]✗[/red] {e}")
 
     _console.print()
+
+
+# ---------------------------------------------------------------------------
+# build command (Phase C.2)
+# ---------------------------------------------------------------------------
+
+
+@app.command("build")
+def cmd_build(
+    apk: Path = typer.Argument(
+        ...,
+        help="Path to the APK to rebuild (never modified).",
+        exists=True,
+        file_okay=True,
+        dir_okay=False,
+        readable=True,
+        resolve_path=True,
+    ),
+    output: Path | None = typer.Option(
+        None, "--output", "-o", help="Copy the rebuilt, signed APK to this path."
+    ),
+    force: bool = typer.Option(False, "--force", help="Overwrite --output if it exists."),
+    work_dir: Path | None = typer.Option(
+        None, "--work-dir", help="Parent directory for build workspaces."
+    ),
+    keep_workspace: bool = typer.Option(
+        False, "--keep-workspace", help="Keep intermediates (decoded tree etc.) after success."
+    ),
+    show_toolchain: bool = typer.Option(
+        False, "--show-toolchain", help="Print toolchain diagnostics before building."
+    ),
+    json_output: bool = typer.Option(False, "--json", help="Print the BuildResult as JSON."),
+) -> None:
+    """[green]⚡ Phase C.2[/green] — No-op rebuild: decode → build → zipalign → sign → verify.
+
+    Tool paths come from APKFORGE_* / ANDROID_HOME / JAVA_HOME (see docs/build-service.md).
+    Signs with APKFORGE_SIGNING_* if set, otherwise with the APKForge development key.
+    """
+    import json
+
+    from apkforge.builders import BuildOptions, BuildService, SigningConfig, ToolchainConfig
+    from apkforge.builders.signing import ensure_dev_keystore
+    from apkforge.core.exceptions import ConfigurationError
+
+    toolchain = ToolchainConfig.discover()
+    signing = SigningConfig.from_env()
+    if signing is None:
+        if toolchain.keytool is None:
+            _console.print("[red]keytool not found; cannot provision the development key.[/red]")
+            raise typer.Exit(code=2)
+        try:
+            signing = ensure_dev_keystore(toolchain.keytool)
+        except ConfigurationError as exc:
+            _console.print(f"[red]{exc}[/red]")
+            raise typer.Exit(code=2) from exc
+
+    service = BuildService(toolchain, signing, work_dir=work_dir)
+    if show_toolchain or not json_output:
+        check = service.check_toolchain()
+        if show_toolchain or not check.valid:
+            _render_toolchain(check)
+
+    result = service.build(
+        apk,
+        BuildOptions(
+            output_apk=output, overwrite_output=force, keep_workspace_on_success=keep_workspace
+        ),
+    )
+
+    if json_output:
+        typer.echo(json.dumps(result.to_dict(), indent=2))
+        if not result.success:
+            raise typer.Exit(code=1)
+        return
+
+    color = "green" if result.success else "red"
+    lines = [
+        f"Input:     {apk}",
+        f"Status:    [bold {color}]{'SUCCESS' if result.success else 'FAILED'}[/bold {color}]",
+        f"Duration:  {result.duration_seconds:.1f}s",
+        f"Signing:   {signing.describe()}",
+    ]
+    if result.output_apk:
+        lines.append(f"Output:    [bold green]{result.output_apk}[/bold green]")
+    if not result.success:
+        lines += [
+            f"Stage:     [red]{result.failure_stage}[/red]",
+            f"Category:  [red]{result.failure_category}[/red]",
+            f"Cause:     {result.failure_cause}",
+        ]
+        if result.failure_evidence:
+            lines.append(f"Evidence:  [dim]{result.failure_evidence}[/dim]")
+    if result.workspace:
+        lines.append(f"Workspace: [dim]{result.workspace}[/dim]")
+        lines.append(f"Log:       [dim]{result.log_file}[/dim]")
+    _console.print(Panel("\n".join(lines), title=f"APKForge build: {apk.name}", border_style=color))
+
+    table = Table(title="Pipeline", border_style="dim")
+    table.add_column("Stage", style="bold")
+    table.add_column("Status")
+    table.add_column("Time", justify="right")
+    table.add_column("Detail", style="dim", overflow="fold")
+    status_color = {"PASS": "green", "FAIL": "red", "SKIPPED": "yellow"}
+    for st in result.stages:
+        detail = f"{st.failure_category}: {st.failure_cause}" if st.failure_category else ""
+        c = status_color.get(str(st.status), "white")
+        table.add_row(
+            str(st.stage), f"[{c}]{st.status}[/{c}]", f"{st.duration_seconds:.2f}s", detail
+        )
+    _console.print(table)
+
+    if result.certificate:
+        cert = result.certificate
+        _console.print(
+            f"Signer: {cert.subject_dn}  sha256={cert.sha256_digest}  "
+            f"v1={cert.v1_scheme} v2={cert.v2_scheme} v3={cert.v3_scheme}"
+        )
+    for w in result.warnings:
+        _console.print(f"[yellow]warning:[/yellow] {w}")
+
+    if not result.success:
+        raise typer.Exit(code=1)
+
+
+def _render_toolchain(check: ToolchainCheckResult) -> None:
+    table = Table(title="Build toolchain", border_style="dim")
+    table.add_column("Tool", style="bold")
+    table.add_column("Status")
+    table.add_column("Version")
+    table.add_column("Path / notes", style="dim", overflow="fold")
+    for name, diag in check.tools.items():
+        ok = diag.status in ("FOUND", "INSTALLED")
+        c = "green" if ok else ("yellow" if diag.status == "NOT_INSTALLED" else "red")
+        detail = str(diag.path or "") + (f"  {diag.notes}" if diag.notes else "")
+        table.add_row(name, f"[{c}]{diag.status}[/{c}]", diag.version or "", detail)
+    _console.print(table)
+    for e in check.errors:
+        _console.print(f"[red]error:[/red] {e}")
+    for w in check.warnings:
+        _console.print(f"[yellow]warning:[/yellow] {w}")
 
 
 # ---------------------------------------------------------------------------

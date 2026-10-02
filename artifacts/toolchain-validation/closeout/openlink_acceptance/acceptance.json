@@ -1,0 +1,165 @@
+{
+  "experiment": "OpenLink no-op + modified acceptance workflow (Phase B close-out, item 9)",
+  "source_apk": {
+    "path": "tests/corpus/de.audioattack.openlink_28.apk",
+    "sha256": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed"
+  },
+  "toolchain": {
+    "evidence": "artifacts/toolchain-validation/closeout/openlink_acceptance/toolchain_versions.txt",
+    "image": "apkforge-toolchain:pinned",
+    "host_android_sdk_used": false,
+    "note": "apktool/apksigner/zipalign are absent from the host PATH and ANDROID_HOME/ANDROID_SDK_ROOT are unset; only the scratch workspace is bind-mounted into the image."
+  },
+  "pipeline_steps": {
+    "decode": "PASS",
+    "build": "PASS",
+    "zipalign": "PASS",
+    "sign": "PASS",
+    "verify": "PASS",
+    "apkforge_intake": "PASS",
+    "apkforge_inspection": "PASS",
+    "apkforge_semantic_diff": "PASS"
+  },
+  "step_evidence": {
+    "decode": "(fresh `apktool d -f`) see noop_build.log / mod_build.log for the subsequent builds",
+    "build": [
+      "openlink_acceptance/noop_build.log",
+      "openlink_acceptance/mod_build.log"
+    ],
+    "zipalign": [
+      "openlink_acceptance/noop_zipalign.log",
+      "openlink_acceptance/mod_zipalign.log"
+    ],
+    "sign": [
+      "openlink_acceptance/noop_sign.log",
+      "openlink_acceptance/mod_sign.log"
+    ],
+    "verify": [
+      "openlink_acceptance/noop_verify.log",
+      "openlink_acceptance/mod_verify.log"
+    ],
+    "apkforge_inspection": [
+      "openlink_acceptance/noop_inspect.json",
+      "openlink_acceptance/mod_inspect.json"
+    ],
+    "apkforge_semantic_diff": [
+      "openlink_acceptance/diff_original_vs_noop.json",
+      "openlink_acceptance/diff_noop_vs_modified.json"
+    ],
+    "planned_modification_source_diff": "openlink_acceptance/planned_manifest_diff.txt"
+  },
+  "built_artifacts": {
+    "noop_signed_sha256": "4aa2668fdd7863e8d8c4a08dba65884c134d7548bdc43d24e79e6db01d70f017",
+    "modified_signed_sha256": "2e7a080dfdec3c2bc6abfeac729264b8c06b5e7ef21de6b3f5d2740b849268a5",
+    "note": "The signed APKs themselves are intentionally NOT committed (repository policy excludes APK binaries); their SHA-256 values are recorded here for reproducibility."
+  },
+  "planned_modifications": [
+    {
+      "id": 1,
+      "kind": "permission_removal",
+      "target": "android.permission.RECEIVE_BOOT_COMPLETED"
+    },
+    {
+      "id": 2,
+      "kind": "component_enabled_change",
+      "target": "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+      "from": true,
+      "to": false
+    }
+  ],
+  "noop_result": {
+    "status": "complete",
+    "permissions_added": [],
+    "permissions_removed": [],
+    "components_added": 0,
+    "components_removed": 0,
+    "components_modified": 0,
+    "manifest_attribute_changes": 0,
+    "manifest_sdk_changes": 0,
+    "dex_classes_added": 0,
+    "dex_classes_removed": 0,
+    "dex_classes_modified": 0,
+    "dex_classes_unchanged": 108,
+    "network_urls_added": 0,
+    "network_urls_removed": 0,
+    "files": {
+      "added": 2,
+      "removed": 18,
+      "modified": 4,
+      "renamed": 64,
+      "modified_paths": [
+        "AndroidManifest.xml",
+        "META-INF/MANIFEST.MF",
+        "classes.dex",
+        "resources.arsc"
+      ],
+      "added_paths": [
+        "META-INF/ANDROIDD.RSA",
+        "META-INF/ANDROIDD.SF"
+      ],
+      "removed_paths": [
+        "META-INF/C4961B96.RSA",
+        "META-INF/C4961B96.SF",
+        "META-INF/androidx.annotation_annotation-experimental.version",
+        "META-INF/androidx.arch.core_core-runtime.version",
+        "META-INF/androidx.core_core-viewtree.version",
+        "META-INF/androidx.core_core.version",
+        "META-INF/androidx.interpolator_interpolator.version",
+        "META-INF/androidx.lifecycle_lifecycle-runtime.version",
+        "META-INF/androidx.profileinstaller_profileinstaller.version",
+        "META-INF/androidx.startup_startup-runtime.version",
+        "META-INF/androidx.tracing_tracing.version",
+        "META-INF/androidx.versionedparcelable_versionedparcelable.version",
+        "META-INF/androidx/annotation/annotation/LICENSE.txt",
+        "META-INF/com/android/build/gradle/app-metadata.properties",
+        "META-INF/kotlinx_coroutines_android.version",
+        "META-INF/kotlinx_coroutines_core.version",
+        "META-INF/version-control-info.textproto",
+        "META-INF/versions/9/OSGI-INF/MANIFEST.MF"
+      ]
+    },
+    "certificate_status": "CHANGED",
+    "verdict": "PASS - zero semantic differences; only the documented noise floor (DEX/manifest/resources re-encoding, resource canonicalization renames, re-signing)."
+  },
+  "modified_result": {
+    "status": "complete",
+    "permissions_removed": [
+      "android.permission.RECEIVE_BOOT_COMPLETED"
+    ],
+    "permissions_added": [],
+    "component_changes": [
+      {
+        "bucket": "receivers",
+        "name": "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+        "change_type": "modified",
+        "enabled_before": true,
+        "enabled_after": false,
+        "details": {
+          "enabled_before": true,
+          "enabled_after": false
+        }
+      }
+    ],
+    "components_modified_total": 1,
+    "manifest_attribute_changes": 0,
+    "dex_classes_modified": 0,
+    "dex_classes_unchanged": 108,
+    "network_urls_added": 0,
+    "network_urls_removed": 0,
+    "files": {
+      "added": 0,
+      "removed": 0,
+      "modified": 4,
+      "renamed": 0,
+      "modified_paths": [
+        "AndroidManifest.xml",
+        "META-INF/ANDROIDD.RSA",
+        "META-INF/ANDROIDD.SF",
+        "META-INF/MANIFEST.MF"
+      ]
+    },
+    "certificate_status": "SAME",
+    "verdict": "PASS - exactly the two planned semantic modifications were detected (1 permission removed, 1 receiver enabled True->False) and nothing else; the 4 modified files are AndroidManifest.xml (the intended change) plus the three signature files regenerated by re-signing."
+  },
+  "overall": "PASS"
+}

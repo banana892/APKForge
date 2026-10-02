@@ -1,0 +1,227 @@
+I001 [*] Import block is un-sorted or un-formatted
+   --> tests/corpus_runner.py:174:5
+    |
+172 |   def validate_intake(apk_path: Path) -> CapabilityResult:
+173 |       """Test 1: APK intake — format detection, hashing, metadata extraction."""
+174 | /     from apkforge.intake import APKIntakeService
+175 | |     from apkforge.core.models import AnalysisStatus
+    | |___________________________________________________^
+176 |
+177 |       cap = CapabilityResult(capability="intake")
+    |
+help: Organize imports
+    |
+173 |     """Test 1: APK intake — format detection, hashing, metadata extraction."""
+174 +     from apkforge.core.models import AnalysisStatus
+175 |     from apkforge.intake import APKIntakeService
+    -     from apkforge.core.models import AnalysisStatus
+176 |
+    |
+
+E501 Line too long (113 > 100)
+   --> tests/corpus_runner.py:206:101
+    |
+204 |         "certificate_count": len(pkg.certificates) if pkg.certificates else 0,
+205 |         "has_hashes": pkg.hashes is not None,
+206 |         "sha256": getattr(pkg.hashes, "sha256", None)[:16] + "..." if pkg.hashes and pkg.hashes.sha256 else None,
+    |                                                                                                     ^^^^^^^^^^^^^
+207 |         "errors": pkg.errors[:3] if pkg.errors else [],
+208 |         "warnings": pkg.warnings[:3] if pkg.warnings else [],
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+   --> tests/corpus_runner.py:243:5
+    |
+241 |   def validate_inspection(apk_path: Path) -> tuple[CapabilityResult, object]:
+242 |       """Test 2-8: Full inspection engine, returns (result, InspectionResult)."""
+243 | /     from apkforge.inspection.engine import InspectionEngine
+244 | |     from apkforge.core.models import AnalysisStatus
+    | |___________________________________________________^
+245 |
+246 |       cap = CapabilityResult(capability="inspection_full")
+    |
+help: Organize imports
+    |
+242 |     """Test 2-8: Full inspection engine, returns (result, InspectionResult)."""
+243 +     from apkforge.core.models import AnalysisStatus
+244 |     from apkforge.inspection.engine import InspectionEngine
+    -     from apkforge.core.models import AnalysisStatus
+245 |
+    |
+
+C401 Unnecessary generator (rewrite as a set comprehension)
+   --> tests/corpus_runner.py:413:22
+    |
+411 |     data = {
+412 |         "library_count": len(libs),
+413 |         "abis": list(set(lib.abi for lib in libs if lib.abi)) if libs else [],
+    |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+414 |     }
+415 |     if len(libs) == 0:
+    |
+help: Rewrite as a set comprehension
+
+E501 Line too long (113 > 100)
+   --> tests/corpus_runner.py:424:101
+    |
+422 |     data = {
+423 |         "has_resources_arsc": r.has_resources_arsc if hasattr(r, "has_resources_arsc") else None,
+424 |         "resource_type_count": len(r.resource_types) if hasattr(r, "resource_types") and r.resource_types else 0,
+    |                                                                                                     ^^^^^^^^^^^^^
+425 |         "total_resource_entries": r.total_entries if hasattr(r, "total_entries") else None,
+426 |     }
+    |
+
+F541 [*] f-string without any placeholders
+   --> tests/corpus_runner.py:427:26
+    |
+425 |         "total_resource_entries": r.total_entries if hasattr(r, "total_entries") else None,
+426 |     }
+427 |     return Verdict.PASS, f"Resources inspection completed", data
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: Remove extraneous `f` prefix
+    |
+426 |     }
+    -     return Verdict.PASS, f"Resources inspection completed", data
+427 +     return Verdict.PASS, "Resources inspection completed", data
+428 |
+    |
+
+E501 Line too long (102 > 100)
+   --> tests/corpus_runner.py:434:101
+    |
+432 |     data = {
+433 |         "asset_count": len(entries),
+434 |         "total_size": sum(e.size for e in entries if hasattr(e, "size") and e.size) if entries else 0,
+    |                                                                                                     ^^
+435 |     }
+436 |     return Verdict.PASS, f"OK: {len(entries)} assets catalogued", data
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+   --> tests/corpus_runner.py:456:5
+    |
+454 |   def validate_privacy(apk_path: Path, insp=None) -> CapabilityResult:
+455 |       """Test 8: Privacy engine."""
+456 | /     from apkforge.privacy.engine import PrivacyEngine
+457 | |     from apkforge.core.models import AnalysisStatus
+    | |___________________________________________________^
+458 |
+459 |       cap = CapabilityResult(capability="privacy")
+    |
+help: Organize imports
+    |
+455 |     """Test 8: Privacy engine."""
+456 +     from apkforge.core.models import AnalysisStatus
+457 |     from apkforge.privacy.engine import PrivacyEngine
+    -     from apkforge.core.models import AnalysisStatus
+458 |
+    |
+
+E501 Line too long (126 > 100)
+   --> tests/corpus_runner.py:500:101
+    |
+498 |         "package_name": priv.package_name,
+499 |         "declared_permissions": len(perms.declared_permissions) if perms else 0,
+500 |         "categorized_permission_groups": len(perms.categorized_permissions) if perms and perms.categorized_permissions else 0,
+    |                                                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+501 |         "usage_details_count": len(perms.usage_details) if perms and perms.usage_details else 0,
+502 |         "total_detected_sdks": total_sdks,
+    |
+
+E501 Line too long (107 > 100)
+   --> tests/corpus_runner.py:508:101
+    |
+506 |         "telemetry_count": telemetry.total_telemetry_sdks if telemetry else 0,
+507 |         "endpoint_count": endpoints.total_endpoints if endpoints else 0,
+508 |         "data_capabilities_count": len(data_col.capabilities) if data_col and data_col.capabilities else 0,
+    |                                                                                                     ^^^^^^^
+509 |         "findings_count": len(priv.findings) if priv.findings else 0,
+510 |         "errors": priv.errors[:3] if priv.errors else [],
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+   --> tests/corpus_runner.py:534:5
+    |
+532 |   def validate_security(apk_path: Path, insp=None, priv=None) -> CapabilityResult:
+533 |       """Test 9: Security engine."""
+534 | /     from apkforge.security.engine import SecurityEngine
+535 | |     from apkforge.core.models import AnalysisStatus
+    | |___________________________________________________^
+536 |
+537 |       cap = CapabilityResult(capability="security")
+    |
+help: Organize imports
+    |
+533 |     """Test 9: Security engine."""
+534 +     from apkforge.core.models import AnalysisStatus
+535 |     from apkforge.security.engine import SecurityEngine
+    -     from apkforge.core.models import AnalysisStatus
+536 |
+    |
+
+C401 Unnecessary generator (rewrite as a set comprehension)
+   --> tests/corpus_runner.py:575:36
+    |
+573 |           "low": sec.summary.low_count if sec.summary else 0,
+574 |           "info": sec.summary.info_count if sec.summary else 0,
+575 |           "finding_categories": list(set(
+    |  ____________________________________^
+576 | |             getattr(f.category, "value", str(f.category)) for f in findings
+577 | |         )),
+    | |_________^
+578 |           "errors": sec.errors[:3] if sec.errors else [],
+579 |           "warnings": sec.warnings[:3] if sec.warnings else [],
+    |
+help: Rewrite as a set comprehension
+
+C401 Unnecessary generator (rewrite as a set comprehension)
+   --> tests/corpus_runner.py:639:30
+    |
+637 |         "status": str(plan.status),
+638 |         "change_count": plan.change_count,
+639 |         "change_types": list(set(c.change_type.value for c in changes)),
+    |                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+640 |         "has_conflicts": plan.has_conflicts,
+641 |         "conflict_count": len(plan.conflicts) if plan.conflicts else 0,
+    |
+help: Rewrite as a set comprehension
+
+I001 [*] Import block is un-sorted or un-formatted
+   --> tests/corpus_runner.py:670:5
+    |
+668 |   def validate_diff(apk_a: Path, apk_b: Path) -> CapabilityResult:
+669 |       """Test 11: APK diff between two APKs."""
+670 | /     from apkforge.diff.engine import DiffEngine
+671 | |     from apkforge.core.models import AnalysisStatus
+    | |___________________________________________________^
+672 |
+673 |       cap = CapabilityResult(capability="diff")
+    |
+help: Organize imports
+    |
+669 |     """Test 11: APK diff between two APKs."""
+670 +     from apkforge.core.models import AnalysisStatus
+671 |     from apkforge.diff.engine import DiffEngine
+    -     from apkforge.core.models import AnalysisStatus
+672 |
+    |
+
+F541 [*] f-string without any placeholders
+    --> tests/corpus_runner.py:1009:11
+     |
+1008 |     print(f"\n{'='*70}")
+1009 |     print(f"  Phase A Corpus Validation Complete")
+     |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1010 |     print(f"{'='*70}\n")
+     |
+help: Remove extraneous `f` prefix
+     |
+1008 |     print(f"\n{'='*70}")
+     -     print(f"  Phase A Corpus Validation Complete")
+1009 +     print("  Phase A Corpus Validation Complete")
+1010 |     print(f"{'='*70}\n")
+     |
+
+Found 15 errors.
+[*] 7 fixable with the `--fix` option (3 hidden fixes can be enabled with the `--unsafe-fixes` option).

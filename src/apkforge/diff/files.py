@@ -5,9 +5,10 @@ from __future__ import annotations
 import contextlib
 import zipfile
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from apkforge.diff.models import ChangeType, FileDiff, FileEntryDiff
+from apkforge.diff.resource_identity import build_resource_identity_map
 from apkforge.intake.hashing import compute_sha256
 from apkforge.intake.inventory import classify_entry
 
@@ -23,6 +24,37 @@ def _normalize_path(p: str) -> str:
     while norm.startswith("./"):
         norm = norm[2:]
     return norm.lstrip("/")
+
+
+def _as_int(value: str | int | None) -> int | None:
+    """Coerce a file-map size value to int, preserving a missing value as None."""
+    return int(value) if value is not None else None
+
+
+def _as_str(value: str | int | None) -> str | None:
+    """Coerce a file-map hash value to str, mapping empty/missing to None."""
+    return str(value) if value else None
+
+
+def _renamed_entry(
+    old_path: str,
+    new_path: str,
+    file_a: dict[str, str | int],
+    file_b: dict[str, str | int],
+    details: dict[str, Any],
+) -> FileEntryDiff:
+    """Build a RENAMED entry pairing *old_path* (side A) with *new_path* (side B)."""
+    return FileEntryDiff(
+        path=new_path,
+        old_path=old_path,
+        change_type=ChangeType.RENAMED,
+        size_before=_as_int(file_a["size"]),
+        size_after=_as_int(file_b["size"]),
+        sha256_before=_as_str(file_a["sha256"]),
+        sha256_after=_as_str(file_b["sha256"]),
+        category=str(file_b["category"]),
+        details=details,
+    )
 
 
 class FileDiffer:
@@ -70,35 +102,99 @@ class FileDiffer:
                             rem_avail.remove(rp)
                             add_avail.remove(ap)
                             renamed_entries.append(
-                                FileEntryDiff(
-                                    path=ap,
-                                    old_path=rp,
-                                    change_type=ChangeType.RENAMED,
-                                    size_before=int(files_a[rp]["size"]) if files_a[rp]["size"] is not None else None,
-                                    size_after=int(files_b[ap]["size"]) if files_b[ap]["size"] is not None else None,
-                                    sha256_before=str(files_a[rp]["sha256"]) if files_a[rp]["sha256"] else None,
-                                    sha256_after=str(files_b[ap]["sha256"]) if files_b[ap]["sha256"] else None,
-                                    category=str(files_b[ap]["category"]),
-                                    details={"old_path": rp, "new_path": ap},
+                                _renamed_entry(
+                                    rp,
+                                    ap,
+                                    files_a[rp],
+                                    files_b[ap],
+                                    {
+                                        "old_path": rp,
+                                        "new_path": ap,
+                                        "match_basis": "content_hash",
+                                    },
                                 )
                             )
                             break
 
                 # Pass 2: pair remaining in order
-                for rp, ap in zip(rem_avail, add_avail):
+                # strict=False: pair only as many as the shorter side has.
+                for rp, ap in zip(rem_avail, add_avail, strict=False):
                     matched_rem.add(rp)
                     matched_add.add(ap)
                     renamed_entries.append(
-                        FileEntryDiff(
-                            path=ap,
-                            old_path=rp,
-                            change_type=ChangeType.RENAMED,
-                            size_before=int(files_a[rp]["size"]) if files_a[rp]["size"] is not None else None,
-                            size_after=int(files_b[ap]["size"]) if files_b[ap]["size"] is not None else None,
-                            sha256_before=str(files_a[rp]["sha256"]) if files_a[rp]["sha256"] else None,
-                            sha256_after=str(files_b[ap]["sha256"]) if files_b[ap]["sha256"] else None,
-                            category=str(files_b[ap]["category"]),
-                            details={"old_path": rp, "new_path": ap},
+                        _renamed_entry(
+                            rp,
+                            ap,
+                            files_a[rp],
+                            files_b[ap],
+                            {"old_path": rp, "new_path": ap, "match_basis": "content_hash"},
+                        )
+                    )
+
+        # Pass 3: ARSC resource-identity pairing for remaining unmatched paths.
+        #
+        # Content-hash matching above only catches a path move with byte-
+        # identical content. Apktool/aapt2 commonly re-encodes a resource
+        # during decode/rebuild (binary XML re-serialization, collapsed
+        # filename de-obfuscation) so the bytes differ even though it is the
+        # same logical resource. For the paths that passes 1-2 could not
+        # pair, resolve each side's resources.arsc to a canonical
+        # type/name/qualifier identity and pair paths that share an
+        # identity. An identity match that is not 1:1 is ambiguous and is
+        # deliberately left unpaired (falls through to ADDED/REMOVED) rather
+        # than guessed.
+        rem_remaining = [p for p in rem_paths if p not in matched_rem]
+        add_remaining = [p for p in add_paths if p not in matched_add]
+        if rem_remaining and add_remaining:
+            apk_path_a = insp_a.input_path or (
+                insp_a.package.input_path if insp_a.package else None
+            )
+            apk_path_b = insp_b.input_path or (
+                insp_b.package.input_path if insp_b.package else None
+            )
+            identity_a: dict[str, str] = {}
+            identity_b: dict[str, str] = {}
+            if apk_path_a and Path(apk_path_a).is_file():
+                identity_a = build_resource_identity_map(Path(apk_path_a))
+            if apk_path_b and Path(apk_path_b).is_file():
+                identity_b = build_resource_identity_map(Path(apk_path_b))
+
+            if identity_a and identity_b:
+                id_to_rem: dict[str, list[str]] = {}
+                for p in rem_remaining:
+                    ident = identity_a.get(p)
+                    if ident:
+                        id_to_rem.setdefault(ident, []).append(p)
+
+                id_to_add: dict[str, list[str]] = {}
+                for p in add_remaining:
+                    ident = identity_b.get(p)
+                    if ident:
+                        id_to_add.setdefault(ident, []).append(p)
+
+                for ident, rem_candidates in id_to_rem.items():
+                    add_candidates = id_to_add.get(ident)
+                    # Only pair unambiguous 1:1 identity matches; multiple
+                    # paths sharing one identity on either side cannot be
+                    # resolved without guessing which pairs with which.
+                    if not add_candidates or len(rem_candidates) != 1 or len(add_candidates) != 1:
+                        continue
+                    rp, ap = rem_candidates[0], add_candidates[0]
+                    matched_rem.add(rp)
+                    matched_add.add(ap)
+                    renamed_entries.append(
+                        _renamed_entry(
+                            rp,
+                            ap,
+                            files_a[rp],
+                            files_b[ap],
+                            {
+                                "old_path": rp,
+                                "new_path": ap,
+                                "match_basis": "resource_identity",
+                                "resource_identity": ident,
+                                "content_changed": files_a[rp]["sha256"] != files_b[ap]["sha256"],
+                            },
                         )
                     )
 
@@ -116,8 +212,8 @@ class FileDiffer:
                     FileEntryDiff(
                         path=p,
                         change_type=ChangeType.ADDED,
-                        size_after=int(f_b["size"]) if f_b["size"] is not None else None,
-                        sha256_after=str(f_b["sha256"]) if f_b["sha256"] else None,
+                        size_after=_as_int(f_b["size"]),
+                        sha256_after=_as_str(f_b["sha256"]),
                         category=str(f_b["category"]),
                     )
                 )
@@ -130,8 +226,8 @@ class FileDiffer:
                     FileEntryDiff(
                         path=p,
                         change_type=ChangeType.REMOVED,
-                        size_before=int(f_a["size"]) if f_a["size"] is not None else None,
-                        sha256_before=str(f_a["sha256"]) if f_a["sha256"] else None,
+                        size_before=_as_int(f_a["size"]),
+                        sha256_before=_as_str(f_a["sha256"]),
                         category=str(f_a["category"]),
                     )
                 )
@@ -152,10 +248,10 @@ class FileDiffer:
                     FileEntryDiff(
                         path=path,
                         change_type=ChangeType.MODIFIED,
-                        size_before=int(f_a["size"]) if f_a["size"] is not None else None,
-                        size_after=int(f_b["size"]) if f_b["size"] is not None else None,
-                        sha256_before=str(f_a["sha256"]) if f_a["sha256"] else None,
-                        sha256_after=str(f_b["sha256"]) if f_b["sha256"] else None,
+                        size_before=_as_int(f_a["size"]),
+                        size_after=_as_int(f_b["size"]),
+                        sha256_before=_as_str(f_a["sha256"]),
+                        sha256_after=_as_str(f_b["sha256"]),
                         category=str(f_b["category"]),
                     )
                 )
@@ -165,10 +261,10 @@ class FileDiffer:
                     FileEntryDiff(
                         path=path,
                         change_type=ChangeType.UNCHANGED,
-                        size_before=int(f_a["size"]) if f_a["size"] is not None else None,
-                        size_after=int(f_b["size"]) if f_b["size"] is not None else None,
-                        sha256_before=str(f_a["sha256"]) if f_a["sha256"] else None,
-                        sha256_after=str(f_b["sha256"]) if f_b["sha256"] else None,
+                        size_before=_as_int(f_a["size"]),
+                        size_after=_as_int(f_b["size"]),
+                        sha256_before=_as_str(f_a["sha256"]),
+                        sha256_after=_as_str(f_b["sha256"]),
                         category=str(f_b["category"]),
                     )
                 )

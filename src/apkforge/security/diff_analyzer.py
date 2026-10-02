@@ -44,7 +44,7 @@ class DiffSecurityAnalyzer:
         # 1. Added Dangerous Permissions
         added_perms: list[str] = []
         if hasattr(diff_result, "permissions") and diff_result.permissions:
-            raw_added = getattr(diff_result.permissions, "added", []) or []
+            raw_added = diff_result.permissions.added
             for p in raw_added:
                 p_name = p.name if hasattr(p, "name") else str(p)
                 if p_name in DANGEROUS_PERMISSIONS or any(
@@ -93,15 +93,14 @@ class DiffSecurityAnalyzer:
 
         # 2. Signing Certificate Changed
         cert_changed = False
-        if hasattr(diff_result, "certificates") and diff_result.certificates:
+        if diff_result.certificates:
             c = diff_result.certificates
-            status = getattr(c, "status", "UNCHANGED")
-            cert_changed = status not in ("UNCHANGED", "SAME") or getattr(
-                c, "fingerprint_changes", None
+            cert_changed = bool(
+                c.status not in ("UNCHANGED", "SAME") or c.fingerprint_changes
             )
 
         if cert_changed:
-            status_val = getattr(diff_result.certificates, "status", "CHANGED")
+            status_val = diff_result.certificates.status
             ev = [
                 Evidence(
                     description="Signing certificates or fingerprints modified between versions",
@@ -150,8 +149,8 @@ class DiffSecurityAnalyzer:
             ):
                 for comp in comp_list:
                     if (
-                        getattr(comp, "change_type", None) == ChangeType.ADDED
-                        and getattr(comp, "exported_after", False) is True
+                        comp.change_type == ChangeType.ADDED
+                        and comp.exported_after is True
                     ):
                         added_exported.append(comp)
 
@@ -192,8 +191,8 @@ class DiffSecurityAnalyzer:
         # 4. Added Native Libraries
         added_native: list[str] = []
         if hasattr(diff_result, "native") and diff_result.native:
-            for lib in getattr(diff_result.native, "libraries_added", []):
-                added_native.append(getattr(lib, "path", str(lib)))
+            for lib in diff_result.native.libraries_added:
+                added_native.append(lib.path)
 
         if added_native:
             ev = [
@@ -233,7 +232,7 @@ class DiffSecurityAnalyzer:
         # 5. Added External Network Endpoints
         added_domains: list[str] = []
         if hasattr(diff_result, "network") and diff_result.network:
-            added_domains = list(getattr(diff_result.network, "domains_added", []))
+            added_domains = list(diff_result.network.domains_added)
 
         if added_domains:
             ev = [
@@ -273,7 +272,7 @@ class DiffSecurityAnalyzer:
         # 6. Added Dynamic Loading or Command Execution APIs
         added_apis: list[str] = []
         if hasattr(diff_result, "dex") and diff_result.dex:
-            added_apis = list(getattr(diff_result.dex, "api_references_added", []))
+            added_apis = list(diff_result.dex.api_references_added)
 
         has_new_dyn = any(
             loader in a for a in added_apis for loader in ("DexClassLoader", "PathClassLoader")

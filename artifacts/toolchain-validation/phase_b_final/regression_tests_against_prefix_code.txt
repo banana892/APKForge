@@ -1,0 +1,15 @@
+# tests/unit/test_phase_b_final_closeout.py run against a scratch copy of src/ with ONLY this task's
+# two fixes reverted (recovered-fallback block removed from intake/certificates.py; nested-archive
+# reads in inspection/embedded.py restored to the pre-task raw zipfile code). Reference .venv.
+# Command: PYTHONPATH=<scratch>/prefix_src .venv/bin/python -m pytest -q -p no:cacheprovider tests/unit/test_phase_b_final_closeout.py -rf
+# Expected: the 9 defect-detecting tests FAIL; the 7 unchanged-behaviour tests PASS.
+FAILED tests/unit/test_phase_b_final_closeout.py::TestCertificateFallbackStatus::test_recovered_failure_keeps_intake_complete
+FAILED tests/unit/test_phase_b_final_closeout.py::TestCertificateFallbackStatus::test_recovered_failure_retains_certificate_and_records_note
+FAILED tests/unit/test_phase_b_final_closeout.py::TestCertificateFallbackStatus::test_no_downstream_degradation_from_recovered_failure
+FAILED tests/unit/test_phase_b_final_closeout.py::TestNestedArchiveSafety::test_entry_count_over_limit_is_rejected_and_bounded
+FAILED tests/unit/test_phase_b_final_closeout.py::TestNestedArchiveSafety::test_path_traversal_entry_is_rejected
+FAILED tests/unit/test_phase_b_final_closeout.py::TestNestedArchiveSafety::test_absolute_and_drive_paths_are_rejected[/system/bin/evil]
+FAILED tests/unit/test_phase_b_final_closeout.py::TestNestedArchiveSafety::test_absolute_and_drive_paths_are_rejected[C:/evil]
+FAILED tests/unit/test_phase_b_final_closeout.py::TestNestedArchiveSafety::test_recursion_depth_limit_is_enforced
+FAILED tests/unit/test_phase_b_final_closeout.py::TestNestedArchiveSafety::test_unsafe_archive_found_by_content_sniffing_is_not_classified
+9 failed, 7 passed in 0.97s

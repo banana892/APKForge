@@ -1,0 +1,12 @@
+# Toolchain used for Phase B close-out OpenLink acceptance
+image: apkforge-toolchain:pinned
+image_id: sha256:79434918ee5e180f89345fa73e6c14fea2d1d14e95c863e022613d0d30226379
+apktool: 2.10.0
+apksigner: 0.9
+java: openjdk version "17.0.20.1" 2026-08-18
+host_sdk_mounted: no (only the scratch workspace is bind-mounted)
+host_apktool_on_PATH: no
+host_apksigner_on_PATH: no
+host_zipalign_on_PATH: no
+ANDROID_HOME: <unset>
+ANDROID_SDK_ROOT: <unset>

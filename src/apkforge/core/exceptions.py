@@ -42,6 +42,7 @@ __all__ = [
     "PluginError",
     "PluginInitError",
     "PluginNotFoundError",
+    "ToolchainError",
     "VerificationError",
     "WorkspaceError",
 ]
@@ -167,6 +168,15 @@ class ModificationError(APKForgeError):
     APKForge will not apply a modification that could corrupt the APK in a
     way that cannot be rolled back.
     """
+
+
+# ---------------------------------------------------------------------------
+# Toolchain errors
+# ---------------------------------------------------------------------------
+
+
+class ToolchainError(APKForgeError):
+    """Raised when external toolchain tools (Java, Apktool, zipalign, apksigner) fail or are missing."""
 
 
 # ---------------------------------------------------------------------------

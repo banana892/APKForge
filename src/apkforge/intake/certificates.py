@@ -40,6 +40,13 @@ def extract_certificates(apk_path: Path) -> tuple[list[SigningCertificate], list
     Tries Androguard first (handles v1/v2/v3), falls back to raw PKCS#7
     parsing of META-INF/*.RSA/*.DSA/*.EC files.
 
+    A primary-backend failure that the fallback fully recovers from is not a
+    warning: when the fallback yields only complete certificates and reports
+    no problems of its own, the Androguard message is attached to each
+    certificate as an informational ``extraction_note`` and no warning is
+    returned, so intake status is unaffected.  Any other combination keeps the
+    previous behaviour (all messages returned as warnings).
+
     Args:
         apk_path: Path to the APK file.
 
@@ -55,6 +62,17 @@ def extract_certificates(apk_path: Path) -> tuple[list[SigningCertificate], list
 
     # Strategy 2: Fall back to raw PKCS#7 parsing of META-INF entries
     certs, pkcs_warnings = extract_certificates_from_zip(apk_path)
+
+    if ag_warnings and certs and not pkcs_warnings and all(map(_is_complete, certs)):
+        notes = [
+            f"Primary certificate backend failed and was recovered by the PKCS#7 fallback: {w}"
+            for w in ag_warnings
+        ]
+        _log.info("Certificate extraction recovered via PKCS#7 fallback: %s", ag_warnings)
+        return [
+            c.model_copy(update={"extraction_notes": [*c.extraction_notes, *notes]}) for c in certs
+        ], []
+
     warnings.extend(ag_warnings)
     warnings.extend(pkcs_warnings)
 
@@ -62,6 +80,21 @@ def extract_certificates(apk_path: Path) -> tuple[list[SigningCertificate], list
         warnings.append("No signing certificates could be extracted.")
 
     return certs, warnings
+
+
+def _is_complete(cert: SigningCertificate) -> bool:
+    """Whether a certificate record carries full identity information."""
+    return all(
+        (
+            cert.subject,
+            cert.issuer,
+            cert.serial_number,
+            cert.not_before,
+            cert.not_after,
+            cert.sha256_fingerprint,
+            cert.sha1_fingerprint,
+        )
+    )
 
 
 def _extract_via_androguard(
@@ -96,8 +129,10 @@ def _extract_via_androguard(
             subject_str = cert.subject.rfc4514_string() if cert.subject else None
             issuer_str = cert.issuer.rfc4514_string() if cert.issuer else None
             serial = format(cert.serial_number, "x") if cert.serial_number else None
-            not_before = getattr(cert, "not_valid_before_utc", None)
-            not_after = getattr(cert, "not_valid_after_utc", None)
+            # `cryptography>=42.0.0` is a hard dependency (see pyproject.toml),
+            # so the timezone-aware accessors are always present.
+            not_before = cert.not_valid_before_utc
+            not_after = cert.not_valid_after_utc
         except Exception as exc:
             _log.debug("Error reading certificate fields: %s", exc)
             subject_str = issuer_str = serial = None
@@ -112,6 +147,7 @@ def _extract_via_androguard(
                 not_after=not_after,
                 sha256_fingerprint=sha256_fp,
                 sha1_fingerprint=sha1_fp,
+                extraction_backend="androguard",
             )
         )
 
@@ -170,6 +206,7 @@ def extract_certificates_from_zip(
                                 sha256_fingerprint=hashlib.sha256(der_bytes).hexdigest(),
                                 sha1_fingerprint=hashlib.sha1(der_bytes).hexdigest(),  # noqa: S324
                                 signature_version="v1",
+                                extraction_backend="pkcs7_fallback",
                             )
                         )
                 except Exception as exc:

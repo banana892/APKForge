@@ -1,0 +1,319 @@
+{
+  "audit": "Phase B close-out - dynamic attribute access audit (Part 1, item 2)",
+  "scope": "Every getattr(obj, \"field\", default) and equivalent dynamic attribute access under src/.",
+  "method": [
+    "Enumerated all getattr() occurrences under src/ at the committed baseline HEAD=212227f: 86 occurrences across 16 files (occurrences, not grep lines -- several lines held two calls).",
+    "For each site, introspected the target Pydantic model's model_fields (and properties) to determine whether the named field actually exists.",
+    "Where the field exists: replaced dynamic access with direct typed access, handling Optional/None explicitly.",
+    "Where the field does NOT exist: the site was provably dead (getattr always returned the default); the dead branch was removed and recorded.",
+    "Where dynamic access is genuinely required: left unchanged and recorded with the reason.",
+    "Verified with: pytest (386 passed), mypy (no new errors outside inspection/manifest.py line shifts), ruff (no new findings)."
+  ],
+  "totals": {
+    "occurrences_at_HEAD_212227f": 86,
+    "occurrences_now": 8,
+    "occurrences_eliminated": 78,
+    "files_with_getattr_at_HEAD": 16,
+    "files_with_getattr_now": 3,
+    "retained_as_genuinely_dynamic": 8,
+    "real_defects_found": 2,
+    "note": "Counts are getattr() occurrences (not grep lines; several lines contained two calls), measured against the committed baseline HEAD=212227f and recomputed by artifacts/toolchain-validation/closeout/recount_getattr.py."
+  },
+  "verification_evidence": {
+    "unit_tests": "artifacts/toolchain-validation/closeout/unit_test_run.txt",
+    "mypy_after": "artifacts/toolchain-validation/closeout/mypy_closeout.txt",
+    "mypy_baseline_at_HEAD": "artifacts/toolchain-validation/closeout/mypy_baseline_HEAD_212227f.txt",
+    "ruff_after": "artifacts/toolchain-validation/closeout/ruff_closeout.txt",
+    "ruff_baseline_at_HEAD": "artifacts/toolchain-validation/closeout/ruff_baseline_HEAD_212227f.txt"
+  },
+  "real_defects_found_and_fixed": [
+    {
+      "id": "DEFECT-1",
+      "severity": "functional - silently disabled feature",
+      "file": "src/apkforge/modification/rules.py",
+      "line_before": 80,
+      "old_expression": "return getattr(self.inspection.obfuscation, \"is_obfuscated\", False)",
+      "new_expression": "return self.inspection.obfuscation.is_likely_obfuscated",
+      "root_cause": "ObfuscationInspection declares `is_likely_obfuscated` (src/apkforge/inspection/models.py:509). There is no `is_obfuscated` field anywhere in the codebase, so getattr always returned the default False.",
+      "impact": "ModificationContext.has_obfuscation() returned False unconditionally, so every modification rule gated on obfuscation was permanently unreachable, regardless of the inspected APK.",
+      "evidence": "grep -rn 'is_obfuscated|is_likely_obfuscated' src/ tests/ shows the only producer is inspection/obfuscation.py:183 setting result.is_likely_obfuscated, and the only consumer of the misspelled name was this getattr."
+    },
+    {
+      "id": "DEFECT-2",
+      "severity": "dead code - unreachable evidence path",
+      "file": "src/apkforge/modification/rules.py",
+      "lines_before": "63-66",
+      "old_expression": "for call in getattr(df, \"framework_api_calls\", []): val = getattr(call, \"api\", str(call)).lower()",
+      "new_expression": "(removed)",
+      "root_cause": "DEXFileInspection has no `framework_api_calls` field; the name appears nowhere else in the repository.",
+      "impact": "A second API-matching path in ModificationContext.has_api() never executed. No behaviour change from removal (the loop body was unreachable), but the code implied a capability that did not exist.",
+      "evidence": "DEXFileInspection.model_fields == [api_references, class_count, dex_version, field_count, inventory, method_count, path, sha256, size]; grep for framework_api_calls matched only this one site."
+    }
+  ],
+  "dead_fallbacks_removed": [
+    {
+      "files_and_lines_before": [
+        "src/apkforge/diff/dex.py:75-83 (side A)",
+        "src/apkforge/diff/dex.py:101-109 (side B)",
+        "src/apkforge/privacy/engine.py:286-293",
+        "src/apkforge/security/engine.py:446"
+      ],
+      "old_expression": "getattr(dex_a, \"inventory\", None) / getattr(inspection.dex, \"api_references\", None)",
+      "new_expression": "(removed; the per-DEX-file loop above already reads df.inventory and df.api_references)",
+      "reason": "DEXInspection.model_fields == [dex_files, strings, total_classes, total_fields, total_methods]. It has neither `inventory` nor `api_references`; those live on DEXFileInspection. Each of these blocks was commented as a 'fallback if present on DEXInspection' and could never execute.",
+      "behaviour_change": "none - the removed branches were unreachable"
+    },
+    {
+      "file": "src/apkforge/security/engine.py",
+      "lines_before": "423-426",
+      "old_expression": "val = getattr(inspection.manifest, snake, None); if val is None: val = getattr(inspection.manifest, camel, None)",
+      "new_expression": "(removed; values now read directly from inspection.manifest.application)",
+      "reason": "ManifestInspection declares none of debuggable/allow_backup/test_only/uses_cleartext_traffic (they live on ApplicationInfo), and Pydantic v2 ignores unknown kwargs by default, so these two fallback tiers could never produce a value.",
+      "behaviour_change": "none - the removed tiers always yielded None",
+      "related_observation": "Because extra kwargs are silently ignored, `ManifestInspection(..., debuggable=True)` drops the value. tests/unit/test_security_engine.py:731 does exactly that; that test only asserts determinism so it still passes, but the fixture does not exercise what its name suggests. Recorded as an observation, not changed."
+    },
+    {
+      "file": "src/apkforge/security/engine.py",
+      "lines_before": "441-444",
+      "old_expression": "if hasattr(df, \"strings\") and df.strings: ...",
+      "new_expression": "(removed; strings are read from inspection.dex.strings, which is where they live)",
+      "reason": "DEXFileInspection has no `strings` field; DEXInspection does.",
+      "behaviour_change": "none"
+    },
+    {
+      "files_and_lines_before": [
+        "src/apkforge/security/engine.py:471",
+        "src/apkforge/privacy/endpoints.py:117"
+      ],
+      "old_expression": "getattr(src, \"file\", None) or getattr(src, \"file_path\", None)",
+      "new_expression": "src.file",
+      "reason": "EvidenceSource.model_fields == [class_name, file, method_name, offset]. There is no `file_path` field, so the second half of the `or` was dead.",
+      "behaviour_change": "none"
+    }
+  ],
+  "converted_to_typed_access": [
+    {
+      "file": "src/apkforge/cli/main.py",
+      "line_before": 1525,
+      "old": "getattr(f.category, \"value\", str(f.category))",
+      "new": "f.category",
+      "reason": "SecurityFinding.category is annotated `str`; a str has no `.value`, so the default branch always won."
+    },
+    {
+      "file": "src/apkforge/diff/components.py",
+      "lines_before": "344,357,364,365",
+      "old": "getattr(a|b, \"enabled\", None)",
+      "new": "a.enabled / b.enabled",
+      "reason": "ContentProviderInfo.enabled exists (added in an earlier phase); the getattr was a leftover from before the field was modelled."
+    },
+    {
+      "file": "src/apkforge/diff/manifest.py",
+      "lines_before": "58,59",
+      "old": "getattr(app_a, attr_field, None) with attr_field from a loop table",
+      "new": "_application_attributes(app) helper returning a dict built from direct attribute reads",
+      "reason": "All five names exist on ApplicationInfo. Table-driven dynamic names mean a renamed field becomes a silently-skipped comparison instead of a type error."
+    },
+    {
+      "file": "src/apkforge/modification/planner.py",
+      "line_before": 72,
+      "old": "getattr(inspection.dex, \"dex_files\", [])",
+      "new": "inspection.dex.dex_files",
+      "reason": "Field exists on DEXInspection; the enclosing `if not inspection.dex or ...` already guards None."
+    },
+    {
+      "file": "src/apkforge/modification/rules.py",
+      "lines_before": "59,60",
+      "old": "getattr(self.inspection.dex, \"dex_files\", []) / getattr(df, \"api_references\", [])",
+      "new": "self.inspection.dex.dex_files / df.api_references",
+      "reason": "Both fields exist; None is already guarded by the early return above."
+    },
+    {
+      "file": "src/apkforge/modification/rules.py",
+      "line_before": 621,
+      "old": "getattr(context.diff.permissions, \"added\", [])",
+      "new": "context.diff.permissions.added",
+      "reason": "PermissionDiff.added exists. The redundant `hasattr(context.diff, \"permissions\")` guard was also dropped (DiffResult.permissions is a required field)."
+    },
+    {
+      "file": "src/apkforge/privacy/permissions.py",
+      "line_before": 172,
+      "old": "getattr(p, \"protection_level\", None)",
+      "new": "p.protection_level",
+      "reason": "PermissionInfo.protection_level exists. This also removed a pre-existing mypy error (str|None assigned to str)."
+    },
+    {
+      "file": "src/apkforge/privacy/engine.py",
+      "line_before": 296,
+      "old": "hasattr(inspection.dex, \"strings\") and inspection.dex.strings",
+      "new": "inspection.dex.strings",
+      "reason": "Field exists on DEXInspection, so hasattr was always True."
+    },
+    {
+      "file": "src/apkforge/security/diff_analyzer.py",
+      "lines_before": "47,98,99,104,153,154,195,196,236,276",
+      "old": "getattr on diff_result.permissions/certificates/components/native/network/dex members",
+      "new": "direct attribute access (e.g. diff_result.permissions.added, c.status, c.fingerprint_changes, comp.change_type, comp.exported_after, lib.path, diff_result.network.domains_added, diff_result.dex.api_references_added)",
+      "reason": "All are declared fields on PermissionDiff / CertificateDiff / ComponentChange / NativeLibraryDiff / NetworkDiff / DEXDiff. Also removed a pre-existing mypy error at line 99 by making cert_changed an explicit bool."
+    },
+    {
+      "file": "src/apkforge/security/engine.py",
+      "lines_before": "300,361,373,374,384,387,388,400,401,410,415,434,435,437,440,483,485,487,489,491,492,494,500,506,513,541,545,550,551,552,553,556,559",
+      "old": "getattr on inspection.dex/manifest/embedded/assets/native members and diff members",
+      "new": "direct attribute access (inspection.dex.dex_files, a.intent_filters, f.actions, s.foreground_service_type, pr.permission, inspection.manifest.application, df.inventory, df.api_references, ed.size, ef.detected_type, ast.entropy, ast.size, nl.path, diff.permissions.added, diff.certificates.status, diff.components.activities/..., ac.change_type, diff.network.domains_added)",
+      "reason": "Every one of these is a declared field on its model (verified via model_fields introspection). EmbeddedFileInspection/EmbeddedDEXInfo/EmbeddedAPKInfo/ExecutableFileInfo/AssetEntry/NativeLibraryInspection all declare the accessed names."
+    }
+  ],
+  "retained_as_genuinely_dynamic": [
+    {
+      "file": "src/apkforge/security/rules.py",
+      "lines": [
+        138,
+        143,
+        147
+      ],
+      "expression": "c.get(\"exported\"|\"permission\"|\"name\", ...) if isinstance(c, dict) else getattr(c, ..., default)",
+      "reason": "SecurityEvidenceIndex.has_component_with_names() iterates self.components, and the index's component accessors (services/receivers/providers/activities properties, src/apkforge/security/rules.py:70-83) are deliberately annotated `list[Any]`. The accessor is intentionally tolerant of either mappings or objects. The only in-tree producer (security/engine.py) supplies dicts, and custom rules are declarative YAML/JSON (load_from_directory accepts only .yaml/.yml/.json), so no third-party Python constructs the index today - but tightening this is a rule-engine behaviour change, which this task was explicitly told not to make.",
+      "proposed_followup": "Tighten the property annotations to list[dict[str, Any]] and drop the object branch (recorded, not done)."
+    },
+    {
+      "file": "src/apkforge/security/rules.py",
+      "lines": [
+        174,
+        175
+      ],
+      "expression": "getattr(r, \"intent_filters\", []) / getattr(f, \"actions\", [])",
+      "reason": "Same tolerant-accessor pattern inside has_boot_receiver(), on the same `list[Any]`-typed index data.",
+      "proposed_followup": "Same as above."
+    },
+    {
+      "file": "src/apkforge/security/spyware/surveillance.py",
+      "lines": [
+        48
+      ],
+      "expression": "s.get(\"name\", \"\") if isinstance(s, dict) else getattr(s, \"name\", \"\")",
+      "reason": "Reads index.services, the same `list[Any]`-typed evidence-index property.",
+      "proposed_followup": "Same as above."
+    },
+    {
+      "file": "src/apkforge/modification/framework.py",
+      "lines": [
+        195,
+        229
+      ],
+      "expression": "getattr(modifier, \"modifier_id\", \"unknown\")",
+      "reason": "`modifier` is a plugin satisfying a Protocol, and both sites are inside `except Exception` handlers that report a failure for an object which may be a partially-initialised or third-party modifier. A Protocol attribute is not guaranteed present at runtime on an arbitrary plugin, and raising AttributeError while already handling an exception would mask the original error.",
+      "proposed_followup": "none - this is the correct construct here"
+    }
+  ],
+  "also_converted_after_dependency_check": [
+    {
+      "file": "src/apkforge/intake/certificates.py",
+      "lines_before": [
+        99,
+        100
+      ],
+      "old": "getattr(cert, \"not_valid_before_utc\", None) / getattr(cert, \"not_valid_after_utc\", None)",
+      "new": "cert.not_valid_before_utc / cert.not_valid_after_utc",
+      "reason": "Initially looked like legitimate third-party version tolerance, but pyproject.toml:35 pins `cryptography>=42.0.0` and the timezone-aware accessors exist on x509.Certificate in that range (verified: hasattr(x509.Certificate, 'not_valid_before_utc') is True). With the floor pinned, the default could only mask a genuine failure, silently recording null certificate validity dates.",
+      "behaviour_change": "On the pinned dependency range, none. Below the pin (unsupported), an AttributeError would now surface inside the existing try/except, which already degrades to None and logs."
+    }
+  ],
+  "per_file_counts": [
+    {
+      "file": "src/apkforge/security/engine.py",
+      "occurrences_at_HEAD_212227f": 39,
+      "occurrences_now": 0,
+      "eliminated": 39
+    },
+    {
+      "file": "src/apkforge/security/diff_analyzer.py",
+      "occurrences_at_HEAD_212227f": 10,
+      "occurrences_now": 0,
+      "eliminated": 10
+    },
+    {
+      "file": "src/apkforge/modification/rules.py",
+      "occurrences_at_HEAD_212227f": 7,
+      "occurrences_now": 0,
+      "eliminated": 7
+    },
+    {
+      "file": "src/apkforge/diff/components.py",
+      "occurrences_at_HEAD_212227f": 4,
+      "occurrences_now": 0,
+      "eliminated": 4
+    },
+    {
+      "file": "src/apkforge/diff/dex.py",
+      "occurrences_at_HEAD_212227f": 4,
+      "occurrences_now": 0,
+      "eliminated": 4
+    },
+    {
+      "file": "src/apkforge/privacy/engine.py",
+      "occurrences_at_HEAD_212227f": 4,
+      "occurrences_now": 0,
+      "eliminated": 4
+    },
+    {
+      "file": "src/apkforge/diff/manifest.py",
+      "occurrences_at_HEAD_212227f": 2,
+      "occurrences_now": 0,
+      "eliminated": 2
+    },
+    {
+      "file": "src/apkforge/intake/certificates.py",
+      "occurrences_at_HEAD_212227f": 2,
+      "occurrences_now": 0,
+      "eliminated": 2
+    },
+    {
+      "file": "src/apkforge/privacy/endpoints.py",
+      "occurrences_at_HEAD_212227f": 2,
+      "occurrences_now": 0,
+      "eliminated": 2
+    },
+    {
+      "file": "src/apkforge/cli/main.py",
+      "occurrences_at_HEAD_212227f": 1,
+      "occurrences_now": 0,
+      "eliminated": 1
+    },
+    {
+      "file": "src/apkforge/inspection/dex.py",
+      "occurrences_at_HEAD_212227f": 1,
+      "occurrences_now": 0,
+      "eliminated": 1
+    },
+    {
+      "file": "src/apkforge/modification/planner.py",
+      "occurrences_at_HEAD_212227f": 1,
+      "occurrences_now": 0,
+      "eliminated": 1
+    },
+    {
+      "file": "src/apkforge/privacy/permissions.py",
+      "occurrences_at_HEAD_212227f": 1,
+      "occurrences_now": 0,
+      "eliminated": 1
+    },
+    {
+      "file": "src/apkforge/modification/framework.py",
+      "occurrences_at_HEAD_212227f": 2,
+      "occurrences_now": 2,
+      "eliminated": 0
+    },
+    {
+      "file": "src/apkforge/security/rules.py",
+      "occurrences_at_HEAD_212227f": 5,
+      "occurrences_now": 5,
+      "eliminated": 0
+    },
+    {
+      "file": "src/apkforge/security/spyware/surveillance.py",
+      "occurrences_at_HEAD_212227f": 1,
+      "occurrences_now": 1,
+      "eliminated": 0
+    }
+  ]
+}

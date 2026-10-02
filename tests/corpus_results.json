@@ -3,7 +3,20 @@
     "runner_version": "1.0.0",
     "corpus_dir": "/home/naishring/APKForge/tests/corpus",
     "total_apks": 9,
-    "total_duration_seconds": 263.8
+    "total_duration_seconds": 358.0,
+    "environment": {
+      "python_version": "3.14.7",
+      "python_implementation": "CPython",
+      "python_executable": "/home/naishring/APKForge/.venv-validation/bin/python",
+      "platform": "Linux-7.2.7-200.fc44.x86_64-x86_64-with-glibc2.43",
+      "cryptography_version": "50.0.1",
+      "cryptography_bundled_openssl": "OpenSSL 4.0.2 25 Aug 2026",
+      "androguard_version": "4.1.4",
+      "asn1crypto_version": "1.5.1",
+      "pydantic_version": "2.13.5",
+      "lock_file": "requirements/validation.lock",
+      "lock_sha256": "62e61de0ddb41b87771f763c103f1dd1deae655035dc5d615c0fda35c9919acf"
+    }
   },
   "per_apk_results": [
     {
@@ -13,7 +26,7 @@
         {
           "capability": "intake",
           "verdict": "PASS",
-          "duration_seconds": 0.821320809000099,
+          "duration_seconds": 0.946820197001216,
           "message": "OK: com.emanuelef.remote_capture (2326 files, 2 DEX, 1 certs)",
           "error": "",
           "exception_type": "",
@@ -38,7 +51,7 @@
         {
           "capability": "inspection_full",
           "verdict": "PASS",
-          "duration_seconds": 7.002382536998994,
+          "duration_seconds": 9.528290051999647,
           "message": "OK: 2326 files, 2 DEX, 20 native",
           "error": "",
           "exception_type": "",
@@ -115,7 +128,7 @@
             "dex_file_count": 2,
             "total_classes": 2845,
             "total_methods": 20232,
-            "total_strings": 34113
+            "total_strings": 34264
           },
           "likely_cause": "",
           "blame": ""
@@ -124,17 +137,17 @@
           "capability": "native_libraries",
           "verdict": "PASS",
           "duration_seconds": 0.0,
-          "message": "OK: 20 native libs, ABIs: ['armeabi-v7a', 'x86_64', 'x86', 'arm64-v8a']",
+          "message": "OK: 20 native libs, ABIs: ['arm64-v8a', 'x86_64', 'armeabi-v7a', 'x86']",
           "error": "",
           "exception_type": "",
           "traceback_snippet": "",
           "data_summary": {
             "library_count": 20,
             "abis": [
-              "armeabi-v7a",
+              "arm64-v8a",
               "x86_64",
-              "x86",
-              "arm64-v8a"
+              "armeabi-v7a",
+              "x86"
             ]
           },
           "likely_cause": "",
@@ -197,7 +210,7 @@
         {
           "capability": "privacy",
           "verdict": "PASS",
-          "duration_seconds": 0.37952075700013665,
+          "duration_seconds": 0.34969940899827634,
           "message": "OK: 13 perms, 0 SDKs, 127 endpoints",
           "error": "",
           "exception_type": "",
@@ -225,7 +238,7 @@
         {
           "capability": "security",
           "verdict": "PASS",
-          "duration_seconds": 0.2253736780003237,
+          "duration_seconds": 0.21513499199863872,
           "message": "OK: 9 findings (C:0 H:0 M:3 L:5 I:1)",
           "error": "",
           "exception_type": "",
@@ -240,12 +253,12 @@
             "low": 5,
             "info": 1,
             "finding_categories": [
+              "network",
               "configuration",
-              "vulnerability",
-              "persistence",
-              "spyware_indicator",
               "collection",
-              "network"
+              "persistence",
+              "vulnerability",
+              "spyware_indicator"
             ],
             "errors": [],
             "warnings": []
@@ -256,7 +269,7 @@
         {
           "capability": "modification_planning",
           "verdict": "PASS",
-          "duration_seconds": 0.04082043499874999,
+          "duration_seconds": 0.04209022199938772,
           "message": "OK: 1 changes proposed (types: ['modify_configuration'])",
           "error": "",
           "exception_type": "",
@@ -286,7 +299,7 @@
         {
           "capability": "intake",
           "verdict": "PASS",
-          "duration_seconds": 0.018212918999779504,
+          "duration_seconds": 0.028096310001274105,
           "message": "OK: com.oF2pks.applicationsinfo (37 files, 1 DEX, 1 certs)",
           "error": "",
           "exception_type": "",
@@ -311,7 +324,7 @@
         {
           "capability": "inspection_full",
           "verdict": "PASS",
-          "duration_seconds": 0.09006944300017494,
+          "duration_seconds": 0.1498115929971391,
           "message": "OK: 37 files, 1 DEX, 0 native",
           "error": "",
           "exception_type": "",
@@ -461,7 +474,7 @@
         {
           "capability": "privacy",
           "verdict": "PASS",
-          "duration_seconds": 0.05215315399982501,
+          "duration_seconds": 0.05215034299908439,
           "message": "OK: 4 perms, 0 SDKs, 2 endpoints",
           "error": "",
           "exception_type": "",
@@ -489,7 +502,7 @@
         {
           "capability": "security",
           "verdict": "PASS",
-          "duration_seconds": 0.03801719500006584,
+          "duration_seconds": 0.037777744997583795,
           "message": "OK: 1 findings (C:0 H:0 M:0 L:1 I:0)",
           "error": "",
           "exception_type": "",
@@ -515,7 +528,7 @@
         {
           "capability": "modification_planning",
           "verdict": "PASS",
-          "duration_seconds": 0.0006592760000785347,
+          "duration_seconds": 0.0006199750023370143,
           "message": "Plan generated with 0 changes (no modifications proposed)",
           "error": "",
           "exception_type": "",
@@ -543,7 +556,7 @@
         {
           "capability": "intake",
           "verdict": "PASS",
-          "duration_seconds": 0.03520868699888524,
+          "duration_seconds": 0.0451573569989705,
           "message": "OK: de.audioattack.openlink (96 files, 1 DEX, 1 certs)",
           "error": "",
           "exception_type": "",
@@ -568,7 +581,7 @@
         {
           "capability": "inspection_full",
           "verdict": "PASS",
-          "duration_seconds": 0.10983537799984333,
+          "duration_seconds": 0.15575585899932776,
           "message": "OK: 96 files, 1 DEX, 0 native",
           "error": "",
           "exception_type": "",
@@ -718,7 +731,7 @@
         {
           "capability": "privacy",
           "verdict": "PASS",
-          "duration_seconds": 0.05115537299934658,
+          "duration_seconds": 0.04793545999928028,
           "message": "OK: 2 perms, 0 SDKs, 2 endpoints",
           "error": "",
           "exception_type": "",
@@ -746,7 +759,7 @@
         {
           "capability": "security",
           "verdict": "PASS",
-          "duration_seconds": 0.04663669200090226,
+          "duration_seconds": 0.0337704310004483,
           "message": "OK: 5 findings (C:0 H:0 M:0 L:5 I:0)",
           "error": "",
           "exception_type": "",
@@ -761,11 +774,11 @@
             "low": 5,
             "info": 0,
             "finding_categories": [
+              "network",
               "configuration",
-              "vulnerability",
               "persistence",
               "exported_component",
-              "network"
+              "vulnerability"
             ],
             "errors": [],
             "warnings": []
@@ -776,7 +789,7 @@
         {
           "capability": "modification_planning",
           "verdict": "PASS",
-          "duration_seconds": 0.0009951659994840156,
+          "duration_seconds": 0.0008131340000545606,
           "message": "OK: 1 changes proposed (types: ['modify_configuration'])",
           "error": "",
           "exception_type": "",
@@ -806,7 +819,7 @@
         {
           "capability": "intake",
           "verdict": "PASS",
-          "duration_seconds": 0.7135372579996329,
+          "duration_seconds": 0.7013983280012326,
           "message": "OK: de.danoeh.antennapod (1516 files, 3 DEX, 1 certs)",
           "error": "",
           "exception_type": "",
@@ -831,7 +844,7 @@
         {
           "capability": "inspection_full",
           "verdict": "PASS",
-          "duration_seconds": 13.28793953999957,
+          "duration_seconds": 19.631680032001896,
           "message": "OK: 1516 files, 3 DEX, 4 native",
           "error": "",
           "exception_type": "",
@@ -908,7 +921,7 @@
             "dex_file_count": 3,
             "total_classes": 12065,
             "total_methods": 70360,
-            "total_strings": 103379
+            "total_strings": 103773
           },
           "likely_cause": "",
           "blame": ""
@@ -917,17 +930,17 @@
           "capability": "native_libraries",
           "verdict": "PASS",
           "duration_seconds": 0.0,
-          "message": "OK: 4 native libs, ABIs: ['armeabi-v7a', 'x86_64', 'x86', 'arm64-v8a']",
+          "message": "OK: 4 native libs, ABIs: ['arm64-v8a', 'x86_64', 'armeabi-v7a', 'x86']",
           "error": "",
           "exception_type": "",
           "traceback_snippet": "",
           "data_summary": {
             "library_count": 4,
             "abis": [
-              "armeabi-v7a",
+              "arm64-v8a",
               "x86_64",
-              "x86",
-              "arm64-v8a"
+              "armeabi-v7a",
+              "x86"
             ]
           },
           "likely_cause": "",
@@ -990,7 +1003,7 @@
         {
           "capability": "privacy",
           "verdict": "PASS",
-          "duration_seconds": 1.3008818859998428,
+          "duration_seconds": 1.2021527419965423,
           "message": "OK: 11 perms, 0 SDKs, 94 endpoints",
           "error": "",
           "exception_type": "",
@@ -1018,29 +1031,29 @@
         {
           "capability": "security",
           "verdict": "PASS",
-          "duration_seconds": 0.5774160410001059,
-          "message": "OK: 20 findings (C:0 H:2 M:9 L:8 I:1)",
+          "duration_seconds": 0.547761896999873,
+          "message": "OK: 18 findings (C:0 H:1 M:8 L:8 I:1)",
           "error": "",
           "exception_type": "",
           "traceback_snippet": "",
           "data_summary": {
             "status": "complete",
             "security_status": "findings_present",
-            "total_findings": 20,
+            "total_findings": 18,
             "critical": 0,
-            "high": 2,
-            "medium": 9,
+            "high": 1,
+            "medium": 8,
             "low": 8,
             "info": 1,
             "finding_categories": [
+              "network",
               "configuration",
-              "vulnerability",
-              "persistence",
-              "spyware_indicator",
-              "exported_component",
               "collection",
-              "crypto",
-              "network"
+              "persistence",
+              "exported_component",
+              "vulnerability",
+              "spyware_indicator",
+              "crypto"
             ],
             "errors": [],
             "warnings": []
@@ -1051,8 +1064,8 @@
         {
           "capability": "modification_planning",
           "verdict": "PASS",
-          "duration_seconds": 0.046353289999387925,
-          "message": "OK: 4 changes proposed (types: ['modify_component', 'modify_configuration'])",
+          "duration_seconds": 0.04891792100170278,
+          "message": "OK: 4 changes proposed (types: ['modify_configuration', 'modify_component'])",
           "error": "",
           "exception_type": "",
           "traceback_snippet": "",
@@ -1061,8 +1074,8 @@
             "status": "review_required",
             "change_count": 4,
             "change_types": [
-              "modify_component",
-              "modify_configuration"
+              "modify_configuration",
+              "modify_component"
             ],
             "has_conflicts": false,
             "conflict_count": 0,
@@ -1082,7 +1095,7 @@
         {
           "capability": "intake",
           "verdict": "PASS",
-          "duration_seconds": 0.9036301190008089,
+          "duration_seconds": 0.8711191920010606,
           "message": "OK: eu.siacs.conversations (1339 files, 2 DEX, 1 certs)",
           "error": "",
           "exception_type": "",
@@ -1107,7 +1120,7 @@
         {
           "capability": "inspection_full",
           "verdict": "PASS",
-          "duration_seconds": 9.110781004999808,
+          "duration_seconds": 15.885873829000047,
           "message": "OK: 1339 files, 2 DEX, 2 native",
           "error": "",
           "exception_type": "",
@@ -1184,7 +1197,7 @@
             "dex_file_count": 2,
             "total_classes": 7686,
             "total_methods": 40927,
-            "total_strings": 57376
+            "total_strings": 58102
           },
           "likely_cause": "",
           "blame": ""
@@ -1263,7 +1276,7 @@
         {
           "capability": "privacy",
           "verdict": "PASS",
-          "duration_seconds": 0.7959435419998044,
+          "duration_seconds": 0.7481446810015768,
           "message": "OK: 51 perms, 0 SDKs, 149 endpoints",
           "error": "",
           "exception_type": "",
@@ -1291,31 +1304,31 @@
         {
           "capability": "security",
           "verdict": "PASS",
-          "duration_seconds": 0.36329309299981105,
-          "message": "OK: 27 findings (C:0 H:9 M:9 L:8 I:1)",
+          "duration_seconds": 0.3844267709973792,
+          "message": "OK: 25 findings (C:0 H:8 M:8 L:8 I:1)",
           "error": "",
           "exception_type": "",
           "traceback_snippet": "",
           "data_summary": {
             "status": "complete",
             "security_status": "findings_present",
-            "total_findings": 27,
+            "total_findings": 25,
             "critical": 0,
-            "high": 9,
-            "medium": 9,
+            "high": 8,
+            "medium": 8,
             "low": 8,
             "info": 1,
             "finding_categories": [
-              "payload",
-              "configuration",
-              "vulnerability",
-              "persistence",
-              "spyware_indicator",
-              "exported_component",
-              "collection",
-              "crypto",
               "network",
-              "surveillance"
+              "configuration",
+              "payload",
+              "collection",
+              "persistence",
+              "exported_component",
+              "vulnerability",
+              "surveillance",
+              "spyware_indicator",
+              "crypto"
             ],
             "errors": [],
             "warnings": []
@@ -1326,7 +1339,7 @@
         {
           "capability": "modification_planning",
           "verdict": "PASS",
-          "duration_seconds": 0.0750628579990007,
+          "duration_seconds": 0.07356164600059856,
           "message": "OK: 2 changes proposed (types: ['remove_permission', 'modify_configuration'])",
           "error": "",
           "exception_type": "",
@@ -1357,7 +1370,7 @@
         {
           "capability": "intake",
           "verdict": "PASS",
-          "duration_seconds": 0.16913930699956836,
+          "duration_seconds": 0.15828357600184972,
           "message": "OK: godau.fynn.usagedirect (528 files, 2 DEX, 1 certs)",
           "error": "",
           "exception_type": "",
@@ -1382,7 +1395,7 @@
         {
           "capability": "inspection_full",
           "verdict": "PASS",
-          "duration_seconds": 5.787641042999894,
+          "duration_seconds": 9.17503832100192,
           "message": "OK: 528 files, 2 DEX, 0 native",
           "error": "",
           "exception_type": "",
@@ -1459,7 +1472,7 @@
             "dex_file_count": 2,
             "total_classes": 5902,
             "total_methods": 41733,
-            "total_strings": 44978
+            "total_strings": 46171
           },
           "likely_cause": "",
           "blame": ""
@@ -1536,7 +1549,7 @@
         {
           "capability": "privacy",
           "verdict": "PASS",
-          "duration_seconds": 0.6667188150004222,
+          "duration_seconds": 0.5095936770012486,
           "message": "OK: 2 perms, 0 SDKs, 28 endpoints",
           "error": "",
           "exception_type": "",
@@ -1564,7 +1577,7 @@
         {
           "capability": "security",
           "verdict": "PASS",
-          "duration_seconds": 0.3596590789984475,
+          "duration_seconds": 0.3268400039996777,
           "message": "OK: 7 findings (C:0 H:0 M:3 L:4 I:0)",
           "error": "",
           "exception_type": "",
@@ -1580,10 +1593,10 @@
             "info": 0,
             "finding_categories": [
               "configuration",
-              "vulnerability",
+              "collection",
               "persistence",
-              "spyware_indicator",
-              "collection"
+              "vulnerability",
+              "spyware_indicator"
             ],
             "errors": [],
             "warnings": []
@@ -1594,7 +1607,7 @@
         {
           "capability": "modification_planning",
           "verdict": "PASS",
-          "duration_seconds": 0.013716806999582332,
+          "duration_seconds": 0.01274015099988901,
           "message": "OK: 1 changes proposed (types: ['modify_configuration'])",
           "error": "",
           "exception_type": "",
@@ -1624,7 +1637,7 @@
         {
           "capability": "intake",
           "verdict": "PASS",
-          "duration_seconds": 1.2754430740005773,
+          "duration_seconds": 1.2863918490002106,
           "message": "OK: io.github.muntashirakon.AppManager (2310 files, 6 DEX, 1 certs)",
           "error": "",
           "exception_type": "",
@@ -1649,7 +1662,7 @@
         {
           "capability": "inspection_full",
           "verdict": "PASS",
-          "duration_seconds": 34.39624853500027,
+          "duration_seconds": 58.343541726000694,
           "message": "OK: 2310 files, 6 DEX, 16 native",
           "error": "",
           "exception_type": "",
@@ -1726,7 +1739,7 @@
             "dex_file_count": 6,
             "total_classes": 30717,
             "total_methods": 225186,
-            "total_strings": 231004
+            "total_strings": 233059
           },
           "likely_cause": "",
           "blame": ""
@@ -1735,17 +1748,17 @@
           "capability": "native_libraries",
           "verdict": "PASS",
           "duration_seconds": 0.0,
-          "message": "OK: 16 native libs, ABIs: ['armeabi-v7a', 'x86_64', 'x86', 'arm64-v8a']",
+          "message": "OK: 16 native libs, ABIs: ['arm64-v8a', 'x86_64', 'armeabi-v7a', 'x86']",
           "error": "",
           "exception_type": "",
           "traceback_snippet": "",
           "data_summary": {
             "library_count": 16,
             "abis": [
-              "armeabi-v7a",
+              "arm64-v8a",
               "x86_64",
-              "x86",
-              "arm64-v8a"
+              "armeabi-v7a",
+              "x86"
             ]
           },
           "likely_cause": "",
@@ -1808,7 +1821,7 @@
         {
           "capability": "privacy",
           "verdict": "PASS",
-          "duration_seconds": 4.084387627999604,
+          "duration_seconds": 4.031624336999812,
           "message": "OK: 63 perms, 0 SDKs, 113 endpoints",
           "error": "",
           "exception_type": "",
@@ -1836,34 +1849,33 @@
         {
           "capability": "security",
           "verdict": "PASS",
-          "duration_seconds": 1.5332272779996856,
-          "message": "OK: 45 findings (C:0 H:21 M:14 L:9 I:1)",
+          "duration_seconds": 1.4662864379970415,
+          "message": "OK: 28 findings (C:0 H:5 M:13 L:9 I:1)",
           "error": "",
           "exception_type": "",
           "traceback_snippet": "",
           "data_summary": {
             "status": "complete",
             "security_status": "findings_present",
-            "total_findings": 45,
+            "total_findings": 28,
             "critical": 0,
-            "high": 21,
-            "medium": 14,
+            "high": 5,
+            "medium": 13,
             "low": 9,
             "info": 1,
             "finding_categories": [
-              "payload",
-              "dynamic_code",
-              "malware_indicator",
-              "credential_access",
+              "network",
               "configuration",
-              "vulnerability",
+              "payload",
+              "collection",
               "persistence",
+              "exported_component",
+              "vulnerability",
+              "malware_indicator",
               "code_execution",
               "spyware_indicator",
-              "exported_component",
-              "collection",
-              "crypto",
-              "network"
+              "dynamic_code",
+              "crypto"
             ],
             "errors": [],
             "warnings": []
@@ -1874,17 +1886,16 @@
         {
           "capability": "modification_planning",
           "verdict": "PASS",
-          "duration_seconds": 0.06447563599977002,
-          "message": "OK: 15 changes proposed (types: ['remove_embedded_payload', 'modify_configuration'])",
+          "duration_seconds": 0.06270902199685224,
+          "message": "OK: 1 changes proposed (types: ['modify_configuration'])",
           "error": "",
           "exception_type": "",
           "traceback_snippet": "",
           "data_summary": {
-            "plan_id": "PLAN-7E6C49182F0F",
+            "plan_id": "PLAN-D60EBF96093E",
             "status": "review_required",
-            "change_count": 15,
+            "change_count": 1,
             "change_types": [
-              "remove_embedded_payload",
               "modify_configuration"
             ],
             "has_conflicts": false,
@@ -1905,7 +1916,7 @@
         {
           "capability": "intake",
           "verdict": "PASS",
-          "duration_seconds": 5.237093842999457,
+          "duration_seconds": 4.534161633997428,
           "message": "OK: org.mozilla.fennec_fdroid (3257 files, 3 DEX, 1 certs)",
           "error": "",
           "exception_type": "",
@@ -1930,7 +1941,7 @@
         {
           "capability": "inspection_full",
           "verdict": "PARTIAL",
-          "duration_seconds": 55.26989053000034,
+          "duration_seconds": 67.22352311800205,
           "message": "Inspection PARTIAL. Failed inspectors: []",
           "error": "",
           "exception_type": "",
@@ -2009,7 +2020,7 @@
             "dex_file_count": 3,
             "total_classes": 37886,
             "total_methods": 142151,
-            "total_strings": 178105
+            "total_strings": 179232
           },
           "likely_cause": "",
           "blame": ""
@@ -2088,7 +2099,7 @@
         {
           "capability": "privacy",
           "verdict": "PARTIAL",
-          "duration_seconds": 3.45261848500013,
+          "duration_seconds": 3.144316842997796,
           "message": "Privacy analysis PARTIAL: []",
           "error": "",
           "exception_type": "",
@@ -2116,7 +2127,7 @@
         {
           "capability": "security",
           "verdict": "PARTIAL",
-          "duration_seconds": 1.359161063999636,
+          "duration_seconds": 1.2448213909992774,
           "message": "Security analysis PARTIAL: []",
           "error": "",
           "exception_type": "",
@@ -2124,26 +2135,25 @@
           "data_summary": {
             "status": "partial",
             "security_status": "findings_present",
-            "total_findings": 27,
+            "total_findings": 25,
             "critical": 0,
             "high": 7,
             "medium": 12,
-            "low": 7,
+            "low": 5,
             "info": 1,
             "finding_categories": [
-              "payload",
-              "dynamic_code",
-              "malware_indicator",
-              "configuration",
-              "vulnerability",
-              "persistence",
-              "code_execution",
-              "spyware_indicator",
-              "exported_component",
-              "collection",
-              "crypto",
               "network",
-              "surveillance"
+              "configuration",
+              "payload",
+              "collection",
+              "persistence",
+              "exported_component",
+              "vulnerability",
+              "malware_indicator",
+              "code_execution",
+              "surveillance",
+              "spyware_indicator",
+              "dynamic_code"
             ],
             "errors": [],
             "warnings": []
@@ -2154,8 +2164,8 @@
         {
           "capability": "modification_planning",
           "verdict": "PASS",
-          "duration_seconds": 0.31538647599882097,
-          "message": "OK: 7 changes proposed (types: ['remove_tracker', 'remove_permission', 'modify_component', 'modify_configuration'])",
+          "duration_seconds": 0.30662600499999826,
+          "message": "OK: 7 changes proposed (types: ['remove_permission', 'remove_tracker', 'modify_configuration', 'modify_component'])",
           "error": "",
           "exception_type": "",
           "traceback_snippet": "",
@@ -2164,10 +2174,10 @@
             "status": "review_required",
             "change_count": 7,
             "change_types": [
-              "remove_tracker",
               "remove_permission",
-              "modify_component",
-              "modify_configuration"
+              "remove_tracker",
+              "modify_configuration",
+              "modify_component"
             ],
             "has_conflicts": false,
             "conflict_count": 0,
@@ -2193,7 +2203,7 @@
         {
           "capability": "intake",
           "verdict": "PASS",
-          "duration_seconds": 0.9299877860012202,
+          "duration_seconds": 0.9382443009999406,
           "message": "OK: org.schabi.newpipe (1375 files, 3 DEX, 1 certs)",
           "error": "",
           "exception_type": "",
@@ -2218,7 +2228,7 @@
         {
           "capability": "inspection_full",
           "verdict": "PASS",
-          "duration_seconds": 11.365460398999858,
+          "duration_seconds": 21.22789953299798,
           "message": "OK: 1375 files, 3 DEX, 4 native",
           "error": "",
           "exception_type": "",
@@ -2295,7 +2305,7 @@
             "dex_file_count": 3,
             "total_classes": 10671,
             "total_methods": 65538,
-            "total_strings": 78404
+            "total_strings": 79945
           },
           "likely_cause": "",
           "blame": ""
@@ -2304,17 +2314,17 @@
           "capability": "native_libraries",
           "verdict": "PASS",
           "duration_seconds": 0.0,
-          "message": "OK: 4 native libs, ABIs: ['armeabi-v7a', 'x86_64', 'x86', 'arm64-v8a']",
+          "message": "OK: 4 native libs, ABIs: ['arm64-v8a', 'x86_64', 'armeabi-v7a', 'x86']",
           "error": "",
           "exception_type": "",
           "traceback_snippet": "",
           "data_summary": {
             "library_count": 4,
             "abis": [
-              "armeabi-v7a",
+              "arm64-v8a",
               "x86_64",
-              "x86",
-              "arm64-v8a"
+              "armeabi-v7a",
+              "x86"
             ]
           },
           "likely_cause": "",
@@ -2377,7 +2387,7 @@
         {
           "capability": "privacy",
           "verdict": "PASS",
-          "duration_seconds": 1.170942966999064,
+          "duration_seconds": 1.1614498229973833,
           "message": "OK: 11 perms, 2 SDKs, 233 endpoints",
           "error": "",
           "exception_type": "",
@@ -2405,32 +2415,31 @@
         {
           "capability": "security",
           "verdict": "PASS",
-          "duration_seconds": 0.6621762209997542,
-          "message": "OK: 16 findings (C:0 H:2 M:5 L:8 I:1)",
+          "duration_seconds": 0.5523300849999941,
+          "message": "OK: 14 findings (C:0 H:2 M:5 L:6 I:1)",
           "error": "",
           "exception_type": "",
           "traceback_snippet": "",
           "data_summary": {
             "status": "complete",
             "security_status": "findings_present",
-            "total_findings": 16,
+            "total_findings": 14,
             "critical": 0,
             "high": 2,
             "medium": 5,
-            "low": 8,
+            "low": 6,
             "info": 1,
             "finding_categories": [
-              "payload",
+              "network",
               "configuration",
-              "malware_indicator",
-              "vulnerability",
-              "persistence",
-              "code_execution",
-              "spyware_indicator",
-              "exported_component",
-              "crypto",
+              "payload",
               "collection",
-              "network"
+              "persistence",
+              "exported_component",
+              "vulnerability",
+              "malware_indicator",
+              "code_execution",
+              "spyware_indicator"
             ],
             "errors": [],
             "warnings": []
@@ -2441,8 +2450,8 @@
         {
           "capability": "modification_planning",
           "verdict": "PASS",
-          "duration_seconds": 0.03556274500078871,
-          "message": "OK: 3 changes proposed (types: ['remove_tracker', 'modify_component', 'modify_configuration'])",
+          "duration_seconds": 0.0339930589980213,
+          "message": "OK: 3 changes proposed (types: ['remove_tracker', 'modify_configuration', 'modify_component'])",
           "error": "",
           "exception_type": "",
           "traceback_snippet": "",
@@ -2452,8 +2461,8 @@
             "change_count": 3,
             "change_types": [
               "remove_tracker",
-              "modify_component",
-              "modify_configuration"
+              "modify_configuration",
+              "modify_component"
             ],
             "has_conflicts": false,
             "conflict_count": 0,
@@ -2471,7 +2480,7 @@
     {
       "capability": "diff",
       "verdict": "PASS",
-      "duration_seconds": 0.20667365699955553,
+      "duration_seconds": 0.3505081980001705,
       "message": "OK: diff produced with 12 summary lines",
       "error": "",
       "exception_type": "",
@@ -2493,7 +2502,7 @@
     {
       "capability": "diff",
       "verdict": "PARTIAL",
-      "duration_seconds": 55.40760994499942,
+      "duration_seconds": 78.01959412999713,
       "message": "Diff PARTIAL: [\"File 'lib/arm64-v8a/libxul.so' too large for embedded detection (156864024 bytes).\", \"Package identities differ: 'com.oF2pks.applicationsinfo' vs 'org.mozilla.fennec_fdroid'\"]",
       "error": "",
       "exception_type": "",
@@ -2515,8 +2524,8 @@
     {
       "capability": "diff",
       "verdict": "PASS",
-      "duration_seconds": 22.132364725001025,
-      "message": "OK: diff produced with 17 summary lines",
+      "duration_seconds": 31.273310382999625,
+      "message": "OK: diff produced with 18 summary lines",
       "error": "",
       "exception_type": "",
       "traceback_snippet": "",
@@ -2524,7 +2533,7 @@
         "status": "complete",
         "apk_a": "com.emanuelef.remote_capture_95.apk",
         "apk_b": "de.danoeh.antennapod_3120295.apk",
-        "summary_lines": 17,
+        "summary_lines": 18,
         "identity_changes": 4,
         "permission_changes": 12,
         "errors": []

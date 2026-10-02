@@ -1,0 +1,566 @@
+{
+  "evidence": "android:process inspection / model / diff support (Phase B close-out, item 4)",
+  "implemented": true,
+  "implementation": {
+    "model": [
+      "src/apkforge/inspection/models.py - `process: str | None = None` added to ActivityInfo, ServiceInfo, BroadcastReceiverInfo, ContentProviderInfo"
+    ],
+    "inspection": [
+      "src/apkforge/inspection/manifest.py - apk.get_attribute_value(<type>, 'process', name=<component>) extracted for all four component types"
+    ],
+    "diff": [
+      "src/apkforge/diff/components.py - `proc_changed = a.process != b.process` folded into is_mod for all four component types; reports details.process_before / details.process_after"
+    ],
+    "tests": [
+      "tests/unit/test_phase_b_closeout.py::TestProcessAttributeDiff - 9 tests (4 component types x change/unchanged, plus absent-on-both)"
+    ]
+  },
+  "real_corpus_extraction": {
+    "com.emanuelef.remote_capture_95.apk": {
+      "components_with_process": 1,
+      "entries": [
+        {
+          "bucket": "activities",
+          "component": "cat.ereza.customactivityoncrash.activity.DefaultErrorActivity",
+          "process": ":error_activity"
+        }
+      ]
+    },
+    "com.oF2pks.applicationsinfo_19.apk": {
+      "components_with_process": 0,
+      "entries": []
+    },
+    "de.audioattack.openlink_28.apk": {
+      "components_with_process": 0,
+      "entries": []
+    },
+    "de.danoeh.antennapod_3120295.apk": {
+      "components_with_process": 0,
+      "entries": []
+    },
+    "eu.siacs.conversations_4218104.apk": {
+      "components_with_process": 0,
+      "entries": []
+    },
+    "godau.fynn.usagedirect_10.apk": {
+      "components_with_process": 0,
+      "entries": []
+    },
+    "io.github.muntashirakon.AppManager_451.apk": {
+      "components_with_process": 1,
+      "entries": [
+        {
+          "bucket": "activities",
+          "component": "io.github.muntashirakon.AppManager.viewer.audio.AudioPlayerActivity",
+          "process": ":audio_player"
+        }
+      ]
+    },
+    "org.mozilla.fennec_fdroid_1560020.apk": {
+      "components_with_process": 94,
+      "entries": [
+        {
+          "bucket": "activities",
+          "component": "mozilla.components.lib.crash.prompt.CrashReporterActivity",
+          "process": ":mozilla.components.lib.crash.CrashReporter"
+        },
+        {
+          "bucket": "activities",
+          "component": "org.mozilla.fenix.startupCrash.StartupCrashActivity",
+          "process": ":StartupCrashActivityProcess"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab32",
+          "process": ":isolatedTab_disable_art_image_32"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab33",
+          "process": ":tab_disable_art_image_33"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab33",
+          "process": ":isolatedTab_disable_art_image_33"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab34",
+          "process": ":tab_disable_art_image_34"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab34",
+          "process": ":isolatedTab_disable_art_image_34"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab26",
+          "process": ":isolatedTab_disable_art_image_26"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab27",
+          "process": ":tab_disable_art_image_27"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab27",
+          "process": ":isolatedTab_disable_art_image_27"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab28",
+          "process": ":tab_disable_art_image_28"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab28",
+          "process": ":isolatedTab_disable_art_image_28"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab29",
+          "process": ":tab_disable_art_image_29"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab31",
+          "process": ":isolatedTab_disable_art_image_31"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab29",
+          "process": ":isolatedTab_disable_art_image_29"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab30",
+          "process": ":tab_disable_art_image_30"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab30",
+          "process": ":isolatedTab_disable_art_image_30"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab31",
+          "process": ":tab_disable_art_image_31"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab32",
+          "process": ":tab_disable_art_image_32"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab24",
+          "process": ":isolatedTab_disable_art_image_24"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab25",
+          "process": ":tab_disable_art_image_25"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab25",
+          "process": ":isolatedTab_disable_art_image_25"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab35",
+          "process": ":tab_disable_art_image_35"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab26",
+          "process": ":tab_disable_art_image_26"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab35",
+          "process": ":isolatedTab_disable_art_image_35"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab20",
+          "process": ":isolatedTab_disable_art_image_20"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab36",
+          "process": ":tab_disable_art_image_36"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab21",
+          "process": ":isolatedTab_disable_art_image_21"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab22",
+          "process": ":tab_disable_art_image_22"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab22",
+          "process": ":isolatedTab_disable_art_image_22"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab23",
+          "process": ":tab_disable_art_image_23"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab23",
+          "process": ":isolatedTab_disable_art_image_23"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab21",
+          "process": ":tab_disable_art_image_21"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab24",
+          "process": ":tab_disable_art_image_24"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab16",
+          "process": ":tab_disable_art_image_16"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab17",
+          "process": ":tab_disable_art_image_17"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab17",
+          "process": ":isolatedTab_disable_art_image_17"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab18",
+          "process": ":tab_disable_art_image_18"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab18",
+          "process": ":isolatedTab_disable_art_image_18"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab19",
+          "process": ":tab_disable_art_image_19"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab16",
+          "process": ":isolatedTab_disable_art_image_16"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab19",
+          "process": ":isolatedTab_disable_art_image_19"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab20",
+          "process": ":tab_disable_art_image_20"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab15",
+          "process": ":tab_disable_art_image_15"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab15",
+          "process": ":isolatedTab_disable_art_image_15"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab8",
+          "process": ":isolatedTab_disable_art_image_8"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab9",
+          "process": ":tab_disable_art_image_9"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab9",
+          "process": ":isolatedTab_disable_art_image_9"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab10",
+          "process": ":tab_disable_art_image_10"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab10",
+          "process": ":isolatedTab_disable_art_image_10"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab11",
+          "process": ":tab_disable_art_image_11"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab13",
+          "process": ":isolatedTab_disable_art_image_13"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab11",
+          "process": ":isolatedTab_disable_art_image_11"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab12",
+          "process": ":tab_disable_art_image_12"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab12",
+          "process": ":isolatedTab_disable_art_image_12"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab13",
+          "process": ":tab_disable_art_image_13"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab14",
+          "process": ":tab_disable_art_image_14"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab14",
+          "process": ":isolatedTab_disable_art_image_14"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab6",
+          "process": ":isolatedTab_disable_art_image_6"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab7",
+          "process": ":tab_disable_art_image_7"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab7",
+          "process": ":isolatedTab_disable_art_image_7"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab8",
+          "process": ":tab_disable_art_image_8"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab1",
+          "process": ":isolatedTab_disable_art_image_1"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab2",
+          "process": ":tab_disable_art_image_2"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab2",
+          "process": ":isolatedTab_disable_art_image_2"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab3",
+          "process": ":tab_disable_art_image_3"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab3",
+          "process": ":isolatedTab_disable_art_image_3"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab4",
+          "process": ":tab_disable_art_image_4"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab0",
+          "process": ":tab_disable_art_image_0"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab4",
+          "process": ":isolatedTab_disable_art_image_4"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab5",
+          "process": ":tab_disable_art_image_5"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab5",
+          "process": ":isolatedTab_disable_art_image_5"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab6",
+          "process": ":tab_disable_art_image_6"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab0",
+          "process": ":isolatedTab_disable_art_image_0"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab1",
+          "process": ":tab_disable_art_image_1"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$gpu",
+          "process": ":gpu_disable_art_image_"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.media.MediaManager",
+          "process": ":media"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.crashhelper.CrashHelper",
+          "process": ":crashhelper_disable_art_image_"
+        },
+        {
+          "bucket": "services",
+          "component": "mozilla.components.lib.crash.service.SendCrashTelemetryService",
+          "process": ":crashReportingProcess"
+        },
+        {
+          "bucket": "services",
+          "component": "mozilla.components.lib.crash.handler.CrashHandlerService",
+          "process": ":mozilla.components.lib.crash.CrashHandler"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$ipdlunittest",
+          "process": ":ipdlunittest_disable_art_image_"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$utility",
+          "process": ":utility_disable_art_image_"
+        },
+        {
+          "bucket": "services",
+          "component": "mozilla.components.lib.crash.service.SendCrashReportService",
+          "process": ":crashReportingProcess"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$rdd",
+          "process": ":rdd_disable_art_image_"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$socket",
+          "process": ":socket_disable_art_image_"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$gmplugin",
+          "process": ":gmplugin_disable_art_image_"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$zygoteTab",
+          "process": ":zygoteTab_disable_art_image_"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab39",
+          "process": ":isolatedTab_disable_art_image_39"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab39",
+          "process": ":tab_disable_art_image_39"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab38",
+          "process": ":isolatedTab_disable_art_image_38"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab38",
+          "process": ":tab_disable_art_image_38"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab37",
+          "process": ":isolatedTab_disable_art_image_37"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$tab37",
+          "process": ":tab_disable_art_image_37"
+        },
+        {
+          "bucket": "services",
+          "component": "org.mozilla.gecko.process.GeckoChildProcessServices$isolatedTab36",
+          "process": ":isolatedTab_disable_art_image_36"
+        }
+      ]
+    },
+    "org.schabi.newpipe_1015_cb84069.apk": {
+      "components_with_process": 5,
+      "entries": [
+        {
+          "bucket": "activities",
+          "component": "com.jakewharton.processphoenix.PhoenixActivity",
+          "process": ":phoenix"
+        },
+        {
+          "bucket": "services",
+          "component": "org.acra.sender.LegacySenderService",
+          "process": ":acra"
+        },
+        {
+          "bucket": "services",
+          "component": "com.jakewharton.processphoenix.PhoenixService",
+          "process": ":phoenix"
+        },
+        {
+          "bucket": "services",
+          "component": "org.acra.sender.JobSenderService",
+          "process": ":acra"
+        },
+        {
+          "bucket": "providers",
+          "component": "org.acra.attachment.AcraContentProvider",
+          "process": ":acra"
+        }
+      ]
+    }
+  },
+  "note": "Extraction verified against all 9 corpus APKs. Only two corpus APKs declare android:process at all, which is why this gap was not visible in earlier phases: the attribute is rare in practice but is security-relevant because moving a component to a separate process changes its crash/sandbox isolation and which process-level state it can observe."
+}

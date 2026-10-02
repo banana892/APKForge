@@ -1,0 +1,22 @@
+{
+  "source": "artifacts/toolchain-validation/phase_b_final/final_security/raw_appmanager_security.json",
+  "PRC-05_no_code_free_framework_payload_findings": true,
+  "PRC-05_code_bearing_payloads_still_reported": true,
+  "PRC-07_no_bare_pem_header_finding": true,
+  "PRC-08_bundled_cipher_findings_absent": true,
+  "PRC-08_weak_hash_evidence_locations": [
+    "class:io.github.muntashirakon.AppManager.apk.signing.Signer",
+    "class:io.github.muntashirakon.AppManager.apk.signing.Signer"
+  ],
+  "PRC-08_weak_hash_attributed_to_app_class": true,
+  "sha1_pair_severity_confidence": {
+    "SEC-VULN-CRYPTO-WEAK-HASH": [
+      "low",
+      "medium"
+    ],
+    "SEC-VULN-WEAK-HASH-001": [
+      "low",
+      "medium"
+    ]
+  }
+}

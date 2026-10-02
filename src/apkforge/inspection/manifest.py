@@ -267,6 +267,7 @@ class ManifestInspector:
                 permission = None
                 enabled = None
                 direct_boot = None
+                process = None
                 intent_filters: list[IntentFilterInfo] = []
 
                 with contextlib.suppress(Exception):
@@ -285,6 +286,11 @@ class ManifestInspector:
                 with contextlib.suppress(Exception):
                     db_val = apk.get_attribute_value("activity", "directBootAware", name=act_name)  # type: ignore[union-attr]
                     direct_boot = _safe_bool(db_val)
+
+                with contextlib.suppress(Exception):
+                    proc_val = apk.get_attribute_value("activity", "process", name=act_name)  # type: ignore[union-attr]
+                    if proc_val:
+                        process = str(proc_val)
 
                 # Try extracting intent filters from the XML tree
                 with contextlib.suppress(Exception):
@@ -310,6 +316,7 @@ class ManifestInspector:
                         permission=permission,
                         enabled=enabled,
                         direct_boot_aware=direct_boot,
+                        process=process,
                         intent_filters=intent_filters,
                     )
                 )
@@ -328,6 +335,7 @@ class ManifestInspector:
                 permission = None
                 enabled = None
                 fg_type = None
+                process = None
                 intent_filters: list[IntentFilterInfo] = []
 
                 with contextlib.suppress(Exception):
@@ -349,6 +357,11 @@ class ManifestInspector:
                     )
                     if fg_val:
                         fg_type = str(fg_val)
+
+                with contextlib.suppress(Exception):
+                    proc_val = apk.get_attribute_value("service", "process", name=svc_name)  # type: ignore[union-attr]
+                    if proc_val:
+                        process = str(proc_val)
 
                 with contextlib.suppress(Exception):
                     xml_obj = apk.get_android_manifest_xml()  # type: ignore[union-attr]
@@ -373,6 +386,7 @@ class ManifestInspector:
                         permission=permission,
                         enabled=enabled,
                         foreground_service_type=fg_type,
+                        process=process,
                         intent_filters=intent_filters,
                     )
                 )
@@ -390,6 +404,7 @@ class ManifestInspector:
                 exported = None
                 permission = None
                 enabled = None
+                process = None
                 intent_filters: list[IntentFilterInfo] = []
 
                 with contextlib.suppress(Exception):
@@ -404,6 +419,11 @@ class ManifestInspector:
                 with contextlib.suppress(Exception):
                     en_val = apk.get_attribute_value("receiver", "enabled", name=rec_name)  # type: ignore[union-attr]
                     enabled = _safe_bool(en_val)
+
+                with contextlib.suppress(Exception):
+                    proc_val = apk.get_attribute_value("receiver", "process", name=rec_name)  # type: ignore[union-attr]
+                    if proc_val:
+                        process = str(proc_val)
 
                 with contextlib.suppress(Exception):
                     xml_obj = apk.get_android_manifest_xml()  # type: ignore[union-attr]
@@ -427,6 +447,7 @@ class ManifestInspector:
                         exported=exported,
                         permission=permission,
                         enabled=enabled,
+                        process=process,
                         intent_filters=intent_filters,
                     )
                 )
@@ -448,6 +469,7 @@ class ManifestInspector:
                 write_perm = None
                 grant_uri = None
                 enabled = None
+                process = None
 
                 with contextlib.suppress(Exception):
                     exp_val = apk.get_attribute_value("provider", "exported", name=prov_name)  # type: ignore[union-attr]
@@ -485,6 +507,11 @@ class ManifestInspector:
                     )
                     grant_uri = _safe_bool(gu_val)
 
+                with contextlib.suppress(Exception):
+                    proc_val = apk.get_attribute_value("provider", "process", name=prov_name)  # type: ignore[union-attr]
+                    if proc_val:
+                        process = str(proc_val)
+
                 result.providers.append(
                     ContentProviderInfo(
                         name=str(prov_name),
@@ -495,6 +522,7 @@ class ManifestInspector:
                         read_permission=read_perm,
                         write_permission=write_perm,
                         grant_uri_permissions=grant_uri,
+                        process=process,
                     )
                 )
 

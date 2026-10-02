@@ -70,7 +70,9 @@ class InspectionEngine:
         self._resource_inspector = resource_inspector or ResourceInspector()
         self._asset_inspector = asset_inspector or AssetInspector()
         self._network_inspector = network_inspector or NetworkInspector()
-        self._embedded_inspector = embedded_inspector or EmbeddedFileInspector()
+        self._embedded_inspector = embedded_inspector or EmbeddedFileInspector(
+            limits=self._config.extraction
+        )
         self._obfuscation_inspector = obfuscation_inspector or ObfuscationInspector()
 
     def inspect(

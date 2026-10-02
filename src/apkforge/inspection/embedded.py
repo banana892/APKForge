@@ -11,12 +11,13 @@ unpacked beyond detection.
 
 from __future__ import annotations
 
-import contextlib
 import io
 import re
 import zipfile
 from typing import TYPE_CHECKING
 
+from apkforge.core.config import ExtractionLimits
+from apkforge.core.exceptions import ExtractionError
 from apkforge.core.logging import get_logger
 from apkforge.inspection.models import (
     EmbeddedAPKInfo,
@@ -24,6 +25,7 @@ from apkforge.inspection.models import (
     EmbeddedFileInspection,
     ExecutableFileInfo,
 )
+from apkforge.intake.archive import validate_archive_entries
 from apkforge.intake.hashing import compute_sha256
 
 if TYPE_CHECKING:
@@ -53,8 +55,39 @@ _SIGNATURES = {
 _MAX_DETECT_SIZE = 64 * 1024 * 1024  # 64 MiB
 
 
-def _detect_file_type(data: bytes, filename: str) -> str | None:
-    """Detect the file type from magic bytes and extension."""
+# Depth of an archive nested directly inside the inspected APK.  Nested
+# inspection only ever lists the entries of that one level and never opens an
+# archive found inside it, so this is the maximum depth reached.
+_NESTED_DEPTH = 1
+
+
+def _nested_entry_names(data: bytes, limits: ExtractionLimits) -> list[str]:
+    """List the entries of an in-memory nested archive under *limits*.
+
+    Only the central directory is parsed; no entry is decompressed.
+
+    Raises:
+        ExtractionError: If the archive violates the configured limits
+            (recursion depth, entry count, unsafe entry path, declared sizes).
+        zipfile.BadZipFile: If the data is not a readable archive.
+    """
+    if limits.max_recursion_depth < _NESTED_DEPTH:
+        raise ExtractionError(
+            f"Nested archive depth {_NESTED_DEPTH} exceeds limit {limits.max_recursion_depth}",
+            context="archive-limits",
+        )
+    with zipfile.ZipFile(io.BytesIO(data), "r") as inner_zf:
+        entries = inner_zf.infolist()
+    validate_archive_entries(entries, limits)
+    return [e.filename for e in entries]
+
+
+def _detect_file_type(data: bytes, filename: str, limits: ExtractionLimits) -> str | None:
+    """Detect the file type from magic bytes and extension.
+
+    Raises:
+        ExtractionError: If a ZIP needing content sniffing violates *limits*.
+    """
     # Magic byte detection (first 8 bytes)
     header = data[:8]
     for magic, file_type in _SIGNATURES.items():
@@ -65,14 +98,16 @@ def _detect_file_type(data: bytes, filename: str) -> str | None:
                     return "APK"
                 if filename.endswith(".jar"):
                     return "JAR"
-                with (
-                    contextlib.suppress(Exception),
-                    zipfile.ZipFile(io.BytesIO(data), "r") as inner_zf,
-                ):
-                    if "AndroidManifest.xml" in inner_zf.namelist():
-                        return "APK"
-                    if any(n.endswith(".class") for n in inner_zf.namelist()):
-                        return "JAR"
+                try:
+                    names = _nested_entry_names(data, limits)
+                except ExtractionError:
+                    raise
+                except Exception:
+                    return "ZIP"
+                if "AndroidManifest.xml" in names:
+                    return "APK"
+                if any(n.endswith(".class") for n in names):
+                    return "JAR"
                 return "ZIP"
             return file_type
 
@@ -89,7 +124,20 @@ def _detect_file_type(data: bytes, filename: str) -> str | None:
 
 
 class EmbeddedFileInspector:
-    """Detects embedded APKs, DEX files, and executables inside an APK."""
+    """Detects embedded APKs, DEX files, and executables inside an APK.
+
+    Nested archives are opened in memory under the same
+    :class:`~apkforge.core.config.ExtractionLimits` that govern top-level
+    intake.  A nested APK that violates them is still reported, is treated as
+    possibly containing code (it cannot be proven code-free), and produces a
+    warning.
+
+    Args:
+        limits: Extraction limits; defaults to ``ExtractionLimits()``.
+    """
+
+    def __init__(self, limits: ExtractionLimits | None = None) -> None:
+        self._limits = limits or ExtractionLimits()
 
     def inspect(
         self,
@@ -133,7 +181,7 @@ class EmbeddedFileInspector:
                             continue
 
                         data = zf.read(filename)
-                        file_type = _detect_file_type(data, filename)
+                        file_type = _detect_file_type(data, filename, self._limits)
 
                         if file_type is None:
                             continue
@@ -141,12 +189,31 @@ class EmbeddedFileInspector:
                         sha256 = compute_sha256(data)
 
                         # Embedded APK
+                        has_code = True
                         if file_type == "APK" and not _CONVENTIONAL_DEX.match(filename):
+                            has_code = False
+                            try:
+                                names = _nested_entry_names(data, self._limits)
+                            except ExtractionError as exc:
+                                has_code = True
+                                warnings.append(
+                                    f"Nested archive '{filename}' rejected by extraction "
+                                    f"limits; treated as possibly containing code: {exc}"
+                                )
+                            except Exception:
+                                _log.debug("Nested archive '%s' unreadable", filename)
+                            else:
+                                has_code = any(
+                                    n.endswith(".dex")
+                                    or (n.startswith("lib/") and n.endswith(".so"))
+                                    for n in names
+                                )
                             result.embedded_apks.append(
                                 EmbeddedAPKInfo(
                                     path=filename,
                                     size=info.file_size,
                                     sha256=sha256,
+                                    has_code=has_code,
                                 )
                             )
 
@@ -171,6 +238,9 @@ class EmbeddedFileInspector:
                                 continue
                             # Skip conventional DEX
                             if file_type == "DEX" and _CONVENTIONAL_DEX.match(filename):
+                                continue
+                            # Skip code-free APKs
+                            if file_type == "APK" and not has_code:
                                 continue
 
                             result.executable_files.append(

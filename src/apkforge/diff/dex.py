@@ -71,16 +71,6 @@ class DEXDiffer:
                         fields_a.setdefault(f.class_name, []).append(f)
                 if df.api_references:
                     apis_a.update(df.api_references)
-            # Direct inventory fallback if present on DEXInspection
-            inv_a = getattr(dex_a, "inventory", None)
-            if inv_a:
-                for c in inv_a.classes:
-                    classes_a[c.name] = c
-                for m in inv_a.methods:
-                    methods_a.setdefault(m.class_name, []).append(m)
-                for f in inv_a.fields:
-                    fields_a.setdefault(f.class_name, []).append(f)
-            apis_a.update(getattr(dex_a, "api_references", None) or [])
 
         classes_b: dict[str, ClassInfo] = {}
         methods_b: dict[str, list[MethodInfo]] = {}
@@ -97,16 +87,6 @@ class DEXDiffer:
                         fields_b.setdefault(f.class_name, []).append(f)
                 if df.api_references:
                     apis_b.update(df.api_references)
-            # Direct inventory fallback if present on DEXInspection
-            inv_b = getattr(dex_b, "inventory", None)
-            if inv_b:
-                for c in inv_b.classes:
-                    classes_b[c.name] = c
-                for m in inv_b.methods:
-                    methods_b.setdefault(m.class_name, []).append(m)
-                for f in inv_b.fields:
-                    fields_b.setdefault(f.class_name, []).append(f)
-            apis_b.update(getattr(dex_b, "api_references", None) or [])
 
         all_class_names = sorted(set(classes_a.keys()) | set(classes_b.keys()))
 

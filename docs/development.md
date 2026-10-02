@@ -29,6 +29,21 @@ Or with `uv`:
 uv sync --extra dev
 ```
 
+### Validation environment
+
+Corpus and security validation run in a locked environment
+(`requirements/validation.lock`, Python 3.14.7). See
+[validation-environment.md](validation-environment.md) for how to recreate it.
+
+### APK build toolchain (Phase C.2)
+
+`apkforge build` and the BuildService integration tests need Java, Apktool >= 3.0.3,
+and Android SDK build-tools + a platform (35 validated). Configuration is by
+environment variable; see [build-service.md](build-service.md) and
+[examples/build-service.env.example](examples/build-service.env.example).
+Check what was discovered with `apkforge build <apk> --show-toolchain`.
+The full 9-APK rebuild test is opt-in: `APKFORGE_CORPUS_BUILD=1 pytest tests/integration`.
+
 ---
 
 ## Running the CLI

@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Wrapper for Android SDK apksigner
+set -euo pipefail
+
+APKSIGNER_BIN="${ANDROID_SDK_ROOT:-/home/naishring/Android/Sdk}/build-tools/35.0.0/apksigner"
+if [ ! -x "${APKSIGNER_BIN}" ]; then
+    APKSIGNER_BIN="${ANDROID_SDK_ROOT:-/home/naishring/Android/Sdk}/build-tools/34.0.0/apksigner"
+fi
+
+if [ ! -x "${APKSIGNER_BIN}" ]; then
+    echo "ERROR: apksigner executable not found at ${APKSIGNER_BIN}" >&2
+    exit 1
+fi
+
+exec "${APKSIGNER_BIN}" "$@"

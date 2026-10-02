@@ -1,0 +1,63 @@
+{
+  "apk": "tests/corpus/com.oF2pks.applicationsinfo_19.apk",
+  "injected_message": "Androguard certificate extraction failed: sha1 is not supported by this backend for RSA signing.",
+  "androguard_failures_injected": 3,
+  "capability_verdicts": {
+    "intake": "PASS",
+    "inspection_full": "PASS",
+    "manifest": "PASS",
+    "dex": "PASS",
+    "native_libraries": "PASS",
+    "resources_assets": "PASS",
+    "strings_urls_domains": "PASS",
+    "assets": "PASS",
+    "privacy": "PASS",
+    "security": "PASS",
+    "modification_planning": "PASS"
+  },
+  "intake_data_summary": {
+    "status": "complete",
+    "package_type": "apk",
+    "input_format": "single_apk",
+    "package_name": "com.oF2pks.applicationsinfo",
+    "version_name": "1.7-19",
+    "file_count": 37,
+    "dex_count": 1,
+    "certificate_count": 1,
+    "has_hashes": true,
+    "sha256": "c0188f5f1f566e12...",
+    "errors": [],
+    "warnings": []
+  },
+  "intake_status_direct": "complete",
+  "intake_warnings_direct": [],
+  "certificates_direct": [
+    {
+      "subject": "CN=FDroid,OU=FDroid,O=fdroid.org,L=ORG,ST=ORG,C=UK",
+      "issuer": "CN=FDroid,OU=FDroid,O=fdroid.org,L=ORG,ST=ORG,C=UK",
+      "serial_number": "79881fa0",
+      "not_before": "2018-12-28T09:10:41Z",
+      "not_after": "2046-05-15T09:10:41Z",
+      "sha256_fingerprint": "e71b0ec100a2a93675f5e5c9b0fa2674b0658fa399e9fdbc1bce8ec063b4e460",
+      "sha1_fingerprint": "311dc975ac2d106fb239a0e2618322f1c1f4ba9b",
+      "signature_version": "v1",
+      "extraction_backend": "pkcs7_fallback",
+      "extraction_notes": [
+        "Primary certificate backend failed and was recovered by the PKCS#7 fallback: Androguard certificate extraction failed: sha1 is not supported by this backend for RSA signing."
+      ]
+    }
+  ],
+  "environment": {
+    "python_version": "3.14.7",
+    "python_implementation": "CPython",
+    "python_executable": "/home/naishring/APKForge/.venv-validation/bin/python",
+    "platform": "Linux-7.2.7-200.fc44.x86_64-x86_64-with-glibc2.43",
+    "cryptography_version": "50.0.1",
+    "cryptography_bundled_openssl": "OpenSSL 4.0.2 25 Aug 2026",
+    "androguard_version": "4.1.4",
+    "asn1crypto_version": "1.5.1",
+    "pydantic_version": "2.13.5",
+    "lock_file": "requirements/validation.lock",
+    "lock_sha256": "62e61de0ddb41b87771f763c103f1dd1deae655035dc5d615c0fda35c9919acf"
+  }
+}

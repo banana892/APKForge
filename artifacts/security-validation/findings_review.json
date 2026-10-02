@@ -1,0 +1,2052 @@
+{
+  "review": "Phase B close-out - security findings hand review (Part 1, item 1)",
+  "method": "Every finding's cited evidence was re-derived from the APK itself and compared against what the detector reported. Verification used: `unzip -l` / extraction of the APK, ManifestInspector output, DEXInspector api_references / strings / class inventory, and the SecurityEvidenceIndex the rule engine actually evaluates. A finding is TRUE_POSITIVE only where the cited evidence was independently reproduced AND supports the claim the finding makes; FALSE_POSITIVE where the artifact exists but does not support the claim (or the matched artifact is not what was cited); UNCLEAR where the evidence is partly unsubstantiated.",
+  "scope_note": "No rule severity, confidence, scoring, or detection threshold was changed by this review. Proposed changes are recorded in proposed_rule_changes and were NOT implemented.",
+  "totals": {
+    "findings_reviewed": 59,
+    "verdict_counts": {
+      "TRUE_POSITIVE": 35,
+      "FALSE_POSITIVE": 22,
+      "UNCLEAR": 2
+    },
+    "false_positive_rate": 0.3729
+  },
+  "apps": {
+    "pcapdroid": {
+      "package": "com.emanuelef.remote_capture",
+      "apk": "tests/corpus/com.emanuelef.remote_capture_95.apk",
+      "raw_findings_artifact": "artifacts/security-validation/raw_pcapdroid_security.json",
+      "analysis_status": "complete",
+      "security_status": "findings_present",
+      "total_findings": 9,
+      "verdict_counts": {
+        "TRUE_POSITIVE": 6,
+        "FALSE_POSITIVE": 2,
+        "UNCLEAR": 1
+      },
+      "false_positive_rate": 0.2222,
+      "findings": [
+        {
+          "apk": "tests/corpus/com.emanuelef.remote_capture_95.apk",
+          "package": "com.emanuelef.remote_capture",
+          "rule_id": "SEC-SPY-ACCESSIBILITY-001",
+          "title": "Accessibility Service Implementation",
+          "severity": "medium",
+          "confidence": "high",
+          "category": "spyware_indicator",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Referenced API: android.accessibilityservice.AccessibilityService",
+              "location": "api:android.accessibilityservice.AccessibilityService",
+              "snippet": "android.accessibilityservice.AccessibilityService"
+            }
+          ],
+          "evidence_source": [
+            "api"
+          ],
+          "verdict": "FALSE_POSITIVE",
+          "explanation": "PCAPdroid declares no AccessibilityService. The rule's probe matched only the read-only metadata class android.accessibilityservice.AccessibilityServiceInfo (used to enumerate accessibility services installed on the device), via substring matching.",
+          "independent_verification": "ManifestInspector: services == [VpnReconnectService, CaptureService]; no component bound with BIND_ACCESSIBILITY_SERVICE. Index APIs matching the probe: only 'android.accessibilityservice.AccessibilityServiceInfo' and '...AccessibilityServiceInfo;->getSettingsActivityName()Ljava.lang.String'.",
+          "should_remain_unchanged_in_rule_engine": false,
+          "proposed_rule_changes": [
+            "PRC-01",
+            "PRC-02"
+          ],
+          "benign_in_app_context": null
+        },
+        {
+          "apk": "tests/corpus/com.emanuelef.remote_capture_95.apk",
+          "package": "com.emanuelef.remote_capture",
+          "rule_id": "SEC-SPY-ACCESSIBILITY-ABUSE",
+          "title": "Android Accessibility Service Implementation",
+          "severity": "medium",
+          "confidence": "high",
+          "category": "collection",
+          "evidence_cited_by_detector": [
+            {
+              "description": "AccessibilityService API referenced in bytecode",
+              "location": "api:android.accessibilityservice.AccessibilityService",
+              "snippet": "AccessibilityService API"
+            }
+          ],
+          "evidence_source": [
+            "api"
+          ],
+          "verdict": "FALSE_POSITIVE",
+          "explanation": "Same root cause as SEC-SPY-ACCESSIBILITY-001: fired on the API path with no implemented accessibility service present. (For AppManager the same rule fired on a genuine manifest service, so the rule has one sound evidence path and one unsound one.)",
+          "independent_verification": "Same verification as SEC-SPY-ACCESSIBILITY-001.",
+          "should_remain_unchanged_in_rule_engine": false,
+          "proposed_rule_changes": [
+            "PRC-01"
+          ],
+          "benign_in_app_context": null
+        },
+        {
+          "apk": "tests/corpus/com.emanuelef.remote_capture_95.apk",
+          "package": "com.emanuelef.remote_capture",
+          "rule_id": "SEC-SPY-DEVICE-IDENTIFIERS",
+          "title": "Hardware & Persistent Device Identifier Collection Capability",
+          "severity": "medium",
+          "confidence": "high",
+          "category": "collection",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Settings.Secure.ANDROID_ID reference",
+              "location": "dex:strings",
+              "snippet": "android_id"
+            },
+            {
+              "description": "Build.SERIAL hardware serial number reference",
+              "location": "dex:strings",
+              "snippet": "Build.SERIAL"
+            }
+          ],
+          "evidence_source": [
+            "dex"
+          ],
+          "verdict": "UNCLEAR",
+          "explanation": "One of two cited evidence items is substantiated: the string 'android_id' is genuinely present. The second, 'Build.SERIAL', does not exist in the evidence index; only the bare token 'SERIAL' does, so that evidence line is the probe label rather than a matched artifact. The capability is plausible for a per-device VPN configuration but is not established by the evidence as cited.",
+          "independent_verification": "Index strings: 'android_id' present == True; any string equal to 'Build.SERIAL' == False; strings containing 'SERIAL' == ['SERIAL'].",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [
+            "PRC-02"
+          ],
+          "benign_in_app_context": null
+        },
+        {
+          "apk": "tests/corpus/com.emanuelef.remote_capture_95.apk",
+          "package": "com.emanuelef.remote_capture",
+          "rule_id": "SEC-MAL-PERSISTENCE-BOOT",
+          "title": "Device Boot Persistence Mechanism Detected",
+          "severity": "low",
+          "confidence": "high",
+          "category": "persistence",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Declared permission: RECEIVE_BOOT_COMPLETED",
+              "location": "permission:android.permission.RECEIVE_BOOT_COMPLETED",
+              "snippet": "RECEIVE_BOOT_COMPLETED"
+            }
+          ],
+          "evidence_source": [
+            "permission"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "RECEIVE_BOOT_COMPLETED is genuinely declared. Benign by design: PCAPdroid restores its VPN capture service after reboot.",
+          "independent_verification": "ManifestInspector: 'android.permission.RECEIVE_BOOT_COMPLETED' in declared permissions == True.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/com.emanuelef.remote_capture_95.apk",
+          "package": "com.emanuelef.remote_capture",
+          "rule_id": "SEC-NET-CLEARTEXT-URLS",
+          "title": "Cleartext HTTP URL References Detected",
+          "severity": "low",
+          "confidence": "high",
+          "category": "network",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Cleartext HTTP URL: http://t.me/PCAPdroid",
+              "location": "classes.dex",
+              "snippet": "http://t.me/PCAPdroid"
+            },
+            {
+              "description": "Cleartext HTTP URL: http://jabber.org/protocol/",
+              "location": "lib/arm64-v8a/libndpi.so",
+              "snippet": "http://jabber.org/protocol/"
+            },
+            {
+              "description": "Cleartext HTTP URL: http://etherx.jabber.org/streams",
+              "location": "lib/arm64-v8a/libndpi.so",
+              "snippet": "http://etherx.jabber.org/streams"
+            },
+            {
+              "description": "Cleartext HTTP URL: http://jabber.org/protocol/commands",
+              "location": "lib/arm64-v8a/libndpi.so",
+              "snippet": "http://jabber.org/protocol/commands"
+            }
+          ],
+          "evidence_source": [
+            "classes.dex",
+            "lib/arm64-v8a/libndpi.so"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "At least one genuine cleartext URL is present ('http://t.me/PCAPdroid', the project's Telegram link). Precision caveat: the other cited items are XMPP protocol namespace URIs from libndpi.so ('http://jabber.org/protocol/...'), which are XML identifiers rather than network endpoints.",
+          "independent_verification": "DEX strings contain 'http://t.me/PCAPdroid' == True; remaining cited items are jabber.org/etherx.jabber.org namespace URIs inside lib/arm64-v8a/libndpi.so.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [
+            "PRC-03"
+          ],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/com.emanuelef.remote_capture_95.apk",
+          "package": "com.emanuelef.remote_capture",
+          "rule_id": "SEC-SPY-CLIPBOARD-001",
+          "title": "Background Clipboard Access Capability",
+          "severity": "low",
+          "confidence": "medium",
+          "category": "spyware_indicator",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Referenced API: android.content.ClipboardManager",
+              "location": "api:android.content.ClipboardManager",
+              "snippet": "android.content.ClipboardManager"
+            },
+            {
+              "description": "Observed component: type=service (com.emanuelef.remote_capture.VpnReconnectService, com.emanuelef.remote_capture.CaptureService)",
+              "location": "manifest:service",
+              "snippet": "Observed component: type=service (com.emanuelef.remote_capture.VpnReconnectService, com.emanuelef.remote_capture.CaptureService)"
+            }
+          ],
+          "evidence_source": [
+            "api",
+            "manifest"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "Clipboard read capability is genuinely present and is used by an explicit copy-to-clipboard helper.",
+          "independent_verification": "DEX API references include 'android.content.ClipboardManager;->getPrimaryClip()Landroid.content.ClipData' and 'com.emanuelef.remote_capture.Utils;->copyToClipboard(Landroid.content.Context'.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/com.emanuelef.remote_capture_95.apk",
+          "package": "com.emanuelef.remote_capture",
+          "rule_id": "SEC-VULN-BACKUP-001",
+          "title": "Application Backup Enabled Without Restriction",
+          "severity": "low",
+          "confidence": "confirmed",
+          "category": "vulnerability",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Manifest attribute allowBackup=true",
+              "location": "manifest:allowBackup",
+              "snippet": "allowBackup=true"
+            }
+          ],
+          "evidence_source": [
+            "manifest"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "android:allowBackup=true is genuinely set; the configuration observation is correct.",
+          "independent_verification": "ManifestInspector: application.allow_backup == True.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [],
+          "benign_in_app_context": null
+        },
+        {
+          "apk": "tests/corpus/com.emanuelef.remote_capture_95.apk",
+          "package": "com.emanuelef.remote_capture",
+          "rule_id": "SEC-VULN-MANIFEST-BACKUP",
+          "title": "Application Data Backup Enabled (allowBackup=true)",
+          "severity": "low",
+          "confidence": "confirmed",
+          "category": "configuration",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Manifest declaration: android:allowBackup='true'",
+              "location": "manifest:application:allowBackup",
+              "snippet": "android:allowBackup='true'"
+            }
+          ],
+          "evidence_source": [
+            "manifest"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "Correct, but reports the same single fact as SEC-VULN-BACKUP-001 under a second rule ID.",
+          "independent_verification": "ManifestInspector: application.allow_backup == True.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [
+            "PRC-04"
+          ],
+          "benign_in_app_context": null
+        },
+        {
+          "apk": "tests/corpus/com.emanuelef.remote_capture_95.apk",
+          "package": "com.emanuelef.remote_capture",
+          "rule_id": "SEC-MAL-PERSISTENCE-FG-SERVICE",
+          "title": "Foreground Service Declaration",
+          "severity": "informational",
+          "confidence": "confirmed",
+          "category": "persistence",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Foreground service declared: com.emanuelef.remote_capture.VpnReconnectService (type=0x40000000)",
+              "location": "manifest:service:com.emanuelef.remote_capture.VpnReconnectService",
+              "snippet": "com.emanuelef.remote_capture.VpnReconnectService "
+            },
+            {
+              "description": "Foreground service declared: com.emanuelef.remote_capture.CaptureService (type=0x40000000)",
+              "location": "manifest:service:com.emanuelef.remote_capture.CaptureService",
+              "snippet": "com.emanuelef.remote_capture.CaptureService "
+            }
+          ],
+          "evidence_source": [
+            "manifest"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "Both foreground services are genuinely declared and are the app's core function (VPN-based capture).",
+          "independent_verification": "ManifestInspector: services == [VpnReconnectService, CaptureService].",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [],
+          "benign_in_app_context": true
+        }
+      ]
+    },
+    "openlink": {
+      "package": "de.audioattack.openlink",
+      "apk": "tests/corpus/de.audioattack.openlink_28.apk",
+      "raw_findings_artifact": "artifacts/security-validation/raw_openlink_security.json",
+      "analysis_status": "complete",
+      "security_status": "findings_present",
+      "total_findings": 5,
+      "verdict_counts": {
+        "TRUE_POSITIVE": 5,
+        "FALSE_POSITIVE": 0,
+        "UNCLEAR": 0
+      },
+      "false_positive_rate": 0.0,
+      "findings": [
+        {
+          "apk": "tests/corpus/de.audioattack.openlink_28.apk",
+          "package": "de.audioattack.openlink",
+          "rule_id": "SEC-MAL-PERSISTENCE-BOOT",
+          "title": "Device Boot Persistence Mechanism Detected",
+          "severity": "low",
+          "confidence": "high",
+          "category": "persistence",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Declared permission: RECEIVE_BOOT_COMPLETED",
+              "location": "permission:android.permission.RECEIVE_BOOT_COMPLETED",
+              "snippet": "RECEIVE_BOOT_COMPLETED"
+            }
+          ],
+          "evidence_source": [
+            "permission"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "RECEIVE_BOOT_COMPLETED is genuinely declared (this is the same permission the Phase B acceptance test removes).",
+          "independent_verification": "ManifestInspector: 'android.permission.RECEIVE_BOOT_COMPLETED' in declared permissions == True.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/de.audioattack.openlink_28.apk",
+          "package": "de.audioattack.openlink",
+          "rule_id": "SEC-NET-CLEARTEXT-URLS",
+          "title": "Cleartext HTTP URL References Detected",
+          "severity": "low",
+          "confidence": "high",
+          "category": "network",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Cleartext HTTP URL: http://example.org",
+              "location": "classes.dex",
+              "snippet": "http://example.org"
+            }
+          ],
+          "evidence_source": [
+            "classes.dex"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "'http://example.org' is genuinely present; it is a placeholder/sample URL in a link-handling utility.",
+          "independent_verification": "Cited evidence location classes.dex, snippet 'http://example.org'; corroborated by the APK having exactly 1 URL/1 domain in inspection.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/de.audioattack.openlink_28.apk",
+          "package": "de.audioattack.openlink",
+          "rule_id": "SEC-VULN-BACKUP-001",
+          "title": "Application Backup Enabled Without Restriction",
+          "severity": "low",
+          "confidence": "confirmed",
+          "category": "vulnerability",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Manifest attribute allowBackup=true",
+              "location": "manifest:allowBackup",
+              "snippet": "allowBackup=true"
+            }
+          ],
+          "evidence_source": [
+            "manifest"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "android:allowBackup=true is genuinely set.",
+          "independent_verification": "ManifestInspector: application.allow_backup == True.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [],
+          "benign_in_app_context": null
+        },
+        {
+          "apk": "tests/corpus/de.audioattack.openlink_28.apk",
+          "package": "de.audioattack.openlink",
+          "rule_id": "SEC-VULN-EXPORTED-RECEIVER",
+          "title": "Exported Broadcast Receiver Lacks Permission Protection",
+          "severity": "low",
+          "confidence": "confirmed",
+          "category": "exported_component",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Exported broadcast receiver lacking permission: de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+              "location": "manifest:receiver:de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+              "snippet": "Receiver: de.audioattack.openlink.conf.PackageChangeBroadcastReceiver (exported=true, permission=None)"
+            }
+          ],
+          "evidence_source": [
+            "manifest"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "PackageChangeBroadcastReceiver is genuinely exported with no permission guard. This is the same component the Phase B acceptance test disables.",
+          "independent_verification": "ManifestInspector: receiver de.audioattack.openlink.conf.PackageChangeBroadcastReceiver -> exported=True, permission=None, enabled=True.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [],
+          "benign_in_app_context": null
+        },
+        {
+          "apk": "tests/corpus/de.audioattack.openlink_28.apk",
+          "package": "de.audioattack.openlink",
+          "rule_id": "SEC-VULN-MANIFEST-BACKUP",
+          "title": "Application Data Backup Enabled (allowBackup=true)",
+          "severity": "low",
+          "confidence": "confirmed",
+          "category": "configuration",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Manifest declaration: android:allowBackup='true'",
+              "location": "manifest:application:allowBackup",
+              "snippet": "android:allowBackup='true'"
+            }
+          ],
+          "evidence_source": [
+            "manifest"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "Correct, but duplicates SEC-VULN-BACKUP-001.",
+          "independent_verification": "ManifestInspector: application.allow_backup == True.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [
+            "PRC-04"
+          ],
+          "benign_in_app_context": null
+        }
+      ]
+    },
+    "appmanager": {
+      "package": "io.github.muntashirakon.AppManager",
+      "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+      "raw_findings_artifact": "artifacts/security-validation/raw_appmanager_security.json",
+      "analysis_status": "complete",
+      "security_status": "findings_present",
+      "total_findings": 45,
+      "verdict_counts": {
+        "TRUE_POSITIVE": 24,
+        "FALSE_POSITIVE": 20,
+        "UNCLEAR": 1
+      },
+      "false_positive_rate": 0.4444,
+      "findings": [
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-COMB-ACCESSIBILITY-OVERLAY",
+          "title": "Accessibility Service Combined with System Overlay",
+          "severity": "high",
+          "confidence": "high",
+          "category": "spyware_indicator",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Referenced API: android.accessibilityservice.AccessibilityService",
+              "location": "api:android.accessibilityservice.AccessibilityService",
+              "snippet": "android.accessibilityservice.AccessibilityService"
+            },
+            {
+              "description": "Declared permission: android.permission.SYSTEM_ALERT_WINDOW",
+              "location": "permission:android.permission.SYSTEM_ALERT_WINDOW",
+              "snippet": "android.permission.SYSTEM_ALERT_WINDOW"
+            }
+          ],
+          "evidence_source": [
+            "api",
+            "permission"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "Both halves verified: a real AccessibilityService component and the SYSTEM_ALERT_WINDOW permission. Benign in context -- AppManager's documented no-root automation uses an accessibility service, and overlay is used for its floating UI.",
+          "independent_verification": "ManifestInspector: service io.github.muntashirakon.AppManager.accessibility.NoRootAccessibilityService with permission=android.permission.BIND_ACCESSIBILITY_SERVICE, exported=False; 'android.permission.SYSTEM_ALERT_WINDOW' declared == True.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-CODE-EXEC",
+          "title": "OS Command Execution Capability Detected",
+          "severity": "high",
+          "confidence": "high",
+          "category": "code_execution",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Command execution API reference: java.lang.ProcessBuilder;->start()Ljava.lang.Process",
+              "location": "api:java.lang.ProcessBuilder;->start()Ljava.lang.Process",
+              "snippet": "java.lang.ProcessBuilder;->start()Ljava.lang.Process"
+            },
+            {
+              "description": "Command execution API reference: java.lang.ProcessBuilder",
+              "location": "api:java.lang.ProcessBuilder",
+              "snippet": "java.lang.ProcessBuilder"
+            },
+            {
+              "description": "Command execution API reference: java.lang.ProcessBuilder;->redirectErrorStream(Z)Ljava.lang.ProcessBuilder",
+              "location": "api:java.lang.ProcessBuilder;->redirectErrorStream(Z)Ljava.lang.ProcessBuilder",
+              "snippet": "java.lang.ProcessBuilder;->redirectErrorStream(Z)Ljava.lang.ProcessBuilder"
+            }
+          ],
+          "evidence_source": [
+            "api"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "ProcessBuilder execution APIs are genuinely referenced. Benign in context: AppManager is a package manager that runs privileged shell commands via root/ADB.",
+          "independent_verification": "DEX API references include 'java.lang.ProcessBuilder;->start()Ljava.lang.Process' and 'java.lang.ProcessBuilder;->redirectErrorStream(Z)Ljava.lang.ProcessBuilder'.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-DYN-LOAD",
+          "title": "Dynamic Class Loading Capability Detected",
+          "severity": "high",
+          "confidence": "confirmed",
+          "category": "dynamic_code",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Dynamic class loader API reference: dalvik.system.PathClassLoader;->loadClass(Ljava.lang.String;)Ljava.lang.Class",
+              "location": "api:dalvik.system.PathClassLoader;->loadClass(Ljava.lang.String;)Ljava.lang.Class",
+              "snippet": "dalvik.system.PathClassLoader;->loadClass(Ljava.lang.String;)Ljava.lang.Class"
+            },
+            {
+              "description": "Dynamic class loader API reference: dalvik.system.PathClassLoader;-><init>(Ljava.lang.String",
+              "location": "api:dalvik.system.PathClassLoader;-><init>(Ljava.lang.String",
+              "snippet": "dalvik.system.PathClassLoader;-><init>(Ljava.lang.String"
+            }
+          ],
+          "evidence_source": [
+            "api"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "Dynamic class loading is genuinely present and corroborated by shipped auxiliary DEX: assets/am.jar and assets/main.jar each contain exactly one classes.dex.",
+          "independent_verification": "DEX API references include 'dalvik.system.PathClassLoader;->loadClass(Ljava.lang.String;)Ljava.lang.Class' and 'dalvik.system.PathClassLoader;-><init>(Ljava.lang.String'; unzip of assets/am.jar -> classes.dex (40388 bytes); assets/main.jar -> classes.dex (12444 bytes).",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-DYNLOAD-001",
+          "title": "Dynamic Bytecode Loading Capability",
+          "severity": "high",
+          "confidence": "high",
+          "category": "malware_indicator",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Referenced API: dalvik.system.PathClassLoader",
+              "location": "api:dalvik.system.PathClassLoader",
+              "snippet": "dalvik.system.PathClassLoader"
+            }
+          ],
+          "evidence_source": [
+            "api"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "Correct, but reports the same PathClassLoader capability as SEC-MAL-DYN-LOAD.",
+          "independent_verification": "Same verification as SEC-MAL-DYN-LOAD.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [
+            "PRC-04"
+          ],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-EXEC-001",
+          "title": "Local Command Execution Capability",
+          "severity": "high",
+          "confidence": "high",
+          "category": "malware_indicator",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Referenced API: java.lang.ProcessBuilder",
+              "location": "api:java.lang.ProcessBuilder",
+              "snippet": "java.lang.ProcessBuilder"
+            }
+          ],
+          "evidence_source": [
+            "api"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "Correct, but reports the same ProcessBuilder capability as SEC-MAL-CODE-EXEC.",
+          "independent_verification": "Same verification as SEC-MAL-CODE-EXEC.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [
+            "PRC-04"
+          ],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-23_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-23.apk",
+          "severity": "high",
+          "confidence": "confirmed",
+          "category": "payload",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Nested APK package archive detected: frameworks/android/android-23.apk (132735 bytes)",
+              "location": "embedded:frameworks/android/android-23.apk",
+              "snippet": "Embedded APK at frameworks/android/android-23.apk (132735 bytes)"
+            }
+          ],
+          "evidence_source": [
+            "embedded"
+          ],
+          "verdict": "FALSE_POSITIVE",
+          "explanation": "The nested APK exists, but it contains no executable code, so classifying it HIGH severity as a `payload` is not supported. It is an Android framework resource table that AppManager uses to resolve other apps' resource IDs for that API level.",
+          "independent_verification": "`unzip -l` of the APK lists frameworks/android/android-23.apk (cited size 132735 bytes matches the zip entry); extracting frameworks/android/android-23.apk (representative) shows exactly 2 entries: resources.arsc (546652 bytes) and AndroidManifest.xml (1396 bytes) -- no classes.dex, no native library. 14 such entries exist in total.",
+          "should_remain_unchanged_in_rule_engine": false,
+          "proposed_rule_changes": [
+            "PRC-05",
+            "PRC-06"
+          ],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-24_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-24.apk",
+          "severity": "high",
+          "confidence": "confirmed",
+          "category": "payload",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Nested APK package archive detected: frameworks/android/android-24.apk (141273 bytes)",
+              "location": "embedded:frameworks/android/android-24.apk",
+              "snippet": "Embedded APK at frameworks/android/android-24.apk (141273 bytes)"
+            }
+          ],
+          "evidence_source": [
+            "embedded"
+          ],
+          "verdict": "FALSE_POSITIVE",
+          "explanation": "The nested APK exists, but it contains no executable code, so classifying it HIGH severity as a `payload` is not supported. It is an Android framework resource table that AppManager uses to resolve other apps' resource IDs for that API level.",
+          "independent_verification": "`unzip -l` of the APK lists frameworks/android/android-24.apk (cited size 141273 bytes matches the zip entry); extracting frameworks/android/android-23.apk (representative) shows exactly 2 entries: resources.arsc (546652 bytes) and AndroidManifest.xml (1396 bytes) -- no classes.dex, no native library. 14 such entries exist in total.",
+          "should_remain_unchanged_in_rule_engine": false,
+          "proposed_rule_changes": [
+            "PRC-05",
+            "PRC-06"
+          ],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-25_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-25.apk",
+          "severity": "high",
+          "confidence": "confirmed",
+          "category": "payload",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Nested APK package archive detected: frameworks/android/android-25.apk (143184 bytes)",
+              "location": "embedded:frameworks/android/android-25.apk",
+              "snippet": "Embedded APK at frameworks/android/android-25.apk (143184 bytes)"
+            }
+          ],
+          "evidence_source": [
+            "embedded"
+          ],
+          "verdict": "FALSE_POSITIVE",
+          "explanation": "The nested APK exists, but it contains no executable code, so classifying it HIGH severity as a `payload` is not supported. It is an Android framework resource table that AppManager uses to resolve other apps' resource IDs for that API level.",
+          "independent_verification": "`unzip -l` of the APK lists frameworks/android/android-25.apk (cited size 143184 bytes matches the zip entry); extracting frameworks/android/android-23.apk (representative) shows exactly 2 entries: resources.arsc (546652 bytes) and AndroidManifest.xml (1396 bytes) -- no classes.dex, no native library. 14 such entries exist in total.",
+          "should_remain_unchanged_in_rule_engine": false,
+          "proposed_rule_changes": [
+            "PRC-05",
+            "PRC-06"
+          ],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-26_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-26.apk",
+          "severity": "high",
+          "confidence": "confirmed",
+          "category": "payload",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Nested APK package archive detected: frameworks/android/android-26.apk (150430 bytes)",
+              "location": "embedded:frameworks/android/android-26.apk",
+              "snippet": "Embedded APK at frameworks/android/android-26.apk (150430 bytes)"
+            }
+          ],
+          "evidence_source": [
+            "embedded"
+          ],
+          "verdict": "FALSE_POSITIVE",
+          "explanation": "The nested APK exists, but it contains no executable code, so classifying it HIGH severity as a `payload` is not supported. It is an Android framework resource table that AppManager uses to resolve other apps' resource IDs for that API level.",
+          "independent_verification": "`unzip -l` of the APK lists frameworks/android/android-26.apk (cited size 150430 bytes matches the zip entry); extracting frameworks/android/android-23.apk (representative) shows exactly 2 entries: resources.arsc (546652 bytes) and AndroidManifest.xml (1396 bytes) -- no classes.dex, no native library. 14 such entries exist in total.",
+          "should_remain_unchanged_in_rule_engine": false,
+          "proposed_rule_changes": [
+            "PRC-05",
+            "PRC-06"
+          ],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-27_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-27.apk",
+          "severity": "high",
+          "confidence": "confirmed",
+          "category": "payload",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Nested APK package archive detected: frameworks/android/android-27.apk (153078 bytes)",
+              "location": "embedded:frameworks/android/android-27.apk",
+              "snippet": "Embedded APK at frameworks/android/android-27.apk (153078 bytes)"
+            }
+          ],
+          "evidence_source": [
+            "embedded"
+          ],
+          "verdict": "FALSE_POSITIVE",
+          "explanation": "The nested APK exists, but it contains no executable code, so classifying it HIGH severity as a `payload` is not supported. It is an Android framework resource table that AppManager uses to resolve other apps' resource IDs for that API level.",
+          "independent_verification": "`unzip -l` of the APK lists frameworks/android/android-27.apk (cited size 153078 bytes matches the zip entry); extracting frameworks/android/android-23.apk (representative) shows exactly 2 entries: resources.arsc (546652 bytes) and AndroidManifest.xml (1396 bytes) -- no classes.dex, no native library. 14 such entries exist in total.",
+          "should_remain_unchanged_in_rule_engine": false,
+          "proposed_rule_changes": [
+            "PRC-05",
+            "PRC-06"
+          ],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-28_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-28.apk",
+          "severity": "high",
+          "confidence": "confirmed",
+          "category": "payload",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Nested APK package archive detected: frameworks/android/android-28.apk (159728 bytes)",
+              "location": "embedded:frameworks/android/android-28.apk",
+              "snippet": "Embedded APK at frameworks/android/android-28.apk (159728 bytes)"
+            }
+          ],
+          "evidence_source": [
+            "embedded"
+          ],
+          "verdict": "FALSE_POSITIVE",
+          "explanation": "The nested APK exists, but it contains no executable code, so classifying it HIGH severity as a `payload` is not supported. It is an Android framework resource table that AppManager uses to resolve other apps' resource IDs for that API level.",
+          "independent_verification": "`unzip -l` of the APK lists frameworks/android/android-28.apk (cited size 159728 bytes matches the zip entry); extracting frameworks/android/android-23.apk (representative) shows exactly 2 entries: resources.arsc (546652 bytes) and AndroidManifest.xml (1396 bytes) -- no classes.dex, no native library. 14 such entries exist in total.",
+          "should_remain_unchanged_in_rule_engine": false,
+          "proposed_rule_changes": [
+            "PRC-05",
+            "PRC-06"
+          ],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-29_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-29.apk",
+          "severity": "high",
+          "confidence": "confirmed",
+          "category": "payload",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Nested APK package archive detected: frameworks/android/android-29.apk (174763 bytes)",
+              "location": "embedded:frameworks/android/android-29.apk",
+              "snippet": "Embedded APK at frameworks/android/android-29.apk (174763 bytes)"
+            }
+          ],
+          "evidence_source": [
+            "embedded"
+          ],
+          "verdict": "FALSE_POSITIVE",
+          "explanation": "The nested APK exists, but it contains no executable code, so classifying it HIGH severity as a `payload` is not supported. It is an Android framework resource table that AppManager uses to resolve other apps' resource IDs for that API level.",
+          "independent_verification": "`unzip -l` of the APK lists frameworks/android/android-29.apk (cited size 174763 bytes matches the zip entry); extracting frameworks/android/android-23.apk (representative) shows exactly 2 entries: resources.arsc (546652 bytes) and AndroidManifest.xml (1396 bytes) -- no classes.dex, no native library. 14 such entries exist in total.",
+          "should_remain_unchanged_in_rule_engine": false,
+          "proposed_rule_changes": [
+            "PRC-05",
+            "PRC-06"
+          ],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-30_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-30.apk",
+          "severity": "high",
+          "confidence": "confirmed",
+          "category": "payload",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Nested APK package archive detected: frameworks/android/android-30.apk (179149 bytes)",
+              "location": "embedded:frameworks/android/android-30.apk",
+              "snippet": "Embedded APK at frameworks/android/android-30.apk (179149 bytes)"
+            }
+          ],
+          "evidence_source": [
+            "embedded"
+          ],
+          "verdict": "FALSE_POSITIVE",
+          "explanation": "The nested APK exists, but it contains no executable code, so classifying it HIGH severity as a `payload` is not supported. It is an Android framework resource table that AppManager uses to resolve other apps' resource IDs for that API level.",
+          "independent_verification": "`unzip -l` of the APK lists frameworks/android/android-30.apk (cited size 179149 bytes matches the zip entry); extracting frameworks/android/android-23.apk (representative) shows exactly 2 entries: resources.arsc (546652 bytes) and AndroidManifest.xml (1396 bytes) -- no classes.dex, no native library. 14 such entries exist in total.",
+          "should_remain_unchanged_in_rule_engine": false,
+          "proposed_rule_changes": [
+            "PRC-05",
+            "PRC-06"
+          ],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-31_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-31.apk",
+          "severity": "high",
+          "confidence": "confirmed",
+          "category": "payload",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Nested APK package archive detected: frameworks/android/android-31.apk (188812 bytes)",
+              "location": "embedded:frameworks/android/android-31.apk",
+              "snippet": "Embedded APK at frameworks/android/android-31.apk (188812 bytes)"
+            }
+          ],
+          "evidence_source": [
+            "embedded"
+          ],
+          "verdict": "FALSE_POSITIVE",
+          "explanation": "The nested APK exists, but it contains no executable code, so classifying it HIGH severity as a `payload` is not supported. It is an Android framework resource table that AppManager uses to resolve other apps' resource IDs for that API level.",
+          "independent_verification": "`unzip -l` of the APK lists frameworks/android/android-31.apk (cited size 188812 bytes matches the zip entry); extracting frameworks/android/android-23.apk (representative) shows exactly 2 entries: resources.arsc (546652 bytes) and AndroidManifest.xml (1396 bytes) -- no classes.dex, no native library. 14 such entries exist in total.",
+          "should_remain_unchanged_in_rule_engine": false,
+          "proposed_rule_changes": [
+            "PRC-05",
+            "PRC-06"
+          ],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-32_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-32.apk",
+          "severity": "high",
+          "confidence": "confirmed",
+          "category": "payload",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Nested APK package archive detected: frameworks/android/android-32.apk (192052 bytes)",
+              "location": "embedded:frameworks/android/android-32.apk",
+              "snippet": "Embedded APK at frameworks/android/android-32.apk (192052 bytes)"
+            }
+          ],
+          "evidence_source": [
+            "embedded"
+          ],
+          "verdict": "FALSE_POSITIVE",
+          "explanation": "The nested APK exists, but it contains no executable code, so classifying it HIGH severity as a `payload` is not supported. It is an Android framework resource table that AppManager uses to resolve other apps' resource IDs for that API level.",
+          "independent_verification": "`unzip -l` of the APK lists frameworks/android/android-32.apk (cited size 192052 bytes matches the zip entry); extracting frameworks/android/android-23.apk (representative) shows exactly 2 entries: resources.arsc (546652 bytes) and AndroidManifest.xml (1396 bytes) -- no classes.dex, no native library. 14 such entries exist in total.",
+          "should_remain_unchanged_in_rule_engine": false,
+          "proposed_rule_changes": [
+            "PRC-05",
+            "PRC-06"
+          ],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-33_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-33.apk",
+          "severity": "high",
+          "confidence": "confirmed",
+          "category": "payload",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Nested APK package archive detected: frameworks/android/android-33.apk (236952 bytes)",
+              "location": "embedded:frameworks/android/android-33.apk",
+              "snippet": "Embedded APK at frameworks/android/android-33.apk (236952 bytes)"
+            }
+          ],
+          "evidence_source": [
+            "embedded"
+          ],
+          "verdict": "FALSE_POSITIVE",
+          "explanation": "The nested APK exists, but it contains no executable code, so classifying it HIGH severity as a `payload` is not supported. It is an Android framework resource table that AppManager uses to resolve other apps' resource IDs for that API level.",
+          "independent_verification": "`unzip -l` of the APK lists frameworks/android/android-33.apk (cited size 236952 bytes matches the zip entry); extracting frameworks/android/android-23.apk (representative) shows exactly 2 entries: resources.arsc (546652 bytes) and AndroidManifest.xml (1396 bytes) -- no classes.dex, no native library. 14 such entries exist in total.",
+          "should_remain_unchanged_in_rule_engine": false,
+          "proposed_rule_changes": [
+            "PRC-05",
+            "PRC-06"
+          ],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-34_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-34.apk",
+          "severity": "high",
+          "confidence": "confirmed",
+          "category": "payload",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Nested APK package archive detected: frameworks/android/android-34.apk (237832 bytes)",
+              "location": "embedded:frameworks/android/android-34.apk",
+              "snippet": "Embedded APK at frameworks/android/android-34.apk (237832 bytes)"
+            }
+          ],
+          "evidence_source": [
+            "embedded"
+          ],
+          "verdict": "FALSE_POSITIVE",
+          "explanation": "The nested APK exists, but it contains no executable code, so classifying it HIGH severity as a `payload` is not supported. It is an Android framework resource table that AppManager uses to resolve other apps' resource IDs for that API level.",
+          "independent_verification": "`unzip -l` of the APK lists frameworks/android/android-34.apk; extracting frameworks/android/android-23.apk (representative) shows exactly 2 entries: resources.arsc (546652 bytes) and AndroidManifest.xml (1396 bytes) -- no classes.dex, no native library. 14 such entries exist in total.",
+          "should_remain_unchanged_in_rule_engine": false,
+          "proposed_rule_changes": [
+            "PRC-05",
+            "PRC-06"
+          ],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-35_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-35.apk",
+          "severity": "high",
+          "confidence": "confirmed",
+          "category": "payload",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Nested APK package archive detected: frameworks/android/android-35.apk (222555 bytes)",
+              "location": "embedded:frameworks/android/android-35.apk",
+              "snippet": "Embedded APK at frameworks/android/android-35.apk (222555 bytes)"
+            }
+          ],
+          "evidence_source": [
+            "embedded"
+          ],
+          "verdict": "FALSE_POSITIVE",
+          "explanation": "The nested APK exists, but it contains no executable code, so classifying it HIGH severity as a `payload` is not supported. It is an Android framework resource table that AppManager uses to resolve other apps' resource IDs for that API level.",
+          "independent_verification": "`unzip -l` of the APK lists frameworks/android/android-35.apk; extracting frameworks/android/android-23.apk (representative) shows exactly 2 entries: resources.arsc (546652 bytes) and AndroidManifest.xml (1396 bytes) -- no classes.dex, no native library. 14 such entries exist in total.",
+          "should_remain_unchanged_in_rule_engine": false,
+          "proposed_rule_changes": [
+            "PRC-05",
+            "PRC-06"
+          ],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-PAYLOAD-APK-frameworks_android_android-36_apk",
+          "title": "Nested Embedded APK Package: frameworks/android/android-36.apk",
+          "severity": "high",
+          "confidence": "confirmed",
+          "category": "payload",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Nested APK package archive detected: frameworks/android/android-36.apk (240163 bytes)",
+              "location": "embedded:frameworks/android/android-36.apk",
+              "snippet": "Embedded APK at frameworks/android/android-36.apk (240163 bytes)"
+            }
+          ],
+          "evidence_source": [
+            "embedded"
+          ],
+          "verdict": "FALSE_POSITIVE",
+          "explanation": "The nested APK exists, but it contains no executable code, so classifying it HIGH severity as a `payload` is not supported. It is an Android framework resource table that AppManager uses to resolve other apps' resource IDs for that API level.",
+          "independent_verification": "`unzip -l` of the APK lists frameworks/android/android-36.apk (cited size 240163 bytes matches the zip entry); extracting frameworks/android/android-23.apk (representative) shows exactly 2 entries: resources.arsc (546652 bytes) and AndroidManifest.xml (1396 bytes) -- no classes.dex, no native library. 14 such entries exist in total.",
+          "should_remain_unchanged_in_rule_engine": false,
+          "proposed_rule_changes": [
+            "PRC-05",
+            "PRC-06"
+          ],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-VULN-SECRET-GENERIC_PRIVATE_KEY_HEADER",
+          "title": "Potential Hardcoded Secret Detected: Generic Private Key Header",
+          "severity": "high",
+          "confidence": "high",
+          "category": "credential_access",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Potential hardcoded Generic Private Key Header observed (masked): ----*******************----",
+              "location": "dex:strings",
+              "snippet": "Generic Private Key Header: ----*******************----"
+            },
+            {
+              "description": "Potential hardcoded Generic Private Key Header observed (masked): ----***********************----",
+              "location": "dex:strings",
+              "snippet": "Generic Private Key Header: ----***********************----"
+            },
+            {
+              "description": "Potential hardcoded Generic Private Key Header observed (masked): ----***********************----",
+              "location": "dex:strings",
+              "snippet": "Generic Private Key Header: ----***********************----"
+            }
+          ],
+          "evidence_source": [
+            "dex"
+          ],
+          "verdict": "FALSE_POSITIVE",
+          "explanation": "The PEM armor header string is present, but it is a parser constant inside the bundled BouncyCastle provider, not an embedded key. No key body accompanies it.",
+          "independent_verification": "DEX strings contain '-----BEGIN RSA PRIVATE KEY-----' == True; 6,139 org.bouncycastle.* classes are bundled (incl. PEM/ASN.1 parsing); the only other 'PRIVATE KEY' strings are BouncyCastle error messages ('unknown private key passed to XMSSMT', 'KeySpec must be ECPrivateKeySpec ...').",
+          "should_remain_unchanged_in_rule_engine": false,
+          "proposed_rule_changes": [
+            "PRC-07"
+          ],
+          "benign_in_app_context": null
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-VULN-WEAK-CIPHER-001",
+          "title": "Insecure or Broken Cryptographic Cipher Mode",
+          "severity": "high",
+          "confidence": "high",
+          "category": "vulnerability",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Discovered string pattern: DES/CBC/PKCS5Padding",
+              "location": "dex:strings",
+              "snippet": "DES/CBC/PKCS5Padding"
+            },
+            {
+              "description": "Discovered string pattern: DESede",
+              "location": "dex:strings",
+              "snippet": "DESede"
+            }
+          ],
+          "evidence_source": [
+            "dex"
+          ],
+          "verdict": "FALSE_POSITIVE",
+          "explanation": "The cited DES strings come from the bundled BouncyCastle algorithm registry, not from an application cipher choice. A general-purpose provider necessarily names every algorithm it implements.",
+          "independent_verification": "DEX strings 'DES/CBC/PKCS5Padding' and 'DESede' present == True; bundled implementation classes verified: org.bouncycastle.crypto.engines.DESEngine, DESedeEngine, DESedeWrapEngine, generators.DESedeKeyGenerator, params.DESedeParameters.",
+          "should_remain_unchanged_in_rule_engine": false,
+          "proposed_rule_changes": [
+            "PRC-08"
+          ],
+          "benign_in_app_context": null
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_am_jar",
+          "title": "High-Entropy Asset Detected (Likely Encrypted/Compressed): assets/am.jar",
+          "severity": "medium",
+          "confidence": "high",
+          "category": "payload",
+          "evidence_cited_by_detector": [
+            {
+              "description": "High-entropy asset: assets/am.jar (entropy=7.97, size=18963bytes)",
+              "location": "asset:assets/am.jar",
+              "snippet": "Shannon entropy: 7.97 (18963 bytes)"
+            }
+          ],
+          "evidence_source": [
+            "asset"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "The measurement is accurate and the title is correctly hedged ('Likely Encrypted/Compressed'). Context: contains exactly one classes.dex (40388 bytes) -- real auxiliary DEX, consistent with the PathClassLoader finding.",
+          "independent_verification": "`unzip -l` lists assets/am.jar at exactly 18963 bytes, matching the cited size; cited entropy 7.97.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [
+            "PRC-09"
+          ],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_blanks_blank_odp",
+          "title": "High-Entropy Asset Detected (Likely Encrypted/Compressed): assets/blanks/blank.odp",
+          "severity": "medium",
+          "confidence": "high",
+          "category": "payload",
+          "evidence_cited_by_detector": [
+            {
+              "description": "High-entropy asset: assets/blanks/blank.odp (entropy=7.97, size=23502bytes)",
+              "location": "asset:assets/blanks/blank.odp",
+              "snippet": "Shannon entropy: 7.97 (23502 bytes)"
+            }
+          ],
+          "evidence_source": [
+            "asset"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "The measurement is accurate and the title is correctly hedged ('Likely Encrypted/Compressed'). Context: ODF presentation = ZIP container, so high entropy is expected.",
+          "independent_verification": "`unzip -l` lists assets/blanks/blank.odp at exactly 23502 bytes, matching the cited size; cited entropy 7.97.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [
+            "PRC-09"
+          ],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_blanks_blank_odt",
+          "title": "High-Entropy Asset Detected (Likely Encrypted/Compressed): assets/blanks/blank.odt",
+          "severity": "medium",
+          "confidence": "high",
+          "category": "payload",
+          "evidence_cited_by_detector": [
+            {
+              "description": "High-entropy asset: assets/blanks/blank.odt (entropy=7.75, size=4454bytes)",
+              "location": "asset:assets/blanks/blank.odt",
+              "snippet": "Shannon entropy: 7.75 (4454 bytes)"
+            }
+          ],
+          "evidence_source": [
+            "asset"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "The measurement is accurate and the title is correctly hedged ('Likely Encrypted/Compressed'). Context: ODF text document = ZIP container.",
+          "independent_verification": "`unzip -l` lists assets/blanks/blank.odt at exactly 4454 bytes, matching the cited size; cited entropy 7.75.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [
+            "PRC-09"
+          ],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_blanks_blank_pdf",
+          "title": "High-Entropy Asset Detected (Likely Encrypted/Compressed): assets/blanks/blank.pdf",
+          "severity": "medium",
+          "confidence": "high",
+          "category": "payload",
+          "evidence_cited_by_detector": [
+            {
+              "description": "High-entropy asset: assets/blanks/blank.pdf (entropy=7.86, size=11448bytes)",
+              "location": "asset:assets/blanks/blank.pdf",
+              "snippet": "Shannon entropy: 7.86 (11448 bytes)"
+            }
+          ],
+          "evidence_source": [
+            "asset"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "The measurement is accurate and the title is correctly hedged ('Likely Encrypted/Compressed'). Context: PDF with compressed streams.",
+          "independent_verification": "`unzip -l` lists assets/blanks/blank.pdf at exactly 11448 bytes, matching the cited size; cited entropy 7.86.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [
+            "PRC-09"
+          ],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_blanks_blank_pptx",
+          "title": "High-Entropy Asset Detected (Likely Encrypted/Compressed): assets/blanks/blank.pptx",
+          "severity": "medium",
+          "confidence": "high",
+          "category": "payload",
+          "evidence_cited_by_detector": [
+            {
+              "description": "High-entropy asset: assets/blanks/blank.pptx (entropy=7.51, size=32353bytes)",
+              "location": "asset:assets/blanks/blank.pptx",
+              "snippet": "Shannon entropy: 7.51 (32353 bytes)"
+            }
+          ],
+          "evidence_source": [
+            "asset"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "The measurement is accurate and the title is correctly hedged ('Likely Encrypted/Compressed'). Context: OOXML presentation = ZIP container.",
+          "independent_verification": "`unzip -l` lists assets/blanks/blank.pptx at exactly 32353 bytes, matching the cited size; cited entropy 7.51.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [
+            "PRC-09"
+          ],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_dexopt_baseline_prof",
+          "title": "High-Entropy Asset Detected (Likely Encrypted/Compressed): assets/dexopt/baseline.prof",
+          "severity": "medium",
+          "confidence": "high",
+          "category": "payload",
+          "evidence_cited_by_detector": [
+            {
+              "description": "High-entropy asset: assets/dexopt/baseline.prof (entropy=7.86, size=4219bytes)",
+              "location": "asset:assets/dexopt/baseline.prof",
+              "snippet": "Shannon entropy: 7.86 (4219 bytes)"
+            }
+          ],
+          "evidence_source": [
+            "asset"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "The measurement is accurate and the title is correctly hedged ('Likely Encrypted/Compressed'). Context: ART baseline profile, compressed.",
+          "independent_verification": "`unzip -l` lists assets/dexopt/baseline.prof at exactly 4219 bytes, matching the cited size; cited entropy 7.86.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [
+            "PRC-09"
+          ],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_main_jar",
+          "title": "High-Entropy Asset Detected (Likely Encrypted/Compressed): assets/main.jar",
+          "severity": "medium",
+          "confidence": "high",
+          "category": "payload",
+          "evidence_cited_by_detector": [
+            {
+              "description": "High-entropy asset: assets/main.jar (entropy=7.95, size=6335bytes)",
+              "location": "asset:assets/main.jar",
+              "snippet": "Shannon entropy: 7.95 (6335 bytes)"
+            }
+          ],
+          "evidence_source": [
+            "asset"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "The measurement is accurate and the title is correctly hedged ('Likely Encrypted/Compressed'). Context: contains exactly one classes.dex (12444 bytes) -- real auxiliary DEX.",
+          "independent_verification": "`unzip -l` lists assets/main.jar at exactly 6335 bytes, matching the cited size; cited entropy 7.95.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [
+            "PRC-09"
+          ],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-NET-CAPABILITY-FLOW",
+          "title": "Sensitive Data Capabilities Co-Occur with External NetworkCommunication",
+          "severity": "medium",
+          "confidence": "medium",
+          "category": "network",
+          "evidence_cited_by_detector": [
+            {
+              "description": "External domain endpoint: io.github.muntashirakon.io",
+              "location": "domain:io.github.muntashirakon.io",
+              "snippet": "io.github.muntashirakon.io"
+            },
+            {
+              "description": "External domain endpoint: schemas.android.com",
+              "location": "domain:schemas.android.com",
+              "snippet": "schemas.android.com"
+            },
+            {
+              "description": "External domain endpoint: crbug.com",
+              "location": "domain:crbug.com",
+              "snippet": "crbug.com"
+            },
+            {
+              "description": "External domain endpoint: bap.us",
+              "location": "domain:bap.us",
+              "snippet": "bap.us"
+            },
+            {
+              "description": "External domain endpoint: androidx.core.app",
+              "location": "domain:androidx.core.app",
+              "snippet": "androidx.core.app"
+            }
+          ],
+          "evidence_source": [
+            "domain"
+          ],
+          "verdict": "UNCLEAR",
+          "explanation": "Two of the five cited 'external domain endpoints' are Java package names whose last segment collides with a TLD ('androidx.core.app', 'io.github.muntashirakon.io'), and 'schemas.android.com' is an XML namespace host. Only 'crbug.com' and 'bap.us' are hostname-shaped, and neither was shown to be contacted. The correlation the rule asserts is therefore not established.",
+          "independent_verification": "Cited domains: ['io.github.muntashirakon.io', 'schemas.android.com', 'crbug.com', 'bap.us', 'androidx.core.app'].",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [
+            "PRC-10"
+          ],
+          "benign_in_app_context": null
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-SPY-ACCESSIBILITY-001",
+          "title": "Accessibility Service Implementation",
+          "severity": "medium",
+          "confidence": "high",
+          "category": "spyware_indicator",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Referenced API: android.accessibilityservice.AccessibilityService",
+              "location": "api:android.accessibilityservice.AccessibilityService",
+              "snippet": "android.accessibilityservice.AccessibilityService"
+            }
+          ],
+          "evidence_source": [
+            "api"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "AppManager genuinely implements an accessibility service, so this fires correctly here (unlike PCAPdroid). Benign: documented no-root automation feature.",
+          "independent_verification": "ManifestInspector: NoRootAccessibilityService declared with BIND_ACCESSIBILITY_SERVICE.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [
+            "PRC-02"
+          ],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-SPY-ACCESSIBILITY-ABUSE",
+          "title": "Android Accessibility Service Implementation",
+          "severity": "medium",
+          "confidence": "confirmed",
+          "category": "collection",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Declared AccessibilityService component: io.github.muntashirakon.AppManager.accessibility.NoRootAccessibilityService",
+              "location": "manifest:service:io.github.muntashirakon.AppManager.accessibility.NoRootAccessibilityService",
+              "snippet": "Service: io.github.muntashirakon.AppManager.accessibility.NoRootAccessibilityService (BIND_ACCESSIBILITY_SERVICE)"
+            }
+          ],
+          "evidence_source": [
+            "manifest"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "Cites the actual manifest component, which was verified to exist.",
+          "independent_verification": "ManifestInspector: service io.github.muntashirakon.AppManager.accessibility.NoRootAccessibilityService, permission=BIND_ACCESSIBILITY_SERVICE, exported=False.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-SPY-CALLS-001",
+          "title": "Phone Call State & Log Monitoring Capability",
+          "severity": "medium",
+          "confidence": "medium",
+          "category": "spyware_indicator",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Declared permission: android.permission.READ_PHONE_STATE",
+              "location": "permission:android.permission.READ_PHONE_STATE",
+              "snippet": "android.permission.READ_PHONE_STATE"
+            },
+            {
+              "description": "Referenced API: android.telephony.TelephonyManager",
+              "location": "api:android.telephony.TelephonyManager",
+              "snippet": "android.telephony.TelephonyManager"
+            }
+          ],
+          "evidence_source": [
+            "api",
+            "permission"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "Both evidence items verified. Benign: AppManager surfaces per-SIM/telephony information as part of app and device inspection.",
+          "independent_verification": "ManifestInspector: 'android.permission.READ_PHONE_STATE' declared == True; DEX API references include 'android.telephony.TelephonyManager'.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-SPY-DEVICE-IDENTIFIERS",
+          "title": "Hardware & Persistent Device Identifier Collection Capability",
+          "severity": "medium",
+          "confidence": "high",
+          "category": "collection",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Telephony hardware identifier method reference: io.github.muntashirakon.AppManager.compat.SubscriptionManagerCompat;->getSubscriberIdForSubscriber(J)Ljava.lang.String",
+              "location": "method:io.github.muntashirakon.AppManager.compat.SubscriptionManagerCompat;->getSubscriberIdForSubscriber(J)Ljava.lang.String",
+              "snippet": "io.github.muntashirakon.AppManager.compat.SubscriptionManagerCompat;->getSubscriberIdForSubscriber(J)Ljava.lang.String"
+            },
+            {
+              "description": "Telephony hardware identifier method reference: android.telephony.TelephonyManager;->getImei()Ljava.lang.String",
+              "location": "method:android.telephony.TelephonyManager;->getImei()Ljava.lang.String",
+              "snippet": "android.telephony.TelephonyManager;->getImei()Ljava.lang.String"
+            },
+            {
+              "description": "Telephony hardware identifier method reference: io.github.muntashirakon.AppManager.usage.AppUsageStatsManager.getSubscriberIds",
+              "location": "method:io.github.muntashirakon.AppManager.usage.AppUsageStatsManager.getSubscriberIds",
+              "snippet": "io.github.muntashirakon.AppManager.usage.AppUsageStatsManager.getSubscriberIds"
+            },
+            {
+              "description": "Telephony hardware identifier method reference: com.android.internal.telephony.IPhoneSubInfo;->getSubscriberIdForSubscriber(I)Ljava.lang.String",
+              "location": "method:com.android.internal.telephony.IPhoneSubInfo;->getSubscriberIdForSubscriber(I)Ljava.lang.String",
+              "snippet": "com.android.internal.telephony.IPhoneSubInfo;->getSubscriberIdForSubscriber(I)Ljava.lang.String"
+            },
+            {
+              "description": "Telephony hardware identifier method reference: getDeviceIdleController",
+              "location": "method:getDeviceIdleController",
+              "snippet": "getDeviceIdleController"
+            },
+            {
+              "description": "Telephony hardware identifier method reference: android.telephony.TelephonyManager;->getDeviceId()Ljava.lang.String",
+              "location": "method:android.telephony.TelephonyManager;->getDeviceId()Ljava.lang.String",
+              "snippet": "android.telephony.TelephonyManager;->getDeviceId()Ljava.lang.String"
+            },
+            {
+              "description": "Telephony hardware identifier method reference: io.github.muntashirakon.AppManager.compat.SubscriptionManagerCompat.getSubscriberIdForSubscriber",
+              "location": "method:io.github.muntashirakon.AppManager.compat.SubscriptionManagerCompat.getSubscriberIdForSubscriber",
+              "snippet": "io.github.muntashirakon.AppManager.compat.SubscriptionManagerCompat.getSubscriberIdForSubscriber"
+            },
+            {
+              "description": "Telephony hardware identifier method reference: getSubscriberIdForSubscriber",
+              "location": "method:getSubscriberIdForSubscriber",
+              "snippet": "getSubscriberIdForSubscriber"
+            },
+            {
+              "description": "Telephony hardware identifier method reference: androidx.core.telephony.TelephonyManagerCompat$Api26Impl.getImei",
+              "location": "method:androidx.core.telephony.TelephonyManagerCompat$Api26Impl.getImei",
+              "snippet": "androidx.core.telephony.TelephonyManagerCompat$Api26Impl.getImei"
+            },
+            {
+              "description": "Telephony hardware identifier method reference: getDeviceId",
+              "location": "method:getDeviceId",
+              "snippet": "getDeviceId"
+            },
+            {
+              "description": "Telephony hardware identifier method reference: getImei",
+              "location": "method:getImei",
+              "snippet": "getImei"
+            },
+            {
+              "description": "Telephony hardware identifier method reference: com.android.internal.telephony.IPhoneSubInfo;->getSubscriberIdForSubscriber(J)Ljava.lang.String",
+              "location": "method:com.android.internal.telephony.IPhoneSubInfo;->getSubscriberIdForSubscriber(J)Ljava.lang.String",
+              "snippet": "com.android.internal.telephony.IPhoneSubInfo;->getSubscriberIdForSubscriber(J)Ljava.lang.String"
+            },
+            {
+              "description": "Telephony hardware identifier method reference: getSubscriberIds",
+              "location": "method:getSubscriberIds",
+              "snippet": "getSubscriberIds"
+            },
+            {
+              "description": "Telephony hardware identifier method reference: androidx.core.telephony.TelephonyManagerCompat$Api26Impl;->getImei(Landroid.telephony.TelephonyManager;)Ljava.lang.String",
+              "location": "method:androidx.core.telephony.TelephonyManagerCompat$Api26Impl;->getImei(Landroid.telephony.TelephonyManager;)Ljava.lang.String",
+              "snippet": "androidx.core.telephony.TelephonyManagerCompat$Api26Impl;->getImei(Landroid.telephony.TelephonyManager;)Ljava.lang.String"
+            },
+            {
+              "description": "Telephony hardware identifier method reference: androidx.core.telephony.TelephonyManagerCompat.getImei",
+              "location": "method:androidx.core.telephony.TelephonyManagerCompat.getImei",
+              "snippet": "androidx.core.telephony.TelephonyManagerCompat.getImei"
+            },
+            {
+              "description": "Telephony hardware identifier method reference: androidx.core.telephony.TelephonyManagerCompat$Api23Impl;->getDeviceId(Landroid.telephony.TelephonyManager",
+              "location": "method:androidx.core.telephony.TelephonyManagerCompat$Api23Impl;->getDeviceId(Landroid.telephony.TelephonyManager",
+              "snippet": "androidx.core.telephony.TelephonyManagerCompat$Api23Impl;->getDeviceId(Landroid.telephony.TelephonyManager"
+            },
+            {
+              "description": "Telephony hardware identifier method reference: androidx.core.telephony.TelephonyManagerCompat$Api23Impl.getDeviceId",
+              "location": "method:androidx.core.telephony.TelephonyManagerCompat$Api23Impl.getDeviceId",
+              "snippet": "androidx.core.telephony.TelephonyManagerCompat$Api23Impl.getDeviceId"
+            },
+            {
+              "description": "Telephony hardware identifier method reference: io.github.muntashirakon.AppManager.usage.AppUsageStatsManager;->getSubscriberIds(I)Ljava.util.List",
+              "location": "method:io.github.muntashirakon.AppManager.usage.AppUsageStatsManager;->getSubscriberIds(I)Ljava.util.List",
+              "snippet": "io.github.muntashirakon.AppManager.usage.AppUsageStatsManager;->getSubscriberIds(I)Ljava.util.List"
+            },
+            {
+              "description": "Telephony hardware identifier method reference: io.github.muntashirakon.AppManager.compat.DeviceIdleManagerCompat;->getDeviceIdleController()Landroid.os.IDeviceIdleController",
+              "location": "method:io.github.muntashirakon.AppManager.compat.DeviceIdleManagerCompat;->getDeviceIdleController()Landroid.os.IDeviceIdleController",
+              "snippet": "io.github.muntashirakon.AppManager.compat.DeviceIdleManagerCompat;->getDeviceIdleController()Landroid.os.IDeviceIdleController"
+            },
+            {
+              "description": "Telephony hardware identifier method reference: io.github.muntashirakon.AppManager.compat.DeviceIdleManagerCompat.getDeviceIdleController",
+              "location": "method:io.github.muntashirakon.AppManager.compat.DeviceIdleManagerCompat.getDeviceIdleController",
+              "snippet": "io.github.muntashirakon.AppManager.compat.DeviceIdleManagerCompat.getDeviceIdleController"
+            },
+            {
+              "description": "Telephony hardware identifier method reference: android.telephony.TelephonyManager;->getDeviceId(I)Ljava.lang.String",
+              "location": "method:android.telephony.TelephonyManager;->getDeviceId(I)Ljava.lang.String",
+              "snippet": "android.telephony.TelephonyManager;->getDeviceId(I)Ljava.lang.String"
+            },
+            {
+              "description": "Settings.Secure.ANDROID_ID reference",
+              "location": "dex:strings",
+              "snippet": "android_id"
+            },
+            {
+              "description": "Build.SERIAL hardware serial number reference",
+              "location": "dex:strings",
+              "snippet": "Build.SERIAL"
+            }
+          ],
+          "evidence_source": [
+            "dex",
+            "method"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "Genuine hardware-identifier method references are present. Benign in context (device/SIM info display). Precision caveat: one cited item, 'getDeviceIdleController', is the doze/power service and is not a telephony identifier -- it matches only via the 'getDeviceId' substring.",
+          "independent_verification": "DEX method references include 'android.telephony.TelephonyManager;->getImei()Ljava.lang.String', '...;->getDeviceId()Ljava.lang.String', 'com.android.internal.telephony.IPhoneSubInfo;->getSubscriberIdForSubscriber(I)Ljava.lang.String'.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [
+            "PRC-11"
+          ],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-SPY-OVERLAY-001",
+          "title": "System Alert Window (Overlay) Capability",
+          "severity": "medium",
+          "confidence": "high",
+          "category": "spyware_indicator",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Declared permission: android.permission.SYSTEM_ALERT_WINDOW",
+              "location": "permission:android.permission.SYSTEM_ALERT_WINDOW",
+              "snippet": "android.permission.SYSTEM_ALERT_WINDOW"
+            }
+          ],
+          "evidence_source": [
+            "permission"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "SYSTEM_ALERT_WINDOW is genuinely declared. Benign: floating/overlay UI feature.",
+          "independent_verification": "ManifestInspector: 'android.permission.SYSTEM_ALERT_WINDOW' declared == True.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-VULN-CRYPTO-WEAK-CIPHER",
+          "title": "Legacy or Deprecated Cryptographic Cipher Referenced",
+          "severity": "medium",
+          "confidence": "medium",
+          "category": "crypto",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Legacy cipher algorithm referenced: DESede",
+              "location": "dex:strings",
+              "snippet": "DESede"
+            },
+            {
+              "description": "Legacy cipher algorithm referenced: Blowfish",
+              "location": "dex:strings",
+              "snippet": "Blowfish"
+            }
+          ],
+          "evidence_source": [
+            "dex"
+          ],
+          "verdict": "FALSE_POSITIVE",
+          "explanation": "Same root cause as SEC-VULN-WEAK-CIPHER-001 (DESede / Blowfish from the bundled provider registry).",
+          "independent_verification": "DEX strings 'DESede' and 'Blowfish' present == True; BouncyCastle engines verified bundled.",
+          "should_remain_unchanged_in_rule_engine": false,
+          "proposed_rule_changes": [
+            "PRC-08",
+            "PRC-04"
+          ],
+          "benign_in_app_context": null
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-PERSISTENCE-BOOT",
+          "title": "Device Boot Persistence Mechanism Detected",
+          "severity": "low",
+          "confidence": "high",
+          "category": "persistence",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Declared permission: RECEIVE_BOOT_COMPLETED",
+              "location": "permission:android.permission.RECEIVE_BOOT_COMPLETED",
+              "snippet": "RECEIVE_BOOT_COMPLETED"
+            }
+          ],
+          "evidence_source": [
+            "permission"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "RECEIVE_BOOT_COMPLETED genuinely declared.",
+          "independent_verification": "ManifestInspector: 'android.permission.RECEIVE_BOOT_COMPLETED' declared == True.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-ROOT-INDICATORS",
+          "title": "Root Environment Query / Su Reference Detected",
+          "severity": "low",
+          "confidence": "medium",
+          "category": "malware_indicator",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Root indicator string observed: getMagiskProcess",
+              "location": "dex:strings",
+              "snippet": "getMagiskProcess"
+            },
+            {
+              "description": "Root indicator string observed: magiskProcess",
+              "location": "dex:strings",
+              "snippet": "magiskProcess"
+            },
+            {
+              "description": "Root indicator string observed: MagiskUtils.java",
+              "location": "dex:strings",
+              "snippet": "MagiskUtils.java"
+            },
+            {
+              "description": "Root indicator string observed: Lio/github/muntashirakon/AppManager/magisk/MagiskUtils$$ExternalSyntheticLambda1;",
+              "location": "dex:strings",
+              "snippet": "Lio/github/muntashirakon/AppManager/magisk/MagiskUtils$$ExternalSyntheticLambda1;"
+            },
+            {
+              "description": "Root indicator string observed: lambda$displayMagiskDenyListDialog$89",
+              "location": "dex:strings",
+              "snippet": "lambda$displayMagiskDenyListDialog$89"
+            }
+          ],
+          "evidence_source": [
+            "dex"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "Root-environment handling is genuinely present as first-party code, correctly rated LOW. Benign: AppManager's documented Magisk/root management feature.",
+          "independent_verification": "DEX inventory contains 8 app-owned classes under io.github.muntashirakon.AppManager.magisk.* (MagiskDenyList, MagiskHide, MagiskProcess, MagiskUtils, ...); cited snippets 'getMagiskProcess', 'MagiskUtils.java'.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-NET-CLEARTEXT-URLS",
+          "title": "Cleartext HTTP URL References Detected",
+          "severity": "low",
+          "confidence": "high",
+          "category": "network",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Cleartext HTTP URL: http://xmlpull.org/v1/doc/features.html#validation",
+              "location": "classes6.dex",
+              "snippet": "http://xmlpull.org/v1/doc/features.html#validation"
+            },
+            {
+              "description": "Cleartext HTTP URL: http://xmlpull.org/v1/doc/features.html#process-namespaces",
+              "location": "classes.dex",
+              "snippet": "http://xmlpull.org/v1/doc/features.html#process-namespaces"
+            },
+            {
+              "description": "Cleartext HTTP URL: http://xmlpull.org/v1/doc/properties.html#location",
+              "location": "classes5.dex",
+              "snippet": "http://xmlpull.org/v1/doc/properties.html#location"
+            },
+            {
+              "description": "Cleartext HTTP URL: http://apache.org/xml/features/disallow-doctype-decl",
+              "location": "classes5.dex",
+              "snippet": "http://apache.org/xml/features/disallow-doctype-decl"
+            },
+            {
+              "description": "Cleartext HTTP URL: http://xml.org/sax/features/external-parameter-entities",
+              "location": "classes5.dex",
+              "snippet": "http://xml.org/sax/features/external-parameter-entities"
+            }
+          ],
+          "evidence_source": [
+            "classes.dex",
+            "classes5.dex",
+            "classes6.dex"
+          ],
+          "verdict": "FALSE_POSITIVE",
+          "explanation": "Every cited 'cleartext URL' is an XML parser feature/property identifier, never dereferenced over the network.",
+          "independent_verification": "Cited snippets are exclusively 'http://xmlpull.org/v1/doc/features.html#...', 'http://apache.org/xml/features/disallow-doctype-decl', 'http://xml.org/sax/features/...'; the APK's cleartext http:// strings are 'http://', 'http://schemas.android.com/apk/res/android', 'http://xmlpull.org/v1/doc/features.html#indent-output'.",
+          "should_remain_unchanged_in_rule_engine": false,
+          "proposed_rule_changes": [
+            "PRC-03"
+          ],
+          "benign_in_app_context": null
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-SPY-CLIPBOARD-001",
+          "title": "Background Clipboard Access Capability",
+          "severity": "low",
+          "confidence": "medium",
+          "category": "spyware_indicator",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Referenced API: android.content.ClipboardManager",
+              "location": "api:android.content.ClipboardManager",
+              "snippet": "android.content.ClipboardManager"
+            },
+            {
+              "description": "Observed component: type=service (io.github.muntashirakon.AppManager.session.SessionMonitoringService, io.github.muntashirakon.AppManager.batchops.BatchOpsService, io.github.muntashirakon.AppManager.self.filecache.InternalCacheCleanerService)",
+              "location": "manifest:service",
+              "snippet": "Observed component: type=service (io.github.muntashirakon.AppManager.session.SessionMonitoringService, io.github.muntashirakon.AppManager.batchops.BatchOpsService, io.github.muntashirakon.AppManager.self.filecache.InternalCacheCleanerService)"
+            }
+          ],
+          "evidence_source": [
+            "api",
+            "manifest"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "Clipboard access is genuinely present via first-party helpers.",
+          "independent_verification": "DEX API references include 'io.github.muntashirakon.AppManager.utils.ClipboardUtils;->copyToClipboard(Landroid.content.Context' and 'android.content.ClipboardManager;->getPrimaryClip()Landroid.content.ClipData'.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-VULN-BACKUP-001",
+          "title": "Application Backup Enabled Without Restriction",
+          "severity": "low",
+          "confidence": "confirmed",
+          "category": "vulnerability",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Manifest attribute allowBackup=true",
+              "location": "manifest:allowBackup",
+              "snippet": "allowBackup=true"
+            }
+          ],
+          "evidence_source": [
+            "manifest"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "android:allowBackup=true genuinely set.",
+          "independent_verification": "ManifestInspector: application.allow_backup == True.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [],
+          "benign_in_app_context": null
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-VULN-CRYPTO-WEAK-HASH",
+          "title": "Legacy Cryptographic Hash Algorithm Referenced (MD5/SHA-1)",
+          "severity": "low",
+          "confidence": "medium",
+          "category": "crypto",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Weak hash algorithm referenced: SHA1",
+              "location": "dex:strings",
+              "snippet": "SHA1"
+            },
+            {
+              "description": "Weak hash algorithm referenced: SHA-1",
+              "location": "dex:strings",
+              "snippet": "SHA-1"
+            }
+          ],
+          "evidence_source": [
+            "dex"
+          ],
+          "verdict": "FALSE_POSITIVE",
+          "explanation": "SHA1/SHA-1 strings originate from the bundled BouncyCastle provider and from legitimate v1 JAR signature verification, which AppManager performs as a package manager.",
+          "independent_verification": "Cited snippets 'SHA1' / 'SHA-1'; 6,139 bundled org.bouncycastle.* classes verified.",
+          "should_remain_unchanged_in_rule_engine": false,
+          "proposed_rule_changes": [
+            "PRC-08"
+          ],
+          "benign_in_app_context": null
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-VULN-EXPORTED-RECEIVER",
+          "title": "Exported Broadcast Receiver Lacks Permission Protection",
+          "severity": "low",
+          "confidence": "confirmed",
+          "category": "exported_component",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Exported broadcast receiver lacking permission: io.github.muntashirakon.AppManager.oneclickops.ClearCacheAppWidget",
+              "location": "manifest:receiver:io.github.muntashirakon.AppManager.oneclickops.ClearCacheAppWidget",
+              "snippet": "Receiver: io.github.muntashirakon.AppManager.oneclickops.ClearCacheAppWidget (exported=true, permission=None)"
+            },
+            {
+              "description": "Exported broadcast receiver lacking permission: io.github.muntashirakon.AppManager.logcat.RecordingWidgetProvider",
+              "location": "manifest:receiver:io.github.muntashirakon.AppManager.logcat.RecordingWidgetProvider",
+              "snippet": "Receiver: io.github.muntashirakon.AppManager.logcat.RecordingWidgetProvider (exported=true, permission=None)"
+            },
+            {
+              "description": "Exported broadcast receiver lacking permission: io.github.muntashirakon.AppManager.usage.ScreenTimeAppWidget",
+              "location": "manifest:receiver:io.github.muntashirakon.AppManager.usage.ScreenTimeAppWidget",
+              "snippet": "Receiver: io.github.muntashirakon.AppManager.usage.ScreenTimeAppWidget (exported=true, permission=None)"
+            },
+            {
+              "description": "Exported broadcast receiver lacking permission: io.github.muntashirakon.AppManager.usage.DataUsageAppWidget",
+              "location": "manifest:receiver:io.github.muntashirakon.AppManager.usage.DataUsageAppWidget",
+              "snippet": "Receiver: io.github.muntashirakon.AppManager.usage.DataUsageAppWidget (exported=true, permission=None)"
+            }
+          ],
+          "evidence_source": [
+            "manifest"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "The exposure is real: 4 receivers are exported without a permission guard. All four were verified to be app-widget providers, which must be exported to receive launcher broadcasts -- benign by design, but the finding itself is factually correct.",
+          "independent_verification": "ManifestInspector: exported receivers with permission=None == 4 -> ClearCacheAppWidget, RecordingWidgetProvider, DataUsageAppWidget, ScreenTimeAppWidget.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [
+            "PRC-12"
+          ],
+          "benign_in_app_context": true
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-VULN-MANIFEST-BACKUP",
+          "title": "Application Data Backup Enabled (allowBackup=true)",
+          "severity": "low",
+          "confidence": "confirmed",
+          "category": "configuration",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Manifest declaration: android:allowBackup='true'",
+              "location": "manifest:application:allowBackup",
+              "snippet": "android:allowBackup='true'"
+            }
+          ],
+          "evidence_source": [
+            "manifest"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "Correct, but duplicates SEC-VULN-BACKUP-001.",
+          "independent_verification": "ManifestInspector: application.allow_backup == True.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [
+            "PRC-04"
+          ],
+          "benign_in_app_context": null
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-VULN-WEAK-HASH-001",
+          "title": "Weak Cryptographic Hash Algorithm Referenced",
+          "severity": "low",
+          "confidence": "medium",
+          "category": "vulnerability",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Discovered string pattern: SHA-1",
+              "location": "dex:strings",
+              "snippet": "SHA-1"
+            },
+            {
+              "description": "Discovered string pattern: SHA1",
+              "location": "dex:strings",
+              "snippet": "SHA1"
+            }
+          ],
+          "evidence_source": [
+            "dex"
+          ],
+          "verdict": "FALSE_POSITIVE",
+          "explanation": "Same root cause as SEC-VULN-CRYPTO-WEAK-HASH.",
+          "independent_verification": "Same verification as SEC-VULN-CRYPTO-WEAK-HASH.",
+          "should_remain_unchanged_in_rule_engine": false,
+          "proposed_rule_changes": [
+            "PRC-08",
+            "PRC-04"
+          ],
+          "benign_in_app_context": null
+        },
+        {
+          "apk": "tests/corpus/io.github.muntashirakon.AppManager_451.apk",
+          "package": "io.github.muntashirakon.AppManager",
+          "rule_id": "SEC-MAL-PERSISTENCE-FG-SERVICE",
+          "title": "Foreground Service Declaration",
+          "severity": "informational",
+          "confidence": "confirmed",
+          "category": "persistence",
+          "evidence_cited_by_detector": [
+            {
+              "description": "Foreground service declared: io.github.muntashirakon.AppManager.session.SessionMonitoringService (type=0x40000001)",
+              "location": "manifest:service:io.github.muntashirakon.AppManager.session.SessionMonitoringService",
+              "snippet": "io.github.muntashirakon.AppManager.session.SessionMonitoringService "
+            },
+            {
+              "description": "Foreground service declared: io.github.muntashirakon.AppManager.batchops.BatchOpsService (type=0x40000001)",
+              "location": "manifest:service:io.github.muntashirakon.AppManager.batchops.BatchOpsService",
+              "snippet": "io.github.muntashirakon.AppManager.batchops.BatchOpsService "
+            },
+            {
+              "description": "Foreground service declared: io.github.muntashirakon.AppManager.servermanager.WifiWaitService (type=0x40000000)",
+              "location": "manifest:service:io.github.muntashirakon.AppManager.servermanager.WifiWaitService",
+              "snippet": "io.github.muntashirakon.AppManager.servermanager.WifiWaitService "
+            },
+            {
+              "description": "Foreground service declared: io.github.muntashirakon.AppManager.apk.installer.PackageInstallerService (type=0x40000001)",
+              "location": "manifest:service:io.github.muntashirakon.AppManager.apk.installer.PackageInstallerService",
+              "snippet": "io.github.muntashirakon.AppManager.apk.installer.PackageInstallerService "
+            },
+            {
+              "description": "Foreground service declared: io.github.muntashirakon.AppManager.profiles.ProfileApplierService (type=0x40000001)",
+              "location": "manifest:service:io.github.muntashirakon.AppManager.profiles.ProfileApplierService",
+              "snippet": "io.github.muntashirakon.AppManager.profiles.ProfileApplierService "
+            }
+          ],
+          "evidence_source": [
+            "manifest"
+          ],
+          "verdict": "TRUE_POSITIVE",
+          "explanation": "Foreground service declaration verified; informational severity is appropriate.",
+          "independent_verification": "Present in manifest inspection output.",
+          "should_remain_unchanged_in_rule_engine": true,
+          "proposed_rule_changes": [],
+          "benign_in_app_context": true
+        }
+      ]
+    }
+  },
+  "proposed_rule_changes": {
+    "PRC-01": {
+      "title": "Accessibility-service detection must require an implemented service, not a substring match",
+      "problem": "`android.accessibilityservice.AccessibilityService` is matched as a substring, so it also matches `android.accessibilityservice.AccessibilityServiceInfo` -- the read-only metadata class used to *enumerate* accessibility services installed on the device. An app that merely lists other apps' accessibility services is flagged as implementing one.",
+      "proposal": "Require either (a) a manifest <service> bound with BIND_ACCESSIBILITY_SERVICE, or (b) an exact class reference to android.accessibilityservice.AccessibilityService, before firing.",
+      "affects": [
+        "SEC-SPY-ACCESSIBILITY-001",
+        "SEC-SPY-ACCESSIBILITY-ABUSE"
+      ]
+    },
+    "PRC-02": {
+      "title": "Evidence should cite the matched artifact, not the rule's probe pattern",
+      "problem": "Several findings print the rule's configured probe string as the evidence snippet rather than the artifact that actually matched. Example: PCAPdroid's device-identifier finding cites `Build.SERIAL`, but the only matching string in the APK is the bare token `SERIAL`; AppManager's accessibility finding cites `...AccessibilityService` while the matched artifact is `...AccessibilityServiceInfo`. This makes evidence non-traceable to the APK.",
+      "proposal": "Record the matched artifact value (and its source: api/string/method/manifest) in Evidence.snippet.",
+      "affects": [
+        "SEC-SPY-DEVICE-IDENTIFIERS",
+        "SEC-SPY-ACCESSIBILITY-001"
+      ]
+    },
+    "PRC-03": {
+      "title": "Cleartext-URL detection must exclude XML namespace and parser-feature URIs",
+      "problem": "`http://xmlpull.org/v1/doc/features.html#...`, `http://apache.org/xml/features/...`, `http://xml.org/sax/features/...`, `http://schemas.android.com/apk/res/android` and XMPP protocol namespaces are API constant identifiers that are never dereferenced over the network. For AppManager, every cited 'cleartext URL' is of this kind.",
+      "proposal": "Maintain an allowlist of well-known namespace/feature URI hosts and exclude them, or require the URL to co-occur with an HTTP client API reference.",
+      "affects": [
+        "SEC-NET-CLEARTEXT-URLS"
+      ]
+    },
+    "PRC-04": {
+      "title": "Deduplicate overlapping rule pairs that report the same underlying fact",
+      "problem": "Pairs of rules fire on one fact: SEC-VULN-BACKUP-001 + SEC-VULN-MANIFEST-BACKUP (allowBackup), SEC-MAL-CODE-EXEC + SEC-MAL-EXEC-001 (ProcessBuilder), SEC-MAL-DYN-LOAD + SEC-MAL-DYNLOAD-001 (PathClassLoader), SEC-VULN-CRYPTO-WEAK-CIPHER + SEC-VULN-WEAK-CIPHER-001, SEC-VULN-CRYPTO-WEAK-HASH + SEC-VULN-WEAK-HASH-001. This inflates finding counts.",
+      "proposal": "Merge each pair, or mark one of each pair as a sub-finding of the other.",
+      "affects": [
+        "SEC-VULN-BACKUP-001",
+        "SEC-VULN-MANIFEST-BACKUP",
+        "SEC-MAL-CODE-EXEC",
+        "SEC-MAL-EXEC-001",
+        "SEC-MAL-DYN-LOAD",
+        "SEC-MAL-DYNLOAD-001",
+        "SEC-VULN-CRYPTO-WEAK-CIPHER",
+        "SEC-VULN-WEAK-CIPHER-001",
+        "SEC-VULN-CRYPTO-WEAK-HASH",
+        "SEC-VULN-WEAK-HASH-001"
+      ]
+    },
+    "PRC-05": {
+      "title": "Nested-APK payload detection must check whether the nested APK contains code",
+      "problem": "AppManager's 14 `frameworks/android/android-NN.apk` entries are flagged HIGH severity as `payload`. Each one was extracted and verified to contain only resources.arsc + AndroidManifest.xml -- zero DEX, zero native code. They are Android framework resource tables used to resolve other apps' resource IDs per API level, and cannot execute.",
+      "proposal": "Inspect the nested archive: only classify as `payload` when it contains classes*.dex or a native library; otherwise report as an informational embedded-resource observation.",
+      "affects": [
+        "SEC-MAL-PAYLOAD-APK-*"
+      ]
+    },
+    "PRC-06": {
+      "title": "Aggregate per-file findings instead of emitting one finding per file",
+      "problem": "14 separate HIGH findings (one per embedded framework APK) and 7 separate entropy findings dominate AppManager's result set: 21 of 45 findings describe two phenomena.",
+      "proposal": "Emit one finding per phenomenon with the file list as evidence items.",
+      "affects": [
+        "SEC-MAL-PAYLOAD-APK-*",
+        "SEC-MAL-PAYLOAD-ENTROPY-*"
+      ]
+    },
+    "PRC-07": {
+      "title": "Hardcoded-secret detection must require key material, not just PEM armor",
+      "problem": "`-----BEGIN RSA PRIVATE KEY-----` is present in AppManager, but it is the PEM parser constant shipped inside the bundled BouncyCastle provider (6,139 org.bouncycastle.* classes verified). No key body accompanies it.",
+      "proposal": "Require a base64 key body following the armor header before reporting a secret.",
+      "affects": [
+        "SEC-VULN-SECRET-GENERIC_PRIVATE_KEY_HEADER"
+      ]
+    },
+    "PRC-08": {
+      "title": "Crypto-weakness findings must attribute the algorithm string to its owning package",
+      "problem": "`DES/CBC/PKCS5Padding`, `DESede`, `Blowfish`, `SHA1`/`SHA-1` in AppManager all originate from the bundled BouncyCastle provider's algorithm registry (org.bouncycastle.crypto.engines.DESEngine / DESedeEngine / DESedeWrapEngine verified present). A general-purpose crypto provider necessarily names every algorithm it supports; this is not evidence that the application selects a weak cipher. SHA-1 additionally appears legitimately for v1 JAR signature verification, which AppManager performs.",
+      "proposal": "Attribute the matched string to the declaring class/package and suppress (or downgrade to informational) when it belongs to a known crypto provider rather than application code.",
+      "affects": [
+        "SEC-VULN-WEAK-CIPHER-001",
+        "SEC-VULN-CRYPTO-WEAK-CIPHER",
+        "SEC-VULN-CRYPTO-WEAK-HASH",
+        "SEC-VULN-WEAK-HASH-001"
+      ]
+    },
+    "PRC-09": {
+      "title": "Entropy findings should account for inherently-compressed file formats",
+      "problem": "assets/blanks/blank.{odp,odt,pdf,pptx} and assets/dexopt/baseline.prof are flagged as high-entropy `payload`. ODF/OOXML are ZIP containers and PDF/baseline profiles are compressed, so high entropy is expected and carries no signal.",
+      "proposal": "Treat known-compressed extensions as informational unless paired with a loader reference.",
+      "affects": [
+        "SEC-MAL-PAYLOAD-ENTROPY-*"
+      ]
+    },
+    "PRC-10": {
+      "title": "Domain extraction must reject package-name-shaped tokens and namespace hosts",
+      "problem": "AppManager's SEC-NET-CAPABILITY-FLOW cites `androidx.core.app` and `io.github.muntashirakon.io` as 'external domain endpoints'. These are Java package names whose final segment collides with a real TLD (.app, .io). `schemas.android.com` is an XML namespace host, not a contacted endpoint.",
+      "proposal": "Exclude tokens that match a declared application/library package prefix, and namespace hosts, from the domain set used by network-flow rules.",
+      "affects": [
+        "SEC-NET-CAPABILITY-FLOW"
+      ]
+    },
+    "PRC-11": {
+      "title": "Device-identifier pattern list contains a non-identifier entry",
+      "problem": "AppManager's SEC-SPY-DEVICE-IDENTIFIERS cites `getDeviceIdleController` as a 'telephony hardware identifier method reference'. DeviceIdleController is the doze/power-management service and is unrelated to device identity; it matches only because of the `getDeviceId` substring.",
+      "proposal": "Anchor identifier patterns (word boundary / exact method name) to exclude getDeviceIdleController.",
+      "affects": [
+        "SEC-SPY-DEVICE-IDENTIFIERS"
+      ]
+    },
+    "PRC-12": {
+      "title": "Exported-receiver finding should note the AppWidgetProvider exemption as context",
+      "problem": "AppManager's 4 exported unprotected receivers were all verified to be app-widget providers (ClearCacheAppWidget, RecordingWidgetProvider, DataUsageAppWidget, ScreenTimeAppWidget). An AppWidgetProvider must be exported to receive launcher broadcasts.",
+      "proposal": "Keep the finding (the exposure is real) but add context when the receiver's intent filter is APPWIDGET_UPDATE, rather than suppressing it.",
+      "affects": [
+        "SEC-VULN-EXPORTED-RECEIVER"
+      ]
+    }
+  }
+}

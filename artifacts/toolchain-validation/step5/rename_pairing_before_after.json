@@ -1,0 +1,21 @@
+{
+  "experiment": "ARSC resource-identity rename pairing (Phase B Step 5, item 6/7)",
+  "comparison": "original release APK vs Apktool no-op rebuild (pinned Docker toolchain), same-pair used in Step 2/3",
+  "openlink": {
+    "apk": "de.audioattack.openlink_28.apk",
+    "before_content_hash_only": {"total_added": 30, "total_removed": 46, "total_renamed": 36, "total_modified": 4},
+    "after_content_hash_plus_resource_identity": {"total_added": 2, "total_removed": 18, "total_renamed": 64, "total_modified": 4},
+    "rename_match_basis_breakdown": {"content_hash": 36, "resource_identity": 28},
+    "remaining_unmatched_removed": "18, all META-INF signature/version markers (expected re-signing noise)",
+    "remaining_unmatched_added": "2, the new ANDROIDD.RSA/.SF signature files (expected re-signing noise)"
+  },
+  "antennapod": {
+    "apk": "de.danoeh.antennapod_3120295.apk",
+    "before_content_hash_only": {"total_added": 869, "total_removed": 942, "total_renamed": 349, "total_modified": 189},
+    "after_content_hash_plus_resource_identity": {"total_added": 4, "total_removed": 77, "total_renamed": 1214, "total_modified": 189},
+    "remaining_unmatched_removed": "77 (75 META-INF signature/version markers + 2 unresolvable res/ paths)",
+    "remaining_unmatched_added": "4 (2 new signature files + 2 unresolvable res/ paths)",
+    "remaining_modified_at_stable_path": "189, predominantly res/color*/*.xml (re-serialized color state-list XML at an unchanged path -- genuine content re-encoding, not a rename) plus AndroidManifest.xml, classes*.dex, resources.arsc, META-INF/MANIFEST.MF"
+  },
+  "note": "The 'before' figures were re-measured in this session by disabling only the new resource-identity pass (monkeypatching build_resource_identity_map to return {}), so the comparison isolates exactly the effect of item 6, holding the rest of the pipeline fixed."
+}

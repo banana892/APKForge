@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Any, TypeVar
 
 from apkforge.core.models import AnalysisStatus, Severity
-from apkforge.diff.models import ChangeType
+from apkforge.diff.models import ChangeType, DiffResult
 from apkforge.inspection.engine import InspectionEngine
 from apkforge.inspection.models import InspectionResult
 from apkforge.privacy.engine import PrivacyEngine
@@ -31,7 +31,6 @@ if TYPE_CHECKING:
     from collections.abc import Callable
 
     from apkforge.core.config import APKForgeConfig
-    from apkforge.diff.models import DiffResult
     from apkforge.intake import AndroidPackage
     from apkforge.privacy.models import PrivacyResult
 
@@ -128,14 +127,18 @@ class SecurityEngine:
         # 3. Resolve Phase 3 DiffResult if provided
         resolved_diff: DiffResult | None = None
         if diff is not None:
-            if hasattr(diff, "status") and hasattr(diff, "permissions"):
+            if isinstance(diff, DiffResult):
+                resolved_diff = diff
+            elif hasattr(diff, "status") and hasattr(diff, "permissions"):
                 resolved_diff = diff  # type: ignore[assignment]
             else:
                 try:
                     from apkforge.diff.engine import DiffEngine
 
                     diff_engine = DiffEngine(self._config)
-                    resolved_diff = diff_engine.diff(target, diff, keep_workspace=keep_workspace)
+                    resolved_diff = diff_engine.diff(
+                        inspection, diff, keep_workspace=keep_workspace
+                    )
                 except Exception as e:
                     _log.warning("Diff execution failed during security analysis: %s", e)
                     limitations.append(f"Diff-aware security analysis degraded: {e}")
@@ -167,7 +170,7 @@ class SecurityEngine:
         all_findings: list[SecurityFinding] = []
 
         # 5. Run Declarative Rule Engine
-        rule_findings = self._safe_run(
+        rule_findings: list[SecurityFinding] = self._safe_run(
             "rule_engine",
             lambda: self._rule_engine.evaluate(index),
             default=[],
@@ -176,7 +179,7 @@ class SecurityEngine:
         all_findings.extend(rule_findings)
 
         # 6. Run Malware Analyzer
-        malware_findings = self._safe_run(
+        malware_findings: list[SecurityFinding] = self._safe_run(
             "malware",
             lambda: self._malware_analyzer.analyze(index),
             default=[],
@@ -185,7 +188,7 @@ class SecurityEngine:
         all_findings.extend(malware_findings)
 
         # 7. Run Spyware Analyzer
-        spyware_findings = self._safe_run(
+        spyware_findings: list[SecurityFinding] = self._safe_run(
             "spyware",
             lambda: self._spyware_analyzer.analyze(index),
             default=[],
@@ -194,7 +197,7 @@ class SecurityEngine:
         all_findings.extend(spyware_findings)
 
         # 8. Run Vulnerability Analyzer
-        vuln_findings = self._safe_run(
+        vuln_findings: list[SecurityFinding] = self._safe_run(
             "vulnerabilities",
             lambda: self._vulnerability_analyzer.analyze(index),
             default=[],
@@ -277,12 +280,15 @@ class SecurityEngine:
             ),
         )
 
-        # Overall analysis status
+        # Overall analysis status.
+        #
+        # Security contract (see apkforge.core.models.AnalysisStatus): a FAILED
+        # inspection must never be reported as COMPLETE/clean, even when some
+        # partial structure (e.g. the raw package) is present. Previously this
+        # block escalated FAILED to COMPLETE whenever `inspection.package` was
+        # truthy, which is unconditionally set by InspectionEngine before any
+        # inspector runs -- making the escalation fire on every genuine failure.
         overall_status = inspection.status
-        if overall_status == AnalysisStatus.FAILED and (
-            inspection.manifest or inspection.dex or inspection.package
-        ):
-            overall_status = AnalysisStatus.COMPLETE
 
         if overall_status == AnalysisStatus.FAILED:
             summary.overall_security_status = SecurityStatus.ANALYSIS_INCOMPLETE
@@ -294,7 +300,7 @@ class SecurityEngine:
         if (
             inspection.status == AnalysisStatus.PARTIAL
             or not inspection.dex
-            or not getattr(inspection.dex, "dex_files", [])
+            or not inspection.dex.dex_files
         ):
             limitations.append(
                 "DEX inspection was not completed or no DEX files were analyzed; "
@@ -336,6 +342,7 @@ class SecurityEngine:
         domains: set[str] = set()
         urls: set[str] = set()
         url_prov: dict[str, list[str]] = {}
+        string_prov: dict[str, list[str]] = {}
         components: dict[str, list[dict[str, Any]]] = {
             "activities": [],
             "services": [],
@@ -355,7 +362,7 @@ class SecurityEngine:
             for p in inspection.manifest.permissions:
                 pname = p.name if hasattr(p, "name") else str(p)
                 permissions.add(pname)
-                if hasattr(p, "protection_level") and p.protection_level:
+                if p.protection_level:
                     prot_levels[pname] = p.protection_level
 
             # Components
@@ -367,8 +374,8 @@ class SecurityEngine:
                         "permission": a.permission,
                         "actions": [
                             act
-                            for f in getattr(a, "intent_filters", [])
-                            for act in getattr(f, "actions", [])
+                            for f in a.intent_filters
+                            for act in f.actions
                         ],
                     }
                 )
@@ -378,11 +385,11 @@ class SecurityEngine:
                         "name": s.name,
                         "exported": s.exported,
                         "permission": s.permission,
-                        "foreground_service_type": getattr(s, "foreground_service_type", None),
+                        "foreground_service_type": s.foreground_service_type,
                         "actions": [
                             act
-                            for f in getattr(s, "intent_filters", [])
-                            for act in getattr(f, "actions", [])
+                            for f in s.intent_filters
+                            for act in f.actions
                         ],
                     }
                 )
@@ -394,8 +401,8 @@ class SecurityEngine:
                         "permission": r.permission,
                         "actions": [
                             act
-                            for f in getattr(r, "intent_filters", [])
-                            for act in getattr(f, "actions", [])
+                            for f in r.intent_filters
+                            for act in f.actions
                         ],
                     }
                 )
@@ -404,23 +411,28 @@ class SecurityEngine:
                     {
                         "name": pr.name,
                         "exported": pr.exported,
-                        "permission": getattr(pr, "permission", None),
+                        "permission": pr.permission,
                     }
                 )
 
-            # Application attributes
-            app_info = getattr(inspection.manifest, "application", None)
-            for snake, camel in (
-                ("debuggable", "debuggable"),
-                ("allow_backup", "allowBackup"),
-                ("test_only", "testOnly"),
-                ("uses_cleartext_traffic", "usesCleartextTraffic"),
+            # Application attributes.
+            #
+            # These are read directly off ApplicationInfo. Earlier revisions
+            # also probed `inspection.manifest.<snake>` and
+            # `inspection.manifest.<camel>` as fallbacks, but ManifestInspection
+            # declares no such fields and Pydantic ignores unknown kwargs, so
+            # those tiers could never produce a value.
+            app_info = inspection.manifest.application
+            for snake, camel, val in (
+                ("debuggable", "debuggable", app_info.debuggable),
+                ("allow_backup", "allowBackup", app_info.allow_backup),
+                ("test_only", "testOnly", app_info.test_only),
+                (
+                    "uses_cleartext_traffic",
+                    "usesCleartextTraffic",
+                    app_info.uses_cleartext_traffic,
+                ),
             ):
-                val = getattr(app_info, snake, None) if app_info else None
-                if val is None:
-                    val = getattr(inspection.manifest, snake, None)
-                if val is None:
-                    val = getattr(inspection.manifest, camel, None)
                 if val is not None:
                     manifest_attrs[snake] = val
                     manifest_attrs[camel] = val
@@ -428,24 +440,19 @@ class SecurityEngine:
         # 2. DEX data
         if inspection.dex:
             for df in inspection.dex.dex_files:
-                inv = getattr(df, "inventory", None)
-                for c in getattr(inv, "classes", []):
-                    classes.add(c.name)
-                for m in getattr(inv, "methods", []):
-                    methods.add(m.name)
-                    methods.add(f"{m.class_name}.{m.name}")
-                apis.update(getattr(df, "api_references", []) or [])
-                if hasattr(df, "strings") and df.strings:
-                    for s in df.strings:
-                        val = s.value if hasattr(s, "value") else str(s)
-                        strings.add(val)
+                if df.inventory:
+                    for c in df.inventory.classes:
+                        classes.add(c.name)
+                    for m in df.inventory.methods:
+                        methods.add(m.name)
+                        methods.add(f"{m.class_name}.{m.name}")
+                apis.update(df.api_references)
 
-            apis.update(getattr(inspection.dex, "api_references", []) or [])
-
-            if hasattr(inspection.dex, "strings") and inspection.dex.strings:
-                for s in inspection.dex.strings:
-                    val = s.value if hasattr(s, "value") else str(s)
-                    strings.add(val)
+            # Strings are collected per-APK on DEXInspection, not per-DEX-file.
+            for string_ref in inspection.dex.strings:
+                strings.add(string_ref.value)
+                if string_ref.class_name:
+                    string_prov.setdefault(string_ref.value, []).append(string_ref.class_name)
 
         # 3. Network data
         if inspection.network:
@@ -462,12 +469,11 @@ class SecurityEngine:
                         domains.add(host.lower())
                 except ValueError:
                     _log.debug("Failed to parse hostname from URL: %s", u_str)
-                if hasattr(u, "source") and u.source:
+                if u.source:
                     src = u.source
                     loc_parts = []
-                    file_val = getattr(src, "file", None) or getattr(src, "file_path", None)
-                    if file_val:
-                        loc_parts.append(str(file_val))
+                    if src.file:
+                        loc_parts.append(src.file)
                     if src.class_name:
                         loc_parts.append(src.class_name)
                     if src.method_name:
@@ -477,37 +483,35 @@ class SecurityEngine:
         # 4. Embedded files
         # 4. Embedded files
         if inspection.embedded:
-            for ed in getattr(inspection.embedded, "embedded_dex", []) or []:
+            for ed in inspection.embedded.embedded_dex:
+                embedded_files.append({"path": ed.path, "type": "dex", "size": ed.size})
+            for ea in inspection.embedded.embedded_apks:
                 embedded_files.append(
-                    {"path": ed.path, "type": "dex", "size": getattr(ed, "size", 0)}
+                    {
+                        "path": ea.path,
+                        "type": "apk",
+                        "size": ea.size,
+                        "has_code": getattr(ea, "has_code", True),
+                    }
                 )
-            for ea in getattr(inspection.embedded, "embedded_apks", []) or []:
+            for ef in inspection.embedded.executable_files:
                 embedded_files.append(
-                    {"path": ea.path, "type": "apk", "size": getattr(ea, "size", 0)}
-                )
-            for ef in getattr(inspection.embedded, "executable_files", []) or []:
-                ftype = getattr(ef, "detected_type", "executable").lower()
-                embedded_files.append(
-                    {"path": ef.path, "type": ftype, "size": getattr(ef, "size", 0)}
+                    {"path": ef.path, "type": ef.detected_type.lower(), "size": ef.size}
                 )
 
         # 5. Assets & Entropy
         if inspection.assets and inspection.assets.assets:
             for ast in inspection.assets.assets:
-                ent = getattr(ast, "entropy", None)
+                ent = ast.entropy
                 if ent is not None and ent >= 7.0:
                     high_entropy_assets.append(
-                        {
-                            "path": ast.path,
-                            "entropy": ent,
-                            "size": getattr(ast, "size", 0),
-                        }
+                        {"path": ast.path, "entropy": ent, "size": ast.size}
                     )
 
         # 6. Native libraries
         if inspection.native and inspection.native.libraries:
             for nl in inspection.native.libraries:
-                lib_name = Path(nl.path).name if getattr(nl, "path", None) else getattr(nl, "name", "")
+                lib_name = Path(nl.path).name if nl.path else ""
                 if lib_name:
                     native_libs.add(lib_name)
 
@@ -534,27 +538,26 @@ class SecurityEngine:
 
         # 8. Diff changes
         if diff:
-            if hasattr(diff, "permissions") and diff.permissions:
-                for ap in getattr(diff.permissions, "added", []) or []:
-                    p_name = ap.name if hasattr(ap, "name") else str(ap)
-                    diff_changes.add(f"added_permission:{p_name}")
+            if diff.permissions:
+                for ap in diff.permissions.added:
+                    diff_changes.add(f"added_permission:{ap}")
             if hasattr(diff, "certificates") and diff.certificates:
-                status = getattr(diff.certificates, "status", "UNCHANGED")
+                status = diff.certificates.status
                 if status not in ("UNCHANGED", "SAME"):
                     diff_changes.add("certificate_changed")
             if hasattr(diff, "components") and diff.components:
                 for comp_list in (
-                    getattr(diff.components, "activities", []),
-                    getattr(diff.components, "services", []),
-                    getattr(diff.components, "receivers", []),
-                    getattr(diff.components, "providers", []),
+                    diff.components.activities,
+                    diff.components.services,
+                    diff.components.receivers,
+                    diff.components.providers,
                 ):
                     for ac in comp_list:
-                        if getattr(ac, "change_type", None) == ChangeType.ADDED:
+                        if ac.change_type == ChangeType.ADDED:
                             diff_changes.add(f"added_component:{ac.name}")
             if hasattr(diff, "network") and diff.network:
-                for ad in getattr(diff.network, "domains_added", []) or []:
-                    diff_changes.add(f"added_domain:{ad}")
+                for added_domain in diff.network.domains_added:
+                    diff_changes.add(f"added_domain:{added_domain}")
 
         return SecurityEvidenceIndex(
             package_name=package_name,
@@ -564,6 +567,7 @@ class SecurityEngine:
             classes=classes,
             methods=methods,
             strings=strings,
+            string_provenance=string_prov,
             domains=domains,
             urls=urls,
             url_provenance=url_prov,

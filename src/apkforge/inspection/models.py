@@ -127,6 +127,7 @@ class ActivityInfo(BaseModel):
     permission: str | None = None
     enabled: bool | None = None
     direct_boot_aware: bool | None = None
+    process: str | None = None
     intent_filters: list[IntentFilterInfo] = Field(default_factory=list)
 
 
@@ -138,6 +139,7 @@ class ServiceInfo(BaseModel):
     permission: str | None = None
     enabled: bool | None = None
     foreground_service_type: str | None = None
+    process: str | None = None
     intent_filters: list[IntentFilterInfo] = Field(default_factory=list)
 
 
@@ -148,6 +150,7 @@ class BroadcastReceiverInfo(BaseModel):
     exported: bool | None = None
     permission: str | None = None
     enabled: bool | None = None
+    process: str | None = None
     intent_filters: list[IntentFilterInfo] = Field(default_factory=list)
 
 
@@ -162,6 +165,7 @@ class ContentProviderInfo(BaseModel):
     read_permission: str | None = None
     write_permission: str | None = None
     grant_uri_permissions: bool | None = None
+    process: str | None = None
 
 
 class ApplicationInfo(BaseModel):
@@ -436,6 +440,7 @@ class EmbeddedAPKInfo(BaseModel):
     path: str
     size: int
     sha256: str
+    has_code: bool = True
 
 
 class EmbeddedDEXInfo(BaseModel):

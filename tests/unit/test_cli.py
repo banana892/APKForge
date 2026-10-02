@@ -77,11 +77,19 @@ class TestStubCommands:
         assert result.exit_code == 0, result.output
 
     @pytest.mark.unit()
-    def test_analyze_stub_exits_zero(self, tmp_path: Path) -> None:
+    def test_analyze_on_unparseable_file_exits_nonzero(self, tmp_path: Path) -> None:
+        """A file that isn't a valid APK must fail analysis, not report a clean result.
+
+        Security contract: a FAILED inspection must never be reported as if
+        it were a clean/complete result (see AnalysisStatus docstring).
+        `b"PK"` alone is not a valid ZIP/APK, so every inspector fails and
+        the overall status is FAILED; the CLI must exit non-zero rather than
+        exit 0 with an implied "no findings".
+        """
         fake_apk = tmp_path / "test.apk"
         fake_apk.write_bytes(b"PK")
         result = runner.invoke(app, ["analyze", str(fake_apk)])
-        assert result.exit_code == 0, result.output
+        assert result.exit_code != 0, result.output
 
     @pytest.mark.unit()
     def test_diff_stub_exits_zero(self, tmp_path: Path) -> None:

@@ -15,6 +15,7 @@ MANIFEST
 
 # Virtual environments
 .venv/
+.venv-validation/
 venv/
 env/
 .env
@@ -53,12 +54,20 @@ Thumbs.db
 workspace/
 tmp/
 .apkforge_tmp/
+work/
+samples/
 artifacts/**/test_a/
 artifacts/**/test_b/
 
 # Logs
 *.log
 logs/
+
+# Exception: small toolchain evidence logs that back a reported acceptance result
+# (apktool build / zipalign / apksigner sign+verify output). These are cited as
+# evidence by the close-out reports, so they must stay reviewable. Build outputs
+# themselves (APKs, decoded trees) remain ignored by the rules above.
+!artifacts/toolchain-validation/closeout/**/*.log
 
 # Secrets / keys
 *.keystore

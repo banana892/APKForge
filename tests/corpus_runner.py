@@ -32,6 +32,7 @@ sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 CORPUS_DIR = PROJECT_ROOT / "tests" / "corpus"
 RESULTS_FILE = PROJECT_ROOT / "tests" / "corpus_results.json"
+LOCK_FILE = PROJECT_ROOT / "requirements" / "validation.lock"
 
 # Disable noisy debug logs from androguard during batch runs
 try:
@@ -40,6 +41,53 @@ try:
 except Exception:
     pass
 
+
+
+# ---------------------------------------------------------------------------
+# Validation-environment identity
+# ---------------------------------------------------------------------------
+
+
+def _dist_version(name: str) -> str | None:
+    from importlib import metadata
+
+    try:
+        return metadata.version(name)
+    except metadata.PackageNotFoundError:
+        return None
+
+
+def environment_identity() -> dict:
+    """Identify the Python validation environment that produced a corpus run.
+
+    Recorded under ``meta.environment`` so a result can be matched to the
+    locked environment (requirements/validation.lock) it was generated in.
+    """
+    import hashlib
+    import platform
+
+    env: dict = {
+        "python_version": platform.python_version(),
+        "python_implementation": platform.python_implementation(),
+        "python_executable": sys.executable,
+        "platform": platform.platform(),
+        "cryptography_version": _dist_version("cryptography"),
+        "cryptography_bundled_openssl": None,
+        "androguard_version": _dist_version("androguard"),
+        "asn1crypto_version": _dist_version("asn1crypto"),
+        "pydantic_version": _dist_version("pydantic"),
+        "lock_file": str(LOCK_FILE.relative_to(PROJECT_ROOT)),
+        "lock_sha256": None,
+    }
+    try:
+        from cryptography.hazmat.backends.openssl.backend import backend
+
+        env["cryptography_bundled_openssl"] = backend.openssl_version_text()
+    except Exception as exc:  # recorded, never fatal to a corpus run
+        env["cryptography_bundled_openssl"] = f"<unavailable: {exc}>"
+    if LOCK_FILE.is_file():
+        env["lock_sha256"] = hashlib.sha256(LOCK_FILE.read_bytes()).hexdigest()
+    return env
 
 
 # ---------------------------------------------------------------------------
@@ -841,6 +889,7 @@ def main():
             "corpus_dir": str(CORPUS_DIR),
             "total_apks": len(apks),
             "total_duration_seconds": round(total_elapsed, 1),
+            "environment": environment_identity(),
         },
         "per_apk_results": all_results,
         "diff_results": diff_results,

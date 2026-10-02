@@ -1,0 +1,27 @@
+seed=0 venv=.venv {"identity_digest": "600d673dad772cfe", "evidence_digest": "28100faae52b14fb"}
+seed=0 venv=.venv-validation {"identity_digest": "600d673dad772cfe", "evidence_digest": "28100faae52b14fb"}
+seed=0 venv=.venv {"identity_digest": "600d673dad772cfe", "evidence_digest": "28100faae52b14fb"}
+seed=0 venv=.venv-validation {"identity_digest": "600d673dad772cfe", "evidence_digest": "28100faae52b14fb"}
+seed=1 venv=.venv {"identity_digest": "600d673dad772cfe", "evidence_digest": "aef2920b1807c51d"}
+seed=1 venv=.venv-validation {"identity_digest": "600d673dad772cfe", "evidence_digest": "aef2920b1807c51d"}
+seed=2 venv=.venv {"identity_digest": "600d673dad772cfe", "evidence_digest": "28100faae52b14fb"}
+seed=2 venv=.venv-validation {"identity_digest": "600d673dad772cfe", "evidence_digest": "1955e3cb595f7c8d"}
+# same probe, pre-fix source copy (this task's two fixes reverted), reference .venv
+seed=1 prefix_src {"identity_digest": "600d673dad772cfe", "evidence_digest": "aef2920b1807c51d"}
+seed=3 prefix_src {"identity_digest": "600d673dad772cfe", "evidence_digest": "aef2920b1807c51d"}
+seed=5 prefix_src {"identity_digest": "600d673dad772cfe", "evidence_digest": "bf7a82eddf8c1813"}
+# unseeded (random hash seed, as in the reconciliation and final runs), current source, recreated env
+unseeded run1 {"identity_digest": "600d673dad772cfe", "evidence_digest": "84884c7c4519880b"}
+unseeded run2 {"identity_digest": "600d673dad772cfe", "evidence_digest": "8f11b5645205330d"}
+unseeded run3 {"identity_digest": "600d673dad772cfe", "evidence_digest": "84884c7c4519880b"}
+# repeatability at a FIXED seed (PYTHONHASHSEED=1): 5 runs pre-fix source, 5 runs final source
+prefix seed=1 run1 {"identity_digest": "600d673dad772cfe", "evidence_digest": "936f60bf58979287"}
+prefix seed=1 run2 {"identity_digest": "600d673dad772cfe", "evidence_digest": "936f60bf58979287"}
+prefix seed=1 run3 {"identity_digest": "600d673dad772cfe", "evidence_digest": "936f60bf58979287"}
+prefix seed=1 run4 {"identity_digest": "600d673dad772cfe", "evidence_digest": "936f60bf58979287"}
+prefix seed=1 run5 {"identity_digest": "600d673dad772cfe", "evidence_digest": "aef2920b1807c51d"}
+final  seed=1 run1 {"identity_digest": "600d673dad772cfe", "evidence_digest": "aef2920b1807c51d"}
+final  seed=1 run2 {"identity_digest": "600d673dad772cfe", "evidence_digest": "aef2920b1807c51d"}
+final  seed=1 run3 {"identity_digest": "600d673dad772cfe", "evidence_digest": "aef2920b1807c51d"}
+final  seed=1 run4 {"identity_digest": "600d673dad772cfe", "evidence_digest": "aef2920b1807c51d"}
+final  seed=1 run5 {"identity_digest": "600d673dad772cfe", "evidence_digest": "aef2920b1807c51d"}

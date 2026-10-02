@@ -1,0 +1,49 @@
+{
+  "experiment": "DEX exception-handler-only modification detection (Phase B close-out, item 3)",
+  "subject_apk": "tests/corpus/de.audioattack.openlink_28.apk",
+  "toolchain": "apkforge-toolchain:pinned (Apktool 2.10.0 + Build Tools 34.0.0, Docker only, no host SDK)",
+  "mutation": {
+    "file": "smali/de/audioattack/openlink/ui/MenuActivity.smali",
+    "line": 202,
+    "before": ".catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0",
+    "after": ".catch Ljava/lang/Throwable; {:try_start_0 .. :try_end_0} :catch_0",
+    "note": "Only the caught exception type changed. No instruction was added, removed, or re-encoded; a .catch directive populates the try/catch table, not the instruction stream."
+  },
+  "control_build": "decoded_base copied to decoded_control and rebuilt unmodified (same toolchain, same flags)",
+  "apkforge_dex_diff": {
+    "classes_added": [],
+    "classes_removed": [],
+    "classes_modified_count": 1,
+    "classes_modified": [
+      {
+        "class": "de.audioattack.openlink.ui.MenuActivity",
+        "methods_modified": [
+          {
+            "name": "a",
+            "code_changed": true
+          }
+        ],
+        "methods_added": [],
+        "methods_removed": []
+      }
+    ],
+    "classes_unchanged_count": 107
+  },
+  "counterfactual_hashing": {
+    "instructions_only": {
+      "common_methods": 462,
+      "changed_methods": 0,
+      "target_detected": false,
+      "changed_list": []
+    },
+    "instructions_plus_handlers": {
+      "common_methods": 462,
+      "changed_methods": 1,
+      "target_detected": true,
+      "changed_list": [
+        "Lde/audioattack/openlink/ui/MenuActivity;->a(Landroid/content/Intent;)V"
+      ]
+    }
+  },
+  "acceptance": "PASS: with exception-handler normalization the handler-only change is detected as exactly one modified method in exactly one class with zero collateral false positives; with instruction-only hashing (the pre-close-out representation) the same change is invisible (0 methods changed)."
+}

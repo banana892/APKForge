@@ -169,7 +169,7 @@ class PermissionAnalyzer:
                     declared_set.add(p)
                 elif hasattr(p, "name"):
                     declared_set.add(p.name)
-                    if getattr(p, "protection_level", None):
+                    if p.protection_level:
                         prot_level_map[p.name] = p.protection_level
         elif index.permissions:
             declared_set.update(index.permissions)

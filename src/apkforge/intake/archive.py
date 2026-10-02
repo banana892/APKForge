@@ -20,9 +20,11 @@ from apkforge.core.exceptions import ExtractionError
 from apkforge.core.logging import get_logger
 
 if TYPE_CHECKING:
+    from collections.abc import Sequence
+
     from apkforge.core.config import ExtractionLimits
 
-__all__ = ["SafeZipExtractor", "is_zip_file", "validate_zip"]
+__all__ = ["SafeZipExtractor", "is_zip_file", "validate_archive_entries", "validate_zip"]
 
 _log = get_logger(__name__)
 
@@ -109,32 +111,7 @@ class SafeZipExtractor:
                 context="archive-list",
             ) from exc
 
-        if len(entries) > self._limits.max_file_count:
-            raise ExtractionError(
-                f"Archive contains {len(entries)} entries, "
-                f"exceeding limit of {self._limits.max_file_count}",
-                context="archive-limits",
-            )
-
-        # Validate each entry path
-        for entry in entries:
-            self._validate_entry_path(entry.filename)
-            if entry.file_size > self._limits.max_single_file_bytes:
-                raise ExtractionError(
-                    f"Entry {entry.filename!r} uncompressed size "
-                    f"({entry.file_size:,} bytes) exceeds limit "
-                    f"({self._limits.max_single_file_bytes:,} bytes)",
-                    context="archive-limits",
-                )
-
-        total = sum(e.file_size for e in entries)
-        if total > self._limits.max_total_size_bytes:
-            raise ExtractionError(
-                f"Total uncompressed size ({total:,} bytes) exceeds limit "
-                f"({self._limits.max_total_size_bytes:,} bytes)",
-                context="archive-limits",
-            )
-
+        validate_archive_entries(entries, self._limits)
         return entries
 
     def read_entry(self, entry_name: str) -> bytes:
@@ -286,3 +263,41 @@ class SafeZipExtractor:
                 f"Windows drive path in archive: {name!r}",
                 context="archive-security",
             )
+
+
+def validate_archive_entries(
+    entries: Sequence[zipfile.ZipInfo],
+    limits: ExtractionLimits,
+) -> None:
+    """Apply entry-count, path and declared-size limits to an archive's entries.
+
+    Shared by :meth:`SafeZipExtractor.list_entries` and by callers that hold an
+    archive in memory (e.g. nested APK inspection), so both levels enforce the
+    same :class:`~apkforge.core.config.ExtractionLimits`.
+
+    Raises:
+        ExtractionError: On the first violated limit or unsafe entry path.
+    """
+    if len(entries) > limits.max_file_count:
+        raise ExtractionError(
+            f"Archive contains {len(entries)} entries, exceeding limit of {limits.max_file_count}",
+            context="archive-limits",
+        )
+
+    for entry in entries:
+        SafeZipExtractor._validate_entry_path(entry.filename)
+        if entry.file_size > limits.max_single_file_bytes:
+            raise ExtractionError(
+                f"Entry {entry.filename!r} uncompressed size "
+                f"({entry.file_size:,} bytes) exceeds limit "
+                f"({limits.max_single_file_bytes:,} bytes)",
+                context="archive-limits",
+            )
+
+    total = sum(e.file_size for e in entries)
+    if total > limits.max_total_size_bytes:
+        raise ExtractionError(
+            f"Total uncompressed size ({total:,} bytes) exceeds limit "
+            f"({limits.max_total_size_bytes:,} bytes)",
+            context="archive-limits",
+        )

@@ -1,0 +1,56 @@
+{
+  "tag": "A_commit_212227f",
+  "timestamp_utc": "2026-10-02T10:26:12.432601+00:00",
+  "src_tree": "/tmp/claude-1000/-home-naishring-APKForge/5ee14f6d-1cd2-4e6f-ac92-93a60b79abdc/scratchpad/wt_212227f/src",
+  "apkforge_module": "/tmp/claude-1000/-home-naishring-APKForge/5ee14f6d-1cd2-4e6f-ac92-93a60b79abdc/scratchpad/wt_212227f/src/apkforge/__init__.py",
+  "apk": "/home/naishring/APKForge/tests/corpus/com.oF2pks.applicationsinfo_19.apk",
+  "apk_sha256": "c0188f5f1f566e12324bd6bf4bf4f1b9408d852c6cc6b113706503031f13eebd",
+  "python": "3.14.7 (main, Aug 10 2026, 00:00:00) [GCC 16.1.1 20260515 (Red Hat 16.1.1-2)]",
+  "python_executable": "/home/naishring/APKForge/.venv/bin/python",
+  "cryptography_version": "50.0.1",
+  "openssl_version_text": "OpenSSL 4.0.2 25 Aug 2026",
+  "androguard_version": "4.1.4",
+  "asn1crypto_version": "1.5.1",
+  "pyopenssl_version": null,
+  "env_openssl_vars": {},
+  "fips_enabled_proc": "0",
+  "sha1_rsa_sign": "OK",
+  "sha1_rsa_verify": "OK",
+  "androguard_raw": {
+    "min_sdk_version": "16",
+    "signature_names": [
+      "META-INF/D8862F1D.RSA"
+    ],
+    "is_signed_v1": true,
+    "is_signed_v2": true,
+    "is_signed_v3": true,
+    "digest_algorithm": "sha1",
+    "signature_algorithm": "rsassa_pkcs1v15",
+    "has_signed_attrs": false,
+    "get_certificates": "OK",
+    "cert_count": 1,
+    "cert_sha256": [
+      "e71b0ec100a2a93675f5e5c9b0fa2674b0658fa399e9fdbc1bce8ec063b4e460"
+    ]
+  },
+  "extract_certificates": {
+    "cert_count": 1,
+    "warnings": [],
+    "sha1_fingerprints": [
+      "311dc975ac2d106fb239a0e2618322f1c1f4ba9b"
+    ],
+    "sha256_fingerprints": [
+      "e71b0ec100a2a93675f5e5c9b0fa2674b0658fa399e9fdbc1bce8ec063b4e460"
+    ]
+  },
+  "intake": {
+    "status": "complete",
+    "warnings": [],
+    "errors": [],
+    "package_name": "com.oF2pks.applicationsinfo",
+    "file_count": 37,
+    "dex_count": 1,
+    "certificate_count": 1
+  },
+  "intake_capability_verdict": "PASS"
+}

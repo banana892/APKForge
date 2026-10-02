@@ -1,0 +1,95 @@
+{
+  "Blowfish": {
+    "total_refs": 5,
+    "app_owned_classes": [],
+    "bouncycastle_classes_count": 5,
+    "bouncycastle_classes_sample": [
+      "org.bouncycastle.crypto.engines.BlowfishEngine",
+      "org.bouncycastle.jcajce.provider.asymmetric.util.BaseAgreementSpi",
+      "org.bouncycastle.jcajce.provider.symmetric.Blowfish$KeyGen",
+      "org.bouncycastle.jce.provider.BouncyCastleProvider",
+      "org.bouncycastle.openssl.jcajce.PEMUtilities"
+    ],
+    "other_third_party_classes": [],
+    "other_third_party_count": 0,
+    "refs_without_class_attribution": 0,
+    "app_owned_methods": []
+  },
+  "DESede": {
+    "total_refs": 9,
+    "app_owned_classes": [],
+    "bouncycastle_classes_count": 9,
+    "bouncycastle_classes_sample": [
+      "org.bouncycastle.crypto.engines.DESedeEngine",
+      "org.bouncycastle.crypto.engines.DESedeWrapEngine",
+      "org.bouncycastle.crypto.prng.drbg.CTRSP800DRBG",
+      "org.bouncycastle.jcajce.provider.asymmetric.util.BaseAgreementSpi",
+      "org.bouncycastle.jcajce.provider.symmetric.DESede$KeyFactory"
+    ],
+    "other_third_party_classes": [],
+    "other_third_party_count": 0,
+    "refs_without_class_attribution": 0,
+    "app_owned_methods": []
+  },
+  "SHA-1": {
+    "total_refs": 31,
+    "app_owned_classes": [
+      "io.github.muntashirakon.AppManager.apk.signing.Signer",
+      "io.github.muntashirakon.AppManager.details.info.AppInfoFragment",
+      "io.github.muntashirakon.AppManager.fm.dialogs.ChecksumsDialogFragment",
+      "io.github.muntashirakon.AppManager.fm.dialogs.ChecksumsDialogFragment$ChecksumsViewModel",
+      "io.github.muntashirakon.AppManager.utils.DigestUtils"
+    ],
+    "bouncycastle_classes_count": 17,
+    "bouncycastle_classes_sample": [
+      "org.bouncycastle.cert.selector.MSOutlookKeyIdCalculator$SHA1Digest",
+      "org.bouncycastle.crypto.digests.SHA1Digest",
+      "org.bouncycastle.crypto.macs.HMac",
+      "org.bouncycastle.crypto.prng.drbg.HashSP800DRBG",
+      "org.bouncycastle.crypto.prng.drbg.Utils"
+    ],
+    "other_third_party_classes": [
+      "android.sun.security.pkcs12.PKCS12KeyStore",
+      "android.sun.security.x509.AlgorithmId",
+      "com.android.apksig.internal.apk.v1.DigestAlgorithm",
+      "com.android.apksig.internal.apk.v1.V1SchemeVerifier",
+      "com.android.apksig.internal.oid.OidConstants",
+      "com.android.apksig.internal.oid.OidConstants$OidToUserFriendlyNameMapper",
+      "com.android.tools.smali.dexlib2.writer.DexWriter",
+      "com.google.common.hash.Hashing$Sha1Holder",
+      "org.jf.dexlib2.writer.DexWriter"
+    ],
+    "other_third_party_count": 9,
+    "refs_without_class_attribution": 0,
+    "app_owned_methods": [
+      "io.github.muntashirakon.AppManager.apk.signing.Signer.logEncoded",
+      "io.github.muntashirakon.AppManager.details.info.AppInfoFragment.lambda$onViewCreated$7$io-github-muntashirakon-AppManager-details-info-AppInfoFragment",
+      "io.github.muntashirakon.AppManager.fm.dialogs.ChecksumsDialogFragment$ChecksumsViewModel.generateChecksums",
+      "io.github.muntashirakon.AppManager.fm.dialogs.ChecksumsDialogFragment.lambda$onCreateDialog$1$io-github-muntashirakon-AppManager-fm-dialogs-ChecksumsDialogFragment",
+      "io.github.muntashirakon.AppManager.utils.DigestUtils.getDigests"
+    ]
+  },
+  "SHA1": {
+    "total_refs": 27,
+    "app_owned_classes": [],
+    "bouncycastle_classes_count": 20,
+    "bouncycastle_classes_sample": [
+      "org.bouncycastle.cert.crmf.jcajce.CRMFHelper",
+      "org.bouncycastle.cert.jcajce.JcaX509ExtensionUtils",
+      "org.bouncycastle.cms.DefaultCMSSignatureAlgorithmNameGenerator",
+      "org.bouncycastle.jcajce.provider.asymmetric.EC$Mappings",
+      "org.bouncycastle.jcajce.provider.asymmetric.RSA$Mappings"
+    ],
+    "other_third_party_classes": [
+      "android.sun.security.pkcs12.PKCS12KeyStore",
+      "android.sun.security.x509.AlgorithmId",
+      "android.sun.security.x509.KeyIdentifier",
+      "com.android.apksig.internal.apk.v1.DigestAlgorithm",
+      "com.android.apksig.internal.apk.v1.V1SchemeVerifier",
+      "com.android.apksig.internal.pkcs7.AlgorithmIdentifier"
+    ],
+    "other_third_party_count": 6,
+    "refs_without_class_attribution": 1,
+    "app_owned_methods": []
+  }
+}

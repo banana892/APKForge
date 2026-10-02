@@ -1,0 +1,420 @@
+{
+  "apps": {
+    "openlink": {
+      "identity_changed": [],
+      "summary_equal": true,
+      "non_evidence_top_level_fields_equal": true,
+      "reconciliation_count": 5,
+      "final_count": 5,
+      "added": [],
+      "removed": [],
+      "changed_full_record": [],
+      "other_top_level_fields_differing": [],
+      "byte_identical_findings": true
+    },
+    "pcapdroid": {
+      "identity_changed": [],
+      "summary_equal": true,
+      "non_evidence_top_level_fields_equal": true,
+      "reconciliation_count": 9,
+      "final_count": 9,
+      "added": [],
+      "removed": [],
+      "changed_full_record": [
+        "SEC-MAL-PERSISTENCE-FG-SERVICE",
+        "SEC-NET-CLEARTEXT-URLS",
+        "SEC-SPY-CLIPBOARD-001"
+      ],
+      "other_top_level_fields_differing": [
+        "spyware_indicators"
+      ],
+      "byte_identical_findings": false
+    },
+    "appmanager": {
+      "identity_changed": [],
+      "summary_equal": true,
+      "non_evidence_top_level_fields_equal": true,
+      "reconciliation_count": 28,
+      "final_count": 28,
+      "added": [],
+      "removed": [],
+      "changed_full_record": [
+        "SEC-MAL-CODE-EXEC",
+        "SEC-MAL-DYN-LOAD",
+        "SEC-MAL-PERSISTENCE-FG-SERVICE",
+        "SEC-MAL-ROOT-INDICATORS",
+        "SEC-NET-CAPABILITY-FLOW",
+        "SEC-NET-CLEARTEXT-URLS",
+        "SEC-SPY-CLIPBOARD-001",
+        "SEC-SPY-DEVICE-IDENTIFIERS",
+        "SEC-VULN-EXPORTED-RECEIVER"
+      ],
+      "other_top_level_fields_differing": [
+        "malware_indicators",
+        "spyware_indicators",
+        "vulnerability_indicators"
+      ],
+      "byte_identical_findings": false
+    }
+  },
+  "tp_matrix": [
+    {
+      "app": "pcapdroid",
+      "rule_id": "SEC-MAL-PERSISTENCE-BOOT",
+      "finding_id": "SEC-MAL-PERSISTENCE-BOOT",
+      "present": true,
+      "severity_reviewed": "low",
+      "severity_final": "low",
+      "confidence_reviewed": "high",
+      "confidence_final": "high"
+    },
+    {
+      "app": "pcapdroid",
+      "rule_id": "SEC-NET-CLEARTEXT-URLS",
+      "finding_id": "SEC-NET-CLEARTEXT-URLS",
+      "present": true,
+      "severity_reviewed": "low",
+      "severity_final": "low",
+      "confidence_reviewed": "high",
+      "confidence_final": "high"
+    },
+    {
+      "app": "pcapdroid",
+      "rule_id": "SEC-SPY-CLIPBOARD-001",
+      "finding_id": "SEC-SPY-CLIPBOARD-001",
+      "present": true,
+      "severity_reviewed": "low",
+      "severity_final": "low",
+      "confidence_reviewed": "medium",
+      "confidence_final": "medium"
+    },
+    {
+      "app": "pcapdroid",
+      "rule_id": "SEC-VULN-BACKUP-001",
+      "finding_id": "SEC-VULN-BACKUP-001",
+      "present": true,
+      "severity_reviewed": "low",
+      "severity_final": "low",
+      "confidence_reviewed": "confirmed",
+      "confidence_final": "confirmed"
+    },
+    {
+      "app": "pcapdroid",
+      "rule_id": "SEC-VULN-MANIFEST-BACKUP",
+      "finding_id": "SEC-VULN-MANIFEST-BACKUP",
+      "present": true,
+      "severity_reviewed": "low",
+      "severity_final": "low",
+      "confidence_reviewed": "confirmed",
+      "confidence_final": "confirmed"
+    },
+    {
+      "app": "pcapdroid",
+      "rule_id": "SEC-MAL-PERSISTENCE-FG-SERVICE",
+      "finding_id": "SEC-MAL-PERSISTENCE-FG-SERVICE",
+      "present": true,
+      "severity_reviewed": "informational",
+      "severity_final": "informational",
+      "confidence_reviewed": "confirmed",
+      "confidence_final": "confirmed"
+    },
+    {
+      "app": "openlink",
+      "rule_id": "SEC-MAL-PERSISTENCE-BOOT",
+      "finding_id": "SEC-MAL-PERSISTENCE-BOOT",
+      "present": true,
+      "severity_reviewed": "low",
+      "severity_final": "low",
+      "confidence_reviewed": "high",
+      "confidence_final": "high"
+    },
+    {
+      "app": "openlink",
+      "rule_id": "SEC-NET-CLEARTEXT-URLS",
+      "finding_id": "SEC-NET-CLEARTEXT-URLS",
+      "present": true,
+      "severity_reviewed": "low",
+      "severity_final": "low",
+      "confidence_reviewed": "high",
+      "confidence_final": "high"
+    },
+    {
+      "app": "openlink",
+      "rule_id": "SEC-VULN-BACKUP-001",
+      "finding_id": "SEC-VULN-BACKUP-001",
+      "present": true,
+      "severity_reviewed": "low",
+      "severity_final": "low",
+      "confidence_reviewed": "confirmed",
+      "confidence_final": "confirmed"
+    },
+    {
+      "app": "openlink",
+      "rule_id": "SEC-VULN-EXPORTED-RECEIVER",
+      "finding_id": "SEC-VULN-EXPORTED-RECEIVER",
+      "present": true,
+      "severity_reviewed": "low",
+      "severity_final": "low",
+      "confidence_reviewed": "confirmed",
+      "confidence_final": "confirmed"
+    },
+    {
+      "app": "openlink",
+      "rule_id": "SEC-VULN-MANIFEST-BACKUP",
+      "finding_id": "SEC-VULN-MANIFEST-BACKUP",
+      "present": true,
+      "severity_reviewed": "low",
+      "severity_final": "low",
+      "confidence_reviewed": "confirmed",
+      "confidence_final": "confirmed"
+    },
+    {
+      "app": "appmanager",
+      "rule_id": "SEC-COMB-ACCESSIBILITY-OVERLAY",
+      "finding_id": "SEC-COMB-ACCESSIBILITY-OVERLAY",
+      "present": true,
+      "severity_reviewed": "high",
+      "severity_final": "high",
+      "confidence_reviewed": "high",
+      "confidence_final": "high"
+    },
+    {
+      "app": "appmanager",
+      "rule_id": "SEC-MAL-CODE-EXEC",
+      "finding_id": "SEC-MAL-CODE-EXEC",
+      "present": true,
+      "severity_reviewed": "high",
+      "severity_final": "high",
+      "confidence_reviewed": "high",
+      "confidence_final": "high"
+    },
+    {
+      "app": "appmanager",
+      "rule_id": "SEC-MAL-DYN-LOAD",
+      "finding_id": "SEC-MAL-DYN-LOAD",
+      "present": true,
+      "severity_reviewed": "high",
+      "severity_final": "high",
+      "confidence_reviewed": "confirmed",
+      "confidence_final": "confirmed"
+    },
+    {
+      "app": "appmanager",
+      "rule_id": "SEC-MAL-DYNLOAD-001",
+      "finding_id": "SEC-MAL-DYNLOAD-001",
+      "present": true,
+      "severity_reviewed": "high",
+      "severity_final": "high",
+      "confidence_reviewed": "high",
+      "confidence_final": "high"
+    },
+    {
+      "app": "appmanager",
+      "rule_id": "SEC-MAL-EXEC-001",
+      "finding_id": "SEC-MAL-EXEC-001",
+      "present": true,
+      "severity_reviewed": "high",
+      "severity_final": "high",
+      "confidence_reviewed": "high",
+      "confidence_final": "high"
+    },
+    {
+      "app": "appmanager",
+      "rule_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_am_jar",
+      "finding_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_am_jar",
+      "present": true,
+      "severity_reviewed": "medium",
+      "severity_final": "medium",
+      "confidence_reviewed": "high",
+      "confidence_final": "high"
+    },
+    {
+      "app": "appmanager",
+      "rule_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_blanks_blank_odp",
+      "finding_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_blanks_blank_odp",
+      "present": true,
+      "severity_reviewed": "medium",
+      "severity_final": "medium",
+      "confidence_reviewed": "high",
+      "confidence_final": "high"
+    },
+    {
+      "app": "appmanager",
+      "rule_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_blanks_blank_odt",
+      "finding_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_blanks_blank_odt",
+      "present": true,
+      "severity_reviewed": "medium",
+      "severity_final": "medium",
+      "confidence_reviewed": "high",
+      "confidence_final": "high"
+    },
+    {
+      "app": "appmanager",
+      "rule_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_blanks_blank_pdf",
+      "finding_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_blanks_blank_pdf",
+      "present": true,
+      "severity_reviewed": "medium",
+      "severity_final": "medium",
+      "confidence_reviewed": "high",
+      "confidence_final": "high"
+    },
+    {
+      "app": "appmanager",
+      "rule_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_blanks_blank_pptx",
+      "finding_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_blanks_blank_pptx",
+      "present": true,
+      "severity_reviewed": "medium",
+      "severity_final": "medium",
+      "confidence_reviewed": "high",
+      "confidence_final": "high"
+    },
+    {
+      "app": "appmanager",
+      "rule_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_dexopt_baseline_prof",
+      "finding_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_dexopt_baseline_prof",
+      "present": true,
+      "severity_reviewed": "medium",
+      "severity_final": "medium",
+      "confidence_reviewed": "high",
+      "confidence_final": "high"
+    },
+    {
+      "app": "appmanager",
+      "rule_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_main_jar",
+      "finding_id": "SEC-MAL-PAYLOAD-ENTROPY-assets_main_jar",
+      "present": true,
+      "severity_reviewed": "medium",
+      "severity_final": "medium",
+      "confidence_reviewed": "high",
+      "confidence_final": "high"
+    },
+    {
+      "app": "appmanager",
+      "rule_id": "SEC-SPY-ACCESSIBILITY-001",
+      "finding_id": "SEC-SPY-ACCESSIBILITY-001",
+      "present": true,
+      "severity_reviewed": "medium",
+      "severity_final": "medium",
+      "confidence_reviewed": "high",
+      "confidence_final": "high"
+    },
+    {
+      "app": "appmanager",
+      "rule_id": "SEC-SPY-ACCESSIBILITY-ABUSE",
+      "finding_id": "SEC-SPY-ACCESSIBILITY-ABUSE",
+      "present": true,
+      "severity_reviewed": "medium",
+      "severity_final": "medium",
+      "confidence_reviewed": "confirmed",
+      "confidence_final": "confirmed"
+    },
+    {
+      "app": "appmanager",
+      "rule_id": "SEC-SPY-CALLS-001",
+      "finding_id": "SEC-SPY-CALLS-001",
+      "present": true,
+      "severity_reviewed": "medium",
+      "severity_final": "medium",
+      "confidence_reviewed": "medium",
+      "confidence_final": "medium"
+    },
+    {
+      "app": "appmanager",
+      "rule_id": "SEC-SPY-DEVICE-IDENTIFIERS",
+      "finding_id": "SEC-SPY-DEVICE-IDENTIFIERS",
+      "present": true,
+      "severity_reviewed": "medium",
+      "severity_final": "medium",
+      "confidence_reviewed": "high",
+      "confidence_final": "high"
+    },
+    {
+      "app": "appmanager",
+      "rule_id": "SEC-SPY-OVERLAY-001",
+      "finding_id": "SEC-SPY-OVERLAY-001",
+      "present": true,
+      "severity_reviewed": "medium",
+      "severity_final": "medium",
+      "confidence_reviewed": "high",
+      "confidence_final": "high"
+    },
+    {
+      "app": "appmanager",
+      "rule_id": "SEC-MAL-PERSISTENCE-BOOT",
+      "finding_id": "SEC-MAL-PERSISTENCE-BOOT",
+      "present": true,
+      "severity_reviewed": "low",
+      "severity_final": "low",
+      "confidence_reviewed": "high",
+      "confidence_final": "high"
+    },
+    {
+      "app": "appmanager",
+      "rule_id": "SEC-MAL-ROOT-INDICATORS",
+      "finding_id": "SEC-MAL-ROOT-INDICATORS",
+      "present": true,
+      "severity_reviewed": "low",
+      "severity_final": "low",
+      "confidence_reviewed": "medium",
+      "confidence_final": "medium"
+    },
+    {
+      "app": "appmanager",
+      "rule_id": "SEC-SPY-CLIPBOARD-001",
+      "finding_id": "SEC-SPY-CLIPBOARD-001",
+      "present": true,
+      "severity_reviewed": "low",
+      "severity_final": "low",
+      "confidence_reviewed": "medium",
+      "confidence_final": "medium"
+    },
+    {
+      "app": "appmanager",
+      "rule_id": "SEC-VULN-BACKUP-001",
+      "finding_id": "SEC-VULN-BACKUP-001",
+      "present": true,
+      "severity_reviewed": "low",
+      "severity_final": "low",
+      "confidence_reviewed": "confirmed",
+      "confidence_final": "confirmed"
+    },
+    {
+      "app": "appmanager",
+      "rule_id": "SEC-VULN-EXPORTED-RECEIVER",
+      "finding_id": "SEC-VULN-EXPORTED-RECEIVER",
+      "present": true,
+      "severity_reviewed": "low",
+      "severity_final": "low",
+      "confidence_reviewed": "confirmed",
+      "confidence_final": "confirmed"
+    },
+    {
+      "app": "appmanager",
+      "rule_id": "SEC-VULN-MANIFEST-BACKUP",
+      "finding_id": "SEC-VULN-MANIFEST-BACKUP",
+      "present": true,
+      "severity_reviewed": "low",
+      "severity_final": "low",
+      "confidence_reviewed": "confirmed",
+      "confidence_final": "confirmed"
+    },
+    {
+      "app": "appmanager",
+      "rule_id": "SEC-MAL-PERSISTENCE-FG-SERVICE",
+      "finding_id": "SEC-MAL-PERSISTENCE-FG-SERVICE",
+      "present": true,
+      "severity_reviewed": "informational",
+      "severity_final": "informational",
+      "confidence_reviewed": "confirmed",
+      "confidence_final": "confirmed"
+    }
+  ],
+  "summary": {
+    "finding_identity_differences_vs_reconciliation": 0,
+    "findings_differing_only_in_evidence_order_or_sample": 12,
+    "tp_expected": 35,
+    "tp_present": 35,
+    "tp_severity_or_confidence_changed": 0,
+    "sec_mal_root_indicators_appmanager_present": true
+  }
+}

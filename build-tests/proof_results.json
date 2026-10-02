@@ -1,0 +1,675 @@
+[
+  {
+    "filename": "com.emanuelef.remote_capture_95.apk",
+    "filesize_bytes": 17560048,
+    "sha256": "e03f79082278b3754b4954c7537e7c9f7681e5995a44e70aa1589eca10190066",
+    "package_name": "com.emanuelef.remote_capture",
+    "version_name": "2.0.2",
+    "version_code": "95",
+    "target_sdk": "37",
+    "min_sdk": "23",
+    "structural_notes": "2 DEX, 20 native libs, arsc=True, total 2326 files",
+    "stages": {
+      "decode": {
+        "status": "PASS",
+        "duration_seconds": 3.355564832687378,
+        "command": "/home/naishring/APKForge/tools/apktool d -f -o /home/naishring/APKForge/work/com.emanuelef.remote_capture_95/decoded /home/naishring/APKForge/samples/com.emanuelef.remote_capture_95.apk",
+        "exit_code": 0,
+        "stdout_snippet": "I: Using Apktool 2.10.0 on com.emanuelef.remote_capture_95.apk with 12 thread(s).\nI: Baksmaling classes.dex...\nI: Baksmaling classes2.dex...\nI: Loading resource table...\nI: Decoding file-resources...\nI: Loading resource table from file: /home/naishring/.local/share/apktool/framework/1.apk\nI: Decoding values */* XMLs...\nI: Decoding AndroidManifest.xml with resources...\nI: Regular manifest package...\nI: Copying assets and libs...\nI: Copying unknown files...\nI: Copying original files...\n",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/com.emanuelef.remote_capture_95_decode.log"
+      },
+      "modify": {
+        "status": "PASS",
+        "duration_seconds": 0.00037741661071777344,
+        "command": "Python manifest insertion",
+        "exit_code": 0,
+        "stdout_snippet": "Successfully inserted <meta-data android:name=\"apkforge.toolchain.proof\" android:value=\"verified\"/> at character index 2300",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/com.emanuelef.remote_capture_95_modify.log"
+      },
+      "rebuild": {
+        "status": "PASS",
+        "duration_seconds": 8.303600072860718,
+        "command": "/home/naishring/APKForge/tools/apktool b -o /home/naishring/APKForge/work/com.emanuelef.remote_capture_95/unaligned.apk /home/naishring/APKForge/work/com.emanuelef.remote_capture_95/decoded",
+        "exit_code": 0,
+        "stdout_snippet": "Using Apktool 2.10.0 with 12 thread(s).\nI: Checking whether sources has changed...\nI: Smaling smali folder into classes.dex...\nI: Checking whether sources has changed...\nI: Smaling smali_classes2 folder into classes2.dex...\nI: Checking whether resources has changed...\nI: Building resources...\nI: Copying libs... (/lib)\nI: Copying libs... (/kotlin)\nI: Building apk file...\nI: Copying unknown files/dir...\nI: Built apk into: /home/naishring/APKForge/work/com.emanuelef.remote_capture_95/unaligned.apk\n",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/com.emanuelef.remote_capture_95_build.log"
+      },
+      "zipalign": {
+        "status": "PASS",
+        "duration_seconds": 0.03453373908996582,
+        "command": "/home/naishring/Android/Sdk/build-tools/35.0.0/zipalign -p -f -v 4 /home/naishring/APKForge/work/com.emanuelef.remote_capture_95/unaligned.apk /home/naishring/APKForge/work/com.emanuelef.remote_capture_95/aligned.apk",
+        "exit_code": 0,
+        "stdout_snippet": "ics.kotlin_builtins (OK - compressed)\n15828328 kotlin/coroutines/coroutines.kotlin_builtins (OK - compressed)\n15828530 kotlin/internal/internal.kotlin_builtins (OK - compressed)\n15828969 kotlin/ranges/ranges.kotlin_builtins (OK - compressed)\n15830407 kotlin/reflect/reflect.kotlin_builtins (OK - compressed)\n15831899 classes.dex (OK - compressed)\n17453520 assets/dexopt/baseline.prof (OK)\n17456208 assets/dexopt/baseline.profm (OK)\n17456562 DebugProbesKt.bin (OK - compressed)\nVerification succesful\n",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/com.emanuelef.remote_capture_95_zipalign.log"
+      },
+      "sign": {
+        "status": "PASS",
+        "duration_seconds": 1.0343372821807861,
+        "command": "/home/naishring/Android/Sdk/build-tools/35.0.0/apksigner sign --ks /home/naishring/APKForge/tools/test-signing-key.jks --ks-pass pass:apkforge-test-pass --ks-key-alias apkforge-test-key --key-pass pass:apkforge-test-pass --out /home/naishring/APKForge/work/com.emanuelef.remote_capture_95/signed.apk /home/naishring/APKForge/work/com.emanuelef.remote_capture_95/aligned.apk",
+        "exit_code": 0,
+        "stdout_snippet": "",
+        "stderr_snippet": "WARNING: A restricted method in java.lang.System has been called\nWARNING: java.lang.System::loadLibrary has been called by org.conscrypt.NativeLibraryUtil in an unnamed module (file:/home/naishring/Android/Sdk/build-tools/35.0.0/lib/apksigner.jar)\nWARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module\nWARNING: Restricted methods will be blocked in a future release unless native access is enabled\n\n",
+        "log_file": "build-tests/logs/com.emanuelef.remote_capture_95_sign.log"
+      },
+      "verify": {
+        "status": "PASS",
+        "duration_seconds": 1.0997910499572754,
+        "command": "zipalign -c & apksigner verify & axml check",
+        "exit_code": 0,
+        "stdout_snippet": "{\"zipalign\": \"PASS (4-byte alignment verified)\", \"apksigner\": \"PASS (v1/v2/v3 verified)\", \"v1_scheme\": \"true\", \"v2_scheme\": \"true\", \"v3_scheme\": \"true\", \"cert_dn\": \"CN=APKForge Test Signer, OU=Phase C.1 Toolchain Validation, O=APKForge Project, C=US\", \"cert_sha256\": \"c9ac63763d45da0bc3ed74cb157aecbe0c0d00fc16c94aeac146552b83c72ef0\", \"manifest_meta_data\": \"FOUND (<meta-data android:name='apkforge.toolchain.proof' android:value='verified'/>)\", \"zip_integrity\": \"PASS (testzip clean)\"}",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/com.emanuelef.remote_capture_95_verify.log"
+      }
+    },
+    "overall_status": "PASS",
+    "failure_stage": "",
+    "failure_category": "SUCCESS",
+    "failure_cause": "",
+    "failure_is_toolchain": false,
+    "verification_details": {
+      "zipalign": "PASS (4-byte alignment verified)",
+      "apksigner": "PASS (v1/v2/v3 verified)",
+      "v1_scheme": "true",
+      "v2_scheme": "true",
+      "v3_scheme": "true",
+      "cert_dn": "CN=APKForge Test Signer, OU=Phase C.1 Toolchain Validation, O=APKForge Project, C=US",
+      "cert_sha256": "c9ac63763d45da0bc3ed74cb157aecbe0c0d00fc16c94aeac146552b83c72ef0",
+      "manifest_meta_data": "FOUND (<meta-data android:name='apkforge.toolchain.proof' android:value='verified'/>)",
+      "zip_integrity": "PASS (testzip clean)"
+    }
+  },
+  {
+    "filename": "com.oF2pks.applicationsinfo_19.apk",
+    "filesize_bytes": 120970,
+    "sha256": "c0188f5f1f566e12324bd6bf4bf4f1b9408d852c6cc6b113706503031f13eebd",
+    "package_name": "com.oF2pks.applicationsinfo",
+    "version_name": "1.7-19",
+    "version_code": "19",
+    "target_sdk": "32",
+    "min_sdk": "16",
+    "structural_notes": "1 DEX, 0 native libs, arsc=True, total 37 files",
+    "stages": {
+      "decode": {
+        "status": "PASS",
+        "duration_seconds": 0.9775872230529785,
+        "command": "/home/naishring/APKForge/tools/apktool d -f -o /home/naishring/APKForge/work/com.oF2pks.applicationsinfo_19/decoded /home/naishring/APKForge/samples/com.oF2pks.applicationsinfo_19.apk",
+        "exit_code": 0,
+        "stdout_snippet": "I: Using Apktool 2.10.0 on com.oF2pks.applicationsinfo_19.apk with 12 thread(s).\nI: Baksmaling classes.dex...\nI: Loading resource table...\nI: Decoding file-resources...\nI: Loading resource table from file: /home/naishring/.local/share/apktool/framework/1.apk\nI: Decoding values */* XMLs...\nI: Decoding AndroidManifest.xml with resources...\nI: Regular manifest package...\nI: Copying assets and libs...\nI: Copying unknown files...\nI: Copying original files...\n",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/com.oF2pks.applicationsinfo_19_decode.log"
+      },
+      "modify": {
+        "status": "PASS",
+        "duration_seconds": 0.00017070770263671875,
+        "command": "Python manifest insertion",
+        "exit_code": 0,
+        "stdout_snippet": "Successfully inserted <meta-data android:name=\"apkforge.toolchain.proof\" android:value=\"verified\"/> at character index 812",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/com.oF2pks.applicationsinfo_19_modify.log"
+      },
+      "rebuild": {
+        "status": "PASS",
+        "duration_seconds": 0.6845955848693848,
+        "command": "/home/naishring/APKForge/tools/apktool b -o /home/naishring/APKForge/work/com.oF2pks.applicationsinfo_19/unaligned.apk /home/naishring/APKForge/work/com.oF2pks.applicationsinfo_19/decoded",
+        "exit_code": 0,
+        "stdout_snippet": "I: Using Apktool 2.10.0 with 12 thread(s).\nI: Checking whether sources has changed...\nI: Smaling smali folder into classes.dex...\nI: Checking whether resources has changed...\nI: Building resources...\nI: Building apk file...\nI: Copying unknown files/dir...\nI: Built apk into: /home/naishring/APKForge/work/com.oF2pks.applicationsinfo_19/unaligned.apk\n",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/com.oF2pks.applicationsinfo_19_build.log"
+      },
+      "zipalign": {
+        "status": "PASS",
+        "duration_seconds": 0.0020546913146972656,
+        "command": "/home/naishring/Android/Sdk/build-tools/35.0.0/zipalign -p -f -v 4 /home/naishring/APKForge/work/com.oF2pks.applicationsinfo_19/unaligned.apk /home/naishring/APKForge/work/com.oF2pks.applicationsinfo_19/aligned.apk",
+        "exit_code": 0,
+        "stdout_snippet": "ize_table.xml (OK - compressed)\n   59995 res/menu/appinfos_activity_main.xml (OK - compressed)\n   60268 res/menu/appinfos_fragment_detail.xml (OK - compressed)\n   60598 res/menu/appinfos_fragment_detail_bar.xml (OK - compressed)\n   60919 res/menu/appinfos_fragment_main_list.xml (OK - compressed)\n   61451 res/menu-v19/appinfos_fragment_detail.xml (OK - compressed)\n   61795 res/menu-v26/appinfos_fragment_main_list.xml (OK - compressed)\n   62298 classes.dex (OK - compressed)\nVerification succesful\n",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/com.oF2pks.applicationsinfo_19_zipalign.log"
+      },
+      "sign": {
+        "status": "PASS",
+        "duration_seconds": 0.46130919456481934,
+        "command": "/home/naishring/Android/Sdk/build-tools/35.0.0/apksigner sign --ks /home/naishring/APKForge/tools/test-signing-key.jks --ks-pass pass:apkforge-test-pass --ks-key-alias apkforge-test-key --key-pass pass:apkforge-test-pass --out /home/naishring/APKForge/work/com.oF2pks.applicationsinfo_19/signed.apk /home/naishring/APKForge/work/com.oF2pks.applicationsinfo_19/aligned.apk",
+        "exit_code": 0,
+        "stdout_snippet": "",
+        "stderr_snippet": "WARNING: A restricted method in java.lang.System has been called\nWARNING: java.lang.System::loadLibrary has been called by org.conscrypt.NativeLibraryUtil in an unnamed module (file:/home/naishring/Android/Sdk/build-tools/35.0.0/lib/apksigner.jar)\nWARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module\nWARNING: Restricted methods will be blocked in a future release unless native access is enabled\n\n",
+        "log_file": "build-tests/logs/com.oF2pks.applicationsinfo_19_sign.log"
+      },
+      "verify": {
+        "status": "PASS",
+        "duration_seconds": 0.22998929023742676,
+        "command": "zipalign -c & apksigner verify & axml check",
+        "exit_code": 0,
+        "stdout_snippet": "{\"zipalign\": \"PASS (4-byte alignment verified)\", \"apksigner\": \"PASS (v1/v2/v3 verified)\", \"v1_scheme\": \"true\", \"v2_scheme\": \"true\", \"v3_scheme\": \"true\", \"cert_dn\": \"CN=APKForge Test Signer, OU=Phase C.1 Toolchain Validation, O=APKForge Project, C=US\", \"cert_sha256\": \"c9ac63763d45da0bc3ed74cb157aecbe0c0d00fc16c94aeac146552b83c72ef0\", \"manifest_meta_data\": \"FOUND (<meta-data android:name='apkforge.toolchain.proof' android:value='verified'/>)\", \"zip_integrity\": \"PASS (testzip clean)\"}",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/com.oF2pks.applicationsinfo_19_verify.log"
+      }
+    },
+    "overall_status": "PASS",
+    "failure_stage": "",
+    "failure_category": "SUCCESS",
+    "failure_cause": "",
+    "failure_is_toolchain": false,
+    "verification_details": {
+      "zipalign": "PASS (4-byte alignment verified)",
+      "apksigner": "PASS (v1/v2/v3 verified)",
+      "v1_scheme": "true",
+      "v2_scheme": "true",
+      "v3_scheme": "true",
+      "cert_dn": "CN=APKForge Test Signer, OU=Phase C.1 Toolchain Validation, O=APKForge Project, C=US",
+      "cert_sha256": "c9ac63763d45da0bc3ed74cb157aecbe0c0d00fc16c94aeac146552b83c72ef0",
+      "manifest_meta_data": "FOUND (<meta-data android:name='apkforge.toolchain.proof' android:value='verified'/>)",
+      "zip_integrity": "PASS (testzip clean)"
+    }
+  },
+  {
+    "filename": "de.audioattack.openlink_28.apk",
+    "filesize_bytes": 235707,
+    "sha256": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+    "package_name": "de.audioattack.openlink",
+    "version_name": "1.5.11",
+    "version_code": "28",
+    "target_sdk": "36",
+    "min_sdk": "21",
+    "structural_notes": "1 DEX, 0 native libs, arsc=True, total 96 files",
+    "stages": {
+      "decode": {
+        "status": "PASS",
+        "duration_seconds": 1.1266818046569824,
+        "command": "/home/naishring/APKForge/tools/apktool d -f -o /home/naishring/APKForge/work/de.audioattack.openlink_28/decoded /home/naishring/APKForge/samples/de.audioattack.openlink_28.apk",
+        "exit_code": 0,
+        "stdout_snippet": "I: Using Apktool 2.10.0 on de.audioattack.openlink_28.apk with 12 thread(s).\nI: Baksmaling classes.dex...\nI: Loading resource table...\nI: Decoding file-resources...\nI: Loading resource table from file: /home/naishring/.local/share/apktool/framework/1.apk\nI: Decoding values */* XMLs...\nI: Decoding AndroidManifest.xml with resources...\nI: Regular manifest package...\nI: Copying assets and libs...\nI: Copying unknown files...\nI: Copying original files...\n",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/de.audioattack.openlink_28_decode.log"
+      },
+      "modify": {
+        "status": "PASS",
+        "duration_seconds": 0.00028514862060546875,
+        "command": "Python manifest insertion",
+        "exit_code": 0,
+        "stdout_snippet": "Successfully inserted <meta-data android:name=\"apkforge.toolchain.proof\" android:value=\"verified\"/> at character index 1426",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/de.audioattack.openlink_28_modify.log"
+      },
+      "rebuild": {
+        "status": "PASS",
+        "duration_seconds": 0.684497594833374,
+        "command": "/home/naishring/APKForge/tools/apktool b -o /home/naishring/APKForge/work/de.audioattack.openlink_28/unaligned.apk /home/naishring/APKForge/work/de.audioattack.openlink_28/decoded",
+        "exit_code": 0,
+        "stdout_snippet": "I: Using Apktool 2.10.0 with 12 thread(s).\nI: Checking whether sources has changed...\nI: Smaling smali folder into classes.dex...\nI: Checking whether resources has changed...\nI: Building resources...\nI: Copying libs... (/kotlin)\nI: Building apk file...\nI: Copying unknown files/dir...\nI: Built apk into: /home/naishring/APKForge/work/de.audioattack.openlink_28/unaligned.apk\n",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/de.audioattack.openlink_28_build.log"
+      },
+      "zipalign": {
+        "status": "PASS",
+        "duration_seconds": 0.0022377967834472656,
+        "command": "/home/naishring/Android/Sdk/build-tools/35.0.0/zipalign -p -f -v 4 /home/naishring/APKForge/work/de.audioattack.openlink_28/unaligned.apk /home/naishring/APKForge/work/de.audioattack.openlink_28/aligned.apk",
+        "exit_code": 0,
+        "stdout_snippet": "ons.kotlin_builtins (OK - compressed)\n  171899 kotlin/coroutines/coroutines.kotlin_builtins (OK - compressed)\n  172142 kotlin/internal/internal.kotlin_builtins (OK - compressed)\n  172618 kotlin/ranges/ranges.kotlin_builtins (OK - compressed)\n  173994 kotlin/reflect/reflect.kotlin_builtins (OK - compressed)\n  175337 classes.dex (OK - compressed)\n  214380 assets/dexopt/baseline.prof (OK)\n  214512 assets/dexopt/baseline.profm (OK)\n  214608 DebugProbesKt.bin (OK - compressed)\nVerification succesful\n",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/de.audioattack.openlink_28_zipalign.log"
+      },
+      "sign": {
+        "status": "PASS",
+        "duration_seconds": 0.40689682960510254,
+        "command": "/home/naishring/Android/Sdk/build-tools/35.0.0/apksigner sign --ks /home/naishring/APKForge/tools/test-signing-key.jks --ks-pass pass:apkforge-test-pass --ks-key-alias apkforge-test-key --key-pass pass:apkforge-test-pass --out /home/naishring/APKForge/work/de.audioattack.openlink_28/signed.apk /home/naishring/APKForge/work/de.audioattack.openlink_28/aligned.apk",
+        "exit_code": 0,
+        "stdout_snippet": "",
+        "stderr_snippet": "WARNING: A restricted method in java.lang.System has been called\nWARNING: java.lang.System::loadLibrary has been called by org.conscrypt.NativeLibraryUtil in an unnamed module (file:/home/naishring/Android/Sdk/build-tools/35.0.0/lib/apksigner.jar)\nWARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module\nWARNING: Restricted methods will be blocked in a future release unless native access is enabled\n\n",
+        "log_file": "build-tests/logs/de.audioattack.openlink_28_sign.log"
+      },
+      "verify": {
+        "status": "PASS",
+        "duration_seconds": 0.26520800590515137,
+        "command": "zipalign -c & apksigner verify & axml check",
+        "exit_code": 0,
+        "stdout_snippet": "{\"zipalign\": \"PASS (4-byte alignment verified)\", \"apksigner\": \"PASS (v1/v2/v3 verified)\", \"v1_scheme\": \"true\", \"v2_scheme\": \"true\", \"v3_scheme\": \"true\", \"cert_dn\": \"CN=APKForge Test Signer, OU=Phase C.1 Toolchain Validation, O=APKForge Project, C=US\", \"cert_sha256\": \"c9ac63763d45da0bc3ed74cb157aecbe0c0d00fc16c94aeac146552b83c72ef0\", \"manifest_meta_data\": \"FOUND (<meta-data android:name='apkforge.toolchain.proof' android:value='verified'/>)\", \"zip_integrity\": \"PASS (testzip clean)\"}",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/de.audioattack.openlink_28_verify.log"
+      }
+    },
+    "overall_status": "PASS",
+    "failure_stage": "",
+    "failure_category": "SUCCESS",
+    "failure_cause": "",
+    "failure_is_toolchain": false,
+    "verification_details": {
+      "zipalign": "PASS (4-byte alignment verified)",
+      "apksigner": "PASS (v1/v2/v3 verified)",
+      "v1_scheme": "true",
+      "v2_scheme": "true",
+      "v3_scheme": "true",
+      "cert_dn": "CN=APKForge Test Signer, OU=Phase C.1 Toolchain Validation, O=APKForge Project, C=US",
+      "cert_sha256": "c9ac63763d45da0bc3ed74cb157aecbe0c0d00fc16c94aeac146552b83c72ef0",
+      "manifest_meta_data": "FOUND (<meta-data android:name='apkforge.toolchain.proof' android:value='verified'/>)",
+      "zip_integrity": "PASS (testzip clean)"
+    }
+  },
+  {
+    "filename": "de.danoeh.antennapod_3120295.apk",
+    "filesize_bytes": 17749828,
+    "sha256": "3f43a4337a693cdb49141afe06cb596e88c796009ed77bff51e9444ce2d1ebfc",
+    "package_name": "de.danoeh.antennapod",
+    "version_name": "3.12.2",
+    "version_code": "3120295",
+    "target_sdk": "36",
+    "min_sdk": "23",
+    "structural_notes": "3 DEX, 4 native libs, arsc=True, total 1516 files",
+    "stages": {
+      "decode": {
+        "status": "PASS",
+        "duration_seconds": 3.4199321269989014,
+        "command": "/home/naishring/APKForge/tools/apktool d -f -o /home/naishring/APKForge/work/de.danoeh.antennapod_3120295/decoded /home/naishring/APKForge/samples/de.danoeh.antennapod_3120295.apk",
+        "exit_code": 0,
+        "stdout_snippet": ".apk with 12 thread(s).\nI: Baksmaling classes.dex...\nI: Baksmaling classes2.dex...\nI: Baksmaling classes3.dex...\nI: Loading resource table...\nI: Decoding file-resources...\nI: Loading resource table from file: /home/naishring/.local/share/apktool/framework/1.apk\nI: Decoding values */* XMLs...\nI: Decoding AndroidManifest.xml with resources...\nI: Regular manifest package...\nI: Copying assets and libs...\nI: Copying unknown files...\nI: Copying original files...\nI: Copying META-INF/services directory\n",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/de.danoeh.antennapod_3120295_decode.log"
+      },
+      "modify": {
+        "status": "PASS",
+        "duration_seconds": 0.0003218650817871094,
+        "command": "Python manifest insertion",
+        "exit_code": 0,
+        "stdout_snippet": "Successfully inserted <meta-data android:name=\"apkforge.toolchain.proof\" android:value=\"verified\"/> at character index 2708",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/de.danoeh.antennapod_3120295_modify.log"
+      },
+      "rebuild": {
+        "status": "PASS",
+        "duration_seconds": 10.32856273651123,
+        "command": "/home/naishring/APKForge/tools/apktool b -o /home/naishring/APKForge/work/de.danoeh.antennapod_3120295/unaligned.apk /home/naishring/APKForge/work/de.danoeh.antennapod_3120295/decoded",
+        "exit_code": 0,
+        "stdout_snippet": "king whether sources has changed...\nI: Smaling smali_classes2 folder into classes2.dex...\nI: Checking whether sources has changed...\nI: Smaling smali_classes3 folder into classes3.dex...\nI: Checking whether resources has changed...\nI: Building resources...\nI: Copying libs... (/lib)\nI: Copying libs... (/kotlin)\nI: Copying libs... (/META-INF/services)\nI: Building apk file...\nI: Copying unknown files/dir...\nI: Built apk into: /home/naishring/APKForge/work/de.danoeh.antennapod_3120295/unaligned.apk\n",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/de.danoeh.antennapod_3120295_build.log"
+      },
+      "zipalign": {
+        "status": "PASS",
+        "duration_seconds": 0.034412384033203125,
+        "command": "/home/naishring/Android/Sdk/build-tools/35.0.0/zipalign -p -f -v 4 /home/naishring/APKForge/work/de.danoeh.antennapod_3120295/unaligned.apk /home/naishring/APKForge/work/de.danoeh.antennapod_3120295/aligned.apk",
+        "exit_code": 0,
+        "stdout_snippet": "565564 assets/special_thanks.csv (OK - compressed)\n17565883 assets/translators.csv (OK - compressed)\n17567704 assets/dexopt/baseline.prof (OK)\n17571412 assets/dexopt/baseline.profm (OK)\n17571813 DebugProbesKt.bin (OK - compressed)\n17572658 car-app-api.level (OK - compressed)\n17572744 okhttp3/internal/publicsuffix/NOTICE (OK - compressed)\n17572986 okhttp3/internal/publicsuffix/publicsuffixes.gz (OK - compressed)\n17614475 org/conscrypt/conscrypt.properties (OK - compressed)\nVerification succesful\n",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/de.danoeh.antennapod_3120295_zipalign.log"
+      },
+      "sign": {
+        "status": "PASS",
+        "duration_seconds": 0.780421257019043,
+        "command": "/home/naishring/Android/Sdk/build-tools/35.0.0/apksigner sign --ks /home/naishring/APKForge/tools/test-signing-key.jks --ks-pass pass:apkforge-test-pass --ks-key-alias apkforge-test-key --key-pass pass:apkforge-test-pass --out /home/naishring/APKForge/work/de.danoeh.antennapod_3120295/signed.apk /home/naishring/APKForge/work/de.danoeh.antennapod_3120295/aligned.apk",
+        "exit_code": 0,
+        "stdout_snippet": "",
+        "stderr_snippet": "WARNING: A restricted method in java.lang.System has been called\nWARNING: java.lang.System::loadLibrary has been called by org.conscrypt.NativeLibraryUtil in an unnamed module (file:/home/naishring/Android/Sdk/build-tools/35.0.0/lib/apksigner.jar)\nWARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module\nWARNING: Restricted methods will be blocked in a future release unless native access is enabled\n\n",
+        "log_file": "build-tests/logs/de.danoeh.antennapod_3120295_sign.log"
+      },
+      "verify": {
+        "status": "PASS",
+        "duration_seconds": 0.9569036960601807,
+        "command": "zipalign -c & apksigner verify & axml check",
+        "exit_code": 0,
+        "stdout_snippet": "{\"zipalign\": \"PASS (4-byte alignment verified)\", \"apksigner\": \"PASS (v1/v2/v3 verified)\", \"v1_scheme\": \"true\", \"v2_scheme\": \"true\", \"v3_scheme\": \"true\", \"cert_dn\": \"CN=APKForge Test Signer, OU=Phase C.1 Toolchain Validation, O=APKForge Project, C=US\", \"cert_sha256\": \"c9ac63763d45da0bc3ed74cb157aecbe0c0d00fc16c94aeac146552b83c72ef0\", \"manifest_meta_data\": \"FOUND (<meta-data android:name='apkforge.toolchain.proof' android:value='verified'/>)\", \"zip_integrity\": \"PASS (testzip clean)\"}",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/de.danoeh.antennapod_3120295_verify.log"
+      }
+    },
+    "overall_status": "PASS",
+    "failure_stage": "",
+    "failure_category": "SUCCESS",
+    "failure_cause": "",
+    "failure_is_toolchain": false,
+    "verification_details": {
+      "zipalign": "PASS (4-byte alignment verified)",
+      "apksigner": "PASS (v1/v2/v3 verified)",
+      "v1_scheme": "true",
+      "v2_scheme": "true",
+      "v3_scheme": "true",
+      "cert_dn": "CN=APKForge Test Signer, OU=Phase C.1 Toolchain Validation, O=APKForge Project, C=US",
+      "cert_sha256": "c9ac63763d45da0bc3ed74cb157aecbe0c0d00fc16c94aeac146552b83c72ef0",
+      "manifest_meta_data": "FOUND (<meta-data android:name='apkforge.toolchain.proof' android:value='verified'/>)",
+      "zip_integrity": "PASS (testzip clean)"
+    }
+  },
+  {
+    "filename": "eu.siacs.conversations_4218104.apk",
+    "filesize_bytes": 30749589,
+    "sha256": "3fae646e33b59b95f049ce9bd828022e2edbb374fa82e517bd782aced71ba980",
+    "package_name": "eu.siacs.conversations",
+    "version_name": "2.20.4+free",
+    "version_code": "4218104",
+    "target_sdk": "37",
+    "min_sdk": "23",
+    "structural_notes": "2 DEX, 2 native libs, arsc=True, total 1339 files",
+    "stages": {
+      "decode": {
+        "status": "PASS",
+        "duration_seconds": 3.56463623046875,
+        "command": "/home/naishring/APKForge/tools/apktool d -f -o /home/naishring/APKForge/work/eu.siacs.conversations_4218104/decoded /home/naishring/APKForge/samples/eu.siacs.conversations_4218104.apk",
+        "exit_code": 0,
+        "stdout_snippet": "eu.siacs.conversations_4218104.apk with 12 thread(s).\nI: Baksmaling classes.dex...\nI: Baksmaling classes2.dex...\nI: Loading resource table...\nI: Decoding file-resources...\nI: Loading resource table from file: /home/naishring/.local/share/apktool/framework/1.apk\nI: Decoding values */* XMLs...\nI: Decoding AndroidManifest.xml with resources...\nI: Regular manifest package...\nI: Copying assets and libs...\nI: Copying unknown files...\nI: Copying original files...\nI: Copying META-INF/services directory\n",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/eu.siacs.conversations_4218104_decode.log"
+      },
+      "modify": {
+        "status": "PASS",
+        "duration_seconds": 0.0002956390380859375,
+        "command": "Python manifest insertion",
+        "exit_code": 0,
+        "stdout_snippet": "Successfully inserted <meta-data android:name=\"apkforge.toolchain.proof\" android:value=\"verified\"/> at character index 7253",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/eu.siacs.conversations_4218104_modify.log"
+      },
+      "rebuild": {
+        "status": "FAIL",
+        "duration_seconds": 3.1202943325042725,
+        "command": "/home/naishring/APKForge/tools/apktool b -o /home/naishring/APKForge/work/eu.siacs.conversations_4218104/unaligned.apk /home/naishring/APKForge/work/eu.siacs.conversations_4218104/decoded",
+        "exit_code": 1,
+        "stdout_snippet": "I: Using Apktool 2.10.0 with 12 thread(s).\nI: Checking whether sources has changed...\nI: Smaling smali folder into classes.dex...\nI: Checking whether sources has changed...\nI: Smaling smali_classes2 folder into classes2.dex...\nI: Checking whether resources has changed...\nI: Building resources...\n",
+        "stderr_snippet": "sion-name, 2.20.4+free, --no-auto-version, --no-version-vectors, --no-version-transitions, --no-resource-deduping, --allow-reserved-package-id, --no-compile-sdk-metadata, --warn-manifest-validation, -e, /tmp/APKTOOL4966101314311201018.tmp, -0, arsc, -I, /home/naishring/.local/share/apktool/framework/1.apk, --manifest, /home/naishring/APKForge/work/eu.siacs.conversations_4218104/decoded/AndroidManifest.xml, /home/naishring/APKForge/work/eu.siacs.conversations_4218104/decoded/build/resources.zip]\n",
+        "log_file": "build-tests/logs/eu.siacs.conversations_4218104_build.log"
+      }
+    },
+    "overall_status": "FAIL",
+    "failure_stage": "rebuild",
+    "failure_category": "RESOURCE_FAILURE",
+    "failure_cause": "Missing resource attribute definition during AAPT linking (known Apktool resource decoding limitation with Material/AAPT2 styles)",
+    "failure_is_toolchain": false,
+    "verification_details": {}
+  },
+  {
+    "filename": "godau.fynn.usagedirect_10.apk",
+    "filesize_bytes": 3469642,
+    "sha256": "c55079192a77fc6696a80c6d337c3f0c64fe4ebc27e5970aaf4baac0a60a3b31",
+    "package_name": "godau.fynn.usagedirect",
+    "version_name": "0.8.1",
+    "version_code": "10",
+    "target_sdk": "28",
+    "min_sdk": "21",
+    "structural_notes": "2 DEX, 0 native libs, arsc=True, total 528 files",
+    "stages": {
+      "decode": {
+        "status": "PASS",
+        "duration_seconds": 2.068817615509033,
+        "command": "/home/naishring/APKForge/tools/apktool d -f -o /home/naishring/APKForge/work/godau.fynn.usagedirect_10/decoded /home/naishring/APKForge/samples/godau.fynn.usagedirect_10.apk",
+        "exit_code": 0,
+        "stdout_snippet": "0 on godau.fynn.usagedirect_10.apk with 12 thread(s).\nI: Baksmaling classes.dex...\nI: Baksmaling classes2.dex...\nI: Loading resource table...\nI: Decoding file-resources...\nI: Loading resource table from file: /home/naishring/.local/share/apktool/framework/1.apk\nI: Decoding values */* XMLs...\nI: Decoding AndroidManifest.xml with resources...\nI: Regular manifest package...\nI: Copying assets and libs...\nI: Copying unknown files...\nI: Copying original files...\nI: Copying META-INF/services directory\n",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/godau.fynn.usagedirect_10_decode.log"
+      },
+      "modify": {
+        "status": "PASS",
+        "duration_seconds": 0.00025582313537597656,
+        "command": "Python manifest insertion",
+        "exit_code": 0,
+        "stdout_snippet": "Successfully inserted <meta-data android:name=\"apkforge.toolchain.proof\" android:value=\"verified\"/> at character index 717",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/godau.fynn.usagedirect_10_modify.log"
+      },
+      "rebuild": {
+        "status": "PASS",
+        "duration_seconds": 6.711336612701416,
+        "command": "/home/naishring/APKForge/tools/apktool b -o /home/naishring/APKForge/work/godau.fynn.usagedirect_10/unaligned.apk /home/naishring/APKForge/work/godau.fynn.usagedirect_10/decoded",
+        "exit_code": 0,
+        "stdout_snippet": "ktool 2.10.0 with 12 thread(s).\nI: Checking whether sources has changed...\nI: Smaling smali folder into classes.dex...\nI: Checking whether sources has changed...\nI: Smaling smali_classes2 folder into classes2.dex...\nI: Checking whether resources has changed...\nI: Building resources...\nI: Copying libs... (/kotlin)\nI: Copying libs... (/META-INF/services)\nI: Building apk file...\nI: Copying unknown files/dir...\nI: Built apk into: /home/naishring/APKForge/work/godau.fynn.usagedirect_10/unaligned.apk\n",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/godau.fynn.usagedirect_10_build.log"
+      },
+      "zipalign": {
+        "status": "PASS",
+        "duration_seconds": 0.019933223724365234,
+        "command": "/home/naishring/Android/Sdk/build-tools/35.0.0/zipalign -p -f -v 4 /home/naishring/APKForge/work/godau.fynn.usagedirect_10/unaligned.apk /home/naishring/APKForge/work/godau.fynn.usagedirect_10/aligned.apk",
+        "exit_code": 0,
+        "stdout_snippet": "A-INF/services/kotlinx.coroutines.CoroutineExceptionHandler (OK - compressed)\n 1004797 META-INF/services/kotlinx.coroutines.internal.MainDispatcherFactory (OK - compressed)\n 1004943 META-INF/services/org.ocpsoft.prettytime.PrettyTime (OK - compressed)\n 1005030 classes.dex (OK - compressed)\n 3463712 assets/dexopt/baseline.prof (OK)\n 3465812 assets/dexopt/baseline.profm (OK)\n 3466004 DebugProbesKt.bin (OK - compressed)\n 3466860 kotlin-tooling-metadata.json (OK - compressed)\nVerification succesful\n",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/godau.fynn.usagedirect_10_zipalign.log"
+      },
+      "sign": {
+        "status": "PASS",
+        "duration_seconds": 0.6074771881103516,
+        "command": "/home/naishring/Android/Sdk/build-tools/35.0.0/apksigner sign --ks /home/naishring/APKForge/tools/test-signing-key.jks --ks-pass pass:apkforge-test-pass --ks-key-alias apkforge-test-key --key-pass pass:apkforge-test-pass --out /home/naishring/APKForge/work/godau.fynn.usagedirect_10/signed.apk /home/naishring/APKForge/work/godau.fynn.usagedirect_10/aligned.apk",
+        "exit_code": 0,
+        "stdout_snippet": "",
+        "stderr_snippet": "WARNING: A restricted method in java.lang.System has been called\nWARNING: java.lang.System::loadLibrary has been called by org.conscrypt.NativeLibraryUtil in an unnamed module (file:/home/naishring/Android/Sdk/build-tools/35.0.0/lib/apksigner.jar)\nWARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module\nWARNING: Restricted methods will be blocked in a future release unless native access is enabled\n\n",
+        "log_file": "build-tests/logs/godau.fynn.usagedirect_10_sign.log"
+      },
+      "verify": {
+        "status": "PASS",
+        "duration_seconds": 0.3960988521575928,
+        "command": "zipalign -c & apksigner verify & axml check",
+        "exit_code": 0,
+        "stdout_snippet": "{\"zipalign\": \"PASS (4-byte alignment verified)\", \"apksigner\": \"PASS (v1/v2/v3 verified)\", \"v1_scheme\": \"true\", \"v2_scheme\": \"true\", \"v3_scheme\": \"true\", \"cert_dn\": \"CN=APKForge Test Signer, OU=Phase C.1 Toolchain Validation, O=APKForge Project, C=US\", \"cert_sha256\": \"c9ac63763d45da0bc3ed74cb157aecbe0c0d00fc16c94aeac146552b83c72ef0\", \"manifest_meta_data\": \"FOUND (<meta-data android:name='apkforge.toolchain.proof' android:value='verified'/>)\", \"zip_integrity\": \"PASS (testzip clean)\"}",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/godau.fynn.usagedirect_10_verify.log"
+      }
+    },
+    "overall_status": "PASS",
+    "failure_stage": "",
+    "failure_category": "SUCCESS",
+    "failure_cause": "",
+    "failure_is_toolchain": false,
+    "verification_details": {
+      "zipalign": "PASS (4-byte alignment verified)",
+      "apksigner": "PASS (v1/v2/v3 verified)",
+      "v1_scheme": "true",
+      "v2_scheme": "true",
+      "v3_scheme": "true",
+      "cert_dn": "CN=APKForge Test Signer, OU=Phase C.1 Toolchain Validation, O=APKForge Project, C=US",
+      "cert_sha256": "c9ac63763d45da0bc3ed74cb157aecbe0c0d00fc16c94aeac146552b83c72ef0",
+      "manifest_meta_data": "FOUND (<meta-data android:name='apkforge.toolchain.proof' android:value='verified'/>)",
+      "zip_integrity": "PASS (testzip clean)"
+    }
+  },
+  {
+    "filename": "io.github.muntashirakon.AppManager_451.apk",
+    "filesize_bytes": 28145654,
+    "sha256": "e1f6ba10812c74016ad626e11e27a1ae450aec2c0964a11466abb9e7a9c8ef84",
+    "package_name": "io.github.muntashirakon.AppManager",
+    "version_name": "4.1.1",
+    "version_code": "451",
+    "target_sdk": "36",
+    "min_sdk": "21",
+    "structural_notes": "6 DEX, 16 native libs, arsc=True, total 2310 files",
+    "stages": {
+      "decode": {
+        "status": "PASS",
+        "duration_seconds": 7.525486946105957,
+        "command": "/home/naishring/APKForge/tools/apktool d -f -o /home/naishring/APKForge/work/io.github.muntashirakon.AppManager_451/decoded /home/naishring/APKForge/samples/io.github.muntashirakon.AppManager_451.apk",
+        "exit_code": 0,
+        "stdout_snippet": "maling classes3.dex...\nI: Baksmaling classes4.dex...\nI: Baksmaling classes5.dex...\nI: Baksmaling classes6.dex...\nI: Loading resource table...\nI: Decoding file-resources...\nI: Loading resource table from file: /home/naishring/.local/share/apktool/framework/1.apk\nI: Decoding values */* XMLs...\nI: Decoding AndroidManifest.xml with resources...\nI: Regular manifest package...\nI: Copying assets and libs...\nI: Copying unknown files...\nI: Copying original files...\nI: Copying META-INF/services directory\n",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/io.github.muntashirakon.AppManager_451_decode.log"
+      },
+      "modify": {
+        "status": "PASS",
+        "duration_seconds": 0.0005614757537841797,
+        "command": "Python manifest insertion",
+        "exit_code": 0,
+        "stdout_snippet": "Successfully inserted <meta-data android:name=\"apkforge.toolchain.proof\" android:value=\"verified\"/> at character index 6320",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/io.github.muntashirakon.AppManager_451_modify.log"
+      },
+      "rebuild": {
+        "status": "PASS",
+        "duration_seconds": 17.132514476776123,
+        "command": "/home/naishring/APKForge/tools/apktool b -o /home/naishring/APKForge/work/io.github.muntashirakon.AppManager_451/unaligned.apk /home/naishring/APKForge/work/io.github.muntashirakon.AppManager_451/decoded",
+        "exit_code": 0,
+        "stdout_snippet": "er sources has changed...\nI: Smaling smali_classes5 folder into classes5.dex...\nI: Checking whether sources has changed...\nI: Smaling smali_classes6 folder into classes6.dex...\nI: Checking whether resources has changed...\nI: Building resources...\nI: Copying libs... (/lib)\nI: Copying libs... (/kotlin)\nI: Copying libs... (/META-INF/services)\nI: Building apk file...\nI: Copying unknown files/dir...\nI: Built apk into: /home/naishring/APKForge/work/io.github.muntashirakon.AppManager_451/unaligned.apk\n",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/io.github.muntashirakon.AppManager_451_build.log"
+      },
+      "zipalign": {
+        "status": "PASS",
+        "duration_seconds": 0.0743408203125,
+        "command": "/home/naishring/Android/Sdk/build-tools/35.0.0/zipalign -p -f -v 4 /home/naishring/APKForge/work/io.github.muntashirakon.AppManager_451/unaligned.apk /home/naishring/APKForge/work/io.github.muntashirakon.AppManager_451/aligned.apk",
+        "exit_code": 0,
+        "stdout_snippet": ")\n28000933 tables/Transcoder_Newline_WordArray.bin (OK - compressed)\n28001051 tables/Transcoder_SingleByte_ByteArray.bin (OK - compressed)\n28004214 tables/Transcoder_SingleByte_WordArray.bin (OK - compressed)\n28016397 tables/Transcoder_Utf1632_ByteArray.bin (OK - compressed)\n28016574 tables/Transcoder_Utf1632_WordArray.bin (OK - compressed)\n28016865 tables/Transcoder_Utf8Mac_ByteArray.bin (OK - compressed)\n28044861 tables/Transcoder_Utf8Mac_WordArray.bin (OK - compressed)\nVerification succesful\n",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/io.github.muntashirakon.AppManager_451_zipalign.log"
+      },
+      "sign": {
+        "status": "PASS",
+        "duration_seconds": 1.2594640254974365,
+        "command": "/home/naishring/Android/Sdk/build-tools/35.0.0/apksigner sign --ks /home/naishring/APKForge/tools/test-signing-key.jks --ks-pass pass:apkforge-test-pass --ks-key-alias apkforge-test-key --key-pass pass:apkforge-test-pass --out /home/naishring/APKForge/work/io.github.muntashirakon.AppManager_451/signed.apk /home/naishring/APKForge/work/io.github.muntashirakon.AppManager_451/aligned.apk",
+        "exit_code": 0,
+        "stdout_snippet": "",
+        "stderr_snippet": "WARNING: A restricted method in java.lang.System has been called\nWARNING: java.lang.System::loadLibrary has been called by org.conscrypt.NativeLibraryUtil in an unnamed module (file:/home/naishring/Android/Sdk/build-tools/35.0.0/lib/apksigner.jar)\nWARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module\nWARNING: Restricted methods will be blocked in a future release unless native access is enabled\n\n",
+        "log_file": "build-tests/logs/io.github.muntashirakon.AppManager_451_sign.log"
+      },
+      "verify": {
+        "status": "PASS",
+        "duration_seconds": 2.865140438079834,
+        "command": "zipalign -c & apksigner verify & axml check",
+        "exit_code": 0,
+        "stdout_snippet": "{\"zipalign\": \"PASS (4-byte alignment verified)\", \"apksigner\": \"PASS (v1/v2/v3 verified)\", \"v1_scheme\": \"true\", \"v2_scheme\": \"true\", \"v3_scheme\": \"true\", \"cert_dn\": \"CN=APKForge Test Signer, OU=Phase C.1 Toolchain Validation, O=APKForge Project, C=US\", \"cert_sha256\": \"c9ac63763d45da0bc3ed74cb157aecbe0c0d00fc16c94aeac146552b83c72ef0\", \"manifest_meta_data\": \"FOUND (<meta-data android:name='apkforge.toolchain.proof' android:value='verified'/>)\", \"zip_integrity\": \"PASS (testzip clean)\"}",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/io.github.muntashirakon.AppManager_451_verify.log"
+      }
+    },
+    "overall_status": "PASS",
+    "failure_stage": "",
+    "failure_category": "SUCCESS",
+    "failure_cause": "",
+    "failure_is_toolchain": false,
+    "verification_details": {
+      "zipalign": "PASS (4-byte alignment verified)",
+      "apksigner": "PASS (v1/v2/v3 verified)",
+      "v1_scheme": "true",
+      "v2_scheme": "true",
+      "v3_scheme": "true",
+      "cert_dn": "CN=APKForge Test Signer, OU=Phase C.1 Toolchain Validation, O=APKForge Project, C=US",
+      "cert_sha256": "c9ac63763d45da0bc3ed74cb157aecbe0c0d00fc16c94aeac146552b83c72ef0",
+      "manifest_meta_data": "FOUND (<meta-data android:name='apkforge.toolchain.proof' android:value='verified'/>)",
+      "zip_integrity": "PASS (testzip clean)"
+    }
+  },
+  {
+    "filename": "org.mozilla.fennec_fdroid_1560020.apk",
+    "filesize_bytes": 127634542,
+    "sha256": "27f2951376ca1085e0933066c902fdfe4d260916d381e233475c5fd6964f5745",
+    "package_name": "org.mozilla.fennec_fdroid",
+    "version_name": "156.0.0",
+    "version_code": "1560020",
+    "target_sdk": "37",
+    "min_sdk": "26",
+    "structural_notes": "3 DEX, 15 native libs, arsc=True, total 3257 files",
+    "stages": {
+      "decode": {
+        "status": "PASS",
+        "duration_seconds": 9.383894443511963,
+        "command": "/home/naishring/APKForge/tools/apktool d -f -o /home/naishring/APKForge/work/org.mozilla.fennec_fdroid_1560020/decoded /home/naishring/APKForge/samples/org.mozilla.fennec_fdroid_1560020.apk",
+        "exit_code": 0,
+        "stdout_snippet": ".apk with 12 thread(s).\nI: Baksmaling classes.dex...\nI: Baksmaling classes2.dex...\nI: Baksmaling classes3.dex...\nI: Loading resource table...\nI: Decoding file-resources...\nI: Loading resource table from file: /home/naishring/.local/share/apktool/framework/1.apk\nI: Decoding values */* XMLs...\nI: Decoding AndroidManifest.xml with resources...\nI: Regular manifest package...\nI: Copying assets and libs...\nI: Copying unknown files...\nI: Copying original files...\nI: Copying META-INF/services directory\n",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/org.mozilla.fennec_fdroid_1560020_decode.log"
+      },
+      "modify": {
+        "status": "PASS",
+        "duration_seconds": 0.0006072521209716797,
+        "command": "Python manifest insertion",
+        "exit_code": 0,
+        "stdout_snippet": "Successfully inserted <meta-data android:name=\"apkforge.toolchain.proof\" android:value=\"verified\"/> at character index 5638",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/org.mozilla.fennec_fdroid_1560020_modify.log"
+      },
+      "rebuild": {
+        "status": "PASS",
+        "duration_seconds": 30.440946102142334,
+        "command": "/home/naishring/APKForge/tools/apktool b -o /home/naishring/APKForge/work/org.mozilla.fennec_fdroid_1560020/unaligned.apk /home/naishring/APKForge/work/org.mozilla.fennec_fdroid_1560020/decoded",
+        "exit_code": 0,
+        "stdout_snippet": "whether sources has changed...\nI: Smaling smali_classes2 folder into classes2.dex...\nI: Checking whether sources has changed...\nI: Smaling smali_classes3 folder into classes3.dex...\nI: Checking whether resources has changed...\nI: Building resources...\nI: Copying libs... (/lib)\nI: Copying libs... (/kotlin)\nI: Copying libs... (/META-INF/services)\nI: Building apk file...\nI: Copying unknown files/dir...\nI: Built apk into: /home/naishring/APKForge/work/org.mozilla.fennec_fdroid_1560020/unaligned.apk\n",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/org.mozilla.fennec_fdroid_1560020_build.log"
+      },
+      "zipalign": {
+        "status": "PASS",
+        "duration_seconds": 0.1784520149230957,
+        "command": "/home/naishring/Android/Sdk/build-tools/35.0.0/zipalign -p -f -v 4 /home/naishring/APKForge/work/org.mozilla.fennec_fdroid_1560020/unaligned.apk /home/naishring/APKForge/work/org.mozilla.fennec_fdroid_1560020/aligned.apk",
+        "exit_code": 0,
+        "stdout_snippet": "sed)\n128015169 google/protobuf/duration.proto (OK - compressed)\n128017300 google/protobuf/empty.proto (OK - compressed)\n128018584 google/protobuf/field_mask.proto (OK - compressed)\n128021807 google/protobuf/source_context.proto (OK - compressed)\n128023075 google/protobuf/struct.proto (OK - compressed)\n128025106 google/protobuf/timestamp.proto (OK - compressed)\n128028080 google/protobuf/type.proto (OK - compressed)\n128030765 google/protobuf/wrappers.proto (OK - compressed)\nVerification succesful\n",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/org.mozilla.fennec_fdroid_1560020_zipalign.log"
+      },
+      "sign": {
+        "status": "PASS",
+        "duration_seconds": 2.764482021331787,
+        "command": "/home/naishring/Android/Sdk/build-tools/35.0.0/apksigner sign --ks /home/naishring/APKForge/tools/test-signing-key.jks --ks-pass pass:apkforge-test-pass --ks-key-alias apkforge-test-key --key-pass pass:apkforge-test-pass --out /home/naishring/APKForge/work/org.mozilla.fennec_fdroid_1560020/signed.apk /home/naishring/APKForge/work/org.mozilla.fennec_fdroid_1560020/aligned.apk",
+        "exit_code": 0,
+        "stdout_snippet": "",
+        "stderr_snippet": "WARNING: A restricted method in java.lang.System has been called\nWARNING: java.lang.System::loadLibrary has been called by org.conscrypt.NativeLibraryUtil in an unnamed module (file:/home/naishring/Android/Sdk/build-tools/35.0.0/lib/apksigner.jar)\nWARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module\nWARNING: Restricted methods will be blocked in a future release unless native access is enabled\n\n",
+        "log_file": "build-tests/logs/org.mozilla.fennec_fdroid_1560020_sign.log"
+      },
+      "verify": {
+        "status": "PASS",
+        "duration_seconds": 3.778430700302124,
+        "command": "zipalign -c & apksigner verify & axml check",
+        "exit_code": 0,
+        "stdout_snippet": "{\"zipalign\": \"PASS (4-byte alignment verified)\", \"apksigner\": \"PASS (v1/v2/v3 verified)\", \"v1_scheme\": \"false\", \"v2_scheme\": \"true\", \"v3_scheme\": \"true\", \"cert_dn\": \"CN=APKForge Test Signer, OU=Phase C.1 Toolchain Validation, O=APKForge Project, C=US\", \"cert_sha256\": \"c9ac63763d45da0bc3ed74cb157aecbe0c0d00fc16c94aeac146552b83c72ef0\", \"manifest_meta_data\": \"FOUND (<meta-data android:name='apkforge.toolchain.proof' android:value='verified'/>)\", \"zip_integrity\": \"PASS (testzip clean)\"}",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/org.mozilla.fennec_fdroid_1560020_verify.log"
+      }
+    },
+    "overall_status": "PASS",
+    "failure_stage": "",
+    "failure_category": "SUCCESS",
+    "failure_cause": "",
+    "failure_is_toolchain": false,
+    "verification_details": {
+      "zipalign": "PASS (4-byte alignment verified)",
+      "apksigner": "PASS (v1/v2/v3 verified)",
+      "v1_scheme": "false",
+      "v2_scheme": "true",
+      "v3_scheme": "true",
+      "cert_dn": "CN=APKForge Test Signer, OU=Phase C.1 Toolchain Validation, O=APKForge Project, C=US",
+      "cert_sha256": "c9ac63763d45da0bc3ed74cb157aecbe0c0d00fc16c94aeac146552b83c72ef0",
+      "manifest_meta_data": "FOUND (<meta-data android:name='apkforge.toolchain.proof' android:value='verified'/>)",
+      "zip_integrity": "PASS (testzip clean)"
+    }
+  },
+  {
+    "filename": "org.schabi.newpipe_1015_cb84069.apk",
+    "filesize_bytes": 11507122,
+    "sha256": "18447bfb1e06d113edc88df93f471827280de06f6f3d4dc42f56f28b9c1bab79",
+    "package_name": "org.schabi.newpipe",
+    "version_name": "0.29.1",
+    "version_code": "1015",
+    "target_sdk": "35",
+    "min_sdk": "23",
+    "structural_notes": "3 DEX, 4 native libs, arsc=True, total 1375 files",
+    "stages": {
+      "decode": {
+        "status": "PASS",
+        "duration_seconds": 4.443570375442505,
+        "command": "/home/naishring/APKForge/tools/apktool d -f -o /home/naishring/APKForge/work/org.schabi.newpipe_1015_cb84069/decoded /home/naishring/APKForge/samples/org.schabi.newpipe_1015_cb84069.apk",
+        "exit_code": 0,
+        "stdout_snippet": ".apk with 12 thread(s).\nI: Baksmaling classes.dex...\nI: Baksmaling classes2.dex...\nI: Baksmaling classes3.dex...\nI: Loading resource table...\nI: Decoding file-resources...\nI: Loading resource table from file: /home/naishring/.local/share/apktool/framework/1.apk\nI: Decoding values */* XMLs...\nI: Decoding AndroidManifest.xml with resources...\nI: Regular manifest package...\nI: Copying assets and libs...\nI: Copying unknown files...\nI: Copying original files...\nI: Copying META-INF/services directory\n",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/org.schabi.newpipe_1015_cb84069_decode.log"
+      },
+      "modify": {
+        "status": "PASS",
+        "duration_seconds": 0.0005564689636230469,
+        "command": "Python manifest insertion",
+        "exit_code": 0,
+        "stdout_snippet": "Successfully inserted <meta-data android:name=\"apkforge.toolchain.proof\" android:value=\"verified\"/> at character index 2121",
+        "stderr_snippet": "",
+        "log_file": "build-tests/logs/org.schabi.newpipe_1015_cb84069_modify.log"
+      },
+      "rebuild": {
+        "status": "FAIL",
+        "duration_seconds": 2.9785337448120117,
+        "command": "/home/naishring/APKForge/tools/apktool b -o /home/naishring/APKForge/work/org.schabi.newpipe_1015_cb84069/unaligned.apk /home/naishring/APKForge/work/org.schabi.newpipe_1015_cb84069/decoded",
+        "exit_code": 1,
+        "stdout_snippet": "I: Using Apktool 2.10.0 with 12 thread(s).\nI: Checking whether sources has changed...\nI: Smaling smali folder into classes.dex...\nI: Checking whether sources has changed...\nI: Smaling smali_classes2 folder into classes2.dex...\nI: Checking whether sources has changed...\nI: Smaling smali_classes3 folder into classes3.dex...\nI: Checking whether resources has changed...\nI: Building resources...\n",
+        "stderr_snippet": "ersion-name, 0.29.1, --no-auto-version, --no-version-vectors, --no-version-transitions, --no-resource-deduping, --allow-reserved-package-id, --no-compile-sdk-metadata, --warn-manifest-validation, -e, /tmp/APKTOOL12135954718269271994.tmp, -0, arsc, -I, /home/naishring/.local/share/apktool/framework/1.apk, --manifest, /home/naishring/APKForge/work/org.schabi.newpipe_1015_cb84069/decoded/AndroidManifest.xml, /home/naishring/APKForge/work/org.schabi.newpipe_1015_cb84069/decoded/build/resources.zip]\n",
+        "log_file": "build-tests/logs/org.schabi.newpipe_1015_cb84069_build.log"
+      }
+    },
+    "overall_status": "FAIL",
+    "failure_stage": "rebuild",
+    "failure_category": "RESOURCE_FAILURE",
+    "failure_cause": "Missing resource attribute definition during AAPT linking (known Apktool resource decoding limitation with Material/AAPT2 styles)",
+    "failure_is_toolchain": false,
+    "verification_details": {}
+  }
+]

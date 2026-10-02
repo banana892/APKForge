@@ -1,0 +1,85 @@
+E501 Line too long (101 > 100)
+   --> src/apkforge/cli/main.py:824:101
+    |
+822 |                     details = []
+823 |                     if md.access_flags_before != md.access_flags_after:
+824 |                         details.append(f"flags: {md.access_flags_before} -> {md.access_flags_after}")
+    |                                                                                                     ^
+825 |                     if md.code_changed:
+826 |                         details.append("code changed")
+    |
+
+E501 Line too long (103 > 100)
+    --> src/apkforge/cli/main.py:1956:101
+     |
+1954 |         try:
+1955 |             plan = load_plan(plan_file)
+1956 |             _console.print(f"[green]Loaded plan:[/green] {plan.plan_id} ({plan.change_count} changes)")
+     |                                                                                                     ^^^
+1957 |         except Exception as e:
+1958 |             _console.print(f"[bold red]Failed to load plan:[/bold red] {e}")
+     |
+
+E501 Line too long (105 > 100)
+   --> src/apkforge/core/config.py:98:101
+    |
+ 96 |     )
+ 97 |     max_single_file_bytes: int = Field(
+ 98 |         default_factory=lambda: _env_int("APKFORGE_EXTRACTION_MAX_SINGLE_FILE_BYTES", 256 * 1024 * 1024),
+    |                                                                                                     ^^^^^
+ 99 |         ge=1,
+100 |         description="Maximum size for a single extracted file in bytes.",
+    |
+
+SIM109 Use `norm_a in (norm_b, val_b)` instead of multiple equality comparisons
+  --> src/apkforge/diff/manifest.py:32:12
+   |
+30 |     norm_a = ma.get(val_a, val_a)
+31 |     norm_b = mb.get(val_b, val_b)
+32 |     return norm_a == norm_b or norm_a == val_b or norm_b == val_a
+   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: Replace with `norm_a in (norm_b, val_b)`
+
+SIM114 [*] Combine `if` branches using logical `or` operator
+  --> src/apkforge/inspection/manifest.py:79:13
+   |
+77 |           res_id = None
+78 |           try:
+79 | /             if raw_id.startswith(("0x", "0X")):
+80 | |                 res_id = int(raw_id, 16)
+81 | |             elif all(c in "0123456789abcdefABCDEF" for c in raw_id):
+82 | |                 res_id = int(raw_id, 16)
+   | |________________________________________^
+83 |           except (ValueError, TypeError):
+84 |               pass
+   |
+help: Combine `if` branches
+   |
+78 |         try:
+   -             if raw_id.startswith(("0x", "0X")):
+   -                 res_id = int(raw_id, 16)
+   -             elif all(c in "0123456789abcdefABCDEF" for c in raw_id):
+79 +             if raw_id.startswith(("0x", "0X")) or all(c in "0123456789abcdefABCDEF" for c in raw_id):
+80 |                 res_id = int(raw_id, 16)
+   |
+
+RUF100 [*] Unused `noqa` directive (unused: `TC003`)
+  --> src/apkforge/inspection/models.py:15:27
+   |
+13 | from __future__ import annotations
+14 |
+15 | from pathlib import Path  # noqa: TC003 - required at runtime by Pydantic
+   |                           ^^^^^^^^^^^^^
+16 |
+17 | from pydantic import BaseModel, Field
+   |
+help: Remove unused `noqa` directive
+   |
+14 |
+   - from pathlib import Path  # noqa: TC003 - required at runtime by Pydantic
+15 + from pathlib import Path
+16 |
+   |
+
+Found 6 errors.
+[*] 2 fixable with the `--fix` option (1 hidden fix can be enabled with the `--unsafe-fixes` option).

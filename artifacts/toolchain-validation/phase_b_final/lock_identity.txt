@@ -1,0 +1,16 @@
+lock_file: requirements/validation.lock
+lock_sha256: 62e61de0ddb41b87771f763c103f1dd1deae655035dc5d615c0fda35c9919acf
+in_file: requirements/validation.in
+in_file_sha256: a5a74bca51822709401ef9a6851377c30784b3ffddbe0129e9eaeacbd6b683f2
+pinned_packages: 61
+hash_lines: 1183
+generator: uv 0.12.22 (x86_64-unknown-linux-gnu)
+compile_command: uv pip compile requirements/validation.in --generate-hashes --python-version 3.14 --python-platform x86_64-unknown-linux-gnu -o requirements/validation.lock
+reference_freeze: artifacts/toolchain-validation/reconciliation/environment_manifest.txt
+lock_pins_equal_reference_freeze: yes (requirements/validation.in diffed against the reference freeze: 0 lines; lock pins diffed against validation.in: 0 lines)
+extra_packages_resolved_by_compile: 0
+python: 3.14.7
+cryptography: cryptography==50.0.1
+androguard: androguard==4.1.4
+asn1crypto: asn1crypto==1.5.1
+bundled_openssl (from recreated env): OpenSSL 4.0.2 25 Aug 2026

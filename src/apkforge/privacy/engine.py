@@ -282,18 +282,8 @@ class PrivacyEngine:
                 if df.api_references:
                     apis.update(df.api_references)
 
-            # Direct fallback if inventory/api_references attached
-            inv = getattr(inspection.dex, "inventory", None)
-            if inv:
-                for c in getattr(inv, "classes", []):
-                    classes.add(c.name)
-                for m in getattr(inv, "methods", []):
-                    methods.add(m.name)
-                    methods.add(f"{m.class_name}.{m.name}")
-            apis.update(getattr(inspection.dex, "api_references", None) or [])
-
             # Strings from DEX
-            if hasattr(inspection.dex, "strings") and inspection.dex.strings:
+            if inspection.dex.strings:
                 for s in inspection.dex.strings:
                     strings.add(s.value)
 

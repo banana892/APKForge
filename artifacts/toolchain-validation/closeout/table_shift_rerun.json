@@ -1,0 +1,57 @@
+{
+  "experiment": "Table-shift regression re-run after exception-handler normalization (Phase B close-out, item 3)",
+  "subject_apk": "tests/corpus/de.audioattack.openlink_28.apk",
+  "toolchain": "apkforge-toolchain:pinned (Docker only, no host SDK)",
+  "mutation": "deleted smali package b/ = 9 classes (b.a, b.a$a..b.a$f, b.b, b.c)",
+  "results": {
+    "vs_control_rebuild": {
+      "new_normalized_hash": {
+        "classes_added": [],
+        "classes_removed": [
+          "b.a",
+          "b.a$a",
+          "b.a$b",
+          "b.a$c",
+          "b.a$d",
+          "b.a$e",
+          "b.a$f",
+          "b.b",
+          "b.c"
+        ],
+        "classes_modified_count": 0,
+        "classes_modified": [],
+        "classes_unchanged_count": 99
+      },
+      "old_raw_byte_hash": {
+        "common_methods": 367,
+        "false_positive_changed_methods": 234,
+        "affected_classes": 67
+      }
+    },
+    "vs_original_release_apk": {
+      "new_normalized_hash": {
+        "classes_added": [],
+        "classes_removed": [
+          "b.a",
+          "b.a$a",
+          "b.a$b",
+          "b.a$c",
+          "b.a$d",
+          "b.a$e",
+          "b.a$f",
+          "b.b",
+          "b.c"
+        ],
+        "classes_modified_count": 0,
+        "classes_modified": [],
+        "classes_unchanged_count": 99
+      },
+      "old_raw_byte_hash": {
+        "common_methods": 367,
+        "false_positive_changed_methods": 234,
+        "affected_classes": 67
+      }
+    }
+  },
+  "acceptance": "PASS: the 9 deleted classes are reported removed and zero untouched classes are reported modified under the normalized hashing (now including exception handlers), while the old raw-byte hashing still shows large-scale table-index false positives for the identical rebuild."
+}

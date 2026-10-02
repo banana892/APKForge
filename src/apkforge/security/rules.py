@@ -33,6 +33,7 @@ class SecurityEvidenceIndex:
         classes: set[str] | None = None,
         methods: set[str] | None = None,
         strings: set[str] | None = None,
+        string_provenance: dict[str, list[str]] | None = None,
         domains: set[str] | None = None,
         urls: set[str] | None = None,
         url_provenance: dict[str, list[str]] | None = None,
@@ -53,6 +54,7 @@ class SecurityEvidenceIndex:
         self.classes: set[str] = classes or set()
         self.methods: set[str] = methods or set()
         self.strings: set[str] = strings or set()
+        self.string_provenance: dict[str, list[str]] = string_provenance or {}
         self.domains: set[str] = domains or set()
         self.urls: set[str] = urls or set()
         self.url_provenance: dict[str, list[str]] = url_provenance or {}
@@ -112,6 +114,39 @@ class SecurityEvidenceIndex:
         if len(norm) >= 6:
             return any(norm in s for s in self.strings)
         return False
+
+    def is_string_attributed_to_app(self, text: str) -> bool:
+        """Check whether a crypto-related string belongs to the application.
+
+        Suppresses attribution when the string originates exclusively from a
+        bundled third-party dependency (e.g. BouncyCastle).
+        """
+        norm = text.strip()
+        prov_classes = self.string_provenance.get(norm) or self.string_provenance.get(text)
+        if prov_classes:
+            if self.package_name:
+                if any(c.startswith(self.package_name) for c in prov_classes):
+                    return True
+                if any(
+                    c.startswith(("org.bouncycastle.", "org.spongycastle."))
+                    for c in prov_classes
+                ):
+                    return False
+                return False
+            return not all(
+                c.startswith(("org.bouncycastle.", "org.spongycastle."))
+                for c in prov_classes
+            )
+
+        has_bundled_provider = any(
+            c.startswith(("org.bouncycastle.", "org.spongycastle."))
+            for c in self.classes
+        )
+        return not (
+            has_bundled_provider
+            and bool(self.package_name)
+            and not self.package_name.startswith(("org.bouncycastle", "org.spongycastle"))
+        )
 
     def has_component_with_names(
         self,
@@ -338,7 +373,14 @@ class SecurityRuleEngine:
         findings: list[SecurityFinding] = []
 
         for rule in self._rules:
-            matched, evidence = self._evaluate_condition(rule.conditions, index)
+            is_crypto = (
+                rule.id in ("SEC-VULN-WEAK-CIPHER-001", "SEC-VULN-WEAK-HASH-001")
+                or rule.category == "crypto"
+                or "crypto" in rule.tags
+            )
+            matched, evidence = self._evaluate_condition(
+                rule.conditions, index, is_crypto=is_crypto
+            )
             if matched:
                 limits = list(rule.limitations)
                 if not limits:
@@ -365,7 +407,10 @@ class SecurityRuleEngine:
         return sorted(findings, key=lambda f: f.id)
 
     def _evaluate_condition(
-        self, cond: SecurityCondition, index: SecurityEvidenceIndex
+        self,
+        cond: SecurityCondition,
+        index: SecurityEvidenceIndex,
+        is_crypto: bool = False,
     ) -> tuple[bool, list[Evidence]]:
         """Recursively evaluate condition against index."""
         evidence: list[Evidence] = []
@@ -373,7 +418,9 @@ class SecurityRuleEngine:
         # 1. Composite: ALL
         if cond.all is not None:
             for sub in cond.all:
-                matched, sub_ev = self._evaluate_condition(sub, index)
+                matched, sub_ev = self._evaluate_condition(
+                    sub, index, is_crypto=is_crypto
+                )
                 if not matched:
                     return False, []
                 evidence.extend(sub_ev)
@@ -383,7 +430,9 @@ class SecurityRuleEngine:
         if cond.any is not None:
             matched_any = False
             for sub in cond.any:
-                matched, sub_ev = self._evaluate_condition(sub, index)
+                matched, sub_ev = self._evaluate_condition(
+                    sub, index, is_crypto=is_crypto
+                )
                 if matched:
                     matched_any = True
                     evidence.extend(sub_ev)
@@ -392,7 +441,9 @@ class SecurityRuleEngine:
         # 3. Composite: NONE
         if cond.none is not None:
             for sub in cond.none:
-                matched, _ = self._evaluate_condition(sub, index)
+                matched, _ = self._evaluate_condition(
+                    sub, index, is_crypto=is_crypto
+                )
                 if matched:
                     return False, []
             return True, []
@@ -502,23 +553,52 @@ class SecurityRuleEngine:
         if cond.string:
             if not index.has_string(cond.string):
                 return False, []
+            if is_crypto and not index.is_string_attributed_to_app(cond.string):
+                return False, []
+            prov = index.string_provenance.get(cond.string, [])
+            app_prov = [c for c in prov if index.package_name and c.startswith(index.package_name)]
+            owner = app_prov[0] if app_prov else (prov[0] if prov else None)
+            loc = f"class:{owner}" if owner else "dex:strings"
+            desc = (
+                f"Discovered string pattern in {owner}: {cond.string}"
+                if owner
+                else f"Discovered string pattern: {cond.string}"
+            )
             evidence.append(
                 Evidence(
-                    description=f"Discovered string pattern: {cond.string}",
-                    location="dex:strings",
+                    description=desc,
+                    location=loc,
                     snippet=cond.string,
                 )
             )
 
         if cond.string_any:
-            hits = [s for s in cond.string_any if index.has_string(s)]
+            if is_crypto:
+                hits = [
+                    s
+                    for s in cond.string_any
+                    if index.has_string(s) and index.is_string_attributed_to_app(s)
+                ]
+            else:
+                hits = [s for s in cond.string_any if index.has_string(s)]
             if not hits:
                 return False, []
             for h in hits:
+                prov = index.string_provenance.get(h, [])
+                app_prov = [
+                    c for c in prov if index.package_name and c.startswith(index.package_name)
+                ]
+                owner = app_prov[0] if app_prov else (prov[0] if prov else None)
+                loc = f"class:{owner}" if owner else "dex:strings"
+                desc = (
+                    f"Discovered string pattern in {owner}: {h}"
+                    if owner
+                    else f"Discovered string pattern: {h}"
+                )
                 evidence.append(
                     Evidence(
-                        description=f"Discovered string pattern: {h}",
-                        location="dex:strings",
+                        description=desc,
+                        location=loc,
                         snippet=h,
                     )
                 )
