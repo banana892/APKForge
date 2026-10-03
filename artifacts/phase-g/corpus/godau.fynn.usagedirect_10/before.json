@@ -1,0 +1,2872 @@
+{
+  "status": "complete",
+  "package_name": "godau.fynn.usagedirect",
+  "version_name": "0.8.1",
+  "version_code": "10",
+  "permissions": {
+    "declared_permissions": [
+      "android.permission.PACKAGE_USAGE_STATS",
+      "android.permission.RECEIVE_BOOT_COMPLETED"
+    ],
+    "categorized_permissions": {
+      "system_special": [
+        "android.permission.PACKAGE_USAGE_STATS",
+        "android.permission.RECEIVE_BOOT_COMPLETED"
+      ]
+    },
+    "usage_details": [
+      {
+        "permission": "android.permission.PACKAGE_USAGE_STATS",
+        "category": "system_special",
+        "protection_level": "signature|appop",
+        "usage_status": "unknown",
+        "relevance": "unknown",
+        "description": "System_special capability permission (signature|appop)",
+        "related_apis": [],
+        "classes": [],
+        "methods": [],
+        "evidence": [],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      },
+      {
+        "permission": "android.permission.RECEIVE_BOOT_COMPLETED",
+        "category": "system_special",
+        "protection_level": "normal",
+        "usage_status": "declared_and_referenced",
+        "relevance": "likely_required",
+        "description": "System_special capability permission (normal)",
+        "related_apis": [
+          "android.content.BroadcastReceiver"
+        ],
+        "classes": [],
+        "methods": [],
+        "evidence": [
+          {
+            "description": "Referenced API related to android.permission.RECEIVE_BOOT_COMPLETED: android.content.BroadcastReceiver",
+            "location": "api:android.content.BroadcastReceiver",
+            "snippet": "Referenced API related to android.permission.RECEIVE_BOOT_COMPLETED: android.content.BroadcastReceiver",
+            "references": []
+          }
+        ],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      }
+    ],
+    "high_risk_permissions_count": 1
+  },
+  "trackers": {
+    "detected_trackers": [],
+    "total_trackers": 0
+  },
+  "advertising": {
+    "detected_advertising_sdks": [],
+    "total_advertising_sdks": 0
+  },
+  "analytics": {
+    "detected_analytics_sdks": [],
+    "total_analytics_sdks": 0
+  },
+  "telemetry": {
+    "detected_telemetry_sdks": [],
+    "total_telemetry_sdks": 0
+  },
+  "endpoints": {
+    "total_endpoints": 28,
+    "first_party_domains": [],
+    "third_party_domains": [
+      "android.app",
+      "android.intent.extra.cc",
+      "android.support.v4.app",
+      "androidx.core.app",
+      "androidx.fragment.app",
+      "codeberg.org",
+      "dispatchers.io",
+      "fosstodon.org",
+      "github.com",
+      "issuetracker.google.com",
+      "java.io",
+      "kotlin.int",
+      "kotlin.io",
+      "kotlinx.coroutines.io",
+      "schemas.android.com",
+      "social.anoxinon.de",
+      "www.ocpsoft.org"
+    ],
+    "classified_endpoints": [
+      {
+        "endpoint": "android.app",
+        "domain": "android.app",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: android.app",
+            "location": "domain:android.app",
+            "snippet": "Extracted domain: android.app",
+            "references": []
+          }
+        ],
+        "raw_evidence": "android.app",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "android.intent.extra.cc",
+        "domain": "android.intent.extra.cc",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: android.intent.extra.cc",
+            "location": "domain:android.intent.extra.cc",
+            "snippet": "Extracted domain: android.intent.extra.cc",
+            "references": []
+          }
+        ],
+        "raw_evidence": "android.intent.extra.cc",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "android.support.v4.app",
+        "domain": "android.support.v4.app",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: android.support.v4.app",
+            "location": "domain:android.support.v4.app",
+            "snippet": "Extracted domain: android.support.v4.app",
+            "references": []
+          }
+        ],
+        "raw_evidence": "android.support.v4.app",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "androidx.core.app",
+        "domain": "androidx.core.app",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: androidx.core.app",
+            "location": "domain:androidx.core.app",
+            "snippet": "Extracted domain: androidx.core.app",
+            "references": []
+          }
+        ],
+        "raw_evidence": "androidx.core.app",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "androidx.fragment.app",
+        "domain": "androidx.fragment.app",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: androidx.fragment.app",
+            "location": "domain:androidx.fragment.app",
+            "snippet": "Extracted domain: androidx.fragment.app",
+            "references": []
+          }
+        ],
+        "raw_evidence": "androidx.fragment.app",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "codeberg.org",
+        "domain": "codeberg.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: codeberg.org",
+            "location": "domain:codeberg.org",
+            "snippet": "Extracted domain: codeberg.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "codeberg.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "dispatchers.io",
+        "domain": "dispatchers.io",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: dispatchers.io",
+            "location": "domain:dispatchers.io",
+            "snippet": "Extracted domain: dispatchers.io",
+            "references": []
+          }
+        ],
+        "raw_evidence": "dispatchers.io",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "fosstodon.org",
+        "domain": "fosstodon.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: fosstodon.org",
+            "location": "domain:fosstodon.org",
+            "snippet": "Extracted domain: fosstodon.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "fosstodon.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "github.com",
+        "domain": "github.com",
+        "is_url": false,
+        "category": "update_infrastructure",
+        "purpose": "GitHub source hosting, releases, and distribution infrastructure.",
+        "associated_sdk": "GitHub Infrastructure",
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: github.com",
+            "location": "domain:github.com",
+            "snippet": "Extracted domain: github.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "github.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "issuetracker.google.com",
+        "domain": "issuetracker.google.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: issuetracker.google.com",
+            "location": "domain:issuetracker.google.com",
+            "snippet": "Extracted domain: issuetracker.google.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "issuetracker.google.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "java.io",
+        "domain": "java.io",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: java.io",
+            "location": "domain:java.io",
+            "snippet": "Extracted domain: java.io",
+            "references": []
+          }
+        ],
+        "raw_evidence": "java.io",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "kotlin.int",
+        "domain": "kotlin.int",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: kotlin.int",
+            "location": "domain:kotlin.int",
+            "snippet": "Extracted domain: kotlin.int",
+            "references": []
+          }
+        ],
+        "raw_evidence": "kotlin.int",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "kotlin.io",
+        "domain": "kotlin.io",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: kotlin.io",
+            "location": "domain:kotlin.io",
+            "snippet": "Extracted domain: kotlin.io",
+            "references": []
+          }
+        ],
+        "raw_evidence": "kotlin.io",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "kotlinx.coroutines.io",
+        "domain": "kotlinx.coroutines.io",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: kotlinx.coroutines.io",
+            "location": "domain:kotlinx.coroutines.io",
+            "snippet": "Extracted domain: kotlinx.coroutines.io",
+            "references": []
+          }
+        ],
+        "raw_evidence": "kotlinx.coroutines.io",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "social.anoxinon.de",
+        "domain": "social.anoxinon.de",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: social.anoxinon.de",
+            "location": "domain:social.anoxinon.de",
+            "snippet": "Extracted domain: social.anoxinon.de",
+            "references": []
+          }
+        ],
+        "raw_evidence": "social.anoxinon.de",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "www.ocpsoft.org",
+        "domain": "www.ocpsoft.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: www.ocpsoft.org",
+            "location": "domain:www.ocpsoft.org",
+            "snippet": "Extracted domain: www.ocpsoft.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "www.ocpsoft.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://schemas.android.com/apk/res/android",
+        "domain": "schemas.android.com",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://schemas.android.com/apk/res/android",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: http://schemas.android.com/apk/res/android",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://schemas.android.com/apk/res/android",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://codeberg.org/fynngodau/TypedRecyclerView",
+        "domain": "codeberg.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex -> godau.fynn.usagedirect.activity.AppUsageStatisticsActivity -> onOptionsItemSelected"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://codeberg.org/fynngodau/TypedRecyclerView",
+            "location": "classes.dex -> godau.fynn.usagedirect.activity.AppUsageStatisticsActivity -> onOptionsItemSelected",
+            "snippet": "Extracted URL: https://codeberg.org/fynngodau/TypedRecyclerView",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://codeberg.org/fynngodau/TypedRecyclerView",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://codeberg.org/fynngodau/chartDirect",
+        "domain": "codeberg.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex -> godau.fynn.usagedirect.activity.AppUsageStatisticsActivity -> onOptionsItemSelected"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://codeberg.org/fynngodau/chartDirect",
+            "location": "classes.dex -> godau.fynn.usagedirect.activity.AppUsageStatisticsActivity -> onOptionsItemSelected",
+            "snippet": "Extracted URL: https://codeberg.org/fynngodau/chartDirect",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://codeberg.org/fynngodau/chartDirect",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://codeberg.org/fynngodau/librariesDirect",
+        "domain": "codeberg.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex -> godau.fynn.usagedirect.activity.AppUsageStatisticsActivity -> onOptionsItemSelected"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://codeberg.org/fynngodau/librariesDirect",
+            "location": "classes.dex -> godau.fynn.usagedirect.activity.AppUsageStatisticsActivity -> onOptionsItemSelected",
+            "snippet": "Extracted URL: https://codeberg.org/fynngodau/librariesDirect",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://codeberg.org/fynngodau/librariesDirect",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://codeberg.org/fynngodau/usageDirect",
+        "domain": "codeberg.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex -> godau.fynn.usagedirect.activity.AppUsageStatisticsActivity -> onOptionsItemSelected"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://codeberg.org/fynngodau/usageDirect",
+            "location": "classes.dex -> godau.fynn.usagedirect.activity.AppUsageStatisticsActivity -> onOptionsItemSelected",
+            "snippet": "Extracted URL: https://codeberg.org/fynngodau/usageDirect",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://codeberg.org/fynngodau/usageDirect",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://fosstodon.org/@fynnDirect",
+        "domain": "fosstodon.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex -> godau.fynn.usagedirect.activity.AppUsageStatisticsActivity -> onOptionsItemSelected"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://fosstodon.org/@fynnDirect",
+            "location": "classes.dex -> godau.fynn.usagedirect.activity.AppUsageStatisticsActivity -> onOptionsItemSelected",
+            "snippet": "Extracted URL: https://fosstodon.org/@fynnDirect",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://fosstodon.org/@fynnDirect",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://github.com/Madrapps/Pikolo/",
+        "domain": "github.com",
+        "is_url": true,
+        "category": "update_infrastructure",
+        "purpose": "GitHub source hosting, releases, and distribution infrastructure.",
+        "associated_sdk": "GitHub Infrastructure",
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://github.com/Madrapps/Pikolo/",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://github.com/Madrapps/Pikolo/",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://github.com/Madrapps/Pikolo/",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://github.com/googlesamples/android-AppUsageStatistics",
+        "domain": "github.com",
+        "is_url": true,
+        "category": "update_infrastructure",
+        "purpose": "GitHub source hosting, releases, and distribution infrastructure.",
+        "associated_sdk": "GitHub Infrastructure",
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://github.com/googlesamples/android-AppUsageStatistics",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://github.com/googlesamples/android-AppUsageStatistics",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://github.com/googlesamples/android-AppUsageStatistics",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://github.com/ogaclejapan/SmartTabLayout",
+        "domain": "github.com",
+        "is_url": true,
+        "category": "update_infrastructure",
+        "purpose": "GitHub source hosting, releases, and distribution infrastructure.",
+        "associated_sdk": "GitHub Infrastructure",
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://github.com/ogaclejapan/SmartTabLayout",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://github.com/ogaclejapan/SmartTabLayout",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://github.com/ogaclejapan/SmartTabLayout",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://issuetracker.google.com/issues/new?component=413107&template=1096568",
+        "domain": "issuetracker.google.com",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex -> androidx.room.AutoCloser -> autoCloser$lambda$3"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://issuetracker.google.com/issues/new?component=413107&template=1096568",
+            "location": "classes.dex -> androidx.room.AutoCloser -> autoCloser$lambda$3",
+            "snippet": "Extracted URL: https://issuetracker.google.com/issues/new?component=413107&template=1096568",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://issuetracker.google.com/issues/new?component=413107&template=1096568",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://social.anoxinon.de/@m4TZ",
+        "domain": "social.anoxinon.de",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://social.anoxinon.de/@m4TZ",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://social.anoxinon.de/@m4TZ",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://social.anoxinon.de/@m4TZ",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://www.ocpsoft.org/prettytime/",
+        "domain": "www.ocpsoft.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://www.ocpsoft.org/prettytime/",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://www.ocpsoft.org/prettytime/",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://www.ocpsoft.org/prettytime/",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      }
+    ],
+    "by_category": {
+      "unknown": [
+        "android.app",
+        "android.intent.extra.cc",
+        "android.support.v4.app",
+        "androidx.core.app",
+        "androidx.fragment.app",
+        "codeberg.org",
+        "dispatchers.io",
+        "fosstodon.org",
+        "http://schemas.android.com/apk/res/android",
+        "https://codeberg.org/fynngodau/TypedRecyclerView",
+        "https://codeberg.org/fynngodau/chartDirect",
+        "https://codeberg.org/fynngodau/librariesDirect",
+        "https://codeberg.org/fynngodau/usageDirect",
+        "https://fosstodon.org/@fynnDirect",
+        "https://issuetracker.google.com/issues/new?component=413107&template=1096568",
+        "https://social.anoxinon.de/@m4TZ",
+        "https://www.ocpsoft.org/prettytime/",
+        "issuetracker.google.com",
+        "java.io",
+        "kotlin.int",
+        "kotlin.io",
+        "kotlinx.coroutines.io",
+        "social.anoxinon.de",
+        "www.ocpsoft.org"
+      ],
+      "update_infrastructure": [
+        "github.com",
+        "https://github.com/Madrapps/Pikolo/",
+        "https://github.com/googlesamples/android-AppUsageStatistics",
+        "https://github.com/ogaclejapan/SmartTabLayout"
+      ]
+    }
+  },
+  "data_collection": {
+    "capabilities": [
+      {
+        "capability": "accessibility",
+        "description": "Android Accessibility Service capability.",
+        "permissions": [
+          "android.permission.BIND_ACCESSIBILITY_SERVICE"
+        ],
+        "apis": [
+          "android.accessibilityservice.AccessibilityService"
+        ],
+        "associated_sdks": [],
+        "associated_endpoints": [],
+        "components": [],
+        "assessment": "Application declares or implements an AccessibilityService.",
+        "evidence": [
+          {
+            "description": "Declared AccessibilityService component",
+            "location": "manifest:service",
+            "snippet": "Declared AccessibilityService component",
+            "references": []
+          }
+        ],
+        "limitations": [
+          "Accessibility service execution requires explicit user authorization."
+        ]
+      },
+      {
+        "capability": "camera",
+        "description": "Device camera capture capability.",
+        "permissions": [],
+        "apis": [
+          "android.hardware.camera2.CameraManager"
+        ],
+        "associated_sdks": [],
+        "associated_endpoints": [],
+        "components": [],
+        "assessment": "The APK declares camera capture capabilities.",
+        "evidence": [
+          {
+            "description": "Referenced camera API: android.hardware.camera2.CameraManager",
+            "location": "api:android.hardware.camera2.CameraManager",
+            "snippet": "android.hardware.camera2.CameraManager",
+            "references": []
+          }
+        ],
+        "limitations": [
+          "Static analysis cannot prove runtime camera usage."
+        ]
+      },
+      {
+        "capability": "clipboard",
+        "description": "Clipboard access capability.",
+        "permissions": [],
+        "apis": [
+          "android.content.ClipboardManager"
+        ],
+        "associated_sdks": [],
+        "associated_endpoints": [],
+        "components": [],
+        "assessment": "Application references ClipboardManager.",
+        "evidence": [
+          {
+            "description": "Referenced ClipboardManager API",
+            "location": "dex:android.content.ClipboardManager",
+            "snippet": "Referenced ClipboardManager API",
+            "references": []
+          }
+        ],
+        "limitations": [
+          "Clipboard reading cannot be confirmed without dynamic execution."
+        ]
+      },
+      {
+        "capability": "device_identifiers",
+        "description": "Hardware and persistent device identifier capability (IMEI, MEID, Android ID, Serial).",
+        "permissions": [],
+        "apis": [
+          "TelephonyManager.getDeviceId",
+          "TelephonyManager.getImei",
+          "Settings.Secure.ANDROID_ID",
+          "Build.SERIAL"
+        ],
+        "associated_sdks": [],
+        "associated_endpoints": [],
+        "components": [],
+        "assessment": "Static references to persistent device identifiers detected.",
+        "evidence": [
+          {
+            "description": "Referenced device identifier method: TelephonyManager.getDeviceId",
+            "location": "dex:TelephonyManager.getDeviceId",
+            "snippet": "Referenced device identifier method: TelephonyManager.getDeviceId",
+            "references": []
+          },
+          {
+            "description": "Referenced device identifier method: TelephonyManager.getImei",
+            "location": "dex:TelephonyManager.getImei",
+            "snippet": "Referenced device identifier method: TelephonyManager.getImei",
+            "references": []
+          },
+          {
+            "description": "Referenced device identifier method: Settings.Secure.ANDROID_ID",
+            "location": "dex:Settings.Secure.ANDROID_ID",
+            "snippet": "Referenced device identifier method: Settings.Secure.ANDROID_ID",
+            "references": []
+          },
+          {
+            "description": "Referenced device identifier method: Build.SERIAL",
+            "location": "dex:Build.SERIAL",
+            "snippet": "Referenced device identifier method: Build.SERIAL",
+            "references": []
+          }
+        ],
+        "limitations": [
+          "Static method references do not verify runtime execution or exfiltration."
+        ]
+      },
+      {
+        "capability": "location",
+        "description": "Physical device location capability (GPS, Network, Fused Location).",
+        "permissions": [],
+        "apis": [
+          "android.location.LocationRequest$Builder",
+          "androidx.core.location.LocationManagerCompat;->registerGnssStatusCallback(Landroid.location.LocationManager",
+          "android.location.LocationManager;->getCurrentLocation(Ljava.lang.String",
+          "android.location.LocationRequest$Builder;->setMinUpdateIntervalMillis(J)Landroid.location.LocationRequest$Builder",
+          "androidx.core.location.LocationManagerCompat;->lambda$registerGnssStatusCallback$1(Landroid.location.LocationManager",
+          "androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda5;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+          "androidx.core.location.LocationCompat$Api26Impl;->setVerticalAccuracyMeters(Landroid.location.Location",
+          "androidx.core.location.GnssStatusWrapper$Api26Impl;->getCarrierFrequencyHz(Landroid.location.GnssStatus",
+          "androidx.core.location.LocationRequestCompat",
+          "androidx.core.location.LocationManagerCompat$GpsStatusTransport;-><init>(Landroid.location.LocationManager",
+          "androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m(Landroid.location.GnssStatus",
+          "androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda0;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+          "androidx.core.location.LocationManagerCompat$CancellableLocationListener$$ExternalSyntheticLambda1;-><init>(Landroidx.core.util.Consumer",
+          "androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda1;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+          "android.widget.PopupWindow;->showAtLocation(Landroid.view.View",
+          "androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport;->lambda$onSatelliteStatusChanged$3$androidx-core-location-LocationManagerCompat$PreRGnssStatusTransport(Ljava.util.concurrent.Executor",
+          "androidx.core.location.GnssStatusWrapper$Api30Impl;->getBasebandCn0DbHz(Landroid.location.GnssStatus",
+          "androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda3;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+          "androidx.core.location.LocationManagerCompat$Api30Impl;->tryRequestLocationUpdates(Landroid.location.LocationManager",
+          "androidx.core.location.LocationRequestCompat$Api31Impl;->toLocationRequest(Landroidx.core.location.LocationRequestCompat;)Landroid.location.LocationRequest",
+          "androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m$2(Landroid.location.GnssStatus",
+          "androidx.core.location.LocationCompat$Api26Impl;->setBearingAccuracyDegrees(Landroid.location.Location",
+          "androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda0;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+          "androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda2;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+          "androidx.core.location.LocationManagerCompat$Api24Impl;->unregisterGnssStatusCallback(Landroid.location.LocationManager",
+          "android.location.LocationRequest$Builder;->setDurationMillis(J)Landroid.location.LocationRequest$Builder",
+          "androidx.core.location.LocationManagerCompat$LocationListenerTransport;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerKey",
+          "androidx.core.location.LocationManagerCompat$GpsStatusTransport;->lambda$onGpsStatusChanged$2$androidx-core-location-LocationManagerCompat$GpsStatusTransport(Ljava.util.concurrent.Executor",
+          "android.location.LocationRequest$Builder;->build()Landroid.location.LocationRequest",
+          "androidx.core.location.LocationManagerCompat;->lambda$getCurrentLocation$0(Landroidx.core.util.Consumer",
+          "androidx.core.location.LocationManagerCompat$Api31Impl;->hasProvider(Landroid.location.LocationManager",
+          "android.location.GpsStatus;->getSatellites()Ljava.lang.Iterable",
+          "androidx.core.location.LocationManagerCompat$Api30Impl;->registerGnssStatusCallback(Landroid.location.LocationManager",
+          "androidx.core.location.LocationManagerCompat$GpsStatusTransport;->lambda$onGpsStatusChanged$3$androidx-core-location-LocationManagerCompat$GpsStatusTransport(Ljava.util.concurrent.Executor",
+          "android.location.LocationManager;->getGnssHardwareModelName()Ljava.lang.String",
+          "androidx.core.location.LocationRequestCompat;->toLocationRequest(Ljava.lang.String;)Landroid.location.LocationRequest",
+          "androidx.core.location.GnssStatusWrapper$Api30Impl;->hasBasebandCn0DbHz(Landroid.location.GnssStatus",
+          "androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda2;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+          "androidx.core.location.LocationManagerCompat$GpsStatusTransport;)Ljava.lang.Boolean",
+          "androidx.core.location.LocationManagerCompat$Api30Impl;->getCurrentLocation(Landroid.location.LocationManager",
+          "android.location.LocationManager;->getProvider(Ljava.lang.String;)Landroid.location.LocationProvider",
+          "androidx.core.location.LocationManagerCompat$Api24Impl;->registerGnssStatusCallback(Landroid.location.LocationManager",
+          "androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda2;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+          "androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda3;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+          "android.location.LocationManager;->getAllProviders()Ljava.util.List",
+          "android.location.LocationRequest$Builder;->setMinUpdateDistanceMeters(F)Landroid.location.LocationRequest$Builder",
+          "androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda3;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+          "androidx.core.location.LocationManagerCompat$$ExternalSyntheticLambda0;-><init>(Landroidx.core.util.Consumer",
+          "android.location.LocationRequest$Builder;->setMaxUpdates(I)Landroid.location.LocationRequest$Builder",
+          "android.location.LocationManager;->registerGnssStatusCallback(Ljava.util.concurrent.Executor",
+          "androidx.appcompat.app.TwilightManager;->getLastKnownLocationForProvider(Ljava.lang.String;)Landroid.location.Location",
+          "androidx.core.location.LocationManagerCompat$$ExternalSyntheticLambda2;-><init>(Landroid.location.LocationManager",
+          "androidx.core.location.LocationManagerCompat$CancellableLocationListener;-><init>(Landroid.location.LocationManager",
+          "android.location.Location;->getExtras()Landroid.os.Bundle",
+          "androidx.core.location.LocationManagerCompat;->registerLocationListenerTransport(Landroid.location.LocationManager",
+          "android.location.LocationRequest$Builder;->setQuality(I)Landroid.location.LocationRequest$Builder",
+          "androidx.core.view.accessibility.AccessibilityNodeInfoCompat;->addSpanLocationToExtras(Landroid.text.style.ClickableSpan",
+          "androidx.core.location.LocationManagerCompat$Api19Impl;->tryRequestLocationUpdates(Landroid.location.LocationManager",
+          "androidx.core.location.LocationRequestCompat$Api19Impl;->toLocationRequest(Landroidx.core.location.LocationRequestCompat",
+          "androidx.core.location.GnssStatusCompat;->wrap(Landroid.location.GnssStatus;)Landroidx.core.location.GnssStatusCompat",
+          "androidx.core.location.LocationListenerCompat;->onStatusChanged(Ljava.lang.String",
+          "androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m(Ljava.lang.Object;)Landroid.location.LocationRequest",
+          "androidx.core.location.LocationManagerCompat$Api28Impl;->getGnssHardwareModelName(Landroid.location.LocationManager;)Ljava.lang.String",
+          "androidx.core.location.LocationListenerCompat",
+          "android.location.LocationManager;->registerGnssStatusCallback(Landroid.location.GnssStatus$Callback",
+          "android.location.LocationManager;->getGpsStatus(Landroid.location.GpsStatus;)Landroid.location.GpsStatus",
+          "androidx.core.location.LocationCompat;->getSetIsFromMockProviderMethod()Ljava.lang.reflect.Method",
+          "android.location.GnssStatus",
+          "androidx.core.location.LocationManagerCompat$LocationListenerKey;-><init>(Ljava.lang.String",
+          "androidx.core.location.LocationManagerCompat$Api31Impl;->requestLocationUpdates(Landroid.location.LocationManager",
+          "androidx.core.location.LocationCompat$Api26Impl;->setSpeedAccuracyMetersPerSecond(Landroid.location.Location",
+          "androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda0;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+          "androidx.core.location.LocationRequestCompat;->toLocationRequest()Landroid.location.LocationRequest",
+          "android.location.LocationRequest",
+          "androidx.appcompat.app.TwilightManager;->getLastKnownLocation()Landroid.location.Location",
+          "android.location.LocationManager;->requestLocationUpdates(Ljava.lang.String",
+          "androidx.core.location.GnssStatusCompat;->wrap(Landroid.location.GpsStatus;)Landroidx.core.location.GnssStatusCompat",
+          "android.location.GpsSatellite",
+          "androidx.core.location.LocationManagerCompat$LocationListenerTransport;->lambda$onStatusChanged$3$androidx-core-location-LocationManagerCompat$LocationListenerTransport(Ljava.lang.String",
+          "androidx.core.location.GpsStatusWrapper;->getSatellite(I)Landroid.location.GpsSatellite",
+          "androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda1;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+          "android.location.GnssStatus$Callback",
+          "android.location.Location",
+          "android.location.LocationManager;->getLastKnownLocation(Ljava.lang.String;)Landroid.location.Location",
+          "androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda1;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+          "androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m(Ljava.lang.Object;)Landroid.location.GnssStatus",
+          "android.location.LocationRequest$Builder;->setMaxUpdateDelayMillis(J)Landroid.location.LocationRequest$Builder",
+          "androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport;->lambda$onFirstFix$2$androidx-core-location-LocationManagerCompat$PreRGnssStatusTransport(Ljava.util.concurrent.Executor",
+          "android.location.GpsStatus",
+          "androidx.core.location.GnssStatusWrapper$Api26Impl;->hasCarrierFrequencyHz(Landroid.location.GnssStatus",
+          "android.location.LocationManager",
+          "androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m$1(Landroid.location.GnssStatus",
+          "android.location.LocationListener",
+          "androidx.core.location.LocationManagerCompat$CancellableLocationListener;->lambda$onLocationChanged$1(Landroidx.core.util.Consumer"
+        ],
+        "associated_sdks": [],
+        "associated_endpoints": [],
+        "components": [],
+        "assessment": "The APK declares location-related capabilities and static framework references.",
+        "evidence": [
+          {
+            "description": "Referenced location API: android.location.LocationRequest$Builder",
+            "location": "api:android.location.LocationRequest$Builder",
+            "snippet": "Referenced location API: android.location.LocationRequest$Builder",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat;->registerGnssStatusCallback(Landroid.location.LocationManager",
+            "location": "api:androidx.core.location.LocationManagerCompat;->registerGnssStatusCallback(Landroid.location.LocationManager",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat;->registerGnssStatusCallback(Landroid.location.LocationManager",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.LocationManager;->getCurrentLocation(Ljava.lang.String",
+            "location": "api:android.location.LocationManager;->getCurrentLocation(Ljava.lang.String",
+            "snippet": "Referenced location API: android.location.LocationManager;->getCurrentLocation(Ljava.lang.String",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.LocationRequest$Builder;->setMinUpdateIntervalMillis(J)Landroid.location.LocationRequest$Builder",
+            "location": "api:android.location.LocationRequest$Builder;->setMinUpdateIntervalMillis(J)Landroid.location.LocationRequest$Builder",
+            "snippet": "Referenced location API: android.location.LocationRequest$Builder;->setMinUpdateIntervalMillis(J)Landroid.location.LocationRequest$Builder",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat;->lambda$registerGnssStatusCallback$1(Landroid.location.LocationManager",
+            "location": "api:androidx.core.location.LocationManagerCompat;->lambda$registerGnssStatusCallback$1(Landroid.location.LocationManager",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat;->lambda$registerGnssStatusCallback$1(Landroid.location.LocationManager",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda5;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+            "location": "api:androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda5;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda5;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationCompat$Api26Impl;->setVerticalAccuracyMeters(Landroid.location.Location",
+            "location": "api:androidx.core.location.LocationCompat$Api26Impl;->setVerticalAccuracyMeters(Landroid.location.Location",
+            "snippet": "Referenced location API: androidx.core.location.LocationCompat$Api26Impl;->setVerticalAccuracyMeters(Landroid.location.Location",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.GnssStatusWrapper$Api26Impl;->getCarrierFrequencyHz(Landroid.location.GnssStatus",
+            "location": "api:androidx.core.location.GnssStatusWrapper$Api26Impl;->getCarrierFrequencyHz(Landroid.location.GnssStatus",
+            "snippet": "Referenced location API: androidx.core.location.GnssStatusWrapper$Api26Impl;->getCarrierFrequencyHz(Landroid.location.GnssStatus",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationRequestCompat",
+            "location": "api:androidx.core.location.LocationRequestCompat",
+            "snippet": "Referenced location API: androidx.core.location.LocationRequestCompat",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport;-><init>(Landroid.location.LocationManager",
+            "location": "api:androidx.core.location.LocationManagerCompat$GpsStatusTransport;-><init>(Landroid.location.LocationManager",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport;-><init>(Landroid.location.LocationManager",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m(Landroid.location.GnssStatus",
+            "location": "api:androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m(Landroid.location.GnssStatus",
+            "snippet": "Referenced location API: androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m(Landroid.location.GnssStatus",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda0;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+            "location": "api:androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda0;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda0;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$CancellableLocationListener$$ExternalSyntheticLambda1;-><init>(Landroidx.core.util.Consumer",
+            "location": "api:androidx.core.location.LocationManagerCompat$CancellableLocationListener$$ExternalSyntheticLambda1;-><init>(Landroidx.core.util.Consumer",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$CancellableLocationListener$$ExternalSyntheticLambda1;-><init>(Landroidx.core.util.Consumer",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda1;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+            "location": "api:androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda1;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda1;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.widget.PopupWindow;->showAtLocation(Landroid.view.View",
+            "location": "api:android.widget.PopupWindow;->showAtLocation(Landroid.view.View",
+            "snippet": "Referenced location API: android.widget.PopupWindow;->showAtLocation(Landroid.view.View",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport;->lambda$onSatelliteStatusChanged$3$androidx-core-location-LocationManagerCompat$PreRGnssStatusTransport(Ljava.util.concurrent.Executor",
+            "location": "api:androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport;->lambda$onSatelliteStatusChanged$3$androidx-core-location-LocationManagerCompat$PreRGnssStatusTransport(Ljava.util.concurrent.Executor",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport;->lambda$onSatelliteStatusChanged$3$androidx-core-location-LocationManagerCompat$PreRGnssStatusTransport(Ljava.util.concurrent.Executor",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.GnssStatusWrapper$Api30Impl;->getBasebandCn0DbHz(Landroid.location.GnssStatus",
+            "location": "api:androidx.core.location.GnssStatusWrapper$Api30Impl;->getBasebandCn0DbHz(Landroid.location.GnssStatus",
+            "snippet": "Referenced location API: androidx.core.location.GnssStatusWrapper$Api30Impl;->getBasebandCn0DbHz(Landroid.location.GnssStatus",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda3;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+            "location": "api:androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda3;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda3;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$Api30Impl;->tryRequestLocationUpdates(Landroid.location.LocationManager",
+            "location": "api:androidx.core.location.LocationManagerCompat$Api30Impl;->tryRequestLocationUpdates(Landroid.location.LocationManager",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$Api30Impl;->tryRequestLocationUpdates(Landroid.location.LocationManager",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationRequestCompat$Api31Impl;->toLocationRequest(Landroidx.core.location.LocationRequestCompat;)Landroid.location.LocationRequest",
+            "location": "api:androidx.core.location.LocationRequestCompat$Api31Impl;->toLocationRequest(Landroidx.core.location.LocationRequestCompat;)Landroid.location.LocationRequest",
+            "snippet": "Referenced location API: androidx.core.location.LocationRequestCompat$Api31Impl;->toLocationRequest(Landroidx.core.location.LocationRequestCompat;)Landroid.location.LocationRequest",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m$2(Landroid.location.GnssStatus",
+            "location": "api:androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m$2(Landroid.location.GnssStatus",
+            "snippet": "Referenced location API: androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m$2(Landroid.location.GnssStatus",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationCompat$Api26Impl;->setBearingAccuracyDegrees(Landroid.location.Location",
+            "location": "api:androidx.core.location.LocationCompat$Api26Impl;->setBearingAccuracyDegrees(Landroid.location.Location",
+            "snippet": "Referenced location API: androidx.core.location.LocationCompat$Api26Impl;->setBearingAccuracyDegrees(Landroid.location.Location",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda0;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+            "location": "api:androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda0;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda0;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda2;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+            "location": "api:androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda2;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda2;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$Api24Impl;->unregisterGnssStatusCallback(Landroid.location.LocationManager",
+            "location": "api:androidx.core.location.LocationManagerCompat$Api24Impl;->unregisterGnssStatusCallback(Landroid.location.LocationManager",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$Api24Impl;->unregisterGnssStatusCallback(Landroid.location.LocationManager",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.LocationRequest$Builder;->setDurationMillis(J)Landroid.location.LocationRequest$Builder",
+            "location": "api:android.location.LocationRequest$Builder;->setDurationMillis(J)Landroid.location.LocationRequest$Builder",
+            "snippet": "Referenced location API: android.location.LocationRequest$Builder;->setDurationMillis(J)Landroid.location.LocationRequest$Builder",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerKey",
+            "location": "api:androidx.core.location.LocationManagerCompat$LocationListenerTransport;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerKey",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerKey",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport;->lambda$onGpsStatusChanged$2$androidx-core-location-LocationManagerCompat$GpsStatusTransport(Ljava.util.concurrent.Executor",
+            "location": "api:androidx.core.location.LocationManagerCompat$GpsStatusTransport;->lambda$onGpsStatusChanged$2$androidx-core-location-LocationManagerCompat$GpsStatusTransport(Ljava.util.concurrent.Executor",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport;->lambda$onGpsStatusChanged$2$androidx-core-location-LocationManagerCompat$GpsStatusTransport(Ljava.util.concurrent.Executor",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.LocationRequest$Builder;->build()Landroid.location.LocationRequest",
+            "location": "api:android.location.LocationRequest$Builder;->build()Landroid.location.LocationRequest",
+            "snippet": "Referenced location API: android.location.LocationRequest$Builder;->build()Landroid.location.LocationRequest",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat;->lambda$getCurrentLocation$0(Landroidx.core.util.Consumer",
+            "location": "api:androidx.core.location.LocationManagerCompat;->lambda$getCurrentLocation$0(Landroidx.core.util.Consumer",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat;->lambda$getCurrentLocation$0(Landroidx.core.util.Consumer",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$Api31Impl;->hasProvider(Landroid.location.LocationManager",
+            "location": "api:androidx.core.location.LocationManagerCompat$Api31Impl;->hasProvider(Landroid.location.LocationManager",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$Api31Impl;->hasProvider(Landroid.location.LocationManager",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.GpsStatus;->getSatellites()Ljava.lang.Iterable",
+            "location": "api:android.location.GpsStatus;->getSatellites()Ljava.lang.Iterable",
+            "snippet": "Referenced location API: android.location.GpsStatus;->getSatellites()Ljava.lang.Iterable",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$Api30Impl;->registerGnssStatusCallback(Landroid.location.LocationManager",
+            "location": "api:androidx.core.location.LocationManagerCompat$Api30Impl;->registerGnssStatusCallback(Landroid.location.LocationManager",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$Api30Impl;->registerGnssStatusCallback(Landroid.location.LocationManager",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport;->lambda$onGpsStatusChanged$3$androidx-core-location-LocationManagerCompat$GpsStatusTransport(Ljava.util.concurrent.Executor",
+            "location": "api:androidx.core.location.LocationManagerCompat$GpsStatusTransport;->lambda$onGpsStatusChanged$3$androidx-core-location-LocationManagerCompat$GpsStatusTransport(Ljava.util.concurrent.Executor",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport;->lambda$onGpsStatusChanged$3$androidx-core-location-LocationManagerCompat$GpsStatusTransport(Ljava.util.concurrent.Executor",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.LocationManager;->getGnssHardwareModelName()Ljava.lang.String",
+            "location": "api:android.location.LocationManager;->getGnssHardwareModelName()Ljava.lang.String",
+            "snippet": "Referenced location API: android.location.LocationManager;->getGnssHardwareModelName()Ljava.lang.String",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationRequestCompat;->toLocationRequest(Ljava.lang.String;)Landroid.location.LocationRequest",
+            "location": "api:androidx.core.location.LocationRequestCompat;->toLocationRequest(Ljava.lang.String;)Landroid.location.LocationRequest",
+            "snippet": "Referenced location API: androidx.core.location.LocationRequestCompat;->toLocationRequest(Ljava.lang.String;)Landroid.location.LocationRequest",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.GnssStatusWrapper$Api30Impl;->hasBasebandCn0DbHz(Landroid.location.GnssStatus",
+            "location": "api:androidx.core.location.GnssStatusWrapper$Api30Impl;->hasBasebandCn0DbHz(Landroid.location.GnssStatus",
+            "snippet": "Referenced location API: androidx.core.location.GnssStatusWrapper$Api30Impl;->hasBasebandCn0DbHz(Landroid.location.GnssStatus",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda2;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+            "location": "api:androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda2;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda2;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport;)Ljava.lang.Boolean",
+            "location": "api:androidx.core.location.LocationManagerCompat$GpsStatusTransport;)Ljava.lang.Boolean",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport;)Ljava.lang.Boolean",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$Api30Impl;->getCurrentLocation(Landroid.location.LocationManager",
+            "location": "api:androidx.core.location.LocationManagerCompat$Api30Impl;->getCurrentLocation(Landroid.location.LocationManager",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$Api30Impl;->getCurrentLocation(Landroid.location.LocationManager",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.LocationManager;->getProvider(Ljava.lang.String;)Landroid.location.LocationProvider",
+            "location": "api:android.location.LocationManager;->getProvider(Ljava.lang.String;)Landroid.location.LocationProvider",
+            "snippet": "Referenced location API: android.location.LocationManager;->getProvider(Ljava.lang.String;)Landroid.location.LocationProvider",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$Api24Impl;->registerGnssStatusCallback(Landroid.location.LocationManager",
+            "location": "api:androidx.core.location.LocationManagerCompat$Api24Impl;->registerGnssStatusCallback(Landroid.location.LocationManager",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$Api24Impl;->registerGnssStatusCallback(Landroid.location.LocationManager",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda2;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+            "location": "api:androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda2;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda2;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda3;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+            "location": "api:androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda3;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda3;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.LocationManager;->getAllProviders()Ljava.util.List",
+            "location": "api:android.location.LocationManager;->getAllProviders()Ljava.util.List",
+            "snippet": "Referenced location API: android.location.LocationManager;->getAllProviders()Ljava.util.List",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.LocationRequest$Builder;->setMinUpdateDistanceMeters(F)Landroid.location.LocationRequest$Builder",
+            "location": "api:android.location.LocationRequest$Builder;->setMinUpdateDistanceMeters(F)Landroid.location.LocationRequest$Builder",
+            "snippet": "Referenced location API: android.location.LocationRequest$Builder;->setMinUpdateDistanceMeters(F)Landroid.location.LocationRequest$Builder",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda3;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+            "location": "api:androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda3;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda3;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$$ExternalSyntheticLambda0;-><init>(Landroidx.core.util.Consumer",
+            "location": "api:androidx.core.location.LocationManagerCompat$$ExternalSyntheticLambda0;-><init>(Landroidx.core.util.Consumer",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$$ExternalSyntheticLambda0;-><init>(Landroidx.core.util.Consumer",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.LocationRequest$Builder;->setMaxUpdates(I)Landroid.location.LocationRequest$Builder",
+            "location": "api:android.location.LocationRequest$Builder;->setMaxUpdates(I)Landroid.location.LocationRequest$Builder",
+            "snippet": "Referenced location API: android.location.LocationRequest$Builder;->setMaxUpdates(I)Landroid.location.LocationRequest$Builder",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.LocationManager;->registerGnssStatusCallback(Ljava.util.concurrent.Executor",
+            "location": "api:android.location.LocationManager;->registerGnssStatusCallback(Ljava.util.concurrent.Executor",
+            "snippet": "Referenced location API: android.location.LocationManager;->registerGnssStatusCallback(Ljava.util.concurrent.Executor",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.appcompat.app.TwilightManager;->getLastKnownLocationForProvider(Ljava.lang.String;)Landroid.location.Location",
+            "location": "api:androidx.appcompat.app.TwilightManager;->getLastKnownLocationForProvider(Ljava.lang.String;)Landroid.location.Location",
+            "snippet": "Referenced location API: androidx.appcompat.app.TwilightManager;->getLastKnownLocationForProvider(Ljava.lang.String;)Landroid.location.Location",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$$ExternalSyntheticLambda2;-><init>(Landroid.location.LocationManager",
+            "location": "api:androidx.core.location.LocationManagerCompat$$ExternalSyntheticLambda2;-><init>(Landroid.location.LocationManager",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$$ExternalSyntheticLambda2;-><init>(Landroid.location.LocationManager",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$CancellableLocationListener;-><init>(Landroid.location.LocationManager",
+            "location": "api:androidx.core.location.LocationManagerCompat$CancellableLocationListener;-><init>(Landroid.location.LocationManager",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$CancellableLocationListener;-><init>(Landroid.location.LocationManager",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.Location;->getExtras()Landroid.os.Bundle",
+            "location": "api:android.location.Location;->getExtras()Landroid.os.Bundle",
+            "snippet": "Referenced location API: android.location.Location;->getExtras()Landroid.os.Bundle",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat;->registerLocationListenerTransport(Landroid.location.LocationManager",
+            "location": "api:androidx.core.location.LocationManagerCompat;->registerLocationListenerTransport(Landroid.location.LocationManager",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat;->registerLocationListenerTransport(Landroid.location.LocationManager",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.LocationRequest$Builder;->setQuality(I)Landroid.location.LocationRequest$Builder",
+            "location": "api:android.location.LocationRequest$Builder;->setQuality(I)Landroid.location.LocationRequest$Builder",
+            "snippet": "Referenced location API: android.location.LocationRequest$Builder;->setQuality(I)Landroid.location.LocationRequest$Builder",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.view.accessibility.AccessibilityNodeInfoCompat;->addSpanLocationToExtras(Landroid.text.style.ClickableSpan",
+            "location": "api:androidx.core.view.accessibility.AccessibilityNodeInfoCompat;->addSpanLocationToExtras(Landroid.text.style.ClickableSpan",
+            "snippet": "Referenced location API: androidx.core.view.accessibility.AccessibilityNodeInfoCompat;->addSpanLocationToExtras(Landroid.text.style.ClickableSpan",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$Api19Impl;->tryRequestLocationUpdates(Landroid.location.LocationManager",
+            "location": "api:androidx.core.location.LocationManagerCompat$Api19Impl;->tryRequestLocationUpdates(Landroid.location.LocationManager",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$Api19Impl;->tryRequestLocationUpdates(Landroid.location.LocationManager",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationRequestCompat$Api19Impl;->toLocationRequest(Landroidx.core.location.LocationRequestCompat",
+            "location": "api:androidx.core.location.LocationRequestCompat$Api19Impl;->toLocationRequest(Landroidx.core.location.LocationRequestCompat",
+            "snippet": "Referenced location API: androidx.core.location.LocationRequestCompat$Api19Impl;->toLocationRequest(Landroidx.core.location.LocationRequestCompat",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.GnssStatusCompat;->wrap(Landroid.location.GnssStatus;)Landroidx.core.location.GnssStatusCompat",
+            "location": "api:androidx.core.location.GnssStatusCompat;->wrap(Landroid.location.GnssStatus;)Landroidx.core.location.GnssStatusCompat",
+            "snippet": "Referenced location API: androidx.core.location.GnssStatusCompat;->wrap(Landroid.location.GnssStatus;)Landroidx.core.location.GnssStatusCompat",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationListenerCompat;->onStatusChanged(Ljava.lang.String",
+            "location": "api:androidx.core.location.LocationListenerCompat;->onStatusChanged(Ljava.lang.String",
+            "snippet": "Referenced location API: androidx.core.location.LocationListenerCompat;->onStatusChanged(Ljava.lang.String",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m(Ljava.lang.Object;)Landroid.location.LocationRequest",
+            "location": "api:androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m(Ljava.lang.Object;)Landroid.location.LocationRequest",
+            "snippet": "Referenced location API: androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m(Ljava.lang.Object;)Landroid.location.LocationRequest",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$Api28Impl;->getGnssHardwareModelName(Landroid.location.LocationManager;)Ljava.lang.String",
+            "location": "api:androidx.core.location.LocationManagerCompat$Api28Impl;->getGnssHardwareModelName(Landroid.location.LocationManager;)Ljava.lang.String",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$Api28Impl;->getGnssHardwareModelName(Landroid.location.LocationManager;)Ljava.lang.String",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationListenerCompat",
+            "location": "api:androidx.core.location.LocationListenerCompat",
+            "snippet": "Referenced location API: androidx.core.location.LocationListenerCompat",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.LocationManager;->registerGnssStatusCallback(Landroid.location.GnssStatus$Callback",
+            "location": "api:android.location.LocationManager;->registerGnssStatusCallback(Landroid.location.GnssStatus$Callback",
+            "snippet": "Referenced location API: android.location.LocationManager;->registerGnssStatusCallback(Landroid.location.GnssStatus$Callback",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.LocationManager;->getGpsStatus(Landroid.location.GpsStatus;)Landroid.location.GpsStatus",
+            "location": "api:android.location.LocationManager;->getGpsStatus(Landroid.location.GpsStatus;)Landroid.location.GpsStatus",
+            "snippet": "Referenced location API: android.location.LocationManager;->getGpsStatus(Landroid.location.GpsStatus;)Landroid.location.GpsStatus",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationCompat;->getSetIsFromMockProviderMethod()Ljava.lang.reflect.Method",
+            "location": "api:androidx.core.location.LocationCompat;->getSetIsFromMockProviderMethod()Ljava.lang.reflect.Method",
+            "snippet": "Referenced location API: androidx.core.location.LocationCompat;->getSetIsFromMockProviderMethod()Ljava.lang.reflect.Method",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.GnssStatus",
+            "location": "api:android.location.GnssStatus",
+            "snippet": "Referenced location API: android.location.GnssStatus",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerKey;-><init>(Ljava.lang.String",
+            "location": "api:androidx.core.location.LocationManagerCompat$LocationListenerKey;-><init>(Ljava.lang.String",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerKey;-><init>(Ljava.lang.String",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$Api31Impl;->requestLocationUpdates(Landroid.location.LocationManager",
+            "location": "api:androidx.core.location.LocationManagerCompat$Api31Impl;->requestLocationUpdates(Landroid.location.LocationManager",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$Api31Impl;->requestLocationUpdates(Landroid.location.LocationManager",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationCompat$Api26Impl;->setSpeedAccuracyMetersPerSecond(Landroid.location.Location",
+            "location": "api:androidx.core.location.LocationCompat$Api26Impl;->setSpeedAccuracyMetersPerSecond(Landroid.location.Location",
+            "snippet": "Referenced location API: androidx.core.location.LocationCompat$Api26Impl;->setSpeedAccuracyMetersPerSecond(Landroid.location.Location",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda0;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+            "location": "api:androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda0;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda0;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationRequestCompat;->toLocationRequest()Landroid.location.LocationRequest",
+            "location": "api:androidx.core.location.LocationRequestCompat;->toLocationRequest()Landroid.location.LocationRequest",
+            "snippet": "Referenced location API: androidx.core.location.LocationRequestCompat;->toLocationRequest()Landroid.location.LocationRequest",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.LocationRequest",
+            "location": "api:android.location.LocationRequest",
+            "snippet": "Referenced location API: android.location.LocationRequest",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.appcompat.app.TwilightManager;->getLastKnownLocation()Landroid.location.Location",
+            "location": "api:androidx.appcompat.app.TwilightManager;->getLastKnownLocation()Landroid.location.Location",
+            "snippet": "Referenced location API: androidx.appcompat.app.TwilightManager;->getLastKnownLocation()Landroid.location.Location",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.LocationManager;->requestLocationUpdates(Ljava.lang.String",
+            "location": "api:android.location.LocationManager;->requestLocationUpdates(Ljava.lang.String",
+            "snippet": "Referenced location API: android.location.LocationManager;->requestLocationUpdates(Ljava.lang.String",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.GnssStatusCompat;->wrap(Landroid.location.GpsStatus;)Landroidx.core.location.GnssStatusCompat",
+            "location": "api:androidx.core.location.GnssStatusCompat;->wrap(Landroid.location.GpsStatus;)Landroidx.core.location.GnssStatusCompat",
+            "snippet": "Referenced location API: androidx.core.location.GnssStatusCompat;->wrap(Landroid.location.GpsStatus;)Landroidx.core.location.GnssStatusCompat",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.GpsSatellite",
+            "location": "api:android.location.GpsSatellite",
+            "snippet": "Referenced location API: android.location.GpsSatellite",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport;->lambda$onStatusChanged$3$androidx-core-location-LocationManagerCompat$LocationListenerTransport(Ljava.lang.String",
+            "location": "api:androidx.core.location.LocationManagerCompat$LocationListenerTransport;->lambda$onStatusChanged$3$androidx-core-location-LocationManagerCompat$LocationListenerTransport(Ljava.lang.String",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport;->lambda$onStatusChanged$3$androidx-core-location-LocationManagerCompat$LocationListenerTransport(Ljava.lang.String",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.GpsStatusWrapper;->getSatellite(I)Landroid.location.GpsSatellite",
+            "location": "api:androidx.core.location.GpsStatusWrapper;->getSatellite(I)Landroid.location.GpsSatellite",
+            "snippet": "Referenced location API: androidx.core.location.GpsStatusWrapper;->getSatellite(I)Landroid.location.GpsSatellite",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda1;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+            "location": "api:androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda1;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda1;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.GnssStatus$Callback",
+            "location": "api:android.location.GnssStatus$Callback",
+            "snippet": "Referenced location API: android.location.GnssStatus$Callback",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.Location",
+            "location": "api:android.location.Location",
+            "snippet": "Referenced location API: android.location.Location",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.LocationManager;->getLastKnownLocation(Ljava.lang.String;)Landroid.location.Location",
+            "location": "api:android.location.LocationManager;->getLastKnownLocation(Ljava.lang.String;)Landroid.location.Location",
+            "snippet": "Referenced location API: android.location.LocationManager;->getLastKnownLocation(Ljava.lang.String;)Landroid.location.Location",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda1;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+            "location": "api:androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda1;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda1;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m(Ljava.lang.Object;)Landroid.location.GnssStatus",
+            "location": "api:androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m(Ljava.lang.Object;)Landroid.location.GnssStatus",
+            "snippet": "Referenced location API: androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m(Ljava.lang.Object;)Landroid.location.GnssStatus",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.LocationRequest$Builder;->setMaxUpdateDelayMillis(J)Landroid.location.LocationRequest$Builder",
+            "location": "api:android.location.LocationRequest$Builder;->setMaxUpdateDelayMillis(J)Landroid.location.LocationRequest$Builder",
+            "snippet": "Referenced location API: android.location.LocationRequest$Builder;->setMaxUpdateDelayMillis(J)Landroid.location.LocationRequest$Builder",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport;->lambda$onFirstFix$2$androidx-core-location-LocationManagerCompat$PreRGnssStatusTransport(Ljava.util.concurrent.Executor",
+            "location": "api:androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport;->lambda$onFirstFix$2$androidx-core-location-LocationManagerCompat$PreRGnssStatusTransport(Ljava.util.concurrent.Executor",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport;->lambda$onFirstFix$2$androidx-core-location-LocationManagerCompat$PreRGnssStatusTransport(Ljava.util.concurrent.Executor",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.GpsStatus",
+            "location": "api:android.location.GpsStatus",
+            "snippet": "Referenced location API: android.location.GpsStatus",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.GnssStatusWrapper$Api26Impl;->hasCarrierFrequencyHz(Landroid.location.GnssStatus",
+            "location": "api:androidx.core.location.GnssStatusWrapper$Api26Impl;->hasCarrierFrequencyHz(Landroid.location.GnssStatus",
+            "snippet": "Referenced location API: androidx.core.location.GnssStatusWrapper$Api26Impl;->hasCarrierFrequencyHz(Landroid.location.GnssStatus",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.LocationManager",
+            "location": "api:android.location.LocationManager",
+            "snippet": "Referenced location API: android.location.LocationManager",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m$1(Landroid.location.GnssStatus",
+            "location": "api:androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m$1(Landroid.location.GnssStatus",
+            "snippet": "Referenced location API: androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m$1(Landroid.location.GnssStatus",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.LocationListener",
+            "location": "api:android.location.LocationListener",
+            "snippet": "Referenced location API: android.location.LocationListener",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.location.LocationManagerCompat$CancellableLocationListener;->lambda$onLocationChanged$1(Landroidx.core.util.Consumer",
+            "location": "api:androidx.core.location.LocationManagerCompat$CancellableLocationListener;->lambda$onLocationChanged$1(Landroidx.core.util.Consumer",
+            "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$CancellableLocationListener;->lambda$onLocationChanged$1(Landroidx.core.util.Consumer",
+            "references": []
+          }
+        ],
+        "limitations": [
+          "Static analysis cannot establish that physical location is collected or transmitted during runtime."
+        ]
+      }
+    ],
+    "device_identifiers_detected": [
+      "Build.SERIAL",
+      "Settings.Secure.ANDROID_ID",
+      "TelephonyManager.getDeviceId",
+      "TelephonyManager.getImei"
+    ],
+    "advertising_id_detected": false,
+    "clipboard_access_detected": true,
+    "accessibility_service_detected": true,
+    "background_data_capabilities": []
+  },
+  "detected_sdks": [],
+  "findings": [
+    {
+      "id": "PRIV-CAP-CAMERA",
+      "category": "camera",
+      "title": "Camera Capture Capability Detected",
+      "description": "Application requests camera permission and references camera capture APIs.",
+      "severity": "high",
+      "confidence": "medium",
+      "evidence_state": "PARTIAL",
+      "evidence_locations": [
+        "api:android.hardware.camera2.CameraManager"
+      ],
+      "evidence_values": [
+        "android.hardware.camera2.CameraManager"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Verify camera hardware access is necessary and accompanied by runtime prompts.",
+      "evidence": [
+        {
+          "description": "Referenced camera API: android.hardware.camera2.CameraManager",
+          "location": "api:android.hardware.camera2.CameraManager",
+          "snippet": "android.hardware.camera2.CameraManager",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static analysis cannot prove runtime camera usage."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-CAP-DEVICE-IDENTIFIERS",
+      "category": "identifiers",
+      "title": "Device Identifier Access References Detected",
+      "description": "Static code references found for device identifiers: TelephonyManager.getDeviceId, TelephonyManager.getImei, Settings.Secure.ANDROID_ID, Build.SERIAL.",
+      "severity": "high",
+      "confidence": "confirmed",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "dex:TelephonyManager.getDeviceId",
+        "dex:TelephonyManager.getImei",
+        "dex:Settings.Secure.ANDROID_ID",
+        "dex:Build.SERIAL"
+      ],
+      "evidence_values": [
+        "Build.SERIAL",
+        "Settings.Secure.ANDROID_ID",
+        "TelephonyManager.getDeviceId",
+        "TelephonyManager.getImei"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Assess compliance with modern Android platform guidelines; prefer resettable identifiers.",
+      "evidence": [
+        {
+          "description": "Referenced device identifier method: TelephonyManager.getDeviceId",
+          "location": "dex:TelephonyManager.getDeviceId",
+          "snippet": "Referenced device identifier method: TelephonyManager.getDeviceId",
+          "references": []
+        },
+        {
+          "description": "Referenced device identifier method: TelephonyManager.getImei",
+          "location": "dex:TelephonyManager.getImei",
+          "snippet": "Referenced device identifier method: TelephonyManager.getImei",
+          "references": []
+        },
+        {
+          "description": "Referenced device identifier method: Settings.Secure.ANDROID_ID",
+          "location": "dex:Settings.Secure.ANDROID_ID",
+          "snippet": "Referenced device identifier method: Settings.Secure.ANDROID_ID",
+          "references": []
+        },
+        {
+          "description": "Referenced device identifier method: Build.SERIAL",
+          "location": "dex:Build.SERIAL",
+          "snippet": "Referenced device identifier method: Build.SERIAL",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static method reference does not establish that the identifier is sent across the network."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-API-CAMERA",
+      "category": "camera",
+      "title": "Camera Hardware & Capture APIs",
+      "description": "Static references to Camera, Camera2, or CameraX APIs detected in bytecode.",
+      "severity": "informational",
+      "confidence": "high",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "api:android.hardware.camera2.CameraManager"
+      ],
+      "evidence_values": [
+        "android.hardware.camera2.CameraManager"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Ensure camera hardware access is necessary and accompanied by runtime consent prompts.",
+      "evidence": [
+        {
+          "description": "Referenced API: android.hardware.camera2.CameraManager",
+          "location": "api:android.hardware.camera2.CameraManager",
+          "snippet": "api:android.hardware.camera2.CameraManager",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static observation of API or component reference does not guarantee runtime execution or data exfiltration."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-API-CLIPBOARD",
+      "category": "clipboard",
+      "title": "Clipboard Access APIs",
+      "description": "Static references to ClipboardManager clip access methods detected.",
+      "severity": "informational",
+      "confidence": "high",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "api:android.content.ClipboardManager"
+      ],
+      "evidence_values": [
+        "android.content.ClipboardManager"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Verify whether clipboard reads access user data unexpectedly.",
+      "evidence": [
+        {
+          "description": "Referenced API: android.content.ClipboardManager",
+          "location": "api:android.content.ClipboardManager",
+          "snippet": "api:android.content.ClipboardManager",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static observation of API or component reference does not guarantee runtime execution or data exfiltration."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-API-LOCATION",
+      "category": "location",
+      "title": "Location Framework API Invocations",
+      "description": "Static references to Android LocationManager or Google Play Services location providers detected in bytecode.",
+      "severity": "informational",
+      "confidence": "confirmed",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "api:android.location.LocationListener",
+        "api:android.location.LocationManager",
+        "method:getLastKnownLocation",
+        "method:requestLocationUpdates"
+      ],
+      "evidence_values": [
+        "android.location.LocationListener",
+        "android.location.LocationManager",
+        "getLastKnownLocation",
+        "requestLocationUpdates"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Informational; examine whether precise or coarse location access is required for core functionality.",
+      "evidence": [
+        {
+          "description": "Referenced API: android.location.LocationManager",
+          "location": "api:android.location.LocationManager",
+          "snippet": "api:android.location.LocationManager",
+          "references": []
+        },
+        {
+          "description": "Referenced API: android.location.LocationListener",
+          "location": "api:android.location.LocationListener",
+          "snippet": "api:android.location.LocationListener",
+          "references": []
+        },
+        {
+          "description": "Referenced method: getLastKnownLocation",
+          "location": "method:getLastKnownLocation",
+          "snippet": "method:getLastKnownLocation",
+          "references": []
+        },
+        {
+          "description": "Referenced method: requestLocationUpdates",
+          "location": "method:requestLocationUpdates",
+          "snippet": "method:requestLocationUpdates",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static observation of API or component reference does not guarantee runtime execution or data exfiltration."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-API-REFLECTION",
+      "category": "reflection",
+      "title": "Reflection on Internal or Sensitive Classes",
+      "description": "Static references to reflection APIs combined with internal framework class names detected.",
+      "severity": "informational",
+      "confidence": "medium",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "api:java.lang.Class",
+        "api:java.lang.reflect.Method",
+        "method:kotlinx.coroutines.flow.FlowKt__ZipKt$combineTransform$7$1.invoke",
+        "string:android.app.ActivityThread",
+        "string:android.os.SystemProperties"
+      ],
+      "evidence_values": [
+        "android.app.ActivityThread",
+        "android.os.SystemProperties",
+        "java.lang.Class",
+        "java.lang.reflect.Method",
+        "kotlinx.coroutines.flow.FlowKt__ZipKt$combineTransform$7$1.invoke"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Reflection may access hidden or non-SDK interfaces; ensure platform compatibility and policy compliance.",
+      "evidence": [
+        {
+          "description": "Referenced API: java.lang.reflect.Method",
+          "location": "api:java.lang.reflect.Method",
+          "snippet": "api:java.lang.reflect.Method",
+          "references": []
+        },
+        {
+          "description": "Referenced API: java.lang.Class",
+          "location": "api:java.lang.Class",
+          "snippet": "api:java.lang.Class",
+          "references": []
+        },
+        {
+          "description": "Referenced method: kotlinx.coroutines.flow.FlowKt__ZipKt$combineTransform$7$1.invoke",
+          "location": "method:kotlinx.coroutines.flow.FlowKt__ZipKt$combineTransform$7$1.invoke",
+          "snippet": "method:kotlinx.coroutines.flow.FlowKt__ZipKt$combineTransform$7$1.invoke",
+          "references": []
+        },
+        {
+          "description": "Constant string reference: android.os.SystemProperties",
+          "location": "dex:string:android.os.SystemProperties",
+          "snippet": "string:android.os.SystemProperties",
+          "references": []
+        },
+        {
+          "description": "Constant string reference: android.app.ActivityThread",
+          "location": "dex:string:android.app.ActivityThread",
+          "snippet": "string:android.app.ActivityThread",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static observation of API or component reference does not guarantee runtime execution or data exfiltration."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-API-SCHEDULING",
+      "category": "background_execution",
+      "title": "Background Job Scheduling & Alarm APIs",
+      "description": "Static references to WorkManager, JobScheduler, or AlarmManager background execution detected.",
+      "severity": "informational",
+      "confidence": "confirmed",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "api:android.app.AlarmManager",
+        "api:android.app.job.JobScheduler",
+        "method:androidx.core.app.AlarmManagerCompat.setExactAndAllowWhileIdle",
+        "method:androidx.fragment.app.SpecialEffectsController.enqueue"
+      ],
+      "evidence_values": [
+        "android.app.AlarmManager",
+        "android.app.job.JobScheduler",
+        "androidx.core.app.AlarmManagerCompat.setExactAndAllowWhileIdle",
+        "androidx.fragment.app.SpecialEffectsController.enqueue"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Evaluate whether background tasks perform unauthorized periodic synchronization or data transmission.",
+      "evidence": [
+        {
+          "description": "Referenced API: android.app.job.JobScheduler",
+          "location": "api:android.app.job.JobScheduler",
+          "snippet": "api:android.app.job.JobScheduler",
+          "references": []
+        },
+        {
+          "description": "Referenced API: android.app.AlarmManager",
+          "location": "api:android.app.AlarmManager",
+          "snippet": "api:android.app.AlarmManager",
+          "references": []
+        },
+        {
+          "description": "Referenced method: androidx.core.app.AlarmManagerCompat.setExactAndAllowWhileIdle",
+          "location": "method:androidx.core.app.AlarmManagerCompat.setExactAndAllowWhileIdle",
+          "snippet": "method:androidx.core.app.AlarmManagerCompat.setExactAndAllowWhileIdle",
+          "references": []
+        },
+        {
+          "description": "Referenced method: androidx.fragment.app.SpecialEffectsController.enqueue",
+          "location": "method:androidx.fragment.app.SpecialEffectsController.enqueue",
+          "snippet": "method:androidx.fragment.app.SpecialEffectsController.enqueue",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static observation of API or component reference does not guarantee runtime execution or data exfiltration."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-API-DEVICE-IDENTIFIER",
+      "category": "device_identifiers",
+      "title": "Hardware & Device Identifier Access",
+      "description": "Static references to persistent device identifiers (IMEI, MEID, SIM serial, or ANDROID_ID) detected.",
+      "severity": "low",
+      "confidence": "confirmed",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "api:android.telephony.TelephonyManager",
+        "method:androidx.core.telephony.TelephonyManagerCompat.getImei",
+        "method:getDeviceId",
+        "string:android_id"
+      ],
+      "evidence_values": [
+        "android.telephony.TelephonyManager",
+        "android_id",
+        "androidx.core.telephony.TelephonyManagerCompat.getImei",
+        "getDeviceId"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Assess compliance with modern Android platform privacy guidelines (prefer resettable advertising IDs or app-scoped UUIDs over hardware identifiers).",
+      "evidence": [
+        {
+          "description": "Referenced API: android.telephony.TelephonyManager",
+          "location": "api:android.telephony.TelephonyManager",
+          "snippet": "api:android.telephony.TelephonyManager",
+          "references": []
+        },
+        {
+          "description": "Referenced method: getDeviceId",
+          "location": "method:getDeviceId",
+          "snippet": "method:getDeviceId",
+          "references": []
+        },
+        {
+          "description": "Referenced method: androidx.core.telephony.TelephonyManagerCompat.getImei",
+          "location": "method:androidx.core.telephony.TelephonyManagerCompat.getImei",
+          "snippet": "method:androidx.core.telephony.TelephonyManagerCompat.getImei",
+          "references": []
+        },
+        {
+          "description": "Constant string reference: android_id",
+          "location": "dex:string:android_id",
+          "snippet": "string:android_id",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static observation of API or component reference does not guarantee runtime execution or data exfiltration."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-API-DYNAMIC-CODE",
+      "category": "dynamic_code",
+      "title": "Dynamic Code Loading Facilities",
+      "description": "Static references to DexClassLoader, PathClassLoader, or InMemoryDexClassLoader detected.",
+      "severity": "low",
+      "confidence": "high",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "method:loadClass"
+      ],
+      "evidence_values": [
+        "loadClass"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Dynamic loading allows runtime code execution bypassing static inspection; verify source and integrity.",
+      "evidence": [
+        {
+          "description": "Referenced method: loadClass",
+          "location": "method:loadClass",
+          "snippet": "method:loadClass",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static observation of API or component reference does not guarantee runtime execution or data exfiltration."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-CAP-CLIPBOARD",
+      "category": "clipboard",
+      "title": "Clipboard Access Capability Detected",
+      "description": "Application references android.content.ClipboardManager API.",
+      "severity": "low",
+      "confidence": "medium",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "dex:android.content.ClipboardManager"
+      ],
+      "evidence_values": [
+        "ClipboardManager"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Verify clipboard reads access user data only upon direct user paste interaction.",
+      "evidence": [
+        {
+          "description": "Referenced ClipboardManager API",
+          "location": "dex:android.content.ClipboardManager",
+          "snippet": "Referenced ClipboardManager API",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static reference does not prove unprompted clipboard reading."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-CAP-ACCESSIBILITY",
+      "category": "accessibility",
+      "title": "Accessibility Service Capability Detected",
+      "description": "Application defines or references an Android AccessibilityService.",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "manifest:service"
+      ],
+      "evidence_values": [
+        "AccessibilityService"
+      ],
+      "source_component": null,
+      "related_permissions": [
+        "android.permission.BIND_ACCESSIBILITY_SERVICE"
+      ],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Accessibility services require explicit user opt-in in Android system settings.",
+      "evidence": [
+        {
+          "description": "Declared AccessibilityService component",
+          "location": "manifest:service",
+          "snippet": "Declared AccessibilityService component",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Requires explicit user opt-in in Android system settings."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-CAP-LOCATION",
+      "category": "location",
+      "title": "Location Capability Detected",
+      "description": "Application declares location permissions () and references location APIs (android.location.LocationRequest$Builder, androidx.core.location.LocationManagerCompat;->registerGnssStatusCallback(Landroid.location.LocationManager, android.location.LocationManager;->getCurrentLocation(Ljava.lang.String).",
+      "severity": "medium",
+      "confidence": "medium",
+      "evidence_state": "PARTIAL",
+      "evidence_locations": [
+        "api:android.location.LocationRequest$Builder",
+        "api:androidx.core.location.LocationManagerCompat;->registerGnssStatusCallback(Landroid.location.LocationManager",
+        "api:android.location.LocationManager;->getCurrentLocation(Ljava.lang.String",
+        "api:android.location.LocationRequest$Builder;->setMinUpdateIntervalMillis(J)Landroid.location.LocationRequest$Builder",
+        "api:androidx.core.location.LocationManagerCompat;->lambda$registerGnssStatusCallback$1(Landroid.location.LocationManager",
+        "api:androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda5;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+        "api:androidx.core.location.LocationCompat$Api26Impl;->setVerticalAccuracyMeters(Landroid.location.Location",
+        "api:androidx.core.location.GnssStatusWrapper$Api26Impl;->getCarrierFrequencyHz(Landroid.location.GnssStatus",
+        "api:androidx.core.location.LocationRequestCompat",
+        "api:androidx.core.location.LocationManagerCompat$GpsStatusTransport;-><init>(Landroid.location.LocationManager",
+        "api:androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m(Landroid.location.GnssStatus",
+        "api:androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda0;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+        "api:androidx.core.location.LocationManagerCompat$CancellableLocationListener$$ExternalSyntheticLambda1;-><init>(Landroidx.core.util.Consumer",
+        "api:androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda1;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+        "api:android.widget.PopupWindow;->showAtLocation(Landroid.view.View",
+        "api:androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport;->lambda$onSatelliteStatusChanged$3$androidx-core-location-LocationManagerCompat$PreRGnssStatusTransport(Ljava.util.concurrent.Executor",
+        "api:androidx.core.location.GnssStatusWrapper$Api30Impl;->getBasebandCn0DbHz(Landroid.location.GnssStatus",
+        "api:androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda3;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+        "api:androidx.core.location.LocationManagerCompat$Api30Impl;->tryRequestLocationUpdates(Landroid.location.LocationManager",
+        "api:androidx.core.location.LocationRequestCompat$Api31Impl;->toLocationRequest(Landroidx.core.location.LocationRequestCompat;)Landroid.location.LocationRequest",
+        "api:androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m$2(Landroid.location.GnssStatus",
+        "api:androidx.core.location.LocationCompat$Api26Impl;->setBearingAccuracyDegrees(Landroid.location.Location",
+        "api:androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda0;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+        "api:androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda2;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+        "api:androidx.core.location.LocationManagerCompat$Api24Impl;->unregisterGnssStatusCallback(Landroid.location.LocationManager",
+        "api:android.location.LocationRequest$Builder;->setDurationMillis(J)Landroid.location.LocationRequest$Builder",
+        "api:androidx.core.location.LocationManagerCompat$LocationListenerTransport;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerKey",
+        "api:androidx.core.location.LocationManagerCompat$GpsStatusTransport;->lambda$onGpsStatusChanged$2$androidx-core-location-LocationManagerCompat$GpsStatusTransport(Ljava.util.concurrent.Executor",
+        "api:android.location.LocationRequest$Builder;->build()Landroid.location.LocationRequest",
+        "api:androidx.core.location.LocationManagerCompat;->lambda$getCurrentLocation$0(Landroidx.core.util.Consumer",
+        "api:androidx.core.location.LocationManagerCompat$Api31Impl;->hasProvider(Landroid.location.LocationManager",
+        "api:android.location.GpsStatus;->getSatellites()Ljava.lang.Iterable",
+        "api:androidx.core.location.LocationManagerCompat$Api30Impl;->registerGnssStatusCallback(Landroid.location.LocationManager",
+        "api:androidx.core.location.LocationManagerCompat$GpsStatusTransport;->lambda$onGpsStatusChanged$3$androidx-core-location-LocationManagerCompat$GpsStatusTransport(Ljava.util.concurrent.Executor",
+        "api:android.location.LocationManager;->getGnssHardwareModelName()Ljava.lang.String",
+        "api:androidx.core.location.LocationRequestCompat;->toLocationRequest(Ljava.lang.String;)Landroid.location.LocationRequest",
+        "api:androidx.core.location.GnssStatusWrapper$Api30Impl;->hasBasebandCn0DbHz(Landroid.location.GnssStatus",
+        "api:androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda2;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+        "api:androidx.core.location.LocationManagerCompat$GpsStatusTransport;)Ljava.lang.Boolean",
+        "api:androidx.core.location.LocationManagerCompat$Api30Impl;->getCurrentLocation(Landroid.location.LocationManager",
+        "api:android.location.LocationManager;->getProvider(Ljava.lang.String;)Landroid.location.LocationProvider",
+        "api:androidx.core.location.LocationManagerCompat$Api24Impl;->registerGnssStatusCallback(Landroid.location.LocationManager",
+        "api:androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda2;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+        "api:androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda3;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+        "api:android.location.LocationManager;->getAllProviders()Ljava.util.List",
+        "api:android.location.LocationRequest$Builder;->setMinUpdateDistanceMeters(F)Landroid.location.LocationRequest$Builder",
+        "api:androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda3;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+        "api:androidx.core.location.LocationManagerCompat$$ExternalSyntheticLambda0;-><init>(Landroidx.core.util.Consumer",
+        "api:android.location.LocationRequest$Builder;->setMaxUpdates(I)Landroid.location.LocationRequest$Builder",
+        "api:android.location.LocationManager;->registerGnssStatusCallback(Ljava.util.concurrent.Executor",
+        "api:androidx.appcompat.app.TwilightManager;->getLastKnownLocationForProvider(Ljava.lang.String;)Landroid.location.Location",
+        "api:androidx.core.location.LocationManagerCompat$$ExternalSyntheticLambda2;-><init>(Landroid.location.LocationManager",
+        "api:androidx.core.location.LocationManagerCompat$CancellableLocationListener;-><init>(Landroid.location.LocationManager",
+        "api:android.location.Location;->getExtras()Landroid.os.Bundle",
+        "api:androidx.core.location.LocationManagerCompat;->registerLocationListenerTransport(Landroid.location.LocationManager",
+        "api:android.location.LocationRequest$Builder;->setQuality(I)Landroid.location.LocationRequest$Builder",
+        "api:androidx.core.view.accessibility.AccessibilityNodeInfoCompat;->addSpanLocationToExtras(Landroid.text.style.ClickableSpan",
+        "api:androidx.core.location.LocationManagerCompat$Api19Impl;->tryRequestLocationUpdates(Landroid.location.LocationManager",
+        "api:androidx.core.location.LocationRequestCompat$Api19Impl;->toLocationRequest(Landroidx.core.location.LocationRequestCompat",
+        "api:androidx.core.location.GnssStatusCompat;->wrap(Landroid.location.GnssStatus;)Landroidx.core.location.GnssStatusCompat",
+        "api:androidx.core.location.LocationListenerCompat;->onStatusChanged(Ljava.lang.String",
+        "api:androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m(Ljava.lang.Object;)Landroid.location.LocationRequest",
+        "api:androidx.core.location.LocationManagerCompat$Api28Impl;->getGnssHardwareModelName(Landroid.location.LocationManager;)Ljava.lang.String",
+        "api:androidx.core.location.LocationListenerCompat",
+        "api:android.location.LocationManager;->registerGnssStatusCallback(Landroid.location.GnssStatus$Callback",
+        "api:android.location.LocationManager;->getGpsStatus(Landroid.location.GpsStatus;)Landroid.location.GpsStatus",
+        "api:androidx.core.location.LocationCompat;->getSetIsFromMockProviderMethod()Ljava.lang.reflect.Method",
+        "api:android.location.GnssStatus",
+        "api:androidx.core.location.LocationManagerCompat$LocationListenerKey;-><init>(Ljava.lang.String",
+        "api:androidx.core.location.LocationManagerCompat$Api31Impl;->requestLocationUpdates(Landroid.location.LocationManager",
+        "api:androidx.core.location.LocationCompat$Api26Impl;->setSpeedAccuracyMetersPerSecond(Landroid.location.Location",
+        "api:androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda0;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+        "api:androidx.core.location.LocationRequestCompat;->toLocationRequest()Landroid.location.LocationRequest",
+        "api:android.location.LocationRequest",
+        "api:androidx.appcompat.app.TwilightManager;->getLastKnownLocation()Landroid.location.Location",
+        "api:android.location.LocationManager;->requestLocationUpdates(Ljava.lang.String",
+        "api:androidx.core.location.GnssStatusCompat;->wrap(Landroid.location.GpsStatus;)Landroidx.core.location.GnssStatusCompat",
+        "api:android.location.GpsSatellite",
+        "api:androidx.core.location.LocationManagerCompat$LocationListenerTransport;->lambda$onStatusChanged$3$androidx-core-location-LocationManagerCompat$LocationListenerTransport(Ljava.lang.String",
+        "api:androidx.core.location.GpsStatusWrapper;->getSatellite(I)Landroid.location.GpsSatellite",
+        "api:androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda1;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+        "api:android.location.GnssStatus$Callback",
+        "api:android.location.Location",
+        "api:android.location.LocationManager;->getLastKnownLocation(Ljava.lang.String;)Landroid.location.Location",
+        "api:androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda1;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+        "api:androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m(Ljava.lang.Object;)Landroid.location.GnssStatus",
+        "api:android.location.LocationRequest$Builder;->setMaxUpdateDelayMillis(J)Landroid.location.LocationRequest$Builder",
+        "api:androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport;->lambda$onFirstFix$2$androidx-core-location-LocationManagerCompat$PreRGnssStatusTransport(Ljava.util.concurrent.Executor",
+        "api:android.location.GpsStatus",
+        "api:androidx.core.location.GnssStatusWrapper$Api26Impl;->hasCarrierFrequencyHz(Landroid.location.GnssStatus",
+        "api:android.location.LocationManager",
+        "api:androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m$1(Landroid.location.GnssStatus",
+        "api:android.location.LocationListener",
+        "api:androidx.core.location.LocationManagerCompat$CancellableLocationListener;->lambda$onLocationChanged$1(Landroidx.core.util.Consumer"
+      ],
+      "evidence_values": [
+        "Referenced location API: android.location.LocationRequest$Builder",
+        "Referenced location API: androidx.core.location.LocationManagerCompat;->registerGnssStatusCallback(Landroid.location.LocationManager",
+        "Referenced location API: android.location.LocationManager;->getCurrentLocation(Ljava.lang.String",
+        "Referenced location API: android.location.LocationRequest$Builder;->setMinUpdateIntervalMillis(J)Landroid.location.LocationRequest$Builder",
+        "Referenced location API: androidx.core.location.LocationManagerCompat;->lambda$registerGnssStatusCallback$1(Landroid.location.LocationManager",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda5;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+        "Referenced location API: androidx.core.location.LocationCompat$Api26Impl;->setVerticalAccuracyMeters(Landroid.location.Location",
+        "Referenced location API: androidx.core.location.GnssStatusWrapper$Api26Impl;->getCarrierFrequencyHz(Landroid.location.GnssStatus",
+        "Referenced location API: androidx.core.location.LocationRequestCompat",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport;-><init>(Landroid.location.LocationManager",
+        "Referenced location API: androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m(Landroid.location.GnssStatus",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda0;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$CancellableLocationListener$$ExternalSyntheticLambda1;-><init>(Landroidx.core.util.Consumer",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda1;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+        "Referenced location API: android.widget.PopupWindow;->showAtLocation(Landroid.view.View",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport;->lambda$onSatelliteStatusChanged$3$androidx-core-location-LocationManagerCompat$PreRGnssStatusTransport(Ljava.util.concurrent.Executor",
+        "Referenced location API: androidx.core.location.GnssStatusWrapper$Api30Impl;->getBasebandCn0DbHz(Landroid.location.GnssStatus",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda3;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$Api30Impl;->tryRequestLocationUpdates(Landroid.location.LocationManager",
+        "Referenced location API: androidx.core.location.LocationRequestCompat$Api31Impl;->toLocationRequest(Landroidx.core.location.LocationRequestCompat;)Landroid.location.LocationRequest",
+        "Referenced location API: androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m$2(Landroid.location.GnssStatus",
+        "Referenced location API: androidx.core.location.LocationCompat$Api26Impl;->setBearingAccuracyDegrees(Landroid.location.Location",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda0;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda2;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$Api24Impl;->unregisterGnssStatusCallback(Landroid.location.LocationManager",
+        "Referenced location API: android.location.LocationRequest$Builder;->setDurationMillis(J)Landroid.location.LocationRequest$Builder",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerKey",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport;->lambda$onGpsStatusChanged$2$androidx-core-location-LocationManagerCompat$GpsStatusTransport(Ljava.util.concurrent.Executor",
+        "Referenced location API: android.location.LocationRequest$Builder;->build()Landroid.location.LocationRequest",
+        "Referenced location API: androidx.core.location.LocationManagerCompat;->lambda$getCurrentLocation$0(Landroidx.core.util.Consumer",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$Api31Impl;->hasProvider(Landroid.location.LocationManager",
+        "Referenced location API: android.location.GpsStatus;->getSatellites()Ljava.lang.Iterable",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$Api30Impl;->registerGnssStatusCallback(Landroid.location.LocationManager",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport;->lambda$onGpsStatusChanged$3$androidx-core-location-LocationManagerCompat$GpsStatusTransport(Ljava.util.concurrent.Executor",
+        "Referenced location API: android.location.LocationManager;->getGnssHardwareModelName()Ljava.lang.String",
+        "Referenced location API: androidx.core.location.LocationRequestCompat;->toLocationRequest(Ljava.lang.String;)Landroid.location.LocationRequest",
+        "Referenced location API: androidx.core.location.GnssStatusWrapper$Api30Impl;->hasBasebandCn0DbHz(Landroid.location.GnssStatus",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda2;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport;)Ljava.lang.Boolean",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$Api30Impl;->getCurrentLocation(Landroid.location.LocationManager",
+        "Referenced location API: android.location.LocationManager;->getProvider(Ljava.lang.String;)Landroid.location.LocationProvider",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$Api24Impl;->registerGnssStatusCallback(Landroid.location.LocationManager",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda2;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda3;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+        "Referenced location API: android.location.LocationManager;->getAllProviders()Ljava.util.List",
+        "Referenced location API: android.location.LocationRequest$Builder;->setMinUpdateDistanceMeters(F)Landroid.location.LocationRequest$Builder",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda3;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$$ExternalSyntheticLambda0;-><init>(Landroidx.core.util.Consumer",
+        "Referenced location API: android.location.LocationRequest$Builder;->setMaxUpdates(I)Landroid.location.LocationRequest$Builder",
+        "Referenced location API: android.location.LocationManager;->registerGnssStatusCallback(Ljava.util.concurrent.Executor",
+        "Referenced location API: androidx.appcompat.app.TwilightManager;->getLastKnownLocationForProvider(Ljava.lang.String;)Landroid.location.Location",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$$ExternalSyntheticLambda2;-><init>(Landroid.location.LocationManager",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$CancellableLocationListener;-><init>(Landroid.location.LocationManager",
+        "Referenced location API: android.location.Location;->getExtras()Landroid.os.Bundle",
+        "Referenced location API: androidx.core.location.LocationManagerCompat;->registerLocationListenerTransport(Landroid.location.LocationManager",
+        "Referenced location API: android.location.LocationRequest$Builder;->setQuality(I)Landroid.location.LocationRequest$Builder",
+        "Referenced location API: androidx.core.view.accessibility.AccessibilityNodeInfoCompat;->addSpanLocationToExtras(Landroid.text.style.ClickableSpan",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$Api19Impl;->tryRequestLocationUpdates(Landroid.location.LocationManager",
+        "Referenced location API: androidx.core.location.LocationRequestCompat$Api19Impl;->toLocationRequest(Landroidx.core.location.LocationRequestCompat",
+        "Referenced location API: androidx.core.location.GnssStatusCompat;->wrap(Landroid.location.GnssStatus;)Landroidx.core.location.GnssStatusCompat",
+        "Referenced location API: androidx.core.location.LocationListenerCompat;->onStatusChanged(Ljava.lang.String",
+        "Referenced location API: androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m(Ljava.lang.Object;)Landroid.location.LocationRequest",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$Api28Impl;->getGnssHardwareModelName(Landroid.location.LocationManager;)Ljava.lang.String",
+        "Referenced location API: androidx.core.location.LocationListenerCompat",
+        "Referenced location API: android.location.LocationManager;->registerGnssStatusCallback(Landroid.location.GnssStatus$Callback",
+        "Referenced location API: android.location.LocationManager;->getGpsStatus(Landroid.location.GpsStatus;)Landroid.location.GpsStatus",
+        "Referenced location API: androidx.core.location.LocationCompat;->getSetIsFromMockProviderMethod()Ljava.lang.reflect.Method",
+        "Referenced location API: android.location.GnssStatus",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerKey;-><init>(Ljava.lang.String",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$Api31Impl;->requestLocationUpdates(Landroid.location.LocationManager",
+        "Referenced location API: androidx.core.location.LocationCompat$Api26Impl;->setSpeedAccuracyMetersPerSecond(Landroid.location.Location",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda0;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+        "Referenced location API: androidx.core.location.LocationRequestCompat;->toLocationRequest()Landroid.location.LocationRequest",
+        "Referenced location API: android.location.LocationRequest",
+        "Referenced location API: androidx.appcompat.app.TwilightManager;->getLastKnownLocation()Landroid.location.Location",
+        "Referenced location API: android.location.LocationManager;->requestLocationUpdates(Ljava.lang.String",
+        "Referenced location API: androidx.core.location.GnssStatusCompat;->wrap(Landroid.location.GpsStatus;)Landroidx.core.location.GnssStatusCompat",
+        "Referenced location API: android.location.GpsSatellite",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport;->lambda$onStatusChanged$3$androidx-core-location-LocationManagerCompat$LocationListenerTransport(Ljava.lang.String",
+        "Referenced location API: androidx.core.location.GpsStatusWrapper;->getSatellite(I)Landroid.location.GpsSatellite",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda1;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+        "Referenced location API: android.location.GnssStatus$Callback",
+        "Referenced location API: android.location.Location",
+        "Referenced location API: android.location.LocationManager;->getLastKnownLocation(Ljava.lang.String;)Landroid.location.Location",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda1;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+        "Referenced location API: androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m(Ljava.lang.Object;)Landroid.location.GnssStatus",
+        "Referenced location API: android.location.LocationRequest$Builder;->setMaxUpdateDelayMillis(J)Landroid.location.LocationRequest$Builder",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport;->lambda$onFirstFix$2$androidx-core-location-LocationManagerCompat$PreRGnssStatusTransport(Ljava.util.concurrent.Executor",
+        "Referenced location API: android.location.GpsStatus",
+        "Referenced location API: androidx.core.location.GnssStatusWrapper$Api26Impl;->hasCarrierFrequencyHz(Landroid.location.GnssStatus",
+        "Referenced location API: android.location.LocationManager",
+        "Referenced location API: androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m$1(Landroid.location.GnssStatus",
+        "Referenced location API: android.location.LocationListener",
+        "Referenced location API: androidx.core.location.LocationManagerCompat$CancellableLocationListener;->lambda$onLocationChanged$1(Landroidx.core.util.Consumer"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Ensure location access is transparent and justified by application features.",
+      "evidence": [
+        {
+          "description": "Referenced location API: android.location.LocationRequest$Builder",
+          "location": "api:android.location.LocationRequest$Builder",
+          "snippet": "Referenced location API: android.location.LocationRequest$Builder",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat;->registerGnssStatusCallback(Landroid.location.LocationManager",
+          "location": "api:androidx.core.location.LocationManagerCompat;->registerGnssStatusCallback(Landroid.location.LocationManager",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat;->registerGnssStatusCallback(Landroid.location.LocationManager",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.LocationManager;->getCurrentLocation(Ljava.lang.String",
+          "location": "api:android.location.LocationManager;->getCurrentLocation(Ljava.lang.String",
+          "snippet": "Referenced location API: android.location.LocationManager;->getCurrentLocation(Ljava.lang.String",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.LocationRequest$Builder;->setMinUpdateIntervalMillis(J)Landroid.location.LocationRequest$Builder",
+          "location": "api:android.location.LocationRequest$Builder;->setMinUpdateIntervalMillis(J)Landroid.location.LocationRequest$Builder",
+          "snippet": "Referenced location API: android.location.LocationRequest$Builder;->setMinUpdateIntervalMillis(J)Landroid.location.LocationRequest$Builder",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat;->lambda$registerGnssStatusCallback$1(Landroid.location.LocationManager",
+          "location": "api:androidx.core.location.LocationManagerCompat;->lambda$registerGnssStatusCallback$1(Landroid.location.LocationManager",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat;->lambda$registerGnssStatusCallback$1(Landroid.location.LocationManager",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda5;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+          "location": "api:androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda5;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda5;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationCompat$Api26Impl;->setVerticalAccuracyMeters(Landroid.location.Location",
+          "location": "api:androidx.core.location.LocationCompat$Api26Impl;->setVerticalAccuracyMeters(Landroid.location.Location",
+          "snippet": "Referenced location API: androidx.core.location.LocationCompat$Api26Impl;->setVerticalAccuracyMeters(Landroid.location.Location",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.GnssStatusWrapper$Api26Impl;->getCarrierFrequencyHz(Landroid.location.GnssStatus",
+          "location": "api:androidx.core.location.GnssStatusWrapper$Api26Impl;->getCarrierFrequencyHz(Landroid.location.GnssStatus",
+          "snippet": "Referenced location API: androidx.core.location.GnssStatusWrapper$Api26Impl;->getCarrierFrequencyHz(Landroid.location.GnssStatus",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationRequestCompat",
+          "location": "api:androidx.core.location.LocationRequestCompat",
+          "snippet": "Referenced location API: androidx.core.location.LocationRequestCompat",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport;-><init>(Landroid.location.LocationManager",
+          "location": "api:androidx.core.location.LocationManagerCompat$GpsStatusTransport;-><init>(Landroid.location.LocationManager",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport;-><init>(Landroid.location.LocationManager",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m(Landroid.location.GnssStatus",
+          "location": "api:androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m(Landroid.location.GnssStatus",
+          "snippet": "Referenced location API: androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m(Landroid.location.GnssStatus",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda0;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+          "location": "api:androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda0;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda0;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$CancellableLocationListener$$ExternalSyntheticLambda1;-><init>(Landroidx.core.util.Consumer",
+          "location": "api:androidx.core.location.LocationManagerCompat$CancellableLocationListener$$ExternalSyntheticLambda1;-><init>(Landroidx.core.util.Consumer",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$CancellableLocationListener$$ExternalSyntheticLambda1;-><init>(Landroidx.core.util.Consumer",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda1;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+          "location": "api:androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda1;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda1;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.widget.PopupWindow;->showAtLocation(Landroid.view.View",
+          "location": "api:android.widget.PopupWindow;->showAtLocation(Landroid.view.View",
+          "snippet": "Referenced location API: android.widget.PopupWindow;->showAtLocation(Landroid.view.View",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport;->lambda$onSatelliteStatusChanged$3$androidx-core-location-LocationManagerCompat$PreRGnssStatusTransport(Ljava.util.concurrent.Executor",
+          "location": "api:androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport;->lambda$onSatelliteStatusChanged$3$androidx-core-location-LocationManagerCompat$PreRGnssStatusTransport(Ljava.util.concurrent.Executor",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport;->lambda$onSatelliteStatusChanged$3$androidx-core-location-LocationManagerCompat$PreRGnssStatusTransport(Ljava.util.concurrent.Executor",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.GnssStatusWrapper$Api30Impl;->getBasebandCn0DbHz(Landroid.location.GnssStatus",
+          "location": "api:androidx.core.location.GnssStatusWrapper$Api30Impl;->getBasebandCn0DbHz(Landroid.location.GnssStatus",
+          "snippet": "Referenced location API: androidx.core.location.GnssStatusWrapper$Api30Impl;->getBasebandCn0DbHz(Landroid.location.GnssStatus",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda3;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+          "location": "api:androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda3;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda3;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$Api30Impl;->tryRequestLocationUpdates(Landroid.location.LocationManager",
+          "location": "api:androidx.core.location.LocationManagerCompat$Api30Impl;->tryRequestLocationUpdates(Landroid.location.LocationManager",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$Api30Impl;->tryRequestLocationUpdates(Landroid.location.LocationManager",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationRequestCompat$Api31Impl;->toLocationRequest(Landroidx.core.location.LocationRequestCompat;)Landroid.location.LocationRequest",
+          "location": "api:androidx.core.location.LocationRequestCompat$Api31Impl;->toLocationRequest(Landroidx.core.location.LocationRequestCompat;)Landroid.location.LocationRequest",
+          "snippet": "Referenced location API: androidx.core.location.LocationRequestCompat$Api31Impl;->toLocationRequest(Landroidx.core.location.LocationRequestCompat;)Landroid.location.LocationRequest",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m$2(Landroid.location.GnssStatus",
+          "location": "api:androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m$2(Landroid.location.GnssStatus",
+          "snippet": "Referenced location API: androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m$2(Landroid.location.GnssStatus",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationCompat$Api26Impl;->setBearingAccuracyDegrees(Landroid.location.Location",
+          "location": "api:androidx.core.location.LocationCompat$Api26Impl;->setBearingAccuracyDegrees(Landroid.location.Location",
+          "snippet": "Referenced location API: androidx.core.location.LocationCompat$Api26Impl;->setBearingAccuracyDegrees(Landroid.location.Location",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda0;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+          "location": "api:androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda0;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda0;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda2;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+          "location": "api:androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda2;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda2;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$Api24Impl;->unregisterGnssStatusCallback(Landroid.location.LocationManager",
+          "location": "api:androidx.core.location.LocationManagerCompat$Api24Impl;->unregisterGnssStatusCallback(Landroid.location.LocationManager",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$Api24Impl;->unregisterGnssStatusCallback(Landroid.location.LocationManager",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.LocationRequest$Builder;->setDurationMillis(J)Landroid.location.LocationRequest$Builder",
+          "location": "api:android.location.LocationRequest$Builder;->setDurationMillis(J)Landroid.location.LocationRequest$Builder",
+          "snippet": "Referenced location API: android.location.LocationRequest$Builder;->setDurationMillis(J)Landroid.location.LocationRequest$Builder",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerKey",
+          "location": "api:androidx.core.location.LocationManagerCompat$LocationListenerTransport;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerKey",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerKey",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport;->lambda$onGpsStatusChanged$2$androidx-core-location-LocationManagerCompat$GpsStatusTransport(Ljava.util.concurrent.Executor",
+          "location": "api:androidx.core.location.LocationManagerCompat$GpsStatusTransport;->lambda$onGpsStatusChanged$2$androidx-core-location-LocationManagerCompat$GpsStatusTransport(Ljava.util.concurrent.Executor",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport;->lambda$onGpsStatusChanged$2$androidx-core-location-LocationManagerCompat$GpsStatusTransport(Ljava.util.concurrent.Executor",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.LocationRequest$Builder;->build()Landroid.location.LocationRequest",
+          "location": "api:android.location.LocationRequest$Builder;->build()Landroid.location.LocationRequest",
+          "snippet": "Referenced location API: android.location.LocationRequest$Builder;->build()Landroid.location.LocationRequest",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat;->lambda$getCurrentLocation$0(Landroidx.core.util.Consumer",
+          "location": "api:androidx.core.location.LocationManagerCompat;->lambda$getCurrentLocation$0(Landroidx.core.util.Consumer",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat;->lambda$getCurrentLocation$0(Landroidx.core.util.Consumer",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$Api31Impl;->hasProvider(Landroid.location.LocationManager",
+          "location": "api:androidx.core.location.LocationManagerCompat$Api31Impl;->hasProvider(Landroid.location.LocationManager",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$Api31Impl;->hasProvider(Landroid.location.LocationManager",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.GpsStatus;->getSatellites()Ljava.lang.Iterable",
+          "location": "api:android.location.GpsStatus;->getSatellites()Ljava.lang.Iterable",
+          "snippet": "Referenced location API: android.location.GpsStatus;->getSatellites()Ljava.lang.Iterable",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$Api30Impl;->registerGnssStatusCallback(Landroid.location.LocationManager",
+          "location": "api:androidx.core.location.LocationManagerCompat$Api30Impl;->registerGnssStatusCallback(Landroid.location.LocationManager",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$Api30Impl;->registerGnssStatusCallback(Landroid.location.LocationManager",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport;->lambda$onGpsStatusChanged$3$androidx-core-location-LocationManagerCompat$GpsStatusTransport(Ljava.util.concurrent.Executor",
+          "location": "api:androidx.core.location.LocationManagerCompat$GpsStatusTransport;->lambda$onGpsStatusChanged$3$androidx-core-location-LocationManagerCompat$GpsStatusTransport(Ljava.util.concurrent.Executor",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport;->lambda$onGpsStatusChanged$3$androidx-core-location-LocationManagerCompat$GpsStatusTransport(Ljava.util.concurrent.Executor",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.LocationManager;->getGnssHardwareModelName()Ljava.lang.String",
+          "location": "api:android.location.LocationManager;->getGnssHardwareModelName()Ljava.lang.String",
+          "snippet": "Referenced location API: android.location.LocationManager;->getGnssHardwareModelName()Ljava.lang.String",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationRequestCompat;->toLocationRequest(Ljava.lang.String;)Landroid.location.LocationRequest",
+          "location": "api:androidx.core.location.LocationRequestCompat;->toLocationRequest(Ljava.lang.String;)Landroid.location.LocationRequest",
+          "snippet": "Referenced location API: androidx.core.location.LocationRequestCompat;->toLocationRequest(Ljava.lang.String;)Landroid.location.LocationRequest",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.GnssStatusWrapper$Api30Impl;->hasBasebandCn0DbHz(Landroid.location.GnssStatus",
+          "location": "api:androidx.core.location.GnssStatusWrapper$Api30Impl;->hasBasebandCn0DbHz(Landroid.location.GnssStatus",
+          "snippet": "Referenced location API: androidx.core.location.GnssStatusWrapper$Api30Impl;->hasBasebandCn0DbHz(Landroid.location.GnssStatus",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda2;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+          "location": "api:androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda2;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda2;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport;)Ljava.lang.Boolean",
+          "location": "api:androidx.core.location.LocationManagerCompat$GpsStatusTransport;)Ljava.lang.Boolean",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport;)Ljava.lang.Boolean",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$Api30Impl;->getCurrentLocation(Landroid.location.LocationManager",
+          "location": "api:androidx.core.location.LocationManagerCompat$Api30Impl;->getCurrentLocation(Landroid.location.LocationManager",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$Api30Impl;->getCurrentLocation(Landroid.location.LocationManager",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.LocationManager;->getProvider(Ljava.lang.String;)Landroid.location.LocationProvider",
+          "location": "api:android.location.LocationManager;->getProvider(Ljava.lang.String;)Landroid.location.LocationProvider",
+          "snippet": "Referenced location API: android.location.LocationManager;->getProvider(Ljava.lang.String;)Landroid.location.LocationProvider",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$Api24Impl;->registerGnssStatusCallback(Landroid.location.LocationManager",
+          "location": "api:androidx.core.location.LocationManagerCompat$Api24Impl;->registerGnssStatusCallback(Landroid.location.LocationManager",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$Api24Impl;->registerGnssStatusCallback(Landroid.location.LocationManager",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda2;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+          "location": "api:androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda2;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda2;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda3;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+          "location": "api:androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda3;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$GpsStatusTransport$$ExternalSyntheticLambda3;-><init>(Landroidx.core.location.LocationManagerCompat$GpsStatusTransport",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.LocationManager;->getAllProviders()Ljava.util.List",
+          "location": "api:android.location.LocationManager;->getAllProviders()Ljava.util.List",
+          "snippet": "Referenced location API: android.location.LocationManager;->getAllProviders()Ljava.util.List",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.LocationRequest$Builder;->setMinUpdateDistanceMeters(F)Landroid.location.LocationRequest$Builder",
+          "location": "api:android.location.LocationRequest$Builder;->setMinUpdateDistanceMeters(F)Landroid.location.LocationRequest$Builder",
+          "snippet": "Referenced location API: android.location.LocationRequest$Builder;->setMinUpdateDistanceMeters(F)Landroid.location.LocationRequest$Builder",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda3;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+          "location": "api:androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda3;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda3;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$$ExternalSyntheticLambda0;-><init>(Landroidx.core.util.Consumer",
+          "location": "api:androidx.core.location.LocationManagerCompat$$ExternalSyntheticLambda0;-><init>(Landroidx.core.util.Consumer",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$$ExternalSyntheticLambda0;-><init>(Landroidx.core.util.Consumer",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.LocationRequest$Builder;->setMaxUpdates(I)Landroid.location.LocationRequest$Builder",
+          "location": "api:android.location.LocationRequest$Builder;->setMaxUpdates(I)Landroid.location.LocationRequest$Builder",
+          "snippet": "Referenced location API: android.location.LocationRequest$Builder;->setMaxUpdates(I)Landroid.location.LocationRequest$Builder",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.LocationManager;->registerGnssStatusCallback(Ljava.util.concurrent.Executor",
+          "location": "api:android.location.LocationManager;->registerGnssStatusCallback(Ljava.util.concurrent.Executor",
+          "snippet": "Referenced location API: android.location.LocationManager;->registerGnssStatusCallback(Ljava.util.concurrent.Executor",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.appcompat.app.TwilightManager;->getLastKnownLocationForProvider(Ljava.lang.String;)Landroid.location.Location",
+          "location": "api:androidx.appcompat.app.TwilightManager;->getLastKnownLocationForProvider(Ljava.lang.String;)Landroid.location.Location",
+          "snippet": "Referenced location API: androidx.appcompat.app.TwilightManager;->getLastKnownLocationForProvider(Ljava.lang.String;)Landroid.location.Location",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$$ExternalSyntheticLambda2;-><init>(Landroid.location.LocationManager",
+          "location": "api:androidx.core.location.LocationManagerCompat$$ExternalSyntheticLambda2;-><init>(Landroid.location.LocationManager",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$$ExternalSyntheticLambda2;-><init>(Landroid.location.LocationManager",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$CancellableLocationListener;-><init>(Landroid.location.LocationManager",
+          "location": "api:androidx.core.location.LocationManagerCompat$CancellableLocationListener;-><init>(Landroid.location.LocationManager",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$CancellableLocationListener;-><init>(Landroid.location.LocationManager",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.Location;->getExtras()Landroid.os.Bundle",
+          "location": "api:android.location.Location;->getExtras()Landroid.os.Bundle",
+          "snippet": "Referenced location API: android.location.Location;->getExtras()Landroid.os.Bundle",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat;->registerLocationListenerTransport(Landroid.location.LocationManager",
+          "location": "api:androidx.core.location.LocationManagerCompat;->registerLocationListenerTransport(Landroid.location.LocationManager",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat;->registerLocationListenerTransport(Landroid.location.LocationManager",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.LocationRequest$Builder;->setQuality(I)Landroid.location.LocationRequest$Builder",
+          "location": "api:android.location.LocationRequest$Builder;->setQuality(I)Landroid.location.LocationRequest$Builder",
+          "snippet": "Referenced location API: android.location.LocationRequest$Builder;->setQuality(I)Landroid.location.LocationRequest$Builder",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.view.accessibility.AccessibilityNodeInfoCompat;->addSpanLocationToExtras(Landroid.text.style.ClickableSpan",
+          "location": "api:androidx.core.view.accessibility.AccessibilityNodeInfoCompat;->addSpanLocationToExtras(Landroid.text.style.ClickableSpan",
+          "snippet": "Referenced location API: androidx.core.view.accessibility.AccessibilityNodeInfoCompat;->addSpanLocationToExtras(Landroid.text.style.ClickableSpan",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$Api19Impl;->tryRequestLocationUpdates(Landroid.location.LocationManager",
+          "location": "api:androidx.core.location.LocationManagerCompat$Api19Impl;->tryRequestLocationUpdates(Landroid.location.LocationManager",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$Api19Impl;->tryRequestLocationUpdates(Landroid.location.LocationManager",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationRequestCompat$Api19Impl;->toLocationRequest(Landroidx.core.location.LocationRequestCompat",
+          "location": "api:androidx.core.location.LocationRequestCompat$Api19Impl;->toLocationRequest(Landroidx.core.location.LocationRequestCompat",
+          "snippet": "Referenced location API: androidx.core.location.LocationRequestCompat$Api19Impl;->toLocationRequest(Landroidx.core.location.LocationRequestCompat",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.GnssStatusCompat;->wrap(Landroid.location.GnssStatus;)Landroidx.core.location.GnssStatusCompat",
+          "location": "api:androidx.core.location.GnssStatusCompat;->wrap(Landroid.location.GnssStatus;)Landroidx.core.location.GnssStatusCompat",
+          "snippet": "Referenced location API: androidx.core.location.GnssStatusCompat;->wrap(Landroid.location.GnssStatus;)Landroidx.core.location.GnssStatusCompat",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationListenerCompat;->onStatusChanged(Ljava.lang.String",
+          "location": "api:androidx.core.location.LocationListenerCompat;->onStatusChanged(Ljava.lang.String",
+          "snippet": "Referenced location API: androidx.core.location.LocationListenerCompat;->onStatusChanged(Ljava.lang.String",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m(Ljava.lang.Object;)Landroid.location.LocationRequest",
+          "location": "api:androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m(Ljava.lang.Object;)Landroid.location.LocationRequest",
+          "snippet": "Referenced location API: androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m(Ljava.lang.Object;)Landroid.location.LocationRequest",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$Api28Impl;->getGnssHardwareModelName(Landroid.location.LocationManager;)Ljava.lang.String",
+          "location": "api:androidx.core.location.LocationManagerCompat$Api28Impl;->getGnssHardwareModelName(Landroid.location.LocationManager;)Ljava.lang.String",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$Api28Impl;->getGnssHardwareModelName(Landroid.location.LocationManager;)Ljava.lang.String",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationListenerCompat",
+          "location": "api:androidx.core.location.LocationListenerCompat",
+          "snippet": "Referenced location API: androidx.core.location.LocationListenerCompat",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.LocationManager;->registerGnssStatusCallback(Landroid.location.GnssStatus$Callback",
+          "location": "api:android.location.LocationManager;->registerGnssStatusCallback(Landroid.location.GnssStatus$Callback",
+          "snippet": "Referenced location API: android.location.LocationManager;->registerGnssStatusCallback(Landroid.location.GnssStatus$Callback",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.LocationManager;->getGpsStatus(Landroid.location.GpsStatus;)Landroid.location.GpsStatus",
+          "location": "api:android.location.LocationManager;->getGpsStatus(Landroid.location.GpsStatus;)Landroid.location.GpsStatus",
+          "snippet": "Referenced location API: android.location.LocationManager;->getGpsStatus(Landroid.location.GpsStatus;)Landroid.location.GpsStatus",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationCompat;->getSetIsFromMockProviderMethod()Ljava.lang.reflect.Method",
+          "location": "api:androidx.core.location.LocationCompat;->getSetIsFromMockProviderMethod()Ljava.lang.reflect.Method",
+          "snippet": "Referenced location API: androidx.core.location.LocationCompat;->getSetIsFromMockProviderMethod()Ljava.lang.reflect.Method",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.GnssStatus",
+          "location": "api:android.location.GnssStatus",
+          "snippet": "Referenced location API: android.location.GnssStatus",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerKey;-><init>(Ljava.lang.String",
+          "location": "api:androidx.core.location.LocationManagerCompat$LocationListenerKey;-><init>(Ljava.lang.String",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerKey;-><init>(Ljava.lang.String",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$Api31Impl;->requestLocationUpdates(Landroid.location.LocationManager",
+          "location": "api:androidx.core.location.LocationManagerCompat$Api31Impl;->requestLocationUpdates(Landroid.location.LocationManager",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$Api31Impl;->requestLocationUpdates(Landroid.location.LocationManager",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationCompat$Api26Impl;->setSpeedAccuracyMetersPerSecond(Landroid.location.Location",
+          "location": "api:androidx.core.location.LocationCompat$Api26Impl;->setSpeedAccuracyMetersPerSecond(Landroid.location.Location",
+          "snippet": "Referenced location API: androidx.core.location.LocationCompat$Api26Impl;->setSpeedAccuracyMetersPerSecond(Landroid.location.Location",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda0;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+          "location": "api:androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda0;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda0;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationRequestCompat;->toLocationRequest()Landroid.location.LocationRequest",
+          "location": "api:androidx.core.location.LocationRequestCompat;->toLocationRequest()Landroid.location.LocationRequest",
+          "snippet": "Referenced location API: androidx.core.location.LocationRequestCompat;->toLocationRequest()Landroid.location.LocationRequest",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.LocationRequest",
+          "location": "api:android.location.LocationRequest",
+          "snippet": "Referenced location API: android.location.LocationRequest",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.appcompat.app.TwilightManager;->getLastKnownLocation()Landroid.location.Location",
+          "location": "api:androidx.appcompat.app.TwilightManager;->getLastKnownLocation()Landroid.location.Location",
+          "snippet": "Referenced location API: androidx.appcompat.app.TwilightManager;->getLastKnownLocation()Landroid.location.Location",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.LocationManager;->requestLocationUpdates(Ljava.lang.String",
+          "location": "api:android.location.LocationManager;->requestLocationUpdates(Ljava.lang.String",
+          "snippet": "Referenced location API: android.location.LocationManager;->requestLocationUpdates(Ljava.lang.String",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.GnssStatusCompat;->wrap(Landroid.location.GpsStatus;)Landroidx.core.location.GnssStatusCompat",
+          "location": "api:androidx.core.location.GnssStatusCompat;->wrap(Landroid.location.GpsStatus;)Landroidx.core.location.GnssStatusCompat",
+          "snippet": "Referenced location API: androidx.core.location.GnssStatusCompat;->wrap(Landroid.location.GpsStatus;)Landroidx.core.location.GnssStatusCompat",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.GpsSatellite",
+          "location": "api:android.location.GpsSatellite",
+          "snippet": "Referenced location API: android.location.GpsSatellite",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport;->lambda$onStatusChanged$3$androidx-core-location-LocationManagerCompat$LocationListenerTransport(Ljava.lang.String",
+          "location": "api:androidx.core.location.LocationManagerCompat$LocationListenerTransport;->lambda$onStatusChanged$3$androidx-core-location-LocationManagerCompat$LocationListenerTransport(Ljava.lang.String",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport;->lambda$onStatusChanged$3$androidx-core-location-LocationManagerCompat$LocationListenerTransport(Ljava.lang.String",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.GpsStatusWrapper;->getSatellite(I)Landroid.location.GpsSatellite",
+          "location": "api:androidx.core.location.GpsStatusWrapper;->getSatellite(I)Landroid.location.GpsSatellite",
+          "snippet": "Referenced location API: androidx.core.location.GpsStatusWrapper;->getSatellite(I)Landroid.location.GpsSatellite",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda1;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+          "location": "api:androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda1;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport$$ExternalSyntheticLambda1;-><init>(Landroidx.core.location.LocationManagerCompat$PreRGnssStatusTransport",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.GnssStatus$Callback",
+          "location": "api:android.location.GnssStatus$Callback",
+          "snippet": "Referenced location API: android.location.GnssStatus$Callback",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.Location",
+          "location": "api:android.location.Location",
+          "snippet": "Referenced location API: android.location.Location",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.LocationManager;->getLastKnownLocation(Ljava.lang.String;)Landroid.location.Location",
+          "location": "api:android.location.LocationManager;->getLastKnownLocation(Ljava.lang.String;)Landroid.location.Location",
+          "snippet": "Referenced location API: android.location.LocationManager;->getLastKnownLocation(Ljava.lang.String;)Landroid.location.Location",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda1;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+          "location": "api:androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda1;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$LocationListenerTransport$$ExternalSyntheticLambda1;-><init>(Landroidx.core.location.LocationManagerCompat$LocationListenerTransport",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m(Ljava.lang.Object;)Landroid.location.GnssStatus",
+          "location": "api:androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m(Ljava.lang.Object;)Landroid.location.GnssStatus",
+          "snippet": "Referenced location API: androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m(Ljava.lang.Object;)Landroid.location.GnssStatus",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.LocationRequest$Builder;->setMaxUpdateDelayMillis(J)Landroid.location.LocationRequest$Builder",
+          "location": "api:android.location.LocationRequest$Builder;->setMaxUpdateDelayMillis(J)Landroid.location.LocationRequest$Builder",
+          "snippet": "Referenced location API: android.location.LocationRequest$Builder;->setMaxUpdateDelayMillis(J)Landroid.location.LocationRequest$Builder",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport;->lambda$onFirstFix$2$androidx-core-location-LocationManagerCompat$PreRGnssStatusTransport(Ljava.util.concurrent.Executor",
+          "location": "api:androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport;->lambda$onFirstFix$2$androidx-core-location-LocationManagerCompat$PreRGnssStatusTransport(Ljava.util.concurrent.Executor",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$PreRGnssStatusTransport;->lambda$onFirstFix$2$androidx-core-location-LocationManagerCompat$PreRGnssStatusTransport(Ljava.util.concurrent.Executor",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.GpsStatus",
+          "location": "api:android.location.GpsStatus",
+          "snippet": "Referenced location API: android.location.GpsStatus",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.GnssStatusWrapper$Api26Impl;->hasCarrierFrequencyHz(Landroid.location.GnssStatus",
+          "location": "api:androidx.core.location.GnssStatusWrapper$Api26Impl;->hasCarrierFrequencyHz(Landroid.location.GnssStatus",
+          "snippet": "Referenced location API: androidx.core.location.GnssStatusWrapper$Api26Impl;->hasCarrierFrequencyHz(Landroid.location.GnssStatus",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.LocationManager",
+          "location": "api:android.location.LocationManager",
+          "snippet": "Referenced location API: android.location.LocationManager",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m$1(Landroid.location.GnssStatus",
+          "location": "api:androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m$1(Landroid.location.GnssStatus",
+          "snippet": "Referenced location API: androidx.core.util.HalfKt$$ExternalSyntheticApiModelOutline0;->m$1(Landroid.location.GnssStatus",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.LocationListener",
+          "location": "api:android.location.LocationListener",
+          "snippet": "Referenced location API: android.location.LocationListener",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.location.LocationManagerCompat$CancellableLocationListener;->lambda$onLocationChanged$1(Landroidx.core.util.Consumer",
+          "location": "api:androidx.core.location.LocationManagerCompat$CancellableLocationListener;->lambda$onLocationChanged$1(Landroidx.core.util.Consumer",
+          "snippet": "Referenced location API: androidx.core.location.LocationManagerCompat$CancellableLocationListener;->lambda$onLocationChanged$1(Landroidx.core.util.Consumer",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static analysis cannot establish runtime location collection."
+      ],
+      "details": {}
+    }
+  ],
+  "warnings": [],
+  "errors": [],
+  "limitations": [
+    "Static analysis cannot establish actual runtime data collection, transmission, or dynamic execution."
+  ]
+}

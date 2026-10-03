@@ -1,0 +1,228 @@
+{
+  "pipeline_status": "verified",
+  "build_passed": true,
+  "apk_verified": true,
+  "modification_verified": true,
+  "verification_matrix": {
+    "schema_version": 1,
+    "checks": {
+      "structural": {
+        "name": "structural",
+        "status": "passed",
+        "summary": "archive and container structure valid",
+        "evidence": [
+          "AndroidManifest.xml decodes as binary XML",
+          "96 entries; DEX files: classes.dex"
+        ],
+        "details": {
+          "inventory": {
+            "sha256": "60a5d1d44d51bf2738f7d2d6025a3d5293dcc104e1225d69a122b766d9d73880",
+            "entries": 96,
+            "by_kind": {
+              "asset": 2,
+              "dex": 1,
+              "manifest": 1,
+              "meta_inf": 16,
+              "other": 8,
+              "resource": 64,
+              "resource_table": 1,
+              "signature": 3
+            },
+            "dex_files": [
+              "classes.dex"
+            ],
+            "abis": [],
+            "duplicate_names": [],
+            "unusual_paths": [],
+            "unreadable": []
+          }
+        }
+      },
+      "signature": {
+        "name": "signature",
+        "status": "passed",
+        "summary": "signature verifies with the expected signer",
+        "evidence": [
+          "apksigner verify: verifies",
+          "zipalign -c: aligned",
+          "ZIP integrity: ok",
+          "signer(s): 1, sha256 f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b, schemes ['v1', 'v2', 'v3']",
+          "expected signer f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b: matched"
+        ],
+        "details": {
+          "valid": true,
+          "zipalign_verified": true,
+          "signature_verified": true,
+          "expected_signer_matched": true,
+          "zip_integrity_verified": true,
+          "manifest_present": true,
+          "certificate": {
+            "subject_dn": "CN=APKForge Development Key - NOT FOR RELEASE, O=APKForge",
+            "sha256_digest": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+            "signer_count": 1,
+            "v1_scheme": true,
+            "v2_scheme": true,
+            "v3_scheme": true,
+            "v31_scheme": false,
+            "v4_scheme": false
+          },
+          "expected_certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "apksigner_warnings": [
+            "META-INF/versions/9/OSGI-INF/MANIFEST.MF not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/androidx/annotation/annotation/LICENSE.txt not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/com/android/build/gradle/app-metadata.properties not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/kotlinx_coroutines_core.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/kotlinx_coroutines_android.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/androidx.versionedparcelable_versionedparcelable.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/androidx.tracing_tracing.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/androidx.startup_startup-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/androidx.profileinstaller_profileinstaller.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/androidx.lifecycle_lifecycle-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/androidx.interpolator_interpolator.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/androidx.core_core.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/androidx.core_core-viewtree.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/androidx.arch.core_core-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/androidx.annotation_annotation-experimental.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/version-control-info.textproto not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/."
+          ],
+          "errors": []
+        }
+      },
+      "noise_baseline": {
+        "name": "noise_baseline",
+        "status": "passed",
+        "summary": "content-aware baseline for this APK and toolchain",
+        "evidence": [
+          "baseline status COMPATIBLE"
+        ],
+        "details": {
+          "status": "COMPATIBLE",
+          "usable": true,
+          "content_aware": true,
+          "reasons": [],
+          "entry_id": "de.audioattack.openlink@28",
+          "schema_version": 2,
+          "baseline_toolchain": {
+            "java": "25.0.4.1",
+            "apktool": "3.0.3",
+            "zipalign": "35.0.0",
+            "apksigner": "0.9",
+            "build_tools": "35.0.0",
+            "android_platform": "android-35",
+            "normalization_schema": 1,
+            "semantic_schema": 3
+          },
+          "current_toolchain": {
+            "java": "25.0.4.1",
+            "apktool": "3.0.3",
+            "zipalign": "35.0.0",
+            "apksigner": "0.9",
+            "build_tools": "35.0.0",
+            "android_platform": "android-35",
+            "normalization_schema": 1,
+            "semantic_schema": 3
+          }
+        }
+      },
+      "modification": {
+        "name": "modification",
+        "status": "passed",
+        "summary": "1 modifier(s) verified",
+        "evidence": [
+          "c5.disable_boot_receiver: verified"
+        ],
+        "details": {}
+      },
+      "expected_changes": {
+        "name": "expected_changes",
+        "status": "passed",
+        "summary": "all 2 expected change(s) observed",
+        "evidence": [
+          "observed: uses_permission removed android.permission.RECEIVE_BOOT_COMPLETED",
+          "observed: component modified de.audioattack.openlink.conf.PackageChangeBroadcastReceiver"
+        ],
+        "details": {}
+      },
+      "unexpected_changes": {
+        "name": "unexpected_changes",
+        "status": "passed",
+        "summary": "no unexpected or unclassified change",
+        "evidence": [],
+        "details": {
+          "counts": {
+            "expected_modification": 2,
+            "planned_entry": 1,
+            "rebuild_noise": 73,
+            "unexpected": 0,
+            "unknown": 0
+          },
+          "mode": "content_fingerprint"
+        }
+      },
+      "semantic_diff": {
+        "name": "semantic_diff",
+        "status": "passed",
+        "summary": "every comparator completed",
+        "evidence": [
+          "identity: unchanged",
+          "manifest: unchanged",
+          "manifest_tree: modified",
+          "permissions: modified",
+          "components: modified",
+          "intent_filters: unchanged",
+          "certificate: modified",
+          "dex: unchanged",
+          "strings: modified",
+          "network: unchanged",
+          "native: unchanged",
+          "resources: modified",
+          "resource_table: not_comparable",
+          "assets: unchanged",
+          "embedded: unchanged",
+          "files: modified",
+          "established by byte identity with the no-op rebuild: resource_table"
+        ],
+        "details": {
+          "covered_by_content_identity": [
+            "resource_table"
+          ]
+        }
+      },
+      "security_diff": {
+        "name": "security_diff",
+        "status": "passed",
+        "summary": "3 security-relevant change(s), none unexpected",
+        "evidence": [
+          "permissions: removed android.permission.RECEIVE_BOOT_COMPLETED [expected_modification]",
+          "components: modified receiver de.audioattack.openlink.conf.PackageChangeBroadcastReceiver [expected_modification]",
+          "certificate: modified signing certificate [rebuild_noise]"
+        ],
+        "details": {
+          "counts": {
+            "permissions": 1,
+            "components": 1,
+            "intent_filters": 0,
+            "certificate": 1,
+            "network_domains": 0,
+            "urls": 0,
+            "native_libraries": 0,
+            "dex": 0,
+            "embedded_executables": 0,
+            "sensitive_manifest": 0,
+            "manifest_other": 0
+          }
+        }
+      }
+    },
+    "overall": "VERIFIED",
+    "overall_reason": "every applicable check passed",
+    "limitations": [
+      "components: <activity-alias> is not modelled as a component; alias changes are reported by manifest_tree only",
+      "native: native code is not analysed; hash and ELF metadata only",
+      "resources: res/ binary XML and images are compared by content hash, not decoded; a same-path content change cannot be interpreted semantically",
+      "resource_table: not_comparable: resources.arsc differs; its entries are not compared semantically (only byte identity is established)",
+      "signature files (META-INF/MANIFEST.MF, *.SF, *.RSA...) are accepted by path; their validity is established by apksigner, not by the diff"
+    ],
+    "statement": "Verification establishes structural/signing validity and that observed differences match the plan and the measured rebuild noise, within the stated comparator coverage. It does not establish that the application is safe."
+  }
+}

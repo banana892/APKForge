@@ -5,6 +5,19 @@
 
 ---
 
+## Phase G — Controlled Privacy/Security Remediation
+
+`apkforge remediate APP.apk --finding FINDING_ID` enables evidence-backed, controlled remediation of findings identified by Phase F or Phase B.
+Remediation follows a strict lifecycle: `Finding -> Evidence -> Candidate -> Plan -> User Approval (--apply) -> Modifier -> BuildService -> Phase E Verification -> Post-Remediation Privacy Analysis -> Diff Report`.
+Modifications are never automatic or silent: `--apply` is strictly required. Built-in remediations include:
+- `G-REM-001`: Disable Boot Receiver (e.g. boot persistence)
+- `G-REM-002`: Remove Specific Permission (manifest `<uses-permission>` removal with DEX reference detection)
+- `G-REM-003`: Disable Specific Manifest Component (`android:enabled="false"`)
+- `G-REM-004`: Guarded SDK Artifact Removal (conditional)
+
+Remediations preserve original APK byte-integrity, detect conflicts, support automatic rollback on failure, and classify finding resolution as `REMEDIATED`, `PARTIALLY_REMEDIATED`, or `STILL_PRESENT`. Successful remediation does not claim the APK is "safe", "malware-free", or "spyware-free".
+See [docs/remediation.md](docs/remediation.md).
+
 ## Phase F — Privacy, Tracker & Ads Intelligence
 
 `apkforge privacy APP.apk` provides dedicated static privacy auditing, third-party SDK detection,
@@ -180,7 +193,19 @@ apkforge modify path/to/app.apk --approve-all --json > result.json
 # Verify a built APK (structure + signature), or a modified APK against its original
 apkforge verify output.apk
 apkforge verify original.apk modified.apk --baseline tests/corpus/results/phase-e-noise-baseline.json --built-locally
+
+# Controlled Remediation (Phase G)
+# List available remediation definitions
+apkforge remediations
+apkforge remediations --json
+
+# Plan remediation (dry-run by default, no APK modification)
+apkforge remediate path/to/app.apk --finding PRIV-REC-BOOT
+
+# Apply remediation with explicit approval and output artifact
+apkforge remediate path/to/app.apk --finding PRIV-REC-BOOT --apply --output modified.apk --report report.md
 ```
+
 
 ---
 

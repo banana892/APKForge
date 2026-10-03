@@ -258,6 +258,17 @@ src/apkforge/
 │   ├── telemetry.py    — TelemetryDetector (crash reporting & diagnostics)
 │   └── trackers.py     — TrackerDetector (attribution & tracking SDKs)
 │
+├── remediation/        — Phase G: Controlled Privacy & Security Remediation
+│   ├── catalog.py      — RemediationCatalog (G-REM-001 through G-REM-004)
+│   ├── compare.py      — compare_privacy_before_after (finding transition & resolution classifier)
+│   ├── execution.py    — RemediationExecutor (orchestrates ModificationPipeline, BuildService, Verification)
+│   ├── mapping.py      — map_finding_to_remediations (finding-to-candidate mapper)
+│   ├── models.py       — RemediationPlan, RemediationExecutionResult, states, and definitions
+│   ├── modifiers.py    — RemovePermissionModifier, DisableComponentModifier, remediation catalog
+│   ├── planner.py      — RemediationPlanner (machine-checkable preconditions, deterministic plan generator)
+│   ├── report.py       — format_remediation_diff_report, format_remediation_plan_report
+│   └── service.py      — RemediationService (high-level programmatic API)
+│
 ├── security/           — Phase 5: Security Analysis Engine
 │   ├── engine.py       — SecurityEngine coordinator, index builder, error isolation
 │   ├── models.py       — SecurityResult, SecurityFinding, SecuritySummary, FullAnalysisResult

@@ -805,3 +805,29 @@ Evidence: `artifacts/phase-f/` (`build-tests/run_phase_f_validation.py`).
 - *Native Code Boundaries*: Network communication or device identifier access performed exclusively inside compiled native binaries (`.so`) is invisible to DEX bytecode scanners.
 - *Absence of Evidence Is Not Proof of Safety*: Zero detected trackers or APIs does not prove that an application is harmless.
 
+---
+
+## Status update — Phase G Controlled Privacy/Security Remediation
+
+Recorded here as part of Phase G verification. Design and models: [`docs/remediation.md`](remediation.md).
+Evidence: `artifacts/phase-g/` (`build-tests/run_phase_g_validation.py`).
+
+**Introduced by Phase G**
+
+- *Controlled Remediation Layer*: Explicit multi-stage workflow: `Finding -> Evidence -> Candidate -> Plan -> User Approval (--apply) -> Modifier -> BuildService -> Phase E Verification -> Post-Remediation Privacy Analysis -> Diff Report`.
+- *Dedicated Remediation Catalog*: Small, conservative, auditable catalog (`G-REM-001` Disable Boot Receiver, `G-REM-002` Remove Specific Permission, `G-REM-003` Disable Manifest Component, `G-REM-004` Guarded SDK Artifact Removal).
+- *Strict Approval Gate*: Modifications are never automatic or silent; `--apply` / `approved=True` is strictly required. Unapproved runs produce dry-run plans only.
+- *Original APK Byte-Integrity*: The original input APK is never modified; SHA-256 is verified byte-identical before and after all operations.
+- *Target Resolution vs. APK Verification*: Clear architectural distinction between APK verification (structural/signature/noise integrity) and finding resolution (`REMEDIATED`, `PARTIALLY_REMEDIATED`, `STILL_PRESENT`, `NO_LONGER_COMPARABLE`, `UNKNOWN`).
+- *Partial Remediation Transparency*: When a manifest permission is removed (`G-REM-002`) but DEX bytecode retains invocations to the protected API, the resolution is reported as `PARTIALLY_REMEDIATED` rather than falsely claiming complete elimination.
+- *Conflict and Rollback Safety*: Pre-modification conflict detection and atomic workspace rollback upon failure, preserving the workspace for manual review if rollback fails.
+
+**Remediation Boundaries & Invariants (Not Defects)**
+
+- *No Safety Claims*: Remediating a finding does not make an APK "safe", "malware-free", or "spyware-free".
+- *Bytecode Retention on Permission Removal*: Removing a `<uses-permission>` tag from `AndroidManifest.xml` prevents the runtime grant of that permission, but does not alter DEX bytecode instructions. If the application attempts to invoke the permission-gated API at runtime without checking permissions, a `SecurityException` may occur.
+- *Component Interdependencies*: Disabling an activity, service, or receiver via `android:enabled="false"` may cause application instability if other components rely on it via explicit intents or bindings.
+- *SDK Stripping Limits*: Complete removal of third-party SDKs without breaking bytecode references requires byte-level stubbing or AST refactoring, which is beyond Phase G's conservative scope (`G-REM-004` is conditional and refused when references remain).
+- *Dynamic Feature / Split APK Limits*: Remediation operates on monolithic APKs; split APKs with external feature modules are not supported.
+
+

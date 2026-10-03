@@ -1,0 +1,544 @@
+{
+  "plan": {
+    "plan_id": "plan-a172422bd8ae",
+    "source_apk_path": "/home/naishring/APKForge/tests/corpus/de.audioattack.openlink_28.apk",
+    "source_apk_sha256": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+    "package_name": "de.audioattack.openlink",
+    "finding_id": "PRIV-REC-BOOT",
+    "finding_category": "persistence",
+    "finding_title": "Boot & Package Replacement Receivers",
+    "finding_evidence_locations": [
+      "receiver:de.audioattack.openlink.conf.PackageChangeBroadcastReceiver:action:android.intent.action.BOOT_COMPLETED",
+      "receiver:de.audioattack.openlink.conf.PackageChangeBroadcastReceiver:action:android.intent.action.MY_PACKAGE_REPLACED"
+    ],
+    "finding_evidence_values": [
+      "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver (android.intent.action.BOOT_COMPLETED)",
+      "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver (android.intent.action.MY_PACKAGE_REPLACED)"
+    ],
+    "finding_state": "OBSERVED",
+    "remediation_id": "G-REM-001",
+    "remediation_name": "Disable Boot Receiver",
+    "state": "planned",
+    "preconditions": [
+      {
+        "name": "permission_declared",
+        "satisfied": true,
+        "expected": "RECEIVE_BOOT_COMPLETED declared in manifest",
+        "actual": "declared",
+        "reason": "Target app must declare RECEIVE_BOOT_COMPLETED."
+      },
+      {
+        "name": "boot_receiver_identified",
+        "satisfied": true,
+        "expected": "boot receiver 'de.audioattack.openlink.conf.PackageChangeBroadcastReceiver' identified",
+        "actual": "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+        "reason": "Boot receiver must be identified."
+      },
+      {
+        "name": "receiver_currently_enabled",
+        "satisfied": true,
+        "expected": "receiver is currently enabled",
+        "actual": "enabled",
+        "reason": "Receiver must currently be enabled to disable it."
+      }
+    ],
+    "targets": [
+      "component:de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+      "permission:android.permission.RECEIVE_BOOT_COMPLETED"
+    ],
+    "planned_changes": [
+      "set android:enabled=\"false\" on <receiver de.audioattack.openlink.conf.PackageChangeBroadcastReceiver>",
+      "remove <uses-permission android:name=android.permission.RECEIVE_BOOT_COMPLETED>"
+    ],
+    "expected_diff": [
+      "permission removed: android.permission.RECEIVE_BOOT_COMPLETED",
+      "component modified: de.audioattack.openlink.conf.PackageChangeBroadcastReceiver enabled -> false"
+    ],
+    "verification_plan": [
+      "Rebuilt manifest no longer contains RECEIVE_BOOT_COMPLETED",
+      "Rebuilt receiver reports enabled=false in verification diff"
+    ],
+    "warnings": [
+      "Application will not start automatically on device boot; background initialization dependent on BOOT_COMPLETED will not execute."
+    ],
+    "compatibility_notes": [
+      "Application will not start automatically on device boot; background initialization dependent on BOOT_COMPLETED will not execute."
+    ],
+    "limitations": [
+      "Manifest declaration is disabled, but underlying DEX class bytecode remains in the APK."
+    ],
+    "modifier_requests": [
+      {
+        "modifier_id": "c5.disable_boot_receiver",
+        "parameters": {
+          "receiver": "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver"
+        }
+      }
+    ],
+    "created_at": "2026-10-03T06:34:53.750265+00:00"
+  },
+  "state": "verified",
+  "approved": true,
+  "output_apk_path": "/tmp/apkforge-rem-work-bd8x8w9d/remediated-de.audioattack.openlink_28.apk",
+  "output_apk_sha256": "60a5d1d44d51bf2738f7d2d6025a3d5293dcc104e1225d69a122b766d9d73880",
+  "original_apk_sha256_before": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+  "original_apk_sha256_after": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+  "original_apk_preserved": true,
+  "pipeline_status": "verified",
+  "build_passed": true,
+  "apk_verified": true,
+  "verification_passed": true,
+  "verification_details": {
+    "pipeline_status": "verified",
+    "build_passed": true,
+    "apk_verified": true,
+    "modification_verified": true,
+    "verification_matrix": {
+      "schema_version": 1,
+      "checks": {
+        "structural": {
+          "name": "structural",
+          "status": "passed",
+          "summary": "archive and container structure valid",
+          "evidence": [
+            "AndroidManifest.xml decodes as binary XML",
+            "96 entries; DEX files: classes.dex"
+          ],
+          "details": {
+            "inventory": {
+              "sha256": "60a5d1d44d51bf2738f7d2d6025a3d5293dcc104e1225d69a122b766d9d73880",
+              "entries": 96,
+              "by_kind": {
+                "asset": 2,
+                "dex": 1,
+                "manifest": 1,
+                "meta_inf": 16,
+                "other": 8,
+                "resource": 64,
+                "resource_table": 1,
+                "signature": 3
+              },
+              "dex_files": [
+                "classes.dex"
+              ],
+              "abis": [],
+              "duplicate_names": [],
+              "unusual_paths": [],
+              "unreadable": []
+            }
+          }
+        },
+        "signature": {
+          "name": "signature",
+          "status": "passed",
+          "summary": "signature verifies with the expected signer",
+          "evidence": [
+            "apksigner verify: verifies",
+            "zipalign -c: aligned",
+            "ZIP integrity: ok",
+            "signer(s): 1, sha256 f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b, schemes ['v1', 'v2', 'v3']",
+            "expected signer f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b: matched"
+          ],
+          "details": {
+            "valid": true,
+            "zipalign_verified": true,
+            "signature_verified": true,
+            "expected_signer_matched": true,
+            "zip_integrity_verified": true,
+            "manifest_present": true,
+            "certificate": {
+              "subject_dn": "CN=APKForge Development Key - NOT FOR RELEASE, O=APKForge",
+              "sha256_digest": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+              "signer_count": 1,
+              "v1_scheme": true,
+              "v2_scheme": true,
+              "v3_scheme": true,
+              "v31_scheme": false,
+              "v4_scheme": false
+            },
+            "expected_certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+            "apksigner_warnings": [
+              "META-INF/versions/9/OSGI-INF/MANIFEST.MF not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+              "META-INF/androidx/annotation/annotation/LICENSE.txt not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+              "META-INF/com/android/build/gradle/app-metadata.properties not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+              "META-INF/kotlinx_coroutines_core.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+              "META-INF/kotlinx_coroutines_android.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+              "META-INF/androidx.versionedparcelable_versionedparcelable.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+              "META-INF/androidx.tracing_tracing.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+              "META-INF/androidx.startup_startup-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+              "META-INF/androidx.profileinstaller_profileinstaller.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+              "META-INF/androidx.lifecycle_lifecycle-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+              "META-INF/androidx.interpolator_interpolator.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+              "META-INF/androidx.core_core.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+              "META-INF/androidx.core_core-viewtree.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+              "META-INF/androidx.arch.core_core-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+              "META-INF/androidx.annotation_annotation-experimental.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+              "META-INF/version-control-info.textproto not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/."
+            ],
+            "errors": []
+          }
+        },
+        "noise_baseline": {
+          "name": "noise_baseline",
+          "status": "passed",
+          "summary": "content-aware baseline for this APK and toolchain",
+          "evidence": [
+            "baseline status COMPATIBLE"
+          ],
+          "details": {
+            "status": "COMPATIBLE",
+            "usable": true,
+            "content_aware": true,
+            "reasons": [],
+            "entry_id": "de.audioattack.openlink@28",
+            "schema_version": 2,
+            "baseline_toolchain": {
+              "java": "25.0.4.1",
+              "apktool": "3.0.3",
+              "zipalign": "35.0.0",
+              "apksigner": "0.9",
+              "build_tools": "35.0.0",
+              "android_platform": "android-35",
+              "normalization_schema": 1,
+              "semantic_schema": 3
+            },
+            "current_toolchain": {
+              "java": "25.0.4.1",
+              "apktool": "3.0.3",
+              "zipalign": "35.0.0",
+              "apksigner": "0.9",
+              "build_tools": "35.0.0",
+              "android_platform": "android-35",
+              "normalization_schema": 1,
+              "semantic_schema": 3
+            }
+          }
+        },
+        "modification": {
+          "name": "modification",
+          "status": "passed",
+          "summary": "1 modifier(s) verified",
+          "evidence": [
+            "c5.disable_boot_receiver: verified"
+          ],
+          "details": {}
+        },
+        "expected_changes": {
+          "name": "expected_changes",
+          "status": "passed",
+          "summary": "all 2 expected change(s) observed",
+          "evidence": [
+            "observed: uses_permission removed android.permission.RECEIVE_BOOT_COMPLETED",
+            "observed: component modified de.audioattack.openlink.conf.PackageChangeBroadcastReceiver"
+          ],
+          "details": {}
+        },
+        "unexpected_changes": {
+          "name": "unexpected_changes",
+          "status": "passed",
+          "summary": "no unexpected or unclassified change",
+          "evidence": [],
+          "details": {
+            "counts": {
+              "expected_modification": 2,
+              "planned_entry": 1,
+              "rebuild_noise": 73,
+              "unexpected": 0,
+              "unknown": 0
+            },
+            "mode": "content_fingerprint"
+          }
+        },
+        "semantic_diff": {
+          "name": "semantic_diff",
+          "status": "passed",
+          "summary": "every comparator completed",
+          "evidence": [
+            "identity: unchanged",
+            "manifest: unchanged",
+            "manifest_tree: modified",
+            "permissions: modified",
+            "components: modified",
+            "intent_filters: unchanged",
+            "certificate: modified",
+            "dex: unchanged",
+            "strings: modified",
+            "network: unchanged",
+            "native: unchanged",
+            "resources: modified",
+            "resource_table: not_comparable",
+            "assets: unchanged",
+            "embedded: unchanged",
+            "files: modified",
+            "established by byte identity with the no-op rebuild: resource_table"
+          ],
+          "details": {
+            "covered_by_content_identity": [
+              "resource_table"
+            ]
+          }
+        },
+        "security_diff": {
+          "name": "security_diff",
+          "status": "passed",
+          "summary": "3 security-relevant change(s), none unexpected",
+          "evidence": [
+            "permissions: removed android.permission.RECEIVE_BOOT_COMPLETED [expected_modification]",
+            "components: modified receiver de.audioattack.openlink.conf.PackageChangeBroadcastReceiver [expected_modification]",
+            "certificate: modified signing certificate [rebuild_noise]"
+          ],
+          "details": {
+            "counts": {
+              "permissions": 1,
+              "components": 1,
+              "intent_filters": 0,
+              "certificate": 1,
+              "network_domains": 0,
+              "urls": 0,
+              "native_libraries": 0,
+              "dex": 0,
+              "embedded_executables": 0,
+              "sensitive_manifest": 0,
+              "manifest_other": 0
+            }
+          }
+        }
+      },
+      "overall": "VERIFIED",
+      "overall_reason": "every applicable check passed",
+      "limitations": [
+        "components: <activity-alias> is not modelled as a component; alias changes are reported by manifest_tree only",
+        "native: native code is not analysed; hash and ELF metadata only",
+        "resources: res/ binary XML and images are compared by content hash, not decoded; a same-path content change cannot be interpreted semantically",
+        "resource_table: not_comparable: resources.arsc differs; its entries are not compared semantically (only byte identity is established)",
+        "signature files (META-INF/MANIFEST.MF, *.SF, *.RSA...) are accepted by path; their validity is established by apksigner, not by the diff"
+      ],
+      "statement": "Verification establishes structural/signing validity and that observed differences match the plan and the measured rebuild noise, within the stated comparator coverage. It does not establish that the application is safe."
+    }
+  },
+  "comparison": {
+    "target_finding": {
+      "finding_id": "PRIV-REC-BOOT",
+      "resolution": "remediated",
+      "before_evidence": [
+        "receiver:de.audioattack.openlink.conf.PackageChangeBroadcastReceiver:action:android.intent.action.BOOT_COMPLETED=de.audioattack.openlink.conf.PackageChangeBroadcastReceiver (android.intent.action.BOOT_COMPLETED)",
+        "receiver:de.audioattack.openlink.conf.PackageChangeBroadcastReceiver:action:android.intent.action.MY_PACKAGE_REPLACED=de.audioattack.openlink.conf.PackageChangeBroadcastReceiver (android.intent.action.MY_PACKAGE_REPLACED)"
+      ],
+      "after_evidence": [],
+      "explanation": "Boot receiver was disabled and RECEIVE_BOOT_COMPLETED removed; persistence finding eliminated."
+    },
+    "findings_removed": [
+      "PRIV-REC-BOOT"
+    ],
+    "findings_retained": [
+      "PRIV-API-REFLECTION"
+    ],
+    "findings_changed": [],
+    "findings_introduced": [],
+    "sdk_changes": {
+      "removed": [],
+      "retained": [],
+      "added": []
+    },
+    "endpoint_changes": {
+      "removed_count": 0,
+      "retained_count": 2,
+      "added_count": 0
+    },
+    "permission_changes": {
+      "removed": [
+        "android.permission.RECEIVE_BOOT_COMPLETED"
+      ],
+      "retained": [
+        "de.audioattack.openlink.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+      ],
+      "added": []
+    },
+    "component_changes": {
+      "disabled": [
+        "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver"
+      ]
+    },
+    "limitations": [
+      "Static analysis cannot establish actual runtime data collection, transmission, or dynamic execution."
+    ]
+  },
+  "post_analysis": {
+    "status": "complete",
+    "package_name": "de.audioattack.openlink",
+    "version_name": "1.5.11",
+    "version_code": "28",
+    "permissions": {
+      "declared_permissions": [
+        "de.audioattack.openlink.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+      ],
+      "categorized_permissions": {
+        "other": [
+          "de.audioattack.openlink.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        ]
+      },
+      "usage_details": [
+        {
+          "permission": "de.audioattack.openlink.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+          "category": "other",
+          "protection_level": "unknown",
+          "usage_status": "unknown",
+          "relevance": "unknown",
+          "description": "Other capability permission (unknown)",
+          "related_apis": [],
+          "classes": [],
+          "methods": [],
+          "evidence": [],
+          "limitations": [
+            "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+          ]
+        }
+      ],
+      "high_risk_permissions_count": 0
+    },
+    "trackers": {
+      "detected_trackers": [],
+      "total_trackers": 0
+    },
+    "advertising": {
+      "detected_advertising_sdks": [],
+      "total_advertising_sdks": 0
+    },
+    "analytics": {
+      "detected_analytics_sdks": [],
+      "total_analytics_sdks": 0
+    },
+    "telemetry": {
+      "detected_telemetry_sdks": [],
+      "total_telemetry_sdks": 0
+    },
+    "endpoints": {
+      "total_endpoints": 2,
+      "first_party_domains": [],
+      "third_party_domains": [
+        "example.org"
+      ],
+      "classified_endpoints": [
+        {
+          "endpoint": "example.org",
+          "domain": "example.org",
+          "is_url": false,
+          "category": "unknown",
+          "purpose": "Third-party endpoint",
+          "associated_sdk": null,
+          "is_first_party": false,
+          "provenance": [
+            "network:extracted_domain"
+          ],
+          "evidence": [
+            {
+              "description": "Extracted domain: example.org",
+              "location": "domain:example.org",
+              "snippet": "Extracted domain: example.org",
+              "references": []
+            }
+          ],
+          "raw_evidence": "example.org",
+          "transmission_verified": false,
+          "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+        },
+        {
+          "endpoint": "http://example.org",
+          "domain": "example.org",
+          "is_url": true,
+          "category": "unknown",
+          "purpose": "Third-party endpoint",
+          "associated_sdk": null,
+          "is_first_party": false,
+          "provenance": [
+            "classes.dex"
+          ],
+          "evidence": [
+            {
+              "description": "Extracted URL: http://example.org",
+              "location": "classes.dex",
+              "snippet": "Extracted URL: http://example.org",
+              "references": []
+            }
+          ],
+          "raw_evidence": "http://example.org",
+          "transmission_verified": false,
+          "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+        }
+      ],
+      "by_category": {
+        "unknown": [
+          "example.org",
+          "http://example.org"
+        ]
+      }
+    },
+    "data_collection": {
+      "capabilities": [],
+      "device_identifiers_detected": [],
+      "advertising_id_detected": false,
+      "clipboard_access_detected": false,
+      "accessibility_service_detected": false,
+      "background_data_capabilities": []
+    },
+    "detected_sdks": [],
+    "findings": [
+      {
+        "id": "PRIV-API-REFLECTION",
+        "category": "reflection",
+        "title": "Reflection on Internal or Sensitive Classes",
+        "description": "Static references to reflection APIs combined with internal framework class names detected.",
+        "severity": "informational",
+        "confidence": "medium",
+        "evidence_state": "OBSERVED",
+        "evidence_locations": [
+          "api:java.lang.Class",
+          "api:java.lang.reflect.Method"
+        ],
+        "evidence_values": [
+          "java.lang.Class",
+          "java.lang.reflect.Method"
+        ],
+        "source_component": null,
+        "related_permissions": [],
+        "related_domains": [],
+        "related_sdks": [],
+        "is_direct": true,
+        "analysis_completeness": "COMPLETE",
+        "remediation_relevance": "Reflection may access hidden or non-SDK interfaces; ensure platform compatibility and policy compliance.",
+        "evidence": [
+          {
+            "description": "Referenced API: java.lang.reflect.Method",
+            "location": "api:java.lang.reflect.Method",
+            "snippet": "api:java.lang.reflect.Method",
+            "references": []
+          },
+          {
+            "description": "Referenced API: java.lang.Class",
+            "location": "api:java.lang.Class",
+            "snippet": "api:java.lang.Class",
+            "references": []
+          }
+        ],
+        "limitations": [
+          "Static observation of API or component reference does not guarantee runtime execution or data exfiltration."
+        ],
+        "details": {}
+      }
+    ],
+    "warnings": [],
+    "errors": [],
+    "limitations": [
+      "Static analysis cannot establish actual runtime data collection, transmission, or dynamic execution."
+    ]
+  },
+  "errors": [],
+  "warnings": [
+    "Application will not start automatically on device boot; background initialization dependent on BOOT_COMPLETED will not execute."
+  ],
+  "limitations": [
+    "Static analysis cannot establish actual runtime data collection, transmission, or dynamic execution."
+  ],
+  "rollback_occurred": false,
+  "rollback_success": null
+}

@@ -1,0 +1,78 @@
+{
+  "plan_id": "plan-a172422bd8ae",
+  "source_apk_path": "/home/naishring/APKForge/tests/corpus/de.audioattack.openlink_28.apk",
+  "source_apk_sha256": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+  "package_name": "de.audioattack.openlink",
+  "finding_id": "PRIV-REC-BOOT",
+  "finding_category": "persistence",
+  "finding_title": "Boot & Package Replacement Receivers",
+  "finding_evidence_locations": [
+    "receiver:de.audioattack.openlink.conf.PackageChangeBroadcastReceiver:action:android.intent.action.BOOT_COMPLETED",
+    "receiver:de.audioattack.openlink.conf.PackageChangeBroadcastReceiver:action:android.intent.action.MY_PACKAGE_REPLACED"
+  ],
+  "finding_evidence_values": [
+    "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver (android.intent.action.BOOT_COMPLETED)",
+    "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver (android.intent.action.MY_PACKAGE_REPLACED)"
+  ],
+  "finding_state": "OBSERVED",
+  "remediation_id": "G-REM-001",
+  "remediation_name": "Disable Boot Receiver",
+  "state": "planned",
+  "preconditions": [
+    {
+      "name": "permission_declared",
+      "satisfied": true,
+      "expected": "RECEIVE_BOOT_COMPLETED declared in manifest",
+      "actual": "declared",
+      "reason": "Target app must declare RECEIVE_BOOT_COMPLETED."
+    },
+    {
+      "name": "boot_receiver_identified",
+      "satisfied": true,
+      "expected": "boot receiver 'de.audioattack.openlink.conf.PackageChangeBroadcastReceiver' identified",
+      "actual": "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+      "reason": "Boot receiver must be identified."
+    },
+    {
+      "name": "receiver_currently_enabled",
+      "satisfied": true,
+      "expected": "receiver is currently enabled",
+      "actual": "enabled",
+      "reason": "Receiver must currently be enabled to disable it."
+    }
+  ],
+  "targets": [
+    "component:de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+    "permission:android.permission.RECEIVE_BOOT_COMPLETED"
+  ],
+  "planned_changes": [
+    "set android:enabled=\"false\" on <receiver de.audioattack.openlink.conf.PackageChangeBroadcastReceiver>",
+    "remove <uses-permission android:name=android.permission.RECEIVE_BOOT_COMPLETED>"
+  ],
+  "expected_diff": [
+    "permission removed: android.permission.RECEIVE_BOOT_COMPLETED",
+    "component modified: de.audioattack.openlink.conf.PackageChangeBroadcastReceiver enabled -> false"
+  ],
+  "verification_plan": [
+    "Rebuilt manifest no longer contains RECEIVE_BOOT_COMPLETED",
+    "Rebuilt receiver reports enabled=false in verification diff"
+  ],
+  "warnings": [
+    "Application will not start automatically on device boot; background initialization dependent on BOOT_COMPLETED will not execute."
+  ],
+  "compatibility_notes": [
+    "Application will not start automatically on device boot; background initialization dependent on BOOT_COMPLETED will not execute."
+  ],
+  "limitations": [
+    "Manifest declaration is disabled, but underlying DEX class bytecode remains in the APK."
+  ],
+  "modifier_requests": [
+    {
+      "modifier_id": "c5.disable_boot_receiver",
+      "parameters": {
+        "receiver": "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver"
+      }
+    }
+  ],
+  "created_at": "2026-10-03T06:34:53.750265+00:00"
+}

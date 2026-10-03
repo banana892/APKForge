@@ -26,8 +26,8 @@ Command structure (Phase 0 — stubs)::
 
 from __future__ import annotations
 
-from pathlib import Path
 import sys
+from pathlib import Path
 from typing import TYPE_CHECKING
 
 import typer
@@ -2027,6 +2027,198 @@ def cmd_modifiers(
     _console.print(table)
 
 
+@app.command("remediations")
+def cmd_remediations(
+    json_output: bool = typer.Option(False, "--json", help="Print the list as JSON."),
+) -> None:
+    """[green]⚡ Phase G[/green] — List the supported privacy and security remediations."""
+    import json
+    import sys
+
+    from apkforge.remediation import default_remediation_catalog
+
+    catalog = default_remediation_catalog()
+    remediations = catalog.list()
+
+    if json_output:
+        data = [r.model_dump(mode="json") for r in remediations]
+        sys.stdout.write(json.dumps(data, indent=2) + "\n")
+        sys.stdout.flush()
+        return
+
+    table = Table(title="APKForge Phase G Remediation Catalog", border_style="dim")
+    table.add_column("ID", style="bold", no_wrap=True)
+    table.add_column("Name")
+    table.add_column("Target Categories", overflow="fold")
+    table.add_column("Status")
+    table.add_column("Risk")
+    table.add_column("Description", overflow="fold")
+    for r in remediations:
+        status_style = "green" if r.status == "supported" else "yellow"
+        table.add_row(
+            r.id,
+            r.name,
+            ", ".join(r.target_categories),
+            f"[{status_style}]{r.status}[/{status_style}]",
+            str(r.risk),
+            r.description,
+        )
+    _console.print(table)
+
+
+@app.command("remediate")
+def cmd_remediate(
+    apk: Path = typer.Argument(
+        ...,
+        metavar="APK",
+        help="Path to the APK file to remediate.",
+        exists=True,
+        file_okay=True,
+        dir_okay=False,
+        readable=True,
+        resolve_path=True,
+    ),
+    finding_id: str = typer.Option(
+        ...,
+        "--finding",
+        "-f",
+        help="The specific finding ID to remediate (e.g. from Phase F analysis).",
+    ),
+    remediation_id: str | None = typer.Option(
+        None,
+        "--remediation",
+        "-r",
+        help="Optional remediation ID to select (e.g. G-REM-001, G-REM-002).",
+    ),
+    apply: bool = typer.Option(
+        False,
+        "--apply",
+        help="Explicitly approve and apply the remediation to produce a rebuilt APK.",
+    ),
+    dry_run: bool = typer.Option(
+        False,
+        "--dry-run",
+        help="Generate and check remediation plan only (default behavior when --apply is omitted).",
+    ),
+    output: Path | None = typer.Option(
+        None,
+        "--output",
+        "-o",
+        help="Path where the remediated APK should be written.",
+    ),
+    report_file: Path | None = typer.Option(
+        None,
+        "--report",
+        help="Path where the remediation diff report should be saved.",
+    ),
+    json_output: bool = typer.Option(
+        False,
+        "--json",
+        help="Output machine-readable JSON format without ANSI escape codes.",
+    ),
+    verbose: bool = typer.Option(
+        False,
+        "--verbose",
+        "-v",
+        help="Show detailed step-by-step progress and verification output.",
+    ),
+) -> None:
+    """[green]⚡ Phase G[/green] — Controlled, evidence-backed privacy/security remediation.
+
+    Requires a specific finding ID (from Phase F) and creates a planned remediation.
+    Actual modification requires explicit approval via --apply.
+    """
+    import contextlib
+    import json
+    import logging
+    import sys
+
+    if json_output:
+        logging.disable(logging.ERROR)
+
+    with contextlib.suppress(ImportError):
+        from loguru import logger
+
+        logger.disable("androguard")
+
+    from apkforge.remediation import RemediationService, RemediationState
+
+    # If --apply is not given, run in plan/dry-run mode
+    if not apply or dry_run:
+        plan = RemediationService.plan(
+            apk_path=apk,
+            finding_id=finding_id,
+            remediation_id=remediation_id,
+        )
+        if json_output:
+            sys.stdout.write(json.dumps(plan.model_dump(mode="json"), indent=2) + "\n")
+            sys.stdout.flush()
+        else:
+            _console.print(RemediationService.format_plan_report(plan))
+
+        if report_file:
+            report_file.parent.mkdir(parents=True, exist_ok=True)
+            if str(report_file).endswith(".json"):
+                report_file.write_text(
+                    json.dumps(plan.model_dump(mode="json"), indent=2) + "\n",
+                    encoding="utf-8",
+                )
+            else:
+                report_file.write_text(
+                    RemediationService.format_plan_report(plan), encoding="utf-8"
+                )
+
+        if plan.state == RemediationState.PLANNED:
+            raise typer.Exit(code=0)
+        elif plan.state in (
+            RemediationState.SKIPPED,
+            RemediationState.REFUSED,
+            RemediationState.UNDETERMINED,
+        ):
+            raise typer.Exit(code=3)
+        else:
+            raise typer.Exit(code=1)
+
+    # Apply mode (approved = True)
+    result = RemediationService.remediate(
+        apk_path=apk,
+        finding_id=finding_id,
+        approved=True,
+        remediation_id=remediation_id,
+        output_path=output,
+    )
+
+    if json_output:
+        sys.stdout.write(json.dumps(result.model_dump(mode="json"), indent=2) + "\n")
+        sys.stdout.flush()
+    else:
+        _console.print(RemediationService.format_diff_report(result))
+
+    if report_file:
+        report_file.parent.mkdir(parents=True, exist_ok=True)
+        if str(report_file).endswith(".json"):
+            report_file.write_text(
+                json.dumps(result.model_dump(mode="json"), indent=2) + "\n",
+                encoding="utf-8",
+            )
+        else:
+            report_file.write_text(RemediationService.format_diff_report(result), encoding="utf-8")
+
+    if result.state in (
+        RemediationState.VERIFIED,
+        RemediationState.PARTIALLY_REMEDIATED,
+    ):
+        raise typer.Exit(code=0)
+    elif result.state in (
+        RemediationState.SKIPPED,
+        RemediationState.REFUSED,
+        RemediationState.UNDETERMINED,
+    ):
+        raise typer.Exit(code=3)
+    else:
+        raise typer.Exit(code=1)
+
+
 @app.command("modify")
 def cmd_modify(
     apk: Path = typer.Argument(
@@ -2914,3 +3106,7 @@ def _not_implemented(command: str, **kwargs: str) -> None:
         )
     )
     raise typer.Exit(code=0)
+
+
+if __name__ == "__main__":
+    app()

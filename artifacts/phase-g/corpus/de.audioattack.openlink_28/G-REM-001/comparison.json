@@ -1,0 +1,47 @@
+{
+  "target_finding": {
+    "finding_id": "PRIV-REC-BOOT",
+    "resolution": "remediated",
+    "before_evidence": [
+      "receiver:de.audioattack.openlink.conf.PackageChangeBroadcastReceiver:action:android.intent.action.BOOT_COMPLETED=de.audioattack.openlink.conf.PackageChangeBroadcastReceiver (android.intent.action.BOOT_COMPLETED)",
+      "receiver:de.audioattack.openlink.conf.PackageChangeBroadcastReceiver:action:android.intent.action.MY_PACKAGE_REPLACED=de.audioattack.openlink.conf.PackageChangeBroadcastReceiver (android.intent.action.MY_PACKAGE_REPLACED)"
+    ],
+    "after_evidence": [],
+    "explanation": "Boot receiver was disabled and RECEIVE_BOOT_COMPLETED removed; persistence finding eliminated."
+  },
+  "findings_removed": [
+    "PRIV-REC-BOOT"
+  ],
+  "findings_retained": [
+    "PRIV-API-REFLECTION"
+  ],
+  "findings_changed": [],
+  "findings_introduced": [],
+  "sdk_changes": {
+    "removed": [],
+    "retained": [],
+    "added": []
+  },
+  "endpoint_changes": {
+    "removed_count": 0,
+    "retained_count": 2,
+    "added_count": 0
+  },
+  "permission_changes": {
+    "removed": [
+      "android.permission.RECEIVE_BOOT_COMPLETED"
+    ],
+    "retained": [
+      "de.audioattack.openlink.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+    ],
+    "added": []
+  },
+  "component_changes": {
+    "disabled": [
+      "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver"
+    ]
+  },
+  "limitations": [
+    "Static analysis cannot establish actual runtime data collection, transmission, or dynamic execution."
+  ]
+}

@@ -1,0 +1,804 @@
+{
+  "timestamp": "2026-10-03T06:34:53.746112+00:00",
+  "toolchain": {
+    "python": "3.14.7",
+    "platform": "Linux-7.2.7-200.fc44.x86_64-x86_64-with-glibc2.43",
+    "arch": "x86_64"
+  },
+  "total_apks": 9,
+  "apks": {
+    "com.oF2pks.applicationsinfo_19.apk": {
+      "package_name": "com.oF2pks.applicationsinfo",
+      "version_name": "1.7-19",
+      "findings_count": 1,
+      "plans": [
+        {
+          "finding_id": "PRIV-API-WEBVIEW",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        }
+      ],
+      "attempted_remediations": [
+        {
+          "status": "NO_SUPPORTED_REMEDIATION",
+          "note": "No findings met safe, isolated remediation prerequisites in Phase G."
+        }
+      ],
+      "supported_remediations_count": 0,
+      "status": "completed",
+      "duration_seconds": 0.0
+    },
+    "de.audioattack.openlink_28.apk": {
+      "package_name": "de.audioattack.openlink",
+      "version_name": "1.5.11",
+      "findings_count": 2,
+      "plans": [
+        {
+          "finding_id": "PRIV-API-REFLECTION",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-REC-BOOT",
+          "remediation_id": "G-REM-001",
+          "state": "planned",
+          "ready": true
+        }
+      ],
+      "attempted_remediations": [
+        {
+          "remediation_id": "G-REM-001",
+          "finding_id": "PRIV-REC-BOOT",
+          "state": "verified",
+          "target_resolution": "remediated",
+          "original_preserved": true,
+          "verification_passed": true
+        }
+      ],
+      "supported_remediations_count": 1,
+      "status": "completed",
+      "duration_seconds": 4.73
+    },
+    "com.emanuelef.remote_capture_95.apk": {
+      "package_name": "com.emanuelef.remote_capture",
+      "version_name": "2.0.2",
+      "findings_count": 10,
+      "plans": [
+        {
+          "finding_id": "PRIV-CAP-DEVICE-IDENTIFIERS",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-CLIPBOARD",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-LOCATION",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-REFLECTION",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-SCHEDULING",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-REC-BOOT",
+          "remediation_id": "G-REM-001",
+          "state": "planned",
+          "ready": true
+        },
+        {
+          "finding_id": "PRIV-API-DEVICE-IDENTIFIER",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-DYNAMIC-CODE",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-CAP-CLIPBOARD",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-CAP-LOCATION",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        }
+      ],
+      "attempted_remediations": [
+        {
+          "status": "NO_SUPPORTED_REMEDIATION",
+          "note": "No findings met safe, isolated remediation prerequisites in Phase G."
+        }
+      ],
+      "supported_remediations_count": 1,
+      "status": "completed",
+      "duration_seconds": 0.43
+    },
+    "de.danoeh.antennapod_3120295.apk": {
+      "package_name": "de.danoeh.antennapod",
+      "version_name": "3.12.2",
+      "findings_count": 13,
+      "plans": [
+        {
+          "finding_id": "PRIV-CAP-CAMERA",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-CAP-CONTACTS",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-CAP-DEVICE-IDENTIFIERS",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-CLIPBOARD",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-LOCATION",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-REFLECTION",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-SCHEDULING",
+          "remediation_id": "G-REM-003",
+          "state": "planned",
+          "ready": true
+        },
+        {
+          "finding_id": "PRIV-API-WEBVIEW",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-REC-BOOT",
+          "remediation_id": "G-REM-001",
+          "state": "planned",
+          "ready": true
+        },
+        {
+          "finding_id": "PRIV-API-DEVICE-IDENTIFIER",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-DYNAMIC-CODE",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-CAP-CLIPBOARD",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-CAP-LOCATION",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        }
+      ],
+      "attempted_remediations": [
+        {
+          "status": "NO_SUPPORTED_REMEDIATION",
+          "note": "No findings met safe, isolated remediation prerequisites in Phase G."
+        }
+      ],
+      "supported_remediations_count": 2,
+      "status": "completed",
+      "duration_seconds": 0.55
+    },
+    "eu.siacs.conversations_4218104.apk": {
+      "package_name": "eu.siacs.conversations",
+      "version_name": "2.20.4+free",
+      "findings_count": 19,
+      "plans": [
+        {
+          "finding_id": "PRIV-CAP-CAMERA",
+          "remediation_id": "G-REM-002",
+          "state": "planned",
+          "ready": true
+        },
+        {
+          "finding_id": "PRIV-CAP-CONTACTS",
+          "remediation_id": "G-REM-002",
+          "state": "planned",
+          "ready": true
+        },
+        {
+          "finding_id": "PRIV-CAP-DEVICE-IDENTIFIERS",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-CAP-MICROPHONE",
+          "remediation_id": "G-REM-002",
+          "state": "planned",
+          "ready": true
+        },
+        {
+          "finding_id": "PRIV-API-AUDIO-CAPTURE",
+          "remediation_id": "G-REM-002",
+          "state": "planned",
+          "ready": true
+        },
+        {
+          "finding_id": "PRIV-API-CAMERA",
+          "remediation_id": "G-REM-002",
+          "state": "planned",
+          "ready": true
+        },
+        {
+          "finding_id": "PRIV-API-CLIPBOARD",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-LOCATION",
+          "remediation_id": "G-REM-002",
+          "state": "planned",
+          "ready": true
+        },
+        {
+          "finding_id": "PRIV-API-REFLECTION",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-SCHEDULING",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-PERM-UNCORRELATED-READ_CONTACTS",
+          "remediation_id": "G-REM-002",
+          "state": "planned",
+          "ready": true
+        },
+        {
+          "finding_id": "PRIV-PERM-UNCORRELATED-READ_MEDIA_AUDIO",
+          "remediation_id": "G-REM-002",
+          "state": "planned",
+          "ready": true
+        },
+        {
+          "finding_id": "PRIV-PERM-UNCORRELATED-READ_MEDIA_IMAGES",
+          "remediation_id": "G-REM-002",
+          "state": "planned",
+          "ready": true
+        },
+        {
+          "finding_id": "PRIV-PERM-UNCORRELATED-READ_MEDIA_VIDEO",
+          "remediation_id": "G-REM-002",
+          "state": "planned",
+          "ready": true
+        },
+        {
+          "finding_id": "PRIV-REC-BOOT",
+          "remediation_id": "G-REM-001",
+          "state": "planned",
+          "ready": true
+        },
+        {
+          "finding_id": "PRIV-API-DEVICE-IDENTIFIER",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-DYNAMIC-CODE",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-CAP-CLIPBOARD",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-CAP-LOCATION",
+          "remediation_id": "G-REM-002",
+          "state": "planned",
+          "ready": true
+        }
+      ],
+      "attempted_remediations": [
+        {
+          "status": "NO_SUPPORTED_REMEDIATION",
+          "note": "No findings met safe, isolated remediation prerequisites in Phase G."
+        }
+      ],
+      "supported_remediations_count": 12,
+      "status": "completed",
+      "duration_seconds": 1.38
+    },
+    "godau.fynn.usagedirect_10.apk": {
+      "package_name": "godau.fynn.usagedirect",
+      "version_name": "0.8.1",
+      "findings_count": 12,
+      "plans": [
+        {
+          "finding_id": "PRIV-CAP-CAMERA",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-CAP-DEVICE-IDENTIFIERS",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-CAMERA",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-CLIPBOARD",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-LOCATION",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-REFLECTION",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-SCHEDULING",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-DEVICE-IDENTIFIER",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-DYNAMIC-CODE",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-CAP-CLIPBOARD",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-CAP-ACCESSIBILITY",
+          "remediation_id": "G-REM-002",
+          "state": "skipped",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-CAP-LOCATION",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        }
+      ],
+      "attempted_remediations": [
+        {
+          "status": "NO_SUPPORTED_REMEDIATION",
+          "note": "No findings met safe, isolated remediation prerequisites in Phase G."
+        }
+      ],
+      "supported_remediations_count": 0,
+      "status": "completed",
+      "duration_seconds": 0.1
+    },
+    "io.github.muntashirakon.AppManager_451.apk": {
+      "package_name": "io.github.muntashirakon.AppManager",
+      "version_name": "4.1.1",
+      "findings_count": 15,
+      "plans": [
+        {
+          "finding_id": "PRIV-CAP-CAMERA",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-CAP-DEVICE-IDENTIFIERS",
+          "remediation_id": "G-REM-002",
+          "state": "planned",
+          "ready": true
+        },
+        {
+          "finding_id": "PRIV-API-CAMERA",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-CLIPBOARD",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-LOCATION",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-REFLECTION",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-SCHEDULING",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-WEBVIEW",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-REC-BOOT",
+          "remediation_id": "G-REM-001",
+          "state": "planned",
+          "ready": true
+        },
+        {
+          "finding_id": "PRIV-API-ACCESSIBILITY",
+          "remediation_id": "G-REM-003",
+          "state": "planned",
+          "ready": true
+        },
+        {
+          "finding_id": "PRIV-API-DEVICE-IDENTIFIER",
+          "remediation_id": "G-REM-002",
+          "state": "planned",
+          "ready": true
+        },
+        {
+          "finding_id": "PRIV-API-DYNAMIC-CODE",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-CAP-CLIPBOARD",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-CAP-ACCESSIBILITY",
+          "remediation_id": "G-REM-002",
+          "state": "skipped",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-CAP-LOCATION",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        }
+      ],
+      "attempted_remediations": [
+        {
+          "status": "NO_SUPPORTED_REMEDIATION",
+          "note": "No findings met safe, isolated remediation prerequisites in Phase G."
+        }
+      ],
+      "supported_remediations_count": 4,
+      "status": "completed",
+      "duration_seconds": 0.96
+    },
+    "org.mozilla.fennec_fdroid_1560020.apk": {
+      "package_name": "org.mozilla.fennec_fdroid",
+      "version_name": "156.0.0",
+      "findings_count": 20,
+      "plans": [
+        {
+          "finding_id": "PRIV-CAP-CAMERA",
+          "remediation_id": "G-REM-002",
+          "state": "planned",
+          "ready": true
+        },
+        {
+          "finding_id": "PRIV-CAP-DEVICE-IDENTIFIERS",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-CAP-MICROPHONE",
+          "remediation_id": "G-REM-002",
+          "state": "planned",
+          "ready": true
+        },
+        {
+          "finding_id": "PRIV-API-CAMERA",
+          "remediation_id": "G-REM-002",
+          "state": "planned",
+          "ready": true
+        },
+        {
+          "finding_id": "PRIV-API-CLIPBOARD",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-LOCATION",
+          "remediation_id": "G-REM-002",
+          "state": "planned",
+          "ready": true
+        },
+        {
+          "finding_id": "PRIV-API-REFLECTION",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-SCHEDULING",
+          "remediation_id": "G-REM-003",
+          "state": "planned",
+          "ready": true
+        },
+        {
+          "finding_id": "PRIV-API-WEBVIEW",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-PERM-UNCORRELATED-READ_MEDIA_AUDIO",
+          "remediation_id": "G-REM-002",
+          "state": "planned",
+          "ready": true
+        },
+        {
+          "finding_id": "PRIV-PERM-UNCORRELATED-RECORD_AUDIO",
+          "remediation_id": "G-REM-002",
+          "state": "planned",
+          "ready": true
+        },
+        {
+          "finding_id": "PRIV-REC-BOOT",
+          "remediation_id": "G-REM-001",
+          "state": "planned",
+          "ready": true
+        },
+        {
+          "finding_id": "PRIV-SDK-TELEMETRY-SENTRY",
+          "remediation_id": "G-REM-004",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-DEVICE-IDENTIFIER",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-DYNAMIC-CODE",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-CAP-CLIPBOARD",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-SDK-AD-GOOGLE-ADMOB",
+          "remediation_id": "G-REM-004",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-CAP-ACCESSIBILITY",
+          "remediation_id": "G-REM-002",
+          "state": "skipped",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-CAP-ADVERTISING-ID",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-CAP-LOCATION",
+          "remediation_id": "G-REM-002",
+          "state": "planned",
+          "ready": true
+        }
+      ],
+      "attempted_remediations": [
+        {
+          "status": "NO_SUPPORTED_REMEDIATION",
+          "note": "No findings met safe, isolated remediation prerequisites in Phase G."
+        }
+      ],
+      "supported_remediations_count": 9,
+      "status": "completed",
+      "duration_seconds": 5.23
+    },
+    "org.schabi.newpipe_1015_cb84069.apk": {
+      "package_name": "org.schabi.newpipe",
+      "version_name": "0.29.1",
+      "findings_count": 13,
+      "plans": [
+        {
+          "finding_id": "PRIV-CAP-CAMERA",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-CAP-DEVICE-IDENTIFIERS",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-CLIPBOARD",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-LOCATION",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-REFLECTION",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-SCHEDULING",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-WEBVIEW",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-REC-BOOT",
+          "remediation_id": "G-REM-001",
+          "state": "planned",
+          "ready": true
+        },
+        {
+          "finding_id": "PRIV-API-DEVICE-IDENTIFIER",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-API-DYNAMIC-CODE",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-CAP-CLIPBOARD",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-SDK-AD-GOOGLE-ADMOB",
+          "remediation_id": "G-REM-004",
+          "state": "refused",
+          "ready": false
+        },
+        {
+          "finding_id": "PRIV-CAP-LOCATION",
+          "remediation_id": "NO_SUPPORTED_REMEDIATION",
+          "state": "refused",
+          "ready": false
+        }
+      ],
+      "attempted_remediations": [
+        {
+          "status": "NO_SUPPORTED_REMEDIATION",
+          "note": "No findings met safe, isolated remediation prerequisites in Phase G."
+        }
+      ],
+      "supported_remediations_count": 1,
+      "status": "completed",
+      "duration_seconds": 0.31
+    }
+  },
+  "totals": {
+    "apks_analyzed": 9,
+    "plans_generated": 105,
+    "remediations_applied": 1,
+    "verified": 1,
+    "partially_remediated": 0,
+    "skipped": 3,
+    "refused": 72,
+    "failed": 0,
+    "undetermined": 0,
+    "findings_removed": 1,
+    "findings_retained": 1,
+    "findings_introduced": 0
+  },
+  "total_duration_seconds": 13.7
+}

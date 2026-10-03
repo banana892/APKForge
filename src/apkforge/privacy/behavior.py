@@ -403,6 +403,8 @@ class BehaviorAnalyzer:
             # 5. Manifest receiver actions
             if rule.receiver_actions and inspection.manifest:
                 for r in inspection.manifest.receivers:
+                    if r.enabled is False:
+                        continue
                     for filt in r.intent_filters:
                         for act in filt.actions:
                             if act in rule.receiver_actions:

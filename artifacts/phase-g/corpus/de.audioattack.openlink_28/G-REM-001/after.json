@@ -1,0 +1,169 @@
+{
+  "status": "complete",
+  "package_name": "de.audioattack.openlink",
+  "version_name": "1.5.11",
+  "version_code": "28",
+  "permissions": {
+    "declared_permissions": [
+      "de.audioattack.openlink.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+    ],
+    "categorized_permissions": {
+      "other": [
+        "de.audioattack.openlink.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+      ]
+    },
+    "usage_details": [
+      {
+        "permission": "de.audioattack.openlink.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+        "category": "other",
+        "protection_level": "unknown",
+        "usage_status": "unknown",
+        "relevance": "unknown",
+        "description": "Other capability permission (unknown)",
+        "related_apis": [],
+        "classes": [],
+        "methods": [],
+        "evidence": [],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      }
+    ],
+    "high_risk_permissions_count": 0
+  },
+  "trackers": {
+    "detected_trackers": [],
+    "total_trackers": 0
+  },
+  "advertising": {
+    "detected_advertising_sdks": [],
+    "total_advertising_sdks": 0
+  },
+  "analytics": {
+    "detected_analytics_sdks": [],
+    "total_analytics_sdks": 0
+  },
+  "telemetry": {
+    "detected_telemetry_sdks": [],
+    "total_telemetry_sdks": 0
+  },
+  "endpoints": {
+    "total_endpoints": 2,
+    "first_party_domains": [],
+    "third_party_domains": [
+      "example.org"
+    ],
+    "classified_endpoints": [
+      {
+        "endpoint": "example.org",
+        "domain": "example.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: example.org",
+            "location": "domain:example.org",
+            "snippet": "Extracted domain: example.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "example.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://example.org",
+        "domain": "example.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://example.org",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: http://example.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://example.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      }
+    ],
+    "by_category": {
+      "unknown": [
+        "example.org",
+        "http://example.org"
+      ]
+    }
+  },
+  "data_collection": {
+    "capabilities": [],
+    "device_identifiers_detected": [],
+    "advertising_id_detected": false,
+    "clipboard_access_detected": false,
+    "accessibility_service_detected": false,
+    "background_data_capabilities": []
+  },
+  "detected_sdks": [],
+  "findings": [
+    {
+      "id": "PRIV-API-REFLECTION",
+      "category": "reflection",
+      "title": "Reflection on Internal or Sensitive Classes",
+      "description": "Static references to reflection APIs combined with internal framework class names detected.",
+      "severity": "informational",
+      "confidence": "medium",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "api:java.lang.Class",
+        "api:java.lang.reflect.Method"
+      ],
+      "evidence_values": [
+        "java.lang.Class",
+        "java.lang.reflect.Method"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Reflection may access hidden or non-SDK interfaces; ensure platform compatibility and policy compliance.",
+      "evidence": [
+        {
+          "description": "Referenced API: java.lang.reflect.Method",
+          "location": "api:java.lang.reflect.Method",
+          "snippet": "api:java.lang.reflect.Method",
+          "references": []
+        },
+        {
+          "description": "Referenced API: java.lang.Class",
+          "location": "api:java.lang.Class",
+          "snippet": "api:java.lang.Class",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static observation of API or component reference does not guarantee runtime execution or data exfiltration."
+      ],
+      "details": {}
+    }
+  ],
+  "warnings": [],
+  "errors": [],
+  "limitations": [
+    "Static analysis cannot establish actual runtime data collection, transmission, or dynamic execution."
+  ]
+}

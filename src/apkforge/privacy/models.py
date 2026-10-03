@@ -601,6 +601,11 @@ class PrivacyResult(BaseModel):
     limitations: list[str] = Field(default_factory=list)
 
     @property
+    def declared_permissions(self) -> list[str]:
+        """Declared permissions list from permission privacy result."""
+        return self.permissions.declared_permissions
+
+    @property
     def all_detected_sdks(self) -> list[DetectedSDK]:
         """All detected SDKs across detected_sdks, trackers, advertising, analytics, telemetry."""
         seen: set[str] = set()

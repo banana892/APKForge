@@ -1,0 +1,84 @@
+======================================================================
+APKFORGE PHASE G: QUALITY GATES & VALIDATION EXECUTION LOGS
+======================================================================
+Timestamp: 2026-10-03T06:35:00Z
+Commit: 808d061 (Phase F checkpoint preserved)
+Environment: Linux x86_64, Python 3.14.7
+
+1. Phase G Synthetic Test Suite (G1 - G14)
+Command: .venv-validation/bin/python -m pytest -q tests/unit/test_phase_g_remediation.py
+Result:
+..............                                                           [100%]
+14 passed in 12.12s
+
+Tests Verified:
+- test_g1_valid_boot_receiver_remediation: PASSED
+- test_g2_permission_removal_partial_vs_remediated: PASSED
+- test_g3_component_disable: PASSED
+- test_g4_missing_finding: PASSED
+- test_g5_incomplete_finding_evidence: PASSED
+- test_g6_unsupported_remediation_candidate: PASSED
+- test_g7_unexpected_modification_prevents_verification: PASSED
+- test_g8_post_remediation_finding_still_present: PASSED
+- test_g9_post_remediation_new_privacy_finding_triggers_warning: PASSED
+- test_g10_original_apk_integrity: PASSED
+- test_g11_dry_run_no_output_modification: PASSED
+- test_g12_approval_enforcement: PASSED
+- test_g13_rollback_on_failed_plan: PASSED
+- test_g14_ansi_free_json_with_force_color: PASSED
+
+2. Full Test Suite (Phases A through G)
+Command: .venv-validation/bin/python -m pytest -q tests
+Result:
+909 passed, 10 skipped in 99.67s (0:01:39)
+Regressions: 0
+
+3. Static Analysis Quality Gates
+Command: .venv-validation/bin/ruff check src/apkforge/remediation tests/unit/test_phase_g_remediation.py
+Result: All checks passed!
+
+Command: .venv-validation/bin/ruff format --check src/apkforge/remediation tests/unit/test_phase_g_remediation.py
+Result: 11 files already formatted
+
+Command: .venv-validation/bin/mypy src/apkforge/remediation
+Result: Success: no issues found in 10 source files
+
+4. Phase D Modification Framework Regression
+Command: .venv-validation/bin/python build-tests/run_phase_d_validation.py
+Result:
+A: verified OK
+B: verified OK
+C: verified OK
+D: failed OK
+E: dry_run OK
+F: failed OK
+Phase D status: ALL PASS
+
+5. Phase E Baseline Verification Regression
+Command: .venv-validation/bin/python build-tests/run_phase_e_validation.py baseline
+Result:
+[baseline] com.emanuelef.remote_capture@95: pair VERIFIED; reproducible True; drift []
+[baseline] com.oF2pks.applicationsinfo@19: pair VERIFIED; reproducible True; drift []
+[baseline] de.audioattack.openlink@28: pair VERIFIED; reproducible True; drift []
+[baseline] de.danoeh.antennapod@3120295: pair VERIFIED; reproducible True; drift ["new noise rule(s) {'manifest_reference_inlined': 1}"]
+[baseline] eu.siacs.conversations@4218104: pair VERIFIED; reproducible True; drift []
+[baseline] godau.fynn.usagedirect@10: pair VERIFIED; reproducible True; drift []
+[baseline] io.github.muntashirakon.AppManager@451: pair VERIFIED; reproducible True; drift []
+[baseline] org.mozilla.fennec_fdroid@1560020: pair UNDETERMINED; reproducible True; drift []
+[baseline] org.schabi.newpipe@1015: pair VERIFIED; reproducible True; drift []
+Phase E status: ALL PASS (8 VERIFIED, 1 UNDETERMINED by design)
+
+6. Phase G Real-Corpus Remediation Validation
+Command: .venv-validation/bin/python build-tests/run_phase_g_validation.py
+Result:
+APKs evaluated: 9
+Plans generated: 102
+Remediations applied: 1 (OpenLink G-REM-001)
+Remediations verified: 1
+Findings removed: 1 (PRIV-REC-BOOT)
+Findings retained: 1
+Findings introduced: 0
+Original APK byte preservation: 100% verified (SHA-256 byte-identical)
+Phase G status: ALL PASS
+
+======================================================================

@@ -1,0 +1,249 @@
+{
+  "status": "complete",
+  "package_name": "de.audioattack.openlink",
+  "version_name": "1.5.11",
+  "version_code": "28",
+  "permissions": {
+    "declared_permissions": [
+      "android.permission.RECEIVE_BOOT_COMPLETED",
+      "de.audioattack.openlink.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+    ],
+    "categorized_permissions": {
+      "other": [
+        "de.audioattack.openlink.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+      ],
+      "system_special": [
+        "android.permission.RECEIVE_BOOT_COMPLETED"
+      ]
+    },
+    "usage_details": [
+      {
+        "permission": "android.permission.RECEIVE_BOOT_COMPLETED",
+        "category": "system_special",
+        "protection_level": "normal",
+        "usage_status": "declared_with_strong_code_correlation",
+        "relevance": "likely_required",
+        "description": "System_special capability permission (normal)",
+        "related_apis": [
+          "android.content.BroadcastReceiver"
+        ],
+        "classes": [
+          "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver"
+        ],
+        "methods": [],
+        "evidence": [
+          {
+            "description": "Referenced API related to android.permission.RECEIVE_BOOT_COMPLETED: android.content.BroadcastReceiver",
+            "location": "api:android.content.BroadcastReceiver",
+            "snippet": "Referenced API related to android.permission.RECEIVE_BOOT_COMPLETED: android.content.BroadcastReceiver",
+            "references": []
+          },
+          {
+            "description": "Manifest receiver de.audioattack.openlink.conf.PackageChangeBroadcastReceiver configured for boot persistence",
+            "location": "receiver:de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+            "snippet": "receiver:de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+            "references": []
+          }
+        ],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      },
+      {
+        "permission": "de.audioattack.openlink.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+        "category": "other",
+        "protection_level": "unknown",
+        "usage_status": "unknown",
+        "relevance": "unknown",
+        "description": "Other capability permission (unknown)",
+        "related_apis": [],
+        "classes": [],
+        "methods": [],
+        "evidence": [],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      }
+    ],
+    "high_risk_permissions_count": 0
+  },
+  "trackers": {
+    "detected_trackers": [],
+    "total_trackers": 0
+  },
+  "advertising": {
+    "detected_advertising_sdks": [],
+    "total_advertising_sdks": 0
+  },
+  "analytics": {
+    "detected_analytics_sdks": [],
+    "total_analytics_sdks": 0
+  },
+  "telemetry": {
+    "detected_telemetry_sdks": [],
+    "total_telemetry_sdks": 0
+  },
+  "endpoints": {
+    "total_endpoints": 2,
+    "first_party_domains": [],
+    "third_party_domains": [
+      "example.org"
+    ],
+    "classified_endpoints": [
+      {
+        "endpoint": "example.org",
+        "domain": "example.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: example.org",
+            "location": "domain:example.org",
+            "snippet": "Extracted domain: example.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "example.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://example.org",
+        "domain": "example.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://example.org",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: http://example.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://example.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      }
+    ],
+    "by_category": {
+      "unknown": [
+        "example.org",
+        "http://example.org"
+      ]
+    }
+  },
+  "data_collection": {
+    "capabilities": [],
+    "device_identifiers_detected": [],
+    "advertising_id_detected": false,
+    "clipboard_access_detected": false,
+    "accessibility_service_detected": false,
+    "background_data_capabilities": []
+  },
+  "detected_sdks": [],
+  "findings": [
+    {
+      "id": "PRIV-API-REFLECTION",
+      "category": "reflection",
+      "title": "Reflection on Internal or Sensitive Classes",
+      "description": "Static references to reflection APIs combined with internal framework class names detected.",
+      "severity": "informational",
+      "confidence": "medium",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "api:java.lang.Class",
+        "api:java.lang.reflect.Method"
+      ],
+      "evidence_values": [
+        "java.lang.Class",
+        "java.lang.reflect.Method"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Reflection may access hidden or non-SDK interfaces; ensure platform compatibility and policy compliance.",
+      "evidence": [
+        {
+          "description": "Referenced API: java.lang.reflect.Method",
+          "location": "api:java.lang.reflect.Method",
+          "snippet": "api:java.lang.reflect.Method",
+          "references": []
+        },
+        {
+          "description": "Referenced API: java.lang.Class",
+          "location": "api:java.lang.Class",
+          "snippet": "api:java.lang.Class",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static observation of API or component reference does not guarantee runtime execution or data exfiltration."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-REC-BOOT",
+      "category": "persistence",
+      "title": "Boot & Package Replacement Receivers",
+      "description": "Manifest declarations for broadcast receivers listening to device boot or package replacement events.",
+      "severity": "informational",
+      "confidence": "confirmed",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "receiver:de.audioattack.openlink.conf.PackageChangeBroadcastReceiver:action:android.intent.action.BOOT_COMPLETED",
+        "receiver:de.audioattack.openlink.conf.PackageChangeBroadcastReceiver:action:android.intent.action.MY_PACKAGE_REPLACED"
+      ],
+      "evidence_values": [
+        "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver (android.intent.action.BOOT_COMPLETED)",
+        "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver (android.intent.action.MY_PACKAGE_REPLACED)"
+      ],
+      "source_component": "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+      "related_permissions": [
+        "android.permission.RECEIVE_BOOT_COMPLETED"
+      ],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Review background startup persistence at device boot.",
+      "evidence": [
+        {
+          "description": "Manifest broadcast receiver action: android.intent.action.BOOT_COMPLETED",
+          "location": "receiver:de.audioattack.openlink.conf.PackageChangeBroadcastReceiver:action:android.intent.action.BOOT_COMPLETED",
+          "snippet": "<receiver android:name=\"de.audioattack.openlink.conf.PackageChangeBroadcastReceiver\"> -> android.intent.action.BOOT_COMPLETED",
+          "references": []
+        },
+        {
+          "description": "Manifest broadcast receiver action: android.intent.action.MY_PACKAGE_REPLACED",
+          "location": "receiver:de.audioattack.openlink.conf.PackageChangeBroadcastReceiver:action:android.intent.action.MY_PACKAGE_REPLACED",
+          "snippet": "<receiver android:name=\"de.audioattack.openlink.conf.PackageChangeBroadcastReceiver\"> -> android.intent.action.MY_PACKAGE_REPLACED",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static observation of API or component reference does not guarantee runtime execution or data exfiltration."
+      ],
+      "details": {}
+    }
+  ],
+  "warnings": [],
+  "errors": [],
+  "limitations": [
+    "Static analysis cannot establish actual runtime data collection, transmission, or dynamic execution."
+  ]
+}
