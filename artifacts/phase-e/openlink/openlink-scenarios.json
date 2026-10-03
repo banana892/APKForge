@@ -1,0 +1,835 @@
+{
+  "generated_at": "2026-10-03T03:50:11.707246+00:00",
+  "apk": "de.audioattack.openlink_28.apk",
+  "original_sha256": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+  "original_unchanged": true,
+  "toolchain": {
+    "java": "25.0.4.1",
+    "apktool": "3.0.3",
+    "zipalign": "35.0.0",
+    "apksigner": "0.9",
+    "build_tools": "35.0.0",
+    "android_platform": "android-35",
+    "normalization_schema": 1,
+    "semantic_schema": 3
+  },
+  "apkforge": {
+    "version": "0.1.0-dev",
+    "git_commit": "fda21291a158a23d95d79c85dc5bf0ab94a131e1",
+    "git_dirty": true
+  },
+  "baseline": "tests/corpus/results/phase-e-noise-baseline.json",
+  "scenarios": {
+    "A_noop": {
+      "overall": "VERIFIED",
+      "overall_reason": "every applicable check passed",
+      "matrix": {
+        "structural": "passed",
+        "signature": "passed",
+        "noise_baseline": "passed",
+        "modification": "not_applicable",
+        "expected_changes": "not_applicable",
+        "unexpected_changes": "passed",
+        "semantic_diff": "passed",
+        "security_diff": "passed"
+      },
+      "baseline_status": "COMPATIBLE",
+      "classification": {
+        "expected_modification": 0,
+        "planned_entry": 0,
+        "rebuild_noise": 74,
+        "unexpected": 0,
+        "unknown": 0
+      },
+      "unexpected": [],
+      "unknown_count": 0,
+      "unknown_sample": [],
+      "signature": "signature verifies",
+      "structural": "archive and container structure valid",
+      "expect": "VERIFIED",
+      "problems": []
+    },
+    "B_c5": {
+      "status": "verified",
+      "order": [
+        "c5.disable_boot_receiver"
+      ],
+      "counts": {
+        "requested": 1,
+        "planned": 1,
+        "executed": 1,
+        "dry_run": 0,
+        "skipped": 0,
+        "failed": 0,
+        "verified": 1,
+        "verification_failed": 0,
+        "not_verified": 0,
+        "not_attempted": 0,
+        "rolled_back": 0
+      },
+      "baseline_status": "COMPATIBLE",
+      "classification": {
+        "expected_modification": 2,
+        "planned_entry": 1,
+        "rebuild_noise": 73,
+        "unexpected": 0,
+        "unknown": 0
+      },
+      "mode": "content_fingerprint",
+      "noise_by_rule": {
+        "dex_compiler_marker_removed": 1,
+        "certificate_replaced": 1,
+        "signature_replaced": 5,
+        "dex_reencoded": 1,
+        "resource_path_canonicalized": 64,
+        "resource_table_reencoded": 1
+      },
+      "expected_declared": 2,
+      "expected_observed": [
+        "uses_permission removed android.permission.RECEIVE_BOOT_COMPLETED",
+        "component modified de.audioattack.openlink.conf.PackageChangeBroadcastReceiver"
+      ],
+      "expected_missing": [],
+      "planned_entries": [
+        "AndroidManifest.xml"
+      ],
+      "unexpected": [],
+      "unknown": [],
+      "matrix": {
+        "structural": "passed",
+        "signature": "passed",
+        "noise_baseline": "passed",
+        "modification": "passed",
+        "expected_changes": "passed",
+        "unexpected_changes": "passed",
+        "semantic_diff": "passed",
+        "security_diff": "passed"
+      },
+      "overall": "VERIFIED",
+      "overall_reason": "every applicable check passed",
+      "security": {
+        "permissions": [
+          "removed android.permission.RECEIVE_BOOT_COMPLETED [expected_modification]"
+        ],
+        "components": [
+          "modified receiver de.audioattack.openlink.conf.PackageChangeBroadcastReceiver [expected_modification]"
+        ],
+        "certificate": [
+          "modified signing certificate [rebuild_noise]"
+        ]
+      },
+      "original_preserved": true,
+      "failures": [],
+      "warnings": [],
+      "fingerprint": null,
+      "expect": "verified",
+      "problems": [],
+      "derived": {
+        "declared_expected": 2,
+        "baseline_fingerprint_entries": 74,
+        "planned_entries": [
+          "AndroidManifest.xml"
+        ],
+        "derived_noise": 73
+      }
+    },
+    "C_undeclared_manifest": {
+      "status": "failed",
+      "order": [
+        "test.undeclared_meta_data"
+      ],
+      "counts": {
+        "requested": 1,
+        "planned": 1,
+        "executed": 1,
+        "dry_run": 0,
+        "skipped": 0,
+        "failed": 0,
+        "verified": 0,
+        "verification_failed": 0,
+        "not_verified": 1,
+        "not_attempted": 0,
+        "rolled_back": 0
+      },
+      "baseline_status": "COMPATIBLE",
+      "classification": {
+        "expected_modification": 0,
+        "planned_entry": 1,
+        "rebuild_noise": 73,
+        "unexpected": 1,
+        "unknown": 0
+      },
+      "mode": "content_fingerprint",
+      "noise_by_rule": {
+        "dex_compiler_marker_removed": 1,
+        "certificate_replaced": 1,
+        "signature_replaced": 5,
+        "dex_reencoded": 1,
+        "resource_path_canonicalized": 64,
+        "resource_table_reencoded": 1
+      },
+      "expected_declared": 0,
+      "expected_observed": [],
+      "expected_missing": [],
+      "planned_entries": [
+        "AndroidManifest.xml"
+      ],
+      "unexpected": [
+        "manifest_element added application#0/meta-data[name=apkforge.test.phase_e]: not declared by the modification and not in this APK's no-op baseline"
+      ],
+      "unknown": [],
+      "matrix": {
+        "structural": "passed",
+        "signature": "passed",
+        "noise_baseline": "passed",
+        "modification": "undetermined",
+        "expected_changes": "not_applicable",
+        "unexpected_changes": "failed",
+        "semantic_diff": "passed",
+        "security_diff": "failed"
+      },
+      "overall": "FAILED",
+      "overall_reason": "failed: unexpected_changes, security_diff",
+      "security": {
+        "certificate": [
+          "modified signing certificate [rebuild_noise]"
+        ],
+        "manifest_other": [
+          "added application#0/meta-data[name=apkforge.test.phase_e] [unexpected]"
+        ]
+      },
+      "original_preserved": true,
+      "failures": [
+        "semantic: 1 unexpected change(s)"
+      ],
+      "warnings": [
+        "test.undeclared_meta_data has no verification; its modification is reported as not verified"
+      ],
+      "fingerprint": null,
+      "expect": "failed",
+      "problems": []
+    },
+    "C2_declared_manifest": {
+      "status": "unverified",
+      "order": [
+        "test.declared_meta_data"
+      ],
+      "counts": {
+        "requested": 1,
+        "planned": 1,
+        "executed": 1,
+        "dry_run": 0,
+        "skipped": 0,
+        "failed": 0,
+        "verified": 0,
+        "verification_failed": 0,
+        "not_verified": 1,
+        "not_attempted": 0,
+        "rolled_back": 0
+      },
+      "baseline_status": "COMPATIBLE",
+      "classification": {
+        "expected_modification": 1,
+        "planned_entry": 1,
+        "rebuild_noise": 73,
+        "unexpected": 0,
+        "unknown": 0
+      },
+      "mode": "content_fingerprint",
+      "noise_by_rule": {
+        "dex_compiler_marker_removed": 1,
+        "certificate_replaced": 1,
+        "signature_replaced": 5,
+        "dex_reencoded": 1,
+        "resource_path_canonicalized": 64,
+        "resource_table_reencoded": 1
+      },
+      "expected_declared": 1,
+      "expected_observed": [
+        "manifest_element added application#0/meta-data[name=apkforge.test.phase_e]"
+      ],
+      "expected_missing": [],
+      "planned_entries": [
+        "AndroidManifest.xml"
+      ],
+      "unexpected": [],
+      "unknown": [],
+      "matrix": {
+        "structural": "passed",
+        "signature": "passed",
+        "noise_baseline": "passed",
+        "modification": "undetermined",
+        "expected_changes": "passed",
+        "unexpected_changes": "passed",
+        "semantic_diff": "passed",
+        "security_diff": "passed"
+      },
+      "overall": "UNDETERMINED",
+      "overall_reason": "not established: modification",
+      "security": {
+        "certificate": [
+          "modified signing certificate [rebuild_noise]"
+        ],
+        "manifest_other": [
+          "added application#0/meta-data[name=apkforge.test.phase_e] [expected_modification]"
+        ]
+      },
+      "original_preserved": true,
+      "failures": [],
+      "warnings": [
+        "test.declared_meta_data has no verification; its modification is reported as not verified"
+      ],
+      "fingerprint": null,
+      "expect": "unverified",
+      "problems": []
+    },
+    "D_marker": {
+      "status": "verified",
+      "order": [
+        "test.marker_asset"
+      ],
+      "counts": {
+        "requested": 1,
+        "planned": 1,
+        "executed": 1,
+        "dry_run": 0,
+        "skipped": 0,
+        "failed": 0,
+        "verified": 1,
+        "verification_failed": 0,
+        "not_verified": 0,
+        "not_attempted": 0,
+        "rolled_back": 0
+      },
+      "baseline_status": "COMPATIBLE",
+      "classification": {
+        "expected_modification": 1,
+        "planned_entry": 0,
+        "rebuild_noise": 74,
+        "unexpected": 0,
+        "unknown": 0
+      },
+      "mode": "content_fingerprint",
+      "noise_by_rule": {
+        "dex_compiler_marker_removed": 1,
+        "certificate_replaced": 1,
+        "manifest_reencoded": 1,
+        "signature_replaced": 5,
+        "dex_reencoded": 1,
+        "resource_path_canonicalized": 64,
+        "resource_table_reencoded": 1
+      },
+      "expected_declared": 1,
+      "expected_observed": [
+        "file added assets/apkforge-test/marker.txt"
+      ],
+      "expected_missing": [],
+      "planned_entries": [],
+      "unexpected": [],
+      "unknown": [],
+      "matrix": {
+        "structural": "passed",
+        "signature": "passed",
+        "noise_baseline": "passed",
+        "modification": "passed",
+        "expected_changes": "passed",
+        "unexpected_changes": "passed",
+        "semantic_diff": "passed",
+        "security_diff": "passed"
+      },
+      "overall": "VERIFIED",
+      "overall_reason": "every applicable check passed",
+      "security": {
+        "certificate": [
+          "modified signing certificate [rebuild_noise]"
+        ]
+      },
+      "original_preserved": true,
+      "failures": [],
+      "warnings": [],
+      "fingerprint": null,
+      "expect": "verified",
+      "problems": []
+    },
+    "E_combined": {
+      "status": "verified",
+      "order": [
+        "c5.disable_boot_receiver",
+        "test.marker_asset"
+      ],
+      "counts": {
+        "requested": 2,
+        "planned": 2,
+        "executed": 2,
+        "dry_run": 0,
+        "skipped": 0,
+        "failed": 0,
+        "verified": 2,
+        "verification_failed": 0,
+        "not_verified": 0,
+        "not_attempted": 0,
+        "rolled_back": 0
+      },
+      "baseline_status": "COMPATIBLE",
+      "classification": {
+        "expected_modification": 3,
+        "planned_entry": 1,
+        "rebuild_noise": 73,
+        "unexpected": 0,
+        "unknown": 0
+      },
+      "mode": "content_fingerprint",
+      "noise_by_rule": {
+        "dex_compiler_marker_removed": 1,
+        "certificate_replaced": 1,
+        "signature_replaced": 5,
+        "dex_reencoded": 1,
+        "resource_path_canonicalized": 64,
+        "resource_table_reencoded": 1
+      },
+      "expected_declared": 3,
+      "expected_observed": [
+        "uses_permission removed android.permission.RECEIVE_BOOT_COMPLETED",
+        "component modified de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+        "file added assets/apkforge-test/marker.txt"
+      ],
+      "expected_missing": [],
+      "planned_entries": [
+        "AndroidManifest.xml"
+      ],
+      "unexpected": [],
+      "unknown": [],
+      "matrix": {
+        "structural": "passed",
+        "signature": "passed",
+        "noise_baseline": "passed",
+        "modification": "passed",
+        "expected_changes": "passed",
+        "unexpected_changes": "passed",
+        "semantic_diff": "passed",
+        "security_diff": "passed"
+      },
+      "overall": "VERIFIED",
+      "overall_reason": "every applicable check passed",
+      "security": {
+        "permissions": [
+          "removed android.permission.RECEIVE_BOOT_COMPLETED [expected_modification]"
+        ],
+        "components": [
+          "modified receiver de.audioattack.openlink.conf.PackageChangeBroadcastReceiver [expected_modification]"
+        ],
+        "certificate": [
+          "modified signing certificate [rebuild_noise]"
+        ]
+      },
+      "original_preserved": true,
+      "failures": [],
+      "warnings": [],
+      "fingerprint": null,
+      "expect": "verified",
+      "problems": []
+    },
+    "F_undeclared_file": {
+      "status": "failed",
+      "order": [
+        "test.undeclared"
+      ],
+      "counts": {
+        "requested": 1,
+        "planned": 1,
+        "executed": 1,
+        "dry_run": 0,
+        "skipped": 0,
+        "failed": 0,
+        "verified": 0,
+        "verification_failed": 0,
+        "not_verified": 1,
+        "not_attempted": 0,
+        "rolled_back": 0
+      },
+      "baseline_status": "COMPATIBLE",
+      "classification": {
+        "expected_modification": 0,
+        "planned_entry": 0,
+        "rebuild_noise": 74,
+        "unexpected": 1,
+        "unknown": 0
+      },
+      "mode": "content_fingerprint",
+      "noise_by_rule": {
+        "dex_compiler_marker_removed": 1,
+        "certificate_replaced": 1,
+        "manifest_reencoded": 1,
+        "signature_replaced": 5,
+        "dex_reencoded": 1,
+        "resource_path_canonicalized": 64,
+        "resource_table_reencoded": 1
+      },
+      "expected_declared": 0,
+      "expected_observed": [],
+      "expected_missing": [],
+      "planned_entries": [],
+      "unexpected": [
+        "file added assets/apkforge-test/undeclared.txt: not declared by the modification and not in this APK's no-op baseline"
+      ],
+      "unknown": [],
+      "matrix": {
+        "structural": "passed",
+        "signature": "passed",
+        "noise_baseline": "passed",
+        "modification": "undetermined",
+        "expected_changes": "not_applicable",
+        "unexpected_changes": "failed",
+        "semantic_diff": "passed",
+        "security_diff": "passed"
+      },
+      "overall": "FAILED",
+      "overall_reason": "failed: unexpected_changes",
+      "security": {
+        "certificate": [
+          "modified signing certificate [rebuild_noise]"
+        ]
+      },
+      "original_preserved": true,
+      "failures": [
+        "semantic: 1 unexpected change(s)"
+      ],
+      "warnings": [
+        "test.undeclared has no verification; its modification is reported as not verified"
+      ],
+      "fingerprint": null,
+      "expect": "failed",
+      "problems": []
+    },
+    "G_missing_expectation": {
+      "status": "failed",
+      "order": [
+        "test.missing_expectation"
+      ],
+      "counts": {
+        "requested": 1,
+        "planned": 1,
+        "executed": 1,
+        "dry_run": 0,
+        "skipped": 0,
+        "failed": 1,
+        "verified": 0,
+        "verification_failed": 1,
+        "not_verified": 0,
+        "not_attempted": 0,
+        "rolled_back": 0
+      },
+      "baseline_status": "COMPATIBLE",
+      "classification": {
+        "expected_modification": 1,
+        "planned_entry": 0,
+        "rebuild_noise": 74,
+        "unexpected": 0,
+        "unknown": 0
+      },
+      "mode": "content_fingerprint",
+      "noise_by_rule": {
+        "dex_compiler_marker_removed": 1,
+        "certificate_replaced": 1,
+        "manifest_reencoded": 1,
+        "signature_replaced": 5,
+        "dex_reencoded": 1,
+        "resource_path_canonicalized": 64,
+        "resource_table_reencoded": 1
+      },
+      "expected_declared": 2,
+      "expected_observed": [
+        "file added assets/apkforge-test/missing-expectation.txt"
+      ],
+      "expected_missing": [
+        "uses_permission removed android.permission.INTERNET"
+      ],
+      "planned_entries": [],
+      "unexpected": [],
+      "unknown": [],
+      "matrix": {
+        "structural": "passed",
+        "signature": "passed",
+        "noise_baseline": "passed",
+        "modification": "failed",
+        "expected_changes": "failed",
+        "unexpected_changes": "passed",
+        "semantic_diff": "passed",
+        "security_diff": "passed"
+      },
+      "overall": "FAILED",
+      "overall_reason": "failed: modification, expected_changes",
+      "security": {
+        "certificate": [
+          "modified signing certificate [rebuild_noise]"
+        ]
+      },
+      "original_preserved": true,
+      "failures": [
+        "semantic: expected change not observed: uses_permission removed android.permission.INTERNET",
+        "modification verification: test.missing_expectation: expected change(s) not observed: uses_permission removed android.permission.INTERNET"
+      ],
+      "warnings": [],
+      "fingerprint": null,
+      "expect": "failed",
+      "problems": []
+    },
+    "H_content_hash_v2": {
+      "overall": "FAILED",
+      "overall_reason": "failed: unexpected_changes",
+      "matrix": {
+        "structural": "passed",
+        "signature": "passed",
+        "noise_baseline": "passed",
+        "modification": "not_applicable",
+        "expected_changes": "not_applicable",
+        "unexpected_changes": "failed",
+        "semantic_diff": "passed",
+        "security_diff": "passed"
+      },
+      "baseline_status": "COMPATIBLE",
+      "classification": {
+        "expected_modification": 0,
+        "planned_entry": 0,
+        "rebuild_noise": 73,
+        "unexpected": 1,
+        "unknown": 0
+      },
+      "unexpected": [
+        "file renamed res/drawable-anydpi-v26/ic_incognito_foreground.xml: content differs from the no-op rebuild of this APK (rule 'resource_path_canonicalized')"
+      ],
+      "unknown_count": 0,
+      "unknown_sample": [],
+      "signature": "signature verifies",
+      "structural": "archive and container structure valid",
+      "expect": "FAILED",
+      "problems": [],
+      "tampered_entry": "res/drawable-anydpi-v26/ic_incognito_foreground.xml"
+    },
+    "H_content_hash_legacy": {
+      "overall": "UNDETERMINED",
+      "overall_reason": "not established: noise_baseline, unexpected_changes, semantic_diff",
+      "matrix": {
+        "structural": "passed",
+        "signature": "passed",
+        "noise_baseline": "partial",
+        "modification": "not_applicable",
+        "expected_changes": "not_applicable",
+        "unexpected_changes": "partial",
+        "semantic_diff": "partial",
+        "security_diff": "passed"
+      },
+      "baseline_status": "LEGACY_PATH_RULES",
+      "classification": {
+        "expected_modification": 0,
+        "planned_entry": 0,
+        "rebuild_noise": 74,
+        "unexpected": 0,
+        "unknown": 0
+      },
+      "unexpected": [],
+      "unknown_count": 0,
+      "unknown_sample": [],
+      "signature": "signature verifies",
+      "structural": "archive and container structure valid",
+      "expect": "UNDETERMINED",
+      "problems": [],
+      "tampered_entry": "res/drawable-anydpi-v26/ic_incognito_foreground.xml",
+      "note": "schema-1 path rules accept the tampered entry as resource_path_canonicalized noise (the blind spot Phase E closes); the matrix is UNDETERMINED only because legacy noise is path-rule assured"
+    },
+    "I_invalid_apk": {
+      "overall": "FAILED",
+      "overall_reason": "failed: structural",
+      "matrix": {
+        "structural": "failed",
+        "signature": "undetermined",
+        "noise_baseline": "undetermined",
+        "modification": "not_applicable",
+        "expected_changes": "not_applicable",
+        "unexpected_changes": "undetermined",
+        "semantic_diff": "undetermined",
+        "security_diff": "undetermined"
+      },
+      "baseline_status": null,
+      "classification": null,
+      "unexpected": [],
+      "unknown_count": 0,
+      "unknown_sample": [],
+      "signature": "APK to verify is not a ZIP/APK archive: truncated.apk",
+      "structural": "not a ZIP archive",
+      "expect": "FAILED",
+      "problems": []
+    },
+    "J_invalid_signature": {
+      "overall": "FAILED",
+      "overall_reason": "failed: signature, unexpected_changes",
+      "matrix": {
+        "structural": "passed",
+        "signature": "failed",
+        "noise_baseline": "passed",
+        "modification": "not_applicable",
+        "expected_changes": "not_applicable",
+        "unexpected_changes": "failed",
+        "semantic_diff": "passed",
+        "security_diff": "passed"
+      },
+      "baseline_status": "COMPATIBLE",
+      "classification": {
+        "expected_modification": 0,
+        "planned_entry": 0,
+        "rebuild_noise": 73,
+        "unexpected": 1,
+        "unknown": 0
+      },
+      "unexpected": [
+        "file renamed res/drawable-anydpi-v26/ic_incognito_foreground.xml: content differs from the no-op rebuild of this APK (rule 'resource_path_canonicalized')"
+      ],
+      "unknown_count": 0,
+      "unknown_sample": [],
+      "signature": "zipalign -c: final APK is not 4-byte aligned (with page-aligned .so).; apksigner verify did not verify the APK (exit 1).",
+      "structural": "archive and container structure valid",
+      "expect": "FAILED",
+      "problems": []
+    },
+    "K1_declared_other_toolchain": {
+      "overall": "UNDETERMINED",
+      "overall_reason": "not established: noise_baseline, unexpected_changes, semantic_diff, security_diff",
+      "matrix": {
+        "structural": "passed",
+        "signature": "passed",
+        "noise_baseline": "undetermined",
+        "modification": "not_applicable",
+        "expected_changes": "not_applicable",
+        "unexpected_changes": "undetermined",
+        "semantic_diff": "partial",
+        "security_diff": "undetermined"
+      },
+      "baseline_status": "BASELINE_INCOMPATIBLE",
+      "classification": {
+        "expected_modification": 0,
+        "planned_entry": 0,
+        "rebuild_noise": 0,
+        "unexpected": 0,
+        "unknown": 74
+      },
+      "unexpected": [],
+      "unknown_count": 74,
+      "unknown_sample": [
+        "dex_string removed ~~R8{\"backend\":\"dex\",\"compilation-mode\":\"release\",\"has-checksums\":false,\"min-api\":21,\"pg-map-id\":\"5d00a76\",\"r8-mode\":\"full\",\"version\":\"8.11.18\"}",
+        "certificate modified signing_certificate",
+        "file modified AndroidManifest.xml",
+        "file added META-INF/APKFORGE.RSA",
+        "file added META-INF/APKFORGE.SF"
+      ],
+      "signature": "signature verifies",
+      "structural": "archive and container structure valid",
+      "expect": "UNDETERMINED",
+      "problems": []
+    },
+    "K2_real_old_toolchain_undeclared": {
+      "overall": "FAILED",
+      "overall_reason": "failed: unexpected_changes",
+      "matrix": {
+        "structural": "passed",
+        "signature": "passed",
+        "noise_baseline": "passed",
+        "modification": "not_applicable",
+        "expected_changes": "not_applicable",
+        "unexpected_changes": "failed",
+        "semantic_diff": "partial",
+        "security_diff": "undetermined"
+      },
+      "baseline_status": "TOOLCHAIN_UNKNOWN",
+      "classification": {
+        "expected_modification": 0,
+        "planned_entry": 0,
+        "rebuild_noise": 65,
+        "unexpected": 16,
+        "unknown": 9
+      },
+      "unexpected": [
+        "file removed META-INF/androidx.annotation_annotation-experimental.version: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/androidx.arch.core_core-runtime.version: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/androidx.core_core-viewtree.version: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/androidx.core_core.version: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/androidx.interpolator_interpolator.version: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/androidx.lifecycle_lifecycle-runtime.version: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/androidx.profileinstaller_profileinstaller.version: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/androidx.startup_startup-runtime.version: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/androidx.tracing_tracing.version: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/androidx.versionedparcelable_versionedparcelable.version: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/androidx/annotation/annotation/LICENSE.txt: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/com/android/build/gradle/app-metadata.properties: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/kotlinx_coroutines_android.version: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/kotlinx_coroutines_core.version: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/version-control-info.textproto: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/versions/9/OSGI-INF/MANIFEST.MF: not declared by the modification and not in this APK's no-op baseline"
+      ],
+      "unknown_count": 9,
+      "unknown_sample": [
+        "certificate modified signing_certificate",
+        "file modified AndroidManifest.xml",
+        "file added META-INF/C5.RSA",
+        "file added META-INF/C5.SF",
+        "file renamed res/drawable-anydpi-v26/ic_incognito_foreground.xml"
+      ],
+      "signature": "signature verifies",
+      "structural": "archive and container structure valid",
+      "expect": "FAILED|UNDETERMINED",
+      "problems": []
+    },
+    "K3_real_old_toolchain_declared": {
+      "overall": "FAILED",
+      "overall_reason": "failed: unexpected_changes",
+      "matrix": {
+        "structural": "passed",
+        "signature": "passed",
+        "noise_baseline": "undetermined",
+        "modification": "not_applicable",
+        "expected_changes": "not_applicable",
+        "unexpected_changes": "failed",
+        "semantic_diff": "partial",
+        "security_diff": "undetermined"
+      },
+      "baseline_status": "BASELINE_INCOMPATIBLE",
+      "classification": {
+        "expected_modification": 0,
+        "planned_entry": 0,
+        "rebuild_noise": 0,
+        "unexpected": 16,
+        "unknown": 74
+      },
+      "unexpected": [
+        "file removed META-INF/androidx.annotation_annotation-experimental.version: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/androidx.arch.core_core-runtime.version: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/androidx.core_core-viewtree.version: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/androidx.core_core.version: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/androidx.interpolator_interpolator.version: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/androidx.lifecycle_lifecycle-runtime.version: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/androidx.profileinstaller_profileinstaller.version: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/androidx.startup_startup-runtime.version: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/androidx.tracing_tracing.version: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/androidx.versionedparcelable_versionedparcelable.version: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/androidx/annotation/annotation/LICENSE.txt: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/com/android/build/gradle/app-metadata.properties: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/kotlinx_coroutines_android.version: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/kotlinx_coroutines_core.version: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/version-control-info.textproto: not declared by the modification and not in this APK's no-op baseline",
+        "file removed META-INF/versions/9/OSGI-INF/MANIFEST.MF: not declared by the modification and not in this APK's no-op baseline"
+      ],
+      "unknown_count": 74,
+      "unknown_sample": [
+        "dex_string removed ~~R8{\"backend\":\"dex\",\"compilation-mode\":\"release\",\"has-checksums\":false,\"min-api\":21,\"pg-map-id\":\"5d00a76\",\"r8-mode\":\"full\",\"version\":\"8.11.18\"}",
+        "certificate modified signing_certificate",
+        "file modified AndroidManifest.xml",
+        "file removed META-INF/C4961B96.RSA",
+        "file removed META-INF/C4961B96.SF"
+      ],
+      "signature": "signature verifies",
+      "structural": "archive and container structure valid",
+      "expect": "FAILED|UNDETERMINED",
+      "problems": []
+    }
+  },
+  "problems": []
+}

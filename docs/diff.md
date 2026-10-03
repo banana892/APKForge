@@ -10,6 +10,13 @@ The Diff Engine operates purely on **structured, evidence-based comparisons** ac
 
 ---
 
+> **Phase E.** The diff now has explicit layers — raw archive diff, normalized diff
+> (content-aware rebuild noise), per-comparator semantic status, full manifest tree,
+> security-relevant diff — and a verification matrix on top. See
+> [`verification.md`](verification.md). The sections below describe the Phase 3
+> differs, which are unchanged; `DiffResult` gained `schema_version` (2), `raw`,
+> `manifest_tree` and `comparisons`.
+
 ## 1. Diff Architecture
 
 The subsystem is organized in `src/apkforge/diff/`:
@@ -108,7 +115,11 @@ Deterministic diffing requires strict normalization before comparison:
 2. **Domain Normalization**: Hostnames and domains are converted to lowercase and stripped of trailing dots (`.`): e.g. `API.EXAMPLE.COM.` becomes `api.example.com`.
 3. **URL Normalization**: Trailing whitespace is trimmed; schemes and hosts are lowercased.
 4. **Ordering & Determinism**: All lists and dictionary iterations are explicitly sorted (`sorted(...)`) before computing additions, removals, and serialization, ensuring byte-identical JSON outputs across executions.
-5. **Rename Handling**: Renamed classes or components are **not** guessed. Renaming heuristics are unreliable in static analysis; instead, an entity that ceased to exist is reported as `REMOVED` and a new entity is reported as `ADDED`.
+5. **Rebuild noise** is *not* normalised here. Classifying differences as rebuild noise
+   is a separate, evidence-based layer (`apkforge.diff.normalization`, see
+   `verification.md`): only differences identical in content to the APK's measured
+   no-op rebuild are accepted.
+6. **Rename Handling**: Renamed classes or components are **not** guessed. Renaming heuristics are unreliable in static analysis; instead, an entity that ceased to exist is reported as `REMOVED` and a new entity is reported as `ADDED`.
 
 ---
 

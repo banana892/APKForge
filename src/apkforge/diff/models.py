@@ -18,6 +18,8 @@ from typing import Any
 from pydantic import BaseModel, Field
 
 from apkforge.core.models import AnalysisStatus
+from apkforge.diff.archive import RawDiff  # noqa: TC001 - pydantic field type
+from apkforge.diff.manifest_tree import ManifestTreeDiff
 
 __all__ = [
     "AssetDiff",
@@ -25,6 +27,8 @@ __all__ = [
     "CertificateDiff",
     "ChangeType",
     "ClassDiff",
+    "ComparatorResult",
+    "ComparisonStatus",
     "ComponentChange",
     "ComponentDiff",
     "DEXDiff",
@@ -48,6 +52,10 @@ __all__ = [
     "StringDiff",
     "URLDiffItem",
 ]
+
+
+#: 1: Phase 3 DiffResult; 2: Phase E (raw, manifest_tree, comparisons)
+DIFF_SCHEMA_VERSION = 2
 
 
 class ChangeType(StrEnum):
@@ -379,6 +387,26 @@ class CertificateDiff(BaseModel):
     fingerprint_changes: list[DiffChange] = Field(default_factory=list)
 
 
+class ComparisonStatus(StrEnum):
+    UNCHANGED = "unchanged"
+    ADDED = "added"
+    REMOVED = "removed"
+    MODIFIED = "modified"
+    PARTIAL = "partial"
+    NOT_COMPARABLE = "not_comparable"
+    UNDETERMINED = "undetermined"
+
+
+class ComparatorResult(BaseModel):
+    comparator: str
+    status: ComparisonStatus
+    complete: bool
+    changes: int = 0
+    level: str = ""  # what is compared: semantic | content-hash | metadata ...
+    reason: str | None = None
+    limitations: list[str] = Field(default_factory=list)
+
+
 class DiffSummary(BaseModel):
     """Aggregated quantitative summary of differences."""
 
@@ -430,6 +458,12 @@ class DiffResult(BaseModel):
     files: FileDiff
 
     summary: DiffSummary
+
+    #: Phase E additions (absent in pre-Phase-E JSON; defaults keep old payloads loadable)
+    schema_version: int = DIFF_SCHEMA_VERSION
+    raw: RawDiff | None = None
+    manifest_tree: ManifestTreeDiff = Field(default_factory=ManifestTreeDiff)
+    comparisons: dict[str, ComparatorResult] = Field(default_factory=dict)
 
     warnings: list[str] = Field(default_factory=list)
     errors: list[str] = Field(default_factory=list)

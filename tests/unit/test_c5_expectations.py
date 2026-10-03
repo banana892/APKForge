@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 from typing import Any
 
 from apkforge.builders.semantic_baseline import (
@@ -11,6 +12,7 @@ from apkforge.builders.semantic_baseline import (
     classify_noop_diff,
 )
 from apkforge.core.models import AnalysisStatus
+from apkforge.diff.comparisons import COMPARATORS
 from apkforge.diff.expectations import (
     ExpectedChange,
     Observation,
@@ -18,10 +20,13 @@ from apkforge.diff.expectations import (
     observe,
     verify_expectations,
 )
+from apkforge.diff.manifest_tree import ManifestTreeDiff
 from apkforge.diff.models import (
     AssetDiff,
     CertificateDiff,
     ChangeType,
+    ComparatorResult,
+    ComparisonStatus,
     ComponentChange,
     ComponentDiff,
     DEXDiff,
@@ -40,12 +45,30 @@ from apkforge.diff.models import (
     ResourceDiff,
     StringDiff,
 )
+from apkforge.diff.normalization import NoiseFingerprint, ToolchainIdentity
 
 BOOT = "android.permission.RECEIVE_BOOT_COMPLETED"
 RECV = "com.example.BootReceiver"
 
 
+SIGNER_BEFORE = "11" * 32
+SIGNER_AFTER = "ab" * 32  # FakeService signs with this certificate
+
+
+def _h(*parts: str) -> str:
+    """Deterministic fake SHA-256 for simulated archive content."""
+    return hashlib.sha256("|".join(parts).encode()).hexdigest()
+
+
+def _complete_comparisons() -> dict[str, ComparatorResult]:
+    return {
+        name: ComparatorResult(comparator=name, status=ComparisonStatus.UNCHANGED, complete=True)
+        for name in COMPARATORS
+    }
+
+
 def _diff(**kw: Any) -> DiffResult:
+    """Simulated original-vs-rebuild diff: rebuild noise only, every comparator complete."""
     parts: dict[str, Any] = {
         "apk_a": PackageIdentity(package_name="com.example"),
         "apk_b": PackageIdentity(package_name="com.example"),
@@ -60,15 +83,48 @@ def _diff(**kw: Any) -> DiffResult:
         "resources": ResourceDiff(),
         "assets": AssetDiff(),
         "embedded": EmbeddedDiff(),
-        "certificates": CertificateDiff(status="CHANGED"),
+        "certificates": CertificateDiff(
+            status="CHANGED",
+            count_before=1,
+            count_after=1,
+            certificates_before=[{"sha256_fingerprint": SIGNER_BEFORE}],
+            certificates_after=[{"sha256_fingerprint": SIGNER_AFTER}],
+        ),
         "files": FileDiff(entries=_rebuild_noise_files()),
         "summary": DiffSummary(),
+        "manifest_tree": ManifestTreeDiff(status="complete"),
+        "comparisons": _complete_comparisons(),
     }
     parts.update(kw)
     return DiffResult(**parts)
 
 
+def noise_baseline(sha256: str, toolchain: ToolchainIdentity | None = None) -> NoopSemanticBaseline:
+    """A v2 (content-aware) no-op baseline whose fingerprint is the simulated noise."""
+    verdict = verify_expectations(_diff(), [])
+    entry = NoopSemanticEntry(
+        id="app",
+        filename="app.apk",
+        sha256=sha256,
+        build_success=True,
+        result=SemanticResult.EQUIVALENT,
+        noise_rule_counts=dict(verdict.noise_rule_counts),
+        fingerprint=NoiseFingerprint.from_verdict(verdict),
+    )
+    return NoopSemanticBaseline(toolchain_identity=toolchain or SIM_TOOLCHAIN, entries=[entry])
+
+
+SIM_TOOLCHAIN = ToolchainIdentity(
+    java="sim-java", apktool="sim-apktool", build_tools="sim-bt", zipalign="sim-bt",
+    apksigner="sim-as", android_platform="android-sim",
+)  # fmt: skip
+
+
 def _f(path: str, kind: ChangeType, category: str, **kw: Any) -> FileEntryDiff:
+    if kind != ChangeType.ADDED:
+        kw.setdefault("sha256_before", _h(kw.get("old_path") or path, "before"))
+    if kind != ChangeType.REMOVED:
+        kw.setdefault("sha256_after", _h(path, "after"))
     return FileEntryDiff(path=path, change_type=kind, category=category, **kw)
 
 

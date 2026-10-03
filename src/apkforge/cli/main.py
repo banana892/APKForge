@@ -18,10 +18,10 @@ Command structure (Phase 0 — stubs)::
     ├── inspect  <apk>   — (stub) basic APK metadata
     ├── analyze  <apk>   — (stub) full security/privacy analysis
     ├── scan     <apk>   — (stub) quick security scan
-    ├── diff     <a> <b> — (stub) compare two APKs
+    ├── diff     <a> <b> — compare two APKs (raw / normalized / semantic / security)
     ├── modify   <apk>   — apply a plan, or Phase D modifiers (--modifier)
     ├── modifiers        — list Phase D modifiers
-    └── verify   <apk>   — (stub) verify a built APK
+    └── verify   <apk> [<modified>] — verification matrix (Phase E)
 """
 
 from __future__ import annotations
@@ -41,13 +41,17 @@ from apkforge.core.models import AnalysisStatus, Severity
 
 if TYPE_CHECKING:
     from apkforge.builders import BuildService, ToolchainCheckResult
+    from apkforge.builders.semantic_baseline import BaselineCheck
+    from apkforge.diff.expectations import ExpectationVerdict
     from apkforge.diff.models import DiffResult
+    from apkforge.diff.security import SecurityDiff
     from apkforge.inspection import InspectionResult
     from apkforge.modification.models import ModificationPlan
     from apkforge.modification.modifiers.base import ModificationResult, StepStatus
     from apkforge.modification.pipeline import PipelineResult
     from apkforge.privacy.models import PrivacyResult
     from apkforge.security.models import FullAnalysisResult, SecurityResult
+    from apkforge.verification import VerificationMatrix
 
 
 app = typer.Typer(
@@ -435,7 +439,7 @@ def cmd_inspect(
     result = engine.inspect(apk, keep_workspace=keep_workspace)
 
     if json_output or output_format.lower() == "json":
-        _console.print(result.model_dump_json(indent=2), soft_wrap=True)
+        typer.echo(result.model_dump_json(indent=2))
     else:
         _render_inspect_summary(
             result,
@@ -542,7 +546,7 @@ def cmd_analyze(
             output_file.write_text(json_str, encoding="utf-8")
             _console.print(f"[green]Report written to {output_file}[/green]")
         else:
-            _console.print(json_str, soft_wrap=True)
+            typer.echo(json_str)
     else:
         _render_full_analysis_summary(full_result, sec_res, priv_res, insp_res)
         if output_file:
@@ -1079,18 +1083,58 @@ def cmd_diff(
         "--keep-workspace",
         help="Retain workspace directory after comparison.",
     ),
+    show_raw: bool = typer.Option(
+        False, "--raw", help="Show the raw archive diff (exact path + content hash)."
+    ),
+    show_security: bool = typer.Option(
+        False, "--security", help="Show the security-relevant diff (descriptive only)."
+    ),
+    baseline_file: Path | None = typer.Option(
+        None,
+        "--baseline",
+        help="Semantic no-op baseline JSON: classify differences (normalized diff).",
+        exists=True,
+        dir_okay=False,
+    ),
 ) -> None:
-    """Compare two APK packages and produce a structured, evidence-based diff."""
+    """Compare two APK packages and produce a structured, evidence-based diff.
+
+    Layers: raw (archive entries), normalized (with --baseline: expected / rebuild noise /
+    unexpected / unknown), semantic (per comparator), security-relevant (--security).
+    """
+    import json
+
     from apkforge.diff.engine import DiffEngine
+    from apkforge.diff.security import build_security_diff
 
     cfg = load_default_config()
     setup_logging(cfg.log_level)
 
     engine = DiffEngine(config=cfg)
     result = engine.diff(original, modified, keep_workspace=keep_workspace)
+    verdict = None
+    baseline_check = None
+    if baseline_file is not None:
+        from apkforge.builders.semantic_baseline import NoopSemanticBaseline
+        from apkforge.verification.pair import check_baseline, classify
+
+        baseline = NoopSemanticBaseline.model_validate_json(baseline_file.read_text())
+        baseline_check = check_baseline(baseline, result.apk_a.sha256 or "", None)
+        verdict = classify(result, [], baseline, baseline_check)
+    security = build_security_diff(result, verdict) if (show_security or verdict) else None
 
     if json_output or output_format.lower() == "json":
-        _console.print(result.model_dump_json(indent=2), soft_wrap=True)
+        if security is None and verdict is None:
+            typer.echo(result.model_dump_json(indent=2))
+        else:
+            payload: dict[str, object] = {"diff": json.loads(result.model_dump_json())}
+            if verdict is not None:
+                assert baseline_check is not None
+                payload["baseline"] = json.loads(baseline_check.model_dump_json())
+                payload["normalized"] = json.loads(verdict.model_dump_json())
+            if security is not None:
+                payload["security"] = json.loads(security.model_dump_json())
+            typer.echo(json.dumps(payload, indent=2))
     else:
         _render_diff_summary(
             result,
@@ -1104,9 +1148,61 @@ def cmd_diff(
             show_embedded=show_embedded,
             show_files=show_files,
         )
+        _render_diff_layers(result, verdict, baseline_check, security, show_raw=show_raw)
 
     if result.status == AnalysisStatus.FAILED:
         raise typer.Exit(code=1)
+
+
+def _render_diff_layers(
+    result: DiffResult,
+    verdict: ExpectationVerdict | None,
+    baseline_check: BaselineCheck | None,
+    security: SecurityDiff | None,
+    *,
+    show_raw: bool,
+) -> None:
+    """Phase E layers below the classic summary: raw, semantic status, normalized, security."""
+    if result.raw is not None:
+        _console.print(
+            f"\n[bold]Raw diff[/bold]: {result.raw.counts} "
+            f"(metadata-only differences: {result.raw.metadata_only_changes})"
+        )
+        if show_raw:
+            for e in result.raw.changed():
+                _console.print(f"  {e.change:<9} {e.kind:<17} {e.path}")
+    table = Table(title="Semantic comparators", border_style="dim")
+    table.add_column("Comparator", style="bold")
+    table.add_column("Status")
+    table.add_column("Changes", justify="right")
+    table.add_column("Note", overflow="fold")
+    for name, c in result.comparisons.items():
+        color = "green" if c.complete else ("yellow" if c.status != "undetermined" else "red")
+        table.add_row(name, f"[{color}]{c.status}[/{color}]", str(c.changes), c.reason or "")
+    _console.print(table)
+    if verdict is not None:
+        counts = verdict.counts
+        _console.print(
+            f"[bold]Normalized diff[/bold] (baseline "
+            f"{baseline_check.status if baseline_check else 'none'}): "
+            + ", ".join(f"{k} {v}" for k, v in counts.items())
+        )
+        for co in verdict.observations:
+            if co.classification in ("unexpected", "unknown"):
+                o = co.observation
+                _console.print(
+                    f"  [red]{co.classification}[/red] {o.category} {o.kind} {o.identifier}"
+                    f" — {co.reason}"
+                )
+    if security is not None:
+        _console.print(f"\n[bold]Security-relevant diff[/bold] ({security.status})")
+        for sec in security.sections.values():
+            if sec.items or sec.availability != "complete":
+                _console.print(f"  [bold]{sec.title}[/bold] ({sec.availability})")
+            for i in sec.items:
+                cls = f" [{i.classification}]" if i.classification else ""
+                _console.print(f"    {i.change} {i.subject}{cls}")
+        _console.print(f"  [dim]{security.disclaimer}[/dim]")
 
 
 # ---------------------------------------------------------------------------
@@ -1179,7 +1275,7 @@ def cmd_privacy(
     result = engine.analyze(apk, keep_workspace=keep_workspace)
 
     if json_output or output_format.lower() == "json":
-        _console.print(result.model_dump_json(indent=2), soft_wrap=True)
+        typer.echo(result.model_dump_json(indent=2))
     else:
         _render_privacy_summary(
             result,
@@ -1424,7 +1520,7 @@ def cmd_security(
     )
 
     if json_output or output_format.lower() == "json":
-        _console.print(sec_res.model_dump_json(indent=2), soft_wrap=True)
+        typer.echo(sec_res.model_dump_json(indent=2))
     else:
         _render_security_summary(
             sec_res,
@@ -2134,7 +2230,7 @@ def cmd_modify(
 
     # 4. Output
     if json_output:
-        _console.print(result.model_dump_json(indent=2), soft_wrap=True)
+        typer.echo(result.model_dump_json(indent=2))
     else:
         _render_modification_result(result)
 
@@ -2379,6 +2475,15 @@ def _render_pipeline_result(result: PipelineResult) -> None:
         for w in [*plan.warnings, *plan.consequences]:
             _console.print(f"  [yellow]![/yellow] {w}")
 
+    if result.verification_matrix is not None:
+        _render_matrix(result.verification_matrix)
+        if result.report is not None:
+            for o in [*result.report.unexpected, *result.report.unknown][:50]:
+                _console.print(
+                    f"[red]{o['classification']}:[/red] {o['category']} {o['kind']} "
+                    f"{o['identifier']} — {o['reason']}"
+                )
+
     for cf in result.conflicts:
         pair = " vs ".join(cf.modifiers)
         _console.print(f"[yellow]conflict[/yellow] {cf.kind} {cf.subject}: {pair} — {cf.reason}")
@@ -2603,20 +2708,176 @@ def _render_toolchain(check: ToolchainCheckResult) -> None:
 def cmd_verify(
     apk: Path = typer.Argument(
         ...,
-        help="Path to the APK to verify.",
+        metavar="ORIGINAL_OR_APK",
+        help="APK to verify, or the ORIGINAL when MODIFIED is given.",
         exists=True,
         file_okay=True,
         dir_okay=False,
         readable=True,
         resolve_path=True,
     ),
+    modified: Path | None = typer.Argument(
+        None,
+        metavar="[MODIFIED]",
+        help="Modified/rebuilt APK to verify against ORIGINAL.",
+        exists=True,
+        file_okay=True,
+        dir_okay=False,
+        readable=True,
+        resolve_path=True,
+    ),
+    baseline_file: Path | None = typer.Option(
+        None,
+        "--baseline",
+        help="Semantic no-op baseline JSON for ORIGINAL.",
+        exists=True,
+        dir_okay=False,
+    ),
+    measure: bool = typer.Option(
+        False,
+        "--measure-noise-floor",
+        help="Measure ORIGINAL's noise floor with a local no-op rebuild (implies --built-locally).",
+    ),
+    built_locally: bool = typer.Option(
+        False,
+        "--built-locally",
+        help="Declare that MODIFIED was built by this machine's toolchain (enables "
+        "BASELINE_INCOMPATIBLE detection; otherwise the build toolchain is unknown).",
+    ),
+    expected_file: Path | None = typer.Option(
+        None,
+        "--expected",
+        help="JSON list of expected changes (ExpectedChange).",
+        exists=True,
+        dir_okay=False,
+    ),
+    expected_signer: str | None = typer.Option(
+        None, "--expected-signer", help="SHA-256 of the certificate MODIFIED must be signed with."
+    ),
+    json_output: bool = typer.Option(False, "--json", help="Machine-readable JSON report."),
+    report_file: Path | None = typer.Option(
+        None, "--report", help="Also write the Markdown report to this file."
+    ),
+    work_dir: Path | None = typer.Option(None, "--work-dir", help="Parent for build workspaces."),
 ) -> None:
-    """[yellow]⚡ Phase 3[/yellow] — Verify a rebuilt APK.
+    """Verify an APK (structure + signature) or a MODIFIED APK against its ORIGINAL.
 
-    Runs post-build verification checks: signature validation, hash
-    consistency, structural integrity.
+    Pair verification reports the full matrix: structural, signature, noise baseline,
+    expected changes, unexpected changes, semantic diff and security diff, with an
+    overall VERIFIED / FAILED / UNDETERMINED. Exit codes: 0 VERIFIED, 1 FAILED,
+    3 UNDETERMINED, 2 usage/toolchain error.
+
+    Verification proves structural/signing validity and plan conformance within the
+    comparator coverage; it does not prove the application is safe.
     """
-    _not_implemented("verify", apk=str(apk))
+    import contextlib
+    import json
+    import shutil
+    import tempfile
+
+    from apkforge.builders.semantic_baseline import (
+        NoopSemanticBaseline,
+        current_toolchain_identity,
+    )
+    from apkforge.diff.expectations import ExpectedChange
+    from apkforge.verification import (
+        VerificationMatrix,
+        render_markdown,
+        signature_check_with_service,
+        structural_check,
+        verify_pair,
+    )
+
+    cfg = load_default_config()
+    setup_logging(cfg.log_level)
+    with contextlib.suppress(ImportError):
+        from loguru import logger
+
+        logger.disable("androguard")
+
+    service = None
+    try:
+        service = _build_service(work_dir)
+        if not service.check_toolchain().valid:
+            service = None
+    except typer.Exit:
+        service = None
+
+    exit_codes = {"VERIFIED": 0, "FAILED": 1, "UNDETERMINED": 3}
+    if modified is None:
+        matrix = VerificationMatrix()
+        matrix.checks["structural"] = structural_check(apk)
+        matrix.checks["signature"] = signature_check_with_service(service, apk, expected_signer)
+        matrix.finalize()
+        if json_output:
+            typer.echo(matrix.model_dump_json(indent=2))
+        else:
+            _render_matrix(matrix)
+        raise typer.Exit(code=exit_codes[str(matrix.overall)])
+
+    expected: list[ExpectedChange] = []
+    if expected_file is not None:
+        expected = [ExpectedChange.model_validate(e) for e in json.loads(expected_file.read_text())]
+    baseline = None
+    if baseline_file is not None:
+        baseline = NoopSemanticBaseline.model_validate_json(baseline_file.read_text())
+    elif measure:
+        if service is None:
+            _console.print("[red]--measure-noise-floor needs a valid build toolchain.[/red]")
+            raise typer.Exit(code=2)
+        from apkforge.modification.pipeline import measure_noise_floor
+
+        tmp = Path(tempfile.mkdtemp(prefix="noise-floor-", dir=_ensure_dir(service.work_dir)))
+        try:
+            baseline = measure_noise_floor(service, apk, work_dir=tmp)
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
+        built_locally = True
+    toolchain = current_toolchain_identity(service) if (built_locally and service) else None
+
+    report, _ = verify_pair(
+        apk,
+        modified,
+        baseline=baseline,
+        expected=expected,
+        service=service,
+        expected_signer=expected_signer,
+        build_toolchain=toolchain,
+    )
+    md = render_markdown(report)
+    if report_file is not None:
+        report_file.parent.mkdir(parents=True, exist_ok=True)
+        report_file.write_text(md, encoding="utf-8")
+    if json_output:
+        typer.echo(report.model_dump_json(indent=2))
+    else:
+        _render_matrix(report.verification)
+        for title, rows in (("Unexpected", report.unexpected), ("Unknown", report.unknown)):
+            for o in rows[:50]:
+                _console.print(
+                    f"[red]{title}:[/red] {o['category']} {o['kind']} {o['identifier']} — "
+                    f"{o['reason']}"
+                )
+        if report_file is not None:
+            _console.print(f"[dim]Report written to {report_file}[/dim]")
+    raise typer.Exit(code=exit_codes[str(report.verification.overall)])
+
+
+def _render_matrix(matrix: VerificationMatrix) -> None:
+    color = {"VERIFIED": "green", "FAILED": "red"}.get(str(matrix.overall), "yellow")
+    table = Table(title="APKForge verification", border_style=color)
+    table.add_column("Check", style="bold")
+    table.add_column("Status")
+    table.add_column("Summary", overflow="fold")
+    for name, c in matrix.checks.items():
+        colors = {"passed": "green", "failed": "red", "not_applicable": "dim"}
+        cc = colors.get(str(c.status), "yellow")
+        table.add_row(name, f"[{cc}]{c.status}[/{cc}]", c.summary)
+    _console.print(table)
+    _console.print(
+        f"Overall: [bold {color}]{matrix.overall}[/bold {color}] — {matrix.overall_reason}"
+    )
+    _console.print(f"[dim]{matrix.statement}[/dim]")
 
 
 # ---------------------------------------------------------------------------

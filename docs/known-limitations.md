@@ -737,3 +737,44 @@ route through them; it reuses their `StepStatus`/`ModificationStepResult` semant
   measures one with an extra unmodified build. Without one, a run is FAILED by design.
 - `apkforge diff` (unlike `modify --modifier`) still lets androguard's loguru DEBUG
   output through to stderr. This is pre-existing and cosmetic.
+
+## Status update — Phase E diff + verification hardening
+
+Recorded here rather than by editing earlier entries. Design: `docs/verification.md`.
+Evidence: `artifacts/phase-e/` (`build-tests/run_phase_e_validation.py`).
+
+**Closed by Phase E**
+
+- *Path-only accepted noise* (Phase C.5/D): any content change at a path a noise rule
+  covers (`res/` re-encoded, `classes.dex` re-encoded, renamed resources...) passed as
+  rebuild noise. Noise is now accepted only by content identity with the APK's measured
+  no-op rebuild (schema-2 baseline fingerprint). Demonstrated on a re-signed OpenLink
+  APK with one altered `res/` entry (`artifacts/phase-e/openlink`, scenario H).
+- *Uncompared manifest content* (Phase D limitation): `<queries>`, `<meta-data>`,
+  `<activity-alias>`, intent-filter attributes and every attribute the inspection model
+  does not extract are compared by the full manifest tree and can be declared as
+  `manifest_element` expected changes. Undeclared ones are unexpected (scenario C).
+- *Baselines reused across toolchains*: a schema-2 baseline records its toolchain
+  identity and is `BASELINE_INCOMPATIBLE` for any other one.
+- *`--json` output coloured under `FORCE_COLOR`*: all `--json` CLI output is written with
+  `typer.echo`; the six CLI tests that failed with `FORCE_COLOR=3` now pass with it set.
+- `apkforge verify` is implemented (single APK and original/modified pair).
+
+**Remaining (known limitations, not defects)**
+
+- `<activity-alias>` is compared structurally (manifest tree) only, not as a component.
+- `resources.arsc` entries and `res/` binary XML are compared by content hash, never
+  decoded. A planned resource change is `unknown`, so a modifier that edits resources
+  cannot reach VERIFIED.
+- Manifest tree values are compared as decoded. One serialization difference was
+  observed and turned into a rule (`manifest_reference_inlined`: AntennaPod's
+  FileProvider `android:authorities` `@7F130332` → its literal value, accepted only when
+  the reference has a single value across all configurations).
+- Fennec's no-op diff is incomplete (embedded inspector size threshold, §1): its
+  baseline entry is `BASELINE_PARTIAL` and its verification is UNDETERMINED by design.
+- DEX extraction budgets and the 50-value string enumeration limit make the `dex` /
+  `strings` comparators partial on very large changes (never `unchanged`).
+- Native libraries: hash and ELF metadata only.
+- The schema-1 C.5 baseline remains loadable but can never yield VERIFIED.
+- A clean diff does not prove that an APK is malware-free; a verified signature proves
+  structural/signing validity, not safety.

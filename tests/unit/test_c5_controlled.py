@@ -11,7 +11,7 @@ import hashlib
 import shutil
 from pathlib import Path
 from types import SimpleNamespace
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import pytest
 
@@ -22,17 +22,17 @@ from apkforge.builders.models import (
     StageResult,
     StageStatus,
 )
-from apkforge.builders.semantic_baseline import (
-    NoopSemanticBaseline,
-    NoopSemanticEntry,
-    SemanticResult,
-)
 from apkforge.builders.workspace import BuildWorkspace
 from apkforge.diff.models import ComponentDiff, DiffResult, PermissionDiff
 from apkforge.modification.controlled import ModificationStatus, run_disable_boot_receiver
+from apkforge.verification.models import CheckStatus, VerificationCheck
 from tests.fixtures import create_synthetic_apk
 from tests.unit.test_c5_boot_receiver import BOOT_RX, OTHER_RX, PKG, manifest
-from tests.unit.test_c5_expectations import _diff, _receiver
+
+if TYPE_CHECKING:
+    from apkforge.builders.semantic_baseline import NoopSemanticBaseline
+
+from tests.unit.test_c5_expectations import SIM_TOOLCHAIN, _diff, _receiver, noise_baseline
 
 BOOT = "android.permission.RECEIVE_BOOT_COMPLETED"
 NOISE = [
@@ -113,6 +113,20 @@ class FakeService:
         shutil.copyfile(src, out)
         return _ok(BuildStage.SIGN, certificate_sha256="ab" * 32)
 
+    def check_toolchain(self, *, refresh: bool = False) -> Any:
+        tools = {
+            k: SimpleNamespace(version=v, status="FOUND", path=None, notes="")
+            for k, v in SIM_TOOLCHAIN.model_dump().items()
+            if isinstance(v, str)
+        }
+        return SimpleNamespace(valid=True, errors=[], warnings=[], tools=tools)
+
+    def structural_check(self, apk: Path) -> VerificationCheck:
+        # The simulated build does not produce a real APK; structure is not under test.
+        return VerificationCheck(
+            name="structural", status=CheckStatus.PASSED, summary="simulated build output"
+        )
+
     def verify(self, apk: Path, **_: Any) -> StageResult:
         self._step("verify")
         if self.fail == "verify":
@@ -151,15 +165,7 @@ def apk(tmp_path: Path) -> Path:
 
 
 def _baseline(apk: Path) -> NoopSemanticBaseline:
-    entry = NoopSemanticEntry(
-        id="app",
-        filename=apk.name,
-        sha256=_sha(apk),
-        build_success=True,
-        result=SemanticResult.EQUIVALENT,
-        noise_rule_counts=dict.fromkeys(NOISE, 1),
-    )
-    return NoopSemanticBaseline(entries=[entry])
+    return noise_baseline(_sha(apk))
 
 
 def _planned() -> DiffResult:

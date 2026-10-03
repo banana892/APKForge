@@ -6,6 +6,7 @@ runs are in tests/integration/test_phase_d_pipeline.py.
 
 from __future__ import annotations
 
+import hashlib
 from pathlib import Path
 from typing import Any
 
@@ -538,6 +539,7 @@ class TestBuiltinModifiers:
             change_type=ChangeType.ADDED,
             category="asset",
             size_after=len(MARKER_CONTENT),
+            sha256_after=hashlib.sha256(MARKER_CONTENT).hexdigest(),
         )
         res, _ = _run(apk, tmp_path, [MarkerAssetModifier()], diff=diff_adding(extra=[entry]))
         assert res.status == PipelineStatus.VERIFIED, res.failures

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 from typing import Any
@@ -44,7 +45,11 @@ def setup(monkeypatch: pytest.MonkeyPatch) -> dict[str, Any]:
 
 def _marker() -> FileEntryDiff:
     return FileEntryDiff(
-        path=MARKER, change_type=ChangeType.ADDED, category="asset", size_after=len(MARKER_CONTENT)
+        path=MARKER,
+        change_type=ChangeType.ADDED,
+        category="asset",
+        size_after=len(MARKER_CONTENT),
+        sha256_after=hashlib.sha256(MARKER_CONTENT).hexdigest(),
     )
 
 
@@ -126,6 +131,7 @@ class TestModify:
                     change_type=ChangeType.ADDED,
                     category="asset",
                     size_after=len(MARKER_CONTENT),
+                    sha256_after=hashlib.sha256(MARKER_CONTENT).hexdigest(),
                 )
             ]
         )

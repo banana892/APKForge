@@ -247,9 +247,18 @@ floor first with one unmodified round trip (`--measure-noise-floor`, which uses
 `EQUIVALENT_WITH_RESIDUE` result establishes a noise floor.
 
 Limitation: a modifier can only state what DiffEngine can observe. Changes to
-`resources.arsc` entries, recompiled resource content and manifest elements DiffEngine
-does not compare cannot be expressed as expected changes. They are covered only by the
-source check before the build.
+`resources.arsc` entries and recompiled resource content cannot be expressed as expected
+changes; they are covered only by the source check before the build.
+
+**Phase E** (see `verification.md`): with a schema-2 baseline the classification is
+content-aware (noise must be byte-identical to this APK's no-op rebuild with the same
+toolchain), the manifest is compared as a full tree (so `<meta-data>`, `<queries>`,
+`<activity-alias>` and every attribute can be declared as `manifest_element` expected
+changes, and are unexpected when undeclared), the compiled entries a plan edits are
+`planned_entry` observations, and every run gets a `VerificationMatrix` and a
+`VerificationReport`. A baseline for another toolchain is `BASELINE_INCOMPATIBLE`
+(failure: noise floor not established); a schema-1 baseline is legacy and the run cannot
+be `verified`.
 
 ## Status semantics
 
@@ -273,7 +282,7 @@ Overall status (`PipelineStatus`), in order of precedence:
 | `skipped` | every modifier was skipped | 3 |
 | `dry_run` | dry run, every modifier ready | 0 |
 | `partial` | `allow_partial`: the ready modifiers completed, others were skipped | 3 |
-| `unverified` | everything passed, but at least one modifier has no verification | 3 |
+| `unverified` | everything passed, but at least one modifier has no verification, or the Phase E verification matrix is `UNDETERMINED` (e.g. legacy baseline, partial comparator) | 3 |
 | `verified` | every modifier applied and verified, APK verified, diff as planned, original unchanged | 0 |
 
 `result.counts()` reports requested, planned, executed, dry_run, skipped, failed,

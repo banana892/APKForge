@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "kind": "apkforge.verification_report",
+  "generated_at": "2026-10-03T03:50:05.980691+00:00",
+  "original": {
+    "file_name": "de.audioattack.openlink_28.apk",
+    "sha256": null,
+    "package_name": null,
+    "version_name": null,
+    "version_code": null
+  },
+  "modified": {
+    "file_name": "truncated.apk",
+    "sha256": null,
+    "package_name": null,
+    "version_name": null,
+    "version_code": null
+  },
+  "toolchain": {
+    "java": "25.0.4.1",
+    "apktool": "3.0.3",
+    "zipalign": "35.0.0",
+    "apksigner": "0.9",
+    "build_tools": "35.0.0",
+    "android_platform": "android-35",
+    "normalization_schema": 1,
+    "semantic_schema": 3
+  },
+  "baseline": null,
+  "raw": {},
+  "normalized": {},
+  "semantic": {},
+  "security": null,
+  "requested": [],
+  "expected": [],
+  "actual": [],
+  "unexpected": [],
+  "unknown": [],
+  "verification": {
+    "schema_version": 1,
+    "checks": {
+      "structural": {
+        "name": "structural",
+        "status": "failed",
+        "summary": "not a ZIP archive",
+        "evidence": [],
+        "details": {}
+      },
+      "signature": {
+        "name": "signature",
+        "status": "undetermined",
+        "summary": "APK to verify is not a ZIP/APK archive: truncated.apk",
+        "evidence": [],
+        "details": {}
+      },
+      "noise_baseline": {
+        "name": "noise_baseline",
+        "status": "undetermined",
+        "summary": "no no-op baseline: rebuild noise cannot be separated from changes",
+        "evidence": [],
+        "details": {}
+      },
+      "modification": {
+        "name": "modification",
+        "status": "not_applicable",
+        "summary": "no modifier was run (pair verification)",
+        "evidence": [],
+        "details": {}
+      },
+      "expected_changes": {
+        "name": "expected_changes",
+        "status": "not_applicable",
+        "summary": "no expected changes declared",
+        "evidence": [],
+        "details": {}
+      },
+      "unexpected_changes": {
+        "name": "unexpected_changes",
+        "status": "undetermined",
+        "summary": "the diff was not classified",
+        "evidence": [],
+        "details": {}
+      },
+      "semantic_diff": {
+        "name": "semantic_diff",
+        "status": "undetermined",
+        "summary": "no diff available",
+        "evidence": [],
+        "details": {}
+      },
+      "security_diff": {
+        "name": "security_diff",
+        "status": "undetermined",
+        "summary": "not computed",
+        "evidence": [],
+        "details": {}
+      }
+    },
+    "overall": "FAILED",
+    "overall_reason": "failed: structural",
+    "limitations": [
+      "signature files (META-INF/MANIFEST.MF, *.SF, *.RSA...) are accepted by path; their validity is established by apksigner, not by the diff"
+    ],
+    "statement": "Verification establishes structural/signing validity and that observed differences match the plan and the measured rebuild noise, within the stated comparator coverage. It does not establish that the application is safe."
+  },
+  "limitations": [
+    "signature files (META-INF/MANIFEST.MF, *.SF, *.RSA...) are accepted by path; their validity is established by apksigner, not by the diff"
+  ],
+  "statements": {
+    "observed": [
+      "structural: failed \u2014 not a ZIP archive",
+      "signature: undetermined \u2014 APK to verify is not a ZIP/APK archive: truncated.apk",
+      "noise_baseline: undetermined \u2014 no no-op baseline: rebuild noise cannot be separated from changes",
+      "modification: not_applicable \u2014 no modifier was run (pair verification)",
+      "expected_changes: not_applicable \u2014 no expected changes declared",
+      "unexpected_changes: undetermined \u2014 the diff was not classified",
+      "semantic_diff: undetermined \u2014 no diff available",
+      "security_diff: undetermined \u2014 not computed"
+    ],
+    "inference": [
+      "Differences classified as rebuild noise are inferred to be caused by the rebuild because they are identical to this APK's measured no-op rebuild (content assurance) or match a documented path rule (path_rule assurance)."
+    ],
+    "risk_assessment": [
+      "None. This report describes changes; it does not assess whether a change is malicious. A clean diff does not prove an APK is malware-free, and a verified signature proves structural/signing validity, not safety."
+    ],
+    "unknown": [
+      "limitation: signature files (META-INF/MANIFEST.MF, *.SF, *.RSA...) are accepted by path; their validity is established by apksigner, not by the diff"
+    ]
+  }
+}

@@ -1,0 +1,2102 @@
+{
+  "schema_version": 1,
+  "kind": "apkforge.verification_report",
+  "generated_at": "2026-10-03T03:50:04.100806+00:00",
+  "original": {
+    "file_name": "de.audioattack.openlink_28.apk",
+    "sha256": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+    "package_name": "de.audioattack.openlink",
+    "version_name": "1.5.11",
+    "version_code": 28
+  },
+  "modified": {
+    "file_name": "signed.apk",
+    "sha256": "a5dda47e2445ecbb8551f252f9b3ce279cff16f800ad809798148ec5b45b2728",
+    "package_name": "de.audioattack.openlink",
+    "version_name": "1.5.11",
+    "version_code": 28
+  },
+  "toolchain": {
+    "java": "25.0.4.1",
+    "apktool": "3.0.3",
+    "zipalign": "35.0.0",
+    "apksigner": "0.9",
+    "build_tools": "35.0.0",
+    "android_platform": "android-35",
+    "normalization_schema": 1,
+    "semantic_schema": 3
+  },
+  "baseline": {
+    "status": "COMPATIBLE",
+    "usable": true,
+    "content_aware": true,
+    "reasons": [],
+    "entry_id": "de.audioattack.openlink@28",
+    "schema_version": 2,
+    "baseline_toolchain": {
+      "java": "25.0.4.1",
+      "apktool": "3.0.3",
+      "zipalign": "35.0.0",
+      "apksigner": "0.9",
+      "build_tools": "35.0.0",
+      "android_platform": "android-35",
+      "normalization_schema": 1,
+      "semantic_schema": 3
+    },
+    "current_toolchain": {
+      "java": "25.0.4.1",
+      "apktool": "3.0.3",
+      "zipalign": "35.0.0",
+      "apksigner": "0.9",
+      "build_tools": "35.0.0",
+      "android_platform": "android-35",
+      "normalization_schema": 1,
+      "semantic_schema": 3
+    }
+  },
+  "raw": {
+    "schema_version": 1,
+    "sha256_before": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+    "sha256_after": "a5dda47e2445ecbb8551f252f9b3ce279cff16f800ad809798148ec5b45b2728",
+    "counts": {
+      "added": 67,
+      "removed": 66,
+      "modified": 4,
+      "unchanged": 26
+    },
+    "counts_by_kind": {
+      "asset": {
+        "added": 1,
+        "unchanged": 2
+      },
+      "dex": {
+        "modified": 1
+      },
+      "manifest": {
+        "modified": 1
+      },
+      "meta_inf": {
+        "unchanged": 16
+      },
+      "other": {
+        "unchanged": 8
+      },
+      "resource": {
+        "added": 64,
+        "removed": 64
+      },
+      "resource_table": {
+        "modified": 1
+      },
+      "signature": {
+        "added": 2,
+        "modified": 1,
+        "removed": 2
+      }
+    },
+    "metadata_only_changes": 26,
+    "problems": [],
+    "changed": [
+      {
+        "path": "AndroidManifest.xml",
+        "change": "modified",
+        "kind": "manifest",
+        "size_before": 8356,
+        "size_after": 8356,
+        "sha256_before": "ad6c31aefae20d3035ea38099fb764b4e047a3b1f4e9075cf44b538fc1d43f16",
+        "sha256_after": "4163399018a69119228e118a90a7de115c22423feecfed625ca9f8d967dc2d9a",
+        "metadata_changed": false
+      },
+      {
+        "path": "META-INF/APKFORGE.RSA",
+        "change": "added",
+        "kind": "signature",
+        "size_before": null,
+        "size_after": 1658,
+        "sha256_before": null,
+        "sha256_after": "2818bc39a07d1d1b63bb934fc3e49b8d44d783b3051c4494680bc831364a557e",
+        "metadata_changed": false
+      },
+      {
+        "path": "META-INF/APKFORGE.SF",
+        "change": "added",
+        "kind": "signature",
+        "size_before": null,
+        "size_after": 10819,
+        "sha256_before": null,
+        "sha256_after": "22e32b268a659974567c5deee44c74bc83146092d17a715a0f05673e4be781ee",
+        "metadata_changed": false
+      },
+      {
+        "path": "META-INF/C4961B96.RSA",
+        "change": "removed",
+        "kind": "signature",
+        "size_before": 1334,
+        "size_after": null,
+        "sha256_before": "89ee38bf5b6fb631d12bdcdaffa7eb07d2c6988d7953e8a0c356b10e3094424a",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "META-INF/C4961B96.SF",
+        "change": "removed",
+        "kind": "signature",
+        "size_before": 8683,
+        "size_after": null,
+        "sha256_before": "ec200302ed41fef68e588c4c51a1daf9313f1022bcbba3bb94b2994082f989d3",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "META-INF/MANIFEST.MF",
+        "change": "modified",
+        "kind": "signature",
+        "size_before": 8556,
+        "size_after": 10692,
+        "sha256_before": "4f7bd06fce7c002616fe1403866adf178880a4b75df29f87135e07a0c8f05a44",
+        "sha256_after": "044774110bdda3f4394227835383640c73b4176752ee859b28284564e7f0bfe0",
+        "metadata_changed": false
+      },
+      {
+        "path": "assets/apkforge-test/missing-expectation.txt",
+        "change": "added",
+        "kind": "asset",
+        "size_before": null,
+        "size_after": 47,
+        "sha256_before": null,
+        "sha256_after": "e0457bb3ffaa55e32f85d1ad6fdb232ff537c6131a2bf476086f2e822e8c6023",
+        "metadata_changed": false
+      },
+      {
+        "path": "classes.dex",
+        "change": "modified",
+        "kind": "dex",
+        "size_before": 79648,
+        "size_after": 90696,
+        "sha256_before": "3c86e6ab7caca2e99bf2744b1629a4a5b68d816774c29de055a34a72c3acaac1",
+        "sha256_after": "e856cfec4003ea0c05b3dd49e454f2dbecc1fab741080a16d2523b91f04b64bb",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/-U.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 1172,
+        "size_after": null,
+        "sha256_before": "fed27281a76c914f99c6209b910d181f47f16af2c33ec03edb7e2d5685004e33",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/0K.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 448,
+        "size_after": null,
+        "sha256_before": "ae1300bf8423d9f0ff6a947c5f55a630f9d08e5451783028760e434234b8a44d",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/2H.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 448,
+        "size_after": null,
+        "sha256_before": "1455f70bbff650be2d76910ce63f5fec70e7e73670de23a69c48920ea515b05f",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/2K.9.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 225,
+        "size_after": null,
+        "sha256_before": "42aee0b03883e94df5e543348a397d1302c1b8221895871a83b81899f5a9647b",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/4z.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 876,
+        "size_after": null,
+        "sha256_before": "397399c876fbf4d09ebf4b041b9e9a0efdfbb49f34a76e101abf606f8e912fe6",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/5c.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 138,
+        "size_after": null,
+        "sha256_before": "b44eeda34d7a529c2fe55719eb098fa29707caa91d18de06a7a775d6e6bcf973",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/5q.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 756,
+        "size_after": null,
+        "sha256_before": "0c46226e505cf5db696cce8e650186aa49d528b29721d8e57ac5b08251e639b0",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/5t.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 1572,
+        "size_after": null,
+        "sha256_before": "34c821ed727aa529b29ee0546d927e6e9f0d0f08aabc0d157a7d4e05d4872c2f",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/7n.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 2632,
+        "size_after": null,
+        "sha256_before": "3b2a96f935746658a42aa3e28a5290bb56589b19a5b8d0b77a116d9e197372cb",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/8c.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 3470,
+        "size_after": null,
+        "sha256_before": "535c35c57111bb3ffcc9df975008ead1da16cd8a94c42242442d2c9b9fe43560",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/9m.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 304,
+        "size_after": null,
+        "sha256_before": "b472ac0227f4eb4893754471c9f90b54c046efb7af903f6f1d2713cd264ee263",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/9w.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 1072,
+        "size_after": null,
+        "sha256_before": "e179042cd97cbef333068bb3f1a8af018a9a9bd2be11f30daf0e7ed5edf4775e",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/BW.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 548,
+        "size_after": null,
+        "sha256_before": "88b1d07ed23f5b1274350898b103785df1127fdee68a018f88978dcc55fc415a",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/C_.9.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 215,
+        "size_after": null,
+        "sha256_before": "a8676a1793ac8310ffb12986232df66df092d29c242aeedc2b73556c010d38dc",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/Ce.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 1320,
+        "size_after": null,
+        "sha256_before": "8f9acacabaf2dfb4bb53dab7ce7bec9c1451ce0a0219ffaa41760ea82da3d2d6",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/Dd.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 979,
+        "size_after": null,
+        "sha256_before": "f1d4850e8d8bc1c4f90ac7e00d222c30fbd59c885324976118110c81c7dde7d4",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/FS.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 2034,
+        "size_after": null,
+        "sha256_before": "8e23cafea7cc0f6feb674faf48c0d9476dde113c31a26e60b005a58e017674ac",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/G7.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 1322,
+        "size_after": null,
+        "sha256_before": "bb138015c2b50951767dc6042940f83cc87c985b1dd719e74f87cb0e0326ccbf",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/Gc.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 11615,
+        "size_after": null,
+        "sha256_before": "ab1803de3cb6663e7f0f9f0e8f3d72994b6570839130262f9cbf66d538067caf",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/LC.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 448,
+        "size_after": null,
+        "sha256_before": "1455f70bbff650be2d76910ce63f5fec70e7e73670de23a69c48920ea515b05f",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/Ma.9.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 247,
+        "size_after": null,
+        "sha256_before": "d27af435101ca4cbec0c840bd30687918cd39eb83aab1487420855623a45998b",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/Ml.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 2407,
+        "size_after": null,
+        "sha256_before": "30ddd9649029e04075bbd39f38725a1c271fb102d349d54736760e8a8b689e44",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/N3.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 736,
+        "size_after": null,
+        "sha256_before": "4a959580080ebb1d822a2459a4234d2abf0dd0b65d9c28bda8c258dafc888c51",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/No.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 5334,
+        "size_after": null,
+        "sha256_before": "91a76c11a0c05c839484c297bd7e91887ccbe7974ee0ee6bb9ec55a3dab42f3c",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/Pu.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 7479,
+        "size_after": null,
+        "sha256_before": "c7750ddb3989876e6217c21c8ee8b53b326662c0fe4a1974ba6dc2829a2dce2c",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/Q7.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 1928,
+        "size_after": null,
+        "sha256_before": "80bef0a10f25d2e61d2367020d5aa8d35502d705dc5bebe7d0ae6e15ca17dcec",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/RJ.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 3255,
+        "size_after": null,
+        "sha256_before": "84ba9c53934d5e15eac6c92115f7151111e9ddfbbc71346d10314dd63c7b58ac",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/S8.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 1052,
+        "size_after": null,
+        "sha256_before": "ed801dd8e041a89f022e4088bda7c1ac6c5b618d2f168cbb6cc257cdc8ddf0e1",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/Sx.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 2335,
+        "size_after": null,
+        "sha256_before": "0fb0150010265980f7ebf2ed03c297ad29435ba119b284f854abe4be4c05ef0f",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/U-.9.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 223,
+        "size_after": null,
+        "sha256_before": "e17761ed280edd93d7141bd504b70f9e9e15a8652288d9e6333bf4ce964ef844",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/WU.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 772,
+        "size_after": null,
+        "sha256_before": "5d4cdaae5838ad9442c085f951b766b2808bff13b8c85a14e0bcf8571514492c",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/Ws.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 1180,
+        "size_after": null,
+        "sha256_before": "e9bb2a8106c9edf4817c0b7cee70ac3ebeb3af02e10cefe1ede7e11995691823",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/Xk.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 1492,
+        "size_after": null,
+        "sha256_before": "c8321364802409baf4d76e2a84e303871585bdc95b0395040c5ecea0e2051105",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/_y.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 612,
+        "size_after": null,
+        "sha256_before": "edd4e27b3f2407a02248205a2eb50288170e4201249bfeac074749ea60390103",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/a0.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 1228,
+        "size_after": null,
+        "sha256_before": "00b571d01174674511bdeb4f0c239edc567c788f80ad279b92762503bc908c2d",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/bX.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 1356,
+        "size_after": null,
+        "sha256_before": "5f6376dfe199d8a6e40033d3e623989d052c9b2f974d00c824fbb8b76fc6fde8",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/c6.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 372,
+        "size_after": null,
+        "sha256_before": "36c040a832f78da36bf7440345536c4b69868014646e242e4eee77fc0b82df7f",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/cV.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 440,
+        "size_after": null,
+        "sha256_before": "b4a2263087b318e8b035fcc67b974e981244f858636548fc475c1ee43e39979c",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/cr.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 364,
+        "size_after": null,
+        "sha256_before": "37ff040591f96786bfaf9d3d937fedf2f2f97e218c06beb3e7fe8a2442a181a8",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/df.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 532,
+        "size_after": null,
+        "sha256_before": "473d9a34a0fad02f915a59e8aabb97c8f01af7854dd17306dbe6ae684e5767b2",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable-anydpi-v26/ic_incognito_foreground.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 1928,
+        "sha256_before": null,
+        "sha256_after": "b19934a4712dc117bc9160a8f26c3739d347184dcfc278bed26631698925caff",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable-anydpi-v26/ic_launcher_foreground.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 1928,
+        "sha256_before": null,
+        "sha256_after": "f687efb58eb32a641a9d53973304ff2ae70100f7951f91388b15135ba2103c94",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable-anydpi-v26/ic_launcher_monochrome.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 1172,
+        "sha256_before": null,
+        "sha256_after": "1eb7854d08790871ebf1d80dca379f3ea53094430748a86893c7806d809f8d95",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable-hdpi/notification_bg_low_normal.9.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 212,
+        "sha256_before": null,
+        "sha256_after": "21f0b55280be10b187ceff8edef4a5a7047683e6e9fcf47de410aa3839f41094",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable-hdpi/notification_bg_low_pressed.9.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 225,
+        "sha256_before": null,
+        "sha256_after": "42aee0b03883e94df5e543348a397d1302c1b8221895871a83b81899f5a9647b",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable-hdpi/notification_bg_normal.9.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 212,
+        "sha256_before": null,
+        "sha256_after": "0c6328c7b2420570a7ec38b3beb3bac9a29d895ac1ab7239315aba7266418593",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable-hdpi/notification_bg_normal_pressed.9.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 225,
+        "sha256_before": null,
+        "sha256_after": "18b328d8017e677d5aad3dbd66bae356b5cac978c6f0670938ea648e51d0eb66",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable-hdpi/notification_oversize_large_icon_bg.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 909,
+        "sha256_before": null,
+        "sha256_after": "aa00088d0d9fd97bd92ed9ffd29b54bb69a48a984aa73448ce553fb9d812be41",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable-hdpi/notify_panel_notification_icon_bg.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 107,
+        "sha256_before": null,
+        "sha256_after": "8430ec003e003f3f2ba2f78d48fd150e25407667e530e82e87a7d4841c0fd676",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable-mdpi/notification_bg_low_normal.9.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 215,
+        "sha256_before": null,
+        "sha256_after": "2f7fbda0ba6e53e9a47e2fc0e24e32c447c613a5808c2d6285dc651e83a07ad7",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable-mdpi/notification_bg_low_pressed.9.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 223,
+        "sha256_before": null,
+        "sha256_after": "e17761ed280edd93d7141bd504b70f9e9e15a8652288d9e6333bf4ce964ef844",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable-mdpi/notification_bg_normal.9.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 215,
+        "sha256_before": null,
+        "sha256_after": "a8676a1793ac8310ffb12986232df66df092d29c242aeedc2b73556c010d38dc",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable-mdpi/notification_bg_normal_pressed.9.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 223,
+        "sha256_before": null,
+        "sha256_after": "99c14d6855b8be296d58017d3751b8dc849c47b6d1d80ab614ff9075080e461b",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable-mdpi/notify_panel_notification_icon_bg.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 98,
+        "sha256_before": null,
+        "sha256_after": "0d773e62c756422313262846c787e58f67e0ee87e45e1ae9942002e816c4cb9e",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable-xhdpi/notification_bg_low_normal.9.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 221,
+        "sha256_before": null,
+        "sha256_after": "3e09afa21c45372c035598c017c8fb405a6d678e6cb84dc857581cb3b40e482d",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable-xhdpi/notification_bg_low_pressed.9.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 252,
+        "sha256_before": null,
+        "sha256_after": "20343222f9f79dd565c3a2248494d452e70820ac1c437173c38badd45f962afd",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable-xhdpi/notification_bg_normal.9.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 221,
+        "sha256_before": null,
+        "sha256_after": "559bf783d765c02338e97952bdc9c6689c7ff99090b8c9813369118da8b080f0",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable-xhdpi/notification_bg_normal_pressed.9.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 247,
+        "sha256_before": null,
+        "sha256_after": "d27af435101ca4cbec0c840bd30687918cd39eb83aab1487420855623a45998b",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable-xhdpi/notify_panel_notification_icon_bg.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 138,
+        "sha256_before": null,
+        "sha256_after": "b44eeda34d7a529c2fe55719eb098fa29707caa91d18de06a7a775d6e6bcf973",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable/ic_call_answer.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 1356,
+        "sha256_before": null,
+        "sha256_after": "fe6c930a317c338f6d0fce51297419e8dcd2240f554611efe277b060bca2205a",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable/ic_call_answer_low.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 1320,
+        "sha256_before": null,
+        "sha256_after": "b66b240fd9fda0b60943287165772ae6520829469989c62ae3205c2e7232578b",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable/ic_call_answer_video.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 772,
+        "sha256_before": null,
+        "sha256_after": "b86a9dce949c3bd0b29671984f9b3e7c7a557debae2bd1c03203f2c16fb2c1f5",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable/ic_call_answer_video_low.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 736,
+        "sha256_before": null,
+        "sha256_after": "a7ec1e7979c5b91a4498fa4ce968e8273af0c954f1673ccbabf96f6372a03d24",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable/ic_call_decline.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 1528,
+        "sha256_before": null,
+        "sha256_after": "3bdfdc1aba5bb55308cc598a012721c484587dbaa74a27ec6f86b73f71398431",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable/ic_call_decline_low.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 1492,
+        "sha256_before": null,
+        "sha256_after": "91e95b5802926f713f3d9b037da4780068ec0d350fe35e96fa2956a97b7a570c",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable/notification_action_background.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 1132,
+        "sha256_before": null,
+        "sha256_after": "bae01039734cfd8b3887ba4b871e54019fab240b47c4201f6ce93ba5dfed6be4",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable/notification_bg.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 532,
+        "sha256_before": null,
+        "sha256_after": "09f57751f7f6f12087c39a4ad4e28c4e8b35d000ab2ad57f9e81970239e20a9d",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable/notification_bg_low.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 532,
+        "sha256_before": null,
+        "sha256_after": "f8b0ea18fb361b1ae6747386f0531864f1033e68c3d63e0cd8042012d9dcc47b",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable/notification_icon_background.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 372,
+        "sha256_before": null,
+        "sha256_after": "afae584f6fee0b713d5f8e3884621ca22de365c24354a538bb45ccc6038603f5",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/drawable/notification_tile_bg.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 304,
+        "sha256_before": null,
+        "sha256_after": "fe577b3043e6a7f22bf4ab305402f8174131f97505d0cb559c62a2cf3c491b21",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/fO.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 7893,
+        "size_after": null,
+        "sha256_before": "d9af9826486c9635c5db51a5b99f0096465d9edcc07f91dcb91db166921d2855",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/gK.9.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 215,
+        "size_after": null,
+        "sha256_before": "2f7fbda0ba6e53e9a47e2fc0e24e32c447c613a5808c2d6285dc651e83a07ad7",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/iQ.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 988,
+        "size_after": null,
+        "sha256_before": "29f3e7642c8903806310cd4805d2baa8c636fa28d6650ba8df9eff901a0a80ec",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/in.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 3488,
+        "size_after": null,
+        "sha256_before": "6ad37cdc9676f9f38ac422b7cce58bd0b4492f2d7a36076c45dffd92230d5884",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/je.9.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 212,
+        "size_after": null,
+        "sha256_before": "21f0b55280be10b187ceff8edef4a5a7047683e6e9fcf47de410aa3839f41094",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/lR.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 440,
+        "size_after": null,
+        "sha256_before": "dfd2b187930417a27b9142063d7771c7c09c108a5ffb6456a41cacc46780bcba",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/layout/activity_main.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 2068,
+        "sha256_before": null,
+        "sha256_after": "353b6a73d8087705eb6f5406636832163a98062782e0cbe9d699c1743abd2ded",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/layout/custom_dialog.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 612,
+        "sha256_before": null,
+        "sha256_after": "35577d0047bb76e60dcd180e29a1901fe9d7191f8fc3ad6b1b79fc5186a675b4",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/layout/ime_base_split_test_activity.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 364,
+        "sha256_before": null,
+        "sha256_after": "7b14b84beb94b36c2913a9f05c3e4f58d8821e2d6efa07d807cbba84470f5c92",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/layout/ime_secondary_split_test_activity.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 876,
+        "sha256_before": null,
+        "sha256_after": "cdc18f2cace7f4ae9417b031eef14453b928ef3d6aa642ad015ac35cc77d1aef",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/layout/notification_action.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 1052,
+        "sha256_before": null,
+        "sha256_after": "4395ce860b3da19855703dea334b414712517ee69846a34d34ba37752ebcd2b8",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/layout/notification_action_tombstone.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 1228,
+        "sha256_before": null,
+        "sha256_after": "06e4b974ef7652ae36f7ad654b33b2414ee2f2bfc25ac236e185d89e98d0205f",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/layout/notification_template_custom_big.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 2456,
+        "sha256_before": null,
+        "sha256_after": "faa69b4cffdf4d67be3d42b327ab411203f6f8ca9d9c5e60b6fc16c760da0989",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/layout/notification_template_icon_group.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 988,
+        "sha256_before": null,
+        "sha256_after": "01781e931bd831a0343f913f90caa24015f4aa91e0007047935577b87ea327d5",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/layout/notification_template_part_chronometer.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 440,
+        "sha256_before": null,
+        "sha256_after": "efc9caba48384bb35f17e5e3f245ff727e308aeaf85f14affe69607ecab9c070",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/layout/notification_template_part_time.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 440,
+        "sha256_before": null,
+        "sha256_after": "e367e9d6a64d4eea451f7b2830583974367b0a81e2e00a0e1b5403994e07eb80",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/mipmap-anydpi-v26/ic_incognito.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 448,
+        "sha256_before": null,
+        "sha256_after": "d3badbb65902bf299523c028ca47e1bfdc1023b503f30df753fbb2094bc34f62",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/mipmap-anydpi-v26/ic_incognito_round.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 448,
+        "sha256_before": null,
+        "sha256_after": "d3badbb65902bf299523c028ca47e1bfdc1023b503f30df753fbb2094bc34f62",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/mipmap-anydpi-v26/ic_launcher.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 548,
+        "sha256_before": null,
+        "sha256_after": "13cd4dad330a9fddae0df0225422c4dcaa46d0c3d7212952f2b71da85908ee1b",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/mipmap-anydpi-v26/ic_launcher_round.xml",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 448,
+        "sha256_before": null,
+        "sha256_after": "fc0f294392a9221c3078f912723d5f5f2c6ce5f5ff488a101c2aad97543c78ff",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/mipmap-hdpi/ic_incognito.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 979,
+        "sha256_before": null,
+        "sha256_after": "f1d4850e8d8bc1c4f90ac7e00d222c30fbd59c885324976118110c81c7dde7d4",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/mipmap-hdpi/ic_incognito_round.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 2407,
+        "sha256_before": null,
+        "sha256_after": "30ddd9649029e04075bbd39f38725a1c271fb102d349d54736760e8a8b689e44",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/mipmap-hdpi/ic_launcher.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 1407,
+        "sha256_before": null,
+        "sha256_after": "3bff316b43890677b7e58afaa63c376a534b30f7a7c103bd7970ecf0ad784439",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/mipmap-hdpi/ic_launcher_round.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 3470,
+        "sha256_before": null,
+        "sha256_after": "535c35c57111bb3ffcc9df975008ead1da16cd8a94c42242442d2c9b9fe43560",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/mipmap-mdpi/ic_incognito.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 756,
+        "sha256_before": null,
+        "sha256_after": "0c46226e505cf5db696cce8e650186aa49d528b29721d8e57ac5b08251e639b0",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/mipmap-mdpi/ic_incognito_round.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 1572,
+        "sha256_before": null,
+        "sha256_after": "34c821ed727aa529b29ee0546d927e6e9f0d0f08aabc0d157a7d4e05d4872c2f",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/mipmap-mdpi/ic_launcher.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 1072,
+        "sha256_before": null,
+        "sha256_after": "e179042cd97cbef333068bb3f1a8af018a9a9bd2be11f30daf0e7ed5edf4775e",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/mipmap-mdpi/ic_launcher_round.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 2242,
+        "sha256_before": null,
+        "sha256_after": "5edd334299ecfe982e1c66adc3520d2928ec12930b369a4c886779802ab0c9b5",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/mipmap-xhdpi/ic_incognito.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 1322,
+        "sha256_before": null,
+        "sha256_after": "bb138015c2b50951767dc6042940f83cc87c985b1dd719e74f87cb0e0326ccbf",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/mipmap-xhdpi/ic_incognito_round.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 3488,
+        "sha256_before": null,
+        "sha256_after": "6ad37cdc9676f9f38ac422b7cce58bd0b4492f2d7a36076c45dffd92230d5884",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/mipmap-xhdpi/ic_launcher.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 2034,
+        "sha256_before": null,
+        "sha256_after": "8e23cafea7cc0f6feb674faf48c0d9476dde113c31a26e60b005a58e017674ac",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/mipmap-xhdpi/ic_launcher_round.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 4997,
+        "sha256_before": null,
+        "sha256_after": "abd0d430adaad537c9ae12f02b79037e6f6261f4868df243e01f2ba251b139cb",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/mipmap-xxhdpi/ic_incognito.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 2335,
+        "sha256_before": null,
+        "sha256_after": "0fb0150010265980f7ebf2ed03c297ad29435ba119b284f854abe4be4c05ef0f",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/mipmap-xxhdpi/ic_incognito_round.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 5334,
+        "sha256_before": null,
+        "sha256_after": "91a76c11a0c05c839484c297bd7e91887ccbe7974ee0ee6bb9ec55a3dab42f3c",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/mipmap-xxhdpi/ic_launcher.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 3255,
+        "sha256_before": null,
+        "sha256_after": "84ba9c53934d5e15eac6c92115f7151111e9ddfbbc71346d10314dd63c7b58ac",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/mipmap-xxhdpi/ic_launcher_round.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 7893,
+        "sha256_before": null,
+        "sha256_after": "d9af9826486c9635c5db51a5b99f0096465d9edcc07f91dcb91db166921d2855",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/mipmap-xxxhdpi/ic_incognito.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 2632,
+        "sha256_before": null,
+        "sha256_after": "3b2a96f935746658a42aa3e28a5290bb56589b19a5b8d0b77a116d9e197372cb",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/mipmap-xxxhdpi/ic_incognito_round.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 7479,
+        "sha256_before": null,
+        "sha256_after": "c7750ddb3989876e6217c21c8ee8b53b326662c0fe4a1974ba6dc2829a2dce2c",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/mipmap-xxxhdpi/ic_launcher.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 4427,
+        "sha256_before": null,
+        "sha256_after": "6baad1a0b52c3440abf9e10f89e7020d927b7bafeb9e2ca0b0ecf210a8ff90bf",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/mipmap-xxxhdpi/ic_launcher_round.png",
+        "change": "added",
+        "kind": "resource",
+        "size_before": null,
+        "size_after": 11615,
+        "sha256_before": null,
+        "sha256_after": "ab1803de3cb6663e7f0f9f0e8f3d72994b6570839130262f9cbf66d538067caf",
+        "metadata_changed": false
+      },
+      {
+        "path": "res/nz.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 532,
+        "size_after": null,
+        "sha256_before": "f29ba616c6e630efa82581f64e40fb99e63b084b20702220056802af808e3cd0",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/o-.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 4427,
+        "size_after": null,
+        "sha256_before": "6baad1a0b52c3440abf9e10f89e7020d927b7bafeb9e2ca0b0ecf210a8ff90bf",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/o_.9.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 252,
+        "size_after": null,
+        "sha256_before": "20343222f9f79dd565c3a2248494d452e70820ac1c437173c38badd45f962afd",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/pY.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 107,
+        "size_after": null,
+        "sha256_before": "8430ec003e003f3f2ba2f78d48fd150e25407667e530e82e87a7d4841c0fd676",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/pd.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 1928,
+        "size_after": null,
+        "sha256_before": "15139d25d1d0d15f85422874ddcdbbdd8be8120c7d9d64e0491e4f69cdc7c8a0",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/pu.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 909,
+        "size_after": null,
+        "sha256_before": "aa00088d0d9fd97bd92ed9ffd29b54bb69a48a984aa73448ce553fb9d812be41",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/s4.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 98,
+        "size_after": null,
+        "sha256_before": "0d773e62c756422313262846c787e58f67e0ee87e45e1ae9942002e816c4cb9e",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/sA.9.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 212,
+        "size_after": null,
+        "sha256_before": "0c6328c7b2420570a7ec38b3beb3bac9a29d895ac1ab7239315aba7266418593",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/v9.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 2068,
+        "size_after": null,
+        "sha256_before": "9f044bcd4b6a1afbfc6668153010819ff36fd78379ef7e57878d72ae2821b280",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/vL.9.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 223,
+        "size_after": null,
+        "sha256_before": "99c14d6855b8be296d58017d3751b8dc849c47b6d1d80ab614ff9075080e461b",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/wN.9.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 225,
+        "size_after": null,
+        "sha256_before": "18b328d8017e677d5aad3dbd66bae356b5cac978c6f0670938ea648e51d0eb66",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/wb.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 4997,
+        "size_after": null,
+        "sha256_before": "abd0d430adaad537c9ae12f02b79037e6f6261f4868df243e01f2ba251b139cb",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/x4.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 1528,
+        "size_after": null,
+        "sha256_before": "2d825b79cce60203492ff09a04826db0ac8d9eb9bc0fb9fb139ae1aa5cde0f67",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/xN.xml",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 2456,
+        "size_after": null,
+        "sha256_before": "bee4457518396888f157ab0997feb05b7a7c49d80e1ac341039021773327576a",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/xa.9.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 221,
+        "size_after": null,
+        "sha256_before": "3e09afa21c45372c035598c017c8fb405a6d678e6cb84dc857581cb3b40e482d",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/yn.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 1407,
+        "size_after": null,
+        "sha256_before": "3bff316b43890677b7e58afaa63c376a534b30f7a7c103bd7970ecf0ad784439",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/z-.9.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 221,
+        "size_after": null,
+        "sha256_before": "559bf783d765c02338e97952bdc9c6689c7ff99090b8c9813369118da8b080f0",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "res/zR.png",
+        "change": "removed",
+        "kind": "resource",
+        "size_before": 2242,
+        "size_after": null,
+        "sha256_before": "5edd334299ecfe982e1c66adc3520d2928ec12930b369a4c886779802ab0c9b5",
+        "sha256_after": null,
+        "metadata_changed": false
+      },
+      {
+        "path": "resources.arsc",
+        "change": "modified",
+        "kind": "resource_table",
+        "size_before": 67536,
+        "size_after": 69556,
+        "sha256_before": "3ed09fa5a2c100bc085e3cd23c5baa93f3f535de5be37e59e34f84ceb6345eef",
+        "sha256_after": "d8cb867455ead68f458b6c2a5b952c31a25a17cbc41039bc6169061f03f45f6c",
+        "metadata_changed": false
+      }
+    ]
+  },
+  "normalized": {
+    "mode": "content_fingerprint",
+    "counts": {
+      "expected_modification": 1,
+      "planned_entry": 0,
+      "rebuild_noise": 74,
+      "unexpected": 0,
+      "unknown": 0
+    },
+    "noise_by_rule": {
+      "dex_compiler_marker_removed": 1,
+      "certificate_replaced": 1,
+      "manifest_reencoded": 1,
+      "signature_replaced": 5,
+      "dex_reencoded": 1,
+      "resource_path_canonicalized": 64,
+      "resource_table_reencoded": 1
+    },
+    "noise_by_assurance": {
+      "content": 68,
+      "path_only": 5,
+      "signer": 1
+    },
+    "failures": [
+      "expected change not observed: uses_permission removed android.permission.INTERNET"
+    ]
+  },
+  "semantic": {
+    "diff_status": "complete",
+    "comparisons": {
+      "identity": {
+        "comparator": "identity",
+        "status": "unchanged",
+        "complete": true,
+        "changes": 0,
+        "level": "semantic: package, version, SDK levels",
+        "reason": null,
+        "limitations": []
+      },
+      "manifest": {
+        "comparator": "manifest",
+        "status": "unchanged",
+        "complete": true,
+        "changes": 0,
+        "level": "semantic: selected <application> attributes, SDK levels",
+        "reason": null,
+        "limitations": []
+      },
+      "manifest_tree": {
+        "comparator": "manifest_tree",
+        "status": "unchanged",
+        "complete": true,
+        "changes": 0,
+        "level": "structural: every manifest element and attribute (decoded XML)",
+        "reason": null,
+        "limitations": []
+      },
+      "permissions": {
+        "comparator": "permissions",
+        "status": "unchanged",
+        "complete": true,
+        "changes": 0,
+        "level": "semantic: uses-permission and declared permissions",
+        "reason": null,
+        "limitations": []
+      },
+      "components": {
+        "comparator": "components",
+        "status": "unchanged",
+        "complete": true,
+        "changes": 0,
+        "level": "semantic: activities, services, receivers, providers (activity-alias: tree only)",
+        "reason": null,
+        "limitations": [
+          "<activity-alias> is not modelled as a component; alias changes are reported by manifest_tree only"
+        ]
+      },
+      "intent_filters": {
+        "comparator": "intent_filters",
+        "status": "unchanged",
+        "complete": true,
+        "changes": 0,
+        "level": "semantic: actions, categories, data per component",
+        "reason": null,
+        "limitations": []
+      },
+      "certificate": {
+        "comparator": "certificate",
+        "status": "modified",
+        "complete": true,
+        "changes": 2,
+        "level": "signing certificate fingerprints (SHA-256)",
+        "reason": null,
+        "limitations": []
+      },
+      "dex": {
+        "comparator": "dex",
+        "status": "unchanged",
+        "complete": true,
+        "changes": 0,
+        "level": "semantic: DEX files, classes, methods (code hash), fields",
+        "reason": null,
+        "limitations": []
+      },
+      "strings": {
+        "comparator": "strings",
+        "status": "modified",
+        "complete": true,
+        "changes": 1,
+        "level": "semantic: DEX string pool values",
+        "reason": null,
+        "limitations": []
+      },
+      "network": {
+        "comparator": "network",
+        "status": "unchanged",
+        "complete": true,
+        "changes": 0,
+        "level": "extracted URLs, domains, IPs",
+        "reason": null,
+        "limitations": []
+      },
+      "native": {
+        "comparator": "native",
+        "status": "unchanged",
+        "complete": true,
+        "changes": 0,
+        "level": "content-hash and ELF metadata per lib/<abi>/<name>.so",
+        "reason": null,
+        "limitations": [
+          "native code is not analysed; hash and ELF metadata only"
+        ]
+      },
+      "resources": {
+        "comparator": "resources",
+        "status": "modified",
+        "complete": true,
+        "changes": 64,
+        "level": "content-hash per res/ entry (binary XML is not decoded)",
+        "reason": null,
+        "limitations": [
+          "res/ binary XML and images are compared by content hash, not decoded; a same-path content change cannot be interpreted semantically"
+        ]
+      },
+      "resource_table": {
+        "comparator": "resource_table",
+        "status": "not_comparable",
+        "complete": false,
+        "changes": 1,
+        "level": "content-hash of resources.arsc; entries are not compared",
+        "reason": "resources.arsc differs; its entries are not compared semantically (only byte identity is established)",
+        "limitations": []
+      },
+      "assets": {
+        "comparator": "assets",
+        "status": "modified",
+        "complete": true,
+        "changes": 1,
+        "level": "content-hash per assets/ entry",
+        "reason": null,
+        "limitations": []
+      },
+      "embedded": {
+        "comparator": "embedded",
+        "status": "unchanged",
+        "complete": true,
+        "changes": 0,
+        "level": "embedded APK/DEX/executable presence",
+        "reason": null,
+        "limitations": []
+      },
+      "files": {
+        "comparator": "files",
+        "status": "modified",
+        "complete": true,
+        "changes": 73,
+        "level": "content-hash per archive entry, with rename pairing",
+        "reason": null,
+        "limitations": []
+      }
+    },
+    "manifest_tree": {
+      "status": "complete",
+      "elements_before": 46,
+      "elements_after": 46,
+      "changes": 0
+    },
+    "summary": {
+      "permissions_added": 0,
+      "permissions_removed": 0,
+      "components_added": 0,
+      "components_removed": 0,
+      "components_modified": 0,
+      "dex_files_added": 0,
+      "dex_files_removed": 0,
+      "dex_files_modified": 1,
+      "classes_added": 0,
+      "classes_removed": 0,
+      "classes_modified": 0,
+      "native_libraries_added": 0,
+      "native_libraries_removed": 0,
+      "native_libraries_modified": 0,
+      "domains_added": 0,
+      "domains_removed": 0,
+      "urls_added": 0,
+      "urls_removed": 0,
+      "files_added": 3,
+      "files_removed": 2,
+      "files_modified": 4,
+      "files_renamed": 64,
+      "certificate_status": "CHANGED"
+    }
+  },
+  "security": {
+    "schema_version": 1,
+    "status": "complete",
+    "incomplete_categories": [],
+    "sections": {
+      "permissions": {
+        "title": "Permissions",
+        "availability": "complete",
+        "comparators": {
+          "permissions": "unchanged"
+        },
+        "items": []
+      },
+      "components": {
+        "title": "Components",
+        "availability": "complete",
+        "comparators": {
+          "components": "unchanged"
+        },
+        "items": []
+      },
+      "intent_filters": {
+        "title": "Intent filters",
+        "availability": "complete",
+        "comparators": {
+          "intent_filters": "unchanged"
+        },
+        "items": []
+      },
+      "certificate": {
+        "title": "Certificate",
+        "availability": "complete",
+        "comparators": {
+          "certificate": "modified"
+        },
+        "items": [
+          {
+            "category": "certificate",
+            "change": "modified",
+            "subject": "signing certificate",
+            "detail": {
+              "status": "CHANGED",
+              "before": [
+                "fc0bc67f280602a2964b78facbf39236a8468a02da2b6452a304b6aa6673dac7"
+              ],
+              "after": [
+                "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b"
+              ]
+            },
+            "evidence": "APK signature block / META-INF",
+            "observation": [
+              "certificate",
+              "modified",
+              "signing_certificate"
+            ],
+            "classification": "rebuild_noise"
+          }
+        ]
+      },
+      "network_domains": {
+        "title": "Network domains and IPs",
+        "availability": "complete",
+        "comparators": {
+          "network": "unchanged"
+        },
+        "items": []
+      },
+      "urls": {
+        "title": "URLs",
+        "availability": "complete",
+        "comparators": {
+          "network": "unchanged"
+        },
+        "items": []
+      },
+      "native_libraries": {
+        "title": "Native libraries",
+        "availability": "complete",
+        "comparators": {
+          "native": "unchanged"
+        },
+        "items": []
+      },
+      "dex": {
+        "title": "DEX classes",
+        "availability": "complete",
+        "comparators": {
+          "dex": "unchanged"
+        },
+        "items": []
+      },
+      "embedded_executables": {
+        "title": "Embedded executables/archives",
+        "availability": "complete",
+        "comparators": {
+          "embedded": "unchanged",
+          "files": "modified"
+        },
+        "items": []
+      },
+      "sensitive_manifest": {
+        "title": "Sensitive manifest changes",
+        "availability": "complete",
+        "comparators": {
+          "manifest": "unchanged",
+          "identity": "unchanged"
+        },
+        "items": []
+      },
+      "manifest_other": {
+        "title": "Other manifest elements",
+        "availability": "complete",
+        "comparators": {
+          "manifest_tree": "unchanged"
+        },
+        "items": []
+      }
+    },
+    "disclaimer": "Observed changes only. A change in a security-relevant area is not evidence of malicious behaviour, and an empty section is not evidence of safety."
+  },
+  "requested": [
+    "test.missing_expectation: add assets/apkforge-test/missing-expectation.txt",
+    "test.missing_expectation: remove <uses-permission android.permission.INTERNET>"
+  ],
+  "expected": [
+    {
+      "category": "file",
+      "kind": "added",
+      "identifier": "assets/apkforge-test/missing-expectation.txt",
+      "detail": {
+        "file_category": "asset",
+        "size": 47
+      },
+      "description": "",
+      "content_before": null,
+      "content_after": "e0457bb3ffaa55e32f85d1ad6fdb232ff537c6131a2bf476086f2e822e8c6023"
+    },
+    {
+      "category": "uses_permission",
+      "kind": "removed",
+      "identifier": "android.permission.INTERNET",
+      "detail": {},
+      "description": "declared but never applied",
+      "content_before": null,
+      "content_after": null
+    }
+  ],
+  "actual": [
+    {
+      "category": "file",
+      "kind": "added",
+      "identifier": "assets/apkforge-test/missing-expectation.txt",
+      "classification": "expected_modification",
+      "reason": "declared expected change",
+      "assurance": "declared",
+      "detail": {
+        "file_category": "asset",
+        "size": 47
+      },
+      "content_before": null,
+      "content_after": "e0457bb3ffaa55e32f85d1ad6fdb232ff537c6131a2bf476086f2e822e8c6023"
+    }
+  ],
+  "unexpected": [],
+  "unknown": [],
+  "verification": {
+    "schema_version": 1,
+    "checks": {
+      "structural": {
+        "name": "structural",
+        "status": "passed",
+        "summary": "archive and container structure valid",
+        "evidence": [
+          "AndroidManifest.xml decodes as binary XML",
+          "97 entries; DEX files: classes.dex"
+        ],
+        "details": {
+          "inventory": {
+            "sha256": "a5dda47e2445ecbb8551f252f9b3ce279cff16f800ad809798148ec5b45b2728",
+            "entries": 97,
+            "by_kind": {
+              "asset": 3,
+              "dex": 1,
+              "manifest": 1,
+              "meta_inf": 16,
+              "other": 8,
+              "resource": 64,
+              "resource_table": 1,
+              "signature": 3
+            },
+            "dex_files": [
+              "classes.dex"
+            ],
+            "abis": [],
+            "duplicate_names": [],
+            "unusual_paths": [],
+            "unreadable": []
+          }
+        }
+      },
+      "signature": {
+        "name": "signature",
+        "status": "passed",
+        "summary": "signature verifies with the expected signer",
+        "evidence": [
+          "apksigner verify: verifies",
+          "zipalign -c: aligned",
+          "ZIP integrity: ok",
+          "signer(s): 1, sha256 f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b, schemes ['v1', 'v2', 'v3']",
+          "expected signer f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b: matched"
+        ],
+        "details": {
+          "valid": true,
+          "zipalign_verified": true,
+          "signature_verified": true,
+          "expected_signer_matched": true,
+          "zip_integrity_verified": true,
+          "manifest_present": true,
+          "certificate": {
+            "subject_dn": "CN=APKForge Development Key - NOT FOR RELEASE, O=APKForge",
+            "sha256_digest": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+            "signer_count": 1,
+            "v1_scheme": true,
+            "v2_scheme": true,
+            "v3_scheme": true,
+            "v31_scheme": false,
+            "v4_scheme": false
+          },
+          "expected_certificate_sha256": "f769555534625181026172519a074c1c4eefc5f5318aa6913ebb80ca466e972b",
+          "apksigner_warnings": [
+            "META-INF/version-control-info.textproto not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/androidx.annotation_annotation-experimental.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/androidx.arch.core_core-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/androidx.core_core-viewtree.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/androidx.core_core.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/androidx.interpolator_interpolator.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/androidx.lifecycle_lifecycle-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/androidx.profileinstaller_profileinstaller.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/androidx.startup_startup-runtime.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/androidx.tracing_tracing.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/androidx.versionedparcelable_versionedparcelable.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/kotlinx_coroutines_android.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/kotlinx_coroutines_core.version not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/com/android/build/gradle/app-metadata.properties not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/androidx/annotation/annotation/LICENSE.txt not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.",
+            "META-INF/versions/9/OSGI-INF/MANIFEST.MF not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/."
+          ],
+          "errors": []
+        }
+      },
+      "noise_baseline": {
+        "name": "noise_baseline",
+        "status": "passed",
+        "summary": "content-aware baseline for this APK and toolchain",
+        "evidence": [
+          "baseline status COMPATIBLE"
+        ],
+        "details": {
+          "status": "COMPATIBLE",
+          "usable": true,
+          "content_aware": true,
+          "reasons": [],
+          "entry_id": "de.audioattack.openlink@28",
+          "schema_version": 2,
+          "baseline_toolchain": {
+            "java": "25.0.4.1",
+            "apktool": "3.0.3",
+            "zipalign": "35.0.0",
+            "apksigner": "0.9",
+            "build_tools": "35.0.0",
+            "android_platform": "android-35",
+            "normalization_schema": 1,
+            "semantic_schema": 3
+          },
+          "current_toolchain": {
+            "java": "25.0.4.1",
+            "apktool": "3.0.3",
+            "zipalign": "35.0.0",
+            "apksigner": "0.9",
+            "build_tools": "35.0.0",
+            "android_platform": "android-35",
+            "normalization_schema": 1,
+            "semantic_schema": 3
+          }
+        }
+      },
+      "modification": {
+        "name": "modification",
+        "status": "failed",
+        "summary": "a modifier's verification failed",
+        "evidence": [
+          "test.missing_expectation: verification_failed"
+        ],
+        "details": {}
+      },
+      "expected_changes": {
+        "name": "expected_changes",
+        "status": "failed",
+        "summary": "1 requested change(s) not observed",
+        "evidence": [
+          "observed: file added assets/apkforge-test/missing-expectation.txt",
+          "NOT observed: uses_permission removed android.permission.INTERNET"
+        ],
+        "details": {}
+      },
+      "unexpected_changes": {
+        "name": "unexpected_changes",
+        "status": "passed",
+        "summary": "no unexpected or unclassified change",
+        "evidence": [],
+        "details": {
+          "counts": {
+            "expected_modification": 1,
+            "planned_entry": 0,
+            "rebuild_noise": 74,
+            "unexpected": 0,
+            "unknown": 0
+          },
+          "mode": "content_fingerprint"
+        }
+      },
+      "semantic_diff": {
+        "name": "semantic_diff",
+        "status": "passed",
+        "summary": "every comparator completed",
+        "evidence": [
+          "identity: unchanged",
+          "manifest: unchanged",
+          "manifest_tree: unchanged",
+          "permissions: unchanged",
+          "components: unchanged",
+          "intent_filters: unchanged",
+          "certificate: modified",
+          "dex: unchanged",
+          "strings: modified",
+          "network: unchanged",
+          "native: unchanged",
+          "resources: modified",
+          "resource_table: not_comparable",
+          "assets: modified",
+          "embedded: unchanged",
+          "files: modified",
+          "established by byte identity with the no-op rebuild: resource_table"
+        ],
+        "details": {
+          "covered_by_content_identity": [
+            "resource_table"
+          ]
+        }
+      },
+      "security_diff": {
+        "name": "security_diff",
+        "status": "passed",
+        "summary": "1 security-relevant change(s), none unexpected",
+        "evidence": [
+          "certificate: modified signing certificate [rebuild_noise]"
+        ],
+        "details": {
+          "counts": {
+            "permissions": 0,
+            "components": 0,
+            "intent_filters": 0,
+            "certificate": 1,
+            "network_domains": 0,
+            "urls": 0,
+            "native_libraries": 0,
+            "dex": 0,
+            "embedded_executables": 0,
+            "sensitive_manifest": 0,
+            "manifest_other": 0
+          }
+        }
+      }
+    },
+    "overall": "FAILED",
+    "overall_reason": "failed: modification, expected_changes",
+    "limitations": [
+      "components: <activity-alias> is not modelled as a component; alias changes are reported by manifest_tree only",
+      "native: native code is not analysed; hash and ELF metadata only",
+      "resources: res/ binary XML and images are compared by content hash, not decoded; a same-path content change cannot be interpreted semantically",
+      "resource_table: not_comparable: resources.arsc differs; its entries are not compared semantically (only byte identity is established)",
+      "signature files (META-INF/MANIFEST.MF, *.SF, *.RSA...) are accepted by path; their validity is established by apksigner, not by the diff"
+    ],
+    "statement": "Verification establishes structural/signing validity and that observed differences match the plan and the measured rebuild noise, within the stated comparator coverage. It does not establish that the application is safe."
+  },
+  "limitations": [
+    "components: <activity-alias> is not modelled as a component; alias changes are reported by manifest_tree only",
+    "native: native code is not analysed; hash and ELF metadata only",
+    "resources: res/ binary XML and images are compared by content hash, not decoded; a same-path content change cannot be interpreted semantically",
+    "resource_table: not_comparable: resources.arsc differs; its entries are not compared semantically (only byte identity is established)",
+    "signature files (META-INF/MANIFEST.MF, *.SF, *.RSA...) are accepted by path; their validity is established by apksigner, not by the diff"
+  ],
+  "statements": {
+    "observed": [
+      "structural: passed \u2014 archive and container structure valid",
+      "signature: passed \u2014 signature verifies with the expected signer",
+      "noise_baseline: passed \u2014 content-aware baseline for this APK and toolchain",
+      "modification: failed \u2014 a modifier's verification failed",
+      "expected_changes: failed \u2014 1 requested change(s) not observed",
+      "unexpected_changes: passed \u2014 no unexpected or unclassified change",
+      "semantic_diff: passed \u2014 every comparator completed",
+      "security_diff: passed \u2014 1 security-relevant change(s), none unexpected"
+    ],
+    "inference": [
+      "Differences classified as rebuild noise are inferred to be caused by the rebuild because they are identical to this APK's measured no-op rebuild (content assurance) or match a documented path rule (path_rule assurance)."
+    ],
+    "risk_assessment": [
+      "None. This report describes changes; it does not assess whether a change is malicious. A clean diff does not prove an APK is malware-free, and a verified signature proves structural/signing validity, not safety."
+    ],
+    "unknown": [
+      "limitation: components: <activity-alias> is not modelled as a component; alias changes are reported by manifest_tree only",
+      "limitation: native: native code is not analysed; hash and ELF metadata only",
+      "limitation: resources: res/ binary XML and images are compared by content hash, not decoded; a same-path content change cannot be interpreted semantically",
+      "limitation: resource_table: not_comparable: resources.arsc differs; its entries are not compared semantically (only byte identity is established)",
+      "limitation: signature files (META-INF/MANIFEST.MF, *.SF, *.RSA...) are accepted by path; their validity is established by apksigner, not by the diff"
+    ]
+  }
+}

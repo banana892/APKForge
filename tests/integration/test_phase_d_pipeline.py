@@ -1,7 +1,7 @@
 """Phase D integration: the generalized pipeline on the real OpenLink APK.
 
 Real toolchain, real BuildService, real DiffEngine. Skipped when the toolchain, the
-OpenLink corpus APK or the committed semantic no-op baseline is missing.
+OpenLink corpus APK or the committed Phase E (content-aware) noise baseline is missing.
 
 A  C.5 OpenLink modification through the generalized pipeline
 B  the test-only marker-asset modifier
@@ -37,9 +37,9 @@ from tests.integration.phase_d_modifiers import FailingModifier, UndeclaredChang
 from tests.integration.test_c5_openlink import (
     ANDROID,
     BOOT,
-    NOOP_BASELINE,
     OPENLINK,
     OTHER_RECEIVER,
+    PHASE_E_BASELINE,
     RECEIVER,
     _binary_manifest,
 )
@@ -73,9 +73,9 @@ def real_service(tmp_path_factory: pytest.TempPathFactory) -> BuildService:
 def noop_baseline() -> NoopSemanticBaseline:
     if not OPENLINK.is_file():
         pytest.skip(f"Corpus sample missing: {OPENLINK}")
-    if not NOOP_BASELINE.is_file():
-        pytest.skip("C.5 semantic no-op baseline not generated")
-    return NoopSemanticBaseline.model_validate_json(NOOP_BASELINE.read_text())
+    if not PHASE_E_BASELINE.is_file():
+        pytest.skip("Phase E noise baseline not generated")
+    return NoopSemanticBaseline.model_validate_json(PHASE_E_BASELINE.read_text())
 
 
 def _sha(p: Path) -> str:

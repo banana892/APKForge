@@ -1,0 +1,5199 @@
+# APKForge verification: FAILED
+
+- original: `org.mozilla.fennec_fdroid_1560020.apk` sha256 `27f2951376ca1085e0933066c902fdfe4d260916d381e233475c5fd6964f5745`
+- modified: `org.mozilla.fennec_fdroid_1560020.noop2.apk` sha256 `f25e35fc1bbe8da0ce0bc73c6c1e5b45aa33ba8b729f0f47aab79f83982fac80`
+- package: org.mozilla.fennec_fdroid 156.0.0
+- toolchain: apktool 3.0.3, build-tools 35.0.0, java 25.0.4.1
+- overall: **FAILED** (failed: unexpected_changes)
+
+## RAW DIFF
+
+Entries: {'added': 2243, 'removed': 2243, 'modified': 268, 'unchanged': 746}; metadata-only differences: 746
+
+- dex: {'modified': 3}
+- manifest: {'modified': 1}
+- resource: {'added': 2241, 'modified': 262, 'removed': 2241}
+- resource_table: {'modified': 1}
+- signature: {'added': 2, 'modified': 1, 'removed': 2}
+
+## NORMALIZED DIFF
+
+Mode: content_fingerprint; classification: {'expected_modification': 0, 'planned_entry': 0, 'rebuild_noise': 0, 'unexpected': 4, 'unknown': 2514}
+Noise by rule: {}
+Noise by assurance: {}
+
+## SEMANTIC DIFF
+
+| comparator | status | changes | level | note |
+|---|---|---:|---|---|
+| identity | unchanged | 0 | semantic: package, version, SDK levels |  |
+| manifest | modified | 1 | semantic: selected <application> attributes, SDK levels |  |
+| manifest_tree | unchanged | 0 | structural: every manifest element and attribute (decoded XML) |  |
+| permissions | unchanged | 0 | semantic: uses-permission and declared permissions |  |
+| components | unchanged | 0 | semantic: activities, services, receivers, providers (activity-alias: tree only) |  |
+| intent_filters | unchanged | 0 | semantic: actions, categories, data per component |  |
+| certificate | modified | 2 | signing certificate fingerprints (SHA-256) |  |
+| dex | unchanged | 0 | semantic: DEX files, classes, methods (code hash), fields |  |
+| strings | modified | 1 | semantic: DEX string pool values |  |
+| network | unchanged | 0 | extracted URLs, domains, IPs |  |
+| native | unchanged | 0 | content-hash and ELF metadata per lib/<abi>/<name>.so |  |
+| resources | modified | 2505 | content-hash per res/ entry (binary XML is not decoded) |  |
+| resource_table | not_comparable | 1 | content-hash of resources.arsc; entries are not compared | resources.arsc differs; its entries are not compared semantically (only byte identity is established) |
+| assets | unchanged | 0 | content-hash per assets/ entry |  |
+| embedded | partial | 0 | embedded APK/DEX/executable presence | A: embedded inspector reported warnings (partial); B: embedded inspector reported warnings (partial) |
+| files | modified | 2515 | content-hash per archive entry, with rename pairing |  |
+
+## SECURITY-RELEVANT DIFF
+
+_Observed changes only. A change in a security-relevant area is not evidence of malicious behaviour, and an empty section is not evidence of safety._
+
+### Permissions (complete)
+
+- no change observed
+
+### Components (complete)
+
+- no change observed
+
+### Intent filters (complete)
+
+- no change observed
+
+### Certificate (complete)
+
+- modified signing certificate [unknown] — evidence: APK signature block / META-INF
+
+### Network domains and IPs (complete)
+
+- no change observed
+
+### URLs (complete)
+
+- no change observed
+
+### Native libraries (complete)
+
+- no change observed
+
+### DEX classes (complete)
+
+- no change observed
+
+### Embedded executables/archives (partial)
+
+- no change observed (comparison incomplete)
+
+### Sensitive manifest changes (complete)
+
+- modified networkSecurityConfig [unknown] — evidence: <application>/<uses-sdk>
+
+### Other manifest elements (complete)
+
+- no change observed
+
+## REQUESTED
+
+- (none: pair verification)
+
+## EXPECTED CHANGES
+
+- none declared
+
+## ACTUAL CHANGES
+
+- none (beyond rebuild noise)
+
+## UNEXPECTED CHANGES
+
+- file removed `res/WK1.xml` — not declared by the modification and not in this APK's no-op baseline
+- file added `res/drawable/material_ic_keyboard_arrow_left_black_24dp.xml` — not declared by the modification and not in this APK's no-op baseline
+- file added `res/drawable/material_ic_keyboard_arrow_right_black_24dp.xml` — not declared by the modification and not in this APK's no-op baseline
+- file removed `res/sO.xml` — not declared by the modification and not in this APK's no-op baseline
+
+## UNKNOWN / UNDETERMINED
+
+- manifest_attribute modified `networkSecurityConfig` [manifest_resource_path_canonicalized] — matches path rule 'manifest_resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- dex_string removed `~~R8{"backend":"dex","compilation-mode":"release","has-checksums":false,"min-api":26,"pg-map-id":"35be5cdb96e588cfad6982d7dfdade60d8802ec6ed4baf484a923df1ee41c74c","r8-mode":"compatibility","version":"9.2.14"}` [dex_compiler_marker_removed] — matches path rule 'dex_compiler_marker_removed' but this difference does not occur in the no-op rebuild of this APK
+- certificate modified `signing_certificate` [certificate_replaced] — matches path rule 'certificate_replaced' but this difference does not occur in the no-op rebuild of this APK
+- file modified `AndroidManifest.xml` [manifest_reencoded] — matches path rule 'manifest_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file added `META-INF/APKFORGE.RSA` [signature_replaced] — matches path rule 'signature_replaced' but this difference does not occur in the no-op rebuild of this APK
+- file added `META-INF/APKFORGE.SF` [signature_replaced] — matches path rule 'signature_replaced' but this difference does not occur in the no-op rebuild of this APK
+- file removed `META-INF/D0EF7A98.RSA` [signature_replaced] — matches path rule 'signature_replaced' but this difference does not occur in the no-op rebuild of this APK
+- file removed `META-INF/D0EF7A98.SF` [signature_replaced] — matches path rule 'signature_replaced' but this difference does not occur in the no-op rebuild of this APK
+- file modified `META-INF/MANIFEST.MF` [signature_replaced] — matches path rule 'signature_replaced' but this difference does not occur in the no-op rebuild of this APK
+- file modified `classes.dex` [dex_reencoded] — matches path rule 'dex_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `classes2.dex` [dex_reencoded] — matches path rule 'dex_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `classes3.dex` [dex_reencoded] — matches path rule 'dex_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim-ldrtl/menu_enter_bottom.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim-ldrtl/menu_enter_top.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/abc_grow_fade_in_from_bottom.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/abc_popup_enter.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/abc_popup_exit.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/abc_shrink_fade_out_from_bottom.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/abc_tooltip_enter.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/abc_tooltip_exit.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/btn_checkbox_to_checked_box_inner_merged_animation.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/btn_checkbox_to_checked_box_outer_merged_animation.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/btn_checkbox_to_checked_icon_null_animation.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/btn_checkbox_to_unchecked_box_inner_merged_animation.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/btn_checkbox_to_unchecked_check_path_merged_animation.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/btn_checkbox_to_unchecked_icon_null_animation.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/btn_radio_to_off_mtrl_dot_group_animation.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/btn_radio_to_off_mtrl_ring_outer_animation.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/btn_radio_to_off_mtrl_ring_outer_path_animation.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/btn_radio_to_on_mtrl_dot_group_animation.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/btn_radio_to_on_mtrl_ring_outer_animation.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/btn_radio_to_on_mtrl_ring_outer_path_animation.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/design_bottom_sheet_slide_in.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/design_bottom_sheet_slide_out.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/design_snackbar_in.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/design_snackbar_out.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/fade_in.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/fade_out.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/fragment_fast_out_extra_slow_in.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/linear_indeterminate_line1_head_interpolator.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/linear_indeterminate_line1_tail_interpolator.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/linear_indeterminate_line2_head_interpolator.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/linear_indeterminate_line2_tail_interpolator.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/m3_bottom_sheet_slide_in.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/m3_bottom_sheet_slide_out.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/m3_motion_fade_enter.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/m3_motion_fade_exit.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/m3_side_sheet_enter_from_left.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/m3_side_sheet_enter_from_right.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/m3_side_sheet_exit_to_left.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/m3_side_sheet_exit_to_right.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/menu_enter_bottom.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/menu_enter_top.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/menu_exit.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/mtrl_bottom_sheet_slide_in.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/mtrl_bottom_sheet_slide_out.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/mtrl_card_lowers_interpolator.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/slide_in_left.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/slide_in_right.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/slide_out_left.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/anim/slide_out_right.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/chevron_checked_unchecked.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/chevron_unchecked_checked.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/design_appbar_state_list_animator.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/design_fab_hide_motion_spec.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/design_fab_show_motion_spec.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/fragment_close_enter.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/fragment_close_exit.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/fragment_fade_enter.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/fragment_fade_exit.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/fragment_open_enter.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/fragment_open_exit.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/m3_appbar_state_list_animator.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/m3_btn_elevated_btn_state_list_anim.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/m3_btn_state_list_anim.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/m3_card_elevated_state_list_anim.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/m3_card_state_list_anim.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/m3_chip_state_list_anim.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/m3_elevated_chip_state_list_anim.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/m3_extended_fab_change_size_collapse_motion_spec.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/m3_extended_fab_change_size_expand_motion_spec.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/m3_extended_fab_hide_motion_spec.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/m3_extended_fab_show_motion_spec.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/m3_extended_fab_state_list_animator.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/m3_fab_state_list_animator.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/m3_split_button_chevron_overshoot_interpolator.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/m3_split_button_chevron_reverse_rotation.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/m3_split_button_chevron_rotation.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/mtrl_btn_state_list_anim.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/mtrl_btn_unelevated_state_list_anim.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/mtrl_card_state_list_anim.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/mtrl_chip_state_list_anim.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/mtrl_extended_fab_change_size_collapse_motion_spec.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/mtrl_extended_fab_change_size_expand_motion_spec.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/mtrl_extended_fab_hide_motion_spec.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/mtrl_extended_fab_show_motion_spec.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/mtrl_extended_fab_state_list_animator.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/mtrl_fab_hide_motion_spec.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/mtrl_fab_show_motion_spec.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/mtrl_fab_transformation_sheet_collapse_spec.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/animator/mtrl_fab_transformation_sheet_expand_spec.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/color-night/material_timepicker_button_stroke.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/color-night/material_timepicker_clockface.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/color-night/material_timepicker_modebutton_tint.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_dynamic_dark_default_color_primary_text.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_dynamic_dark_default_color_secondary_text.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_dynamic_dark_highlighted_text.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_dynamic_dark_hint_foreground.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_dynamic_dark_primary_text_disable_only.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_dynamic_default_color_primary_text.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_dynamic_default_color_secondary_text.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_dynamic_highlighted_text.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_dynamic_hint_foreground.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_dynamic_primary_text_disable_only.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_ref_palette_dynamic_neutral12.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_ref_palette_dynamic_neutral17.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_ref_palette_dynamic_neutral22.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_ref_palette_dynamic_neutral24.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_ref_palette_dynamic_neutral4.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_ref_palette_dynamic_neutral6.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_ref_palette_dynamic_neutral87.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_ref_palette_dynamic_neutral92.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_ref_palette_dynamic_neutral94.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_ref_palette_dynamic_neutral96.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_ref_palette_dynamic_neutral98.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_ref_palette_dynamic_neutral_variant12.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_ref_palette_dynamic_neutral_variant17.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_ref_palette_dynamic_neutral_variant22.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_ref_palette_dynamic_neutral_variant24.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_ref_palette_dynamic_neutral_variant4.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_ref_palette_dynamic_neutral_variant6.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_ref_palette_dynamic_neutral_variant87.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_ref_palette_dynamic_neutral_variant92.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_ref_palette_dynamic_neutral_variant94.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_ref_palette_dynamic_neutral_variant96.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_ref_palette_dynamic_neutral_variant98.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_ref_palette_dynamic_primary98.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_ref_palette_dynamic_secondary98.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color-v31/m3_ref_palette_dynamic_tertiary98.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/abc_background_cache_hint_selector_material_dark.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/abc_background_cache_hint_selector_material_light.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/color/abc_btn_colored_borderless_text_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/color/abc_btn_colored_text_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/color/abc_color_highlight_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/abc_hint_foreground_material_dark.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/abc_hint_foreground_material_light.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/abc_primary_text_disable_only_material_dark.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/abc_primary_text_disable_only_material_light.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/abc_primary_text_material_dark.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/abc_primary_text_material_light.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/abc_search_url_text.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/abc_secondary_text_material_dark.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/abc_secondary_text_material_light.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/color/abc_tint_btn_checkable.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/color/abc_tint_default.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/color/abc_tint_edittext.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/color/abc_tint_seek_thumb.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/color/abc_tint_spinner.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/color/abc_tint_switch_track.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/button_state_list.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/compound_button_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/design_box_stroke_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/design_error.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/design_icon_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_appbar_overlay_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_assist_chip_icon_tint_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_assist_chip_stroke_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_bottom_sheet_drag_handle_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_button_background_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_button_foreground_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_button_outline_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_button_ripple_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_button_ripple_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_calendar_item_disabled_text.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_calendar_item_stroke_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_card_foreground_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_card_ripple_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_card_stroke_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_checkbox_button_icon_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_checkbox_button_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_chip_assist_text_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_chip_background_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_chip_ripple_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_chip_stroke_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_chip_text_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_control_highlight.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_control_ripple_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_dark_default_color_primary_text.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_dark_default_color_secondary_text.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_dark_highlighted_text.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_dark_hint_foreground.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_dark_primary_text_disable_only.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_default_color_primary_text.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_default_color_secondary_text.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_efab_ripple_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_elevated_chip_background_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_fab_efab_background_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_fab_efab_foreground_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_fab_ripple_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_filled_icon_button_container_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_floating_toolbar_vibrant_icon_button_container_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_floating_toolbar_vibrant_icon_button_text_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_highlighted_text.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_hint_foreground.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_icon_button_icon_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_list_highlight.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_list_item_background_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_list_item_checkbox_button_tint_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_list_item_label_text_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_list_item_leading_icon_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_list_item_overline_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_list_item_radio_button_tint_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_list_item_ripple_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_list_item_supporting_text_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_list_item_switch_track_tint_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_list_item_trailing_icon_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_list_item_trailing_supporting_text_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_navigation_bar_item_with_indicator_icon_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_navigation_bar_item_with_indicator_label_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_navigation_bar_ripple_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_navigation_item_background_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_navigation_item_icon_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_navigation_item_ripple_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_navigation_item_text_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_navigation_rail_item_with_indicator_icon_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_navigation_rail_item_with_indicator_label_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_navigation_rail_ripple_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_popupmenu_overlay_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_primary_text_disable_only.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_radiobutton_button_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_radiobutton_ripple_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_segmented_list_item_background_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_selection_control_ripple_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_simple_item_ripple_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_slider_active_tick_marks_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_slider_active_track_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_slider_active_track_color_legacy.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_slider_halo_color_legacy.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_slider_inactive_tick_marks_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_slider_inactive_track_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_slider_inactive_track_color_legacy.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_slider_thumb_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_slider_thumb_color_legacy.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_standard_toolbar_button_text_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_standard_toolbar_icon_button_container_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_standard_toolbar_icon_button_icon_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_standard_toolbar_icon_button_ripple_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_switch_thumb_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_switch_track_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_tabs_icon_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_tabs_icon_color_secondary.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_tabs_ripple_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_tabs_ripple_color_secondary.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_tabs_text_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_tabs_text_color_secondary.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_text_button_background_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_text_button_foreground_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_text_button_ripple_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_textfield_filled_background_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_textfield_indicator_text_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_textfield_input_text_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_textfield_label_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_textfield_stroke_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_timepicker_button_background_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_timepicker_button_ripple_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_timepicker_button_text_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_timepicker_clock_text_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_timepicker_display_background_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_timepicker_display_ripple_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_timepicker_display_text_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_timepicker_secondary_text_button_ripple_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_timepicker_secondary_text_button_text_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_timepicker_time_input_stroke_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_tonal_button_ripple_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_vibrant_toolbar_button_text_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_vibrant_toolbar_icon_button_container_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_vibrant_toolbar_icon_button_icon_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3_vibrant_toolbar_icon_button_ripple_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3expressive_bottom_nav_item_icon_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3expressive_bottom_nav_item_label_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3expressive_bottom_nav_item_ripple_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3expressive_button_outline_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3expressive_button_outlined_background_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3expressive_nav_rail_item_icon_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3expressive_nav_rail_item_label_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/m3expressive_nav_rail_item_ripple_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_cursor_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_divider_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_on_background_disabled.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_on_background_emphasis_high_type.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_on_background_emphasis_medium.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_on_primary_disabled.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_on_primary_emphasis_high_type.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_on_primary_emphasis_medium.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_on_surface_disabled.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_on_surface_emphasis_high_type.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_on_surface_emphasis_medium.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_on_surface_stroke.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_personalized__highlighted_text.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_personalized__highlighted_text_inverse.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_personalized_color_primary_text.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_personalized_color_primary_text_inverse.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_personalized_color_secondary_text.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_personalized_color_secondary_text_inverse.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_personalized_hint_foreground.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_personalized_hint_foreground_inverse.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_personalized_primary_inverse_text_disable_only.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_personalized_primary_text_disable_only.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_slider_active_tick_marks_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_slider_active_track_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_slider_halo_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_slider_inactive_tick_marks_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_slider_inactive_track_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_slider_thumb_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_switch_track_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_timepicker_button_background.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_timepicker_button_stroke.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_timepicker_clock_text_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_timepicker_clockface.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/material_timepicker_modebutton_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_btn_bg_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_btn_ripple_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_btn_stroke_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_btn_text_btn_bg_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_btn_text_btn_ripple_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_btn_text_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_calendar_item_stroke_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_calendar_selected_range.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_card_view_foreground.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_card_view_ripple.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_chip_background_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_chip_close_icon_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_chip_surface_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_chip_text_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_choice_chip_background_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_choice_chip_ripple_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_choice_chip_text_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_error.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_fab_bg_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_fab_icon_text_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_fab_ripple_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_filled_background_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_filled_icon_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_filled_stroke_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_indicator_text_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_navigation_bar_colored_item_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_navigation_bar_colored_ripple_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_navigation_bar_item_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_navigation_bar_ripple_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_navigation_item_background_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_navigation_item_icon_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_navigation_item_text_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_on_primary_text_btn_text_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_on_surface_ripple_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_outlined_icon_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_outlined_stroke_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_popupmenu_overlay_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_switch_thumb_icon_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_switch_thumb_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_switch_track_decoration_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_switch_track_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_tabs_colored_ripple_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_tabs_icon_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_tabs_icon_color_selector_colored.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_tabs_legacy_text_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_tabs_ripple_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/mtrl_text_btn_text_color_selector.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/private_mode_mask_gradient.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/readerview_private_button_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/readerview_private_radio_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/secondary_state_list_text_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/state_list_text_color.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/switch_thumb_material_dark.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/switch_thumb_material_light.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file modified `res/color/time_picker_button_background_tint.xml` [resource_reencoded] — matches path rule 'resource_reencoded' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-anydpi/fingerprint_dialog_error.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-anydpi/fingerprint_dialog_fp_icon.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-anydpi/ic_unifiedpush.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_ab_share_pack_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_btn_check_to_on_mtrl_000.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_btn_check_to_on_mtrl_015.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_btn_radio_to_on_mtrl_000.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_btn_radio_to_on_mtrl_015.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_btn_switch_to_on_mtrl_00001.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_btn_switch_to_on_mtrl_00012.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_cab_background_top_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_ic_commit_search_api_mtrl_alpha.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_list_divider_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_list_focused_holo.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_list_longpressed_holo.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_list_pressed_holo_dark.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_list_pressed_holo_light.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_list_selector_disabled_holo_dark.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_list_selector_disabled_holo_light.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_menu_hardkey_panel_mtrl_mult.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_popup_background_mtrl_mult.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_scrubber_control_off_mtrl_alpha.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_scrubber_control_to_pressed_mtrl_000.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_scrubber_control_to_pressed_mtrl_005.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_scrubber_primary_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_scrubber_track_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_spinner_mtrl_am_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_switch_track_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_tab_indicator_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_text_select_handle_left_mtrl.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_text_select_handle_middle_mtrl.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_text_select_handle_right_mtrl.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_textfield_activated_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_textfield_default_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_textfield_search_activated_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/abc_textfield_search_default_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/color_picker_row_bg.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/fenix_error_1.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/fenix_search_widget.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/fingerprint_dialog_error.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/ic_firefox.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/ic_logo_wordmark_normal.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/ic_logo_wordmark_private.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/ic_unifiedpush.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/notification_bg_low_normal.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/notification_bg_low_pressed.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/notification_bg_normal.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/notification_bg_normal_pressed.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/notification_oversize_large_icon_bg.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-hdpi/notify_panel_notification_icon_bg.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-ldpi/fingerprint_dialog_error.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-ldpi/ic_unifiedpush.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-ldrtl-hdpi/abc_spinner_mtrl_am_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-ldrtl-mdpi/abc_spinner_mtrl_am_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-ldrtl-xhdpi/abc_spinner_mtrl_am_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-ldrtl-xxhdpi/abc_spinner_mtrl_am_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-ldrtl-xxxhdpi/abc_spinner_mtrl_am_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_ab_share_pack_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_btn_check_to_on_mtrl_000.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_btn_check_to_on_mtrl_015.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_btn_radio_to_on_mtrl_000.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_btn_radio_to_on_mtrl_015.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_btn_switch_to_on_mtrl_00001.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_btn_switch_to_on_mtrl_00012.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_cab_background_top_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_ic_commit_search_api_mtrl_alpha.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_list_divider_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_list_focused_holo.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_list_longpressed_holo.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_list_pressed_holo_dark.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_list_pressed_holo_light.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_list_selector_disabled_holo_dark.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_list_selector_disabled_holo_light.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_menu_hardkey_panel_mtrl_mult.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_popup_background_mtrl_mult.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_scrubber_control_off_mtrl_alpha.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_scrubber_control_to_pressed_mtrl_000.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_scrubber_control_to_pressed_mtrl_005.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_scrubber_primary_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_scrubber_track_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_spinner_mtrl_am_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_switch_track_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_tab_indicator_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_text_select_handle_left_mtrl.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_text_select_handle_middle_mtrl.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_text_select_handle_right_mtrl.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_textfield_activated_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_textfield_default_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_textfield_search_activated_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/abc_textfield_search_default_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/color_picker_row_bg.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/fenix_error_1.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/fingerprint_dialog_error.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/ic_firefox.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/ic_logo_wordmark_normal.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/ic_logo_wordmark_private.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/ic_unifiedpush.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/notification_bg_low_normal.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/notification_bg_low_pressed.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/notification_bg_normal.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/notification_bg_normal_pressed.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-mdpi/notify_panel_notification_icon_bg.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-night/$nova_onboarding_background__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-night/$nova_onboarding_background__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-night/$nova_onboarding_background__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-night/$nova_onboarding_background__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-night/$nova_onboarding_background__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-night/ic_logo_wordmark_normal.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-night/nova_onboarding_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-nodpi/firefox_as_default_banner_illustration.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-nodpi/ic_japan_onboarding_favicon.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-nodpi/ic_wordmark_logo.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-nodpi/ic_wordmark_text_normal.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-nodpi/ic_wordmark_text_private.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-nodpi/kit_sleeping_under_laptop.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-nodpi/search_engine_placeholder.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-v28/m3_focus_ring_framework_button_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-v28/m3_focus_ring_framework_button_background_shape.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-watch/abc_dialog_material_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_ab_share_pack_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_btn_check_to_on_mtrl_000.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_btn_check_to_on_mtrl_015.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_btn_radio_to_on_mtrl_000.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_btn_radio_to_on_mtrl_015.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_btn_switch_to_on_mtrl_00001.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_btn_switch_to_on_mtrl_00012.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_cab_background_top_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_ic_commit_search_api_mtrl_alpha.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_list_divider_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_list_focused_holo.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_list_longpressed_holo.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_list_pressed_holo_dark.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_list_pressed_holo_light.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_list_selector_disabled_holo_dark.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_list_selector_disabled_holo_light.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_menu_hardkey_panel_mtrl_mult.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_popup_background_mtrl_mult.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_scrubber_control_off_mtrl_alpha.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_scrubber_control_to_pressed_mtrl_000.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_scrubber_control_to_pressed_mtrl_005.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_scrubber_primary_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_scrubber_track_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_spinner_mtrl_am_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_switch_track_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_tab_indicator_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_text_select_handle_left_mtrl.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_text_select_handle_middle_mtrl.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_text_select_handle_right_mtrl.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_textfield_activated_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_textfield_default_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_textfield_search_activated_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/abc_textfield_search_default_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/color_picker_row_bg.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/fenix_error_1.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/fingerprint_dialog_error.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/ic_firefox.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/ic_logo_wordmark_normal.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/ic_logo_wordmark_private.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/ic_unifiedpush.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/notification_bg_low_normal.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/notification_bg_low_pressed.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/notification_bg_normal.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/notification_bg_normal_pressed.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xhdpi/notify_panel_notification_icon_bg.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_ab_share_pack_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_btn_check_to_on_mtrl_000.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_btn_check_to_on_mtrl_015.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_btn_radio_to_on_mtrl_000.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_btn_radio_to_on_mtrl_015.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_btn_switch_to_on_mtrl_00001.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_btn_switch_to_on_mtrl_00012.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_cab_background_top_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_ic_commit_search_api_mtrl_alpha.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_list_divider_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_list_focused_holo.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_list_longpressed_holo.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_list_pressed_holo_dark.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_list_pressed_holo_light.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_list_selector_disabled_holo_dark.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_list_selector_disabled_holo_light.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_menu_hardkey_panel_mtrl_mult.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_popup_background_mtrl_mult.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_scrubber_control_off_mtrl_alpha.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_scrubber_control_to_pressed_mtrl_000.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_scrubber_control_to_pressed_mtrl_005.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_scrubber_primary_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_scrubber_track_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_spinner_mtrl_am_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_switch_track_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_tab_indicator_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_text_select_handle_left_mtrl.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_text_select_handle_middle_mtrl.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_text_select_handle_right_mtrl.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_textfield_activated_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_textfield_default_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_textfield_search_activated_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/abc_textfield_search_default_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/color_picker_row_bg.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/fenix_error_1.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/fingerprint_dialog_error.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/ic_firefox.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/ic_logo_wordmark_normal.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/ic_logo_wordmark_private.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxhdpi/ic_unifiedpush.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxxhdpi/abc_btn_check_to_on_mtrl_000.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxxhdpi/abc_btn_check_to_on_mtrl_015.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxxhdpi/abc_btn_radio_to_on_mtrl_000.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxxhdpi/abc_btn_radio_to_on_mtrl_015.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxxhdpi/abc_btn_switch_to_on_mtrl_00001.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxxhdpi/abc_btn_switch_to_on_mtrl_00012.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxxhdpi/abc_scrubber_control_to_pressed_mtrl_000.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxxhdpi/abc_scrubber_control_to_pressed_mtrl_005.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxxhdpi/abc_spinner_mtrl_am_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxxhdpi/abc_switch_track_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxxhdpi/abc_tab_indicator_mtrl_alpha.9.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxxhdpi/abc_text_select_handle_left_mtrl.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxxhdpi/abc_text_select_handle_right_mtrl.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxxhdpi/fenix_error_1.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxxhdpi/fingerprint_dialog_error.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxxhdpi/ic_firefox.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxxhdpi/ic_logo_wordmark_normal.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxxhdpi/ic_logo_wordmark_private.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable-xxxhdpi/ic_unifiedpush.png` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$avd_hide_password__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$avd_hide_password__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$avd_hide_password__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$avd_show_password__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$avd_show_password__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$avd_show_password__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$delete_me__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$delete_me__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$delete_me__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$delete_me__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$delete_me__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$delete_me__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$delete_me__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$delete_me__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$delete_me__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$expressive_firefox__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$expressive_firefox__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$expressive_firefox__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$expressive_firefox__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$expressive_firefox__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$expressive_firefox__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$expressive_firefox__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$firefox_icon__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$firefox_icon__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$firefox_icon__10.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$firefox_icon__11.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$firefox_icon__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$firefox_icon__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$firefox_icon__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$firefox_icon__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$firefox_icon__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$firefox_icon__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$firefox_icon__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$firefox_icon__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$firefox_pictorgram_shield_check_rgb_2__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$firefox_pictorgram_shield_check_rgb_2__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$firefox_pictorgram_shield_check_rgb_2__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$firefox_pictorgram_shield_check_rgb_2__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$firefox_pictorgram_shield_check_rgb_2__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$firefox_pictorgram_shield_check_rgb_2__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$firefox_pictorgram_shield_check_rgb_2__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$fox_ai_on_state__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$fox_ai_on_state__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$fox_ai_on_state__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$fox_ai_on_state__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$fox_ai_on_state__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$fox_ai_on_state__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$fox_ai_on_state__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$fox_ai_on_state__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_cc_logo_discover__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_cc_logo_discover__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_cc_logo_jcb__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_cc_logo_jcb__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_cc_logo_jcb__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_cc_logo_jcb__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_cc_logo_jcb__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_cc_logo_jcb__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_cc_logo_mir__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_cc_logo_visa__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_etp_artwork__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_etp_artwork__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_etp_artwork__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_etp_artwork__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_firefox__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_firefox__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_firefox__10.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_firefox__11.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_firefox__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_firefox__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_firefox__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_firefox__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_firefox__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_firefox__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_firefox__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_firefox__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__10.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__11.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__12.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__13.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__14.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__15.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__17.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__18.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__19.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__21.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__22.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__23.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__25.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__26.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__27.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__28.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__29.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__30.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__31.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__32.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__33.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__34.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__35.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_flaming__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_fx_accounts_avatar__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_fx_accounts_avatar__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_fx_accounts_avatar__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_fx_accounts_avatar__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_high_five__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_high_five__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_high_five__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_high_five__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_high_five__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_high_five__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_bookmarks_empty_state__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_bookmarks_empty_state__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_bookmarks_empty_state__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_bookmarks_empty_state__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_bookmarks_empty_state__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_bookmarks_empty_state__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_bookmarks_empty_state__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_bookmarks_empty_state__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_bookmarks_empty_state__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_heart__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_heart__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_heart__10.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_heart__11.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_heart__12.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_heart__13.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_heart__14.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_heart__15.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_heart__16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_heart__17.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_heart__18.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_heart__19.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_heart__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_heart__20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_heart__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_heart__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_heart__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_heart__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_heart__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_heart__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_heart__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_off_state__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_off_state__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_off_state__10.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_off_state__11.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_off_state__12.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_off_state__13.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_off_state__14.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_off_state__15.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_off_state__16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_off_state__17.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_off_state__18.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_off_state__19.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_off_state__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_off_state__20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_off_state__21.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_off_state__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_off_state__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_off_state__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_off_state__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_off_state__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_off_state__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_off_state__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_on_state__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_on_state__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_on_state__10.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_on_state__11.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_on_state__12.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_on_state__13.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_on_state__14.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_on_state__15.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_on_state__16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_on_state__17.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_on_state__18.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_on_state__19.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_on_state__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_on_state__20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_on_state__21.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_on_state__22.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_on_state__23.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_on_state__24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_on_state__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_on_state__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_on_state__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_on_state__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_on_state__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_on_state__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_kit_shield_on_state__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_background_cool__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_background_cuddling__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__10.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__11.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__12.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__13.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__14.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__15.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__17.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__18.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__19.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__21.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__22.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__23.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__25.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__26.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__27.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__28.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__29.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__30.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__31.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__32.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__33.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__34.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__35.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_flaming__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__10.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__11.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__12.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__13.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__14.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__15.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__17.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__18.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__19.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__21.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__22.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__23.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__25.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__26.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__27.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__28.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__29.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__30.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__31.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__32.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__33.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__34.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__35.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__36.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__37.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__38.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__39.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__40.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__41.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__42.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__43.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__44.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__45.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__46.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__47.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__48.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__49.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__50.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__51.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__52.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__53.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__54.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__55.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__56.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__57.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_foreground_retro_2004__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_gradient_blue_hour_background__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_gradient_golden_hour_background__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_gradient_midnight_background__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_gradient_northern_lights_background__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_gradient_sunrise_background__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_gradient_sunset_background__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_gradient_twilight_background__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_private_background__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_solid_blue_background__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_solid_green_background__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_solid_purple_background__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_solid_purple_dark_background__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_launcher_solid_red_background__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_notification_permission__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_notification_permission__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_notification_permission__10.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_notification_permission__11.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_notification_permission__12.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_notification_permission__13.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_notification_permission__14.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_notification_permission__15.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_notification_permission__16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_notification_permission__17.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_notification_permission__18.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_notification_permission__19.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_notification_permission__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_notification_permission__20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_notification_permission__21.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_notification_permission__22.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_notification_permission__23.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_notification_permission__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_notification_permission__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_notification_permission__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_notification_permission__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_notification_permission__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_notification_permission__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_notification_permission__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_customize_toolbar__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_customize_toolbar__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_customize_toolbar__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_customize_toolbar__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features__10.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features__11.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features__12.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features__13.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features__14.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features_icons_only__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features_icons_only__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features_icons_only__10.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features_icons_only__11.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features_icons_only__12.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features_icons_only__13.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features_icons_only__14.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features_icons_only__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features_icons_only__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features_icons_only__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features_icons_only__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features_icons_only__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features_icons_only__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features_icons_only__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_key_features_icons_only__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_search_widget__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_search_widget__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_search_widget__10.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_search_widget__11.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_search_widget__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_search_widget__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_search_widget__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_search_widget__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_search_widget__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_search_widget__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_search_widget__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_search_widget__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_sync__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_welcome__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_welcome__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_welcome__10.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_welcome__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_welcome__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_welcome__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_welcome__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_welcome__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_welcome__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_welcome__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_onboarding_welcome__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__10.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__11.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__12.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__13.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__14.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__15.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__17.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__18.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__19.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__21.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__22.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__23.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__25.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__26.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__27.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__28.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__29.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__30.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__31.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__32.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__33.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__34.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__35.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__36.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__37.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__38.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__39.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__40.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__41.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__42.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__43.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__44.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__45.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__46.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__47.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__48.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__49.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__50.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__51.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__52.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__53.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__54.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__55.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__56.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__57.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$ic_retro_2004__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_expressive_full__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_expressive_full__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_expressive_full__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_expressive_full__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_expressive_full__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_expressive_full__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_expressive_full__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_expressive_full__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_expressive_full__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_expressive_full__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_head__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_head__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_head__10.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_head__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_head__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_head__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_head__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_head__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_head__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_head__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_head__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_head_protection_blocker_banner__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_head_protection_blocker_banner__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_head_protection_blocker_banner__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_head_protection_blocker_banner__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_head_protection_blocker_banner__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_head_protection_blocker_banner__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_head_protection_blocker_banner__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_head_protection_blocker_banner__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_head_protection_blocker_banner__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_search_error__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_search_error__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_search_error__10.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_search_error__11.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_search_error__12.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_search_error__13.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_search_error__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_search_error__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_search_error__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_search_error__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_search_error__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_search_error__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_search_error__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_search_error__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_tail__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_tail__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_tail__10.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_tail__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_tail__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_tail__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_tail__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_tail__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_tail__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_tail__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$kit_tail__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$m3_avd_hide_password__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$m3_avd_hide_password__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$m3_avd_hide_password__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$m3_avd_show_password__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$m3_avd_show_password__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$m3_avd_show_password__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups__10.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups__11.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups__12.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups__13.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups__14.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups__15.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups__16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups__17.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups_list_view__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups_list_view__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups_list_view__10.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups_list_view__11.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups_list_view__12.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups_list_view__13.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups_list_view__14.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups_list_view__15.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups_list_view__16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups_list_view__17.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups_list_view__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups_list_view__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups_list_view__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups_list_view__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups_list_view__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups_list_view__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups_list_view__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mozac_ic_kit_tab_groups_list_view__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_checkbox_button_checked_unchecked__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_checkbox_button_checked_unchecked__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_checkbox_button_checked_unchecked__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_checkbox_button_icon_checked_indeterminate__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_checkbox_button_icon_checked_unchecked__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_checkbox_button_icon_checked_unchecked__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_checkbox_button_icon_checked_unchecked__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_checkbox_button_icon_indeterminate_checked__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_checkbox_button_icon_indeterminate_unchecked__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_checkbox_button_icon_indeterminate_unchecked__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_checkbox_button_icon_indeterminate_unchecked__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_checkbox_button_icon_unchecked_checked__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_checkbox_button_icon_unchecked_checked__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_checkbox_button_icon_unchecked_checked__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_checkbox_button_icon_unchecked_indeterminate__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_checkbox_button_icon_unchecked_indeterminate__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_checkbox_button_icon_unchecked_indeterminate__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_checkbox_button_unchecked_checked__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_checkbox_button_unchecked_checked__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_checkbox_button_unchecked_checked__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_switch_thumb_checked_pressed__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_switch_thumb_checked_unchecked__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_switch_thumb_checked_unchecked__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_switch_thumb_pressed_checked__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_switch_thumb_pressed_unchecked__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_switch_thumb_unchecked_checked__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_switch_thumb_unchecked_checked__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$mtrl_switch_thumb_unchecked_pressed__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_background__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_background__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_background__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_background__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_background__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_marketing__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_marketing__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_marketing__10.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_marketing__11.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_marketing__12.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_marketing__13.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_marketing__14.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_marketing__15.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_marketing__16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_marketing__17.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_marketing__18.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_marketing__19.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_marketing__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_marketing__20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_marketing__21.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_marketing__22.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_marketing__23.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_marketing__24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_marketing__25.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_marketing__26.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_marketing__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_marketing__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_marketing__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_marketing__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_marketing__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_marketing__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_marketing__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_notifications__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_notifications__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_notifications__10.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_notifications__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_notifications__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_notifications__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_notifications__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_notifications__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_notifications__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_notifications__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_notifications__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__10.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__11.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__12.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__13.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__14.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__15.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__17.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__18.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__19.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__21.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__22.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__23.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__25.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__26.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__27.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__28.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__29.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync_qr__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync_qr__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync_qr__10.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync_qr__11.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync_qr__12.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync_qr__13.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync_qr__14.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync_qr__15.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync_qr__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync_qr__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync_qr__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync_qr__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync_qr__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync_qr__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync_qr__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_sync_qr__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_toolbar_bottom_active__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_toolbar_bottom_active__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_toolbar_bottom_active__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_toolbar_bottom_active__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_toolbar_bottom_active__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_toolbar_bottom_active__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_toolbar_bottom_active__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_toolbar_bottom_active__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_toolbar_bottom_active__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_toolbar_bottom_active__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_toolbar_bottom_inactive__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_toolbar_top_active__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_toolbar_top_active__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_toolbar_top_active__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_toolbar_top_active__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_toolbar_top_active__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_toolbar_top_active__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_toolbar_top_active__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_toolbar_top_active__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_toolbar_top_active__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_toolbar_top_active__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_toolbar_top_inactive__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou_2__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou_2__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou_2__10.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou_2__11.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou_2__12.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou_2__13.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou_2__14.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou_2__15.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou_2__16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou_2__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou_2__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou_2__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou_2__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou_2__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou_2__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou_2__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou_2__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou__10.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou__11.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou__12.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou__13.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou__14.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou__15.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_tou__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_widget__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_widget__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_widget__10.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_widget__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_widget__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_widget__4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_widget__5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_widget__6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_widget__7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_widget__8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$nova_onboarding_widget__9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$send_link_to_device_no_devices_available__0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$send_link_to_device_no_devices_available__1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$send_link_to_device_no_devices_available__2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/$send_link_to_device_no_devices_available__3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_action_bar_item_background_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_btn_borderless_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_btn_check_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_btn_check_material_anim.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_btn_colored_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_btn_default_mtrl_shape.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_btn_radio_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_btn_radio_material_anim.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_cab_background_internal_bg.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_cab_background_top_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_control_background_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_dialog_material_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_edit_text_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_ic_ab_back_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_ic_arrow_drop_right_black_24dp.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_ic_clear_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_ic_go_search_api_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_ic_menu_copy_mtrl_am_alpha.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_ic_menu_cut_mtrl_alpha.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_ic_menu_overflow_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_ic_menu_paste_mtrl_am_alpha.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_ic_menu_selectall_mtrl_alpha.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_ic_menu_share_mtrl_alpha.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_ic_search_api_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_ic_voice_search_api_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_item_background_holo_dark.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_item_background_holo_light.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_list_divider_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_list_selector_background_transition_holo_dark.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_list_selector_background_transition_holo_light.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_list_selector_holo_dark.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_list_selector_holo_light.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_ratingbar_indicator_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_ratingbar_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_ratingbar_small_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_seekbar_thumb_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_seekbar_tick_mark_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_seekbar_track_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_spinner_textfield_background_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_star_black_48dp.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_star_half_black_48dp.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_switch_thumb_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_tab_indicator_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_text_cursor_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_textfield_search_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/abc_vector_test.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/add_tabs_to_collection_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/avd_hide_password.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/avd_show_password.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/bookmarks_folder_illustration.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/bottom_sheet_dialog_fragment_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/bottom_sheet_handle_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/bottom_sheet_with_top_rounded_corners.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/btn_checkbox_checked_mtrl.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/btn_checkbox_checked_to_unchecked_mtrl_animation.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/btn_checkbox_unchecked_mtrl.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/btn_checkbox_unchecked_to_checked_mtrl_animation.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/btn_radio_off_mtrl.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/btn_radio_off_to_on_mtrl_animation.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/btn_radio_on_mtrl.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/btn_radio_on_to_off_mtrl_animation.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/color_picker_checkmark.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/compat_splash_screen_no_icon_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/cookie.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/delete_me.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/design_fab_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/design_ic_visibility.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/design_ic_visibility_off.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/design_password_eye.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/design_snackbar_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/device_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/dialog_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/etp_spinner_item_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/expressive_firefox.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/favicon_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/firefox_icon.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/firefox_pictorgram_shield_check_rgb_2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/fontsize_controls_text_selector.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/fox_ai_on_state.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/fox_alert_crash_dark.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/fox_alert_crash_light.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/fox_exclamation_alert.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/home_background_gradient.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/home_bottom_bar_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/home_bottom_bar_background_top.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_account_warning.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_add_on_private_browsing_label.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_arrow_back_black_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_arrow_down_24dp.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_autoplay.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_call_answer.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_call_answer_low.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_call_answer_video.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_call_answer_video_low.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_call_decline.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_call_decline_low.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_cc_logo_amex.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_cc_logo_diners.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_cc_logo_discover.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_cc_logo_jcb.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_cc_logo_mastercard.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_cc_logo_mir.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_cc_logo_unionpay.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_cc_logo_visa.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_clear_black_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_clock_black_24dp.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_cookies.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_cool.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_cuddling.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_debug_transparent_fire_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_delete_black.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_etp_artwork.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_expand_less_22px.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_expand_more_22px.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_favourite_filled.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_file_type_apk.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_file_type_audio_note.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_file_type_default.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_file_type_document.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_file_type_image.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_file_type_video.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_file_type_zip.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_firefox.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_flaming.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_fx_accounts_avatar.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_generic_file.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_high_five.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_icon_credit_card_generic.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_keyboard_black_24dp.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_kit_bookmarks_empty_state.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_kit_heart.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_kit_shield_off_state.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_kit_shield_on_state.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_launcher_background_cool.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_launcher_background_cuddling.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_launcher_foreground.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_launcher_foreground_cool.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_launcher_foreground_cuddling.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_launcher_foreground_flaming.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_launcher_foreground_minimal.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_launcher_foreground_momo.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_launcher_foreground_pixelated.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_launcher_foreground_pride.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_launcher_foreground_retro_2004.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_launcher_gradient_blue_hour_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_launcher_gradient_golden_hour_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_launcher_gradient_midnight_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_launcher_gradient_northern_lights_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_launcher_gradient_sunrise_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_launcher_gradient_sunset_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_launcher_gradient_twilight_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_launcher_monochrome.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_launcher_private_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_launcher_private_foreground.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_launcher_solid_blue_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_launcher_solid_green_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_launcher_solid_purple_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_launcher_solid_purple_dark_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_launcher_solid_red_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_m3_chip_check.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_m3_chip_checked_circle.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_m3_chip_close.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_minimal.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_momo.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_mtrl_arrow_circle.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_mtrl_checked_circle.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_mtrl_chip_checked_black.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_mtrl_chip_checked_circle.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_mtrl_chip_close_circle.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_notification_permission.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_onboarding_bottom_toolbar.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_onboarding_customize_toolbar.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_onboarding_key_features.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_onboarding_key_features_icons_only.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_onboarding_search_widget.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_onboarding_sync.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_onboarding_top_toolbar.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_onboarding_welcome.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_pixelated.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_pride.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_print.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_profiler.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_pwa.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_refresh.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_retro_2004.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_search_black_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_search_results_bookmarks.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_search_results_device_desktop.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_search_results_device_mobile.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_search_results_device_tablet.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_search_results_tab.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_search_with.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_share_clipboard.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_splash_logo.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_static_lock.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_static_password_shortcut.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_static_shortcut_private_tab.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_static_shortcut_private_tab_foreground.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_static_shortcut_tab.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_static_shortcut_tab_foreground.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_status_logo.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_storage.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_toolbar_bottom_expanded.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_toolbar_bottom_expanded_selected.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_toolbar_bottom_expanded_unselected.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_toolbar_bottom_simple.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_toolbar_bottom_simple_selected.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_toolbar_bottom_simple_unselected.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_toolbar_expanded_shortcut_preview.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_toolbar_simple_no_shortcut_preview.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_toolbar_simple_shortcut_preview.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_toolbar_top_expanded.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_toolbar_top_expanded_selected.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_toolbar_top_expanded_unselected.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_toolbar_top_simple.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_toolbar_top_simple_selected.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/ic_toolbar_top_simple_unselected.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/illustration_fox_box_inside_light.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/kit_expressive_full.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/kit_head.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/kit_head_protection_blocker_banner.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/kit_search_error.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/kit_tail.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_action_bar_item_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_avd_hide_password.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_avd_show_password.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_bottom_sheet_drag_handle.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_default_action_bar_item_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_default_control_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_default_item_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_default_item_background_borderless.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_default_list_selector_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_focus_ring_action_bar_item_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_focus_ring_control_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_focus_ring_framework_button_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_focus_ring_framework_button_background_borderless.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_focus_ring_framework_button_background_shape.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_focus_ring_framework_checkbox_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_focus_ring_item_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_focus_ring_item_background_borderless.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_focus_ring_list_selector_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_focus_ring_toolbar_action_bar_item_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_focus_ring_toolbar_selectable_item_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_focus_ring_toolbar_selectable_item_background_borderless.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_ic_check_24px.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_overflow_item_checkbox.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_password_eye.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_popupmenu_background_overlay.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_radiobutton_ripple.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_selectable_item_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_selectable_item_background_borderless.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_selection_control_ripple.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_split_button_chevron_avd.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_tabs_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_tabs_line_indicator.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_tabs_rounded_line_indicator.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_tabs_transparent_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/m3_toolbar_navigation_circle_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_cursor_drawable.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_ic_calendar_black_24dp.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_ic_clear_black_24dp.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_ic_edit_black_24dp.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_ic_menu_arrow_down_black_24dp.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_ic_menu_arrow_up_black_24dp.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_arch.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_arrow.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_boom.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_bun.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_burst.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_circle.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_clover_4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_clover_8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_cookie_12.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_cookie_4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_cookie_6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_cookie_7.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_cookie_9.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_diamond.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_fan.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_flower.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_gem.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_ghostish.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_heart.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_hexagon.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_oval.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_pentagon.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_pill.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_pixel_circle.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_pixel_triangle.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_puffy.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_puffy_diamond.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_semicircle.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_slanted_square.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_soft_boom.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_soft_burst.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_square.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_sunny.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_triangle.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/material_shape_very_sunny.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/microsurvey_success.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_browser_menu2_indicator.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_browser_menu2_notification.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_browser_menu2_notification_icon.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_browser_menu_notification_icon.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_browser_toolbar_icons_vertical_separator.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_compose_browser_toolbar_chevron_down_6.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_dot_notification.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_feature_download_ic_download.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_feature_download_ic_download_anim0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_feature_download_ic_download_anim1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_feature_download_ic_download_anim2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_feature_download_ic_download_anim3.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_feature_download_ic_download_anim4.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_feature_download_ic_download_anim5.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_feature_download_ic_download_complete.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_feature_download_ic_download_failed.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_feature_download_ic_ongoing_download.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_feature_media_action_next.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_feature_media_action_pause.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_feature_media_action_play.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_feature_media_action_previous.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_feature_media_paused.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_feature_media_playing.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_accessibility_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_ad_blocker_checkmark_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_ad_blocker_cross_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_add_to_homescreen_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_airplane.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_app_menu_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_app_menu_space_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_append_down_left_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_append_up_left_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_append_up_right_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_arrow_clockwise_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_arrow_clockwise_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_arrow_counter_clockwise_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_arrow_trending_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_arrow_trending_down_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_audio_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_audio_muted_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_audio_wave_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_autoplay_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_autoplay_slash_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_avatar_circle_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_avatar_circle_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_avatar_info_circle_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_avatar_warning_circle_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_avatar_warning_circle_fill_multicolor_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_back_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_baseball_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_basketball_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_bookmark_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_bookmark_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_bookmark_badge_fill_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_bookmark_fill_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_bookmark_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_bookmark_half_fill_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_bookmark_slash_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_bookmark_tray_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_bookmark_tray_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_camera_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_camera_slash_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_checkmark_16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_checkmark_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_chevron_down_16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_chevron_down_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_chevron_down_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_chevron_down_8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_chevron_left_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_chevron_right_16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_chevron_right_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_chevron_right_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_chevron_up_16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_chevron_up_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_chevron_up_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_clipboard_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_cloud_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_cloud_72.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_collection_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_cookies_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_cookies_slash_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_copy_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_credit_card_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_cricket_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_critical_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_critical_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_cross_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_cross_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_cross_circle_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_cross_circle_fill_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_cross_circle_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_cryptominer_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_cursor_arrow_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_data_clearance_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_debug_drawer_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_delete_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_delete_black_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_device_desktop_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_device_desktop_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_device_desktop_send_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_device_mobile_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_device_tablet_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_download_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_dropdown_arrow.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_edit_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_ellipsis_horizontal_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_ellipsis_vertical_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_email_mask_16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_email_mask_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_email_mask_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_email_shield_16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_email_shield_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_email_shield_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_experiments_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_extension_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_extension_cog_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_extension_critical_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_extension_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_extension_warning_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_extension_warning_multicolor_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_external_link_16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_external_link_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_eye_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_eye_slash_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_find_in_page_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_fingerprinter_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_folder_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_folder_add_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_folder_arrow_right_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_football_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_forward_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_globe_16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_globe_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_globe_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_golf_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_grid_add_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_help_circle_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_help_circle_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_history_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_hockey_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_home_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_image_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_image_slash_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_import_data_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_infinite_tabs_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_information_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_information_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_kit_tab_groups.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_kit_tab_groups_list_view.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_labs_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_lightbulb_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_lightning_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_lightning_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_lightning_filled_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_link_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_local_host_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_local_host_slash_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_local_network_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_local_network_slash_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_location_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_location_slash_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_lock_16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_lock_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_lock_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_lock_slash_16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_lock_slash_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_lock_slash_multicolor_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_lock_warning_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_login_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_logo_chrome_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_logo_firefox_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_logo_google_lens_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_logo_google_lens_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_logo_safari_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_microphone_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_microphone_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_microphone_slash_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_more_grid_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_more_horizontal_round_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_more_vertical_round_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_newsfeed_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_night_mode_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_night_mode_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_night_mode_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_notification_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_notification_dot_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_notification_dot_badge_fill_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_notification_dot_fill_16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_notification_dot_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_notification_slash_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_other_device_shortcuts_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_page_portrait_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_passkey_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_password_reveal_two_state.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_pause_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_pause_badge_fill_16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_permission_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_permissions_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_pin_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_pin_8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_pin_badge_fill_16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_pin_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_pin_slash_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_pin_slash_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_play_badge_fill_16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_play_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_play_next_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_play_previous_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_plugin_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_plus_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_print_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_private_mode_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_private_mode_circle_fill_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_private_mode_circle_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_private_mode_circle_fill_48.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_private_mode_circle_fill_72.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_private_mode_circle_fill_multicolor_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_private_mode_circle_fill_stroke_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_private_mode_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_private_mode_fill_72.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_qr_code_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_racing_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_reader_summarize_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_reader_summarize_fill_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_reader_view_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_reader_view_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_reader_view_customize_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_reader_view_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_reading_list_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_reading_list_add_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_reading_list_slash_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_reading_list_slash_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_report_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_save_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_save_file_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_screenshot_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_search_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_search_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_seek_backward_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_seek_forward_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_select_all_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_settings_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_share_android_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_share_apple_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_share_ios_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_shield_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_shield_checkmark_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_shield_checkmark_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_shield_checkmark_fill_16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_shield_checkmark_fill_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_shield_cross_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_shield_cross_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_shield_dot_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_shield_exclamation_mark_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_shield_slash_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_shield_slash_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_shield_slash_fill_16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_shield_slash_fill_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_shield_slash_multicolor_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_signature_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_signature_properties_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_site_info.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_soccer_ball_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_sort_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_sparkle_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_sponsored_star_16.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_star_fill_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_star_half_fill_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_star_one_half_fill_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_star_one_half_fill_multicolor_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_stop_8.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_storage_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_storage_slash_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_subtract_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_sun_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_sun_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_sun_fill_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_sun_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_swap_horizontal_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_sync_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_sync_tabs_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_sync_tabs_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_tab_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_tab_badge_fill_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_tab_group_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_tab_group_72.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_tab_group_close_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_tab_number_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_tab_tray_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_tab_ungroup_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_themes_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_thumbs_down_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_thumbs_down_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_thumbs_up_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_thumbs_up_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_tool_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_tracking_protection_off_for_a_site.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_tracking_protection_on_no_trackers_blocked.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_tracking_protection_on_trackers_blocked.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_translate_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_translate_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_translate_active_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_translate_active_alt_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_update_circle_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_wallpaper_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_warning_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_warning_fill_20.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_warning_fill_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_ic_whats_new_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_lib_crash_notification.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_menu_indicator.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_menu_notification.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_rounded_search_widget_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mozac_widget_favicon_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_bottomsheet_drag_handle.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_checkbox_button.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_checkbox_button_checked_unchecked.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_checkbox_button_icon.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_checkbox_button_icon_checked_indeterminate.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_checkbox_button_icon_checked_unchecked.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_checkbox_button_icon_indeterminate_checked.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_checkbox_button_icon_indeterminate_unchecked.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_checkbox_button_icon_unchecked_checked.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_checkbox_button_icon_unchecked_indeterminate.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_checkbox_button_unchecked_checked.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_close_24px.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_dialog_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_dropdown_arrow.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_ic_arrow_drop_down.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_ic_arrow_drop_up.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_ic_cancel.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_ic_check_mark.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_ic_checkbox_checked.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_ic_checkbox_unchecked.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_ic_error.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_ic_indeterminate.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_navigation_bar_item_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_popupmenu_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_popupmenu_background_overlay.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_switch_thumb.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_switch_thumb_checked.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_switch_thumb_checked_pressed.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_switch_thumb_checked_unchecked.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_switch_thumb_pressed.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_switch_thumb_pressed_checked.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_switch_thumb_pressed_unchecked.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_switch_thumb_unchecked.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_switch_thumb_unchecked_checked.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_switch_thumb_unchecked_pressed.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_switch_track.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_switch_track_decoration.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/mtrl_tabs_default_indicator.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/navigation_empty_icon.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/notification_action_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/notification_bg.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/notification_bg_low.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/notification_icon_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/notification_tile_bg.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/nova_onboarding_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/nova_onboarding_marketing.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/nova_onboarding_notifications.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/nova_onboarding_set_to_default.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/nova_onboarding_sync.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/nova_onboarding_sync_qr.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/nova_onboarding_toolbar_bottom_active.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/nova_onboarding_toolbar_bottom_inactive.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/nova_onboarding_toolbar_top_active.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/nova_onboarding_toolbar_top_inactive.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/nova_onboarding_tou.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/nova_onboarding_tou_2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/nova_onboarding_widget.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/outline_arrow_back_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/preference_list_divider_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/private_home_bottom_bar_background_gradient.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/private_home_bottom_bar_background_gradient_top.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/progress_gradient.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/protection_panel_not_protected.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/protection_panel_not_secure.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/radiobutton_color_scheme_dark_selector.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/radiobutton_color_scheme_light_selector.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/radiobutton_color_scheme_sepia_selector.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/radiobutton_selected_text_selector.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/recent_apps_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/review_prompt_negative_button.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/review_prompt_positive_button.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/rounded_all_corners.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/rounded_corner.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/rounded_grey_corners_transparent_center.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/rounded_ripple.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/rounded_search_widget_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/send_link_to_device_no_devices_available.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/sentry_edit_text_border.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/sentry_logo_dark.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/sentry_oval_button_ripple_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/sentry_user_feedback_button_logo_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/share_24.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/sign_in_preference_background.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/simple_dark_grey_gradient.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/splash_screen.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/test_level_drawable.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/tooltip_frame_dark.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/drawable/tooltip_frame_light.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/font/zx_spectrum_7.ttf` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/interpolator/btn_checkbox_checked_mtrl_animation_interpolator_0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/interpolator/btn_checkbox_checked_mtrl_animation_interpolator_1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/interpolator/btn_checkbox_unchecked_mtrl_animation_interpolator_0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/interpolator/btn_checkbox_unchecked_mtrl_animation_interpolator_1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/interpolator/btn_radio_to_off_mtrl_animation_interpolator_0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/interpolator/btn_radio_to_on_mtrl_animation_interpolator_0.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/interpolator/fast_out_slow_in.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/interpolator/m3_sys_motion_easing_emphasized.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/interpolator/m3_sys_motion_easing_emphasized_accelerate.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/interpolator/m3_sys_motion_easing_emphasized_decelerate.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/interpolator/m3_sys_motion_easing_linear.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/interpolator/m3_sys_motion_easing_standard.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/interpolator/m3_sys_motion_easing_standard_accelerate.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/interpolator/m3_sys_motion_easing_standard_decelerate.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/interpolator/mtrl_fast_out_linear_in.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/interpolator/mtrl_fast_out_slow_in.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/interpolator/mtrl_linear.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/interpolator/mtrl_linear_out_slow_in.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout-land/material_clock_period_toggle_land.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout-land/material_timepicker.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout-land/mtrl_picker_header_dialog.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout-sw600dp/design_layout_snackbar.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout-sw600dp/mtrl_layout_snackbar.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout-watch/abc_alert_dialog_button_bar_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout-watch/abc_alert_dialog_title_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_action_bar_title_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_action_bar_up_container.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_action_menu_item_layout.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_action_menu_layout.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_action_mode_bar.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_action_mode_close_item_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_activity_chooser_view.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_activity_chooser_view_list_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_alert_dialog_button_bar_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_alert_dialog_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_alert_dialog_title_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_cascading_menu_item_layout.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_dialog_title_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_expanded_menu_layout.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_list_menu_item_checkbox.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_list_menu_item_icon.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_list_menu_item_layout.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_list_menu_item_radio.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_popup_menu_header_item_layout.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_popup_menu_item_layout.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_screen_content_include.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_screen_simple.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_screen_simple_overlay_action_mode.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_screen_toolbar.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_search_dropdown_item_icons_2line.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_search_view.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_select_dialog_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/abc_tooltip.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/about_list_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/account_auth_error_preference.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/account_preference.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/account_share_list_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/activity_home.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/activity_lens_camera.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/activity_lens_search.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/activity_qr_scan.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/activity_startup_crash.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/add_new_collection_dialog.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/addon_installation_failed_dialog.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/address_select_bar.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/amo_collection_override_dialog.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/app_share_list_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/browser_layout_crash_reporter.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/browser_toolbar_popup_window.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/checkbox_left_preference.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/checkbox_left_preference_etp.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/checkbox_left_sub_preference.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/collection_dialog_list_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/collection_tab_list_row.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/collections_list_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/component_collection_creation.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/component_collection_creation_name_collection.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/component_collection_creation_select_collection.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/component_credit_cards.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/component_exceptions.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/component_find_in_page_bar.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/component_history.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/component_history_metadata_group.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/component_locale_settings.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/component_permissions_blocked_by_android.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/component_recently_closed.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/component_tabhistory.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/compose_preference.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/crash_extension_dialog.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/credit_card_list_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/creditcard_select_bar.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/custom_dialog.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/delete_browsing_data_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/delete_exceptions_button.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/delete_history_time_range_dialog.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/delete_logins_exceptions_button.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/design_bottom_navigation_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/design_bottom_sheet_dialog.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/design_layout_snackbar.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/design_layout_snackbar_include.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/design_layout_tab_icon.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/design_layout_tab_text.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/design_menu_item_action_area.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/design_navigation_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/design_navigation_item_header.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/design_navigation_item_separator.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/design_navigation_item_subheader.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/design_navigation_menu.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/design_navigation_menu_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/design_text_input_end_icon.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/design_text_input_start_icon.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/dropdown_preference_etp.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/email_mask_bar.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/etp_dropdown_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/exception_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/exceptions_description.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/expand_button.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fingerprint_dialog_layout.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_about.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_add_new_device.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_add_on_details.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_add_on_internal_settings.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_add_ons_management.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_browser.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_create_collection.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_create_shortcut.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_create_xiaomi_shortcut.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_delete_browsing_data.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_exceptions.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_history.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_history_metadata_group.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_history_search.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_installed_add_on_details.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_layout.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_libraries_list.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_locale_settings.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_manage_site_permissions_exceptions_feature_phone.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_manage_site_permissions_feature_phone.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_not_yet_supported_addons.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_pair.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_recently_closed_tabs.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_save_search_engine.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_share.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_sign_out.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_site_permissions_exceptions.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_site_permissions_exceptions_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_tab_history_dialog.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_tracking_protection_blocking.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/fragment_turn_on_sync.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/history_list_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/history_metadata_group_list_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/image_frame.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/info_banner.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/layout_add_credit_card.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/layout_clear_permission_button.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/library_site_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/locale_settings_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/login_select_bar.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/m3_alert_dialog.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/m3_alert_dialog_actions.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/m3_alert_dialog_title.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/m3_auto_complete_simple_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/m3_button_group_overflow_button.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/m3_navigation_menu_divider.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/m3_navigation_menu_subheader.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/m3_overflow_linear_layout_overflow_button.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/m3_side_sheet_dialog.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/m3expressive_alert_dialog.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/m3expressive_alert_dialog_title.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/material_chip_input_combo.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/material_clock_display.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/material_clock_display_divider.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/material_clock_period_toggle.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/material_clockface_textview.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/material_clockface_view.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/material_radial_view_group.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/material_textinput_timepicker.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/material_time_chip.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/material_time_input.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/material_timepicker.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/material_timepicker_dialog.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/material_timepicker_textinput_display.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu2_button.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu2_candidate_compound_checkbox.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu2_candidate_compound_switch.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu2_candidate_decorative_text.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu2_candidate_divider.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu2_candidate_nested.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu2_candidate_row.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu2_candidate_row_small_icon.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu2_candidate_text.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu2_icon_button.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu2_icon_drawable.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu2_icon_notification_dot.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu2_icon_text.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu2_view.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu_button.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu_category.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu_highlightable_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu_highlightable_switch.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu_item_checkbox.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu_item_divider.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu_item_image_switch.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu_item_image_text.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu_item_image_text_checkbox_button.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu_item_parent_menu.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu_item_simple.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu_item_switch.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu_item_toolbar.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_menu_web_extension.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_toolbar_displaytoolbar.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_toolbar_edittoolbar.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_browser_tooltip_layout.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_download_app_list_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_download_cancel.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_downloader_chooser_prompt.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_downloads_prompt.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_addons_footer_section_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_addons_fragment_dialog_addon_installed.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_addons_fragment_dialog_addon_permissions.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_addons_header_section_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_addons_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_addons_message_bars.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_addons_permission_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_addons_permissions_domain_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_addons_permissions_opt_in_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_addons_permissions_required_data_collection_permissions_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_addons_permissions_required_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_addons_permissions_show_hide_domains_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_addons_section_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_addons_section_unsupported_section_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_addons_unsupported_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_autofill_login.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_autofill_preference.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_autofill_search.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_choice_dialogs.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_choice_group_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_contextmenu_dialog.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_contextmenu_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_contextmenu_title.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_findinpage_view.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_menu_choice_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_menu_separator_choice_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_multiple_choice_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_promps_widget_month_picker.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_prompt_auth_prompt.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_prompt_save_credit_card_prompt.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_prompt_save_login_prompt.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_prompt_simple_text.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_prompt_with_check_box.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_prompts_address_list_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_prompts_address_select_prompt.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_prompts_color_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_prompts_color_picker_dialogs.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_prompts_credit_card_list_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_prompts_credit_card_select_prompt.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_prompts_date_time_picker.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_prompts_time_picker.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_prompts_webauthn_related_origin.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_readerview_view.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_single_choice_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_feature_text_prompt.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_lib_crash_crashlist.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_lib_crash_crashreporter.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_lib_crash_item_crash.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_service_nimbus_branch_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_service_nimbus_experiment_details.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_service_nimbus_experiment_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_service_nimbus_experiments.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_site_permissions_prompt.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_ui_tabcounter_layout.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mozac_widget_site_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_alert_dialog.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_alert_dialog_actions.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_alert_dialog_title.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_alert_select_dialog_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_alert_select_dialog_multichoice.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_alert_select_dialog_singlechoice.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_auto_complete_simple_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_calendar_day.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_calendar_day_of_week.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_calendar_days_of_week.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_calendar_horizontal.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_calendar_month.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_calendar_month_labeled.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_calendar_month_navigation.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_calendar_months.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_calendar_vertical.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_calendar_year.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_layout_snackbar.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_layout_snackbar_include.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_navigation_rail_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_picker_actions.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_picker_dialog.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_picker_fullscreen.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_picker_header_dialog.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_picker_header_fullscreen.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_picker_header_selection_text.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_picker_header_title_text.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_picker_header_toggle.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_picker_text_input_date.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_picker_text_input_date_range.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_search_bar.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/mtrl_search_view.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/name_collection_dialog.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/navigation_toolbar.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/notification_action.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/notification_action_tombstone.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/notification_template_custom_big.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/notification_template_icon_group.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/notification_template_part_chronometer.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/notification_template_part_time.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/overlay_add_on_progress.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_cat_style.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_category.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_category_empty.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_category_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_category_no_icon_style.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_default_browser.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_dialog_edittext.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_divider.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_dropdown.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_dropdown_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_information.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_information_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_list_fragment.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_material_switch.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_no_widget.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_recyclerview.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_search_add_engine.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_search_engine_chooser.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_spacer.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_switch_with_caption.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_sync.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_toolbar_shortcut.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_widget_checkbox.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_widget_radiobutton.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_widget_radiobutton_vertical.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_widget_radiobutton_with_info.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_widget_seekbar.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_widget_seekbar_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_widget_switch.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_widget_switch_compat.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_widget_switch_fenix_style.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/preference_widget_toggle_radio_button.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/recently_closed_nav_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/search_engine_radio_button.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/search_widget_extra_small_v1.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/search_widget_extra_small_v2.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/search_widget_large.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/search_widget_medium.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/search_widget_small.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/search_widget_small_no_mic.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/select_dialog_item_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/select_dialog_multichoice_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/select_dialog_singlechoice_material.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/sentry_dialog_user_feedback.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/settings_https_only.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/settings_studies.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/share_close.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/share_tab_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/share_to_account_devices.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/share_to_apps.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/sign_in_preference.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/site_list_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/studies_section_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/study_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/suggest_strong_password_bar.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/support_simple_spinner_dropdown_item.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/tab_preview.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/toolbar_expanded_shortcut_preview.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/toolbar_simple_no_shortcut_preview.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/toolbar_simple_shortcut_preview.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/top_sites_edit_dialog.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/tracking_protection_category.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/tracking_protection_learn_more_preference.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/translations_banner.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/layout/view_crash_reporter.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/menu/history_menu.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/menu/history_select_multi.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/menu/languages_list.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/menu/library_menu.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-anydpi/ic_launcher.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-anydpi/ic_launcher_alternative.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-anydpi/ic_launcher_cool.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-anydpi/ic_launcher_cuddling.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-anydpi/ic_launcher_flaming.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-anydpi/ic_launcher_gradient_blue_hour.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-anydpi/ic_launcher_gradient_golden_hour.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-anydpi/ic_launcher_gradient_midnight.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-anydpi/ic_launcher_gradient_northern_lights.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-anydpi/ic_launcher_gradient_sunrise.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-anydpi/ic_launcher_gradient_sunset.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-anydpi/ic_launcher_gradient_twilight.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-anydpi/ic_launcher_minimal.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-anydpi/ic_launcher_momo.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-anydpi/ic_launcher_pixelated.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-anydpi/ic_launcher_pride.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-anydpi/ic_launcher_private_round.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-anydpi/ic_launcher_retro_2004.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-anydpi/ic_launcher_round.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-anydpi/ic_launcher_round_alternative.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-anydpi/ic_launcher_solid_blue.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-anydpi/ic_launcher_solid_dark.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-anydpi/ic_launcher_solid_green.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-anydpi/ic_launcher_solid_light.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-anydpi/ic_launcher_solid_purple.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-anydpi/ic_launcher_solid_purple_dark.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-anydpi/ic_launcher_solid_red.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-hdpi/ic_launcher.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-hdpi/ic_launcher_foreground.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-hdpi/ic_launcher_round.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-mdpi/ic_launcher.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-mdpi/ic_launcher_foreground.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-mdpi/ic_launcher_round.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-xhdpi/ic_launcher.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-xhdpi/ic_launcher_foreground.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-xhdpi/ic_launcher_round.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-xxhdpi/ic_launcher.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-xxhdpi/ic_launcher_foreground.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-xxhdpi/ic_launcher_round.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-xxxhdpi/ic_launcher.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-xxxhdpi/ic_launcher_foreground.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/mipmap-xxxhdpi/ic_launcher_round.webp` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/navigation/nav_graph.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/raw/beep.wav` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/raw/boop.wav` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/raw/eatfood.wav` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/raw/happyvibes.wav` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/raw/initial_experiments.json` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/raw/initial_shortcuts.json` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/raw/keep.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/raw/mozac_ic_kit_tab_groups_animation.json` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/raw/sadwobble.wav` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/raw/third_party_license_metadata` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/raw/third_party_licenses` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/accessibility_preferences.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/account_settings_preferences.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/autofill_configuration.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/autofill_preferences.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/credit_cards_preferences.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/customization_preferences.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/default_search_engine_preferences.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/delete_browsing_data_quit_preferences.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/downloads_settings_preferences.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/feature_downloads_file_paths.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/feature_prompts_file_paths.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/file_paths.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/file_provider_paths.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/home_preferences.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/link_sharing_preferences.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/logins_preferences.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/m3_button_group_child_size_change.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/m3_list_item_shape_state_list.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/m3_split_button_inner_corner_size_state_list.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/m3expressive_button_shape_state_list.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/m3expressive_connected_buttons_inner_corner_size_state_list.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/network_security_config.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/open_links_in_apps_preferences.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/preference_category_divider.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/preferences.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/private_browsing_preferences.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/remote_improvements_preferences.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/remote_settings_server_preferences.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/save_logins_preferences.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/search_optimization_preferences.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/search_settings_preferences.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/search_widget_info.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/searchable.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/secret_settings_preferences.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/shortcuts.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/site_permissions_details_exceptions_preferences.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/site_permissions_preferences.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/sync_debug_preferences.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/sync_problem.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/tabs_preferences.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file renamed `res/xml/tracking_protection_preferences.xml` [resource_path_canonicalized] — matches path rule 'resource_path_canonicalized' but this difference does not occur in the no-op rebuild of this APK
+- file modified `resources.arsc` [resource_table_reencoded] — matches path rule 'resource_table_reencoded' but this difference does not occur in the no-op rebuild of this APK
+
+## VERIFICATION
+
+| check | status | summary |
+|---|---|---|
+| structural | passed | archive and container structure valid |
+| signature | passed | signature verifies with the expected signer |
+| noise_baseline | undetermined | NOT_EQUIVALENT: the no-op rebuild of this APK was UNDETERMINED |
+| modification | not_applicable | no modifier was run (pair verification) |
+| expected_changes | not_applicable | no expected changes declared |
+| unexpected_changes | failed | 4 unexpected change(s) detected |
+| semantic_diff | partial | partial: resource_table: not_comparable (resources.arsc differs; its entries are not compared semantically (only byte identity is established)); embedded: partial (A: embedded inspector reported warnings (partial); B: embedded inspector reported warnings (partial)); diff status partial |
+| security_diff | undetermined | 2 security-relevant change(s) could not be classified |
+
+Overall: **FAILED** — failed: unexpected_changes
+
+## LIMITATIONS
+
+- components: <activity-alias> is not modelled as a component; alias changes are reported by manifest_tree only
+- native: native code is not analysed; hash and ELF metadata only
+- resources: res/ binary XML and images are compared by content hash, not decoded; a same-path content change cannot be interpreted semantically
+- resource_table: not_comparable: resources.arsc differs; its entries are not compared semantically (only byte identity is established)
+- embedded: partial: A: embedded inspector reported warnings (partial); B: embedded inspector reported warnings (partial)
+- noise baseline: the no-op rebuild of this APK was UNDETERMINED
+- signature files (META-INF/MANIFEST.MF, *.SF, *.RSA...) are accepted by path; their validity is established by apksigner, not by the diff
+
+## EVIDENCE DISCIPLINE
+
+**Observed fact**
+
+- structural: passed — archive and container structure valid
+- signature: passed — signature verifies with the expected signer
+- noise_baseline: undetermined — NOT_EQUIVALENT: the no-op rebuild of this APK was UNDETERMINED
+- modification: not_applicable — no modifier was run (pair verification)
+- expected_changes: not_applicable — no expected changes declared
+- unexpected_changes: failed — 4 unexpected change(s) detected
+- semantic_diff: partial — partial: resource_table: not_comparable (resources.arsc differs; its entries are not compared semantically (only byte identity is established)); embedded: partial (A: embedded inspector reported warnings (partial); B: embedded inspector reported warnings (partial)); diff status partial
+- security_diff: undetermined — 2 security-relevant change(s) could not be classified
+
+**Inference**
+
+- Differences classified as rebuild noise are inferred to be caused by the rebuild because they are identical to this APK's measured no-op rebuild (content assurance) or match a documented path rule (path_rule assurance).
+
+**Risk assessment**
+
+- None. This report describes changes; it does not assess whether a change is malicious. A clean diff does not prove an APK is malware-free, and a verified signature proves structural/signing validity, not safety.
+
+**Unknown**
+
+- manifest_attribute modified networkSecurityConfig
+- dex_string removed ~~R8{"backend":"dex","compilation-mode":"release","has-checksums":false,"min-api":26,"pg-map-id":"35be5cdb96e588cfad6982d7dfdade60d8802ec6ed4baf484a923df1ee41c74c","r8-mode":"compatibility","version":"9.2.14"}
+- certificate modified signing_certificate
+- file modified AndroidManifest.xml
+- file added META-INF/APKFORGE.RSA
+- file added META-INF/APKFORGE.SF
+- file removed META-INF/D0EF7A98.RSA
+- file removed META-INF/D0EF7A98.SF
+- file modified META-INF/MANIFEST.MF
+- file modified classes.dex
+- file modified classes2.dex
+- file modified classes3.dex
+- file renamed res/anim-ldrtl/menu_enter_bottom.xml
+- file renamed res/anim-ldrtl/menu_enter_top.xml
+- file renamed res/anim/abc_grow_fade_in_from_bottom.xml
+- file renamed res/anim/abc_popup_enter.xml
+- file renamed res/anim/abc_popup_exit.xml
+- file renamed res/anim/abc_shrink_fade_out_from_bottom.xml
+- file renamed res/anim/abc_tooltip_enter.xml
+- file renamed res/anim/abc_tooltip_exit.xml
+- file renamed res/anim/btn_checkbox_to_checked_box_inner_merged_animation.xml
+- file renamed res/anim/btn_checkbox_to_checked_box_outer_merged_animation.xml
+- file renamed res/anim/btn_checkbox_to_checked_icon_null_animation.xml
+- file renamed res/anim/btn_checkbox_to_unchecked_box_inner_merged_animation.xml
+- file renamed res/anim/btn_checkbox_to_unchecked_check_path_merged_animation.xml
+- file renamed res/anim/btn_checkbox_to_unchecked_icon_null_animation.xml
+- file renamed res/anim/btn_radio_to_off_mtrl_dot_group_animation.xml
+- file renamed res/anim/btn_radio_to_off_mtrl_ring_outer_animation.xml
+- file renamed res/anim/btn_radio_to_off_mtrl_ring_outer_path_animation.xml
+- file renamed res/anim/btn_radio_to_on_mtrl_dot_group_animation.xml
+- file renamed res/anim/btn_radio_to_on_mtrl_ring_outer_animation.xml
+- file renamed res/anim/btn_radio_to_on_mtrl_ring_outer_path_animation.xml
+- file renamed res/anim/design_bottom_sheet_slide_in.xml
+- file renamed res/anim/design_bottom_sheet_slide_out.xml
+- file renamed res/anim/design_snackbar_in.xml
+- file renamed res/anim/design_snackbar_out.xml
+- file renamed res/anim/fade_in.xml
+- file renamed res/anim/fade_out.xml
+- file renamed res/anim/fragment_fast_out_extra_slow_in.xml
+- file renamed res/anim/linear_indeterminate_line1_head_interpolator.xml
+- file renamed res/anim/linear_indeterminate_line1_tail_interpolator.xml
+- file renamed res/anim/linear_indeterminate_line2_head_interpolator.xml
+- file renamed res/anim/linear_indeterminate_line2_tail_interpolator.xml
+- file renamed res/anim/m3_bottom_sheet_slide_in.xml
+- file renamed res/anim/m3_bottom_sheet_slide_out.xml
+- file renamed res/anim/m3_motion_fade_enter.xml
+- file renamed res/anim/m3_motion_fade_exit.xml
+- file renamed res/anim/m3_side_sheet_enter_from_left.xml
+- file renamed res/anim/m3_side_sheet_enter_from_right.xml
+- file renamed res/anim/m3_side_sheet_exit_to_left.xml
+- file renamed res/anim/m3_side_sheet_exit_to_right.xml
+- file renamed res/anim/menu_enter_bottom.xml
+- file renamed res/anim/menu_enter_top.xml
+- file renamed res/anim/menu_exit.xml
+- file renamed res/anim/mtrl_bottom_sheet_slide_in.xml
+- file renamed res/anim/mtrl_bottom_sheet_slide_out.xml
+- file renamed res/anim/mtrl_card_lowers_interpolator.xml
+- file renamed res/anim/slide_in_left.xml
+- file renamed res/anim/slide_in_right.xml
+- file renamed res/anim/slide_out_left.xml
+- file renamed res/anim/slide_out_right.xml
+- file renamed res/animator/chevron_checked_unchecked.xml
+- file renamed res/animator/chevron_unchecked_checked.xml
+- file renamed res/animator/design_appbar_state_list_animator.xml
+- file renamed res/animator/design_fab_hide_motion_spec.xml
+- file renamed res/animator/design_fab_show_motion_spec.xml
+- file renamed res/animator/fragment_close_enter.xml
+- file renamed res/animator/fragment_close_exit.xml
+- file renamed res/animator/fragment_fade_enter.xml
+- file renamed res/animator/fragment_fade_exit.xml
+- file renamed res/animator/fragment_open_enter.xml
+- file renamed res/animator/fragment_open_exit.xml
+- file renamed res/animator/m3_appbar_state_list_animator.xml
+- file renamed res/animator/m3_btn_elevated_btn_state_list_anim.xml
+- file renamed res/animator/m3_btn_state_list_anim.xml
+- file renamed res/animator/m3_card_elevated_state_list_anim.xml
+- file renamed res/animator/m3_card_state_list_anim.xml
+- file renamed res/animator/m3_chip_state_list_anim.xml
+- file renamed res/animator/m3_elevated_chip_state_list_anim.xml
+- file renamed res/animator/m3_extended_fab_change_size_collapse_motion_spec.xml
+- file renamed res/animator/m3_extended_fab_change_size_expand_motion_spec.xml
+- file renamed res/animator/m3_extended_fab_hide_motion_spec.xml
+- file renamed res/animator/m3_extended_fab_show_motion_spec.xml
+- file renamed res/animator/m3_extended_fab_state_list_animator.xml
+- file renamed res/animator/m3_fab_state_list_animator.xml
+- file renamed res/animator/m3_split_button_chevron_overshoot_interpolator.xml
+- file renamed res/animator/m3_split_button_chevron_reverse_rotation.xml
+- file renamed res/animator/m3_split_button_chevron_rotation.xml
+- file renamed res/animator/mtrl_btn_state_list_anim.xml
+- file renamed res/animator/mtrl_btn_unelevated_state_list_anim.xml
+- file renamed res/animator/mtrl_card_state_list_anim.xml
+- file renamed res/animator/mtrl_chip_state_list_anim.xml
+- file renamed res/animator/mtrl_extended_fab_change_size_collapse_motion_spec.xml
+- file renamed res/animator/mtrl_extended_fab_change_size_expand_motion_spec.xml
+- file renamed res/animator/mtrl_extended_fab_hide_motion_spec.xml
+- file renamed res/animator/mtrl_extended_fab_show_motion_spec.xml
+- file renamed res/animator/mtrl_extended_fab_state_list_animator.xml
+- file renamed res/animator/mtrl_fab_hide_motion_spec.xml
+- file renamed res/animator/mtrl_fab_show_motion_spec.xml
+- file renamed res/animator/mtrl_fab_transformation_sheet_collapse_spec.xml
+- file renamed res/animator/mtrl_fab_transformation_sheet_expand_spec.xml
+- file renamed res/color-night/material_timepicker_button_stroke.xml
+- file renamed res/color-night/material_timepicker_clockface.xml
+- file renamed res/color-night/material_timepicker_modebutton_tint.xml
+- file modified res/color-v31/m3_dynamic_dark_default_color_primary_text.xml
+- file modified res/color-v31/m3_dynamic_dark_default_color_secondary_text.xml
+- file modified res/color-v31/m3_dynamic_dark_highlighted_text.xml
+- file modified res/color-v31/m3_dynamic_dark_hint_foreground.xml
+- file modified res/color-v31/m3_dynamic_dark_primary_text_disable_only.xml
+- file modified res/color-v31/m3_dynamic_default_color_primary_text.xml
+- file modified res/color-v31/m3_dynamic_default_color_secondary_text.xml
+- file modified res/color-v31/m3_dynamic_highlighted_text.xml
+- file modified res/color-v31/m3_dynamic_hint_foreground.xml
+- file modified res/color-v31/m3_dynamic_primary_text_disable_only.xml
+- file modified res/color-v31/m3_ref_palette_dynamic_neutral12.xml
+- file modified res/color-v31/m3_ref_palette_dynamic_neutral17.xml
+- file modified res/color-v31/m3_ref_palette_dynamic_neutral22.xml
+- file modified res/color-v31/m3_ref_palette_dynamic_neutral24.xml
+- file modified res/color-v31/m3_ref_palette_dynamic_neutral4.xml
+- file modified res/color-v31/m3_ref_palette_dynamic_neutral6.xml
+- file modified res/color-v31/m3_ref_palette_dynamic_neutral87.xml
+- file modified res/color-v31/m3_ref_palette_dynamic_neutral92.xml
+- file modified res/color-v31/m3_ref_palette_dynamic_neutral94.xml
+- file modified res/color-v31/m3_ref_palette_dynamic_neutral96.xml
+- file modified res/color-v31/m3_ref_palette_dynamic_neutral98.xml
+- file modified res/color-v31/m3_ref_palette_dynamic_neutral_variant12.xml
+- file modified res/color-v31/m3_ref_palette_dynamic_neutral_variant17.xml
+- file modified res/color-v31/m3_ref_palette_dynamic_neutral_variant22.xml
+- file modified res/color-v31/m3_ref_palette_dynamic_neutral_variant24.xml
+- file modified res/color-v31/m3_ref_palette_dynamic_neutral_variant4.xml
+- file modified res/color-v31/m3_ref_palette_dynamic_neutral_variant6.xml
+- file modified res/color-v31/m3_ref_palette_dynamic_neutral_variant87.xml
+- file modified res/color-v31/m3_ref_palette_dynamic_neutral_variant92.xml
+- file modified res/color-v31/m3_ref_palette_dynamic_neutral_variant94.xml
+- file modified res/color-v31/m3_ref_palette_dynamic_neutral_variant96.xml
+- file modified res/color-v31/m3_ref_palette_dynamic_neutral_variant98.xml
+- file modified res/color-v31/m3_ref_palette_dynamic_primary98.xml
+- file modified res/color-v31/m3_ref_palette_dynamic_secondary98.xml
+- file modified res/color-v31/m3_ref_palette_dynamic_tertiary98.xml
+- file modified res/color/abc_background_cache_hint_selector_material_dark.xml
+- file modified res/color/abc_background_cache_hint_selector_material_light.xml
+- file renamed res/color/abc_btn_colored_borderless_text_material.xml
+- file renamed res/color/abc_btn_colored_text_material.xml
+- file renamed res/color/abc_color_highlight_material.xml
+- file modified res/color/abc_hint_foreground_material_dark.xml
+- file modified res/color/abc_hint_foreground_material_light.xml
+- file modified res/color/abc_primary_text_disable_only_material_dark.xml
+- file modified res/color/abc_primary_text_disable_only_material_light.xml
+- file modified res/color/abc_primary_text_material_dark.xml
+- file modified res/color/abc_primary_text_material_light.xml
+- file modified res/color/abc_search_url_text.xml
+- file modified res/color/abc_secondary_text_material_dark.xml
+- file modified res/color/abc_secondary_text_material_light.xml
+- file renamed res/color/abc_tint_btn_checkable.xml
+- file renamed res/color/abc_tint_default.xml
+- file renamed res/color/abc_tint_edittext.xml
+- file renamed res/color/abc_tint_seek_thumb.xml
+- file renamed res/color/abc_tint_spinner.xml
+- file renamed res/color/abc_tint_switch_track.xml
+- file modified res/color/button_state_list.xml
+- file modified res/color/compound_button_tint.xml
+- file modified res/color/design_box_stroke_color.xml
+- file modified res/color/design_error.xml
+- file modified res/color/design_icon_tint.xml
+- file modified res/color/m3_appbar_overlay_color.xml
+- file modified res/color/m3_assist_chip_icon_tint_color.xml
+- file modified res/color/m3_assist_chip_stroke_color.xml
+- file modified res/color/m3_bottom_sheet_drag_handle_color.xml
+- file modified res/color/m3_button_background_color_selector.xml
+- file modified res/color/m3_button_foreground_color_selector.xml
+- file modified res/color/m3_button_outline_color_selector.xml
+- file modified res/color/m3_button_ripple_color.xml
+- file modified res/color/m3_button_ripple_color_selector.xml
+- file modified res/color/m3_calendar_item_disabled_text.xml
+- file modified res/color/m3_calendar_item_stroke_color.xml
+- file modified res/color/m3_card_foreground_color.xml
+- file modified res/color/m3_card_ripple_color.xml
+- file modified res/color/m3_card_stroke_color.xml
+- file modified res/color/m3_checkbox_button_icon_tint.xml
+- file modified res/color/m3_checkbox_button_tint.xml
+- file modified res/color/m3_chip_assist_text_color.xml
+- file modified res/color/m3_chip_background_color.xml
+- file modified res/color/m3_chip_ripple_color.xml
+- file modified res/color/m3_chip_stroke_color.xml
+- file modified res/color/m3_chip_text_color.xml
+- file modified res/color/m3_control_highlight.xml
+- file modified res/color/m3_control_ripple_color_selector.xml
+- file modified res/color/m3_dark_default_color_primary_text.xml
+- file modified res/color/m3_dark_default_color_secondary_text.xml
+- file modified res/color/m3_dark_highlighted_text.xml
+- file modified res/color/m3_dark_hint_foreground.xml
+- file modified res/color/m3_dark_primary_text_disable_only.xml
+- file modified res/color/m3_default_color_primary_text.xml
+- file modified res/color/m3_default_color_secondary_text.xml
+- file modified res/color/m3_efab_ripple_color_selector.xml
+- file modified res/color/m3_elevated_chip_background_color.xml
+- file modified res/color/m3_fab_efab_background_color_selector.xml
+- file modified res/color/m3_fab_efab_foreground_color_selector.xml
+- file modified res/color/m3_fab_ripple_color_selector.xml
+- file modified res/color/m3_filled_icon_button_container_color_selector.xml
+- file modified res/color/m3_floating_toolbar_vibrant_icon_button_container_color_selector.xml
+- file modified res/color/m3_floating_toolbar_vibrant_icon_button_text_color_selector.xml
+- file modified res/color/m3_highlighted_text.xml
+- file modified res/color/m3_hint_foreground.xml
+- file modified res/color/m3_icon_button_icon_color_selector.xml
+- file modified res/color/m3_list_highlight.xml
+- file modified res/color/m3_list_item_background_color_selector.xml
+- file modified res/color/m3_list_item_checkbox_button_tint_selector.xml
+- file modified res/color/m3_list_item_label_text_color_selector.xml
+- file modified res/color/m3_list_item_leading_icon_color_selector.xml
+- file modified res/color/m3_list_item_overline_color_selector.xml
+- file modified res/color/m3_list_item_radio_button_tint_selector.xml
+- file modified res/color/m3_list_item_ripple_color_selector.xml
+- file modified res/color/m3_list_item_supporting_text_color_selector.xml
+- file modified res/color/m3_list_item_switch_track_tint_selector.xml
+- file modified res/color/m3_list_item_trailing_icon_color_selector.xml
+- file modified res/color/m3_list_item_trailing_supporting_text_color_selector.xml
+- file modified res/color/m3_navigation_bar_item_with_indicator_icon_tint.xml
+- file modified res/color/m3_navigation_bar_item_with_indicator_label_tint.xml
+- file modified res/color/m3_navigation_bar_ripple_color_selector.xml
+- file modified res/color/m3_navigation_item_background_color.xml
+- file modified res/color/m3_navigation_item_icon_tint.xml
+- file modified res/color/m3_navigation_item_ripple_color.xml
+- file modified res/color/m3_navigation_item_text_color.xml
+- file modified res/color/m3_navigation_rail_item_with_indicator_icon_tint.xml
+- file modified res/color/m3_navigation_rail_item_with_indicator_label_tint.xml
+- file modified res/color/m3_navigation_rail_ripple_color_selector.xml
+- file modified res/color/m3_popupmenu_overlay_color.xml
+- file modified res/color/m3_primary_text_disable_only.xml
+- file modified res/color/m3_radiobutton_button_tint.xml
+- file modified res/color/m3_radiobutton_ripple_tint.xml
+- file modified res/color/m3_segmented_list_item_background_color_selector.xml
+- file modified res/color/m3_selection_control_ripple_color_selector.xml
+- file modified res/color/m3_simple_item_ripple_color.xml
+- file modified res/color/m3_slider_active_tick_marks_color.xml
+- file modified res/color/m3_slider_active_track_color.xml
+- file modified res/color/m3_slider_active_track_color_legacy.xml
+- file modified res/color/m3_slider_halo_color_legacy.xml
+- file modified res/color/m3_slider_inactive_tick_marks_color.xml
+- file modified res/color/m3_slider_inactive_track_color.xml
+- file modified res/color/m3_slider_inactive_track_color_legacy.xml
+- file modified res/color/m3_slider_thumb_color.xml
+- file modified res/color/m3_slider_thumb_color_legacy.xml
+- file modified res/color/m3_standard_toolbar_button_text_color_selector.xml
+- file modified res/color/m3_standard_toolbar_icon_button_container_color_selector.xml
+- file modified res/color/m3_standard_toolbar_icon_button_icon_color_selector.xml
+- file modified res/color/m3_standard_toolbar_icon_button_ripple_color_selector.xml
+- file modified res/color/m3_switch_thumb_tint.xml
+- file modified res/color/m3_switch_track_tint.xml
+- file modified res/color/m3_tabs_icon_color.xml
+- file modified res/color/m3_tabs_icon_color_secondary.xml
+- file modified res/color/m3_tabs_ripple_color.xml
+- file modified res/color/m3_tabs_ripple_color_secondary.xml
+- file modified res/color/m3_tabs_text_color.xml
+- file modified res/color/m3_tabs_text_color_secondary.xml
+- file modified res/color/m3_text_button_background_color_selector.xml
+- file modified res/color/m3_text_button_foreground_color_selector.xml
+- file modified res/color/m3_text_button_ripple_color_selector.xml
+- file modified res/color/m3_textfield_filled_background_color.xml
+- file modified res/color/m3_textfield_indicator_text_color.xml
+- file modified res/color/m3_textfield_input_text_color.xml
+- file modified res/color/m3_textfield_label_color.xml
+- file modified res/color/m3_textfield_stroke_color.xml
+- file modified res/color/m3_timepicker_button_background_color.xml
+- file modified res/color/m3_timepicker_button_ripple_color.xml
+- file modified res/color/m3_timepicker_button_text_color.xml
+- file modified res/color/m3_timepicker_clock_text_color.xml
+- file modified res/color/m3_timepicker_display_background_color.xml
+- file modified res/color/m3_timepicker_display_ripple_color.xml
+- file modified res/color/m3_timepicker_display_text_color.xml
+- file modified res/color/m3_timepicker_secondary_text_button_ripple_color.xml
+- file modified res/color/m3_timepicker_secondary_text_button_text_color.xml
+- file modified res/color/m3_timepicker_time_input_stroke_color.xml
+- file modified res/color/m3_tonal_button_ripple_color_selector.xml
+- file modified res/color/m3_vibrant_toolbar_button_text_color_selector.xml
+- file modified res/color/m3_vibrant_toolbar_icon_button_container_color_selector.xml
+- file modified res/color/m3_vibrant_toolbar_icon_button_icon_color_selector.xml
+- file modified res/color/m3_vibrant_toolbar_icon_button_ripple_color_selector.xml
+- file modified res/color/m3expressive_bottom_nav_item_icon_tint.xml
+- file modified res/color/m3expressive_bottom_nav_item_label_tint.xml
+- file modified res/color/m3expressive_bottom_nav_item_ripple_tint.xml
+- file modified res/color/m3expressive_button_outline_color_selector.xml
+- file modified res/color/m3expressive_button_outlined_background_color_selector.xml
+- file modified res/color/m3expressive_nav_rail_item_icon_tint.xml
+- file modified res/color/m3expressive_nav_rail_item_label_tint.xml
+- file modified res/color/m3expressive_nav_rail_item_ripple_tint.xml
+- file modified res/color/material_cursor_color.xml
+- file modified res/color/material_divider_color.xml
+- file modified res/color/material_on_background_disabled.xml
+- file modified res/color/material_on_background_emphasis_high_type.xml
+- file modified res/color/material_on_background_emphasis_medium.xml
+- file modified res/color/material_on_primary_disabled.xml
+- file modified res/color/material_on_primary_emphasis_high_type.xml
+- file modified res/color/material_on_primary_emphasis_medium.xml
+- file modified res/color/material_on_surface_disabled.xml
+- file modified res/color/material_on_surface_emphasis_high_type.xml
+- file modified res/color/material_on_surface_emphasis_medium.xml
+- file modified res/color/material_on_surface_stroke.xml
+- file modified res/color/material_personalized__highlighted_text.xml
+- file modified res/color/material_personalized__highlighted_text_inverse.xml
+- file modified res/color/material_personalized_color_primary_text.xml
+- file modified res/color/material_personalized_color_primary_text_inverse.xml
+- file modified res/color/material_personalized_color_secondary_text.xml
+- file modified res/color/material_personalized_color_secondary_text_inverse.xml
+- file modified res/color/material_personalized_hint_foreground.xml
+- file modified res/color/material_personalized_hint_foreground_inverse.xml
+- file modified res/color/material_personalized_primary_inverse_text_disable_only.xml
+- file modified res/color/material_personalized_primary_text_disable_only.xml
+- file modified res/color/material_slider_active_tick_marks_color.xml
+- file modified res/color/material_slider_active_track_color.xml
+- file modified res/color/material_slider_halo_color.xml
+- file modified res/color/material_slider_inactive_tick_marks_color.xml
+- file modified res/color/material_slider_inactive_track_color.xml
+- file modified res/color/material_slider_thumb_color.xml
+- file modified res/color/material_switch_track_tint.xml
+- file modified res/color/material_timepicker_button_background.xml
+- file modified res/color/material_timepicker_button_stroke.xml
+- file modified res/color/material_timepicker_clock_text_color.xml
+- file modified res/color/material_timepicker_clockface.xml
+- file modified res/color/material_timepicker_modebutton_tint.xml
+- file modified res/color/mtrl_btn_bg_color_selector.xml
+- file modified res/color/mtrl_btn_ripple_color.xml
+- file modified res/color/mtrl_btn_stroke_color_selector.xml
+- file modified res/color/mtrl_btn_text_btn_bg_color_selector.xml
+- file modified res/color/mtrl_btn_text_btn_ripple_color.xml
+- file modified res/color/mtrl_btn_text_color_selector.xml
+- file modified res/color/mtrl_calendar_item_stroke_color.xml
+- file modified res/color/mtrl_calendar_selected_range.xml
+- file modified res/color/mtrl_card_view_foreground.xml
+- file modified res/color/mtrl_card_view_ripple.xml
+- file modified res/color/mtrl_chip_background_color.xml
+- file modified res/color/mtrl_chip_close_icon_tint.xml
+- file modified res/color/mtrl_chip_surface_color.xml
+- file modified res/color/mtrl_chip_text_color.xml
+- file modified res/color/mtrl_choice_chip_background_color.xml
+- file modified res/color/mtrl_choice_chip_ripple_color.xml
+- file modified res/color/mtrl_choice_chip_text_color.xml
+- file modified res/color/mtrl_error.xml
+- file modified res/color/mtrl_fab_bg_color_selector.xml
+- file modified res/color/mtrl_fab_icon_text_color_selector.xml
+- file modified res/color/mtrl_fab_ripple_color.xml
+- file modified res/color/mtrl_filled_background_color.xml
+- file modified res/color/mtrl_filled_icon_tint.xml
+- file modified res/color/mtrl_filled_stroke_color.xml
+- file modified res/color/mtrl_indicator_text_color.xml
+- file modified res/color/mtrl_navigation_bar_colored_item_tint.xml
+- file modified res/color/mtrl_navigation_bar_colored_ripple_color.xml
+- file modified res/color/mtrl_navigation_bar_item_tint.xml
+- file modified res/color/mtrl_navigation_bar_ripple_color.xml
+- file modified res/color/mtrl_navigation_item_background_color.xml
+- file modified res/color/mtrl_navigation_item_icon_tint.xml
+- file modified res/color/mtrl_navigation_item_text_color.xml
+- file modified res/color/mtrl_on_primary_text_btn_text_color_selector.xml
+- file modified res/color/mtrl_on_surface_ripple_color.xml
+- file modified res/color/mtrl_outlined_icon_tint.xml
+- file modified res/color/mtrl_outlined_stroke_color.xml
+- file modified res/color/mtrl_popupmenu_overlay_color.xml
+- file modified res/color/mtrl_switch_thumb_icon_tint.xml
+- file modified res/color/mtrl_switch_thumb_tint.xml
+- file modified res/color/mtrl_switch_track_decoration_tint.xml
+- file modified res/color/mtrl_switch_track_tint.xml
+- file modified res/color/mtrl_tabs_colored_ripple_color.xml
+- file modified res/color/mtrl_tabs_icon_color_selector.xml
+- file modified res/color/mtrl_tabs_icon_color_selector_colored.xml
+- file modified res/color/mtrl_tabs_legacy_text_color_selector.xml
+- file modified res/color/mtrl_tabs_ripple_color.xml
+- file modified res/color/mtrl_text_btn_text_color_selector.xml
+- file modified res/color/private_mode_mask_gradient.xml
+- file modified res/color/readerview_private_button_color.xml
+- file modified res/color/readerview_private_radio_color.xml
+- file modified res/color/secondary_state_list_text_color.xml
+- file modified res/color/state_list_text_color.xml
+- file modified res/color/switch_thumb_material_dark.xml
+- file modified res/color/switch_thumb_material_light.xml
+- file modified res/color/time_picker_button_background_tint.xml
+- file renamed res/drawable-anydpi/fingerprint_dialog_error.xml
+- file renamed res/drawable-anydpi/fingerprint_dialog_fp_icon.xml
+- file renamed res/drawable-anydpi/ic_unifiedpush.xml
+- file renamed res/drawable-hdpi/abc_ab_share_pack_mtrl_alpha.9.png
+- file renamed res/drawable-hdpi/abc_btn_check_to_on_mtrl_000.png
+- file renamed res/drawable-hdpi/abc_btn_check_to_on_mtrl_015.png
+- file renamed res/drawable-hdpi/abc_btn_radio_to_on_mtrl_000.png
+- file renamed res/drawable-hdpi/abc_btn_radio_to_on_mtrl_015.png
+- file renamed res/drawable-hdpi/abc_btn_switch_to_on_mtrl_00001.9.png
+- file renamed res/drawable-hdpi/abc_btn_switch_to_on_mtrl_00012.9.png
+- file renamed res/drawable-hdpi/abc_cab_background_top_mtrl_alpha.9.png
+- file renamed res/drawable-hdpi/abc_ic_commit_search_api_mtrl_alpha.png
+- file renamed res/drawable-hdpi/abc_list_divider_mtrl_alpha.9.png
+- file renamed res/drawable-hdpi/abc_list_focused_holo.9.png
+- file renamed res/drawable-hdpi/abc_list_longpressed_holo.9.png
+- file renamed res/drawable-hdpi/abc_list_pressed_holo_dark.9.png
+- file renamed res/drawable-hdpi/abc_list_pressed_holo_light.9.png
+- file renamed res/drawable-hdpi/abc_list_selector_disabled_holo_dark.9.png
+- file renamed res/drawable-hdpi/abc_list_selector_disabled_holo_light.9.png
+- file renamed res/drawable-hdpi/abc_menu_hardkey_panel_mtrl_mult.9.png
+- file renamed res/drawable-hdpi/abc_popup_background_mtrl_mult.9.png
+- file renamed res/drawable-hdpi/abc_scrubber_control_off_mtrl_alpha.png
+- file renamed res/drawable-hdpi/abc_scrubber_control_to_pressed_mtrl_000.png
+- file renamed res/drawable-hdpi/abc_scrubber_control_to_pressed_mtrl_005.png
+- file renamed res/drawable-hdpi/abc_scrubber_primary_mtrl_alpha.9.png
+- file renamed res/drawable-hdpi/abc_scrubber_track_mtrl_alpha.9.png
+- file renamed res/drawable-hdpi/abc_spinner_mtrl_am_alpha.9.png
+- file renamed res/drawable-hdpi/abc_switch_track_mtrl_alpha.9.png
+- file renamed res/drawable-hdpi/abc_tab_indicator_mtrl_alpha.9.png
+- file renamed res/drawable-hdpi/abc_text_select_handle_left_mtrl.png
+- file renamed res/drawable-hdpi/abc_text_select_handle_middle_mtrl.png
+- file renamed res/drawable-hdpi/abc_text_select_handle_right_mtrl.png
+- file renamed res/drawable-hdpi/abc_textfield_activated_mtrl_alpha.9.png
+- file renamed res/drawable-hdpi/abc_textfield_default_mtrl_alpha.9.png
+- file renamed res/drawable-hdpi/abc_textfield_search_activated_mtrl_alpha.9.png
+- file renamed res/drawable-hdpi/abc_textfield_search_default_mtrl_alpha.9.png
+- file renamed res/drawable-hdpi/color_picker_row_bg.9.png
+- file renamed res/drawable-hdpi/fenix_error_1.webp
+- file renamed res/drawable-hdpi/fenix_search_widget.webp
+- file renamed res/drawable-hdpi/fingerprint_dialog_error.png
+- file renamed res/drawable-hdpi/ic_firefox.webp
+- file renamed res/drawable-hdpi/ic_logo_wordmark_normal.webp
+- file renamed res/drawable-hdpi/ic_logo_wordmark_private.webp
+- file renamed res/drawable-hdpi/ic_unifiedpush.png
+- file renamed res/drawable-hdpi/notification_bg_low_normal.9.png
+- file renamed res/drawable-hdpi/notification_bg_low_pressed.9.png
+- file renamed res/drawable-hdpi/notification_bg_normal.9.png
+- file renamed res/drawable-hdpi/notification_bg_normal_pressed.9.png
+- file renamed res/drawable-hdpi/notification_oversize_large_icon_bg.png
+- file renamed res/drawable-hdpi/notify_panel_notification_icon_bg.png
+- file renamed res/drawable-ldpi/fingerprint_dialog_error.png
+- file renamed res/drawable-ldpi/ic_unifiedpush.png
+- file renamed res/drawable-ldrtl-hdpi/abc_spinner_mtrl_am_alpha.9.png
+- file renamed res/drawable-ldrtl-mdpi/abc_spinner_mtrl_am_alpha.9.png
+- file renamed res/drawable-ldrtl-xhdpi/abc_spinner_mtrl_am_alpha.9.png
+- file renamed res/drawable-ldrtl-xxhdpi/abc_spinner_mtrl_am_alpha.9.png
+- file renamed res/drawable-ldrtl-xxxhdpi/abc_spinner_mtrl_am_alpha.9.png
+- file renamed res/drawable-mdpi/abc_ab_share_pack_mtrl_alpha.9.png
+- file renamed res/drawable-mdpi/abc_btn_check_to_on_mtrl_000.png
+- file renamed res/drawable-mdpi/abc_btn_check_to_on_mtrl_015.png
+- file renamed res/drawable-mdpi/abc_btn_radio_to_on_mtrl_000.png
+- file renamed res/drawable-mdpi/abc_btn_radio_to_on_mtrl_015.png
+- file renamed res/drawable-mdpi/abc_btn_switch_to_on_mtrl_00001.9.png
+- file renamed res/drawable-mdpi/abc_btn_switch_to_on_mtrl_00012.9.png
+- file renamed res/drawable-mdpi/abc_cab_background_top_mtrl_alpha.9.png
+- file renamed res/drawable-mdpi/abc_ic_commit_search_api_mtrl_alpha.png
+- file renamed res/drawable-mdpi/abc_list_divider_mtrl_alpha.9.png
+- file renamed res/drawable-mdpi/abc_list_focused_holo.9.png
+- file renamed res/drawable-mdpi/abc_list_longpressed_holo.9.png
+- file renamed res/drawable-mdpi/abc_list_pressed_holo_dark.9.png
+- file renamed res/drawable-mdpi/abc_list_pressed_holo_light.9.png
+- file renamed res/drawable-mdpi/abc_list_selector_disabled_holo_dark.9.png
+- file renamed res/drawable-mdpi/abc_list_selector_disabled_holo_light.9.png
+- file renamed res/drawable-mdpi/abc_menu_hardkey_panel_mtrl_mult.9.png
+- file renamed res/drawable-mdpi/abc_popup_background_mtrl_mult.9.png
+- file renamed res/drawable-mdpi/abc_scrubber_control_off_mtrl_alpha.png
+- file renamed res/drawable-mdpi/abc_scrubber_control_to_pressed_mtrl_000.png
+- file renamed res/drawable-mdpi/abc_scrubber_control_to_pressed_mtrl_005.png
+- file renamed res/drawable-mdpi/abc_scrubber_primary_mtrl_alpha.9.png
+- file renamed res/drawable-mdpi/abc_scrubber_track_mtrl_alpha.9.png
+- file renamed res/drawable-mdpi/abc_spinner_mtrl_am_alpha.9.png
+- file renamed res/drawable-mdpi/abc_switch_track_mtrl_alpha.9.png
+- file renamed res/drawable-mdpi/abc_tab_indicator_mtrl_alpha.9.png
+- file renamed res/drawable-mdpi/abc_text_select_handle_left_mtrl.png
+- file renamed res/drawable-mdpi/abc_text_select_handle_middle_mtrl.png
+- file renamed res/drawable-mdpi/abc_text_select_handle_right_mtrl.png
+- file renamed res/drawable-mdpi/abc_textfield_activated_mtrl_alpha.9.png
+- file renamed res/drawable-mdpi/abc_textfield_default_mtrl_alpha.9.png
+- file renamed res/drawable-mdpi/abc_textfield_search_activated_mtrl_alpha.9.png
+- file renamed res/drawable-mdpi/abc_textfield_search_default_mtrl_alpha.9.png
+- file renamed res/drawable-mdpi/color_picker_row_bg.9.png
+- file renamed res/drawable-mdpi/fenix_error_1.webp
+- file renamed res/drawable-mdpi/fingerprint_dialog_error.png
+- file renamed res/drawable-mdpi/ic_firefox.webp
+- file renamed res/drawable-mdpi/ic_logo_wordmark_normal.webp
+- file renamed res/drawable-mdpi/ic_logo_wordmark_private.webp
+- file renamed res/drawable-mdpi/ic_unifiedpush.png
+- file renamed res/drawable-mdpi/notification_bg_low_normal.9.png
+- file renamed res/drawable-mdpi/notification_bg_low_pressed.9.png
+- file renamed res/drawable-mdpi/notification_bg_normal.9.png
+- file renamed res/drawable-mdpi/notification_bg_normal_pressed.9.png
+- file renamed res/drawable-mdpi/notify_panel_notification_icon_bg.png
+- file renamed res/drawable-night/$nova_onboarding_background__0.xml
+- file renamed res/drawable-night/$nova_onboarding_background__1.xml
+- file renamed res/drawable-night/$nova_onboarding_background__2.xml
+- file renamed res/drawable-night/$nova_onboarding_background__3.xml
+- file renamed res/drawable-night/$nova_onboarding_background__4.xml
+- file renamed res/drawable-night/ic_logo_wordmark_normal.xml
+- file renamed res/drawable-night/nova_onboarding_background.xml
+- file renamed res/drawable-nodpi/firefox_as_default_banner_illustration.xml
+- file renamed res/drawable-nodpi/ic_japan_onboarding_favicon.webp
+- file renamed res/drawable-nodpi/ic_wordmark_logo.webp
+- file renamed res/drawable-nodpi/ic_wordmark_text_normal.webp
+- file renamed res/drawable-nodpi/ic_wordmark_text_private.webp
+- file renamed res/drawable-nodpi/kit_sleeping_under_laptop.webp
+- file renamed res/drawable-nodpi/search_engine_placeholder.png
+- file renamed res/drawable-v28/m3_focus_ring_framework_button_background.xml
+- file renamed res/drawable-v28/m3_focus_ring_framework_button_background_shape.xml
+- file renamed res/drawable-watch/abc_dialog_material_background.xml
+- file renamed res/drawable-xhdpi/abc_ab_share_pack_mtrl_alpha.9.png
+- file renamed res/drawable-xhdpi/abc_btn_check_to_on_mtrl_000.png
+- file renamed res/drawable-xhdpi/abc_btn_check_to_on_mtrl_015.png
+- file renamed res/drawable-xhdpi/abc_btn_radio_to_on_mtrl_000.png
+- file renamed res/drawable-xhdpi/abc_btn_radio_to_on_mtrl_015.png
+- file renamed res/drawable-xhdpi/abc_btn_switch_to_on_mtrl_00001.9.png
+- file renamed res/drawable-xhdpi/abc_btn_switch_to_on_mtrl_00012.9.png
+- file renamed res/drawable-xhdpi/abc_cab_background_top_mtrl_alpha.9.png
+- file renamed res/drawable-xhdpi/abc_ic_commit_search_api_mtrl_alpha.png
+- file renamed res/drawable-xhdpi/abc_list_divider_mtrl_alpha.9.png
+- file renamed res/drawable-xhdpi/abc_list_focused_holo.9.png
+- file renamed res/drawable-xhdpi/abc_list_longpressed_holo.9.png
+- file renamed res/drawable-xhdpi/abc_list_pressed_holo_dark.9.png
+- file renamed res/drawable-xhdpi/abc_list_pressed_holo_light.9.png
+- file renamed res/drawable-xhdpi/abc_list_selector_disabled_holo_dark.9.png
+- file renamed res/drawable-xhdpi/abc_list_selector_disabled_holo_light.9.png
+- file renamed res/drawable-xhdpi/abc_menu_hardkey_panel_mtrl_mult.9.png
+- file renamed res/drawable-xhdpi/abc_popup_background_mtrl_mult.9.png
+- file renamed res/drawable-xhdpi/abc_scrubber_control_off_mtrl_alpha.png
+- file renamed res/drawable-xhdpi/abc_scrubber_control_to_pressed_mtrl_000.png
+- file renamed res/drawable-xhdpi/abc_scrubber_control_to_pressed_mtrl_005.png
+- file renamed res/drawable-xhdpi/abc_scrubber_primary_mtrl_alpha.9.png
+- file renamed res/drawable-xhdpi/abc_scrubber_track_mtrl_alpha.9.png
+- file renamed res/drawable-xhdpi/abc_spinner_mtrl_am_alpha.9.png
+- file renamed res/drawable-xhdpi/abc_switch_track_mtrl_alpha.9.png
+- file renamed res/drawable-xhdpi/abc_tab_indicator_mtrl_alpha.9.png
+- file renamed res/drawable-xhdpi/abc_text_select_handle_left_mtrl.png
+- file renamed res/drawable-xhdpi/abc_text_select_handle_middle_mtrl.png
+- file renamed res/drawable-xhdpi/abc_text_select_handle_right_mtrl.png
+- file renamed res/drawable-xhdpi/abc_textfield_activated_mtrl_alpha.9.png
+- file renamed res/drawable-xhdpi/abc_textfield_default_mtrl_alpha.9.png
+- file renamed res/drawable-xhdpi/abc_textfield_search_activated_mtrl_alpha.9.png
+- file renamed res/drawable-xhdpi/abc_textfield_search_default_mtrl_alpha.9.png
+- file renamed res/drawable-xhdpi/color_picker_row_bg.9.png
+- file renamed res/drawable-xhdpi/fenix_error_1.webp
+- file renamed res/drawable-xhdpi/fingerprint_dialog_error.png
+- file renamed res/drawable-xhdpi/ic_firefox.webp
+- file renamed res/drawable-xhdpi/ic_logo_wordmark_normal.webp
+- file renamed res/drawable-xhdpi/ic_logo_wordmark_private.webp
+- file renamed res/drawable-xhdpi/ic_unifiedpush.png
+- file renamed res/drawable-xhdpi/notification_bg_low_normal.9.png
+- file renamed res/drawable-xhdpi/notification_bg_low_pressed.9.png
+- file renamed res/drawable-xhdpi/notification_bg_normal.9.png
+- file renamed res/drawable-xhdpi/notification_bg_normal_pressed.9.png
+- file renamed res/drawable-xhdpi/notify_panel_notification_icon_bg.png
+- file renamed res/drawable-xxhdpi/abc_ab_share_pack_mtrl_alpha.9.png
+- file renamed res/drawable-xxhdpi/abc_btn_check_to_on_mtrl_000.png
+- file renamed res/drawable-xxhdpi/abc_btn_check_to_on_mtrl_015.png
+- file renamed res/drawable-xxhdpi/abc_btn_radio_to_on_mtrl_000.png
+- file renamed res/drawable-xxhdpi/abc_btn_radio_to_on_mtrl_015.png
+- file renamed res/drawable-xxhdpi/abc_btn_switch_to_on_mtrl_00001.9.png
+- file renamed res/drawable-xxhdpi/abc_btn_switch_to_on_mtrl_00012.9.png
+- file renamed res/drawable-xxhdpi/abc_cab_background_top_mtrl_alpha.9.png
+- file renamed res/drawable-xxhdpi/abc_ic_commit_search_api_mtrl_alpha.png
+- file renamed res/drawable-xxhdpi/abc_list_divider_mtrl_alpha.9.png
+- file renamed res/drawable-xxhdpi/abc_list_focused_holo.9.png
+- file renamed res/drawable-xxhdpi/abc_list_longpressed_holo.9.png
+- file renamed res/drawable-xxhdpi/abc_list_pressed_holo_dark.9.png
+- file renamed res/drawable-xxhdpi/abc_list_pressed_holo_light.9.png
+- file renamed res/drawable-xxhdpi/abc_list_selector_disabled_holo_dark.9.png
+- file renamed res/drawable-xxhdpi/abc_list_selector_disabled_holo_light.9.png
+- file renamed res/drawable-xxhdpi/abc_menu_hardkey_panel_mtrl_mult.9.png
+- file renamed res/drawable-xxhdpi/abc_popup_background_mtrl_mult.9.png
+- file renamed res/drawable-xxhdpi/abc_scrubber_control_off_mtrl_alpha.png
+- file renamed res/drawable-xxhdpi/abc_scrubber_control_to_pressed_mtrl_000.png
+- file renamed res/drawable-xxhdpi/abc_scrubber_control_to_pressed_mtrl_005.png
+- file renamed res/drawable-xxhdpi/abc_scrubber_primary_mtrl_alpha.9.png
+- file renamed res/drawable-xxhdpi/abc_scrubber_track_mtrl_alpha.9.png
+- file renamed res/drawable-xxhdpi/abc_spinner_mtrl_am_alpha.9.png
+- file renamed res/drawable-xxhdpi/abc_switch_track_mtrl_alpha.9.png
+- file renamed res/drawable-xxhdpi/abc_tab_indicator_mtrl_alpha.9.png
+- file renamed res/drawable-xxhdpi/abc_text_select_handle_left_mtrl.png
+- file renamed res/drawable-xxhdpi/abc_text_select_handle_middle_mtrl.png
+- file renamed res/drawable-xxhdpi/abc_text_select_handle_right_mtrl.png
+- file renamed res/drawable-xxhdpi/abc_textfield_activated_mtrl_alpha.9.png
+- file renamed res/drawable-xxhdpi/abc_textfield_default_mtrl_alpha.9.png
+- file renamed res/drawable-xxhdpi/abc_textfield_search_activated_mtrl_alpha.9.png
+- file renamed res/drawable-xxhdpi/abc_textfield_search_default_mtrl_alpha.9.png
+- file renamed res/drawable-xxhdpi/color_picker_row_bg.9.png
+- file renamed res/drawable-xxhdpi/fenix_error_1.webp
+- file renamed res/drawable-xxhdpi/fingerprint_dialog_error.png
+- file renamed res/drawable-xxhdpi/ic_firefox.webp
+- file renamed res/drawable-xxhdpi/ic_logo_wordmark_normal.webp
+- file renamed res/drawable-xxhdpi/ic_logo_wordmark_private.webp
+- file renamed res/drawable-xxhdpi/ic_unifiedpush.png
+- file renamed res/drawable-xxxhdpi/abc_btn_check_to_on_mtrl_000.png
+- file renamed res/drawable-xxxhdpi/abc_btn_check_to_on_mtrl_015.png
+- file renamed res/drawable-xxxhdpi/abc_btn_radio_to_on_mtrl_000.png
+- file renamed res/drawable-xxxhdpi/abc_btn_radio_to_on_mtrl_015.png
+- file renamed res/drawable-xxxhdpi/abc_btn_switch_to_on_mtrl_00001.9.png
+- file renamed res/drawable-xxxhdpi/abc_btn_switch_to_on_mtrl_00012.9.png
+- file renamed res/drawable-xxxhdpi/abc_scrubber_control_to_pressed_mtrl_000.png
+- file renamed res/drawable-xxxhdpi/abc_scrubber_control_to_pressed_mtrl_005.png
+- file renamed res/drawable-xxxhdpi/abc_spinner_mtrl_am_alpha.9.png
+- file renamed res/drawable-xxxhdpi/abc_switch_track_mtrl_alpha.9.png
+- file renamed res/drawable-xxxhdpi/abc_tab_indicator_mtrl_alpha.9.png
+- file renamed res/drawable-xxxhdpi/abc_text_select_handle_left_mtrl.png
+- file renamed res/drawable-xxxhdpi/abc_text_select_handle_right_mtrl.png
+- file renamed res/drawable-xxxhdpi/fenix_error_1.webp
+- file renamed res/drawable-xxxhdpi/fingerprint_dialog_error.png
+- file renamed res/drawable-xxxhdpi/ic_firefox.webp
+- file renamed res/drawable-xxxhdpi/ic_logo_wordmark_normal.webp
+- file renamed res/drawable-xxxhdpi/ic_logo_wordmark_private.webp
+- file renamed res/drawable-xxxhdpi/ic_unifiedpush.png
+- file renamed res/drawable/$avd_hide_password__0.xml
+- file renamed res/drawable/$avd_hide_password__1.xml
+- file renamed res/drawable/$avd_hide_password__2.xml
+- file renamed res/drawable/$avd_show_password__0.xml
+- file renamed res/drawable/$avd_show_password__1.xml
+- file renamed res/drawable/$avd_show_password__2.xml
+- file renamed res/drawable/$delete_me__0.xml
+- file renamed res/drawable/$delete_me__1.xml
+- file renamed res/drawable/$delete_me__2.xml
+- file renamed res/drawable/$delete_me__3.xml
+- file renamed res/drawable/$delete_me__4.xml
+- file renamed res/drawable/$delete_me__5.xml
+- file renamed res/drawable/$delete_me__6.xml
+- file renamed res/drawable/$delete_me__7.xml
+- file renamed res/drawable/$delete_me__8.xml
+- file renamed res/drawable/$expressive_firefox__0.xml
+- file renamed res/drawable/$expressive_firefox__1.xml
+- file renamed res/drawable/$expressive_firefox__2.xml
+- file renamed res/drawable/$expressive_firefox__3.xml
+- file renamed res/drawable/$expressive_firefox__4.xml
+- file renamed res/drawable/$expressive_firefox__5.xml
+- file renamed res/drawable/$expressive_firefox__6.xml
+- file renamed res/drawable/$firefox_icon__0.xml
+- file renamed res/drawable/$firefox_icon__1.xml
+- file renamed res/drawable/$firefox_icon__10.xml
+- file renamed res/drawable/$firefox_icon__11.xml
+- file renamed res/drawable/$firefox_icon__2.xml
+- file renamed res/drawable/$firefox_icon__3.xml
+- file renamed res/drawable/$firefox_icon__4.xml
+- file renamed res/drawable/$firefox_icon__5.xml
+- file renamed res/drawable/$firefox_icon__6.xml
+- file renamed res/drawable/$firefox_icon__7.xml
+- file renamed res/drawable/$firefox_icon__8.xml
+- file renamed res/drawable/$firefox_icon__9.xml
+- file renamed res/drawable/$firefox_pictorgram_shield_check_rgb_2__0.xml
+- file renamed res/drawable/$firefox_pictorgram_shield_check_rgb_2__1.xml
+- file renamed res/drawable/$firefox_pictorgram_shield_check_rgb_2__2.xml
+- file renamed res/drawable/$firefox_pictorgram_shield_check_rgb_2__3.xml
+- file renamed res/drawable/$firefox_pictorgram_shield_check_rgb_2__4.xml
+- file renamed res/drawable/$firefox_pictorgram_shield_check_rgb_2__5.xml
+- file renamed res/drawable/$firefox_pictorgram_shield_check_rgb_2__6.xml
+- file renamed res/drawable/$fox_ai_on_state__0.xml
+- file renamed res/drawable/$fox_ai_on_state__1.xml
+- file renamed res/drawable/$fox_ai_on_state__2.xml
+- file renamed res/drawable/$fox_ai_on_state__3.xml
+- file renamed res/drawable/$fox_ai_on_state__4.xml
+- file renamed res/drawable/$fox_ai_on_state__5.xml
+- file renamed res/drawable/$fox_ai_on_state__6.xml
+- file renamed res/drawable/$fox_ai_on_state__7.xml
+- file renamed res/drawable/$ic_cc_logo_discover__0.xml
+- file renamed res/drawable/$ic_cc_logo_discover__1.xml
+- file renamed res/drawable/$ic_cc_logo_jcb__0.xml
+- file renamed res/drawable/$ic_cc_logo_jcb__1.xml
+- file renamed res/drawable/$ic_cc_logo_jcb__2.xml
+- file renamed res/drawable/$ic_cc_logo_jcb__3.xml
+- file renamed res/drawable/$ic_cc_logo_jcb__4.xml
+- file renamed res/drawable/$ic_cc_logo_jcb__5.xml
+- file renamed res/drawable/$ic_cc_logo_mir__0.xml
+- file renamed res/drawable/$ic_cc_logo_visa__0.xml
+- file renamed res/drawable/$ic_etp_artwork__0.xml
+- file renamed res/drawable/$ic_etp_artwork__1.xml
+- file renamed res/drawable/$ic_etp_artwork__2.xml
+- file renamed res/drawable/$ic_etp_artwork__3.xml
+- file renamed res/drawable/$ic_firefox__0.xml
+- file renamed res/drawable/$ic_firefox__1.xml
+- file renamed res/drawable/$ic_firefox__10.xml
+- file renamed res/drawable/$ic_firefox__11.xml
+- file renamed res/drawable/$ic_firefox__2.xml
+- file renamed res/drawable/$ic_firefox__3.xml
+- file renamed res/drawable/$ic_firefox__4.xml
+- file renamed res/drawable/$ic_firefox__5.xml
+- file renamed res/drawable/$ic_firefox__6.xml
+- file renamed res/drawable/$ic_firefox__7.xml
+- file renamed res/drawable/$ic_firefox__8.xml
+- file renamed res/drawable/$ic_firefox__9.xml
+- file renamed res/drawable/$ic_flaming__0.xml
+- file renamed res/drawable/$ic_flaming__1.xml
+- file renamed res/drawable/$ic_flaming__10.xml
+- file renamed res/drawable/$ic_flaming__11.xml
+- file renamed res/drawable/$ic_flaming__12.xml
+- file renamed res/drawable/$ic_flaming__13.xml
+- file renamed res/drawable/$ic_flaming__14.xml
+- file renamed res/drawable/$ic_flaming__15.xml
+- file renamed res/drawable/$ic_flaming__16.xml
+- file renamed res/drawable/$ic_flaming__17.xml
+- file renamed res/drawable/$ic_flaming__18.xml
+- file renamed res/drawable/$ic_flaming__19.xml
+- file renamed res/drawable/$ic_flaming__2.xml
+- file renamed res/drawable/$ic_flaming__20.xml
+- file renamed res/drawable/$ic_flaming__21.xml
+- file renamed res/drawable/$ic_flaming__22.xml
+- file renamed res/drawable/$ic_flaming__23.xml
+- file renamed res/drawable/$ic_flaming__24.xml
+- file renamed res/drawable/$ic_flaming__25.xml
+- file renamed res/drawable/$ic_flaming__26.xml
+- file renamed res/drawable/$ic_flaming__27.xml
+- file renamed res/drawable/$ic_flaming__28.xml
+- file renamed res/drawable/$ic_flaming__29.xml
+- file renamed res/drawable/$ic_flaming__3.xml
+- file renamed res/drawable/$ic_flaming__30.xml
+- file renamed res/drawable/$ic_flaming__31.xml
+- file renamed res/drawable/$ic_flaming__32.xml
+- file renamed res/drawable/$ic_flaming__33.xml
+- file renamed res/drawable/$ic_flaming__34.xml
+- file renamed res/drawable/$ic_flaming__35.xml
+- file renamed res/drawable/$ic_flaming__4.xml
+- file renamed res/drawable/$ic_flaming__5.xml
+- file renamed res/drawable/$ic_flaming__6.xml
+- file renamed res/drawable/$ic_flaming__7.xml
+- file renamed res/drawable/$ic_flaming__8.xml
+- file renamed res/drawable/$ic_flaming__9.xml
+- file renamed res/drawable/$ic_fx_accounts_avatar__0.xml
+- file renamed res/drawable/$ic_fx_accounts_avatar__1.xml
+- file renamed res/drawable/$ic_fx_accounts_avatar__2.xml
+- file renamed res/drawable/$ic_fx_accounts_avatar__3.xml
+- file renamed res/drawable/$ic_high_five__0.xml
+- file renamed res/drawable/$ic_high_five__1.xml
+- file renamed res/drawable/$ic_high_five__2.xml
+- file renamed res/drawable/$ic_high_five__3.xml
+- file renamed res/drawable/$ic_high_five__4.xml
+- file renamed res/drawable/$ic_high_five__5.xml
+- file renamed res/drawable/$ic_kit_bookmarks_empty_state__0.xml
+- file renamed res/drawable/$ic_kit_bookmarks_empty_state__1.xml
+- file renamed res/drawable/$ic_kit_bookmarks_empty_state__2.xml
+- file renamed res/drawable/$ic_kit_bookmarks_empty_state__3.xml
+- file renamed res/drawable/$ic_kit_bookmarks_empty_state__4.xml
+- file renamed res/drawable/$ic_kit_bookmarks_empty_state__5.xml
+- file renamed res/drawable/$ic_kit_bookmarks_empty_state__6.xml
+- file renamed res/drawable/$ic_kit_bookmarks_empty_state__7.xml
+- file renamed res/drawable/$ic_kit_bookmarks_empty_state__8.xml
+- file renamed res/drawable/$ic_kit_heart__0.xml
+- file renamed res/drawable/$ic_kit_heart__1.xml
+- file renamed res/drawable/$ic_kit_heart__10.xml
+- file renamed res/drawable/$ic_kit_heart__11.xml
+- file renamed res/drawable/$ic_kit_heart__12.xml
+- file renamed res/drawable/$ic_kit_heart__13.xml
+- file renamed res/drawable/$ic_kit_heart__14.xml
+- file renamed res/drawable/$ic_kit_heart__15.xml
+- file renamed res/drawable/$ic_kit_heart__16.xml
+- file renamed res/drawable/$ic_kit_heart__17.xml
+- file renamed res/drawable/$ic_kit_heart__18.xml
+- file renamed res/drawable/$ic_kit_heart__19.xml
+- file renamed res/drawable/$ic_kit_heart__2.xml
+- file renamed res/drawable/$ic_kit_heart__20.xml
+- file renamed res/drawable/$ic_kit_heart__3.xml
+- file renamed res/drawable/$ic_kit_heart__4.xml
+- file renamed res/drawable/$ic_kit_heart__5.xml
+- file renamed res/drawable/$ic_kit_heart__6.xml
+- file renamed res/drawable/$ic_kit_heart__7.xml
+- file renamed res/drawable/$ic_kit_heart__8.xml
+- file renamed res/drawable/$ic_kit_heart__9.xml
+- file renamed res/drawable/$ic_kit_shield_off_state__0.xml
+- file renamed res/drawable/$ic_kit_shield_off_state__1.xml
+- file renamed res/drawable/$ic_kit_shield_off_state__10.xml
+- file renamed res/drawable/$ic_kit_shield_off_state__11.xml
+- file renamed res/drawable/$ic_kit_shield_off_state__12.xml
+- file renamed res/drawable/$ic_kit_shield_off_state__13.xml
+- file renamed res/drawable/$ic_kit_shield_off_state__14.xml
+- file renamed res/drawable/$ic_kit_shield_off_state__15.xml
+- file renamed res/drawable/$ic_kit_shield_off_state__16.xml
+- file renamed res/drawable/$ic_kit_shield_off_state__17.xml
+- file renamed res/drawable/$ic_kit_shield_off_state__18.xml
+- file renamed res/drawable/$ic_kit_shield_off_state__19.xml
+- file renamed res/drawable/$ic_kit_shield_off_state__2.xml
+- file renamed res/drawable/$ic_kit_shield_off_state__20.xml
+- file renamed res/drawable/$ic_kit_shield_off_state__21.xml
+- file renamed res/drawable/$ic_kit_shield_off_state__3.xml
+- file renamed res/drawable/$ic_kit_shield_off_state__4.xml
+- file renamed res/drawable/$ic_kit_shield_off_state__5.xml
+- file renamed res/drawable/$ic_kit_shield_off_state__6.xml
+- file renamed res/drawable/$ic_kit_shield_off_state__7.xml
+- file renamed res/drawable/$ic_kit_shield_off_state__8.xml
+- file renamed res/drawable/$ic_kit_shield_off_state__9.xml
+- file renamed res/drawable/$ic_kit_shield_on_state__0.xml
+- file renamed res/drawable/$ic_kit_shield_on_state__1.xml
+- file renamed res/drawable/$ic_kit_shield_on_state__10.xml
+- file renamed res/drawable/$ic_kit_shield_on_state__11.xml
+- file renamed res/drawable/$ic_kit_shield_on_state__12.xml
+- file renamed res/drawable/$ic_kit_shield_on_state__13.xml
+- file renamed res/drawable/$ic_kit_shield_on_state__14.xml
+- file renamed res/drawable/$ic_kit_shield_on_state__15.xml
+- file renamed res/drawable/$ic_kit_shield_on_state__16.xml
+- file renamed res/drawable/$ic_kit_shield_on_state__17.xml
+- file renamed res/drawable/$ic_kit_shield_on_state__18.xml
+- file renamed res/drawable/$ic_kit_shield_on_state__19.xml
+- file renamed res/drawable/$ic_kit_shield_on_state__2.xml
+- file renamed res/drawable/$ic_kit_shield_on_state__20.xml
+- file renamed res/drawable/$ic_kit_shield_on_state__21.xml
+- file renamed res/drawable/$ic_kit_shield_on_state__22.xml
+- file renamed res/drawable/$ic_kit_shield_on_state__23.xml
+- file renamed res/drawable/$ic_kit_shield_on_state__24.xml
+- file renamed res/drawable/$ic_kit_shield_on_state__3.xml
+- file renamed res/drawable/$ic_kit_shield_on_state__4.xml
+- file renamed res/drawable/$ic_kit_shield_on_state__5.xml
+- file renamed res/drawable/$ic_kit_shield_on_state__6.xml
+- file renamed res/drawable/$ic_kit_shield_on_state__7.xml
+- file renamed res/drawable/$ic_kit_shield_on_state__8.xml
+- file renamed res/drawable/$ic_kit_shield_on_state__9.xml
+- file renamed res/drawable/$ic_launcher_background_cool__0.xml
+- file renamed res/drawable/$ic_launcher_background_cuddling__0.xml
+- file renamed res/drawable/$ic_launcher_foreground__0.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__0.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__1.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__10.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__11.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__12.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__13.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__14.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__15.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__16.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__17.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__18.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__19.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__2.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__20.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__21.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__22.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__23.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__24.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__25.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__26.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__27.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__28.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__29.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__3.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__30.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__31.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__32.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__33.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__34.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__35.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__4.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__5.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__6.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__7.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__8.xml
+- file renamed res/drawable/$ic_launcher_foreground_flaming__9.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__0.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__1.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__10.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__11.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__12.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__13.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__14.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__15.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__16.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__17.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__18.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__19.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__2.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__20.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__21.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__22.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__23.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__24.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__25.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__26.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__27.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__28.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__29.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__3.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__30.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__31.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__32.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__33.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__34.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__35.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__36.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__37.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__38.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__39.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__4.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__40.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__41.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__42.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__43.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__44.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__45.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__46.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__47.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__48.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__49.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__5.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__50.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__51.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__52.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__53.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__54.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__55.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__56.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__57.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__6.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__7.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__8.xml
+- file renamed res/drawable/$ic_launcher_foreground_retro_2004__9.xml
+- file renamed res/drawable/$ic_launcher_gradient_blue_hour_background__0.xml
+- file renamed res/drawable/$ic_launcher_gradient_golden_hour_background__0.xml
+- file renamed res/drawable/$ic_launcher_gradient_midnight_background__0.xml
+- file renamed res/drawable/$ic_launcher_gradient_northern_lights_background__0.xml
+- file renamed res/drawable/$ic_launcher_gradient_sunrise_background__0.xml
+- file renamed res/drawable/$ic_launcher_gradient_sunset_background__0.xml
+- file renamed res/drawable/$ic_launcher_gradient_twilight_background__0.xml
+- file renamed res/drawable/$ic_launcher_private_background__0.xml
+- file renamed res/drawable/$ic_launcher_solid_blue_background__0.xml
+- file renamed res/drawable/$ic_launcher_solid_green_background__0.xml
+- file renamed res/drawable/$ic_launcher_solid_purple_background__0.xml
+- file renamed res/drawable/$ic_launcher_solid_purple_dark_background__0.xml
+- file renamed res/drawable/$ic_launcher_solid_red_background__0.xml
+- file renamed res/drawable/$ic_notification_permission__0.xml
+- file renamed res/drawable/$ic_notification_permission__1.xml
+- file renamed res/drawable/$ic_notification_permission__10.xml
+- file renamed res/drawable/$ic_notification_permission__11.xml
+- file renamed res/drawable/$ic_notification_permission__12.xml
+- file renamed res/drawable/$ic_notification_permission__13.xml
+- file renamed res/drawable/$ic_notification_permission__14.xml
+- file renamed res/drawable/$ic_notification_permission__15.xml
+- file renamed res/drawable/$ic_notification_permission__16.xml
+- file renamed res/drawable/$ic_notification_permission__17.xml
+- file renamed res/drawable/$ic_notification_permission__18.xml
+- file renamed res/drawable/$ic_notification_permission__19.xml
+- file renamed res/drawable/$ic_notification_permission__2.xml
+- file renamed res/drawable/$ic_notification_permission__20.xml
+- file renamed res/drawable/$ic_notification_permission__21.xml
+- file renamed res/drawable/$ic_notification_permission__22.xml
+- file renamed res/drawable/$ic_notification_permission__23.xml
+- file renamed res/drawable/$ic_notification_permission__3.xml
+- file renamed res/drawable/$ic_notification_permission__4.xml
+- file renamed res/drawable/$ic_notification_permission__5.xml
+- file renamed res/drawable/$ic_notification_permission__6.xml
+- file renamed res/drawable/$ic_notification_permission__7.xml
+- file renamed res/drawable/$ic_notification_permission__8.xml
+- file renamed res/drawable/$ic_notification_permission__9.xml
+- file renamed res/drawable/$ic_onboarding_customize_toolbar__0.xml
+- file renamed res/drawable/$ic_onboarding_customize_toolbar__1.xml
+- file renamed res/drawable/$ic_onboarding_customize_toolbar__2.xml
+- file renamed res/drawable/$ic_onboarding_customize_toolbar__3.xml
+- file renamed res/drawable/$ic_onboarding_key_features__0.xml
+- file renamed res/drawable/$ic_onboarding_key_features__1.xml
+- file renamed res/drawable/$ic_onboarding_key_features__10.xml
+- file renamed res/drawable/$ic_onboarding_key_features__11.xml
+- file renamed res/drawable/$ic_onboarding_key_features__12.xml
+- file renamed res/drawable/$ic_onboarding_key_features__13.xml
+- file renamed res/drawable/$ic_onboarding_key_features__14.xml
+- file renamed res/drawable/$ic_onboarding_key_features__2.xml
+- file renamed res/drawable/$ic_onboarding_key_features__3.xml
+- file renamed res/drawable/$ic_onboarding_key_features__4.xml
+- file renamed res/drawable/$ic_onboarding_key_features__5.xml
+- file renamed res/drawable/$ic_onboarding_key_features__6.xml
+- file renamed res/drawable/$ic_onboarding_key_features__7.xml
+- file renamed res/drawable/$ic_onboarding_key_features__8.xml
+- file renamed res/drawable/$ic_onboarding_key_features__9.xml
+- file renamed res/drawable/$ic_onboarding_key_features_icons_only__0.xml
+- file renamed res/drawable/$ic_onboarding_key_features_icons_only__1.xml
+- file renamed res/drawable/$ic_onboarding_key_features_icons_only__10.xml
+- file renamed res/drawable/$ic_onboarding_key_features_icons_only__11.xml
+- file renamed res/drawable/$ic_onboarding_key_features_icons_only__12.xml
+- file renamed res/drawable/$ic_onboarding_key_features_icons_only__13.xml
+- file renamed res/drawable/$ic_onboarding_key_features_icons_only__14.xml
+- file renamed res/drawable/$ic_onboarding_key_features_icons_only__2.xml
+- file renamed res/drawable/$ic_onboarding_key_features_icons_only__3.xml
+- file renamed res/drawable/$ic_onboarding_key_features_icons_only__4.xml
+- file renamed res/drawable/$ic_onboarding_key_features_icons_only__5.xml
+- file renamed res/drawable/$ic_onboarding_key_features_icons_only__6.xml
+- file renamed res/drawable/$ic_onboarding_key_features_icons_only__7.xml
+- file renamed res/drawable/$ic_onboarding_key_features_icons_only__8.xml
+- file renamed res/drawable/$ic_onboarding_key_features_icons_only__9.xml
+- file renamed res/drawable/$ic_onboarding_search_widget__0.xml
+- file renamed res/drawable/$ic_onboarding_search_widget__1.xml
+- file renamed res/drawable/$ic_onboarding_search_widget__10.xml
+- file renamed res/drawable/$ic_onboarding_search_widget__11.xml
+- file renamed res/drawable/$ic_onboarding_search_widget__2.xml
+- file renamed res/drawable/$ic_onboarding_search_widget__3.xml
+- file renamed res/drawable/$ic_onboarding_search_widget__4.xml
+- file renamed res/drawable/$ic_onboarding_search_widget__5.xml
+- file renamed res/drawable/$ic_onboarding_search_widget__6.xml
+- file renamed res/drawable/$ic_onboarding_search_widget__7.xml
+- file renamed res/drawable/$ic_onboarding_search_widget__8.xml
+- file renamed res/drawable/$ic_onboarding_search_widget__9.xml
+- file renamed res/drawable/$ic_onboarding_sync__0.xml
+- file renamed res/drawable/$ic_onboarding_welcome__0.xml
+- file renamed res/drawable/$ic_onboarding_welcome__1.xml
+- file renamed res/drawable/$ic_onboarding_welcome__10.xml
+- file renamed res/drawable/$ic_onboarding_welcome__2.xml
+- file renamed res/drawable/$ic_onboarding_welcome__3.xml
+- file renamed res/drawable/$ic_onboarding_welcome__4.xml
+- file renamed res/drawable/$ic_onboarding_welcome__5.xml
+- file renamed res/drawable/$ic_onboarding_welcome__6.xml
+- file renamed res/drawable/$ic_onboarding_welcome__7.xml
+- file renamed res/drawable/$ic_onboarding_welcome__8.xml
+- file renamed res/drawable/$ic_onboarding_welcome__9.xml
+- file renamed res/drawable/$ic_retro_2004__0.xml
+- file renamed res/drawable/$ic_retro_2004__1.xml
+- file renamed res/drawable/$ic_retro_2004__10.xml
+- file renamed res/drawable/$ic_retro_2004__11.xml
+- file renamed res/drawable/$ic_retro_2004__12.xml
+- file renamed res/drawable/$ic_retro_2004__13.xml
+- file renamed res/drawable/$ic_retro_2004__14.xml
+- file renamed res/drawable/$ic_retro_2004__15.xml
+- file renamed res/drawable/$ic_retro_2004__16.xml
+- file renamed res/drawable/$ic_retro_2004__17.xml
+- file renamed res/drawable/$ic_retro_2004__18.xml
+- file renamed res/drawable/$ic_retro_2004__19.xml
+- file renamed res/drawable/$ic_retro_2004__2.xml
+- file renamed res/drawable/$ic_retro_2004__20.xml
+- file renamed res/drawable/$ic_retro_2004__21.xml
+- file renamed res/drawable/$ic_retro_2004__22.xml
+- file renamed res/drawable/$ic_retro_2004__23.xml
+- file renamed res/drawable/$ic_retro_2004__24.xml
+- file renamed res/drawable/$ic_retro_2004__25.xml
+- file renamed res/drawable/$ic_retro_2004__26.xml
+- file renamed res/drawable/$ic_retro_2004__27.xml
+- file renamed res/drawable/$ic_retro_2004__28.xml
+- file renamed res/drawable/$ic_retro_2004__29.xml
+- file renamed res/drawable/$ic_retro_2004__3.xml
+- file renamed res/drawable/$ic_retro_2004__30.xml
+- file renamed res/drawable/$ic_retro_2004__31.xml
+- file renamed res/drawable/$ic_retro_2004__32.xml
+- file renamed res/drawable/$ic_retro_2004__33.xml
+- file renamed res/drawable/$ic_retro_2004__34.xml
+- file renamed res/drawable/$ic_retro_2004__35.xml
+- file renamed res/drawable/$ic_retro_2004__36.xml
+- file renamed res/drawable/$ic_retro_2004__37.xml
+- file renamed res/drawable/$ic_retro_2004__38.xml
+- file renamed res/drawable/$ic_retro_2004__39.xml
+- file renamed res/drawable/$ic_retro_2004__4.xml
+- file renamed res/drawable/$ic_retro_2004__40.xml
+- file renamed res/drawable/$ic_retro_2004__41.xml
+- file renamed res/drawable/$ic_retro_2004__42.xml
+- file renamed res/drawable/$ic_retro_2004__43.xml
+- file renamed res/drawable/$ic_retro_2004__44.xml
+- file renamed res/drawable/$ic_retro_2004__45.xml
+- file renamed res/drawable/$ic_retro_2004__46.xml
+- file renamed res/drawable/$ic_retro_2004__47.xml
+- file renamed res/drawable/$ic_retro_2004__48.xml
+- file renamed res/drawable/$ic_retro_2004__49.xml
+- file renamed res/drawable/$ic_retro_2004__5.xml
+- file renamed res/drawable/$ic_retro_2004__50.xml
+- file renamed res/drawable/$ic_retro_2004__51.xml
+- file renamed res/drawable/$ic_retro_2004__52.xml
+- file renamed res/drawable/$ic_retro_2004__53.xml
+- file renamed res/drawable/$ic_retro_2004__54.xml
+- file renamed res/drawable/$ic_retro_2004__55.xml
+- file renamed res/drawable/$ic_retro_2004__56.xml
+- file renamed res/drawable/$ic_retro_2004__57.xml
+- file renamed res/drawable/$ic_retro_2004__6.xml
+- file renamed res/drawable/$ic_retro_2004__7.xml
+- file renamed res/drawable/$ic_retro_2004__8.xml
+- file renamed res/drawable/$ic_retro_2004__9.xml
+- file renamed res/drawable/$kit_expressive_full__0.xml
+- file renamed res/drawable/$kit_expressive_full__1.xml
+- file renamed res/drawable/$kit_expressive_full__2.xml
+- file renamed res/drawable/$kit_expressive_full__3.xml
+- file renamed res/drawable/$kit_expressive_full__4.xml
+- file renamed res/drawable/$kit_expressive_full__5.xml
+- file renamed res/drawable/$kit_expressive_full__6.xml
+- file renamed res/drawable/$kit_expressive_full__7.xml
+- file renamed res/drawable/$kit_expressive_full__8.xml
+- file renamed res/drawable/$kit_expressive_full__9.xml
+- file renamed res/drawable/$kit_head__0.xml
+- file renamed res/drawable/$kit_head__1.xml
+- file renamed res/drawable/$kit_head__10.xml
+- file renamed res/drawable/$kit_head__2.xml
+- file renamed res/drawable/$kit_head__3.xml
+- file renamed res/drawable/$kit_head__4.xml
+- file renamed res/drawable/$kit_head__5.xml
+- file renamed res/drawable/$kit_head__6.xml
+- file renamed res/drawable/$kit_head__7.xml
+- file renamed res/drawable/$kit_head__8.xml
+- file renamed res/drawable/$kit_head__9.xml
+- file renamed res/drawable/$kit_head_protection_blocker_banner__0.xml
+- file renamed res/drawable/$kit_head_protection_blocker_banner__1.xml
+- file renamed res/drawable/$kit_head_protection_blocker_banner__2.xml
+- file renamed res/drawable/$kit_head_protection_blocker_banner__3.xml
+- file renamed res/drawable/$kit_head_protection_blocker_banner__4.xml
+- file renamed res/drawable/$kit_head_protection_blocker_banner__5.xml
+- file renamed res/drawable/$kit_head_protection_blocker_banner__6.xml
+- file renamed res/drawable/$kit_head_protection_blocker_banner__7.xml
+- file renamed res/drawable/$kit_head_protection_blocker_banner__8.xml
+- file renamed res/drawable/$kit_search_error__0.xml
+- file renamed res/drawable/$kit_search_error__1.xml
+- file renamed res/drawable/$kit_search_error__10.xml
+- file renamed res/drawable/$kit_search_error__11.xml
+- file renamed res/drawable/$kit_search_error__12.xml
+- file renamed res/drawable/$kit_search_error__13.xml
+- file renamed res/drawable/$kit_search_error__2.xml
+- file renamed res/drawable/$kit_search_error__3.xml
+- file renamed res/drawable/$kit_search_error__4.xml
+- file renamed res/drawable/$kit_search_error__5.xml
+- file renamed res/drawable/$kit_search_error__6.xml
+- file renamed res/drawable/$kit_search_error__7.xml
+- file renamed res/drawable/$kit_search_error__8.xml
+- file renamed res/drawable/$kit_search_error__9.xml
+- file renamed res/drawable/$kit_tail__0.xml
+- file renamed res/drawable/$kit_tail__1.xml
+- file renamed res/drawable/$kit_tail__10.xml
+- file renamed res/drawable/$kit_tail__2.xml
+- file renamed res/drawable/$kit_tail__3.xml
+- file renamed res/drawable/$kit_tail__4.xml
+- file renamed res/drawable/$kit_tail__5.xml
+- file renamed res/drawable/$kit_tail__6.xml
+- file renamed res/drawable/$kit_tail__7.xml
+- file renamed res/drawable/$kit_tail__8.xml
+- file renamed res/drawable/$kit_tail__9.xml
+- file renamed res/drawable/$m3_avd_hide_password__0.xml
+- file renamed res/drawable/$m3_avd_hide_password__1.xml
+- file renamed res/drawable/$m3_avd_hide_password__2.xml
+- file renamed res/drawable/$m3_avd_show_password__0.xml
+- file renamed res/drawable/$m3_avd_show_password__1.xml
+- file renamed res/drawable/$m3_avd_show_password__2.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups__0.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups__1.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups__10.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups__11.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups__12.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups__13.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups__14.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups__15.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups__16.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups__17.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups__2.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups__3.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups__4.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups__5.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups__6.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups__7.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups__8.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups__9.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups_list_view__0.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups_list_view__1.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups_list_view__10.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups_list_view__11.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups_list_view__12.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups_list_view__13.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups_list_view__14.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups_list_view__15.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups_list_view__16.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups_list_view__17.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups_list_view__2.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups_list_view__3.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups_list_view__4.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups_list_view__5.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups_list_view__6.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups_list_view__7.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups_list_view__8.xml
+- file renamed res/drawable/$mozac_ic_kit_tab_groups_list_view__9.xml
+- file renamed res/drawable/$mtrl_checkbox_button_checked_unchecked__0.xml
+- file renamed res/drawable/$mtrl_checkbox_button_checked_unchecked__1.xml
+- file renamed res/drawable/$mtrl_checkbox_button_checked_unchecked__2.xml
+- file renamed res/drawable/$mtrl_checkbox_button_icon_checked_indeterminate__0.xml
+- file renamed res/drawable/$mtrl_checkbox_button_icon_checked_unchecked__0.xml
+- file renamed res/drawable/$mtrl_checkbox_button_icon_checked_unchecked__1.xml
+- file renamed res/drawable/$mtrl_checkbox_button_icon_checked_unchecked__2.xml
+- file renamed res/drawable/$mtrl_checkbox_button_icon_indeterminate_checked__0.xml
+- file renamed res/drawable/$mtrl_checkbox_button_icon_indeterminate_unchecked__0.xml
+- file renamed res/drawable/$mtrl_checkbox_button_icon_indeterminate_unchecked__1.xml
+- file renamed res/drawable/$mtrl_checkbox_button_icon_indeterminate_unchecked__2.xml
+- file renamed res/drawable/$mtrl_checkbox_button_icon_unchecked_checked__0.xml
+- file renamed res/drawable/$mtrl_checkbox_button_icon_unchecked_checked__1.xml
+- file renamed res/drawable/$mtrl_checkbox_button_icon_unchecked_checked__2.xml
+- file renamed res/drawable/$mtrl_checkbox_button_icon_unchecked_indeterminate__0.xml
+- file renamed res/drawable/$mtrl_checkbox_button_icon_unchecked_indeterminate__1.xml
+- file renamed res/drawable/$mtrl_checkbox_button_icon_unchecked_indeterminate__2.xml
+- file renamed res/drawable/$mtrl_checkbox_button_unchecked_checked__0.xml
+- file renamed res/drawable/$mtrl_checkbox_button_unchecked_checked__1.xml
+- file renamed res/drawable/$mtrl_checkbox_button_unchecked_checked__2.xml
+- file renamed res/drawable/$mtrl_switch_thumb_checked_pressed__0.xml
+- file renamed res/drawable/$mtrl_switch_thumb_checked_unchecked__0.xml
+- file renamed res/drawable/$mtrl_switch_thumb_checked_unchecked__1.xml
+- file renamed res/drawable/$mtrl_switch_thumb_pressed_checked__0.xml
+- file renamed res/drawable/$mtrl_switch_thumb_pressed_unchecked__0.xml
+- file renamed res/drawable/$mtrl_switch_thumb_unchecked_checked__0.xml
+- file renamed res/drawable/$mtrl_switch_thumb_unchecked_checked__1.xml
+- file renamed res/drawable/$mtrl_switch_thumb_unchecked_pressed__0.xml
+- file renamed res/drawable/$nova_onboarding_background__0.xml
+- file renamed res/drawable/$nova_onboarding_background__1.xml
+- file renamed res/drawable/$nova_onboarding_background__2.xml
+- file renamed res/drawable/$nova_onboarding_background__3.xml
+- file renamed res/drawable/$nova_onboarding_background__4.xml
+- file renamed res/drawable/$nova_onboarding_marketing__0.xml
+- file renamed res/drawable/$nova_onboarding_marketing__1.xml
+- file renamed res/drawable/$nova_onboarding_marketing__10.xml
+- file renamed res/drawable/$nova_onboarding_marketing__11.xml
+- file renamed res/drawable/$nova_onboarding_marketing__12.xml
+- file renamed res/drawable/$nova_onboarding_marketing__13.xml
+- file renamed res/drawable/$nova_onboarding_marketing__14.xml
+- file renamed res/drawable/$nova_onboarding_marketing__15.xml
+- file renamed res/drawable/$nova_onboarding_marketing__16.xml
+- file renamed res/drawable/$nova_onboarding_marketing__17.xml
+- file renamed res/drawable/$nova_onboarding_marketing__18.xml
+- file renamed res/drawable/$nova_onboarding_marketing__19.xml
+- file renamed res/drawable/$nova_onboarding_marketing__2.xml
+- file renamed res/drawable/$nova_onboarding_marketing__20.xml
+- file renamed res/drawable/$nova_onboarding_marketing__21.xml
+- file renamed res/drawable/$nova_onboarding_marketing__22.xml
+- file renamed res/drawable/$nova_onboarding_marketing__23.xml
+- file renamed res/drawable/$nova_onboarding_marketing__24.xml
+- file renamed res/drawable/$nova_onboarding_marketing__25.xml
+- file renamed res/drawable/$nova_onboarding_marketing__26.xml
+- file renamed res/drawable/$nova_onboarding_marketing__3.xml
+- file renamed res/drawable/$nova_onboarding_marketing__4.xml
+- file renamed res/drawable/$nova_onboarding_marketing__5.xml
+- file renamed res/drawable/$nova_onboarding_marketing__6.xml
+- file renamed res/drawable/$nova_onboarding_marketing__7.xml
+- file renamed res/drawable/$nova_onboarding_marketing__8.xml
+- file renamed res/drawable/$nova_onboarding_marketing__9.xml
+- file renamed res/drawable/$nova_onboarding_notifications__0.xml
+- file renamed res/drawable/$nova_onboarding_notifications__1.xml
+- file renamed res/drawable/$nova_onboarding_notifications__10.xml
+- file renamed res/drawable/$nova_onboarding_notifications__2.xml
+- file renamed res/drawable/$nova_onboarding_notifications__3.xml
+- file renamed res/drawable/$nova_onboarding_notifications__4.xml
+- file renamed res/drawable/$nova_onboarding_notifications__5.xml
+- file renamed res/drawable/$nova_onboarding_notifications__6.xml
+- file renamed res/drawable/$nova_onboarding_notifications__7.xml
+- file renamed res/drawable/$nova_onboarding_notifications__8.xml
+- file renamed res/drawable/$nova_onboarding_notifications__9.xml
+- file renamed res/drawable/$nova_onboarding_sync__0.xml
+- file renamed res/drawable/$nova_onboarding_sync__1.xml
+- file renamed res/drawable/$nova_onboarding_sync__10.xml
+- file renamed res/drawable/$nova_onboarding_sync__11.xml
+- file renamed res/drawable/$nova_onboarding_sync__12.xml
+- file renamed res/drawable/$nova_onboarding_sync__13.xml
+- file renamed res/drawable/$nova_onboarding_sync__14.xml
+- file renamed res/drawable/$nova_onboarding_sync__15.xml
+- file renamed res/drawable/$nova_onboarding_sync__16.xml
+- file renamed res/drawable/$nova_onboarding_sync__17.xml
+- file renamed res/drawable/$nova_onboarding_sync__18.xml
+- file renamed res/drawable/$nova_onboarding_sync__19.xml
+- file renamed res/drawable/$nova_onboarding_sync__2.xml
+- file renamed res/drawable/$nova_onboarding_sync__20.xml
+- file renamed res/drawable/$nova_onboarding_sync__21.xml
+- file renamed res/drawable/$nova_onboarding_sync__22.xml
+- file renamed res/drawable/$nova_onboarding_sync__23.xml
+- file renamed res/drawable/$nova_onboarding_sync__24.xml
+- file renamed res/drawable/$nova_onboarding_sync__25.xml
+- file renamed res/drawable/$nova_onboarding_sync__26.xml
+- file renamed res/drawable/$nova_onboarding_sync__27.xml
+- file renamed res/drawable/$nova_onboarding_sync__28.xml
+- file renamed res/drawable/$nova_onboarding_sync__29.xml
+- file renamed res/drawable/$nova_onboarding_sync__3.xml
+- file renamed res/drawable/$nova_onboarding_sync__4.xml
+- file renamed res/drawable/$nova_onboarding_sync__5.xml
+- file renamed res/drawable/$nova_onboarding_sync__6.xml
+- file renamed res/drawable/$nova_onboarding_sync__7.xml
+- file renamed res/drawable/$nova_onboarding_sync__8.xml
+- file renamed res/drawable/$nova_onboarding_sync__9.xml
+- file renamed res/drawable/$nova_onboarding_sync_qr__0.xml
+- file renamed res/drawable/$nova_onboarding_sync_qr__1.xml
+- file renamed res/drawable/$nova_onboarding_sync_qr__10.xml
+- file renamed res/drawable/$nova_onboarding_sync_qr__11.xml
+- file renamed res/drawable/$nova_onboarding_sync_qr__12.xml
+- file renamed res/drawable/$nova_onboarding_sync_qr__13.xml
+- file renamed res/drawable/$nova_onboarding_sync_qr__14.xml
+- file renamed res/drawable/$nova_onboarding_sync_qr__15.xml
+- file renamed res/drawable/$nova_onboarding_sync_qr__2.xml
+- file renamed res/drawable/$nova_onboarding_sync_qr__3.xml
+- file renamed res/drawable/$nova_onboarding_sync_qr__4.xml
+- file renamed res/drawable/$nova_onboarding_sync_qr__5.xml
+- file renamed res/drawable/$nova_onboarding_sync_qr__6.xml
+- file renamed res/drawable/$nova_onboarding_sync_qr__7.xml
+- file renamed res/drawable/$nova_onboarding_sync_qr__8.xml
+- file renamed res/drawable/$nova_onboarding_sync_qr__9.xml
+- file renamed res/drawable/$nova_onboarding_toolbar_bottom_active__0.xml
+- file renamed res/drawable/$nova_onboarding_toolbar_bottom_active__1.xml
+- file renamed res/drawable/$nova_onboarding_toolbar_bottom_active__2.xml
+- file renamed res/drawable/$nova_onboarding_toolbar_bottom_active__3.xml
+- file renamed res/drawable/$nova_onboarding_toolbar_bottom_active__4.xml
+- file renamed res/drawable/$nova_onboarding_toolbar_bottom_active__5.xml
+- file renamed res/drawable/$nova_onboarding_toolbar_bottom_active__6.xml
+- file renamed res/drawable/$nova_onboarding_toolbar_bottom_active__7.xml
+- file renamed res/drawable/$nova_onboarding_toolbar_bottom_active__8.xml
+- file renamed res/drawable/$nova_onboarding_toolbar_bottom_active__9.xml
+- file renamed res/drawable/$nova_onboarding_toolbar_bottom_inactive__0.xml
+- file renamed res/drawable/$nova_onboarding_toolbar_top_active__0.xml
+- file renamed res/drawable/$nova_onboarding_toolbar_top_active__1.xml
+- file renamed res/drawable/$nova_onboarding_toolbar_top_active__2.xml
+- file renamed res/drawable/$nova_onboarding_toolbar_top_active__3.xml
+- file renamed res/drawable/$nova_onboarding_toolbar_top_active__4.xml
+- file renamed res/drawable/$nova_onboarding_toolbar_top_active__5.xml
+- file renamed res/drawable/$nova_onboarding_toolbar_top_active__6.xml
+- file renamed res/drawable/$nova_onboarding_toolbar_top_active__7.xml
+- file renamed res/drawable/$nova_onboarding_toolbar_top_active__8.xml
+- file renamed res/drawable/$nova_onboarding_toolbar_top_active__9.xml
+- file renamed res/drawable/$nova_onboarding_toolbar_top_inactive__0.xml
+- file renamed res/drawable/$nova_onboarding_tou_2__0.xml
+- file renamed res/drawable/$nova_onboarding_tou_2__1.xml
+- file renamed res/drawable/$nova_onboarding_tou_2__10.xml
+- file renamed res/drawable/$nova_onboarding_tou_2__11.xml
+- file renamed res/drawable/$nova_onboarding_tou_2__12.xml
+- file renamed res/drawable/$nova_onboarding_tou_2__13.xml
+- file renamed res/drawable/$nova_onboarding_tou_2__14.xml
+- file renamed res/drawable/$nova_onboarding_tou_2__15.xml
+- file renamed res/drawable/$nova_onboarding_tou_2__16.xml
+- file renamed res/drawable/$nova_onboarding_tou_2__2.xml
+- file renamed res/drawable/$nova_onboarding_tou_2__3.xml
+- file renamed res/drawable/$nova_onboarding_tou_2__4.xml
+- file renamed res/drawable/$nova_onboarding_tou_2__5.xml
+- file renamed res/drawable/$nova_onboarding_tou_2__6.xml
+- file renamed res/drawable/$nova_onboarding_tou_2__7.xml
+- file renamed res/drawable/$nova_onboarding_tou_2__8.xml
+- file renamed res/drawable/$nova_onboarding_tou_2__9.xml
+- file renamed res/drawable/$nova_onboarding_tou__0.xml
+- file renamed res/drawable/$nova_onboarding_tou__1.xml
+- file renamed res/drawable/$nova_onboarding_tou__10.xml
+- file renamed res/drawable/$nova_onboarding_tou__11.xml
+- file renamed res/drawable/$nova_onboarding_tou__12.xml
+- file renamed res/drawable/$nova_onboarding_tou__13.xml
+- file renamed res/drawable/$nova_onboarding_tou__14.xml
+- file renamed res/drawable/$nova_onboarding_tou__15.xml
+- file renamed res/drawable/$nova_onboarding_tou__2.xml
+- file renamed res/drawable/$nova_onboarding_tou__3.xml
+- file renamed res/drawable/$nova_onboarding_tou__4.xml
+- file renamed res/drawable/$nova_onboarding_tou__5.xml
+- file renamed res/drawable/$nova_onboarding_tou__6.xml
+- file renamed res/drawable/$nova_onboarding_tou__7.xml
+- file renamed res/drawable/$nova_onboarding_tou__8.xml
+- file renamed res/drawable/$nova_onboarding_tou__9.xml
+- file renamed res/drawable/$nova_onboarding_widget__0.xml
+- file renamed res/drawable/$nova_onboarding_widget__1.xml
+- file renamed res/drawable/$nova_onboarding_widget__10.xml
+- file renamed res/drawable/$nova_onboarding_widget__2.xml
+- file renamed res/drawable/$nova_onboarding_widget__3.xml
+- file renamed res/drawable/$nova_onboarding_widget__4.xml
+- file renamed res/drawable/$nova_onboarding_widget__5.xml
+- file renamed res/drawable/$nova_onboarding_widget__6.xml
+- file renamed res/drawable/$nova_onboarding_widget__7.xml
+- file renamed res/drawable/$nova_onboarding_widget__8.xml
+- file renamed res/drawable/$nova_onboarding_widget__9.xml
+- file renamed res/drawable/$send_link_to_device_no_devices_available__0.xml
+- file renamed res/drawable/$send_link_to_device_no_devices_available__1.xml
+- file renamed res/drawable/$send_link_to_device_no_devices_available__2.xml
+- file renamed res/drawable/$send_link_to_device_no_devices_available__3.xml
+- file renamed res/drawable/abc_action_bar_item_background_material.xml
+- file renamed res/drawable/abc_btn_borderless_material.xml
+- file renamed res/drawable/abc_btn_check_material.xml
+- file renamed res/drawable/abc_btn_check_material_anim.xml
+- file renamed res/drawable/abc_btn_colored_material.xml
+- file renamed res/drawable/abc_btn_default_mtrl_shape.xml
+- file renamed res/drawable/abc_btn_radio_material.xml
+- file renamed res/drawable/abc_btn_radio_material_anim.xml
+- file renamed res/drawable/abc_cab_background_internal_bg.xml
+- file renamed res/drawable/abc_cab_background_top_material.xml
+- file renamed res/drawable/abc_control_background_material.xml
+- file renamed res/drawable/abc_dialog_material_background.xml
+- file renamed res/drawable/abc_edit_text_material.xml
+- file renamed res/drawable/abc_ic_ab_back_material.xml
+- file renamed res/drawable/abc_ic_arrow_drop_right_black_24dp.xml
+- file renamed res/drawable/abc_ic_clear_material.xml
+- file renamed res/drawable/abc_ic_go_search_api_material.xml
+- file renamed res/drawable/abc_ic_menu_copy_mtrl_am_alpha.xml
+- file renamed res/drawable/abc_ic_menu_cut_mtrl_alpha.xml
+- file renamed res/drawable/abc_ic_menu_overflow_material.xml
+- file renamed res/drawable/abc_ic_menu_paste_mtrl_am_alpha.xml
+- file renamed res/drawable/abc_ic_menu_selectall_mtrl_alpha.xml
+- file renamed res/drawable/abc_ic_menu_share_mtrl_alpha.xml
+- file renamed res/drawable/abc_ic_search_api_material.xml
+- file renamed res/drawable/abc_ic_voice_search_api_material.xml
+- file renamed res/drawable/abc_item_background_holo_dark.xml
+- file renamed res/drawable/abc_item_background_holo_light.xml
+- file renamed res/drawable/abc_list_divider_material.xml
+- file renamed res/drawable/abc_list_selector_background_transition_holo_dark.xml
+- file renamed res/drawable/abc_list_selector_background_transition_holo_light.xml
+- file renamed res/drawable/abc_list_selector_holo_dark.xml
+- file renamed res/drawable/abc_list_selector_holo_light.xml
+- file renamed res/drawable/abc_ratingbar_indicator_material.xml
+- file renamed res/drawable/abc_ratingbar_material.xml
+- file renamed res/drawable/abc_ratingbar_small_material.xml
+- file renamed res/drawable/abc_seekbar_thumb_material.xml
+- file renamed res/drawable/abc_seekbar_tick_mark_material.xml
+- file renamed res/drawable/abc_seekbar_track_material.xml
+- file renamed res/drawable/abc_spinner_textfield_background_material.xml
+- file renamed res/drawable/abc_star_black_48dp.xml
+- file renamed res/drawable/abc_star_half_black_48dp.xml
+- file renamed res/drawable/abc_switch_thumb_material.xml
+- file renamed res/drawable/abc_tab_indicator_material.xml
+- file renamed res/drawable/abc_text_cursor_material.xml
+- file renamed res/drawable/abc_textfield_search_material.xml
+- file renamed res/drawable/abc_vector_test.xml
+- file renamed res/drawable/add_tabs_to_collection_background.xml
+- file renamed res/drawable/avd_hide_password.xml
+- file renamed res/drawable/avd_show_password.xml
+- file renamed res/drawable/bookmarks_folder_illustration.xml
+- file renamed res/drawable/bottom_sheet_dialog_fragment_background.xml
+- file renamed res/drawable/bottom_sheet_handle_background.xml
+- file renamed res/drawable/bottom_sheet_with_top_rounded_corners.xml
+- file renamed res/drawable/btn_checkbox_checked_mtrl.xml
+- file renamed res/drawable/btn_checkbox_checked_to_unchecked_mtrl_animation.xml
+- file renamed res/drawable/btn_checkbox_unchecked_mtrl.xml
+- file renamed res/drawable/btn_checkbox_unchecked_to_checked_mtrl_animation.xml
+- file renamed res/drawable/btn_radio_off_mtrl.xml
+- file renamed res/drawable/btn_radio_off_to_on_mtrl_animation.xml
+- file renamed res/drawable/btn_radio_on_mtrl.xml
+- file renamed res/drawable/btn_radio_on_to_off_mtrl_animation.xml
+- file renamed res/drawable/color_picker_checkmark.xml
+- file renamed res/drawable/compat_splash_screen_no_icon_background.xml
+- file renamed res/drawable/cookie.xml
+- file renamed res/drawable/delete_me.xml
+- file renamed res/drawable/design_fab_background.xml
+- file renamed res/drawable/design_ic_visibility.xml
+- file renamed res/drawable/design_ic_visibility_off.xml
+- file renamed res/drawable/design_password_eye.xml
+- file renamed res/drawable/design_snackbar_background.xml
+- file renamed res/drawable/device_background.xml
+- file renamed res/drawable/dialog_background.xml
+- file renamed res/drawable/etp_spinner_item_background.xml
+- file renamed res/drawable/expressive_firefox.xml
+- file renamed res/drawable/favicon_background.xml
+- file renamed res/drawable/firefox_icon.xml
+- file renamed res/drawable/firefox_pictorgram_shield_check_rgb_2.xml
+- file renamed res/drawable/fontsize_controls_text_selector.xml
+- file renamed res/drawable/fox_ai_on_state.xml
+- file renamed res/drawable/fox_alert_crash_dark.xml
+- file renamed res/drawable/fox_alert_crash_light.xml
+- file renamed res/drawable/fox_exclamation_alert.xml
+- file renamed res/drawable/home_background_gradient.xml
+- file renamed res/drawable/home_bottom_bar_background.xml
+- file renamed res/drawable/home_bottom_bar_background_top.xml
+- file renamed res/drawable/ic_account_warning.xml
+- file renamed res/drawable/ic_add_on_private_browsing_label.xml
+- file renamed res/drawable/ic_arrow_back_black_24.xml
+- file renamed res/drawable/ic_arrow_down_24dp.xml
+- file renamed res/drawable/ic_autoplay.xml
+- file renamed res/drawable/ic_call_answer.xml
+- file renamed res/drawable/ic_call_answer_low.xml
+- file renamed res/drawable/ic_call_answer_video.xml
+- file renamed res/drawable/ic_call_answer_video_low.xml
+- file renamed res/drawable/ic_call_decline.xml
+- file renamed res/drawable/ic_call_decline_low.xml
+- file renamed res/drawable/ic_cc_logo_amex.xml
+- file renamed res/drawable/ic_cc_logo_diners.xml
+- file renamed res/drawable/ic_cc_logo_discover.xml
+- file renamed res/drawable/ic_cc_logo_jcb.xml
+- file renamed res/drawable/ic_cc_logo_mastercard.xml
+- file renamed res/drawable/ic_cc_logo_mir.xml
+- file renamed res/drawable/ic_cc_logo_unionpay.xml
+- file renamed res/drawable/ic_cc_logo_visa.xml
+- file renamed res/drawable/ic_clear_black_24.xml
+- file renamed res/drawable/ic_clock_black_24dp.xml
+- file renamed res/drawable/ic_cookies.xml
+- file renamed res/drawable/ic_cool.xml
+- file renamed res/drawable/ic_cuddling.xml
+- file renamed res/drawable/ic_debug_transparent_fire_24.xml
+- file renamed res/drawable/ic_delete_black.xml
+- file renamed res/drawable/ic_etp_artwork.xml
+- file renamed res/drawable/ic_expand_less_22px.xml
+- file renamed res/drawable/ic_expand_more_22px.xml
+- file renamed res/drawable/ic_favourite_filled.xml
+- file renamed res/drawable/ic_file_type_apk.xml
+- file renamed res/drawable/ic_file_type_audio_note.xml
+- file renamed res/drawable/ic_file_type_default.xml
+- file renamed res/drawable/ic_file_type_document.xml
+- file renamed res/drawable/ic_file_type_image.xml
+- file renamed res/drawable/ic_file_type_video.xml
+- file renamed res/drawable/ic_file_type_zip.xml
+- file renamed res/drawable/ic_firefox.xml
+- file renamed res/drawable/ic_flaming.xml
+- file renamed res/drawable/ic_fx_accounts_avatar.xml
+- file renamed res/drawable/ic_generic_file.xml
+- file renamed res/drawable/ic_high_five.xml
+- file renamed res/drawable/ic_icon_credit_card_generic.xml
+- file renamed res/drawable/ic_keyboard_black_24dp.xml
+- file renamed res/drawable/ic_kit_bookmarks_empty_state.xml
+- file renamed res/drawable/ic_kit_heart.xml
+- file renamed res/drawable/ic_kit_shield_off_state.xml
+- file renamed res/drawable/ic_kit_shield_on_state.xml
+- file renamed res/drawable/ic_launcher_background_cool.xml
+- file renamed res/drawable/ic_launcher_background_cuddling.xml
+- file renamed res/drawable/ic_launcher_foreground.xml
+- file renamed res/drawable/ic_launcher_foreground_cool.xml
+- file renamed res/drawable/ic_launcher_foreground_cuddling.xml
+- file renamed res/drawable/ic_launcher_foreground_flaming.xml
+- file renamed res/drawable/ic_launcher_foreground_minimal.xml
+- file renamed res/drawable/ic_launcher_foreground_momo.xml
+- file renamed res/drawable/ic_launcher_foreground_pixelated.xml
+- file renamed res/drawable/ic_launcher_foreground_pride.xml
+- file renamed res/drawable/ic_launcher_foreground_retro_2004.xml
+- file renamed res/drawable/ic_launcher_gradient_blue_hour_background.xml
+- file renamed res/drawable/ic_launcher_gradient_golden_hour_background.xml
+- file renamed res/drawable/ic_launcher_gradient_midnight_background.xml
+- file renamed res/drawable/ic_launcher_gradient_northern_lights_background.xml
+- file renamed res/drawable/ic_launcher_gradient_sunrise_background.xml
+- file renamed res/drawable/ic_launcher_gradient_sunset_background.xml
+- file renamed res/drawable/ic_launcher_gradient_twilight_background.xml
+- file renamed res/drawable/ic_launcher_monochrome.xml
+- file renamed res/drawable/ic_launcher_private_background.xml
+- file renamed res/drawable/ic_launcher_private_foreground.xml
+- file renamed res/drawable/ic_launcher_solid_blue_background.xml
+- file renamed res/drawable/ic_launcher_solid_green_background.xml
+- file renamed res/drawable/ic_launcher_solid_purple_background.xml
+- file renamed res/drawable/ic_launcher_solid_purple_dark_background.xml
+- file renamed res/drawable/ic_launcher_solid_red_background.xml
+- file renamed res/drawable/ic_m3_chip_check.xml
+- file renamed res/drawable/ic_m3_chip_checked_circle.xml
+- file renamed res/drawable/ic_m3_chip_close.xml
+- file renamed res/drawable/ic_minimal.xml
+- file renamed res/drawable/ic_momo.xml
+- file renamed res/drawable/ic_mtrl_arrow_circle.xml
+- file renamed res/drawable/ic_mtrl_checked_circle.xml
+- file renamed res/drawable/ic_mtrl_chip_checked_black.xml
+- file renamed res/drawable/ic_mtrl_chip_checked_circle.xml
+- file renamed res/drawable/ic_mtrl_chip_close_circle.xml
+- file renamed res/drawable/ic_notification_permission.xml
+- file renamed res/drawable/ic_onboarding_bottom_toolbar.xml
+- file renamed res/drawable/ic_onboarding_customize_toolbar.xml
+- file renamed res/drawable/ic_onboarding_key_features.xml
+- file renamed res/drawable/ic_onboarding_key_features_icons_only.xml
+- file renamed res/drawable/ic_onboarding_search_widget.xml
+- file renamed res/drawable/ic_onboarding_sync.xml
+- file renamed res/drawable/ic_onboarding_top_toolbar.xml
+- file renamed res/drawable/ic_onboarding_welcome.xml
+- file renamed res/drawable/ic_pixelated.xml
+- file renamed res/drawable/ic_pride.xml
+- file renamed res/drawable/ic_print.xml
+- file renamed res/drawable/ic_profiler.xml
+- file renamed res/drawable/ic_pwa.xml
+- file renamed res/drawable/ic_refresh.xml
+- file renamed res/drawable/ic_retro_2004.xml
+- file renamed res/drawable/ic_search_black_24.xml
+- file renamed res/drawable/ic_search_results_bookmarks.xml
+- file renamed res/drawable/ic_search_results_device_desktop.xml
+- file renamed res/drawable/ic_search_results_device_mobile.xml
+- file renamed res/drawable/ic_search_results_device_tablet.xml
+- file renamed res/drawable/ic_search_results_tab.xml
+- file renamed res/drawable/ic_search_with.xml
+- file renamed res/drawable/ic_share_clipboard.xml
+- file renamed res/drawable/ic_splash_logo.xml
+- file renamed res/drawable/ic_static_lock.xml
+- file renamed res/drawable/ic_static_password_shortcut.xml
+- file renamed res/drawable/ic_static_shortcut_private_tab.xml
+- file renamed res/drawable/ic_static_shortcut_private_tab_foreground.xml
+- file renamed res/drawable/ic_static_shortcut_tab.xml
+- file renamed res/drawable/ic_static_shortcut_tab_foreground.xml
+- file renamed res/drawable/ic_status_logo.xml
+- file renamed res/drawable/ic_storage.xml
+- file renamed res/drawable/ic_toolbar_bottom_expanded.xml
+- file renamed res/drawable/ic_toolbar_bottom_expanded_selected.xml
+- file renamed res/drawable/ic_toolbar_bottom_expanded_unselected.xml
+- file renamed res/drawable/ic_toolbar_bottom_simple.xml
+- file renamed res/drawable/ic_toolbar_bottom_simple_selected.xml
+- file renamed res/drawable/ic_toolbar_bottom_simple_unselected.xml
+- file renamed res/drawable/ic_toolbar_expanded_shortcut_preview.xml
+- file renamed res/drawable/ic_toolbar_simple_no_shortcut_preview.xml
+- file renamed res/drawable/ic_toolbar_simple_shortcut_preview.xml
+- file renamed res/drawable/ic_toolbar_top_expanded.xml
+- file renamed res/drawable/ic_toolbar_top_expanded_selected.xml
+- file renamed res/drawable/ic_toolbar_top_expanded_unselected.xml
+- file renamed res/drawable/ic_toolbar_top_simple.xml
+- file renamed res/drawable/ic_toolbar_top_simple_selected.xml
+- file renamed res/drawable/ic_toolbar_top_simple_unselected.xml
+- file renamed res/drawable/illustration_fox_box_inside_light.xml
+- file renamed res/drawable/kit_expressive_full.xml
+- file renamed res/drawable/kit_head.xml
+- file renamed res/drawable/kit_head_protection_blocker_banner.xml
+- file renamed res/drawable/kit_search_error.xml
+- file renamed res/drawable/kit_tail.xml
+- file renamed res/drawable/m3_action_bar_item_background.xml
+- file renamed res/drawable/m3_avd_hide_password.xml
+- file renamed res/drawable/m3_avd_show_password.xml
+- file renamed res/drawable/m3_bottom_sheet_drag_handle.xml
+- file renamed res/drawable/m3_default_action_bar_item_background.xml
+- file renamed res/drawable/m3_default_control_background.xml
+- file renamed res/drawable/m3_default_item_background.xml
+- file renamed res/drawable/m3_default_item_background_borderless.xml
+- file renamed res/drawable/m3_default_list_selector_background.xml
+- file renamed res/drawable/m3_focus_ring_action_bar_item_background.xml
+- file renamed res/drawable/m3_focus_ring_control_background.xml
+- file renamed res/drawable/m3_focus_ring_framework_button_background.xml
+- file renamed res/drawable/m3_focus_ring_framework_button_background_borderless.xml
+- file renamed res/drawable/m3_focus_ring_framework_button_background_shape.xml
+- file renamed res/drawable/m3_focus_ring_framework_checkbox_background.xml
+- file renamed res/drawable/m3_focus_ring_item_background.xml
+- file renamed res/drawable/m3_focus_ring_item_background_borderless.xml
+- file renamed res/drawable/m3_focus_ring_list_selector_background.xml
+- file renamed res/drawable/m3_focus_ring_toolbar_action_bar_item_background.xml
+- file renamed res/drawable/m3_focus_ring_toolbar_selectable_item_background.xml
+- file renamed res/drawable/m3_focus_ring_toolbar_selectable_item_background_borderless.xml
+- file renamed res/drawable/m3_ic_check_24px.xml
+- file renamed res/drawable/m3_overflow_item_checkbox.xml
+- file renamed res/drawable/m3_password_eye.xml
+- file renamed res/drawable/m3_popupmenu_background_overlay.xml
+- file renamed res/drawable/m3_radiobutton_ripple.xml
+- file renamed res/drawable/m3_selectable_item_background.xml
+- file renamed res/drawable/m3_selectable_item_background_borderless.xml
+- file renamed res/drawable/m3_selection_control_ripple.xml
+- file renamed res/drawable/m3_split_button_chevron_avd.xml
+- file renamed res/drawable/m3_tabs_background.xml
+- file renamed res/drawable/m3_tabs_line_indicator.xml
+- file renamed res/drawable/m3_tabs_rounded_line_indicator.xml
+- file renamed res/drawable/m3_tabs_transparent_background.xml
+- file renamed res/drawable/m3_toolbar_navigation_circle_background.xml
+- file renamed res/drawable/material_cursor_drawable.xml
+- file renamed res/drawable/material_ic_calendar_black_24dp.xml
+- file renamed res/drawable/material_ic_clear_black_24dp.xml
+- file renamed res/drawable/material_ic_edit_black_24dp.xml
+- file renamed res/drawable/material_ic_menu_arrow_down_black_24dp.xml
+- file renamed res/drawable/material_ic_menu_arrow_up_black_24dp.xml
+- file renamed res/drawable/material_shape_arch.xml
+- file renamed res/drawable/material_shape_arrow.xml
+- file renamed res/drawable/material_shape_boom.xml
+- file renamed res/drawable/material_shape_bun.xml
+- file renamed res/drawable/material_shape_burst.xml
+- file renamed res/drawable/material_shape_circle.xml
+- file renamed res/drawable/material_shape_clover_4.xml
+- file renamed res/drawable/material_shape_clover_8.xml
+- file renamed res/drawable/material_shape_cookie_12.xml
+- file renamed res/drawable/material_shape_cookie_4.xml
+- file renamed res/drawable/material_shape_cookie_6.xml
+- file renamed res/drawable/material_shape_cookie_7.xml
+- file renamed res/drawable/material_shape_cookie_9.xml
+- file renamed res/drawable/material_shape_diamond.xml
+- file renamed res/drawable/material_shape_fan.xml
+- file renamed res/drawable/material_shape_flower.xml
+- file renamed res/drawable/material_shape_gem.xml
+- file renamed res/drawable/material_shape_ghostish.xml
+- file renamed res/drawable/material_shape_heart.xml
+- file renamed res/drawable/material_shape_hexagon.xml
+- file renamed res/drawable/material_shape_oval.xml
+- file renamed res/drawable/material_shape_pentagon.xml
+- file renamed res/drawable/material_shape_pill.xml
+- file renamed res/drawable/material_shape_pixel_circle.xml
+- file renamed res/drawable/material_shape_pixel_triangle.xml
+- file renamed res/drawable/material_shape_puffy.xml
+- file renamed res/drawable/material_shape_puffy_diamond.xml
+- file renamed res/drawable/material_shape_semicircle.xml
+- file renamed res/drawable/material_shape_slanted_square.xml
+- file renamed res/drawable/material_shape_soft_boom.xml
+- file renamed res/drawable/material_shape_soft_burst.xml
+- file renamed res/drawable/material_shape_square.xml
+- file renamed res/drawable/material_shape_sunny.xml
+- file renamed res/drawable/material_shape_triangle.xml
+- file renamed res/drawable/material_shape_very_sunny.xml
+- file renamed res/drawable/microsurvey_success.xml
+- file renamed res/drawable/mozac_browser_menu2_indicator.xml
+- file renamed res/drawable/mozac_browser_menu2_notification.xml
+- file renamed res/drawable/mozac_browser_menu2_notification_icon.xml
+- file renamed res/drawable/mozac_browser_menu_notification_icon.xml
+- file renamed res/drawable/mozac_browser_toolbar_icons_vertical_separator.xml
+- file renamed res/drawable/mozac_compose_browser_toolbar_chevron_down_6.xml
+- file renamed res/drawable/mozac_dot_notification.xml
+- file renamed res/drawable/mozac_feature_download_ic_download.xml
+- file renamed res/drawable/mozac_feature_download_ic_download_anim0.xml
+- file renamed res/drawable/mozac_feature_download_ic_download_anim1.xml
+- file renamed res/drawable/mozac_feature_download_ic_download_anim2.xml
+- file renamed res/drawable/mozac_feature_download_ic_download_anim3.xml
+- file renamed res/drawable/mozac_feature_download_ic_download_anim4.xml
+- file renamed res/drawable/mozac_feature_download_ic_download_anim5.xml
+- file renamed res/drawable/mozac_feature_download_ic_download_complete.xml
+- file renamed res/drawable/mozac_feature_download_ic_download_failed.xml
+- file renamed res/drawable/mozac_feature_download_ic_ongoing_download.xml
+- file renamed res/drawable/mozac_feature_media_action_next.xml
+- file renamed res/drawable/mozac_feature_media_action_pause.xml
+- file renamed res/drawable/mozac_feature_media_action_play.xml
+- file renamed res/drawable/mozac_feature_media_action_previous.xml
+- file renamed res/drawable/mozac_feature_media_paused.xml
+- file renamed res/drawable/mozac_feature_media_playing.xml
+- file renamed res/drawable/mozac_ic_accessibility_24.xml
+- file renamed res/drawable/mozac_ic_ad_blocker_checkmark_20.xml
+- file renamed res/drawable/mozac_ic_ad_blocker_cross_20.xml
+- file renamed res/drawable/mozac_ic_add_to_homescreen_24.xml
+- file renamed res/drawable/mozac_ic_airplane.xml
+- file renamed res/drawable/mozac_ic_app_menu_24.xml
+- file renamed res/drawable/mozac_ic_app_menu_space_24.xml
+- file renamed res/drawable/mozac_ic_append_down_left_24.xml
+- file renamed res/drawable/mozac_ic_append_up_left_24.xml
+- file renamed res/drawable/mozac_ic_append_up_right_24.xml
+- file renamed res/drawable/mozac_ic_arrow_clockwise_20.xml
+- file renamed res/drawable/mozac_ic_arrow_clockwise_24.xml
+- file renamed res/drawable/mozac_ic_arrow_counter_clockwise_24.xml
+- file renamed res/drawable/mozac_ic_arrow_trending_24.xml
+- file renamed res/drawable/mozac_ic_arrow_trending_down_24.xml
+- file renamed res/drawable/mozac_ic_audio_24.xml
+- file renamed res/drawable/mozac_ic_audio_muted_24.xml
+- file renamed res/drawable/mozac_ic_audio_wave_24.xml
+- file renamed res/drawable/mozac_ic_autoplay_24.xml
+- file renamed res/drawable/mozac_ic_autoplay_slash_24.xml
+- file renamed res/drawable/mozac_ic_avatar_circle_24.xml
+- file renamed res/drawable/mozac_ic_avatar_circle_fill_24.xml
+- file renamed res/drawable/mozac_ic_avatar_info_circle_fill_24.xml
+- file renamed res/drawable/mozac_ic_avatar_warning_circle_fill_24.xml
+- file renamed res/drawable/mozac_ic_avatar_warning_circle_fill_multicolor_24.xml
+- file renamed res/drawable/mozac_ic_back_24.xml
+- file renamed res/drawable/mozac_ic_baseball_24.xml
+- file renamed res/drawable/mozac_ic_basketball_24.xml
+- file renamed res/drawable/mozac_ic_bookmark_20.xml
+- file renamed res/drawable/mozac_ic_bookmark_24.xml
+- file renamed res/drawable/mozac_ic_bookmark_badge_fill_20.xml
+- file renamed res/drawable/mozac_ic_bookmark_fill_20.xml
+- file renamed res/drawable/mozac_ic_bookmark_fill_24.xml
+- file renamed res/drawable/mozac_ic_bookmark_half_fill_20.xml
+- file renamed res/drawable/mozac_ic_bookmark_slash_24.xml
+- file renamed res/drawable/mozac_ic_bookmark_tray_24.xml
+- file renamed res/drawable/mozac_ic_bookmark_tray_fill_24.xml
+- file renamed res/drawable/mozac_ic_camera_24.xml
+- file renamed res/drawable/mozac_ic_camera_slash_24.xml
+- file renamed res/drawable/mozac_ic_checkmark_16.xml
+- file renamed res/drawable/mozac_ic_checkmark_24.xml
+- file renamed res/drawable/mozac_ic_chevron_down_16.xml
+- file renamed res/drawable/mozac_ic_chevron_down_20.xml
+- file renamed res/drawable/mozac_ic_chevron_down_24.xml
+- file renamed res/drawable/mozac_ic_chevron_down_8.xml
+- file renamed res/drawable/mozac_ic_chevron_left_24.xml
+- file renamed res/drawable/mozac_ic_chevron_right_16.xml
+- file renamed res/drawable/mozac_ic_chevron_right_20.xml
+- file renamed res/drawable/mozac_ic_chevron_right_24.xml
+- file renamed res/drawable/mozac_ic_chevron_up_16.xml
+- file renamed res/drawable/mozac_ic_chevron_up_20.xml
+- file renamed res/drawable/mozac_ic_chevron_up_24.xml
+- file renamed res/drawable/mozac_ic_clipboard_24.xml
+- file renamed res/drawable/mozac_ic_cloud_24.xml
+- file renamed res/drawable/mozac_ic_cloud_72.xml
+- file renamed res/drawable/mozac_ic_collection_24.xml
+- file renamed res/drawable/mozac_ic_cookies_24.xml
+- file renamed res/drawable/mozac_ic_cookies_slash_24.xml
+- file renamed res/drawable/mozac_ic_copy_24.xml
+- file renamed res/drawable/mozac_ic_credit_card_24.xml
+- file renamed res/drawable/mozac_ic_cricket_24.xml
+- file renamed res/drawable/mozac_ic_critical_24.xml
+- file renamed res/drawable/mozac_ic_critical_fill_24.xml
+- file renamed res/drawable/mozac_ic_cross_20.xml
+- file renamed res/drawable/mozac_ic_cross_24.xml
+- file renamed res/drawable/mozac_ic_cross_circle_24.xml
+- file renamed res/drawable/mozac_ic_cross_circle_fill_20.xml
+- file renamed res/drawable/mozac_ic_cross_circle_fill_24.xml
+- file renamed res/drawable/mozac_ic_cryptominer_24.xml
+- file renamed res/drawable/mozac_ic_cursor_arrow_24.xml
+- file renamed res/drawable/mozac_ic_data_clearance_24.xml
+- file renamed res/drawable/mozac_ic_debug_drawer_24.xml
+- file renamed res/drawable/mozac_ic_delete_24.xml
+- file renamed res/drawable/mozac_ic_delete_black_24.xml
+- file renamed res/drawable/mozac_ic_device_desktop_24.xml
+- file renamed res/drawable/mozac_ic_device_desktop_fill_24.xml
+- file renamed res/drawable/mozac_ic_device_desktop_send_24.xml
+- file renamed res/drawable/mozac_ic_device_mobile_24.xml
+- file renamed res/drawable/mozac_ic_device_tablet_24.xml
+- file renamed res/drawable/mozac_ic_download_24.xml
+- file renamed res/drawable/mozac_ic_dropdown_arrow.xml
+- file renamed res/drawable/mozac_ic_edit_24.xml
+- file renamed res/drawable/mozac_ic_ellipsis_horizontal_24.xml
+- file renamed res/drawable/mozac_ic_ellipsis_vertical_24.xml
+- file renamed res/drawable/mozac_ic_email_mask_16.xml
+- file renamed res/drawable/mozac_ic_email_mask_20.xml
+- file renamed res/drawable/mozac_ic_email_mask_24.xml
+- file renamed res/drawable/mozac_ic_email_shield_16.xml
+- file renamed res/drawable/mozac_ic_email_shield_20.xml
+- file renamed res/drawable/mozac_ic_email_shield_24.xml
+- file renamed res/drawable/mozac_ic_experiments_24.xml
+- file renamed res/drawable/mozac_ic_extension_24.xml
+- file renamed res/drawable/mozac_ic_extension_cog_24.xml
+- file renamed res/drawable/mozac_ic_extension_critical_24.xml
+- file renamed res/drawable/mozac_ic_extension_fill_24.xml
+- file renamed res/drawable/mozac_ic_extension_warning_24.xml
+- file renamed res/drawable/mozac_ic_extension_warning_multicolor_24.xml
+- file renamed res/drawable/mozac_ic_external_link_16.xml
+- file renamed res/drawable/mozac_ic_external_link_24.xml
+- file renamed res/drawable/mozac_ic_eye_24.xml
+- file renamed res/drawable/mozac_ic_eye_slash_24.xml
+- file renamed res/drawable/mozac_ic_find_in_page_24.xml
+- file renamed res/drawable/mozac_ic_fingerprinter_24.xml
+- file renamed res/drawable/mozac_ic_folder_24.xml
+- file renamed res/drawable/mozac_ic_folder_add_24.xml
+- file renamed res/drawable/mozac_ic_folder_arrow_right_24.xml
+- file renamed res/drawable/mozac_ic_football_24.xml
+- file renamed res/drawable/mozac_ic_forward_24.xml
+- file renamed res/drawable/mozac_ic_globe_16.xml
+- file renamed res/drawable/mozac_ic_globe_20.xml
+- file renamed res/drawable/mozac_ic_globe_24.xml
+- file renamed res/drawable/mozac_ic_golf_24.xml
+- file renamed res/drawable/mozac_ic_grid_add_24.xml
+- file renamed res/drawable/mozac_ic_help_circle_24.xml
+- file renamed res/drawable/mozac_ic_help_circle_fill_24.xml
+- file renamed res/drawable/mozac_ic_history_24.xml
+- file renamed res/drawable/mozac_ic_hockey_24.xml
+- file renamed res/drawable/mozac_ic_home_24.xml
+- file renamed res/drawable/mozac_ic_image_24.xml
+- file renamed res/drawable/mozac_ic_image_slash_24.xml
+- file renamed res/drawable/mozac_ic_import_data_24.xml
+- file renamed res/drawable/mozac_ic_infinite_tabs_24.xml
+- file renamed res/drawable/mozac_ic_information_24.xml
+- file renamed res/drawable/mozac_ic_information_fill_24.xml
+- file renamed res/drawable/mozac_ic_kit_tab_groups.xml
+- file renamed res/drawable/mozac_ic_kit_tab_groups_list_view.xml
+- file renamed res/drawable/mozac_ic_labs_24.xml
+- file renamed res/drawable/mozac_ic_lightbulb_24.xml
+- file renamed res/drawable/mozac_ic_lightning_20.xml
+- file renamed res/drawable/mozac_ic_lightning_24.xml
+- file renamed res/drawable/mozac_ic_lightning_filled_24.xml
+- file renamed res/drawable/mozac_ic_link_24.xml
+- file renamed res/drawable/mozac_ic_local_host_24.xml
+- file renamed res/drawable/mozac_ic_local_host_slash_24.xml
+- file renamed res/drawable/mozac_ic_local_network_24.xml
+- file renamed res/drawable/mozac_ic_local_network_slash_24.xml
+- file renamed res/drawable/mozac_ic_location_24.xml
+- file renamed res/drawable/mozac_ic_location_slash_24.xml
+- file renamed res/drawable/mozac_ic_lock_16.xml
+- file renamed res/drawable/mozac_ic_lock_20.xml
+- file renamed res/drawable/mozac_ic_lock_24.xml
+- file renamed res/drawable/mozac_ic_lock_slash_16.xml
+- file renamed res/drawable/mozac_ic_lock_slash_24.xml
+- file renamed res/drawable/mozac_ic_lock_slash_multicolor_24.xml
+- file renamed res/drawable/mozac_ic_lock_warning_24.xml
+- file renamed res/drawable/mozac_ic_login_24.xml
+- file renamed res/drawable/mozac_ic_logo_chrome_24.xml
+- file renamed res/drawable/mozac_ic_logo_firefox_24.xml
+- file renamed res/drawable/mozac_ic_logo_google_lens_20.xml
+- file renamed res/drawable/mozac_ic_logo_google_lens_24.xml
+- file renamed res/drawable/mozac_ic_logo_safari_24.xml
+- file renamed res/drawable/mozac_ic_microphone_20.xml
+- file renamed res/drawable/mozac_ic_microphone_24.xml
+- file renamed res/drawable/mozac_ic_microphone_slash_24.xml
+- file renamed res/drawable/mozac_ic_more_grid_24.xml
+- file renamed res/drawable/mozac_ic_more_horizontal_round_24.xml
+- file renamed res/drawable/mozac_ic_more_vertical_round_24.xml
+- file renamed res/drawable/mozac_ic_newsfeed_24.xml
+- file renamed res/drawable/mozac_ic_night_mode_20.xml
+- file renamed res/drawable/mozac_ic_night_mode_24.xml
+- file renamed res/drawable/mozac_ic_night_mode_fill_24.xml
+- file renamed res/drawable/mozac_ic_notification_24.xml
+- file renamed res/drawable/mozac_ic_notification_dot_24.xml
+- file renamed res/drawable/mozac_ic_notification_dot_badge_fill_20.xml
+- file renamed res/drawable/mozac_ic_notification_dot_fill_16.xml
+- file renamed res/drawable/mozac_ic_notification_dot_fill_24.xml
+- file renamed res/drawable/mozac_ic_notification_slash_24.xml
+- file renamed res/drawable/mozac_ic_other_device_shortcuts_24.xml
+- file renamed res/drawable/mozac_ic_page_portrait_24.xml
+- file renamed res/drawable/mozac_ic_passkey_24.xml
+- file renamed res/drawable/mozac_ic_password_reveal_two_state.xml
+- file renamed res/drawable/mozac_ic_pause_24.xml
+- file renamed res/drawable/mozac_ic_pause_badge_fill_16.xml
+- file renamed res/drawable/mozac_ic_permission_24.xml
+- file renamed res/drawable/mozac_ic_permissions_24.xml
+- file renamed res/drawable/mozac_ic_pin_24.xml
+- file renamed res/drawable/mozac_ic_pin_8.xml
+- file renamed res/drawable/mozac_ic_pin_badge_fill_16.xml
+- file renamed res/drawable/mozac_ic_pin_fill_24.xml
+- file renamed res/drawable/mozac_ic_pin_slash_24.xml
+- file renamed res/drawable/mozac_ic_pin_slash_fill_24.xml
+- file renamed res/drawable/mozac_ic_play_badge_fill_16.xml
+- file renamed res/drawable/mozac_ic_play_fill_24.xml
+- file renamed res/drawable/mozac_ic_play_next_fill_24.xml
+- file renamed res/drawable/mozac_ic_play_previous_fill_24.xml
+- file renamed res/drawable/mozac_ic_plugin_24.xml
+- file renamed res/drawable/mozac_ic_plus_24.xml
+- file renamed res/drawable/mozac_ic_print_24.xml
+- file renamed res/drawable/mozac_ic_private_mode_24.xml
+- file renamed res/drawable/mozac_ic_private_mode_circle_fill_20.xml
+- file renamed res/drawable/mozac_ic_private_mode_circle_fill_24.xml
+- file renamed res/drawable/mozac_ic_private_mode_circle_fill_48.xml
+- file renamed res/drawable/mozac_ic_private_mode_circle_fill_72.xml
+- file renamed res/drawable/mozac_ic_private_mode_circle_fill_multicolor_20.xml
+- file renamed res/drawable/mozac_ic_private_mode_circle_fill_stroke_20.xml
+- file renamed res/drawable/mozac_ic_private_mode_fill_24.xml
+- file renamed res/drawable/mozac_ic_private_mode_fill_72.xml
+- file renamed res/drawable/mozac_ic_qr_code_24.xml
+- file renamed res/drawable/mozac_ic_racing_24.xml
+- file renamed res/drawable/mozac_ic_reader_summarize_20.xml
+- file renamed res/drawable/mozac_ic_reader_summarize_fill_20.xml
+- file renamed res/drawable/mozac_ic_reader_view_20.xml
+- file renamed res/drawable/mozac_ic_reader_view_24.xml
+- file renamed res/drawable/mozac_ic_reader_view_customize_24.xml
+- file renamed res/drawable/mozac_ic_reader_view_fill_24.xml
+- file renamed res/drawable/mozac_ic_reading_list_24.xml
+- file renamed res/drawable/mozac_ic_reading_list_add_24.xml
+- file renamed res/drawable/mozac_ic_reading_list_slash_24.xml
+- file renamed res/drawable/mozac_ic_reading_list_slash_fill_24.xml
+- file renamed res/drawable/mozac_ic_report_24.xml
+- file renamed res/drawable/mozac_ic_save_24.xml
+- file renamed res/drawable/mozac_ic_save_file_24.xml
+- file renamed res/drawable/mozac_ic_screenshot_24.xml
+- file renamed res/drawable/mozac_ic_search_20.xml
+- file renamed res/drawable/mozac_ic_search_24.xml
+- file renamed res/drawable/mozac_ic_seek_backward_fill_24.xml
+- file renamed res/drawable/mozac_ic_seek_forward_fill_24.xml
+- file renamed res/drawable/mozac_ic_select_all_24.xml
+- file renamed res/drawable/mozac_ic_settings_24.xml
+- file renamed res/drawable/mozac_ic_share_android_24.xml
+- file renamed res/drawable/mozac_ic_share_apple_24.xml
+- file renamed res/drawable/mozac_ic_share_ios_20.xml
+- file renamed res/drawable/mozac_ic_shield_24.xml
+- file renamed res/drawable/mozac_ic_shield_checkmark_20.xml
+- file renamed res/drawable/mozac_ic_shield_checkmark_24.xml
+- file renamed res/drawable/mozac_ic_shield_checkmark_fill_16.xml
+- file renamed res/drawable/mozac_ic_shield_checkmark_fill_20.xml
+- file renamed res/drawable/mozac_ic_shield_cross_20.xml
+- file renamed res/drawable/mozac_ic_shield_cross_24.xml
+- file renamed res/drawable/mozac_ic_shield_dot_24.xml
+- file renamed res/drawable/mozac_ic_shield_exclamation_mark_24.xml
+- file renamed res/drawable/mozac_ic_shield_slash_20.xml
+- file renamed res/drawable/mozac_ic_shield_slash_24.xml
+- file renamed res/drawable/mozac_ic_shield_slash_fill_16.xml
+- file renamed res/drawable/mozac_ic_shield_slash_fill_20.xml
+- file renamed res/drawable/mozac_ic_shield_slash_multicolor_24.xml
+- file renamed res/drawable/mozac_ic_signature_24.xml
+- file renamed res/drawable/mozac_ic_signature_properties_24.xml
+- file renamed res/drawable/mozac_ic_site_info.xml
+- file renamed res/drawable/mozac_ic_soccer_ball_24.xml
+- file renamed res/drawable/mozac_ic_sort_24.xml
+- file renamed res/drawable/mozac_ic_sparkle_24.xml
+- file renamed res/drawable/mozac_ic_sponsored_star_16.xml
+- file renamed res/drawable/mozac_ic_star_fill_20.xml
+- file renamed res/drawable/mozac_ic_star_half_fill_20.xml
+- file renamed res/drawable/mozac_ic_star_one_half_fill_20.xml
+- file renamed res/drawable/mozac_ic_star_one_half_fill_multicolor_20.xml
+- file renamed res/drawable/mozac_ic_stop_8.xml
+- file renamed res/drawable/mozac_ic_storage_24.xml
+- file renamed res/drawable/mozac_ic_storage_slash_24.xml
+- file renamed res/drawable/mozac_ic_subtract_24.xml
+- file renamed res/drawable/mozac_ic_sun_20.xml
+- file renamed res/drawable/mozac_ic_sun_24.xml
+- file renamed res/drawable/mozac_ic_sun_fill_20.xml
+- file renamed res/drawable/mozac_ic_sun_fill_24.xml
+- file renamed res/drawable/mozac_ic_swap_horizontal_24.xml
+- file renamed res/drawable/mozac_ic_sync_24.xml
+- file renamed res/drawable/mozac_ic_sync_tabs_20.xml
+- file renamed res/drawable/mozac_ic_sync_tabs_24.xml
+- file renamed res/drawable/mozac_ic_tab_24.xml
+- file renamed res/drawable/mozac_ic_tab_badge_fill_20.xml
+- file renamed res/drawable/mozac_ic_tab_group_24.xml
+- file renamed res/drawable/mozac_ic_tab_group_72.xml
+- file renamed res/drawable/mozac_ic_tab_group_close_24.xml
+- file renamed res/drawable/mozac_ic_tab_number_24.xml
+- file renamed res/drawable/mozac_ic_tab_tray_24.xml
+- file renamed res/drawable/mozac_ic_tab_ungroup_24.xml
+- file renamed res/drawable/mozac_ic_themes_24.xml
+- file renamed res/drawable/mozac_ic_thumbs_down_24.xml
+- file renamed res/drawable/mozac_ic_thumbs_down_fill_24.xml
+- file renamed res/drawable/mozac_ic_thumbs_up_24.xml
+- file renamed res/drawable/mozac_ic_thumbs_up_fill_24.xml
+- file renamed res/drawable/mozac_ic_tool_24.xml
+- file renamed res/drawable/mozac_ic_tracking_protection_off_for_a_site.xml
+- file renamed res/drawable/mozac_ic_tracking_protection_on_no_trackers_blocked.xml
+- file renamed res/drawable/mozac_ic_tracking_protection_on_trackers_blocked.xml
+- file renamed res/drawable/mozac_ic_translate_20.xml
+- file renamed res/drawable/mozac_ic_translate_24.xml
+- file renamed res/drawable/mozac_ic_translate_active_24.xml
+- file renamed res/drawable/mozac_ic_translate_active_alt_24.xml
+- file renamed res/drawable/mozac_ic_update_circle_24.xml
+- file renamed res/drawable/mozac_ic_wallpaper_24.xml
+- file renamed res/drawable/mozac_ic_warning_24.xml
+- file renamed res/drawable/mozac_ic_warning_fill_20.xml
+- file renamed res/drawable/mozac_ic_warning_fill_24.xml
+- file renamed res/drawable/mozac_ic_whats_new_24.xml
+- file renamed res/drawable/mozac_lib_crash_notification.xml
+- file renamed res/drawable/mozac_menu_indicator.xml
+- file renamed res/drawable/mozac_menu_notification.xml
+- file renamed res/drawable/mozac_rounded_search_widget_background.xml
+- file renamed res/drawable/mozac_widget_favicon_background.xml
+- file renamed res/drawable/mtrl_bottomsheet_drag_handle.xml
+- file renamed res/drawable/mtrl_checkbox_button.xml
+- file renamed res/drawable/mtrl_checkbox_button_checked_unchecked.xml
+- file renamed res/drawable/mtrl_checkbox_button_icon.xml
+- file renamed res/drawable/mtrl_checkbox_button_icon_checked_indeterminate.xml
+- file renamed res/drawable/mtrl_checkbox_button_icon_checked_unchecked.xml
+- file renamed res/drawable/mtrl_checkbox_button_icon_indeterminate_checked.xml
+- file renamed res/drawable/mtrl_checkbox_button_icon_indeterminate_unchecked.xml
+- file renamed res/drawable/mtrl_checkbox_button_icon_unchecked_checked.xml
+- file renamed res/drawable/mtrl_checkbox_button_icon_unchecked_indeterminate.xml
+- file renamed res/drawable/mtrl_checkbox_button_unchecked_checked.xml
+- file renamed res/drawable/mtrl_close_24px.xml
+- file renamed res/drawable/mtrl_dialog_background.xml
+- file renamed res/drawable/mtrl_dropdown_arrow.xml
+- file renamed res/drawable/mtrl_ic_arrow_drop_down.xml
+- file renamed res/drawable/mtrl_ic_arrow_drop_up.xml
+- file renamed res/drawable/mtrl_ic_cancel.xml
+- file renamed res/drawable/mtrl_ic_check_mark.xml
+- file renamed res/drawable/mtrl_ic_checkbox_checked.xml
+- file renamed res/drawable/mtrl_ic_checkbox_unchecked.xml
+- file renamed res/drawable/mtrl_ic_error.xml
+- file renamed res/drawable/mtrl_ic_indeterminate.xml
+- file renamed res/drawable/mtrl_navigation_bar_item_background.xml
+- file renamed res/drawable/mtrl_popupmenu_background.xml
+- file renamed res/drawable/mtrl_popupmenu_background_overlay.xml
+- file renamed res/drawable/mtrl_switch_thumb.xml
+- file renamed res/drawable/mtrl_switch_thumb_checked.xml
+- file renamed res/drawable/mtrl_switch_thumb_checked_pressed.xml
+- file renamed res/drawable/mtrl_switch_thumb_checked_unchecked.xml
+- file renamed res/drawable/mtrl_switch_thumb_pressed.xml
+- file renamed res/drawable/mtrl_switch_thumb_pressed_checked.xml
+- file renamed res/drawable/mtrl_switch_thumb_pressed_unchecked.xml
+- file renamed res/drawable/mtrl_switch_thumb_unchecked.xml
+- file renamed res/drawable/mtrl_switch_thumb_unchecked_checked.xml
+- file renamed res/drawable/mtrl_switch_thumb_unchecked_pressed.xml
+- file renamed res/drawable/mtrl_switch_track.xml
+- file renamed res/drawable/mtrl_switch_track_decoration.xml
+- file renamed res/drawable/mtrl_tabs_default_indicator.xml
+- file renamed res/drawable/navigation_empty_icon.xml
+- file renamed res/drawable/notification_action_background.xml
+- file renamed res/drawable/notification_bg.xml
+- file renamed res/drawable/notification_bg_low.xml
+- file renamed res/drawable/notification_icon_background.xml
+- file renamed res/drawable/notification_tile_bg.xml
+- file renamed res/drawable/nova_onboarding_background.xml
+- file renamed res/drawable/nova_onboarding_marketing.xml
+- file renamed res/drawable/nova_onboarding_notifications.xml
+- file renamed res/drawable/nova_onboarding_set_to_default.xml
+- file renamed res/drawable/nova_onboarding_sync.xml
+- file renamed res/drawable/nova_onboarding_sync_qr.xml
+- file renamed res/drawable/nova_onboarding_toolbar_bottom_active.xml
+- file renamed res/drawable/nova_onboarding_toolbar_bottom_inactive.xml
+- file renamed res/drawable/nova_onboarding_toolbar_top_active.xml
+- file renamed res/drawable/nova_onboarding_toolbar_top_inactive.xml
+- file renamed res/drawable/nova_onboarding_tou.xml
+- file renamed res/drawable/nova_onboarding_tou_2.xml
+- file renamed res/drawable/nova_onboarding_widget.xml
+- file renamed res/drawable/outline_arrow_back_24.xml
+- file renamed res/drawable/preference_list_divider_material.xml
+- file renamed res/drawable/private_home_bottom_bar_background_gradient.xml
+- file renamed res/drawable/private_home_bottom_bar_background_gradient_top.xml
+- file renamed res/drawable/progress_gradient.xml
+- file renamed res/drawable/protection_panel_not_protected.xml
+- file renamed res/drawable/protection_panel_not_secure.xml
+- file renamed res/drawable/radiobutton_color_scheme_dark_selector.xml
+- file renamed res/drawable/radiobutton_color_scheme_light_selector.xml
+- file renamed res/drawable/radiobutton_color_scheme_sepia_selector.xml
+- file renamed res/drawable/radiobutton_selected_text_selector.xml
+- file renamed res/drawable/recent_apps_background.xml
+- file renamed res/drawable/review_prompt_negative_button.xml
+- file renamed res/drawable/review_prompt_positive_button.xml
+- file renamed res/drawable/rounded_all_corners.xml
+- file renamed res/drawable/rounded_corner.xml
+- file renamed res/drawable/rounded_grey_corners_transparent_center.xml
+- file renamed res/drawable/rounded_ripple.xml
+- file renamed res/drawable/rounded_search_widget_background.xml
+- file renamed res/drawable/send_link_to_device_no_devices_available.xml
+- file renamed res/drawable/sentry_edit_text_border.xml
+- file renamed res/drawable/sentry_logo_dark.xml
+- file renamed res/drawable/sentry_oval_button_ripple_background.xml
+- file renamed res/drawable/sentry_user_feedback_button_logo_24.xml
+- file renamed res/drawable/share_24.xml
+- file renamed res/drawable/sign_in_preference_background.xml
+- file renamed res/drawable/simple_dark_grey_gradient.xml
+- file renamed res/drawable/splash_screen.xml
+- file renamed res/drawable/test_level_drawable.xml
+- file renamed res/drawable/tooltip_frame_dark.xml
+- file renamed res/drawable/tooltip_frame_light.xml
+- file renamed res/font/zx_spectrum_7.ttf
+- file renamed res/interpolator/btn_checkbox_checked_mtrl_animation_interpolator_0.xml
+- file renamed res/interpolator/btn_checkbox_checked_mtrl_animation_interpolator_1.xml
+- file renamed res/interpolator/btn_checkbox_unchecked_mtrl_animation_interpolator_0.xml
+- file renamed res/interpolator/btn_checkbox_unchecked_mtrl_animation_interpolator_1.xml
+- file renamed res/interpolator/btn_radio_to_off_mtrl_animation_interpolator_0.xml
+- file renamed res/interpolator/btn_radio_to_on_mtrl_animation_interpolator_0.xml
+- file renamed res/interpolator/fast_out_slow_in.xml
+- file renamed res/interpolator/m3_sys_motion_easing_emphasized.xml
+- file renamed res/interpolator/m3_sys_motion_easing_emphasized_accelerate.xml
+- file renamed res/interpolator/m3_sys_motion_easing_emphasized_decelerate.xml
+- file renamed res/interpolator/m3_sys_motion_easing_linear.xml
+- file renamed res/interpolator/m3_sys_motion_easing_standard.xml
+- file renamed res/interpolator/m3_sys_motion_easing_standard_accelerate.xml
+- file renamed res/interpolator/m3_sys_motion_easing_standard_decelerate.xml
+- file renamed res/interpolator/mtrl_fast_out_linear_in.xml
+- file renamed res/interpolator/mtrl_fast_out_slow_in.xml
+- file renamed res/interpolator/mtrl_linear.xml
+- file renamed res/interpolator/mtrl_linear_out_slow_in.xml
+- file renamed res/layout-land/material_clock_period_toggle_land.xml
+- file renamed res/layout-land/material_timepicker.xml
+- file renamed res/layout-land/mtrl_picker_header_dialog.xml
+- file renamed res/layout-sw600dp/design_layout_snackbar.xml
+- file renamed res/layout-sw600dp/mtrl_layout_snackbar.xml
+- file renamed res/layout-watch/abc_alert_dialog_button_bar_material.xml
+- file renamed res/layout-watch/abc_alert_dialog_title_material.xml
+- file renamed res/layout/abc_action_bar_title_item.xml
+- file renamed res/layout/abc_action_bar_up_container.xml
+- file renamed res/layout/abc_action_menu_item_layout.xml
+- file renamed res/layout/abc_action_menu_layout.xml
+- file renamed res/layout/abc_action_mode_bar.xml
+- file renamed res/layout/abc_action_mode_close_item_material.xml
+- file renamed res/layout/abc_activity_chooser_view.xml
+- file renamed res/layout/abc_activity_chooser_view_list_item.xml
+- file renamed res/layout/abc_alert_dialog_button_bar_material.xml
+- file renamed res/layout/abc_alert_dialog_material.xml
+- file renamed res/layout/abc_alert_dialog_title_material.xml
+- file renamed res/layout/abc_cascading_menu_item_layout.xml
+- file renamed res/layout/abc_dialog_title_material.xml
+- file renamed res/layout/abc_expanded_menu_layout.xml
+- file renamed res/layout/abc_list_menu_item_checkbox.xml
+- file renamed res/layout/abc_list_menu_item_icon.xml
+- file renamed res/layout/abc_list_menu_item_layout.xml
+- file renamed res/layout/abc_list_menu_item_radio.xml
+- file renamed res/layout/abc_popup_menu_header_item_layout.xml
+- file renamed res/layout/abc_popup_menu_item_layout.xml
+- file renamed res/layout/abc_screen_content_include.xml
+- file renamed res/layout/abc_screen_simple.xml
+- file renamed res/layout/abc_screen_simple_overlay_action_mode.xml
+- file renamed res/layout/abc_screen_toolbar.xml
+- file renamed res/layout/abc_search_dropdown_item_icons_2line.xml
+- file renamed res/layout/abc_search_view.xml
+- file renamed res/layout/abc_select_dialog_material.xml
+- file renamed res/layout/abc_tooltip.xml
+- file renamed res/layout/about_list_item.xml
+- file renamed res/layout/account_auth_error_preference.xml
+- file renamed res/layout/account_preference.xml
+- file renamed res/layout/account_share_list_item.xml
+- file renamed res/layout/activity_home.xml
+- file renamed res/layout/activity_lens_camera.xml
+- file renamed res/layout/activity_lens_search.xml
+- file renamed res/layout/activity_qr_scan.xml
+- file renamed res/layout/activity_startup_crash.xml
+- file renamed res/layout/add_new_collection_dialog.xml
+- file renamed res/layout/addon_installation_failed_dialog.xml
+- file renamed res/layout/address_select_bar.xml
+- file renamed res/layout/amo_collection_override_dialog.xml
+- file renamed res/layout/app_share_list_item.xml
+- file renamed res/layout/browser_layout_crash_reporter.xml
+- file renamed res/layout/browser_toolbar_popup_window.xml
+- file renamed res/layout/checkbox_left_preference.xml
+- file renamed res/layout/checkbox_left_preference_etp.xml
+- file renamed res/layout/checkbox_left_sub_preference.xml
+- file renamed res/layout/collection_dialog_list_item.xml
+- file renamed res/layout/collection_tab_list_row.xml
+- file renamed res/layout/collections_list_item.xml
+- file renamed res/layout/component_collection_creation.xml
+- file renamed res/layout/component_collection_creation_name_collection.xml
+- file renamed res/layout/component_collection_creation_select_collection.xml
+- file renamed res/layout/component_credit_cards.xml
+- file renamed res/layout/component_exceptions.xml
+- file renamed res/layout/component_find_in_page_bar.xml
+- file renamed res/layout/component_history.xml
+- file renamed res/layout/component_history_metadata_group.xml
+- file renamed res/layout/component_locale_settings.xml
+- file renamed res/layout/component_permissions_blocked_by_android.xml
+- file renamed res/layout/component_recently_closed.xml
+- file renamed res/layout/component_tabhistory.xml
+- file renamed res/layout/compose_preference.xml
+- file renamed res/layout/crash_extension_dialog.xml
+- file renamed res/layout/credit_card_list_item.xml
+- file renamed res/layout/creditcard_select_bar.xml
+- file renamed res/layout/custom_dialog.xml
+- file renamed res/layout/delete_browsing_data_item.xml
+- file renamed res/layout/delete_exceptions_button.xml
+- file renamed res/layout/delete_history_time_range_dialog.xml
+- file renamed res/layout/delete_logins_exceptions_button.xml
+- file renamed res/layout/design_bottom_navigation_item.xml
+- file renamed res/layout/design_bottom_sheet_dialog.xml
+- file renamed res/layout/design_layout_snackbar.xml
+- file renamed res/layout/design_layout_snackbar_include.xml
+- file renamed res/layout/design_layout_tab_icon.xml
+- file renamed res/layout/design_layout_tab_text.xml
+- file renamed res/layout/design_menu_item_action_area.xml
+- file renamed res/layout/design_navigation_item.xml
+- file renamed res/layout/design_navigation_item_header.xml
+- file renamed res/layout/design_navigation_item_separator.xml
+- file renamed res/layout/design_navigation_item_subheader.xml
+- file renamed res/layout/design_navigation_menu.xml
+- file renamed res/layout/design_navigation_menu_item.xml
+- file renamed res/layout/design_text_input_end_icon.xml
+- file renamed res/layout/design_text_input_start_icon.xml
+- file renamed res/layout/dropdown_preference_etp.xml
+- file renamed res/layout/email_mask_bar.xml
+- file renamed res/layout/etp_dropdown_item.xml
+- file renamed res/layout/exception_item.xml
+- file renamed res/layout/exceptions_description.xml
+- file renamed res/layout/expand_button.xml
+- file renamed res/layout/fingerprint_dialog_layout.xml
+- file renamed res/layout/fragment_about.xml
+- file renamed res/layout/fragment_add_new_device.xml
+- file renamed res/layout/fragment_add_on_details.xml
+- file renamed res/layout/fragment_add_on_internal_settings.xml
+- file renamed res/layout/fragment_add_ons_management.xml
+- file renamed res/layout/fragment_browser.xml
+- file renamed res/layout/fragment_create_collection.xml
+- file renamed res/layout/fragment_create_shortcut.xml
+- file renamed res/layout/fragment_create_xiaomi_shortcut.xml
+- file renamed res/layout/fragment_delete_browsing_data.xml
+- file renamed res/layout/fragment_exceptions.xml
+- file renamed res/layout/fragment_history.xml
+- file renamed res/layout/fragment_history_metadata_group.xml
+- file renamed res/layout/fragment_history_search.xml
+- file renamed res/layout/fragment_installed_add_on_details.xml
+- file renamed res/layout/fragment_layout.xml
+- file renamed res/layout/fragment_libraries_list.xml
+- file renamed res/layout/fragment_locale_settings.xml
+- file renamed res/layout/fragment_manage_site_permissions_exceptions_feature_phone.xml
+- file renamed res/layout/fragment_manage_site_permissions_feature_phone.xml
+- file renamed res/layout/fragment_not_yet_supported_addons.xml
+- file renamed res/layout/fragment_pair.xml
+- file renamed res/layout/fragment_recently_closed_tabs.xml
+- file renamed res/layout/fragment_save_search_engine.xml
+- file renamed res/layout/fragment_share.xml
+- file renamed res/layout/fragment_sign_out.xml
+- file renamed res/layout/fragment_site_permissions_exceptions.xml
+- file renamed res/layout/fragment_site_permissions_exceptions_item.xml
+- file renamed res/layout/fragment_tab_history_dialog.xml
+- file renamed res/layout/fragment_tracking_protection_blocking.xml
+- file renamed res/layout/fragment_turn_on_sync.xml
+- file renamed res/layout/history_list_item.xml
+- file renamed res/layout/history_metadata_group_list_item.xml
+- file renamed res/layout/image_frame.xml
+- file renamed res/layout/info_banner.xml
+- file renamed res/layout/layout_add_credit_card.xml
+- file renamed res/layout/layout_clear_permission_button.xml
+- file renamed res/layout/library_site_item.xml
+- file renamed res/layout/locale_settings_item.xml
+- file renamed res/layout/login_select_bar.xml
+- file renamed res/layout/m3_alert_dialog.xml
+- file renamed res/layout/m3_alert_dialog_actions.xml
+- file renamed res/layout/m3_alert_dialog_title.xml
+- file renamed res/layout/m3_auto_complete_simple_item.xml
+- file renamed res/layout/m3_button_group_overflow_button.xml
+- file renamed res/layout/m3_navigation_menu_divider.xml
+- file renamed res/layout/m3_navigation_menu_subheader.xml
+- file renamed res/layout/m3_overflow_linear_layout_overflow_button.xml
+- file renamed res/layout/m3_side_sheet_dialog.xml
+- file renamed res/layout/m3expressive_alert_dialog.xml
+- file renamed res/layout/m3expressive_alert_dialog_title.xml
+- file renamed res/layout/material_chip_input_combo.xml
+- file renamed res/layout/material_clock_display.xml
+- file renamed res/layout/material_clock_display_divider.xml
+- file renamed res/layout/material_clock_period_toggle.xml
+- file renamed res/layout/material_clockface_textview.xml
+- file renamed res/layout/material_clockface_view.xml
+- file renamed res/layout/material_radial_view_group.xml
+- file renamed res/layout/material_textinput_timepicker.xml
+- file renamed res/layout/material_time_chip.xml
+- file renamed res/layout/material_time_input.xml
+- file renamed res/layout/material_timepicker.xml
+- file renamed res/layout/material_timepicker_dialog.xml
+- file renamed res/layout/material_timepicker_textinput_display.xml
+- file renamed res/layout/mozac_browser_menu.xml
+- file renamed res/layout/mozac_browser_menu2_button.xml
+- file renamed res/layout/mozac_browser_menu2_candidate_compound_checkbox.xml
+- file renamed res/layout/mozac_browser_menu2_candidate_compound_switch.xml
+- file renamed res/layout/mozac_browser_menu2_candidate_decorative_text.xml
+- file renamed res/layout/mozac_browser_menu2_candidate_divider.xml
+- file renamed res/layout/mozac_browser_menu2_candidate_nested.xml
+- file renamed res/layout/mozac_browser_menu2_candidate_row.xml
+- file renamed res/layout/mozac_browser_menu2_candidate_row_small_icon.xml
+- file renamed res/layout/mozac_browser_menu2_candidate_text.xml
+- file renamed res/layout/mozac_browser_menu2_icon_button.xml
+- file renamed res/layout/mozac_browser_menu2_icon_drawable.xml
+- file renamed res/layout/mozac_browser_menu2_icon_notification_dot.xml
+- file renamed res/layout/mozac_browser_menu2_icon_text.xml
+- file renamed res/layout/mozac_browser_menu2_view.xml
+- file renamed res/layout/mozac_browser_menu_button.xml
+- file renamed res/layout/mozac_browser_menu_category.xml
+- file renamed res/layout/mozac_browser_menu_highlightable_item.xml
+- file renamed res/layout/mozac_browser_menu_highlightable_switch.xml
+- file renamed res/layout/mozac_browser_menu_item_checkbox.xml
+- file renamed res/layout/mozac_browser_menu_item_divider.xml
+- file renamed res/layout/mozac_browser_menu_item_image_switch.xml
+- file renamed res/layout/mozac_browser_menu_item_image_text.xml
+- file renamed res/layout/mozac_browser_menu_item_image_text_checkbox_button.xml
+- file renamed res/layout/mozac_browser_menu_item_parent_menu.xml
+- file renamed res/layout/mozac_browser_menu_item_simple.xml
+- file renamed res/layout/mozac_browser_menu_item_switch.xml
+- file renamed res/layout/mozac_browser_menu_item_toolbar.xml
+- file renamed res/layout/mozac_browser_menu_web_extension.xml
+- file renamed res/layout/mozac_browser_toolbar_displaytoolbar.xml
+- file renamed res/layout/mozac_browser_toolbar_edittoolbar.xml
+- file renamed res/layout/mozac_browser_tooltip_layout.xml
+- file renamed res/layout/mozac_download_app_list_item.xml
+- file renamed res/layout/mozac_download_cancel.xml
+- file renamed res/layout/mozac_downloader_chooser_prompt.xml
+- file renamed res/layout/mozac_downloads_prompt.xml
+- file renamed res/layout/mozac_feature_addons_footer_section_item.xml
+- file renamed res/layout/mozac_feature_addons_fragment_dialog_addon_installed.xml
+- file renamed res/layout/mozac_feature_addons_fragment_dialog_addon_permissions.xml
+- file renamed res/layout/mozac_feature_addons_header_section_item.xml
+- file renamed res/layout/mozac_feature_addons_item.xml
+- file renamed res/layout/mozac_feature_addons_message_bars.xml
+- file renamed res/layout/mozac_feature_addons_permission_item.xml
+- file renamed res/layout/mozac_feature_addons_permissions_domain_item.xml
+- file renamed res/layout/mozac_feature_addons_permissions_opt_in_item.xml
+- file renamed res/layout/mozac_feature_addons_permissions_required_data_collection_permissions_item.xml
+- file renamed res/layout/mozac_feature_addons_permissions_required_item.xml
+- file renamed res/layout/mozac_feature_addons_permissions_show_hide_domains_item.xml
+- file renamed res/layout/mozac_feature_addons_section_item.xml
+- file renamed res/layout/mozac_feature_addons_section_unsupported_section_item.xml
+- file renamed res/layout/mozac_feature_addons_unsupported_item.xml
+- file renamed res/layout/mozac_feature_autofill_login.xml
+- file renamed res/layout/mozac_feature_autofill_preference.xml
+- file renamed res/layout/mozac_feature_autofill_search.xml
+- file renamed res/layout/mozac_feature_choice_dialogs.xml
+- file renamed res/layout/mozac_feature_choice_group_item.xml
+- file renamed res/layout/mozac_feature_contextmenu_dialog.xml
+- file renamed res/layout/mozac_feature_contextmenu_item.xml
+- file renamed res/layout/mozac_feature_contextmenu_title.xml
+- file renamed res/layout/mozac_feature_findinpage_view.xml
+- file renamed res/layout/mozac_feature_menu_choice_item.xml
+- file renamed res/layout/mozac_feature_menu_separator_choice_item.xml
+- file renamed res/layout/mozac_feature_multiple_choice_item.xml
+- file renamed res/layout/mozac_feature_promps_widget_month_picker.xml
+- file renamed res/layout/mozac_feature_prompt_auth_prompt.xml
+- file renamed res/layout/mozac_feature_prompt_save_credit_card_prompt.xml
+- file renamed res/layout/mozac_feature_prompt_save_login_prompt.xml
+- file renamed res/layout/mozac_feature_prompt_simple_text.xml
+- file renamed res/layout/mozac_feature_prompt_with_check_box.xml
+- file renamed res/layout/mozac_feature_prompts_address_list_item.xml
+- file renamed res/layout/mozac_feature_prompts_address_select_prompt.xml
+- file renamed res/layout/mozac_feature_prompts_color_item.xml
+- file renamed res/layout/mozac_feature_prompts_color_picker_dialogs.xml
+- file renamed res/layout/mozac_feature_prompts_credit_card_list_item.xml
+- file renamed res/layout/mozac_feature_prompts_credit_card_select_prompt.xml
+- file renamed res/layout/mozac_feature_prompts_date_time_picker.xml
+- file renamed res/layout/mozac_feature_prompts_time_picker.xml
+- file renamed res/layout/mozac_feature_prompts_webauthn_related_origin.xml
+- file renamed res/layout/mozac_feature_readerview_view.xml
+- file renamed res/layout/mozac_feature_single_choice_item.xml
+- file renamed res/layout/mozac_feature_text_prompt.xml
+- file renamed res/layout/mozac_lib_crash_crashlist.xml
+- file renamed res/layout/mozac_lib_crash_crashreporter.xml
+- file renamed res/layout/mozac_lib_crash_item_crash.xml
+- file renamed res/layout/mozac_service_nimbus_branch_item.xml
+- file renamed res/layout/mozac_service_nimbus_experiment_details.xml
+- file renamed res/layout/mozac_service_nimbus_experiment_item.xml
+- file renamed res/layout/mozac_service_nimbus_experiments.xml
+- file renamed res/layout/mozac_site_permissions_prompt.xml
+- file renamed res/layout/mozac_ui_tabcounter_layout.xml
+- file renamed res/layout/mozac_widget_site_item.xml
+- file renamed res/layout/mtrl_alert_dialog.xml
+- file renamed res/layout/mtrl_alert_dialog_actions.xml
+- file renamed res/layout/mtrl_alert_dialog_title.xml
+- file renamed res/layout/mtrl_alert_select_dialog_item.xml
+- file renamed res/layout/mtrl_alert_select_dialog_multichoice.xml
+- file renamed res/layout/mtrl_alert_select_dialog_singlechoice.xml
+- file renamed res/layout/mtrl_auto_complete_simple_item.xml
+- file renamed res/layout/mtrl_calendar_day.xml
+- file renamed res/layout/mtrl_calendar_day_of_week.xml
+- file renamed res/layout/mtrl_calendar_days_of_week.xml
+- file renamed res/layout/mtrl_calendar_horizontal.xml
+- file renamed res/layout/mtrl_calendar_month.xml
+- file renamed res/layout/mtrl_calendar_month_labeled.xml
+- file renamed res/layout/mtrl_calendar_month_navigation.xml
+- file renamed res/layout/mtrl_calendar_months.xml
+- file renamed res/layout/mtrl_calendar_vertical.xml
+- file renamed res/layout/mtrl_calendar_year.xml
+- file renamed res/layout/mtrl_layout_snackbar.xml
+- file renamed res/layout/mtrl_layout_snackbar_include.xml
+- file renamed res/layout/mtrl_navigation_rail_item.xml
+- file renamed res/layout/mtrl_picker_actions.xml
+- file renamed res/layout/mtrl_picker_dialog.xml
+- file renamed res/layout/mtrl_picker_fullscreen.xml
+- file renamed res/layout/mtrl_picker_header_dialog.xml
+- file renamed res/layout/mtrl_picker_header_fullscreen.xml
+- file renamed res/layout/mtrl_picker_header_selection_text.xml
+- file renamed res/layout/mtrl_picker_header_title_text.xml
+- file renamed res/layout/mtrl_picker_header_toggle.xml
+- file renamed res/layout/mtrl_picker_text_input_date.xml
+- file renamed res/layout/mtrl_picker_text_input_date_range.xml
+- file renamed res/layout/mtrl_search_bar.xml
+- file renamed res/layout/mtrl_search_view.xml
+- file renamed res/layout/name_collection_dialog.xml
+- file renamed res/layout/navigation_toolbar.xml
+- file renamed res/layout/notification_action.xml
+- file renamed res/layout/notification_action_tombstone.xml
+- file renamed res/layout/notification_template_custom_big.xml
+- file renamed res/layout/notification_template_icon_group.xml
+- file renamed res/layout/notification_template_part_chronometer.xml
+- file renamed res/layout/notification_template_part_time.xml
+- file renamed res/layout/overlay_add_on_progress.xml
+- file renamed res/layout/preference.xml
+- file renamed res/layout/preference_cat_style.xml
+- file renamed res/layout/preference_category.xml
+- file renamed res/layout/preference_category_empty.xml
+- file renamed res/layout/preference_category_material.xml
+- file renamed res/layout/preference_category_no_icon_style.xml
+- file renamed res/layout/preference_default_browser.xml
+- file renamed res/layout/preference_dialog_edittext.xml
+- file renamed res/layout/preference_divider.xml
+- file renamed res/layout/preference_dropdown.xml
+- file renamed res/layout/preference_dropdown_material.xml
+- file renamed res/layout/preference_information.xml
+- file renamed res/layout/preference_information_material.xml
+- file renamed res/layout/preference_list_fragment.xml
+- file renamed res/layout/preference_material.xml
+- file renamed res/layout/preference_material_switch.xml
+- file renamed res/layout/preference_no_widget.xml
+- file renamed res/layout/preference_recyclerview.xml
+- file renamed res/layout/preference_search_add_engine.xml
+- file renamed res/layout/preference_search_engine_chooser.xml
+- file renamed res/layout/preference_spacer.xml
+- file renamed res/layout/preference_switch_with_caption.xml
+- file renamed res/layout/preference_sync.xml
+- file renamed res/layout/preference_toolbar_shortcut.xml
+- file renamed res/layout/preference_widget_checkbox.xml
+- file renamed res/layout/preference_widget_radiobutton.xml
+- file renamed res/layout/preference_widget_radiobutton_vertical.xml
+- file renamed res/layout/preference_widget_radiobutton_with_info.xml
+- file renamed res/layout/preference_widget_seekbar.xml
+- file renamed res/layout/preference_widget_seekbar_material.xml
+- file renamed res/layout/preference_widget_switch.xml
+- file renamed res/layout/preference_widget_switch_compat.xml
+- file renamed res/layout/preference_widget_switch_fenix_style.xml
+- file renamed res/layout/preference_widget_toggle_radio_button.xml
+- file renamed res/layout/recently_closed_nav_item.xml
+- file renamed res/layout/search_engine_radio_button.xml
+- file renamed res/layout/search_widget_extra_small_v1.xml
+- file renamed res/layout/search_widget_extra_small_v2.xml
+- file renamed res/layout/search_widget_large.xml
+- file renamed res/layout/search_widget_medium.xml
+- file renamed res/layout/search_widget_small.xml
+- file renamed res/layout/search_widget_small_no_mic.xml
+- file renamed res/layout/select_dialog_item_material.xml
+- file renamed res/layout/select_dialog_multichoice_material.xml
+- file renamed res/layout/select_dialog_singlechoice_material.xml
+- file renamed res/layout/sentry_dialog_user_feedback.xml
+- file renamed res/layout/settings_https_only.xml
+- file renamed res/layout/settings_studies.xml
+- file renamed res/layout/share_close.xml
+- file renamed res/layout/share_tab_item.xml
+- file renamed res/layout/share_to_account_devices.xml
+- file renamed res/layout/share_to_apps.xml
+- file renamed res/layout/sign_in_preference.xml
+- file renamed res/layout/site_list_item.xml
+- file renamed res/layout/studies_section_item.xml
+- file renamed res/layout/study_item.xml
+- file renamed res/layout/suggest_strong_password_bar.xml
+- file renamed res/layout/support_simple_spinner_dropdown_item.xml
+- file renamed res/layout/tab_preview.xml
+- file renamed res/layout/toolbar_expanded_shortcut_preview.xml
+- file renamed res/layout/toolbar_simple_no_shortcut_preview.xml
+- file renamed res/layout/toolbar_simple_shortcut_preview.xml
+- file renamed res/layout/top_sites_edit_dialog.xml
+- file renamed res/layout/tracking_protection_category.xml
+- file renamed res/layout/tracking_protection_learn_more_preference.xml
+- file renamed res/layout/translations_banner.xml
+- file renamed res/layout/view_crash_reporter.xml
+- file renamed res/menu/history_menu.xml
+- file renamed res/menu/history_select_multi.xml
+- file renamed res/menu/languages_list.xml
+- file renamed res/menu/library_menu.xml
+- file renamed res/mipmap-anydpi/ic_launcher.xml
+- file renamed res/mipmap-anydpi/ic_launcher_alternative.xml
+- file renamed res/mipmap-anydpi/ic_launcher_cool.xml
+- file renamed res/mipmap-anydpi/ic_launcher_cuddling.xml
+- file renamed res/mipmap-anydpi/ic_launcher_flaming.xml
+- file renamed res/mipmap-anydpi/ic_launcher_gradient_blue_hour.xml
+- file renamed res/mipmap-anydpi/ic_launcher_gradient_golden_hour.xml
+- file renamed res/mipmap-anydpi/ic_launcher_gradient_midnight.xml
+- file renamed res/mipmap-anydpi/ic_launcher_gradient_northern_lights.xml
+- file renamed res/mipmap-anydpi/ic_launcher_gradient_sunrise.xml
+- file renamed res/mipmap-anydpi/ic_launcher_gradient_sunset.xml
+- file renamed res/mipmap-anydpi/ic_launcher_gradient_twilight.xml
+- file renamed res/mipmap-anydpi/ic_launcher_minimal.xml
+- file renamed res/mipmap-anydpi/ic_launcher_momo.xml
+- file renamed res/mipmap-anydpi/ic_launcher_pixelated.xml
+- file renamed res/mipmap-anydpi/ic_launcher_pride.xml
+- file renamed res/mipmap-anydpi/ic_launcher_private_round.xml
+- file renamed res/mipmap-anydpi/ic_launcher_retro_2004.xml
+- file renamed res/mipmap-anydpi/ic_launcher_round.xml
+- file renamed res/mipmap-anydpi/ic_launcher_round_alternative.xml
+- file renamed res/mipmap-anydpi/ic_launcher_solid_blue.xml
+- file renamed res/mipmap-anydpi/ic_launcher_solid_dark.xml
+- file renamed res/mipmap-anydpi/ic_launcher_solid_green.xml
+- file renamed res/mipmap-anydpi/ic_launcher_solid_light.xml
+- file renamed res/mipmap-anydpi/ic_launcher_solid_purple.xml
+- file renamed res/mipmap-anydpi/ic_launcher_solid_purple_dark.xml
+- file renamed res/mipmap-anydpi/ic_launcher_solid_red.xml
+- file renamed res/mipmap-hdpi/ic_launcher.webp
+- file renamed res/mipmap-hdpi/ic_launcher_foreground.webp
+- file renamed res/mipmap-hdpi/ic_launcher_round.webp
+- file renamed res/mipmap-mdpi/ic_launcher.webp
+- file renamed res/mipmap-mdpi/ic_launcher_foreground.webp
+- file renamed res/mipmap-mdpi/ic_launcher_round.webp
+- file renamed res/mipmap-xhdpi/ic_launcher.webp
+- file renamed res/mipmap-xhdpi/ic_launcher_foreground.webp
+- file renamed res/mipmap-xhdpi/ic_launcher_round.webp
+- file renamed res/mipmap-xxhdpi/ic_launcher.webp
+- file renamed res/mipmap-xxhdpi/ic_launcher_foreground.webp
+- file renamed res/mipmap-xxhdpi/ic_launcher_round.webp
+- file renamed res/mipmap-xxxhdpi/ic_launcher.webp
+- file renamed res/mipmap-xxxhdpi/ic_launcher_foreground.webp
+- file renamed res/mipmap-xxxhdpi/ic_launcher_round.webp
+- file renamed res/navigation/nav_graph.xml
+- file renamed res/raw/beep.wav
+- file renamed res/raw/boop.wav
+- file renamed res/raw/eatfood.wav
+- file renamed res/raw/happyvibes.wav
+- file renamed res/raw/initial_experiments.json
+- file renamed res/raw/initial_shortcuts.json
+- file renamed res/raw/keep.xml
+- file renamed res/raw/mozac_ic_kit_tab_groups_animation.json
+- file renamed res/raw/sadwobble.wav
+- file renamed res/raw/third_party_license_metadata
+- file renamed res/raw/third_party_licenses
+- file renamed res/xml/accessibility_preferences.xml
+- file renamed res/xml/account_settings_preferences.xml
+- file renamed res/xml/autofill_configuration.xml
+- file renamed res/xml/autofill_preferences.xml
+- file renamed res/xml/credit_cards_preferences.xml
+- file renamed res/xml/customization_preferences.xml
+- file renamed res/xml/default_search_engine_preferences.xml
+- file renamed res/xml/delete_browsing_data_quit_preferences.xml
+- file renamed res/xml/downloads_settings_preferences.xml
+- file renamed res/xml/feature_downloads_file_paths.xml
+- file renamed res/xml/feature_prompts_file_paths.xml
+- file renamed res/xml/file_paths.xml
+- file renamed res/xml/file_provider_paths.xml
+- file renamed res/xml/home_preferences.xml
+- file renamed res/xml/link_sharing_preferences.xml
+- file renamed res/xml/logins_preferences.xml
+- file renamed res/xml/m3_button_group_child_size_change.xml
+- file renamed res/xml/m3_list_item_shape_state_list.xml
+- file renamed res/xml/m3_split_button_inner_corner_size_state_list.xml
+- file renamed res/xml/m3expressive_button_shape_state_list.xml
+- file renamed res/xml/m3expressive_connected_buttons_inner_corner_size_state_list.xml
+- file renamed res/xml/network_security_config.xml
+- file renamed res/xml/open_links_in_apps_preferences.xml
+- file renamed res/xml/preference_category_divider.xml
+- file renamed res/xml/preferences.xml
+- file renamed res/xml/private_browsing_preferences.xml
+- file renamed res/xml/remote_improvements_preferences.xml
+- file renamed res/xml/remote_settings_server_preferences.xml
+- file renamed res/xml/save_logins_preferences.xml
+- file renamed res/xml/search_optimization_preferences.xml
+- file renamed res/xml/search_settings_preferences.xml
+- file renamed res/xml/search_widget_info.xml
+- file renamed res/xml/searchable.xml
+- file renamed res/xml/secret_settings_preferences.xml
+- file renamed res/xml/shortcuts.xml
+- file renamed res/xml/site_permissions_details_exceptions_preferences.xml
+- file renamed res/xml/site_permissions_preferences.xml
+- file renamed res/xml/sync_debug_preferences.xml
+- file renamed res/xml/sync_problem.xml
+- file renamed res/xml/tabs_preferences.xml
+- file renamed res/xml/tracking_protection_preferences.xml
+- file modified resources.arsc
+- limitation: components: <activity-alias> is not modelled as a component; alias changes are reported by manifest_tree only
+- limitation: native: native code is not analysed; hash and ELF metadata only
+- limitation: resources: res/ binary XML and images are compared by content hash, not decoded; a same-path content change cannot be interpreted semantically
+- limitation: resource_table: not_comparable: resources.arsc differs; its entries are not compared semantically (only byte identity is established)
+- limitation: embedded: partial: A: embedded inspector reported warnings (partial); B: embedded inspector reported warnings (partial)
+- limitation: signature files (META-INF/MANIFEST.MF, *.SF, *.RSA...) are accepted by path; their validity is established by apksigner, not by the diff
+
+_Verification establishes structural/signing validity and that observed differences match the plan and the measured rebuild noise, within the stated comparator coverage. It does not establish that the application is safe._

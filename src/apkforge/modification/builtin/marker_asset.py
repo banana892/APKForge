@@ -10,6 +10,7 @@ file: nothing references it, and the content is plain text without URLs, hosts o
 
 from __future__ import annotations
 
+import hashlib
 import re
 import zipfile
 from typing import TYPE_CHECKING, Any, ClassVar
@@ -116,7 +117,8 @@ class MarkerAssetModifier(APKModifier):
                 kind="added",
                 identifier=path,
                 detail={"file_category": "asset", "size": len(MARKER_CONTENT)},
-                description=f"{path} added",
+                content_after=hashlib.sha256(MARKER_CONTENT).hexdigest(),
+                description=f"{path} added with exactly the marker bytes",
             )
         ]
         plan.verification = [f"the rebuilt APK contains {path} with exactly the marker bytes"]

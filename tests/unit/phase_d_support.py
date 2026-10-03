@@ -6,14 +6,8 @@ from __future__ import annotations
 import hashlib
 import zipfile
 from pathlib import Path
-from types import SimpleNamespace
 from typing import TYPE_CHECKING, Any, ClassVar
 
-from apkforge.builders.semantic_baseline import (
-    NoopSemanticBaseline,
-    NoopSemanticEntry,
-    SemanticResult,
-)
 from apkforge.diff.expectations import ExpectedChange
 from apkforge.diff.models import ChangeType, DiffResult, FileDiff, FileEntryDiff
 from apkforge.modification.contract import (
@@ -30,10 +24,11 @@ from apkforge.modification.contract import (
     VerificationOutcome,
 )
 from tests.unit.test_c5_boot_receiver import manifest
-from tests.unit.test_c5_controlled import NOISE, FakeDiff, FakeService
-from tests.unit.test_c5_expectations import _diff, _rebuild_noise_files
+from tests.unit.test_c5_controlled import FakeDiff, FakeService
+from tests.unit.test_c5_expectations import _diff, _rebuild_noise_files, noise_baseline
 
 if TYPE_CHECKING:
+    from apkforge.builders.semantic_baseline import NoopSemanticBaseline
     from apkforge.builders.workspace import BuildWorkspace
 
 __all__ = [
@@ -53,15 +48,7 @@ def sha(p: Path) -> str:
 
 
 def baseline_for(apk: Path) -> NoopSemanticBaseline:
-    entry = NoopSemanticEntry(
-        id="app",
-        filename=apk.name,
-        sha256=sha(apk),
-        build_success=True,
-        result=SemanticResult.EQUIVALENT,
-        noise_rule_counts=dict.fromkeys(NOISE, 1),
-    )
-    return NoopSemanticBaseline(entries=[entry])
+    return noise_baseline(sha(apk))
 
 
 class ZipService(FakeService):
@@ -72,7 +59,9 @@ class ZipService(FakeService):
         self.toolchain_valid = True
 
     def check_toolchain(self, *, refresh: bool = False) -> Any:
-        return SimpleNamespace(valid=self.toolchain_valid, errors=[], warnings=[], tools={})
+        check = super().check_toolchain(refresh=refresh)
+        check.valid = self.toolchain_valid
+        return check
 
     def decode(self, apk: Path, ws: BuildWorkspace, **kw: Any) -> Any:
         sr = super().decode(apk, ws, **kw)

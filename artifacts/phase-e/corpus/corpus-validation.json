@@ -1,0 +1,864 @@
+{
+  "generated_at": "2026-10-03T03:33:01.118584+00:00",
+  "toolchain": {
+    "java": "25.0.4.1",
+    "apktool": "3.0.3",
+    "zipalign": "35.0.0",
+    "apksigner": "0.9",
+    "build_tools": "35.0.0",
+    "android_platform": "android-35",
+    "normalization_schema": 1,
+    "semantic_schema": 3
+  },
+  "apkforge": {
+    "version": "0.1.0-dev",
+    "git_commit": "fda21291a158a23d95d79c85dc5bf0ab94a131e1",
+    "git_dirty": true
+  },
+  "normalization_schema": 1,
+  "semantic_schema": 3,
+  "rule_policies": {
+    "signature_replaced": "path_only",
+    "certificate_replaced": "signer",
+    "dex_reencoded": "exact",
+    "dex_compiler_marker_removed": "exact",
+    "manifest_reencoded": "exact",
+    "resource_table_reencoded": "exact",
+    "resource_reencoded": "exact",
+    "resource_path_canonicalized": "exact",
+    "manifest_resource_path_canonicalized": "exact",
+    "manifest_reference_inlined": "exact",
+    "baseline_residue": "exact"
+  },
+  "entries": [
+    {
+      "id": "com.emanuelef.remote_capture@95",
+      "sha256": "e03f79082278b3754b4954c7537e7c9f7681e5995a44e70aa1589eca10190066",
+      "result": "EQUIVALENT_WITH_RESIDUE",
+      "fingerprint_by_rule": {
+        "baseline_residue": 4,
+        "certificate_replaced": 1,
+        "dex_compiler_marker_removed": 3,
+        "dex_reencoded": 2,
+        "manifest_reencoded": 1,
+        "resource_path_canonicalized": 1972,
+        "resource_reencoded": 253,
+        "resource_table_reencoded": 1,
+        "signature_replaced": 5
+      },
+      "fingerprint_by_policy": {
+        "exact": 2236,
+        "path_only": 5,
+        "signer": 1
+      },
+      "comparisons": {
+        "identity": "unchanged",
+        "manifest": "unchanged",
+        "manifest_tree": "unchanged",
+        "permissions": "unchanged",
+        "components": "unchanged",
+        "intent_filters": "unchanged",
+        "certificate": "modified",
+        "dex": "unchanged",
+        "strings": "modified",
+        "network": "unchanged",
+        "native": "unchanged",
+        "resources": "modified",
+        "resource_table": "not_comparable",
+        "assets": "unchanged",
+        "embedded": "unchanged",
+        "files": "modified"
+      },
+      "raw_counts": {
+        "added": 1976,
+        "removed": 1976,
+        "modified": 258,
+        "unchanged": 92
+      },
+      "residue": [
+        "res/WK.xml",
+        "res/drawable/material_ic_keyboard_arrow_left_black_24dp.xml",
+        "res/drawable/material_ic_keyboard_arrow_right_black_24dp.xml",
+        "res/sO.xml"
+      ],
+      "unexpected": [],
+      "unknown": [],
+      "diff_failures": [],
+      "drift_vs_c5": [],
+      "rebuild_determinism": {
+        "content_changes_between_rebuilds": 0,
+        "metadata_only_changes": 2326,
+        "rebuild1_sha256": "3ba05859c0fe8381d919cc02950801cdc266d7b919d2c1ca3ac07c78b75badbe",
+        "rebuild2_sha256": "1180c3f1d6f79093f1a5a2187133aa0d373f8ae2588f4a7fccff13de055d4dd4"
+      },
+      "fingerprint_reproducible": true,
+      "pair_verification": "VERIFIED",
+      "pair_reason": "every applicable check passed",
+      "pair_checks": {
+        "structural": "passed",
+        "signature": "passed",
+        "noise_baseline": "passed",
+        "modification": "not_applicable",
+        "expected_changes": "not_applicable",
+        "unexpected_changes": "passed",
+        "semantic_diff": "passed",
+        "security_diff": "passed"
+      },
+      "security_changes": {
+        "permissions": 0,
+        "components": 0,
+        "intent_filters": 0,
+        "certificate": 1,
+        "network_domains": 0,
+        "urls": 0,
+        "native_libraries": 0,
+        "dex": 0,
+        "embedded_executables": 0,
+        "sensitive_manifest": 0,
+        "manifest_other": 0
+      },
+      "normalized": {
+        "expected_modification": 0,
+        "planned_entry": 0,
+        "rebuild_noise": 2242,
+        "unexpected": 0,
+        "unknown": 0
+      }
+    },
+    {
+      "id": "com.oF2pks.applicationsinfo@19",
+      "sha256": "c0188f5f1f566e12324bd6bf4bf4f1b9408d852c6cc6b113706503031f13eebd",
+      "result": "EQUIVALENT_WITH_RESIDUE",
+      "fingerprint_by_rule": {
+        "baseline_residue": 4,
+        "certificate_replaced": 1,
+        "dex_compiler_marker_removed": 1,
+        "dex_reencoded": 1,
+        "manifest_reencoded": 1,
+        "resource_path_canonicalized": 28,
+        "resource_table_reencoded": 1,
+        "signature_replaced": 5
+      },
+      "fingerprint_by_policy": {
+        "exact": 36,
+        "path_only": 5,
+        "signer": 1
+      },
+      "comparisons": {
+        "identity": "unchanged",
+        "manifest": "unchanged",
+        "manifest_tree": "unchanged",
+        "permissions": "unchanged",
+        "components": "unchanged",
+        "intent_filters": "unchanged",
+        "certificate": "modified",
+        "dex": "unchanged",
+        "strings": "modified",
+        "network": "unchanged",
+        "native": "unchanged",
+        "resources": "modified",
+        "resource_table": "not_comparable",
+        "assets": "unchanged",
+        "embedded": "unchanged",
+        "files": "modified"
+      },
+      "raw_counts": {
+        "added": 32,
+        "removed": 32,
+        "modified": 4,
+        "unchanged": 1
+      },
+      "residue": [
+        "res/UR.xml",
+        "res/layout/appinfos_activity_main.xml",
+        "res/layout/appinfos_activity_main_twopane.xml",
+        "res/yO.xml"
+      ],
+      "unexpected": [],
+      "unknown": [],
+      "diff_failures": [],
+      "drift_vs_c5": [],
+      "rebuild_determinism": {
+        "content_changes_between_rebuilds": 0,
+        "metadata_only_changes": 37,
+        "rebuild1_sha256": "835c4f13f917eb628ecc1c784e2eaf3de7b203790fe9ae84894cd90756288ebb",
+        "rebuild2_sha256": "a8b23f7171ae8a4e9ae6d3011b7d237bdcaf381a78a9f690af6ff1ee121754d8"
+      },
+      "fingerprint_reproducible": true,
+      "pair_verification": "VERIFIED",
+      "pair_reason": "every applicable check passed",
+      "pair_checks": {
+        "structural": "passed",
+        "signature": "passed",
+        "noise_baseline": "passed",
+        "modification": "not_applicable",
+        "expected_changes": "not_applicable",
+        "unexpected_changes": "passed",
+        "semantic_diff": "passed",
+        "security_diff": "passed"
+      },
+      "security_changes": {
+        "permissions": 0,
+        "components": 0,
+        "intent_filters": 0,
+        "certificate": 1,
+        "network_domains": 0,
+        "urls": 0,
+        "native_libraries": 0,
+        "dex": 0,
+        "embedded_executables": 0,
+        "sensitive_manifest": 0,
+        "manifest_other": 0
+      },
+      "normalized": {
+        "expected_modification": 0,
+        "planned_entry": 0,
+        "rebuild_noise": 42,
+        "unexpected": 0,
+        "unknown": 0
+      }
+    },
+    {
+      "id": "de.audioattack.openlink@28",
+      "sha256": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+      "result": "EQUIVALENT",
+      "fingerprint_by_rule": {
+        "certificate_replaced": 1,
+        "dex_compiler_marker_removed": 1,
+        "dex_reencoded": 1,
+        "manifest_reencoded": 1,
+        "resource_path_canonicalized": 64,
+        "resource_table_reencoded": 1,
+        "signature_replaced": 5
+      },
+      "fingerprint_by_policy": {
+        "exact": 68,
+        "path_only": 5,
+        "signer": 1
+      },
+      "comparisons": {
+        "identity": "unchanged",
+        "manifest": "unchanged",
+        "manifest_tree": "unchanged",
+        "permissions": "unchanged",
+        "components": "unchanged",
+        "intent_filters": "unchanged",
+        "certificate": "modified",
+        "dex": "unchanged",
+        "strings": "modified",
+        "network": "unchanged",
+        "native": "unchanged",
+        "resources": "modified",
+        "resource_table": "not_comparable",
+        "assets": "unchanged",
+        "embedded": "unchanged",
+        "files": "modified"
+      },
+      "raw_counts": {
+        "added": 66,
+        "removed": 66,
+        "modified": 4,
+        "unchanged": 26
+      },
+      "residue": [],
+      "unexpected": [],
+      "unknown": [],
+      "diff_failures": [],
+      "drift_vs_c5": [],
+      "rebuild_determinism": {
+        "content_changes_between_rebuilds": 0,
+        "metadata_only_changes": 96,
+        "rebuild1_sha256": "51681500654b87cbb3a8426c82f847639e1a1edd374ff1f6224c41a99470a163",
+        "rebuild2_sha256": "53180f91e1f2003149d60664785916f1b5f958a85478a905745c893d340b0e69"
+      },
+      "fingerprint_reproducible": true,
+      "pair_verification": "VERIFIED",
+      "pair_reason": "every applicable check passed",
+      "pair_checks": {
+        "structural": "passed",
+        "signature": "passed",
+        "noise_baseline": "passed",
+        "modification": "not_applicable",
+        "expected_changes": "not_applicable",
+        "unexpected_changes": "passed",
+        "semantic_diff": "passed",
+        "security_diff": "passed"
+      },
+      "security_changes": {
+        "permissions": 0,
+        "components": 0,
+        "intent_filters": 0,
+        "certificate": 1,
+        "network_domains": 0,
+        "urls": 0,
+        "native_libraries": 0,
+        "dex": 0,
+        "embedded_executables": 0,
+        "sensitive_manifest": 0,
+        "manifest_other": 0
+      },
+      "normalized": {
+        "expected_modification": 0,
+        "planned_entry": 0,
+        "rebuild_noise": 74,
+        "unexpected": 0,
+        "unknown": 0
+      }
+    },
+    {
+      "id": "de.danoeh.antennapod@3120295",
+      "sha256": "3f43a4337a693cdb49141afe06cb596e88c796009ed77bff51e9444ce2d1ebfc",
+      "result": "EQUIVALENT_WITH_RESIDUE",
+      "fingerprint_by_rule": {
+        "baseline_residue": 4,
+        "certificate_replaced": 1,
+        "dex_compiler_marker_removed": 1,
+        "dex_reencoded": 3,
+        "manifest_reencoded": 1,
+        "manifest_reference_inlined": 1,
+        "manifest_resource_path_canonicalized": 1,
+        "resource_path_canonicalized": 1214,
+        "resource_reencoded": 183,
+        "resource_table_reencoded": 1,
+        "signature_replaced": 5
+      },
+      "fingerprint_by_policy": {
+        "exact": 1409,
+        "path_only": 5,
+        "signer": 1
+      },
+      "comparisons": {
+        "identity": "unchanged",
+        "manifest": "modified",
+        "manifest_tree": "modified",
+        "permissions": "unchanged",
+        "components": "unchanged",
+        "intent_filters": "unchanged",
+        "certificate": "modified",
+        "dex": "unchanged",
+        "strings": "modified",
+        "network": "unchanged",
+        "native": "unchanged",
+        "resources": "modified",
+        "resource_table": "not_comparable",
+        "assets": "unchanged",
+        "embedded": "unchanged",
+        "files": "modified"
+      },
+      "raw_counts": {
+        "added": 1218,
+        "removed": 1218,
+        "modified": 189,
+        "unchanged": 109
+      },
+      "residue": [
+        "res/WK.xml",
+        "res/drawable/material_ic_keyboard_arrow_left_black_24dp.xml",
+        "res/drawable/material_ic_keyboard_arrow_right_black_24dp.xml",
+        "res/sO.xml"
+      ],
+      "unexpected": [],
+      "unknown": [],
+      "diff_failures": [],
+      "drift_vs_c5": [
+        "new noise rule(s) {'manifest_reference_inlined': 1} (reason: semantic extractor extension \u2014 the Phase E full manifest tree comparison observes a difference C.5 could not see)"
+      ],
+      "rebuild_determinism": {
+        "content_changes_between_rebuilds": 0,
+        "metadata_only_changes": 1516,
+        "rebuild1_sha256": "15487a68f90bb8959ae98c70860532feabc2286c486369b3f6f5a9860ba0a1ad",
+        "rebuild2_sha256": "1b241af83eff4ea8493c292177702c10fbe74e6d4c416fec8a9be85437ae4398"
+      },
+      "fingerprint_reproducible": true,
+      "pair_verification": "VERIFIED",
+      "pair_reason": "every applicable check passed",
+      "pair_checks": {
+        "structural": "passed",
+        "signature": "passed",
+        "noise_baseline": "passed",
+        "modification": "not_applicable",
+        "expected_changes": "not_applicable",
+        "unexpected_changes": "passed",
+        "semantic_diff": "passed",
+        "security_diff": "passed"
+      },
+      "security_changes": {
+        "permissions": 0,
+        "components": 0,
+        "intent_filters": 0,
+        "certificate": 1,
+        "network_domains": 0,
+        "urls": 0,
+        "native_libraries": 0,
+        "dex": 0,
+        "embedded_executables": 0,
+        "sensitive_manifest": 1,
+        "manifest_other": 1
+      },
+      "normalized": {
+        "expected_modification": 0,
+        "planned_entry": 0,
+        "rebuild_noise": 1415,
+        "unexpected": 0,
+        "unknown": 0
+      }
+    },
+    {
+      "id": "eu.siacs.conversations@4218104",
+      "sha256": "3fae646e33b59b95f049ce9bd828022e2edbb374fa82e517bd782aced71ba980",
+      "result": "EQUIVALENT",
+      "fingerprint_by_rule": {
+        "certificate_replaced": 1,
+        "dex_compiler_marker_removed": 3,
+        "dex_reencoded": 2,
+        "manifest_reencoded": 1,
+        "manifest_resource_path_canonicalized": 1,
+        "resource_path_canonicalized": 1035,
+        "resource_reencoded": 191,
+        "resource_table_reencoded": 1,
+        "signature_replaced": 5
+      },
+      "fingerprint_by_policy": {
+        "exact": 1234,
+        "path_only": 5,
+        "signer": 1
+      },
+      "comparisons": {
+        "identity": "unchanged",
+        "manifest": "modified",
+        "manifest_tree": "unchanged",
+        "permissions": "unchanged",
+        "components": "unchanged",
+        "intent_filters": "unchanged",
+        "certificate": "modified",
+        "dex": "unchanged",
+        "strings": "modified",
+        "network": "unchanged",
+        "native": "unchanged",
+        "resources": "modified",
+        "resource_table": "not_comparable",
+        "assets": "unchanged",
+        "embedded": "unchanged",
+        "files": "modified"
+      },
+      "raw_counts": {
+        "added": 1037,
+        "removed": 1037,
+        "modified": 196,
+        "unchanged": 106
+      },
+      "residue": [],
+      "unexpected": [],
+      "unknown": [],
+      "diff_failures": [],
+      "drift_vs_c5": [],
+      "rebuild_determinism": {
+        "content_changes_between_rebuilds": 0,
+        "metadata_only_changes": 1339,
+        "rebuild1_sha256": "4271ee1c5b5cfe6cf5e245a9f6e3207e75dd594f65e6f77ffc8a926fa835df8b",
+        "rebuild2_sha256": "62e0eb7b5fc47377570e76b67a7e030f5690fd876c16fe8717c5f2705d6ef655"
+      },
+      "fingerprint_reproducible": true,
+      "pair_verification": "VERIFIED",
+      "pair_reason": "every applicable check passed",
+      "pair_checks": {
+        "structural": "passed",
+        "signature": "passed",
+        "noise_baseline": "passed",
+        "modification": "not_applicable",
+        "expected_changes": "not_applicable",
+        "unexpected_changes": "passed",
+        "semantic_diff": "passed",
+        "security_diff": "passed"
+      },
+      "security_changes": {
+        "permissions": 0,
+        "components": 0,
+        "intent_filters": 0,
+        "certificate": 1,
+        "network_domains": 0,
+        "urls": 0,
+        "native_libraries": 0,
+        "dex": 0,
+        "embedded_executables": 0,
+        "sensitive_manifest": 1,
+        "manifest_other": 0
+      },
+      "normalized": {
+        "expected_modification": 0,
+        "planned_entry": 0,
+        "rebuild_noise": 1240,
+        "unexpected": 0,
+        "unknown": 0
+      }
+    },
+    {
+      "id": "godau.fynn.usagedirect@10",
+      "sha256": "c55079192a77fc6696a80c6d337c3f0c64fe4ebc27e5970aaf4baac0a60a3b31",
+      "result": "EQUIVALENT",
+      "fingerprint_by_rule": {
+        "certificate_replaced": 1,
+        "dex_compiler_marker_removed": 3,
+        "dex_reencoded": 2,
+        "manifest_reencoded": 1,
+        "resource_path_canonicalized": 434,
+        "resource_reencoded": 29,
+        "resource_table_reencoded": 1,
+        "signature_replaced": 5
+      },
+      "fingerprint_by_policy": {
+        "exact": 470,
+        "path_only": 5,
+        "signer": 1
+      },
+      "comparisons": {
+        "identity": "unchanged",
+        "manifest": "unchanged",
+        "manifest_tree": "unchanged",
+        "permissions": "unchanged",
+        "components": "unchanged",
+        "intent_filters": "unchanged",
+        "certificate": "modified",
+        "dex": "unchanged",
+        "strings": "modified",
+        "network": "unchanged",
+        "native": "unchanged",
+        "resources": "modified",
+        "resource_table": "not_comparable",
+        "assets": "unchanged",
+        "embedded": "unchanged",
+        "files": "modified"
+      },
+      "raw_counts": {
+        "added": 436,
+        "removed": 436,
+        "modified": 34,
+        "unchanged": 58
+      },
+      "residue": [],
+      "unexpected": [],
+      "unknown": [],
+      "diff_failures": [],
+      "drift_vs_c5": [],
+      "rebuild_determinism": {
+        "content_changes_between_rebuilds": 0,
+        "metadata_only_changes": 528,
+        "rebuild1_sha256": "a9fce41260a68a6cd4b2ce1d3e02c703e850d86c8eaf5fceec7442278ae7fe0b",
+        "rebuild2_sha256": "2172e5ce33e75ea128b2acc01a5a35da4baf999e0b1df67cd4e1634d91254d47"
+      },
+      "fingerprint_reproducible": true,
+      "pair_verification": "VERIFIED",
+      "pair_reason": "every applicable check passed",
+      "pair_checks": {
+        "structural": "passed",
+        "signature": "passed",
+        "noise_baseline": "passed",
+        "modification": "not_applicable",
+        "expected_changes": "not_applicable",
+        "unexpected_changes": "passed",
+        "semantic_diff": "passed",
+        "security_diff": "passed"
+      },
+      "security_changes": {
+        "permissions": 0,
+        "components": 0,
+        "intent_filters": 0,
+        "certificate": 1,
+        "network_domains": 0,
+        "urls": 0,
+        "native_libraries": 0,
+        "dex": 0,
+        "embedded_executables": 0,
+        "sensitive_manifest": 0,
+        "manifest_other": 0
+      },
+      "normalized": {
+        "expected_modification": 0,
+        "planned_entry": 0,
+        "rebuild_noise": 476,
+        "unexpected": 0,
+        "unknown": 0
+      }
+    },
+    {
+      "id": "io.github.muntashirakon.AppManager@451",
+      "sha256": "e1f6ba10812c74016ad626e11e27a1ae450aec2c0964a11466abb9e7a9c8ef84",
+      "result": "EQUIVALENT_WITH_RESIDUE",
+      "fingerprint_by_rule": {
+        "baseline_residue": 4,
+        "certificate_replaced": 1,
+        "dex_compiler_marker_removed": 3,
+        "dex_reencoded": 6,
+        "manifest_reencoded": 1,
+        "manifest_resource_path_canonicalized": 1,
+        "resource_path_canonicalized": 1183,
+        "resource_reencoded": 258,
+        "resource_table_reencoded": 1,
+        "signature_replaced": 5
+      },
+      "fingerprint_by_policy": {
+        "exact": 1457,
+        "path_only": 5,
+        "signer": 1
+      },
+      "comparisons": {
+        "identity": "unchanged",
+        "manifest": "modified",
+        "manifest_tree": "unchanged",
+        "permissions": "unchanged",
+        "components": "unchanged",
+        "intent_filters": "unchanged",
+        "certificate": "modified",
+        "dex": "unchanged",
+        "strings": "modified",
+        "network": "unchanged",
+        "native": "unchanged",
+        "resources": "modified",
+        "resource_table": "not_comparable",
+        "assets": "unchanged",
+        "embedded": "unchanged",
+        "files": "modified"
+      },
+      "raw_counts": {
+        "added": 1187,
+        "removed": 1187,
+        "modified": 267,
+        "unchanged": 856
+      },
+      "residue": [
+        "res/WK.xml",
+        "res/drawable/material_ic_keyboard_arrow_left_black_24dp.xml",
+        "res/drawable/material_ic_keyboard_arrow_right_black_24dp.xml",
+        "res/sO.xml"
+      ],
+      "unexpected": [],
+      "unknown": [],
+      "diff_failures": [],
+      "drift_vs_c5": [],
+      "rebuild_determinism": {
+        "content_changes_between_rebuilds": 0,
+        "metadata_only_changes": 2310,
+        "rebuild1_sha256": "3d931531a70a989fc3497d51a2f425a78514ee2a642c201111f10d6aecd3f253",
+        "rebuild2_sha256": "4581c7ea7289cde0bbaab42ce40a91a3243e711efed690c10ae22dbfccedea63"
+      },
+      "fingerprint_reproducible": true,
+      "pair_verification": "VERIFIED",
+      "pair_reason": "every applicable check passed",
+      "pair_checks": {
+        "structural": "passed",
+        "signature": "passed",
+        "noise_baseline": "passed",
+        "modification": "not_applicable",
+        "expected_changes": "not_applicable",
+        "unexpected_changes": "passed",
+        "semantic_diff": "passed",
+        "security_diff": "passed"
+      },
+      "security_changes": {
+        "permissions": 0,
+        "components": 0,
+        "intent_filters": 0,
+        "certificate": 1,
+        "network_domains": 0,
+        "urls": 0,
+        "native_libraries": 0,
+        "dex": 0,
+        "embedded_executables": 0,
+        "sensitive_manifest": 1,
+        "manifest_other": 0
+      },
+      "normalized": {
+        "expected_modification": 0,
+        "planned_entry": 0,
+        "rebuild_noise": 1463,
+        "unexpected": 0,
+        "unknown": 0
+      }
+    },
+    {
+      "id": "org.mozilla.fennec_fdroid@1560020",
+      "sha256": "27f2951376ca1085e0933066c902fdfe4d260916d381e233475c5fd6964f5745",
+      "result": "UNDETERMINED",
+      "fingerprint_by_rule": {
+        "baseline_residue": 4,
+        "certificate_replaced": 1,
+        "dex_compiler_marker_removed": 1,
+        "dex_reencoded": 3,
+        "manifest_reencoded": 1,
+        "manifest_resource_path_canonicalized": 1,
+        "resource_path_canonicalized": 2239,
+        "resource_reencoded": 262,
+        "resource_table_reencoded": 1,
+        "signature_replaced": 5
+      },
+      "fingerprint_by_policy": {
+        "exact": 2512,
+        "path_only": 5,
+        "signer": 1
+      },
+      "comparisons": {
+        "identity": "unchanged",
+        "manifest": "modified",
+        "manifest_tree": "unchanged",
+        "permissions": "unchanged",
+        "components": "unchanged",
+        "intent_filters": "unchanged",
+        "certificate": "modified",
+        "dex": "unchanged",
+        "strings": "modified",
+        "network": "unchanged",
+        "native": "unchanged",
+        "resources": "modified",
+        "resource_table": "not_comparable",
+        "assets": "unchanged",
+        "embedded": "partial",
+        "files": "modified"
+      },
+      "raw_counts": {
+        "added": 2243,
+        "removed": 2243,
+        "modified": 268,
+        "unchanged": 746
+      },
+      "residue": [
+        "res/WK1.xml",
+        "res/drawable/material_ic_keyboard_arrow_left_black_24dp.xml",
+        "res/drawable/material_ic_keyboard_arrow_right_black_24dp.xml",
+        "res/sO.xml"
+      ],
+      "unexpected": [],
+      "unknown": [],
+      "diff_failures": [
+        "diff status is partial, not complete"
+      ],
+      "drift_vs_c5": [],
+      "rebuild_determinism": {
+        "content_changes_between_rebuilds": 0,
+        "metadata_only_changes": 3257,
+        "rebuild1_sha256": "c3789665f990826912e3e9ea43f05a617438cf4a27f07c1e0bf026f5c9342e57",
+        "rebuild2_sha256": "faefedf16fcedc53d67bed0001cf1691b7e8126aac3f56f1973ed7fd9350f378"
+      },
+      "fingerprint_reproducible": true,
+      "pair_verification": "UNDETERMINED",
+      "pair_reason": "not established: noise_baseline, semantic_diff, security_diff",
+      "pair_checks": {
+        "structural": "passed",
+        "signature": "passed",
+        "noise_baseline": "partial",
+        "modification": "not_applicable",
+        "expected_changes": "not_applicable",
+        "unexpected_changes": "passed",
+        "semantic_diff": "partial",
+        "security_diff": "partial"
+      },
+      "security_changes": {
+        "permissions": 0,
+        "components": 0,
+        "intent_filters": 0,
+        "certificate": 1,
+        "network_domains": 0,
+        "urls": 0,
+        "native_libraries": 0,
+        "dex": 0,
+        "embedded_executables": 0,
+        "sensitive_manifest": 1,
+        "manifest_other": 0
+      },
+      "normalized": {
+        "expected_modification": 0,
+        "planned_entry": 0,
+        "rebuild_noise": 2518,
+        "unexpected": 0,
+        "unknown": 0
+      }
+    },
+    {
+      "id": "org.schabi.newpipe@1015",
+      "sha256": "18447bfb1e06d113edc88df93f471827280de06f6f3d4dc42f56f28b9c1bab79",
+      "result": "EQUIVALENT",
+      "fingerprint_by_rule": {
+        "certificate_replaced": 1,
+        "dex_compiler_marker_removed": 3,
+        "dex_reencoded": 3,
+        "manifest_reencoded": 1,
+        "resource_path_canonicalized": 1033,
+        "resource_reencoded": 45,
+        "resource_table_reencoded": 1,
+        "signature_replaced": 5
+      },
+      "fingerprint_by_policy": {
+        "exact": 1086,
+        "path_only": 5,
+        "signer": 1
+      },
+      "comparisons": {
+        "identity": "unchanged",
+        "manifest": "unchanged",
+        "manifest_tree": "unchanged",
+        "permissions": "unchanged",
+        "components": "unchanged",
+        "intent_filters": "unchanged",
+        "certificate": "modified",
+        "dex": "unchanged",
+        "strings": "modified",
+        "network": "unchanged",
+        "native": "unchanged",
+        "resources": "modified",
+        "resource_table": "not_comparable",
+        "assets": "unchanged",
+        "embedded": "unchanged",
+        "files": "modified"
+      },
+      "raw_counts": {
+        "added": 1035,
+        "removed": 1035,
+        "modified": 51,
+        "unchanged": 289
+      },
+      "residue": [],
+      "unexpected": [],
+      "unknown": [],
+      "diff_failures": [],
+      "drift_vs_c5": [],
+      "rebuild_determinism": {
+        "content_changes_between_rebuilds": 0,
+        "metadata_only_changes": 1375,
+        "rebuild1_sha256": "af587e3d6540abf8ea059132d30e1f89ed1468b4718ab3d232f6ae6925627c57",
+        "rebuild2_sha256": "8db077a4df90954c0f05c7c177d015ea18956a9f89fe2bc394c91b98c82fbfb4"
+      },
+      "fingerprint_reproducible": true,
+      "pair_verification": "VERIFIED",
+      "pair_reason": "every applicable check passed",
+      "pair_checks": {
+        "structural": "passed",
+        "signature": "passed",
+        "noise_baseline": "passed",
+        "modification": "not_applicable",
+        "expected_changes": "not_applicable",
+        "unexpected_changes": "passed",
+        "semantic_diff": "passed",
+        "security_diff": "passed"
+      },
+      "security_changes": {
+        "permissions": 0,
+        "components": 0,
+        "intent_filters": 0,
+        "certificate": 1,
+        "network_domains": 0,
+        "urls": 0,
+        "native_libraries": 0,
+        "dex": 0,
+        "embedded_executables": 0,
+        "sensitive_manifest": 0,
+        "manifest_other": 0
+      },
+      "normalized": {
+        "expected_modification": 0,
+        "planned_entry": 0,
+        "rebuild_noise": 1092,
+        "unexpected": 0,
+        "unknown": 0
+      }
+    }
+  ]
+}

@@ -21,14 +21,23 @@ if TYPE_CHECKING:
 from apkforge.core.config import APKForgeConfig, load_default_config
 from apkforge.core.logging import get_logger
 from apkforge.core.models import AnalysisStatus
+from apkforge.diff.archive import ArchiveInventory, raw_diff
 from apkforge.diff.assets import AssetDiffer
 from apkforge.diff.certificates import CertificateDiffer
+from apkforge.diff.comparisons import assess_comparators
 from apkforge.diff.components import ComponentDiffer
 from apkforge.diff.dex import DEXDiffer
 from apkforge.diff.embedded import EmbeddedDiffer
 from apkforge.diff.files import FileDiffer
 from apkforge.diff.identity import IdentityDiffer
 from apkforge.diff.manifest import ManifestDiffer
+from apkforge.diff.manifest_tree import (
+    REFERENCE,
+    ManifestTreeDiff,
+    diff_manifest_trees,
+    load_manifest_tree,
+    resolve_references,
+)
 from apkforge.diff.models import (
     AssetDiff,
     CertificateDiff,
@@ -60,6 +69,17 @@ __all__ = ["DiffEngine"]
 _T = TypeVar("_T")
 
 _log = get_logger(__name__)
+
+# _safe_run differ name -> comparators (diff.comparisons.COMPARATORS) it feeds
+_DIFFER_COMPARATORS: dict[str, tuple[str, ...]] = {
+    "file": ("files",),
+    "raw": ("files",),
+    "permission": ("permissions",),
+    "component": ("components", "intent_filters"),
+    "string": ("strings",),
+    "resource": ("resources", "resource_table"),
+    "asset": ("assets",),
+}
 
 
 class DiffEngine:
@@ -105,6 +125,8 @@ class DiffEngine:
         else:
             path_b = Path(apk_b).resolve()
             insp_b = self._inspection_engine.inspect(path_b, keep_workspace=keep_workspace)
+
+        self._failed: set[str] = set()
 
         # 3. Overall status and initial limits
         warnings: list[str] = []
@@ -225,7 +247,21 @@ class DiffEngine:
             limitations=limitations,
         )
 
-        # 6. Build Summary
+        # 6. Phase E: raw archive diff and full manifest tree (need the APK files).
+        file_a = self._apk_path(insp_a)
+        file_b = self._apk_path(insp_b)
+        raw = None
+        if file_a is not None and file_b is not None:
+            fa, fb = file_a, file_b
+            raw = self._safe_run(
+                "raw",
+                lambda: raw_diff(ArchiveInventory.from_apk(fa), ArchiveInventory.from_apk(fb)),
+                default=None,
+                limitations=limitations,
+            )
+        tree = self._diff_manifest_tree(file_a, file_b)
+
+        # 7. Build Summary
         summary = self._summary_engine.build_summary(
             file_diff=file_diff,
             perm_diff=perm_diff,
@@ -236,7 +272,7 @@ class DiffEngine:
             cert_diff=cert_diff,
         )
 
-        return DiffResult(
+        result = DiffResult(
             status=status,
             apk_a=id_a,
             apk_b=id_b,
@@ -257,6 +293,45 @@ class DiffEngine:
             warnings=warnings,
             errors=errors,
             limitations=limitations,
+            raw=raw,
+            manifest_tree=tree,
+        )
+        failed = {c for name in self._failed for c in _DIFFER_COMPARATORS.get(name, (name,))}
+        result.comparisons = assess_comparators(result, insp_a, insp_b, failed=failed)
+        return result
+
+    @staticmethod
+    def _apk_path(insp: InspectionResult) -> Path | None:
+        p = insp.input_path or (insp.package.input_path if insp.package else None)
+        return Path(p) if p is not None and Path(p).is_file() else None
+
+    @staticmethod
+    def _diff_manifest_tree(path_a: Path | None, path_b: Path | None) -> ManifestTreeDiff:
+        if path_a is None or path_b is None:
+            return ManifestTreeDiff(status="not_comparable", reason="APK files not available")
+        try:
+            a = load_manifest_tree(path_a)
+            b = load_manifest_tree(path_b)
+        except Exception as exc:
+            _log.warning("Manifest tree comparison failed: %s", exc)
+            return ManifestTreeDiff(
+                status="failed",
+                reason=f"manifest could not be decoded: {type(exc).__name__}: {exc}",
+            )
+        changes = diff_manifest_trees(a, b)
+        modified = [c for c in changes if c.kind == "modified"]
+        refs_a = {c.before for c in modified if c.before and REFERENCE.match(c.before)}
+        refs_b = {c.after for c in modified if c.after and REFERENCE.match(c.after)}
+        res_a = resolve_references(path_a, refs_a) if refs_a else {}
+        res_b = resolve_references(path_b, refs_b) if refs_b else {}
+        for c in modified:
+            c.before_resolved = res_a.get(c.before or "")
+            c.after_resolved = res_b.get(c.after or "")
+        return ManifestTreeDiff(
+            status="complete",
+            elements_before=len(a.elements),
+            elements_after=len(b.elements),
+            changes=changes,
         )
 
     def _safe_run(
@@ -266,6 +341,7 @@ class DiffEngine:
         try:
             return func()
         except Exception as exc:
+            self._failed.add(name)
             _log.exception("Diff failed for category %s: %s", name, exc)
             limitations.append(f"Comparison failed for category '{name}': {exc}")
             return default

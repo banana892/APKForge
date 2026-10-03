@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import pytest
@@ -116,11 +117,19 @@ class TestStubCommands:
         fake_apk.write_bytes(b"PK")
         result = runner.invoke(app, ["modify", str(fake_apk)])
         # Should fail because the APK is not a valid APK for analysis
-        assert result.exit_code != 0 or "error" in result.output.lower() or "failed" in result.output.lower()
+        assert (
+            result.exit_code != 0
+            or "error" in result.output.lower()
+            or "failed" in result.output.lower()
+        )
 
     @pytest.mark.unit()
-    def test_verify_stub_exits_zero(self, tmp_path: Path) -> None:
+    def test_verify_invalid_apk_fails_structurally(self, tmp_path: Path) -> None:
+        # Phase E: verify is implemented; a 2-byte "APK" must fail, never pass.
         fake_apk = tmp_path / "test.apk"
         fake_apk.write_bytes(b"PK")
-        result = runner.invoke(app, ["verify", str(fake_apk)])
-        assert result.exit_code == 0, result.output
+        result = runner.invoke(app, ["verify", str(fake_apk), "--json"])
+        assert result.exit_code == 1, result.output
+        data = json.loads(result.stdout)
+        assert data["overall"] == "FAILED"
+        assert data["checks"]["structural"]["status"] == "failed"

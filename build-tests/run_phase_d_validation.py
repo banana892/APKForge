@@ -66,7 +66,9 @@ from apkforge.modification.pipeline import (  # noqa: E402
 
 CORPUS_DIR = PROJECT_ROOT / "tests" / "corpus"
 OPENLINK = CORPUS_DIR / "de.audioattack.openlink_28.apk"
-NOOP_BASELINE = CORPUS_DIR / "results" / "c5-semantic-noop-baseline.json"
+# Since Phase E a run can only be VERIFIED against a content-aware (schema 2) baseline;
+# the C.5 schema-1 baseline is legacy (path rules, never VERIFIED).
+NOOP_BASELINE = CORPUS_DIR / "results" / "phase-e-noise-baseline.json"
 RESULTS_DIR = CORPUS_DIR / "results"
 C5, MARKER = "c5.disable_boot_receiver", "test.marker_asset"
 

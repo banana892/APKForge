@@ -27,12 +27,16 @@ from __future__ import annotations
 
 import re
 from enum import StrEnum
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from pydantic import BaseModel, Field
 
 from apkforge.core.models import AnalysisStatus
+from apkforge.diff.manifest_tree import explained_by
 from apkforge.diff.models import ChangeType, DiffResult
+
+if TYPE_CHECKING:
+    from apkforge.diff.normalization import NoiseFingerprint
 
 __all__ = [
     "NOISE_RULES",
@@ -48,18 +52,30 @@ __all__ = [
 
 class ObservationClass(StrEnum):
     EXPECTED_MODIFICATION = "expected_modification"
+    #: An archive entry (AndroidManifest.xml, classesN.dex) whose bytes change because a
+    #: planned modification edits the source it is compiled from. Its *meaning* is
+    #: checked by the semantic observations (which must be expected); the entry itself
+    #: is accepted only when that semantic comparison is complete.
+    PLANNED_ENTRY = "planned_entry"
     REBUILD_NOISE = "rebuild_noise"
     UNEXPECTED = "unexpected"
     UNKNOWN = "unknown"
 
 
 class Observation(BaseModel):
-    """One atomic difference reported by DiffEngine."""
+    """One atomic difference reported by DiffEngine.
+
+    ``content_before`` / ``content_after`` identify the content on each side (SHA-256 of
+    an archive entry, certificate fingerprints); they are not part of ``detail`` so an
+    expectation that does not pin content still matches.
+    """
 
     category: str
     kind: str  # added | removed | modified | renamed | incomplete
     identifier: str
     detail: dict[str, Any] = Field(default_factory=dict)
+    content_before: str | None = None
+    content_after: str | None = None
 
 
 class ExpectedChange(BaseModel):
@@ -74,6 +90,9 @@ class ExpectedChange(BaseModel):
     identifier: str
     detail: dict[str, Any] = Field(default_factory=dict)
     description: str = ""
+    #: Optional content pins (e.g. SHA-256 of an added file). When set they must match.
+    content_before: str | None = None
+    content_after: str | None = None
 
     def matches(self, obs: Observation) -> bool:
         return (
@@ -81,6 +100,8 @@ class ExpectedChange(BaseModel):
             and self.kind == obs.kind
             and self.identifier == obs.identifier
             and self.detail == obs.detail
+            and (self.content_before is None or self.content_before == obs.content_before)
+            and (self.content_after is None or self.content_after == obs.content_after)
         )
 
 
@@ -89,6 +110,10 @@ class ClassifiedObservation(BaseModel):
     classification: ObservationClass
     rule: str | None = None
     reason: str = ""
+    #: How the classification was established: ``declared`` (expected change),
+    #: ``content`` / ``signer`` / ``path_only`` (fingerprint policy), ``path_rule``
+    #: (legacy path rule, content not compared), ``semantic`` (planned entry).
+    assurance: str | None = None
 
 
 class ExpectationVerdict(BaseModel):
@@ -96,6 +121,8 @@ class ExpectationVerdict(BaseModel):
 
     passed: bool
     diff_status: str
+    #: ``content_fingerprint`` (Phase E) or ``path_rules`` (Phase C.5/D)
+    mode: str = "path_rules"
     observations: list[ClassifiedObservation] = Field(default_factory=list)
     expected_observed: list[ExpectedChange] = Field(default_factory=list)
     expected_missing: list[ExpectedChange] = Field(default_factory=list)
@@ -247,7 +274,15 @@ def observe(diff: DiffResult) -> list[Observation]:
 
     nat = diff.native
     for lib in [*nat.libraries_added, *nat.libraries_removed, *nat.libraries_modified]:
-        add(Observation(category="native_library", kind=str(lib.change_type), identifier=lib.path))
+        add(
+            Observation(
+                category="native_library",
+                kind=str(lib.change_type),
+                identifier=lib.path,
+                content_before=lib.sha256_before,
+                content_after=lib.sha256_after,
+            )
+        )
     for abi in nat.abis_added:
         add(Observation(category="native_abi", kind="added", identifier=abi))
     for abi in nat.abis_removed:
@@ -268,8 +303,22 @@ def observe(diff: DiffResult) -> list[Observation]:
                 kind="modified",
                 identifier="signing_certificate",
                 detail={"status": diff.certificates.status},
+                content_before=_fingerprints(diff.certificates.certificates_before),
+                content_after=_fingerprints(diff.certificates.certificates_after),
             )
         )
+
+    # Full manifest tree: only differences no specialised differ reports (Phase E).
+    for tc in diff.manifest_tree.changes:
+        if explained_by(tc, diff) is None:
+            add(
+                Observation(
+                    category="manifest_element",
+                    kind=tc.kind,
+                    identifier=tc.identifier,
+                    detail=tc.detail(),
+                )
+            )
 
     # File level. resources/assets entries are views over the same file diff, so the
     # file diff is the single source for file observations.
@@ -282,9 +331,25 @@ def observe(diff: DiffResult) -> list[Observation]:
             detail["match_basis"] = f.details.get("match_basis")
         if f.change_type in (ChangeType.ADDED, ChangeType.REMOVED):
             detail["size"] = f.size_after if f.change_type == ChangeType.ADDED else f.size_before
-        add(Observation(category="file", kind=str(f.change_type), identifier=f.path, detail=detail))
+        add(
+            Observation(
+                category="file",
+                kind=str(f.change_type),
+                identifier=f.path,
+                detail=detail,
+                content_before=f.sha256_before,
+                content_after=f.sha256_after,
+            )
+        )
 
     return obs
+
+
+def _fingerprints(certs: list[dict[str, Any]]) -> str | None:
+    fps = sorted(
+        re.sub(r"[^0-9a-f]", "", str(c.get("sha256_fingerprint") or "").lower()) for c in certs
+    )
+    return ",".join(f for f in fps if f) or None
 
 
 # ---------------------------------------------------------------------------
@@ -330,6 +395,12 @@ NOISE_RULES: dict[str, str] = {
         "Manifest attribute that references a resource file changes only by the same "
         "res/ path canonicalization, confirmed by a paired file rename."
     ),
+    "manifest_reference_inlined": (
+        "Manifest attribute (full manifest tree) whose @XXXXXXXX resource reference was "
+        "replaced by its literal value, or vice versa; accepted only when the reference "
+        "resolves to that same value in every resource configuration. Observed: "
+        "AntennaPod FileProvider android:authorities (Apktool 3.0.3)."
+    ),
 }
 
 
@@ -339,6 +410,13 @@ def _noise_rule(obs: Observation, renames: dict[str, Any]) -> str | None:
     fcat = obs.detail.get("file_category")
     if cat == "certificate" and kind == "modified":
         return "certificate_replaced"
+    if cat == "manifest_element" and kind == "modified":
+        d = obs.detail
+        if "before_resolved" not in d and "after_resolved" not in d:
+            return None
+        before = d.get("before_resolved", d.get("before"))
+        after = d.get("after_resolved", d.get("after"))
+        return "manifest_reference_inlined" if before is not None and before == after else None
     if cat == "dex_string" and kind == "removed" and _COMPILER_MARKER.match(ident):
         return "dex_compiler_marker_removed"
     if cat == "manifest_attribute" and kind == "modified":
@@ -381,50 +459,113 @@ def verify_expectations(
     *,
     allowed_noise_rules: set[str] | None = None,
     allowed_residue: set[tuple[str, str, str]] | None = None,
+    fingerprint: NoiseFingerprint | None = None,
+    planned_entries: set[str] | None = None,
+    expected_signer: str | None = None,
+    content_mismatch: ObservationClass = ObservationClass.UNEXPECTED,
 ) -> ExpectationVerdict:
     """Classify every observation in *diff* and decide whether it matches *expected*.
+
+    Two modes:
+
+    - **content fingerprint** (Phase E, *fingerprint* given): noise is accepted only when
+      the APK's no-op baseline fingerprint holds the same difference with the same
+      content (:mod:`apkforge.diff.normalization`). *allowed_noise_rules* and
+      *allowed_residue* are ignored.
+    - **path rules** (Phase C.5/D, no fingerprint): noise is accepted by the documented
+      path rules, optionally limited to *allowed_noise_rules* / *allowed_residue*.
+      Content is not compared (``assurance="path_rule"``).
 
     Args:
         diff: DiffEngine result, original (A) vs. modified (B).
         expected: changes the modification declared before it was applied.
-        allowed_noise_rules: if given, noise is only accepted for these rule ids (the
-            rules that fired in this APK's no-op baseline); other noise is UNEXPECTED.
-        allowed_residue: ``(category, kind, identifier)`` observations recorded in this
-            APK's no-op baseline that no rule explains (e.g. unpaired resource renames).
-            They are accepted as noise (rule ``baseline_residue``) only on exact match.
+        allowed_noise_rules: path-rules mode: noise is only accepted for these rule ids.
+        allowed_residue: path-rules mode: ``(category, kind, identifier)`` observations
+            from this APK's no-op baseline that no rule explains; accepted on exact match.
+        fingerprint: content-fingerprint mode: this APK's accepted no-op differences.
+        planned_entries: archive entries the applied plans compile into
+            (:func:`~apkforge.diff.normalization.archive_entries_for`). A modified entry
+            in this set is ``PLANNED_ENTRY`` when its semantic comparison is complete,
+            ``UNKNOWN`` otherwise.
+        expected_signer: SHA-256 of the certificate the rebuilt APK was signed with.
+        content_mismatch: class for a difference whose path the fingerprint knows but
+            whose content differs (``UNEXPECTED`` when the toolchain is the baseline's;
+            ``UNKNOWN`` when the build toolchain could not be established).
     """
+    from apkforge.diff.normalization import accepts
+
+    observations = observe(diff)
     renames = {
         o.identifier: o.detail.get("old_path")
-        for o in observe(diff)
+        for o in observations
         if o.category == "file" and o.kind == "renamed"
     }
     classified: list[ClassifiedObservation] = []
     observed_expected: list[ExpectedChange] = []
     rule_counts: dict[str, int] = {}
+    planned = planned_entries or set()
 
-    for obs in observe(diff):
+    def put(obs: Observation, cls: ObservationClass, reason: str, **kw: str | None) -> None:
+        classified.append(
+            ClassifiedObservation(observation=obs, classification=cls, reason=reason, **kw)
+        )
+
+    def noise(obs: Observation, rule: str, reason: str, assurance: str) -> None:
+        rule_counts[rule] = rule_counts.get(rule, 0) + 1
+        put(obs, ObservationClass.REBUILD_NOISE, reason, rule=rule, assurance=assurance)
+
+    for obs in observations:
         match = next((e for e in expected if e.matches(obs)), None)
         if match is not None:
             if match not in observed_expected:
                 observed_expected.append(match)
-            classified.append(
-                ClassifiedObservation(
-                    observation=obs,
-                    classification=ObservationClass.EXPECTED_MODIFICATION,
-                    reason=match.description or "declared expected change",
-                )
+            put(
+                obs,
+                ObservationClass.EXPECTED_MODIFICATION,
+                match.description or "declared expected change",
+                assurance="declared",
             )
             continue
         if obs.kind == "incomplete":
-            classified.append(
-                ClassifiedObservation(
-                    observation=obs,
-                    classification=ObservationClass.UNKNOWN,
-                    reason="DiffEngine output was truncated; not every change could be classified",
-                )
+            put(
+                obs,
+                ObservationClass.UNKNOWN,
+                "DiffEngine output was truncated; not every change could be classified",
             )
             continue
         rule = _noise_rule(obs, renames)
+
+        if fingerprint is not None:
+            entry = fingerprint.lookup(obs)
+            if entry is not None:
+                ok, why = accepts(entry, obs, expected_signer)
+                if ok:
+                    assurance = "content" if entry.policy == "exact" else str(entry.policy)
+                    noise(obs, entry.rule, why, assurance)
+                    continue
+            if obs.category == "file" and obs.kind == "modified" and obs.identifier in planned:
+                cls, why = _planned_entry(obs, diff)
+                put(obs, cls, why, rule=entry.rule if entry else rule, assurance="semantic")
+                continue
+            if entry is not None:
+                put(obs, content_mismatch, f"{why} (rule '{entry.rule}')", rule=entry.rule)
+            elif rule is not None:
+                put(
+                    obs,
+                    content_mismatch,
+                    f"matches path rule '{rule}' but this difference does not occur in the "
+                    "no-op rebuild of this APK",
+                    rule=rule,
+                )
+            else:
+                put(
+                    obs,
+                    ObservationClass.UNEXPECTED,
+                    "not declared by the modification and not in this APK's no-op baseline",
+                )
+            continue
+
+        # Path-rules mode (Phase C.5/D behaviour).
         if (
             rule is None
             and allowed_residue
@@ -432,12 +573,10 @@ def verify_expectations(
         ):
             rule = "baseline_residue"
         if rule is None:
-            classified.append(
-                ClassifiedObservation(
-                    observation=obs,
-                    classification=ObservationClass.UNEXPECTED,
-                    reason="not declared by the modification and not explained by a noise rule",
-                )
+            put(
+                obs,
+                ObservationClass.UNEXPECTED,
+                "not declared by the modification and not explained by a noise rule",
             )
             continue
         if (
@@ -445,23 +584,18 @@ def verify_expectations(
             and rule != "baseline_residue"
             and rule not in allowed_noise_rules
         ):
-            classified.append(
-                ClassifiedObservation(
-                    observation=obs,
-                    classification=ObservationClass.UNEXPECTED,
-                    rule=rule,
-                    reason=f"noise rule '{rule}' did not occur in this APK's no-op baseline",
-                )
+            put(
+                obs,
+                ObservationClass.UNEXPECTED,
+                f"noise rule '{rule}' did not occur in this APK's no-op baseline",
+                rule=rule,
             )
             continue
-        rule_counts[rule] = rule_counts.get(rule, 0) + 1
-        classified.append(
-            ClassifiedObservation(
-                observation=obs,
-                classification=ObservationClass.REBUILD_NOISE,
-                rule=rule,
-                reason=NOISE_RULES.get(rule, "recorded in this APK's no-op baseline"),
-            )
+        noise(
+            obs,
+            rule,
+            NOISE_RULES.get(rule, "recorded in this APK's no-op baseline"),
+            "path_rule",
         )
 
     failures: list[str] = []
@@ -484,9 +618,42 @@ def verify_expectations(
     return ExpectationVerdict(
         passed=not failures,
         diff_status=str(diff.status),
+        mode="content_fingerprint" if fingerprint is not None else "path_rules",
         observations=classified,
         expected_observed=observed_expected,
         expected_missing=missing,
         noise_rule_counts=rule_counts,
         failures=failures,
+    )
+
+
+#: planned archive entry -> comparators whose completeness establishes its meaning
+_PLANNED_ENTRY_COVERAGE: tuple[tuple[re.Pattern[str], tuple[str, ...]], ...] = (
+    (
+        re.compile(r"^AndroidManifest\.xml$"),
+        ("manifest_tree", "identity", "manifest", "permissions", "components", "intent_filters"),
+    ),
+    (_DEX_FILE, ("dex", "strings")),
+)
+
+
+def _planned_entry(obs: Observation, diff: DiffResult) -> tuple[ObservationClass, str]:
+    for pattern, comparators in _PLANNED_ENTRY_COVERAGE:
+        if not pattern.match(obs.identifier):
+            continue
+        incomplete = [
+            c for c in comparators if c not in diff.comparisons or not diff.comparisons[c].complete
+        ]
+        if incomplete:
+            return ObservationClass.UNKNOWN, (
+                "planned entry, but its semantic comparison is incomplete "
+                f"({', '.join(incomplete)})"
+            )
+        return ObservationClass.PLANNED_ENTRY, (
+            "bytes change because a planned modification edits its source; its meaning is "
+            f"compared by {', '.join(comparators)}"
+        )
+    return ObservationClass.UNKNOWN, (
+        "planned entry whose content cannot be compared semantically (e.g. resources); "
+        "the change cannot be verified"
     )

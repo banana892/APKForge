@@ -5,6 +5,18 @@
 
 ---
 
+## Phase E — Diff and verification
+
+`apkforge diff A B` reports a raw archive diff, per-comparator semantic status (never
+`unchanged` when a comparison could not complete), a full manifest-tree comparison and,
+with `--security`, the security-relevant changes. `apkforge verify ORIGINAL MODIFIED`
+produces a verification matrix (structural, signature, noise baseline, expected and
+unexpected changes, semantic and security diff) with an overall VERIFIED / FAILED /
+UNDETERMINED. Rebuild noise is accepted only when it is byte-identical to the APK's
+measured no-op rebuild with the same toolchain. A clean diff does not prove an APK is
+malware-free, and a verified signature does not prove it is safe.
+See [docs/verification.md](docs/verification.md).
+
 ## Phase D — Modification framework
 
 `apkforge modifiers` lists the available modifiers; `apkforge modify app.apk -m <id> [-m <id>]`
@@ -155,8 +167,9 @@ apkforge modify path/to/app.apk --plan plan.yaml --approve-all
 apkforge modify path/to/app.apk --approve-all --workspace ./output
 apkforge modify path/to/app.apk --approve-all --json > result.json
 
-# (Phase 8+) Verify a built APK
+# Verify a built APK (structure + signature), or a modified APK against its original
 apkforge verify output.apk
+apkforge verify original.apk modified.apk --baseline tests/corpus/results/phase-e-noise-baseline.json --built-locally
 ```
 
 ---

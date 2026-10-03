@@ -72,6 +72,7 @@ CORPUS_DIR = PROJECT_ROOT / "tests" / "corpus"
 MANIFEST = CORPUS_DIR / "manifest.json"
 RESULTS_DIR = CORPUS_DIR / "results"
 NOOP_BASELINE = RESULTS_DIR / "c5-semantic-noop-baseline.json"
+PHASE_E_BASELINE = RESULTS_DIR / "phase-e-noise-baseline.json"
 OPENLINK_ID = "de.audioattack.openlink@28"
 OLD_IMAGE = "apkforge-toolchain:pinned"
 
@@ -423,10 +424,13 @@ def render_compare(d: dict[str, Any]) -> str:
 
 
 def cmd_modify(args: argparse.Namespace) -> int:
-    if not NOOP_BASELINE.is_file():
+    # Since Phase E the modification is verified against the content-aware (schema 2)
+    # baseline; the schema-1 C.5 baseline can no longer produce VERIFIED.
+    source = PHASE_E_BASELINE if PHASE_E_BASELINE.is_file() else NOOP_BASELINE
+    if not source.is_file():
         print(f"{NOOP_BASELINE} missing: run `noop --write` first", file=sys.stderr)
         return 2
-    baseline = NoopSemanticBaseline.model_validate_json(NOOP_BASELINE.read_text())
+    baseline = NoopSemanticBaseline.model_validate_json(source.read_text())
     out = _run_dir("modify")
     service = _service(out)
     if service is None:

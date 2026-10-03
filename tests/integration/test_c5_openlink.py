@@ -2,6 +2,10 @@
 
 Real C.1/C.2/C.3 toolchain, real BuildService, real DiffEngine. Skipped when the
 toolchain, the OpenLink corpus APK or the committed semantic no-op baseline is missing.
+
+Since Phase E a modification is VERIFIED only against a content-aware (schema 2)
+baseline (``phase-e-noise-baseline.json``); the C.5 schema-1 baseline is still used to
+check that the recorded C.5 no-op classification is reproducible.
 """
 
 from __future__ import annotations
@@ -28,6 +32,7 @@ CORPUS_DIR = Path(__file__).resolve().parent.parent / "corpus"
 OPENLINK = CORPUS_DIR / "de.audioattack.openlink_28.apk"
 OPENLINK_SHA256 = "3d28923f08bd7173"  # prefix; full hash is checked against the manifest
 NOOP_BASELINE = CORPUS_DIR / "results" / "c5-semantic-noop-baseline.json"
+PHASE_E_BASELINE = CORPUS_DIR / "results" / "phase-e-noise-baseline.json"
 BOOT = "android.permission.RECEIVE_BOOT_COMPLETED"
 RECEIVER = "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver"
 OTHER_RECEIVER = "androidx.profileinstaller.ProfileInstallReceiver"
@@ -57,6 +62,16 @@ def noop_baseline() -> NoopSemanticBaseline:
     return NoopSemanticBaseline.model_validate_json(NOOP_BASELINE.read_text())
 
 
+@pytest.fixture(scope="module")
+def noise_baseline() -> NoopSemanticBaseline:
+    """Phase E content-aware baseline (schema 2)."""
+    if not OPENLINK.is_file():
+        pytest.skip(f"Corpus sample missing: {OPENLINK}")
+    if not PHASE_E_BASELINE.is_file():
+        pytest.skip("Phase E noise baseline not generated")
+    return NoopSemanticBaseline.model_validate_json(PHASE_E_BASELINE.read_text())
+
+
 def _sha(p: Path) -> str:
     return hashlib.sha256(p.read_bytes()).hexdigest()
 
@@ -82,7 +97,7 @@ def test_openlink_noop_reproduces_semantic_baseline(
 
 
 def test_openlink_disable_boot_receiver(
-    real_service: BuildService, noop_baseline: NoopSemanticBaseline, tmp_path: Path
+    real_service: BuildService, noise_baseline: NoopSemanticBaseline, tmp_path: Path
 ) -> None:
     sha_before = _sha(OPENLINK)
     assert sha_before.startswith(OPENLINK_SHA256)
@@ -91,7 +106,7 @@ def test_openlink_disable_boot_receiver(
     res = run_disable_boot_receiver(
         real_service,
         OPENLINK,
-        noop_baseline=noop_baseline,
+        noop_baseline=noise_baseline,
         work_dir=tmp_path / "work",
         output_apk=out,
     )

@@ -41,9 +41,16 @@ from typing import TYPE_CHECKING, Any
 
 from pydantic import BaseModel, Field
 
+from apkforge.builders.semantic_baseline import (
+    BaselineCheck,
+    BaselineStatus,
+    current_toolchain_identity,
+)
 from apkforge.core.exceptions import InputError, ModificationError
 from apkforge.diff.engine import DiffEngine
-from apkforge.diff.expectations import ExpectationVerdict, ExpectedChange, verify_expectations
+from apkforge.diff.expectations import ExpectationVerdict, ExpectedChange  # noqa: TC001 (pydantic)
+from apkforge.diff.normalization import ToolchainIdentity, archive_entries_for
+from apkforge.diff.security import build_security_diff
 from apkforge.inspection.engine import InspectionEngine
 from apkforge.modification.catalog import ModifierCatalog, default_catalog
 from apkforge.modification.contract import (
@@ -64,6 +71,16 @@ from apkforge.modification.modifiers.base import (
     ModificationStepResult,
     StepStatus,
 )
+from apkforge.verification.checks import signature_check, structural_check
+from apkforge.verification.matrix import build_matrix
+from apkforge.verification.models import (
+    CheckStatus,
+    OverallStatus,
+    VerificationCheck,
+    VerificationMatrix,
+)
+from apkforge.verification.pair import check_baseline, classify
+from apkforge.verification.report import VerificationReport, build_report
 
 if TYPE_CHECKING:
     from apkforge.builders.models import StageResult
@@ -202,6 +219,12 @@ class PipelineResult(BaseModel):
     apk_verified: bool | None = None  # BuildService verify stage; None: not attempted
     verification: dict[str, Any] | None = None
     verdict: ExpectationVerdict | None = None
+    #: Phase E: toolchain identity, baseline compatibility, verification matrix, report
+    toolchain_identity: ToolchainIdentity | None = None
+    baseline_check: BaselineCheck | None = None
+    signer_sha256: str | None = None
+    verification_matrix: VerificationMatrix | None = None
+    report: VerificationReport | None = None
     output_apk: str | None = None
     output_sha256: str | None = None
     workspace: str | None = None
@@ -577,26 +600,40 @@ class ModificationPipeline:
         }
 
         # 2. Noise floor (not needed for a dry run: nothing is built or compared).
-        rules: set[str] | None = None
-        residue: set[tuple[str, str, str]] | None = None
+        #    A v2 baseline is used only with this service's exact toolchain identity.
+        toolchain = current_toolchain_identity(self.service)
+        result.toolchain_identity = toolchain
+        check = check_baseline(noop_baseline, result.original_sha256_before, toolchain)
+        result.baseline_check = check
         if result.dry_run:
             result.noise_floor = {"source": None, "note": "dry run: no diff is classified"}
         else:
-            allowances = (
-                noop_baseline.allowances(result.original_sha256_before) if noop_baseline else None
-            )
-            if allowances is None:
+            sha = result.original_sha256_before
+            entry = noop_baseline.entry_for(sha) if noop_baseline else None
+            if not check.usable:
                 fail(
-                    "No usable semantic no-op baseline for this APK (SHA-256); the noise floor "
-                    "is not established."
+                    f"No usable semantic no-op baseline for this APK ({check.status}: "
+                    f"{'; '.join(check.reasons)}); the noise floor is not established."
                 )
-            else:
-                rules, residue = allowances
+            allowances = noop_baseline.allowances(result.original_sha256_before) if (
+                noop_baseline and check.usable) else None  # fmt: skip
+            rules = (
+                set(entry.fingerprint.rule_counts())
+                if check.content_aware and entry is not None and entry.fingerprint
+                else (allowances[0] if allowances else None)
+            )
             result.noise_floor = {
-                "source": "semantic no-op baseline" if allowances else None,
+                "source": "semantic no-op baseline" if check.usable else None,
+                "baseline_status": str(check.status),
+                "content_aware": check.content_aware,
                 "allowed_noise_rules": sorted(rules) if rules is not None else None,
-                "allowed_residue": sorted(residue) if residue is not None else None,
+                "allowed_residue": sorted(allowances[1]) if allowances else None,
             }
+            if check.status == BaselineStatus.LEGACY_PATH_RULES:
+                result.warnings.append(
+                    "legacy (schema 1) no-op baseline: noise is accepted by path rule without "
+                    "comparing content; the result cannot be VERIFIED"
+                )
 
         # 3. Workspace + decode (BuildService).
         ws, prep = self.service.prepare_workspace(work_dir=work_dir)
@@ -688,8 +725,22 @@ class ModificationPipeline:
         # 9. Re-analyse, compare with the combined plan, then per-modifier verification.
         diff = (self.diff_engine or DiffEngine()).diff(apk, ws.signed_apk)
         expected = [e for r in ready if r.plan is not None for e in r.plan.expected_changes]
-        verdict = verify_expectations(
-            diff, expected, allowed_noise_rules=rules, allowed_residue=residue
+        planned, unmapped = archive_entries_for(
+            sorted({fc.path for r in ready if r.plan is not None for fc in r.plan.file_changes})
+        )
+        if unmapped:
+            result.warnings.append(
+                "planned change(s) to project files with no known archive mapping: "
+                + ", ".join(unmapped)
+            )
+        verdict = classify(
+            diff,
+            expected,
+            noop_baseline,
+            check,
+            planned_entries=planned,
+            expected_signer=result.signer_sha256,
+            sha256=result.original_sha256_before,
         )
         result.verdict = verdict
         result.failures.extend(f"semantic: {f}" for f in verdict.failures)
@@ -699,11 +750,50 @@ class ModificationPipeline:
                 self._verify(mod, run, evidence, verdict, result)
         self._check_original(apk, result, "diff")
 
+        # 10. Verification matrix (Phase E6) over the rebuilt APK.
+        security = build_security_diff(diff, verdict)
+        # A test double that does not produce real APKs supplies its own check.
+        checker = getattr(self.service, "structural_check", None) or structural_check
+        matrix = build_matrix(
+            structural=checker(ws.signed_apk),
+            signature=signature_check(result.verification),
+            baseline=check,
+            diff=diff,
+            verdict=verdict,
+            security=security,
+            expected=expected,
+            modification=_modification_row(runs),
+        )
+        result.verification_matrix = matrix
+        result.report = build_report(
+            diff=diff,
+            verdict=verdict,
+            security=security,
+            matrix=matrix,
+            baseline=check,
+            toolchain=toolchain,
+            expected=expected,
+            requested=[f"{r.info.id}: {c}" for r in ready if r.plan for c in r.plan.changes],
+            original=apk,
+            modified=ws.signed_apk,
+        )
+        if matrix.overall == OverallStatus.FAILED and not result.failures:
+            result.failures.append(f"verification: {matrix.overall_reason}")
+
         if not result.failures:
             if output_apk is not None:
                 self._export(apk, ws.signed_apk, Path(output_apk), result)
             if not result.failures:
                 result.status = self._final_status(runs, skipped)
+                if (
+                    result.status == PipelineStatus.VERIFIED
+                    and matrix.overall != OverallStatus.VERIFIED
+                ):
+                    result.status = PipelineStatus.UNVERIFIED
+                    result.warnings.append(
+                        f"verification matrix is {matrix.overall} ({matrix.overall_reason}); "
+                        "the run is reported not verified"
+                    )
 
     # -- planning -----------------------------------------------------------
 
@@ -892,6 +982,7 @@ class ModificationPipeline:
             fail(f"sign: {signed.failure_category}: {signed.failure_cause}")
             return False
         result.build_passed = True
+        result.signer_sha256 = signed.certificate_sha256
         result.signing_mode = str(svc.signing.mode) if svc.signing else None
         verified = svc.verify(
             ws.signed_apk, expected_certificate_sha256=signed.certificate_sha256, workspace=ws
@@ -974,6 +1065,22 @@ class ModificationPipeline:
         return PipelineStatus.VERIFIED
 
 
+def _modification_row(runs: list[ModifierRun]) -> VerificationCheck:
+    executed = [r for r in runs if r.step.executed]
+    states = {r.info.id: r.verification_state for r in runs}
+    ev = [f"{k}: {v}" for k, v in states.items()]
+    if not executed:
+        return VerificationCheck(name="modification", status=CheckStatus.UNDETERMINED,
+                                 summary="no modifier executed", evidence=ev)  # fmt: skip
+    if any(r.step.verified is False for r in executed):
+        status, summary = CheckStatus.FAILED, "a modifier's verification failed"
+    elif any(r.step.verified is None for r in executed):
+        status, summary = CheckStatus.UNDETERMINED, "a modifier has no verification"
+    else:
+        status, summary = CheckStatus.PASSED, f"{len(executed)} modifier(s) verified"
+    return VerificationCheck(name="modification", status=status, summary=summary, evidence=ev)
+
+
 def measure_noise_floor(
     service: BuildService,
     apk: Path,
@@ -992,9 +1099,11 @@ def measure_noise_floor(
     entry = run_semantic_noop(
         service, Path(apk), entry_id=Path(apk).name, work_dir=work_dir, diff_engine=diff_engine
     )
+    identity = current_toolchain_identity(service)
     return NoopSemanticBaseline(
         name="Measured semantic no-op baseline (single APK)",
-        toolchain=service.toolchain.to_dict(),
+        toolchain={"versions": identity.model_dump() if identity else None},
+        toolchain_identity=identity,
         entries=[entry],
     )
 
