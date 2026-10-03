@@ -2430,12 +2430,40 @@ def cmd_transform(
         ),
     ),
     dry_run: bool = typer.Option(
-        False, "--dry-run", help="Plan only. H.2 always plans only; accepted for explicitness."
+        False, "--dry-run", help="Plan / validate only (the default without --apply)."
+    ),
+    plan_file: Path | None = typer.Option(
+        None,
+        "--plan",
+        help=(
+            "H.3: an H.2 plan JSON (a --report .json with one decision, or a single plan). "
+            "Validated against APK; applied only with --apply."
+        ),
+        dir_okay=False,
     ),
     apply: bool = typer.Option(
-        False, "--apply", hidden=True, help="Not supported: H.2 never applies a plan."
+        False,
+        "--apply",
+        help="H.3: apply the --plan (ELIGIBLE H-TRANS-001 plans only) and write --output.",
     ),
-    json_output: bool = typer.Option(False, "--json", help="Print the planning result as JSON."),
+    output: Path | None = typer.Option(
+        None,
+        "--output",
+        "-o",
+        help="H.3: path of the transformed APK (required with --apply).",
+        dir_okay=False,
+    ),
+    noop_baseline_file: Path | None = typer.Option(
+        None,
+        "--noop-baseline",
+        help="H.3: semantic no-op baseline JSON containing APK (default: measure it).",
+        exists=True,
+        dir_okay=False,
+    ),
+    keep_workspace: bool = typer.Option(
+        False, "--keep-workspace", help="H.3: keep the build workspace (kept on failure)."
+    ),
+    json_output: bool = typer.Option(False, "--json", help="Print the result as JSON."),
     report: Path | None = typer.Option(
         None, "--report", help="Write a report (.md, or .json for the JSON).", dir_okay=False
     ),
@@ -2451,22 +2479,53 @@ def cmd_transform(
         None, "--work-dir", help="Workspace parent directory for the H.1 decode.", file_okay=False
     ),
 ) -> None:
-    """[green]🧭 Phase H.2[/green] — Transformation eligibility & deterministic planning.
+    """[green]🧭 Phase H.2/H.3[/green] — Transformation planning and controlled application.
 
-    Evaluates whether each requested transformation is supported by the H.1 static
-    evidence (ELIGIBLE, CONDITIONALLY_ELIGIBLE, REFUSED, UNSUPPORTED, UNDETERMINED) and
-    emits a deterministic plan for eligible requests. Planning only: the APK is never
-    modified, rebuilt, signed or installed, and no plan is applied.
+    H.2 (-t/--target): evaluates whether each requested transformation is supported by the
+    H.1 static evidence (ELIGIBLE, CONDITIONALLY_ELIGIBLE, REFUSED, UNSUPPORTED,
+    UNDETERMINED) and emits a deterministic plan for eligible requests. Planning only.
 
-    Exit codes: 0 planned; 1 analysis error or input changed; 2 invalid usage.
+    H.3 (--plan PLAN.json): validates a previously generated plan against APK (source
+    SHA-256, plan id, eligibility, H.2 re-evaluation) and reports what would be applied.
+    With --apply, an ELIGIBLE H-TRANS-001 plan is applied to a copy: one class removed,
+    rebuilt, aligned, signed, verified, re-analysed and diffed; --output is written only
+    when every check passed. There is no override. APK itself is never modified.
+
+    Exit codes: 0 planned / validated / verified; 1 failed or input changed;
+    2 invalid usage; 3 refused or not verifiable.
     """
-    _ = dry_run  # planning is the only mode
-    if apply:
-        typer.echo(
-            "error: --apply is not supported. Phase H.2 is planning-only and never modifies "
-            "an APK; plans are applied by a future, separately verified phase (H.3).",
-            err=True,
+    if plan_file is not None or apply:
+        if plan_file is None:
+            typer.echo(
+                "error: --apply requires --plan PLAN.json. Planning (-t/--target) is "
+                "planning-only and never modifies an APK; H.3 applies only a previously "
+                "generated H.2 plan that passes every integrity check.",
+                err=True,
+            )
+            raise typer.Exit(code=2)
+        if transform_ids or targets:
+            typer.echo("error: --plan cannot be combined with -t/--target.", err=True)
+            raise typer.Exit(code=2)
+        if apply and dry_run:
+            typer.echo("error: --apply and --dry-run are mutually exclusive.", err=True)
+            raise typer.Exit(code=2)
+        if apply and output is None:
+            typer.echo("error: --apply requires --output PATH for the transformed APK.", err=True)
+            raise typer.Exit(code=2)
+        _apply_transformation_plan(
+            apk,
+            plan_file,
+            apply=apply,
+            output=output,
+            noop_baseline_file=noop_baseline_file,
+            work_dir=work_dir,
+            keep_workspace=keep_workspace,
+            json_output=json_output,
+            report=report,
         )
+        return
+    if output is not None or noop_baseline_file is not None or keep_workspace:
+        typer.echo("error: --output/--noop-baseline/--keep-workspace need --plan.", err=True)
         raise typer.Exit(code=2)
     if not transform_ids or not targets:
         typer.echo("error: at least one --transform and one --target are required.", err=True)
@@ -2510,6 +2569,73 @@ def cmd_transform(
 
     if result.errors:
         raise typer.Exit(code=1)
+
+
+_APPLICATION_EXIT = {
+    "PLANNED": 0,
+    "VERIFIED": 0,
+    "REFUSED": 3,
+    "UNKNOWN": 3,
+    "FAILED": 1,
+}
+
+
+def _apply_transformation_plan(
+    apk: Path,
+    plan_file: Path,
+    *,
+    apply: bool,
+    output: Path | None,
+    noop_baseline_file: Path | None,
+    work_dir: Path | None,
+    keep_workspace: bool,
+    json_output: bool,
+    report: Path | None,
+) -> None:
+    """``transform --plan``: H.3 plan validation (dry run) or application."""
+    import contextlib
+
+    from apkforge.builders.semantic_baseline import NoopSemanticBaseline
+    from apkforge.transformation import TransformationExecutor, format_application_report
+
+    with contextlib.suppress(ImportError):
+        from loguru import logger
+
+        logger.disable("androguard")
+    cfg = load_default_config()
+    setup_logging(cfg.log_level)
+
+    service = _build_service(work_dir)
+    if apply:
+        check = service.check_toolchain()
+        if not check.valid:
+            _render_toolchain(check)
+            raise typer.Exit(code=2)
+    baseline = (
+        NoopSemanticBaseline.model_validate_json(noop_baseline_file.read_text())
+        if noop_baseline_file is not None
+        else None
+    )
+    result = TransformationExecutor(service).run(
+        apk,
+        plan_file,
+        apply=apply,
+        output_apk=output,
+        noop_baseline=baseline,
+        work_dir=work_dir,
+        keep_workspace=keep_workspace,
+    )
+    if report is not None:
+        report.parent.mkdir(parents=True, exist_ok=True)
+        if report.suffix.lower() == ".json":
+            report.write_text(result.to_json() + "\n", encoding="utf-8")
+        else:
+            report.write_text(format_application_report(result), encoding="utf-8")
+    if json_output:
+        typer.echo(result.to_json())
+    else:
+        _console.print(format_application_report(result), markup=False, highlight=False)
+    raise typer.Exit(code=_APPLICATION_EXIT[result.status.value])
 
 
 def _render_planning_summary(result: PlanningResult, *, verbose: bool = False) -> None:

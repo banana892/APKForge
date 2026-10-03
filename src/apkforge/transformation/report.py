@@ -1,13 +1,14 @@
-"""Markdown report for an H.2 :class:`PlanningResult` (deterministic, planning only)."""
+"""Markdown reports for H.2 planning results and H.3 application results."""
 
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from apkforge.transformation.application import TransformationApplicationResult
     from apkforge.transformation.models import PlanningResult, TransformationDecision
 
-__all__ = ["format_planning_report"]
+__all__ = ["format_application_report", "format_planning_report"]
 
 
 def _decision(d: TransformationDecision, verbose: bool) -> list[str]:
@@ -77,5 +78,61 @@ def format_planning_report(result: PlanningResult, *, verbose: bool = False) -> 
         lines += _decision(d, verbose)
     if result.errors:
         lines += ["## Errors", ""] + [f"- {e}" for e in result.errors] + [""]
+    lines += ["## Limitations", ""] + [f"- {x}" for x in result.limitations]
+    return "\n".join(lines) + "\n"
+
+
+def format_application_report(result: TransformationApplicationResult) -> str:
+    """Markdown report for an H.3 application (or plan validation)."""
+    mode = "plan validation, nothing applied" if result.dry_run else "application"
+    history = " -> ".join(s.value for s in result.status_history)
+    lines = [f"# APKForge controlled transformation (Phase H.3, {mode})", ""]
+    lines += [
+        f"- Status: **{result.status.value}** ({history})",
+        f"- Transformation: {result.transformation_id or '?'}",
+        f"- Plan id: `{result.plan_id or '?'}`",
+        f"- Target: `{result.target.get('class', '?')}` ({result.target.get('file', '?')})",
+        f"- Source SHA-256: `{result.source_apk_sha256}` (unchanged: {result.original_unchanged})",
+    ]
+    if result.output_apk:
+        lines.append(f"- Output: `{result.output_apk}` (SHA-256 `{result.output_apk_sha256}`)")
+    if result.failure is not None:
+        f = result.failure
+        lines += ["", f"**{f.code.value}** at stage `{f.stage.value}`: {f.message}"]
+    lines.append("")
+    if result.planned_changes:
+        verb = "Applied" if result.status.value == "VERIFIED" else "Planned"
+        lines += [f"{verb} changes:", ""]
+        lines += [
+            f"- `{c['type']}` {c['target']} ({c.get('artifact')})" for c in result.planned_changes
+        ]
+        lines.append("")
+    if result.mutation is not None:
+        m = result.mutation
+        lines += [
+            "| Mutation | Value |",
+            "|---|---|",
+            f"| operation | {m.operation} |",
+            f"| target file | {m.target_file} |",
+            f"| pre-transform SHA-256 | `{m.pre_transform_sha256}` |",
+            f"| post-transform SHA-256 | {m.post_transform_sha256 or '(file removed)'} |",
+            f"| classes | {m.classes_before} -> {m.classes_after} |",
+            f"| removed | {', '.join(m.removed_classes) or '-'} |",
+            "",
+        ]
+    if result.expected_changes:
+        lines += ["Expected semantic changes (declared before mutation):", ""]
+        lines += [f"- {e.category} {e.kind} `{e.identifier}`" for e in result.expected_changes]
+        lines.append("")
+    if result.diff.get("unexpected"):
+        lines += ["Unexpected changes:", ""]
+        lines += [f"- {u}" for u in result.diff["unexpected"]]
+        lines.append("")
+    if result.verification:
+        lines += ["| Check | Expected | Actual | Status |", "|---|---|---|---|"]
+        for row in result.verification:
+            actual = row.actual.replace("|", "\\|")
+            lines.append(f"| {row.check} | {row.expected} | {actual} | {row.status.value} |")
+        lines.append("")
     lines += ["## Limitations", ""] + [f"- {x}" for x in result.limitations]
     return "\n".join(lines) + "\n"

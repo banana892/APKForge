@@ -1,4 +1,4 @@
-# Transformation — Evidence (H.1) and Eligibility Planning (H.2)
+# Transformation — Evidence (H.1), Eligibility Planning (H.2), Controlled Application (H.3)
 
 > **H.1 does not perform APK transformations. It only produces evidence that future
 > transformation stages may consume.**
@@ -6,6 +6,10 @@
 > **H.2 determines whether a proposed transformation is supported by the available static
 > evidence and produces a deterministic plan. It does not apply the transformation and
 > does not establish that the target behavior is malicious.**
+>
+> **H.3 applies exactly one validated, ELIGIBLE H.2 plan of H-TRANS-001 (remove isolated
+> class) to a copy of the APK and verifies the result. It has no override, never writes the
+> input APK and never claims that an application is safe or malware-free.**
 
 Phase H is built incrementally. Each stage must pass its own verification gate before the
 next one begins:
@@ -13,7 +17,7 @@ next one begins:
 ```text
 H.1  Evidence + reference analysis          (implemented, read-only)
 H.2  Transformation eligibility / planning  (implemented, planning only — see below)
-H.3  First narrow transformation            (not started)
+H.3  First narrow transformation            (implemented: H-TRANS-001 only — see below)
 H.4  Verification of transformed APK        (not started)
 H.5  Additional controlled transformations  (not started)
 ```
@@ -310,9 +314,10 @@ apkforge transform app.apk -t H-TRANS-001 --target com.x.A \
 One `--transform` applies to every `--target`; otherwise give one per target (paired in
 order). `--json` (ANSI-free, deterministic), `--report x.md|x.json`, `--verbose`,
 `--skip-resources` (resource requirements become UNDETERMINED), `--work-dir`. `--dry-run`
-is accepted for explicitness; planning is the only mode. `--apply` exits with code 2
-("H.2 is planning-only"). Exit codes: 0 planned, 1 analysis error / input changed,
-2 usage error.
+is accepted for explicitness; with `-t/--target`, planning is the only mode. `--apply`
+without `--plan` exits with code 2 ("planning-only"): planning and mutation are never
+combined in one step (applying a saved plan is H.3, below). Exit codes: 0 planned,
+1 analysis error / input changed, 2 usage error.
 
 ```python
 from apkforge.transformation import TransformationPlanningService, TransformationRequest
@@ -572,3 +577,193 @@ target (`tests/unit/test_phase_h2_transformation.py::test_planning_is_index_base
   `--apply` rejection, usage errors, reports, input SHA preservation.
 - `build-tests/run_phase_h2_validation.py all --write` — synthetic + 9-APK planning run;
   evidence in `artifacts/phase-h/` (see `H2-TRANSFORMATION-PLANNING.md`).
+
+# Phase H.3 — Controlled Transformation (H-TRANS-001)
+
+H.3 is the first stage that changes an APK — a *copy* of it. It applies exactly one H.2
+plan, and only one transformation: **H-TRANS-001, remove isolated class**. H-TRANS-002
+(remove isolated method) stays planning-only.
+
+```text
+APK ─> H.1 analysis ─> H.2 eligibility ─> H.2 plan (JSON)
+                                              │  apkforge transform APK --plan PLAN.json --apply -o OUT
+                                              ▼
+  plan load ─> source SHA-256 ─> plan id ─> ELIGIBLE? ─> H.1 + H.2 re-run (same decision,
+  identical plan) ─> expected DEX consequences + noise floor          [nothing written yet]
+     ─> ModificationPipeline (Phase D): decode ─> target checks ─> remove ONE smali file
+        ─> class census ─> build ─> align ─> sign ─> verify (BuildService)
+        ─> Phase E: DiffEngine + expected-vs-actual classification + verification matrix
+     ─> H.1 re-analysis of the output (target absent, nothing else changed, same states)
+     ─> H.3 verification matrix ─> publish OUT (atomic) only when every check passed
+```
+
+## Using it
+
+```bash
+# 1. plan (H.2) and keep the plan
+apkforge transform app.apk -t H-TRANS-001 --target com.example.Unused --report plan.json
+# 2. validate the plan against the APK (dry run: nothing is decoded for mutation, built or signed)
+apkforge transform app.apk --plan plan.json
+# 3. apply it
+apkforge transform app.apk --plan plan.json --apply -o app-transformed.apk --report h3.md
+```
+
+`--plan` accepts an H.2 `--report .json` holding exactly one decision, or a single plan
+object. `--apply` requires `--plan` and `--output` (which must not be the input).
+`--noop-baseline FILE` uses a semantic no-op baseline that contains the APK (for example
+`tests/corpus/results/phase-e-noise-baseline.json`); otherwise the APK's noise floor is
+measured first with one unmodified rebuild. `--keep-workspace` keeps the build workspace
+(it is always kept after a failed mutation, for diagnosis). `--json`, `--report x.md|x.json`
+and `--work-dir` as for H.2. There is no `--force`, `--unsafe` or equivalent.
+Exit codes: 0 `VERIFIED` / `PLANNED`, 3 `REFUSED` / `UNKNOWN`, 1 `FAILED`, 2 usage error.
+
+```python
+from apkforge.transformation import TransformationExecutor
+
+result = TransformationExecutor(build_service).run(
+    "app.apk", "plan.json", apply=True, output_apk="out.apk"
+)
+result.status  # ApplicationStatus.VERIFIED / REFUSED / FAILED / UNKNOWN / PLANNED
+result.failure  # ApplicationFailure(code=ApplicationReason..., stage=..., message=...)
+result.verification  # the expected-vs-actual matrix (MatrixRow list)
+```
+
+Modules: `application` (result models, statuses, reason codes), `executor`
+(`TransformationExecutor`, `load_plan`), `modifier` (`RemoveIsolatedClassModifier`, the
+plan-bound Phase D modifier), `dexstate` (class census, DEX string-pool and API
+attribution), `report` (`format_application_report`).
+
+## H.2 plan consumption and integrity
+
+H.3 never decides eligibility. It checks, in this order, before anything is written:
+
+| Check | Refusal |
+|---|---|
+| plan file exists / is JSON / matches the H.2 schema (one decision, one `remove_class` change, current planning and H.1 schema versions) | `PLAN_NOT_FOUND` / `PLAN_INVALID` |
+| the H.2 decision produced a plan | `PLAN_NOT_ELIGIBLE` (the decision's state and reasons are reported) |
+| SHA-256 of the APK == the plan's | `SOURCE_SHA_MISMATCH` |
+| plan id recomputed with the H.2 rules (`decision_id_for` over SHA, transformation, re-parsed target, parameters, schemas) | `PLAN_ID_MISMATCH` |
+| transformation is H-TRANS-001 | `UNSUPPORTED_TRANSFORMATION` |
+| plan eligibility is `ELIGIBLE` with no conditions | `PLAN_NOT_ELIGIBLE` |
+| H.1 + the *same* H.2 planner re-run on the APK decide `ELIGIBLE` | `PLAN_NOT_ELIGIBLE` / `ANALYSIS_INCOMPLETE` |
+| the re-run produces a plan identical to the given one, field by field | `PLAN_MISMATCH` |
+
+The plan id covers only the plan-defining inputs, so the last two checks are what make an
+edited plan (for example `"eligibility": "ELIGIBLE"` written into a refused target's plan,
+even with a correctly recomputed id) fail closed. `CONDITIONALLY_ELIGIBLE`, `REFUSED`,
+`UNSUPPORTED` and `UNDETERMINED` never reach mutation.
+
+## Mutation semantics
+
+The plan-bound modifier (`h3.remove_isolated_class`, deliberately absent from the default
+modifier catalog, so `apkforge modify` cannot request it) runs inside the existing Phase D
+`ModificationPipeline`:
+
+- **plan** (decoded workspace, read-only): the target is defined exactly once, in the file
+  and DEX the plan recorded; the workspace's class count equals the H.1 analysis'; the DEX
+  keeps at least one class; every smali file has a readable `.class` directive. Failures:
+  `TARGET_NOT_FOUND`, `TARGET_AMBIGUOUS`, `TARGET_STATE_MISMATCH`, `ANALYSIS_INCOMPLETE`,
+  `TRANSFORMATION_PRECONDITION_FAILED` (status `REFUSED`, nothing mutated).
+- **apply**: re-checks the target file's SHA-256 and the class census, deletes exactly the
+  target smali file, and before any build confirms that the target existed, is now absent,
+  exactly one class was removed, no other class was removed, added or moved, and the count
+  dropped by one. Anything else is `UNEXPECTED_MUTATION` (`FAILED`, nothing built).
+  The pipeline's own source check independently rejects any unplanned file change.
+- Mutation record: `{"transformation_id", "operation": "REMOVE_CLASS", "target",
+  "target_file", "target_dex", "count", "pre_transform_sha256", "post_transform_sha256":
+  null, "classes_before", "classes_after", "removed_classes", "added_classes",
+  "census_before_sha256", "census_after_sha256"}`.
+
+Nothing else is touched: no caller, method, permission, manifest component, resource,
+asset, native library, SDK setting, URL or metadata is edited, and no code is injected.
+
+## Expected changes (declared before mutation)
+
+Phase E compares original and output semantically, and every observation must be either
+declared or measured rebuild noise. Before mutating, H.3 declares:
+
+- `dex_class removed <target>` — the planned change;
+- `dex_string removed s` for every DEX string-pool entry (as Phase E enumerates it) that the
+  target's smali contributes and no remaining class may contribute (descriptors, member
+  and declaration names, prototype shorties, literals, debug names, annotation elements;
+  remaining classes are tokenised generously so nothing they use is predicted to vanish);
+- `dex_api_reference removed a` for every framework API reference that only the target
+  uses, attributed per class exactly as the Phase E DEX inspector collects them (the
+  attribution must reproduce the inspector's inventory, otherwise
+  `TRANSFORMATION_PRECONDITION_FAILED`).
+
+Both directions fail closed: an undeclared consequence is `UNEXPECTED`, a declared one
+that does not happen is a missing expectation. No new diff category exists; nothing is
+classified as "looks safe". More than 50 string removals (the Phase E enumeration limit)
+is refused up front (`ANALYSIS_INCOMPLETE`). URL/host removals are never declared: a
+class whose removal would remove an endpoint fails as `UNEXPECTED_DIFF`.
+
+## Build, verification and post-transform analysis
+
+BuildService builds, aligns, signs (configured or development key) and verifies the
+output; stage failures map to `DECODE_FAILED`, `BUILD_FAILED`, `ALIGN_FAILED`,
+`SIGN_FAILED`, `SIGNATURE_VERIFICATION_FAILED`. Phase E then runs `DiffEngine`, the
+content-aware expected-vs-actual classification against the APK's no-op noise floor and
+the verification matrix; any unexpected/unknown observation or missing expectation is
+`UNEXPECTED_DIFF` (`NOISE_BASELINE_UNAVAILABLE` when no usable noise floor exists).
+
+H.1 then re-analyses the output: the target must not be defined, no other class may be
+removed or added, the class count must drop by exactly one, no structural or indirect
+reference to the target may exist, and no component may be weaker than in the original
+analysis with DEX `COMPLETE`. An insufficient analysis is `ANALYSIS_INCOMPLETE` with status
+`UNKNOWN` (absence is never inferred from incomplete analysis); any other deviation is
+`POST_TRANSFORMATION_VERIFICATION_FAILED`.
+
+## Status model and verification matrix
+
+`PLANNED` (validated dry run) → `APPLYING` → `BUILT` → `VERIFIED`; or `REFUSED` (before
+any mutation), `FAILED` (a stage or mandatory check failed after mutation started) or
+`UNKNOWN` (the result cannot be established). Only `VERIFIED` publishes the output, via a
+temporary file and an atomic rename; the input SHA-256 is compared at the end of every run.
+
+| Check | Expected |
+|---|---|
+| Source SHA | matches the plan |
+| Plan ID | exact match |
+| Eligibility | ELIGIBLE (plan and re-evaluation) |
+| Target class before / after | present / absent (decoded project and H.1 re-analysis) |
+| Classes removed / other classes removed | 1 / 0 |
+| Build / Align / Sign / Signature verification | success |
+| Post-transform analysis | sufficient |
+| Unexpected semantic changes | none |
+| Original APK SHA | unchanged |
+
+Every row is mandatory; rows not reached are `NOT_RUN`, never `PASS`.
+
+## Result schema
+
+`TransformationApplicationResult` (`schema_version` 1, `phase` "H.3"): `planning_schema`,
+`analysis_schema`, `transformation_id`, `plan_id`, `plan_source_sha256`, `source_apk`,
+`source_apk_sha256`, `source_apk_sha256_after`, `original_unchanged`, `target` (class,
+file, dex), `status`, `status_history`, `dry_run`, `workspace_id`, `planned_changes`,
+`expected_changes`, `mutation`, `build` (stages, signer, verification, noise floor),
+`diff` (verdict counts, observed/missing/unexpected, Phase E matrix), `analysis`
+(`PostAnalysis`), `verification` (matrix), `output_apk`, `output_apk_sha256`,
+`output_content_sha256` (over sorted entry name + entry SHA-256), `failure`
+(`code`, `stage`, `message`, `details`), `warnings`, `limitations`.
+`comparable()` drops run-specific fields (paths, workspace id, archive SHA-256).
+
+## Reproducibility
+
+Applying the same plan to the same APK twice gives an identical `comparable()` result
+(mutation record, expected and observed changes, post-analysis, matrix) and identical
+archive *entry contents* (`output_content_sha256`); the APK bytes differ only by ZIP
+metadata written by the build tools, as for every BuildService rebuild.
+
+## Verification (H.3)
+
+- `tests/unit/test_phase_h3_transformation.py` — reason/status model, plan loading,
+  integrity order (refused before any analysis), H-TRANS-002 not applied, string-pool
+  tokenisation, class census, report and CLI usage errors.
+- `tests/integration/test_phase_h3_transformation.py` — scenarios A–K on real APKs from
+  `tests/fixtures/h3_apks.py` (published once through BuildService and signed v2/v3-only
+  by a separate publisher key, so the H.3 output is re-signed as for any real app) and the
+  CLI plan → validate → apply flow.
+- `build-tests/run_phase_h3_validation.py all --write` — synthetic scenarios plus an
+  `--apply` attempt for every H.2 class target of the 9-APK corpus; evidence in
+  `artifacts/phase-h/` (see `H3-CONTROLLED-TRANSFORMATION.md`).

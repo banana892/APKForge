@@ -921,3 +921,40 @@ Evidence: `artifacts/phase-h/H2-TRANSFORMATION-PLANNING.md`
 - *Plans are not proofs*: an ELIGIBLE plan states that the static evidence supports the
   change within H.1's scope; it does not establish runtime safety, and it does not
   establish that the target is malicious, unnecessary or tracking-related.
+
+## Status update — Phase H.3 Controlled Transformation
+
+Design: [`docs/transformation.md`](transformation.md#phase-h3--controlled-transformation-h-trans-001).
+Evidence: `artifacts/phase-h/H3-CONTROLLED-TRANSFORMATION.md`
+(`build-tests/run_phase_h3_validation.py`).
+
+**Introduced by Phase H.3**
+
+- *One transformation*: `apkforge transform APK --plan PLAN.json --apply -o OUT` applies an
+  ELIGIBLE H-TRANS-001 plan (remove one isolated class) to a copy of the APK, through the
+  Phase D pipeline, BuildService, Phase E verification and an H.1 re-analysis. H-TRANS-002
+  remains planning-only (`UNSUPPORTED_TRANSFORMATION`).
+- *No override*: plans are re-validated (source SHA-256, plan id, H.2 re-evaluation with an
+  identical plan); every refusal and failure has a machine-readable reason and stage.
+
+**Limitations (by design, not defects)**
+
+- *Real apps rarely qualify*: H.3 inherits every H.2 rule; on the 9-APK corpus no target is
+  ELIGIBLE, so no real-world APK is transformed. The rules are not relaxed.
+- *Static verification only*: the output is rebuilt, signed, diffed and re-analysed, never
+  installed or run. VERIFIED means "exactly the planned class was removed and nothing else
+  changed within the analysed scope", not "the app still works" or "the app is safe".
+- *Re-signed output*: the output carries the configured (by default development) key and
+  cannot update an installation signed with the original key.
+- *Exact consequence prediction*: every DEX string / framework API reference that
+  disappears with the class must be predicted before mutation; a misprediction fails the
+  run (never passes it). Targets whose removal would drop more than 50 pool strings (the
+  Phase E enumeration limit) are refused (`ANALYSIS_INCOMPLETE`), and removals that drop a
+  URL or host fail as `UNEXPECTED_DIFF`.
+- *Noise floor required*: verification needs a usable no-op baseline for the APK (measured
+  by default: one extra unmodified rebuild). An APK whose no-op rebuild is not semantically
+  equivalent cannot be transformed (`NOISE_BASELINE_UNAVAILABLE`). Synthetic test APKs are
+  therefore "published" once (round trip + a separate v2/v3-only publisher key), as real
+  apps are.
+- *Archive bytes are not reproducible*: two applications of the same plan give the same
+  result and identical entry contents; the APK bytes differ by ZIP metadata.

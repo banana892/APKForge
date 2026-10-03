@@ -5,6 +5,19 @@
 
 ---
 
+## Phase H.3 — Controlled Transformation (H-TRANS-001 only)
+
+`apkforge transform APP.apk --plan PLAN.json --apply -o OUT.apk` applies exactly one
+previously generated, ELIGIBLE H.2 plan of H-TRANS-001 (remove isolated class) to a copy of
+the APK: plan integrity (source SHA-256, plan id, H.2 re-evaluation with an identical plan)
+-> remove one smali class -> BuildService build/align/sign/verify -> Phase E diff with every
+expected change declared before mutation -> H.1 re-analysis -> an expected-vs-actual
+matrix. The output is written only when every check passes (`VERIFIED`); otherwise the run
+is `REFUSED`, `FAILED` or `UNKNOWN` with a machine-readable reason. There is no override,
+the input APK is never modified, and H-TRANS-002 stays planning-only. Without `--apply`
+the plan is only validated. Programmatic API: `TransformationExecutor(service).run(apk,
+plan, apply=True, output_apk=...)`. See [docs/transformation.md](docs/transformation.md).
+
 ## Phase H.2 — Transformation Eligibility & Deterministic Planning (planning only)
 
 `apkforge transform APP.apk --transform H-TRANS-001 --target com.example.Foo --dry-run`
@@ -13,8 +26,8 @@ evidence whether removing an isolated class / method is supported: `ELIGIBLE`,
 `CONDITIONALLY_ELIGIBLE`, `REFUSED`, `UNSUPPORTED` or `UNDETERMINED`, with machine-readable
 reason codes, and emits a deterministic plan for eligible requests. H.2 determines whether a
 proposed transformation is supported by the available static evidence and produces a
-deterministic plan. It does not apply the transformation (`--apply` is rejected) and does
-not establish that the target behavior is malicious. Programmatic API:
+deterministic plan. It does not apply the transformation (`--apply` needs a saved plan,
+see H.3) and does not establish that the target behavior is malicious. Programmatic API:
 `TransformationPlanningService.plan(apk, requests)`. See
 [docs/transformation.md](docs/transformation.md).
 
@@ -225,6 +238,11 @@ apkforge references path/to/app.apk --json > references.json
 # Transformation eligibility & planning (Phase H.2, never applied)
 apkforge transform path/to/app.apk --transform H-TRANS-001 --target com.example.Foo --dry-run
 apkforge transform path/to/app.apk -t H-TRANS-002 --target 'com.example.Foo->bar()V' --json
+
+# Controlled transformation (Phase H.3): validate, then apply a saved ELIGIBLE plan
+apkforge transform path/to/app.apk -t H-TRANS-001 --target com.example.Foo --report plan.json
+apkforge transform path/to/app.apk --plan plan.json
+apkforge transform path/to/app.apk --plan plan.json --apply -o transformed.apk --report h3.md
 
 # Controlled Remediation (Phase G)
 # List available remediation definitions

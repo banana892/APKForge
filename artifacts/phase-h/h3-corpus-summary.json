@@ -1,0 +1,3769 @@
+{
+  "toolchain": {
+    "python": "3.14.7",
+    "platform": "Linux-7.2.7-200.fc44.x86_64-x86_64-with-glibc2.43",
+    "apktool": "3.0.3",
+    "java": "openjdk version \"25.0.4.1\" 2026-08-18",
+    "git_head": "4667dce"
+  },
+  "corpus": {
+    "apks": [
+      {
+        "apk": "com.emanuelef.remote_capture_95.apk",
+        "sha256": "e03f79082278b3754b4954c7537e7c9f7681e5995a44e70aa1589eca10190066",
+        "sha256_after": "e03f79082278b3754b4954c7537e7c9f7681e5995a44e70aa1589eca10190066",
+        "package": "com.emanuelef.remote_capture",
+        "analysis_state": "PARTIAL",
+        "components": {
+          "dex": "COMPLETE",
+          "reflection": "PARTIAL",
+          "native_indicators": "COMPLETE",
+          "native_code": "NOT_ANALYZED",
+          "manifest": "COMPLETE",
+          "resources": "COMPLETE",
+          "assets": "PARTIAL"
+        },
+        "defined_classes": 2845,
+        "targets_attempted": 25,
+        "eligibility": {
+          "ELIGIBLE": 0,
+          "CONDITIONALLY_ELIGIBLE": 0,
+          "REFUSED": 25,
+          "UNSUPPORTED": 0,
+          "UNDETERMINED": 0
+        },
+        "h3_status": {
+          "REFUSED": 25
+        },
+        "h3_codes": {
+          "PLAN_NOT_ELIGIBLE": 25
+        },
+        "applied": 0,
+        "verified": 0,
+        "decisions": [
+          {
+            "target": "androidx.profileinstaller.ProfileInstallReceiver",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.startup.InitializationProvider",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "MANIFEST_COMPONENT_REFERENCE",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "cat.ereza.customactivityoncrash.activity.DefaultErrorActivity",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONST_CLASS_REFERENCE_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "cat.ereza.customactivityoncrash.provider.CaocInitProvider",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "MANIFEST_COMPONENT_REFERENCE",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.emanuelef.remote_capture.ActionReceiver",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONST_CLASS_REFERENCE_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "android.app.AppComponentFactory",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.appcompat.view.menu.MenuBuilder$ItemInvoker",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.appcompat.widget.SearchView$UpdatableTouchDelegate",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.core.app.MultiWindowModeChangedInfo",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.core.view.WindowInsetsAnimationCompat$Callback",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.fragment.app.DefaultSpecialEffectsController$AnimationEffect",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.lifecycle.SavedStateViewModelFactory",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.preference.SeekBarPreference",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.transition.Transition$Impl26",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.emanuelef.remote_capture.PCAPdroid",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "MANIFEST_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.emanuelef.remote_capture.adapters.CaptureListAdapter",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.emanuelef.remote_capture.model.CtrlPermissions$ConsentType",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.google.android.material.appbar.ViewOffsetHelper",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.google.android.material.internal.ViewUtils$RelativePadding",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.google.android.material.timepicker.ClockFaceView$1",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.google.zxing.BarcodeFormat",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "j$.time.temporal.a",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "j$.util.stream.b2",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "j$.util.stream.p4",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "java.util.function.IntUnaryOperator",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          }
+        ],
+        "original_unchanged": true,
+        "h1_seconds": 20.1,
+        "h3_seconds": 2.2,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "apk": "com.oF2pks.applicationsinfo_19.apk",
+        "sha256": "c0188f5f1f566e12324bd6bf4bf4f1b9408d852c6cc6b113706503031f13eebd",
+        "sha256_after": "c0188f5f1f566e12324bd6bf4bf4f1b9408d852c6cc6b113706503031f13eebd",
+        "package": "com.oF2pks.applicationsinfo",
+        "analysis_state": "PARTIAL",
+        "components": {
+          "dex": "COMPLETE",
+          "reflection": "PARTIAL",
+          "native_indicators": "COMPLETE",
+          "native_code": "COMPLETE",
+          "manifest": "COMPLETE",
+          "resources": "COMPLETE",
+          "assets": "COMPLETE"
+        },
+        "defined_classes": 63,
+        "targets_attempted": 22,
+        "eligibility": {
+          "ELIGIBLE": 0,
+          "CONDITIONALLY_ELIGIBLE": 0,
+          "REFUSED": 22,
+          "UNSUPPORTED": 0,
+          "UNDETERMINED": 0
+        },
+        "h3_status": {
+          "REFUSED": 22
+        },
+        "h3_codes": {
+          "PLAN_NOT_ELIGIBLE": 22
+        },
+        "applied": 0,
+        "verified": 0,
+        "decisions": [
+          {
+            "target": "com.oF2pks.applicationsinfo.DetailActivity",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONST_CLASS_REFERENCE_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.oF2pks.applicationsinfo.MainActivity",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.oF2pks.applicationsinfo.View2ManifestActivity",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONST_CLASS_REFERENCE_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.oF2pks.applicationsinfo.ViewManifestActivity",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONST_CLASS_REFERENCE_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "android.content.pm.IPackageStatsObserver",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONST_CLASS_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "STRING_REFERENCE_UNRESOLVED",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "android.content.pm.IPackageStatsObserver$Stub$Proxy",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.oF2pks.applicationsinfo.DetailFragment$2",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.oF2pks.applicationsinfo.DetailFragment$5",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.oF2pks.applicationsinfo.DetailFragment$8",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.oF2pks.applicationsinfo.DetailFragment$Adapter$1",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.oF2pks.applicationsinfo.DetailOverflowMenu",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.oF2pks.applicationsinfo.MainListFragment",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "RESOURCE_REFERENCE_PRESENT",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.oF2pks.applicationsinfo.MainListFragment$3",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.oF2pks.applicationsinfo.MainListFragment$Adapter$1",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.oF2pks.applicationsinfo.MainLoader",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.oF2pks.applicationsinfo.R$array",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.oF2pks.applicationsinfo.R$drawable",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.oF2pks.applicationsinfo.R$menu",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.oF2pks.applicationsinfo.View2ManifestActivity$MyWebChromeClient",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.oF2pks.applicationsinfo.ViewManifestActivity$AsyncManifestLoader",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.oF2pks.applicationsinfo.utils.Utils",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.oF2pks.xmlapkparser.AXMLPrinter",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          }
+        ],
+        "original_unchanged": true,
+        "h1_seconds": 1.5,
+        "h3_seconds": 0.0,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "apk": "de.audioattack.openlink_28.apk",
+        "sha256": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+        "sha256_after": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+        "package": "de.audioattack.openlink",
+        "analysis_state": "PARTIAL",
+        "components": {
+          "dex": "COMPLETE",
+          "reflection": "PARTIAL",
+          "native_indicators": "COMPLETE",
+          "native_code": "COMPLETE",
+          "manifest": "COMPLETE",
+          "resources": "COMPLETE",
+          "assets": "PARTIAL"
+        },
+        "defined_classes": 108,
+        "targets_attempted": 23,
+        "eligibility": {
+          "ELIGIBLE": 0,
+          "CONDITIONALLY_ELIGIBLE": 0,
+          "REFUSED": 21,
+          "UNSUPPORTED": 0,
+          "UNDETERMINED": 2
+        },
+        "h3_status": {
+          "REFUSED": 23
+        },
+        "h3_codes": {
+          "PLAN_NOT_ELIGIBLE": 23
+        },
+        "applied": 0,
+        "verified": 0,
+        "decisions": [
+          {
+            "target": "androidx.profileinstaller.ProfileInstallReceiver",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "MANIFEST_COMPONENT_REFERENCE",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.startup.InitializationProvider",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONST_CLASS_REFERENCE_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "de.audioattack.openlink.conf.PackageChangeBroadcastReceiver",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "MANIFEST_COMPONENT_REFERENCE",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "de.audioattack.openlink.ui.IncognitoActivity",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONST_CLASS_REFERENCE_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "de.audioattack.openlink.ui.MainActivity",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONST_CLASS_REFERENCE_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "a.a",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.concurrent.futures.a$b",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.concurrent.futures.a$g",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.core.app.RemoteActionCompat",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.core.graphics.drawable.IconCompatParcelizer",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.lifecycle.SingleGeneratedAdapterObserver",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.profileinstaller.ProfileInstallerInitializer$a",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.profileinstaller.a$b",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.profileinstaller.f",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.profileinstaller.j$a",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.profileinstaller.m",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.profileinstaller.q$a",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.versionedparcelable.a",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "b.a$c",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "b.c",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "f.a",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONST_CLASS_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "g.c",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "i.d",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          }
+        ],
+        "original_unchanged": true,
+        "h1_seconds": 1.4,
+        "h3_seconds": 0.0,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "apk": "de.danoeh.antennapod_3120295.apk",
+        "sha256": "3f43a4337a693cdb49141afe06cb596e88c796009ed77bff51e9444ce2d1ebfc",
+        "sha256_after": "3f43a4337a693cdb49141afe06cb596e88c796009ed77bff51e9444ce2d1ebfc",
+        "package": "de.danoeh.antennapod",
+        "analysis_state": "PARTIAL",
+        "components": {
+          "dex": "COMPLETE",
+          "reflection": "PARTIAL",
+          "native_indicators": "COMPLETE",
+          "native_code": "NOT_ANALYZED",
+          "manifest": "COMPLETE",
+          "resources": "COMPLETE",
+          "assets": "PARTIAL"
+        },
+        "defined_classes": 12065,
+        "targets_attempted": 25,
+        "eligibility": {
+          "ELIGIBLE": 0,
+          "CONDITIONALLY_ELIGIBLE": 0,
+          "REFUSED": 25,
+          "UNSUPPORTED": 0,
+          "UNDETERMINED": 0
+        },
+        "h3_status": {
+          "REFUSED": 25
+        },
+        "h3_codes": {
+          "PLAN_NOT_ELIGIBLE": 25
+        },
+        "applied": 0,
+        "verified": 0,
+        "decisions": [
+          {
+            "target": "androidx.car.app.CarAppPermissionActivity",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.car.app.notification.CarAppNotificationBroadcastReceiver",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.core.content.FileProvider",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.media3.session.MediaButtonReceiver",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "MANIFEST_COMPONENT_REFERENCE",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.profileinstaller.ProfileInstallReceiver",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "MANIFEST_COMPONENT_REFERENCE",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "_COROUTINE.ArtificialStackFrames",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.car.app.CarAppBinder$$ExternalSyntheticLambda2",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.core.app.RemoteActionCompat",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.emoji2.text.EmojiCompatInitializer$BackgroundDefaultLoader",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.media3.common.audio.AudioFocusRequestCompat$$ExternalSyntheticApiModelOutline2",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.media3.exoplayer.analytics.MediaMetricsListener$$ExternalSyntheticApiModelOutline25",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.media3.exoplayer.video.FixedFrameRateEstimator$Matcher",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.media3.session.MediaControllerImplBase$$ExternalSyntheticLambda111",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.media3.session.legacy.MediaSessionCompat$Callback$CallbackHandler",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.transition.Transition$Impl26",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.bumptech.glide.disklrucache.DiskLruCache$$ExternalSyntheticApiModelOutline0",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.google.android.material.animation.AnimationUtils",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.google.android.material.sidesheet.SideSheetBehavior$$ExternalSyntheticLambda2",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "de.danoeh.antennapod.activity.MainActivity$$ExternalSyntheticLambda5",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "de.danoeh.antennapod.playback.service.Media3PlaybackService$$ExternalSyntheticLambda10",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "de.danoeh.antennapod.ui.episodes.R$dimen",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "de.danoeh.antennapod.ui.screen.home.sections.SubscriptionsSection",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "de.danoeh.antennapod.ui.widget.WidgetConfigActivity$1",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "kotlinx.coroutines.channels.ChannelResult$Closed",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "org.conscrypt.BufferUtils",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          }
+        ],
+        "original_unchanged": true,
+        "h1_seconds": 45.8,
+        "h3_seconds": 2.3,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "apk": "eu.siacs.conversations_4218104.apk",
+        "sha256": "3fae646e33b59b95f049ce9bd828022e2edbb374fa82e517bd782aced71ba980",
+        "sha256_after": "3fae646e33b59b95f049ce9bd828022e2edbb374fa82e517bd782aced71ba980",
+        "package": "eu.siacs.conversations",
+        "analysis_state": "PARTIAL",
+        "components": {
+          "dex": "COMPLETE",
+          "reflection": "PARTIAL",
+          "native_indicators": "PARTIAL",
+          "native_code": "NOT_ANALYZED",
+          "manifest": "COMPLETE",
+          "resources": "PARTIAL",
+          "assets": "PARTIAL"
+        },
+        "defined_classes": 7686,
+        "targets_attempted": 25,
+        "eligibility": {
+          "ELIGIBLE": 0,
+          "CONDITIONALLY_ELIGIBLE": 0,
+          "REFUSED": 25,
+          "UNSUPPORTED": 0,
+          "UNDETERMINED": 0
+        },
+        "h3_status": {
+          "REFUSED": 25
+        },
+        "h3_codes": {
+          "PLAN_NOT_ELIGIBLE": 25
+        },
+        "applied": 0,
+        "verified": 0,
+        "decisions": [
+          {
+            "target": "androidx.core.content.FileProvider",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.profileinstaller.ProfileInstallReceiver",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.room.MultiInstanceInvalidationService",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.sharetarget.ChooserTargetServiceCompat",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "MANIFEST_COMPONENT_REFERENCE",
+              "MANIFEST_TEXTUAL_MATCH",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.startup.InitializationProvider",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "MANIFEST_COMPONENT_REFERENCE",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "android.app.AppComponentFactory",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.core.app.NotificationCompat$Style",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.heifwriter.EncoderBase$SurfaceEOSTracker",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.vectordrawable.graphics.drawable.AndroidResources",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.google.android.material.internal.FadeThroughDrawable$EmptyDrawable",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.google.common.collect.Iterators$6",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.google.zxing.qrcode.decoder.ErrorCorrectionLevel",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "eu.siacs.conversations.databinding.ItemMessageEndBindingImpl",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "eu.siacs.conversations.ui.MediaBrowserActivity$AttachmentFilter",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "eu.siacs.conversations.xml.Tag$No",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "im.conversations.android.xmpp.EntityCapabilities2$EntityCaps2Hash",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "CONST_CLASS_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "im.conversations.android.xmpp.model.rsm.Set",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONST_CLASS_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "j$.util.j",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "kotlin.collections.EmptyIterator",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "net.fellbaum.jemoji.EmojiFoodAsian",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "org.bouncycastle.asn1.pkcs.RSAPrivateKey",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "org.bouncycastle.pqc.jcajce.provider.hqc.BCHQCPrivateKey",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "org.conscrypt.OpenSslCompositeMlDsaKeyFactory$Mldsa87EcdsaP521Sha512",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "org.osmdroid.views.CustomZoomButtonsDisplay",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "org.webrtc.VideoSource",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          }
+        ],
+        "original_unchanged": true,
+        "h1_seconds": 43.5,
+        "h3_seconds": 4.0,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "apk": "godau.fynn.usagedirect_10.apk",
+        "sha256": "c55079192a77fc6696a80c6d337c3f0c64fe4ebc27e5970aaf4baac0a60a3b31",
+        "sha256_after": "c55079192a77fc6696a80c6d337c3f0c64fe4ebc27e5970aaf4baac0a60a3b31",
+        "package": "godau.fynn.usagedirect",
+        "analysis_state": "PARTIAL",
+        "components": {
+          "dex": "COMPLETE",
+          "reflection": "PARTIAL",
+          "native_indicators": "COMPLETE",
+          "native_code": "COMPLETE",
+          "manifest": "COMPLETE",
+          "resources": "COMPLETE",
+          "assets": "PARTIAL"
+        },
+        "defined_classes": 5902,
+        "targets_attempted": 25,
+        "eligibility": {
+          "ELIGIBLE": 0,
+          "CONDITIONALLY_ELIGIBLE": 0,
+          "REFUSED": 24,
+          "UNSUPPORTED": 0,
+          "UNDETERMINED": 1
+        },
+        "h3_status": {
+          "REFUSED": 25
+        },
+        "h3_codes": {
+          "PLAN_NOT_ELIGIBLE": 25
+        },
+        "applied": 0,
+        "verified": 0,
+        "decisions": [
+          {
+            "target": "androidx.profileinstaller.ProfileInstallReceiver",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.room.MultiInstanceInvalidationService",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONST_CLASS_REFERENCE_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.startup.InitializationProvider",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONST_CLASS_REFERENCE_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "godau.fynn.librariesdirect.AboutDirectActivity",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONST_CLASS_REFERENCE_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "godau.fynn.librariesdirect.AboutLibrariesActivity",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONST_CLASS_REFERENCE_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "android.support.v4.app.INotificationSideChannel",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "STRING_REFERENCE_UNRESOLVED",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.asynclayoutinflater.R$styleable",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.core.content.pm.PackageInfoCompat",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.core.provider.RequestExecutor",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.core.view.WindowInsetsCompat$Impl21",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.fragment.app.FragmentManager$RestoreBackStackState",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.palette.R$styleable",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.room.AutoClosingRoomOpenHelper$AutoClosingSupportSQLiteDatabase$setForeignKeyConstraintsEnabled$1",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout$3",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "godau.fynn.usagedirect.charts.UsageStatBarChart",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "j$.time.format.DateTimeTextProvider$LocaleStore",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "j$.util.stream.FindOps$FindSink$OfLong$$ExternalSyntheticLambda1",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "j$.util.stream.SortedOps$RefSortingSink",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "kotlin.collections.ArraysKt___ArraysKt$asIterable$$inlined$Iterable$9",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "kotlin.io.path.FileVisitorBuilder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "kotlin.reflect.TypeOfKt",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "kotlinx.coroutines.Empty",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "kotlinx.coroutines.flow.FlowKt__BuildersKt$asFlow$$inlined$unsafeFlow$7",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "STRING_REFERENCE_UNRESOLVED",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "kotlinx.coroutines.flow.internal.CombineKt$zipImpl$1$1$second$1$1",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "STRING_REFERENCE_UNRESOLVED",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          }
+        ],
+        "original_unchanged": true,
+        "h1_seconds": 26.0,
+        "h3_seconds": 0.5,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "apk": "io.github.muntashirakon.AppManager_451.apk",
+        "sha256": "e1f6ba10812c74016ad626e11e27a1ae450aec2c0964a11466abb9e7a9c8ef84",
+        "sha256_after": "e1f6ba10812c74016ad626e11e27a1ae450aec2c0964a11466abb9e7a9c8ef84",
+        "package": "io.github.muntashirakon.AppManager",
+        "analysis_state": "PARTIAL",
+        "components": {
+          "dex": "COMPLETE",
+          "reflection": "PARTIAL",
+          "native_indicators": "PARTIAL",
+          "native_code": "NOT_ANALYZED",
+          "manifest": "COMPLETE",
+          "resources": "COMPLETE",
+          "assets": "PARTIAL"
+        },
+        "defined_classes": 30717,
+        "targets_attempted": 25,
+        "eligibility": {
+          "ELIGIBLE": 0,
+          "CONDITIONALLY_ELIGIBLE": 0,
+          "REFUSED": 23,
+          "UNSUPPORTED": 0,
+          "UNDETERMINED": 2
+        },
+        "h3_status": {
+          "REFUSED": 25
+        },
+        "h3_codes": {
+          "PLAN_NOT_ELIGIBLE": 25
+        },
+        "applied": 0,
+        "verified": 0,
+        "decisions": [
+          {
+            "target": "androidx.profileinstaller.ProfileInstallReceiver",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.room.MultiInstanceInvalidationService",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONST_CLASS_REFERENCE_PRESENT",
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.startup.InitializationProvider",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONST_CLASS_REFERENCE_PRESENT",
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "io.github.muntashirakon.AppManager.DummyActivity",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONST_CLASS_REFERENCE_PRESENT",
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "io.github.muntashirakon.AppManager.accessibility.NoRootAccessibilityService",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONST_CLASS_REFERENCE_PRESENT",
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "_COROUTINE.ArtificialStackFrames",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.constraintlayout.motion.widget.MotionLayout$MotionTracker",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.emoji2.text.flatbuffer.Utf8Old$$ExternalSyntheticThreadLocal1",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.transition.Slide$CalculateSlideHorizontal",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.android.tools.smali.dexlib2.base.value.BaseStringEncodedValue",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.google.android.material.color.utilities.MaterialDynamicColors$$ExternalSyntheticLambda150",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.google.common.collect.ImmutableEnumMap",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.google.gson.Gson$2",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.reandroid.arsc.model.ResourceTable",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "io.github.muntashirakon.AppManager.apk.installer.PackageInstallerActivity$$ExternalSyntheticLambda0",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "io.github.muntashirakon.AppManager.logs.Log",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "io.github.muntashirakon.multiselection.MultiSelectionActionsView$$ExternalSyntheticLambda3",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "jadx.api.data.ICodeData",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "kotlin.experimental.ExperimentalNativeApi",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "me.zhanghai.android.fastscroll.R$drawable",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "org.bouncycastle.cms.CMSEncryptedGenerator",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "org.bouncycastle.jcajce.provider.asymmetric.ec.IESCipher$ECIES",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "STRING_REFERENCE_UNRESOLVED",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "org.bouncycastle.jce.provider.JCERSAPrivateCrtKey",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "org.bouncycastle.pqc.jcajce.provider.XMSS",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "org.jf.baksmali.ListCommand",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          }
+        ],
+        "original_unchanged": true,
+        "h1_seconds": 114.2,
+        "h3_seconds": 3.3,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "apk": "org.mozilla.fennec_fdroid_1560020.apk",
+        "sha256": "27f2951376ca1085e0933066c902fdfe4d260916d381e233475c5fd6964f5745",
+        "sha256_after": "27f2951376ca1085e0933066c902fdfe4d260916d381e233475c5fd6964f5745",
+        "package": "org.mozilla.fennec_fdroid",
+        "analysis_state": "PARTIAL",
+        "components": {
+          "dex": "COMPLETE",
+          "reflection": "PARTIAL",
+          "native_indicators": "PARTIAL",
+          "native_code": "NOT_ANALYZED",
+          "manifest": "COMPLETE",
+          "resources": "COMPLETE",
+          "assets": "PARTIAL"
+        },
+        "defined_classes": 37886,
+        "targets_attempted": 31,
+        "eligibility": {
+          "ELIGIBLE": 0,
+          "CONDITIONALLY_ELIGIBLE": 0,
+          "REFUSED": 31,
+          "UNSUPPORTED": 0,
+          "UNDETERMINED": 0
+        },
+        "h3_status": {
+          "REFUSED": 31
+        },
+        "h3_codes": {
+          "PLAN_NOT_ELIGIBLE": 31
+        },
+        "applied": 0,
+        "verified": 0,
+        "decisions": [
+          {
+            "target": "androidx.core.content.FileProvider",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.profileinstaller.ProfileInstallReceiver",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "MANIFEST_COMPONENT_REFERENCE",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.room.MultiInstanceInvalidationService",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.startup.InitializationProvider",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "MANIFEST_COMPONENT_REFERENCE",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.work.impl.background.systemalarm.RescheduleReceiver",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONST_CLASS_REFERENCE_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.google.android.gms.ads.identifier.internal.IAdvertisingIdService",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "STRING_REFERENCE_UNRESOLVED",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.google.android.gms.ads.identifier.internal.IAdvertisingIdService$Default",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "io.sentry.Baggage",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "io.sentry.Baggage$DecimalFormatterThreadLocal",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "io.sentry.android.core.AndroidContinuousProfiler",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "io.sentry.android.core.AndroidContinuousProfiler$$ExternalSyntheticLambda0",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "android.app.AppComponentFactory",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.compose.foundation.lazy.grid.GridCells",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.compose.material3.internal.FloatProducer",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.compose.ui.text.SaversKt$$ExternalSyntheticLambda58",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.lifecycle.SavedStateHandleController",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.paging.PagingSource$LoadResult$Page",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.google.android.gms.fido.fido2.api.common.Attachment",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "io.sentry.android.core.performance.AppStartMetrics$$ExternalSyntheticApiModelOutline5",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "mozilla.appservices.logins.uniffiCallbackInterfaceEncryptorDecryptor$uniffiClone",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "mozilla.components.browser.icons.generator.IconGenerator",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "mozilla.components.concept.engine.utils.EngineReleaseChannel",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "mozilla.components.feature.readerview.ReaderViewFeature$start$1$invokeSuspend$$inlined$mapNotNull$1$2",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "STRING_REFERENCE_UNRESOLVED",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "mozilla.components.support.utils.ext.StringKt",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "org.mozilla.fenix.GleanMetrics.Addons$OpenAddonInToolbarMenuExtra",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "org.mozilla.fenix.bookmarks.SearchAction$SearchClicked",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "org.mozilla.fenix.components.toolbar.BrowserToolbarMiddleware$buildNavigationActions$1",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "org.mozilla.fenix.home.topsites.controller.DefaultTopSiteController$handleSaveShortcut$1",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "org.mozilla.fenix.reviewprompt.ShowReviewPromptBinding$onState$$inlined$map$1$1",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "org.mozilla.fenix.settings.studies.StudiesAdapterDelegate",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "org.mozilla.fenix.utils.ScreenMetricsCompat$ScreenMetricsApiImpl",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          }
+        ],
+        "original_unchanged": true,
+        "h1_seconds": 114.2,
+        "h3_seconds": 17.8,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "apk": "org.schabi.newpipe_1015_cb84069.apk",
+        "sha256": "18447bfb1e06d113edc88df93f471827280de06f6f3d4dc42f56f28b9c1bab79",
+        "sha256_after": "18447bfb1e06d113edc88df93f471827280de06f6f3d4dc42f56f28b9c1bab79",
+        "package": "org.schabi.newpipe",
+        "analysis_state": "PARTIAL",
+        "components": {
+          "dex": "COMPLETE",
+          "reflection": "PARTIAL",
+          "native_indicators": "COMPLETE",
+          "native_code": "NOT_ANALYZED",
+          "manifest": "COMPLETE",
+          "resources": "COMPLETE",
+          "assets": "PARTIAL"
+        },
+        "defined_classes": 10671,
+        "targets_attempted": 25,
+        "eligibility": {
+          "ELIGIBLE": 0,
+          "CONDITIONALLY_ELIGIBLE": 0,
+          "REFUSED": 25,
+          "UNSUPPORTED": 0,
+          "UNDETERMINED": 0
+        },
+        "h3_status": {
+          "REFUSED": 25
+        },
+        "h3_codes": {
+          "PLAN_NOT_ELIGIBLE": 25
+        },
+        "applied": 0,
+        "verified": 0,
+        "decisions": [
+          {
+            "target": "androidx.appcompat.app.AppLocalesMetadataHolderService",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONST_CLASS_REFERENCE_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "STRING_REFERENCE_UNRESOLVED",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.core.content.FileProvider",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.media.session.MediaButtonReceiver",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.profileinstaller.ProfileInstallReceiver",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.room.MultiInstanceInvalidationService",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "MANIFEST_COMPONENT_REFERENCE",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "android.app.AppComponentFactory",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.compose.animation.core.MutatePriority",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.compose.material3.InteractiveListItemMeasurePolicy$minIntrinsicHeight$1",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.compose.ui.graphics.colorspace.Lab",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.compose.ui.text.android.CharSequenceCharacterIterator",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.fragment.app.FragmentAnim$EndViewTransitionAnimation",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "androidx.savedstate.serialization.EmptyArrayDecoder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "coil3.util.HardwareBitmapService",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.google.android.exoplayer2.drm.DrmUtil$Api21",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.google.android.exoplayer2.source.DefaultMediaSourceFactory$AdsLoaderProvider",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.google.android.exoplayer2.ui.PlayerNotificationManager$Builder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "com.google.android.material.internal.NavigationMenuItemView",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "RESOURCE_REFERENCE_PRESENT",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "io.reactivex.rxjava3.internal.operators.flowable.FlowableDistinctUntilChanged$DistinctUntilChangedConditionalSubscriber",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "j$.util.d0",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "kotlin.jvm.functions.Function8",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONST_CLASS_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "STRING_REFERENCE_UNRESOLVED",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "net.newpipe.app.AppKt",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONST_CLASS_REFERENCE_PRESENT",
+              "FIELD_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "org.jsoup.helper.Re2jRegex$Re2jMatcher",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONSTRUCTOR_REFERENCE_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "org.mozilla.javascript.annotations.JSGetter",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "CONST_CLASS_REFERENCE_PRESENT",
+              "METHOD_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "org.schabi.newpipe.extractor.kiosk.KioskInfo",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          },
+          {
+            "target": "org.schabi.newpipe.local.subscription.SubscriptionViewModel$SubscriptionState",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CLASS_CALLER_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "RESOURCE_ANALYSIS_INCOMPLETE",
+              "TYPE_REFERENCE_PRESENT"
+            ],
+            "h3_status": "REFUSED",
+            "h3_code": "PLAN_NOT_ELIGIBLE",
+            "h3_stage": "eligibility"
+          }
+        ],
+        "original_unchanged": true,
+        "h1_seconds": 52.1,
+        "h3_seconds": 1.4,
+        "result": "PASS",
+        "failures": []
+      }
+    ],
+    "totals": {
+      "targets": 226,
+      "eligible": 0,
+      "applied": 0,
+      "verified": 0,
+      "refused": 226,
+      "failed": 0
+    },
+    "outputs_published": [],
+    "workspaces_left_behind": [],
+    "max_rss_mb": 2289,
+    "status": "PASS"
+  }
+}

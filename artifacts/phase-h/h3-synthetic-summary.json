@@ -1,0 +1,1233 @@
+{
+  "toolchain": {
+    "python": "3.14.7",
+    "platform": "Linux-7.2.7-200.fc44.x86_64-x86_64-with-glibc2.43",
+    "apktool": "3.0.3",
+    "java": "openjdk version \"25.0.4.1\" 2026-08-18",
+    "git_head": "4667dce"
+  },
+  "synthetic": {
+    "fixtures": {
+      "h3_isolated": "A (activity), B and C; B is isolated and uses a unique string + framework API",
+      "h3_isolated_alt": "same shape as h3_isolated with a different C (a second, distinct APK)",
+      "h3_caller": "A.go() -> B.bar() (static call)",
+      "h3_reflection": "A.load(String) calls Class.forName(p1) (unresolved reflection); B otherwise isolated",
+      "h3_native": "B declares a native method; A calls System.loadLibrary(\"h3native\") with a bundled .so",
+      "h3_manifest": "B is declared as a <service> in the manifest; otherwise isolated"
+    },
+    "fixture_sha256": {
+      "h3_isolated": "f3a9a145fe21e5df3dc164fa42f9e8efd462ed98aa8bd7e9beba4f0c7ab59ed0",
+      "h3_isolated_alt": "9eb85dbee2c11a78fd965c3d22684f1c1bdf4a4423ab3b4b57883c975ac40e4c",
+      "h3_caller": "f62534d9a434fd05b02676076af7033ff0f99542911d43f4df74e25aeff57202",
+      "h3_reflection": "35ca88b11312f077df47fb47bfb8497ebe72ed748068eb350470e138dfb04381",
+      "h3_native": "747a53bc4a5363441262300a2e7b0cd099d593117bebc4878951d1f77ab8d201",
+      "h3_manifest": "569dd584b0c73802411523b0579d130e53c88910b19b70ef4d4746515894f198"
+    },
+    "fixtures_unchanged": {
+      "h3_isolated": true,
+      "h3_isolated_alt": true,
+      "h3_caller": true,
+      "h3_reflection": true,
+      "h3_native": true,
+      "h3_manifest": true
+    },
+    "noise_floor": {
+      "h3_isolated": "EQUIVALENT",
+      "h3_isolated_alt": "EQUIVALENT"
+    },
+    "publish_seconds": 14.2,
+    "planning": [
+      {
+        "fixture": "h3_isolated",
+        "target": "com.example.h1.B",
+        "eligibility": "ELIGIBLE",
+        "reasons": [],
+        "plan_id": "plan-8c920872a6437a1a0f77"
+      },
+      {
+        "fixture": "h3_caller",
+        "target": "com.example.h1.B",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "CLASS_CALLER_PRESENT",
+          "METHOD_CALLER_PRESENT",
+          "TYPE_REFERENCE_PRESENT"
+        ],
+        "plan_id": null
+      },
+      {
+        "fixture": "h3_reflection",
+        "target": "com.example.h1.B",
+        "eligibility": "UNDETERMINED",
+        "reasons": [
+          "REFLECTION_TARGET_UNKNOWN"
+        ],
+        "plan_id": null
+      },
+      {
+        "fixture": "h3_native",
+        "target": "com.example.h1.B",
+        "eligibility": "UNSUPPORTED",
+        "reasons": [
+          "NATIVE_DEPENDENCY_UNKNOWN",
+          "NATIVE_METHOD_DECLARED"
+        ],
+        "plan_id": null
+      },
+      {
+        "fixture": "h3_native",
+        "target": "com.example.h1.C",
+        "eligibility": "UNDETERMINED",
+        "reasons": [
+          "NATIVE_DEPENDENCY_UNKNOWN"
+        ],
+        "plan_id": null
+      },
+      {
+        "fixture": "h3_manifest",
+        "target": "com.example.h1.B",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "MANIFEST_COMPONENT_REFERENCE"
+        ],
+        "plan_id": null
+      }
+    ],
+    "eligible_plans": [
+      "plan-8c920872a6437a1a0f77"
+    ],
+    "positive": {
+      "expected_changes": [
+        "dex_class removed com.example.h1.B",
+        "dex_string removed B.java",
+        "dex_string removed Landroid/os/Looper;",
+        "dex_string removed Lcom/example/h1/B;",
+        "dex_string removed Ljava/lang/String;",
+        "dex_string removed getMainLooper",
+        "dex_string removed h3-only-in-b",
+        "dex_string removed stamp",
+        "dex_api_reference removed android.os.Looper;->getMainLooper()Landroid.os.Looper"
+      ],
+      "mutation": {
+        "transformation_id": "H-TRANS-001",
+        "operation": "REMOVE_CLASS",
+        "target": "com.example.h1.B",
+        "target_file": "smali/com/example/h1/B.smali",
+        "target_dex": "classes.dex",
+        "count": 1,
+        "pre_transform_sha256": "3bbeb681dde66d4ea9b1d04504d7d21d9fc127f2e0ed948a28fb6b24ea033205",
+        "post_transform_sha256": null,
+        "classes_before": 3,
+        "classes_after": 2,
+        "removed_classes": [
+          "com.example.h1.B"
+        ],
+        "added_classes": [],
+        "census_before_sha256": "b9f7e5f1222989c7962d0e95dc0d1115472778c6f89ff148e05357b8112934da",
+        "census_after_sha256": "092f16af7d0e8cdb3a3e32234d6aad0b0186a4c9bad3c99a8fb577e2d46c6a29"
+      },
+      "analysis": {
+        "analysis_schema": 2,
+        "analysis_state": "COMPLETE",
+        "component_states": {
+          "assets": "COMPLETE",
+          "dex": "COMPLETE",
+          "manifest": "COMPLETE",
+          "native_code": "COMPLETE",
+          "native_indicators": "COMPLETE",
+          "reflection": "COMPLETE",
+          "resources": "COMPLETE"
+        },
+        "weakened_components": [],
+        "defined_classes_before": 3,
+        "defined_classes_after": 2,
+        "target_defined": false,
+        "other_classes_removed": [],
+        "classes_added": [],
+        "absence_conclusion": "NO_REFERENCES_WITHIN_SCOPE",
+        "definitive_references": 0,
+        "indirect_references": 0,
+        "sufficient": true,
+        "errors": []
+      },
+      "diff": {
+        "passed": true,
+        "mode": "content_fingerprint",
+        "diff_status": "complete",
+        "counts": {
+          "expected_modification": 9,
+          "planned_entry": 1,
+          "rebuild_noise": 4,
+          "unexpected": 0,
+          "unknown": 0
+        },
+        "expected_observed": [
+          "dex_class removed com.example.h1.B",
+          "dex_api_reference removed android.os.Looper;->getMainLooper()Landroid.os.Looper",
+          "dex_string removed B.java",
+          "dex_string removed Landroid/os/Looper;",
+          "dex_string removed Lcom/example/h1/B;",
+          "dex_string removed Ljava/lang/String;",
+          "dex_string removed getMainLooper",
+          "dex_string removed h3-only-in-b",
+          "dex_string removed stamp"
+        ],
+        "expected_missing": [],
+        "unexpected": [],
+        "noise_rule_counts": {
+          "certificate_replaced": 1,
+          "signature_replaced": 3
+        },
+        "failures": [],
+        "matrix": {
+          "overall": "VERIFIED",
+          "reason": "every applicable check passed",
+          "checks": {
+            "expected_changes": "passed",
+            "modification": "passed",
+            "noise_baseline": "passed",
+            "security_diff": "passed",
+            "semantic_diff": "passed",
+            "signature": "passed",
+            "structural": "passed",
+            "unexpected_changes": "passed"
+          }
+        }
+      },
+      "build": {
+        "pipeline_status": "verified",
+        "stages": [
+          {
+            "stage": "prepare",
+            "status": "PASS",
+            "failure_category": null,
+            "failure_cause": ""
+          },
+          {
+            "stage": "decode",
+            "status": "PASS",
+            "failure_category": null,
+            "failure_cause": ""
+          },
+          {
+            "stage": "build",
+            "status": "PASS",
+            "failure_category": null,
+            "failure_cause": ""
+          },
+          {
+            "stage": "align",
+            "status": "PASS",
+            "failure_category": null,
+            "failure_cause": ""
+          },
+          {
+            "stage": "sign",
+            "status": "PASS",
+            "failure_category": null,
+            "failure_cause": ""
+          },
+          {
+            "stage": "verify",
+            "status": "PASS",
+            "failure_category": null,
+            "failure_cause": ""
+          }
+        ],
+        "build_passed": true,
+        "apk_verified": true,
+        "signer_sha256": "b65bae558906631399baaf70f5cee4d90ef800e74f2123a1eb006926046f5757",
+        "signing_mode": "development",
+        "verification": {
+          "valid": true,
+          "zipalign_verified": true,
+          "signature_verified": true,
+          "expected_signer_matched": true,
+          "zip_integrity_verified": true,
+          "manifest_present": true,
+          "certificate": {
+            "subject_dn": "CN=APKForge Development Key - NOT FOR RELEASE, O=APKForge",
+            "sha256_digest": "b65bae558906631399baaf70f5cee4d90ef800e74f2123a1eb006926046f5757",
+            "signer_count": 1,
+            "v1_scheme": true,
+            "v2_scheme": true,
+            "v3_scheme": true,
+            "v31_scheme": false,
+            "v4_scheme": false
+          },
+          "expected_certificate_sha256": "b65bae558906631399baaf70f5cee4d90ef800e74f2123a1eb006926046f5757",
+          "errors": []
+        }
+      },
+      "verification": [
+        {
+          "check": "Source SHA",
+          "expected": "matches the plan",
+          "actual": "f3a9a145fe21e5df3dc164fa42f9e8efd462ed98aa8bd7e9beba4f0c7ab59ed0",
+          "status": "PASS",
+          "mandatory": true
+        },
+        {
+          "check": "Plan ID",
+          "expected": "exact match",
+          "actual": "plan-8c920872a6437a1a0f77",
+          "status": "PASS",
+          "mandatory": true
+        },
+        {
+          "check": "Eligibility",
+          "expected": "ELIGIBLE",
+          "actual": "plan ELIGIBLE, re-evaluated ELIGIBLE",
+          "status": "PASS",
+          "mandatory": true
+        },
+        {
+          "check": "Target class before",
+          "expected": "present",
+          "actual": "present",
+          "status": "PASS",
+          "mandatory": true
+        },
+        {
+          "check": "Target class after",
+          "expected": "absent",
+          "actual": "absent (decoded project and H.1 re-analysis)",
+          "status": "PASS",
+          "mandatory": true
+        },
+        {
+          "check": "Classes removed",
+          "expected": "1",
+          "actual": "1",
+          "status": "PASS",
+          "mandatory": true
+        },
+        {
+          "check": "Other classes removed",
+          "expected": "0",
+          "actual": "0 removed, 0 added",
+          "status": "PASS",
+          "mandatory": true
+        },
+        {
+          "check": "Build",
+          "expected": "success",
+          "actual": "PASS",
+          "status": "PASS",
+          "mandatory": true
+        },
+        {
+          "check": "Align",
+          "expected": "success",
+          "actual": "PASS",
+          "status": "PASS",
+          "mandatory": true
+        },
+        {
+          "check": "Sign",
+          "expected": "success",
+          "actual": "PASS",
+          "status": "PASS",
+          "mandatory": true
+        },
+        {
+          "check": "Signature verification",
+          "expected": "success",
+          "actual": "PASS",
+          "status": "PASS",
+          "mandatory": true
+        },
+        {
+          "check": "Post-transform analysis",
+          "expected": "sufficient",
+          "actual": "COMPLETE; weakened none",
+          "status": "PASS",
+          "mandatory": true
+        },
+        {
+          "check": "Unexpected semantic changes",
+          "expected": "none",
+          "actual": "0 unexpected/unknown, 0 expected change(s) missing",
+          "status": "PASS",
+          "mandatory": true
+        },
+        {
+          "check": "Original APK SHA",
+          "expected": "unchanged",
+          "actual": "f3a9a145fe21e5df3dc164fa42f9e8efd462ed98aa8bd7e9beba4f0c7ab59ed0",
+          "status": "PASS",
+          "mandatory": true
+        }
+      ]
+    },
+    "cases": [
+      {
+        "scenario": "A_positive",
+        "description": "isolated class B removed",
+        "expected_status": "VERIFIED",
+        "expected_code": null,
+        "status": "VERIFIED",
+        "code": null,
+        "stage": null,
+        "message": null,
+        "status_history": [
+          "PLANNED",
+          "APPLYING",
+          "BUILT",
+          "VERIFIED"
+        ],
+        "mutation_count": 1,
+        "source_sha256": "f3a9a145fe21e5df3dc164fa42f9e8efd462ed98aa8bd7e9beba4f0c7ab59ed0",
+        "source_unchanged": true,
+        "output_published": true,
+        "matrix": {
+          "Source SHA": "PASS",
+          "Plan ID": "PASS",
+          "Eligibility": "PASS",
+          "Target class before": "PASS",
+          "Target class after": "PASS",
+          "Classes removed": "PASS",
+          "Other classes removed": "PASS",
+          "Build": "PASS",
+          "Align": "PASS",
+          "Sign": "PASS",
+          "Signature verification": "PASS",
+          "Post-transform analysis": "PASS",
+          "Unexpected semantic changes": "PASS",
+          "Original APK SHA": "PASS"
+        },
+        "seconds": 4.7,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "scenario": "A_dry_run",
+        "description": "--plan without --apply",
+        "expected_status": "PLANNED",
+        "expected_code": null,
+        "status": "PLANNED",
+        "code": null,
+        "stage": null,
+        "message": null,
+        "status_history": [
+          "PLANNED"
+        ],
+        "mutation_count": 0,
+        "source_sha256": "f3a9a145fe21e5df3dc164fa42f9e8efd462ed98aa8bd7e9beba4f0c7ab59ed0",
+        "source_unchanged": true,
+        "output_published": false,
+        "matrix": {},
+        "seconds": 1.0,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "scenario": "B_caller",
+        "description": "com.example.h1.B in h3_caller",
+        "expected_status": "REFUSED",
+        "expected_code": "PLAN_NOT_ELIGIBLE",
+        "status": "REFUSED",
+        "code": "PLAN_NOT_ELIGIBLE",
+        "stage": "eligibility",
+        "message": "H.2 decided REFUSED for H-TRANS-001 com.example.h1.B; no plan exists",
+        "status_history": [
+          "REFUSED"
+        ],
+        "mutation_count": 0,
+        "source_sha256": "f62534d9a434fd05b02676076af7033ff0f99542911d43f4df74e25aeff57202",
+        "source_unchanged": true,
+        "output_published": false,
+        "matrix": {
+          "Source SHA": "NOT_RUN",
+          "Plan ID": "NOT_RUN",
+          "Eligibility": "NOT_RUN",
+          "Target class before": "NOT_RUN",
+          "Target class after": "NOT_RUN",
+          "Classes removed": "NOT_RUN",
+          "Other classes removed": "NOT_RUN",
+          "Build": "NOT_RUN",
+          "Align": "NOT_RUN",
+          "Sign": "NOT_RUN",
+          "Signature verification": "NOT_RUN",
+          "Post-transform analysis": "NOT_RUN",
+          "Unexpected semantic changes": "NOT_RUN",
+          "Original APK SHA": "PASS"
+        },
+        "seconds": 0.0,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "scenario": "C_reflection",
+        "description": "com.example.h1.B in h3_reflection",
+        "expected_status": "REFUSED",
+        "expected_code": "PLAN_NOT_ELIGIBLE",
+        "status": "REFUSED",
+        "code": "PLAN_NOT_ELIGIBLE",
+        "stage": "eligibility",
+        "message": "H.2 decided UNDETERMINED for H-TRANS-001 com.example.h1.B; no plan exists",
+        "status_history": [
+          "REFUSED"
+        ],
+        "mutation_count": 0,
+        "source_sha256": "35ca88b11312f077df47fb47bfb8497ebe72ed748068eb350470e138dfb04381",
+        "source_unchanged": true,
+        "output_published": false,
+        "matrix": {
+          "Source SHA": "NOT_RUN",
+          "Plan ID": "NOT_RUN",
+          "Eligibility": "NOT_RUN",
+          "Target class before": "NOT_RUN",
+          "Target class after": "NOT_RUN",
+          "Classes removed": "NOT_RUN",
+          "Other classes removed": "NOT_RUN",
+          "Build": "NOT_RUN",
+          "Align": "NOT_RUN",
+          "Sign": "NOT_RUN",
+          "Signature verification": "NOT_RUN",
+          "Post-transform analysis": "NOT_RUN",
+          "Unexpected semantic changes": "NOT_RUN",
+          "Original APK SHA": "PASS"
+        },
+        "seconds": 0.0,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "scenario": "D_native_method",
+        "description": "com.example.h1.B in h3_native",
+        "expected_status": "REFUSED",
+        "expected_code": "PLAN_NOT_ELIGIBLE",
+        "status": "REFUSED",
+        "code": "PLAN_NOT_ELIGIBLE",
+        "stage": "eligibility",
+        "message": "H.2 decided UNSUPPORTED for H-TRANS-001 com.example.h1.B; no plan exists",
+        "status_history": [
+          "REFUSED"
+        ],
+        "mutation_count": 0,
+        "source_sha256": "747a53bc4a5363441262300a2e7b0cd099d593117bebc4878951d1f77ab8d201",
+        "source_unchanged": true,
+        "output_published": false,
+        "matrix": {
+          "Source SHA": "NOT_RUN",
+          "Plan ID": "NOT_RUN",
+          "Eligibility": "NOT_RUN",
+          "Target class before": "NOT_RUN",
+          "Target class after": "NOT_RUN",
+          "Classes removed": "NOT_RUN",
+          "Other classes removed": "NOT_RUN",
+          "Build": "NOT_RUN",
+          "Align": "NOT_RUN",
+          "Sign": "NOT_RUN",
+          "Signature verification": "NOT_RUN",
+          "Post-transform analysis": "NOT_RUN",
+          "Unexpected semantic changes": "NOT_RUN",
+          "Original APK SHA": "PASS"
+        },
+        "seconds": 0.0,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "scenario": "D_native_code",
+        "description": "com.example.h1.C in h3_native",
+        "expected_status": "REFUSED",
+        "expected_code": "PLAN_NOT_ELIGIBLE",
+        "status": "REFUSED",
+        "code": "PLAN_NOT_ELIGIBLE",
+        "stage": "eligibility",
+        "message": "H.2 decided UNDETERMINED for H-TRANS-001 com.example.h1.C; no plan exists",
+        "status_history": [
+          "REFUSED"
+        ],
+        "mutation_count": 0,
+        "source_sha256": "747a53bc4a5363441262300a2e7b0cd099d593117bebc4878951d1f77ab8d201",
+        "source_unchanged": true,
+        "output_published": false,
+        "matrix": {
+          "Source SHA": "NOT_RUN",
+          "Plan ID": "NOT_RUN",
+          "Eligibility": "NOT_RUN",
+          "Target class before": "NOT_RUN",
+          "Target class after": "NOT_RUN",
+          "Classes removed": "NOT_RUN",
+          "Other classes removed": "NOT_RUN",
+          "Build": "NOT_RUN",
+          "Align": "NOT_RUN",
+          "Sign": "NOT_RUN",
+          "Signature verification": "NOT_RUN",
+          "Post-transform analysis": "NOT_RUN",
+          "Unexpected semantic changes": "NOT_RUN",
+          "Original APK SHA": "PASS"
+        },
+        "seconds": 0.0,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "scenario": "E_manifest",
+        "description": "com.example.h1.B in h3_manifest",
+        "expected_status": "REFUSED",
+        "expected_code": "PLAN_NOT_ELIGIBLE",
+        "status": "REFUSED",
+        "code": "PLAN_NOT_ELIGIBLE",
+        "stage": "eligibility",
+        "message": "H.2 decided REFUSED for H-TRANS-001 com.example.h1.B; no plan exists",
+        "status_history": [
+          "REFUSED"
+        ],
+        "mutation_count": 0,
+        "source_sha256": "569dd584b0c73802411523b0579d130e53c88910b19b70ef4d4746515894f198",
+        "source_unchanged": true,
+        "output_published": false,
+        "matrix": {
+          "Source SHA": "NOT_RUN",
+          "Plan ID": "NOT_RUN",
+          "Eligibility": "NOT_RUN",
+          "Target class before": "NOT_RUN",
+          "Target class after": "NOT_RUN",
+          "Classes removed": "NOT_RUN",
+          "Other classes removed": "NOT_RUN",
+          "Build": "NOT_RUN",
+          "Align": "NOT_RUN",
+          "Sign": "NOT_RUN",
+          "Signature verification": "NOT_RUN",
+          "Post-transform analysis": "NOT_RUN",
+          "Unexpected semantic changes": "NOT_RUN",
+          "Original APK SHA": "PASS"
+        },
+        "seconds": 0.0,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "scenario": "E_forged_h3_caller",
+        "description": "ELIGIBLE plan rebound to an ineligible APK (valid id)",
+        "expected_status": "REFUSED",
+        "expected_code": "PLAN_NOT_ELIGIBLE",
+        "status": "REFUSED",
+        "code": "PLAN_NOT_ELIGIBLE",
+        "stage": "eligibility",
+        "message": "H.2 re-evaluation of the source decides REFUSED",
+        "status_history": [
+          "REFUSED"
+        ],
+        "mutation_count": 0,
+        "source_sha256": "f62534d9a434fd05b02676076af7033ff0f99542911d43f4df74e25aeff57202",
+        "source_unchanged": true,
+        "output_published": false,
+        "matrix": {
+          "Source SHA": "PASS",
+          "Plan ID": "PASS",
+          "Eligibility": "FAIL",
+          "Target class before": "NOT_RUN",
+          "Target class after": "NOT_RUN",
+          "Classes removed": "NOT_RUN",
+          "Other classes removed": "NOT_RUN",
+          "Build": "NOT_RUN",
+          "Align": "NOT_RUN",
+          "Sign": "NOT_RUN",
+          "Signature verification": "NOT_RUN",
+          "Post-transform analysis": "NOT_RUN",
+          "Unexpected semantic changes": "NOT_RUN",
+          "Original APK SHA": "PASS"
+        },
+        "seconds": 1.1,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "scenario": "E_forged_h3_reflection",
+        "description": "ELIGIBLE plan rebound to an ineligible APK (valid id)",
+        "expected_status": "REFUSED",
+        "expected_code": "PLAN_NOT_ELIGIBLE",
+        "status": "REFUSED",
+        "code": "PLAN_NOT_ELIGIBLE",
+        "stage": "eligibility",
+        "message": "H.2 re-evaluation of the source decides UNDETERMINED",
+        "status_history": [
+          "REFUSED"
+        ],
+        "mutation_count": 0,
+        "source_sha256": "35ca88b11312f077df47fb47bfb8497ebe72ed748068eb350470e138dfb04381",
+        "source_unchanged": true,
+        "output_published": false,
+        "matrix": {
+          "Source SHA": "PASS",
+          "Plan ID": "PASS",
+          "Eligibility": "FAIL",
+          "Target class before": "NOT_RUN",
+          "Target class after": "NOT_RUN",
+          "Classes removed": "NOT_RUN",
+          "Other classes removed": "NOT_RUN",
+          "Build": "NOT_RUN",
+          "Align": "NOT_RUN",
+          "Sign": "NOT_RUN",
+          "Signature verification": "NOT_RUN",
+          "Post-transform analysis": "NOT_RUN",
+          "Unexpected semantic changes": "NOT_RUN",
+          "Original APK SHA": "PASS"
+        },
+        "seconds": 0.9,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "scenario": "E_forged_h3_manifest",
+        "description": "ELIGIBLE plan rebound to an ineligible APK (valid id)",
+        "expected_status": "REFUSED",
+        "expected_code": "PLAN_NOT_ELIGIBLE",
+        "status": "REFUSED",
+        "code": "PLAN_NOT_ELIGIBLE",
+        "stage": "eligibility",
+        "message": "H.2 re-evaluation of the source decides REFUSED",
+        "status_history": [
+          "REFUSED"
+        ],
+        "mutation_count": 0,
+        "source_sha256": "569dd584b0c73802411523b0579d130e53c88910b19b70ef4d4746515894f198",
+        "source_unchanged": true,
+        "output_published": false,
+        "matrix": {
+          "Source SHA": "PASS",
+          "Plan ID": "PASS",
+          "Eligibility": "FAIL",
+          "Target class before": "NOT_RUN",
+          "Target class after": "NOT_RUN",
+          "Classes removed": "NOT_RUN",
+          "Other classes removed": "NOT_RUN",
+          "Build": "NOT_RUN",
+          "Align": "NOT_RUN",
+          "Sign": "NOT_RUN",
+          "Signature verification": "NOT_RUN",
+          "Post-transform analysis": "NOT_RUN",
+          "Unexpected semantic changes": "NOT_RUN",
+          "Original APK SHA": "PASS"
+        },
+        "seconds": 1.0,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "scenario": "F_target_missing",
+        "description": "decoded workspace lacks B",
+        "expected_status": "REFUSED",
+        "expected_code": "TARGET_NOT_FOUND",
+        "status": "REFUSED",
+        "code": "TARGET_NOT_FOUND",
+        "stage": "pre_transform",
+        "message": "com.example.h1.B is not defined in the decoded workspace",
+        "status_history": [
+          "PLANNED",
+          "APPLYING",
+          "REFUSED"
+        ],
+        "mutation_count": 0,
+        "source_sha256": "f3a9a145fe21e5df3dc164fa42f9e8efd462ed98aa8bd7e9beba4f0c7ab59ed0",
+        "source_unchanged": true,
+        "output_published": false,
+        "matrix": {
+          "Source SHA": "PASS",
+          "Plan ID": "PASS",
+          "Eligibility": "PASS",
+          "Target class before": "PASS",
+          "Target class after": "NOT_RUN",
+          "Classes removed": "NOT_RUN",
+          "Other classes removed": "NOT_RUN",
+          "Build": "NOT_RUN",
+          "Align": "NOT_RUN",
+          "Sign": "NOT_RUN",
+          "Signature verification": "NOT_RUN",
+          "Post-transform analysis": "NOT_RUN",
+          "Unexpected semantic changes": "NOT_RUN",
+          "Original APK SHA": "PASS"
+        },
+        "seconds": 2.3,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "scenario": "G_source_sha",
+        "description": "plan for h3_isolated applied to h3_isolated_alt",
+        "expected_status": "REFUSED",
+        "expected_code": "SOURCE_SHA_MISMATCH",
+        "status": "REFUSED",
+        "code": "SOURCE_SHA_MISMATCH",
+        "stage": "plan_integrity",
+        "message": "APK SHA-256 9eb85dbee2c11a78fd965c3d22684f1c1bdf4a4423ab3b4b57883c975ac40e4c differs from the plan's f3a9a145fe21e5df3dc164fa42f9e8efd462ed98aa8bd7e9beba4f0c7ab59ed0",
+        "status_history": [
+          "REFUSED"
+        ],
+        "mutation_count": 0,
+        "source_sha256": "9eb85dbee2c11a78fd965c3d22684f1c1bdf4a4423ab3b4b57883c975ac40e4c",
+        "source_unchanged": true,
+        "output_published": false,
+        "matrix": {
+          "Source SHA": "FAIL",
+          "Plan ID": "NOT_RUN",
+          "Eligibility": "NOT_RUN",
+          "Target class before": "NOT_RUN",
+          "Target class after": "NOT_RUN",
+          "Classes removed": "NOT_RUN",
+          "Other classes removed": "NOT_RUN",
+          "Build": "NOT_RUN",
+          "Align": "NOT_RUN",
+          "Sign": "NOT_RUN",
+          "Signature verification": "NOT_RUN",
+          "Post-transform analysis": "NOT_RUN",
+          "Unexpected semantic changes": "NOT_RUN",
+          "Original APK SHA": "PASS"
+        },
+        "seconds": 0.0,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "scenario": "H_target_edited",
+        "description": "plan edited after creation",
+        "expected_status": "REFUSED",
+        "expected_code": "PLAN_ID_MISMATCH",
+        "status": "REFUSED",
+        "code": "PLAN_ID_MISMATCH",
+        "stage": "plan_integrity",
+        "message": "plan id plan-8c920872a6437a1a0f77 does not match the id recomputed from its contents (plan-38bd78017ab55e10c70a)",
+        "status_history": [
+          "REFUSED"
+        ],
+        "mutation_count": 0,
+        "source_sha256": "f3a9a145fe21e5df3dc164fa42f9e8efd462ed98aa8bd7e9beba4f0c7ab59ed0",
+        "source_unchanged": true,
+        "output_published": false,
+        "matrix": {
+          "Source SHA": "PASS",
+          "Plan ID": "FAIL",
+          "Eligibility": "NOT_RUN",
+          "Target class before": "NOT_RUN",
+          "Target class after": "NOT_RUN",
+          "Classes removed": "NOT_RUN",
+          "Other classes removed": "NOT_RUN",
+          "Build": "NOT_RUN",
+          "Align": "NOT_RUN",
+          "Sign": "NOT_RUN",
+          "Signature verification": "NOT_RUN",
+          "Post-transform analysis": "NOT_RUN",
+          "Unexpected semantic changes": "NOT_RUN",
+          "Original APK SHA": "PASS"
+        },
+        "seconds": 0.0,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "scenario": "H_plan_id_edited",
+        "description": "plan edited after creation",
+        "expected_status": "REFUSED",
+        "expected_code": "PLAN_ID_MISMATCH",
+        "status": "REFUSED",
+        "code": "PLAN_ID_MISMATCH",
+        "stage": "plan_integrity",
+        "message": "plan id plan-00000000000000000000 does not match the id recomputed from its contents (plan-8c920872a6437a1a0f77)",
+        "status_history": [
+          "REFUSED"
+        ],
+        "mutation_count": 0,
+        "source_sha256": "f3a9a145fe21e5df3dc164fa42f9e8efd462ed98aa8bd7e9beba4f0c7ab59ed0",
+        "source_unchanged": true,
+        "output_published": false,
+        "matrix": {
+          "Source SHA": "PASS",
+          "Plan ID": "FAIL",
+          "Eligibility": "NOT_RUN",
+          "Target class before": "NOT_RUN",
+          "Target class after": "NOT_RUN",
+          "Classes removed": "NOT_RUN",
+          "Other classes removed": "NOT_RUN",
+          "Build": "NOT_RUN",
+          "Align": "NOT_RUN",
+          "Sign": "NOT_RUN",
+          "Signature verification": "NOT_RUN",
+          "Post-transform analysis": "NOT_RUN",
+          "Unexpected semantic changes": "NOT_RUN",
+          "Original APK SHA": "PASS"
+        },
+        "seconds": 0.0,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "scenario": "H_eligibility_edited",
+        "description": "plan edited after creation",
+        "expected_status": "REFUSED",
+        "expected_code": "PLAN_NOT_ELIGIBLE",
+        "status": "REFUSED",
+        "code": "PLAN_NOT_ELIGIBLE",
+        "stage": "eligibility",
+        "message": "plan eligibility is CONDITIONALLY_ELIGIBLE; only ELIGIBLE plans are applied",
+        "status_history": [
+          "REFUSED"
+        ],
+        "mutation_count": 0,
+        "source_sha256": "f3a9a145fe21e5df3dc164fa42f9e8efd462ed98aa8bd7e9beba4f0c7ab59ed0",
+        "source_unchanged": true,
+        "output_published": false,
+        "matrix": {
+          "Source SHA": "PASS",
+          "Plan ID": "PASS",
+          "Eligibility": "FAIL",
+          "Target class before": "NOT_RUN",
+          "Target class after": "NOT_RUN",
+          "Classes removed": "NOT_RUN",
+          "Other classes removed": "NOT_RUN",
+          "Build": "NOT_RUN",
+          "Align": "NOT_RUN",
+          "Sign": "NOT_RUN",
+          "Signature verification": "NOT_RUN",
+          "Post-transform analysis": "NOT_RUN",
+          "Unexpected semantic changes": "NOT_RUN",
+          "Original APK SHA": "PASS"
+        },
+        "seconds": 0.0,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "scenario": "H_expectation_edited",
+        "description": "plan edited after creation",
+        "expected_status": "REFUSED",
+        "expected_code": "PLAN_MISMATCH",
+        "status": "REFUSED",
+        "code": "PLAN_MISMATCH",
+        "stage": "plan_integrity",
+        "message": "the plan differs from H.2's plan for this APK in: expected_changes",
+        "status_history": [
+          "REFUSED"
+        ],
+        "mutation_count": 0,
+        "source_sha256": "f3a9a145fe21e5df3dc164fa42f9e8efd462ed98aa8bd7e9beba4f0c7ab59ed0",
+        "source_unchanged": true,
+        "output_published": false,
+        "matrix": {
+          "Source SHA": "PASS",
+          "Plan ID": "PASS",
+          "Eligibility": "PASS",
+          "Target class before": "NOT_RUN",
+          "Target class after": "NOT_RUN",
+          "Classes removed": "NOT_RUN",
+          "Other classes removed": "NOT_RUN",
+          "Build": "NOT_RUN",
+          "Align": "NOT_RUN",
+          "Sign": "NOT_RUN",
+          "Signature verification": "NOT_RUN",
+          "Post-transform analysis": "NOT_RUN",
+          "Unexpected semantic changes": "NOT_RUN",
+          "Original APK SHA": "PASS"
+        },
+        "seconds": 0.9,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "scenario": "H_schema_edited",
+        "description": "plan edited after creation",
+        "expected_status": "REFUSED",
+        "expected_code": "PLAN_INVALID",
+        "status": "REFUSED",
+        "code": "PLAN_INVALID",
+        "stage": "plan_load",
+        "message": "plan schemas (planning 1, analysis 1) differ from this APKForge (planning 1, analysis 2)",
+        "status_history": [
+          "REFUSED"
+        ],
+        "mutation_count": 0,
+        "source_sha256": "f3a9a145fe21e5df3dc164fa42f9e8efd462ed98aa8bd7e9beba4f0c7ab59ed0",
+        "source_unchanged": true,
+        "output_published": false,
+        "matrix": {
+          "Source SHA": "NOT_RUN",
+          "Plan ID": "NOT_RUN",
+          "Eligibility": "NOT_RUN",
+          "Target class before": "NOT_RUN",
+          "Target class after": "NOT_RUN",
+          "Classes removed": "NOT_RUN",
+          "Other classes removed": "NOT_RUN",
+          "Build": "NOT_RUN",
+          "Align": "NOT_RUN",
+          "Sign": "NOT_RUN",
+          "Signature verification": "NOT_RUN",
+          "Post-transform analysis": "NOT_RUN",
+          "Unexpected semantic changes": "NOT_RUN",
+          "Original APK SHA": "PASS"
+        },
+        "seconds": 0.0,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "scenario": "H_trans_002",
+        "description": "plan edited after creation",
+        "expected_status": "REFUSED",
+        "expected_code": "PLAN_ID_MISMATCH",
+        "status": "REFUSED",
+        "code": "PLAN_ID_MISMATCH",
+        "stage": "plan_integrity",
+        "message": "plan id plan-8c920872a6437a1a0f77 does not match the id recomputed from its contents (None)",
+        "status_history": [
+          "REFUSED"
+        ],
+        "mutation_count": 0,
+        "source_sha256": "f3a9a145fe21e5df3dc164fa42f9e8efd462ed98aa8bd7e9beba4f0c7ab59ed0",
+        "source_unchanged": true,
+        "output_published": false,
+        "matrix": {
+          "Source SHA": "PASS",
+          "Plan ID": "FAIL",
+          "Eligibility": "NOT_RUN",
+          "Target class before": "NOT_RUN",
+          "Target class after": "NOT_RUN",
+          "Classes removed": "NOT_RUN",
+          "Other classes removed": "NOT_RUN",
+          "Build": "NOT_RUN",
+          "Align": "NOT_RUN",
+          "Sign": "NOT_RUN",
+          "Signature verification": "NOT_RUN",
+          "Post-transform analysis": "NOT_RUN",
+          "Unexpected semantic changes": "NOT_RUN",
+          "Original APK SHA": "PASS"
+        },
+        "seconds": 0.0,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "scenario": "H_invalid_json",
+        "description": "unparseable plan",
+        "expected_status": "REFUSED",
+        "expected_code": "PLAN_INVALID",
+        "status": "REFUSED",
+        "code": "PLAN_INVALID",
+        "stage": "plan_load",
+        "message": "plan is not JSON: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)",
+        "status_history": [
+          "REFUSED"
+        ],
+        "mutation_count": 0,
+        "source_sha256": "f3a9a145fe21e5df3dc164fa42f9e8efd462ed98aa8bd7e9beba4f0c7ab59ed0",
+        "source_unchanged": true,
+        "output_published": false,
+        "matrix": {
+          "Source SHA": "NOT_RUN",
+          "Plan ID": "NOT_RUN",
+          "Eligibility": "NOT_RUN",
+          "Target class before": "NOT_RUN",
+          "Target class after": "NOT_RUN",
+          "Classes removed": "NOT_RUN",
+          "Other classes removed": "NOT_RUN",
+          "Build": "NOT_RUN",
+          "Align": "NOT_RUN",
+          "Sign": "NOT_RUN",
+          "Signature verification": "NOT_RUN",
+          "Post-transform analysis": "NOT_RUN",
+          "Unexpected semantic changes": "NOT_RUN",
+          "Original APK SHA": "PASS"
+        },
+        "seconds": 0.0,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "scenario": "H_missing_plan",
+        "description": "plan file absent",
+        "expected_status": "REFUSED",
+        "expected_code": "PLAN_NOT_FOUND",
+        "status": "REFUSED",
+        "code": "PLAN_NOT_FOUND",
+        "stage": "plan_load",
+        "message": "plan file not found: /home/naishring/APKForge/work/phase-h3/20261003T152718Z/synthetic/plans/missing.json",
+        "status_history": [
+          "REFUSED"
+        ],
+        "mutation_count": 0,
+        "source_sha256": "f3a9a145fe21e5df3dc164fa42f9e8efd462ed98aa8bd7e9beba4f0c7ab59ed0",
+        "source_unchanged": true,
+        "output_published": false,
+        "matrix": {
+          "Source SHA": "NOT_RUN",
+          "Plan ID": "NOT_RUN",
+          "Eligibility": "NOT_RUN",
+          "Target class before": "NOT_RUN",
+          "Target class after": "NOT_RUN",
+          "Classes removed": "NOT_RUN",
+          "Other classes removed": "NOT_RUN",
+          "Build": "NOT_RUN",
+          "Align": "NOT_RUN",
+          "Sign": "NOT_RUN",
+          "Signature verification": "NOT_RUN",
+          "Post-transform analysis": "NOT_RUN",
+          "Unexpected semantic changes": "NOT_RUN",
+          "Original APK SHA": "PASS"
+        },
+        "seconds": 0.0,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "scenario": "I_unexpected_mutation",
+        "description": "faulty mutation also removes C",
+        "expected_status": "FAILED",
+        "expected_code": "UNEXPECTED_MUTATION",
+        "status": "FAILED",
+        "code": "UNEXPECTED_MUTATION",
+        "stage": "mutation",
+        "message": "Apply failed: UNEXPECTED_MUTATION: expected exactly [com.example.h1.B] removed, observed ['com.example.h1.B', 'com.example.h1.C']; class count 3 -> 1 (expected -1); unplanned file change(s): smali/com/example/h1/C.smali",
+        "status_history": [
+          "PLANNED",
+          "APPLYING",
+          "FAILED"
+        ],
+        "mutation_count": 2,
+        "source_sha256": "f3a9a145fe21e5df3dc164fa42f9e8efd462ed98aa8bd7e9beba4f0c7ab59ed0",
+        "source_unchanged": true,
+        "output_published": false,
+        "matrix": {
+          "Source SHA": "PASS",
+          "Plan ID": "PASS",
+          "Eligibility": "PASS",
+          "Target class before": "PASS",
+          "Target class after": "PASS",
+          "Classes removed": "FAIL",
+          "Other classes removed": "FAIL",
+          "Build": "NOT_RUN",
+          "Align": "NOT_RUN",
+          "Sign": "NOT_RUN",
+          "Signature verification": "NOT_RUN",
+          "Post-transform analysis": "NOT_RUN",
+          "Unexpected semantic changes": "NOT_RUN",
+          "Original APK SHA": "PASS"
+        },
+        "seconds": 2.2,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "scenario": "J_build_failure",
+        "description": "corrupted smali at build time",
+        "expected_status": "FAILED",
+        "expected_code": "BUILD_FAILED",
+        "status": "FAILED",
+        "code": "BUILD_FAILED",
+        "stage": "build",
+        "message": "build: BUILD_FAILURE: build stage failed (exit 1); no known error signature matched.",
+        "status_history": [
+          "PLANNED",
+          "APPLYING",
+          "FAILED"
+        ],
+        "mutation_count": 1,
+        "source_sha256": "f3a9a145fe21e5df3dc164fa42f9e8efd462ed98aa8bd7e9beba4f0c7ab59ed0",
+        "source_unchanged": true,
+        "output_published": false,
+        "matrix": {
+          "Source SHA": "PASS",
+          "Plan ID": "PASS",
+          "Eligibility": "PASS",
+          "Target class before": "PASS",
+          "Target class after": "PASS",
+          "Classes removed": "PASS",
+          "Other classes removed": "PASS",
+          "Build": "FAIL",
+          "Align": "NOT_RUN",
+          "Sign": "NOT_RUN",
+          "Signature verification": "NOT_RUN",
+          "Post-transform analysis": "NOT_RUN",
+          "Unexpected semantic changes": "NOT_RUN",
+          "Original APK SHA": "PASS"
+        },
+        "seconds": 2.4,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "scenario": "K_repeat",
+        "description": "second application of the A plan",
+        "expected_status": "VERIFIED",
+        "expected_code": null,
+        "status": "VERIFIED",
+        "code": null,
+        "stage": null,
+        "message": null,
+        "status_history": [
+          "PLANNED",
+          "APPLYING",
+          "BUILT",
+          "VERIFIED"
+        ],
+        "mutation_count": 1,
+        "source_sha256": "f3a9a145fe21e5df3dc164fa42f9e8efd462ed98aa8bd7e9beba4f0c7ab59ed0",
+        "source_unchanged": true,
+        "output_published": true,
+        "matrix": {
+          "Source SHA": "PASS",
+          "Plan ID": "PASS",
+          "Eligibility": "PASS",
+          "Target class before": "PASS",
+          "Target class after": "PASS",
+          "Classes removed": "PASS",
+          "Other classes removed": "PASS",
+          "Build": "PASS",
+          "Align": "PASS",
+          "Sign": "PASS",
+          "Signature verification": "PASS",
+          "Post-transform analysis": "PASS",
+          "Unexpected semantic changes": "PASS",
+          "Original APK SHA": "PASS"
+        },
+        "seconds": 4.4,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "scenario": "K_reproducibility",
+        "description": "A vs K_repeat: result, semantic diff, analysis, verification",
+        "expected_status": "EQUAL",
+        "status": "EQUAL",
+        "result": "PASS",
+        "failures": [],
+        "result_equal": true,
+        "output_content_equal": true,
+        "output_bytes_equal": false,
+        "output_sha256": [
+          "c0d0b11714946dcef0827dad50226e6dea4c76a6ea96a3c0b08ae14b2b8f8bb1",
+          "669b8d0b1db0b31119ba33472ce1ed379760637d566afffcf6044ec0eb313298"
+        ],
+        "output_content_sha256": [
+          "ac1a79f5d027206261226004f41e4756595774123c0e5b522f1f1f031e49fcc2",
+          "ac1a79f5d027206261226004f41e4756595774123c0e5b522f1f1f031e49fcc2"
+        ]
+      }
+    ],
+    "counts": {
+      "scenarios": 23,
+      "applied": 4,
+      "verified": 2,
+      "refused": 18,
+      "failed": 2,
+      "planned": 1
+    },
+    "reproducibility": {
+      "result_equal": true,
+      "output_content_equal": true,
+      "output_bytes_equal": false,
+      "output_sha256": [
+        "c0d0b11714946dcef0827dad50226e6dea4c76a6ea96a3c0b08ae14b2b8f8bb1",
+        "669b8d0b1db0b31119ba33472ce1ed379760637d566afffcf6044ec0eb313298"
+      ],
+      "output_content_sha256": [
+        "ac1a79f5d027206261226004f41e4756595774123c0e5b522f1f1f031e49fcc2",
+        "ac1a79f5d027206261226004f41e4756595774123c0e5b522f1f1f031e49fcc2"
+      ]
+    },
+    "workspaces_left_behind": [],
+    "status": "PASS"
+  }
+}

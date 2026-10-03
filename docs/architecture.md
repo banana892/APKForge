@@ -186,10 +186,29 @@ TransformationPlanner               ─> TransformationDecision (+ deterministic
                                        [STOP — no APK is modified; H.3 applies plans]
 ```
 
-The future chain stays `evidence -> eligibility -> plan -> approval -> transformation ->
-build -> verification`; H.2 ends at the plan. It reuses the Phase D risk/reversibility
-enums and adds no second modification engine; H.3 is expected to execute plans through the
-existing `ModificationPipeline` / `BuildService` / Phase E verification.
+The chain is `evidence -> eligibility -> plan -> approval -> transformation -> build ->
+verification`; H.2 ends at the plan. It reuses the Phase D risk/reversibility enums and adds
+no second modification engine.
+
+### Controlled Transformation (Phase H.3, H-TRANS-001 only)
+
+`apkforge.transformation.TransformationExecutor` applies one validated, ELIGIBLE H.2 plan
+(`apkforge transform APK --plan PLAN.json --apply -o OUT`). It adds no eligibility rule and
+no build, diff or verification engine of its own. See
+[`transformation.md`](transformation.md#phase-h3--controlled-transformation-h-trans-001).
+
+```
+load_plan                           ─> PLAN_NOT_FOUND / PLAN_INVALID / PLAN_NOT_ELIGIBLE
+source SHA-256, plan id (H.2 rules) ─> SOURCE_SHA_MISMATCH / PLAN_ID_MISMATCH
+H.1 + TransformationPlanner re-run  ─> same ELIGIBLE decision, identical plan (PLAN_MISMATCH)
+dexstate                            ─> expected Phase E changes (class, strings, API refs)
+ModificationPipeline (Phase D)      ─> RemoveIsolatedClassModifier (plan-bound, not in the
+                                       default catalog): target checks, remove one smali
+                                       file, class census -> BuildService build/align/
+                                       sign/verify -> DiffEngine + classify + matrix
+ReferenceAnalysisService (H.1)      ─> post-transform analysis of the output
+                                    ─> H.3 matrix -> publish OUT only when VERIFIED
+```
 
 
 The implemented pipeline is `apkforge.modification.pipeline.ModificationPipeline`; see
@@ -322,7 +341,7 @@ src/apkforge/
 │   ├── report.py       — format_reference_report (Markdown)
 │   └── service.py      — ReferenceAnalysisService.analyze / analyze_decoded
 │
-├── transformation/     — Phase H.2: transformation eligibility & deterministic planning
+├── transformation/     — Phase H.2 planning; Phase H.3 controlled application (H-TRANS-001)
 │   ├── models.py       — EligibilityState, DecisionReason (+ REASON_STATES), plan/decision models
 │   ├── catalog.py      — H-TRANS-001 / H-TRANS-002 specifications (no executors)
 │   ├── targets.py      — target parsing and resolution (never guesses names)
@@ -330,7 +349,11 @@ src/apkforge/
 │   ├── eligibility.py  — EligibilityEvaluator (completeness-respecting rules)
 │   ├── conflicts.py    — overlapping-request detection
 │   ├── planner.py      — TransformationPlanner, TransformationPlanningService
-│   └── report.py       — format_planning_report (Markdown)
+│   ├── application.py  — H.3 result model: ApplicationStatus, ApplicationReason, matrix rows
+│   ├── executor.py     — H.3 TransformationExecutor, load_plan (integrity, pipeline, publish)
+│   ├── modifier.py     — H.3 RemoveIsolatedClassModifier (plan-bound Phase D modifier)
+│   ├── dexstate.py     — H.3 class census, DEX string-pool and API-reference attribution
+│   └── report.py       — format_planning_report / format_application_report (Markdown)
 │
 ├── security/           — Phase 5: Security Analysis Engine
 │   ├── engine.py       — SecurityEngine coordinator, index builder, error isolation
