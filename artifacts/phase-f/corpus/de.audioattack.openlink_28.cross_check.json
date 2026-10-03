@@ -1,0 +1,55 @@
+{
+  "overlapping_findings": [
+    {
+      "topic": "Boot Persistence",
+      "privacy_id": "PRIV-REC-BOOT",
+      "security_id": "SEC-MAL-PERSISTENCE-BOOT",
+      "privacy_title": "Boot & Package Replacement Receivers",
+      "security_title": "Device Boot Persistence Mechanism Detected"
+    }
+  ],
+  "new_privacy_findings": [
+    {
+      "id": "PRIV-API-REFLECTION",
+      "category": "reflection",
+      "title": "Reflection on Internal or Sensitive Classes",
+      "evidence_state": "OBSERVED"
+    }
+  ],
+  "security_only_findings": [
+    {
+      "id": "SEC-NET-CLEARTEXT-URLS",
+      "category": "network",
+      "title": "Cleartext HTTP URL References Detected",
+      "severity": "low"
+    },
+    {
+      "id": "SEC-VULN-BACKUP-001",
+      "category": "vulnerability",
+      "title": "Application Backup Enabled Without Restriction",
+      "severity": "low"
+    },
+    {
+      "id": "SEC-VULN-EXPORTED-RECEIVER",
+      "category": "exported_component",
+      "title": "Exported Broadcast Receiver Lacks Permission Protection",
+      "severity": "low"
+    },
+    {
+      "id": "SEC-VULN-MANIFEST-BACKUP",
+      "category": "configuration",
+      "title": "Application Data Backup Enabled (allowBackup=true)",
+      "severity": "low"
+    }
+  ],
+  "strengthened_findings": [
+    {
+      "topic": "Boot Persistence",
+      "privacy_id": "PRIV-REC-BOOT",
+      "security_id": "SEC-MAL-PERSISTENCE-BOOT",
+      "reason": "Corroborated by both Phase B (2 items) and Phase F (2 locations)."
+    }
+  ],
+  "incomplete_evidence_findings": [],
+  "discrepancies": []
+}

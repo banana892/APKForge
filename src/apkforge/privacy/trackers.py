@@ -26,6 +26,8 @@ class TrackerDetector:
 
             matched, confidence, evidence_items, matches_dict = self._engine.match_rule(rule, index)
             if matched:
+                ev_locs = [e.location for e in evidence_items if e.location]
+                has_ep = bool(matches_dict["endpoints"])
                 sdk = DetectedSDK(
                     id=rule.id,
                     name=rule.name,
@@ -39,6 +41,28 @@ class TrackerDetector:
                     matched_strings=matches_dict["strings"],
                     matched_endpoints=matches_dict["endpoints"],
                     evidence=evidence_items,
+                    evidence_locations=ev_locs,
+                    actual_network_use_observed=False,
+                    network_use_status=(
+                        "STATICALLY_REFERENCED_ENDPOINT"
+                        if has_ep
+                        else "CANNOT_DETERMINE_STATICALLY"
+                    ),
+                    network_use_determination=(
+                        (
+                            f"Domain endpoint {matches_dict['endpoints'][0]} is referenced "
+                            "statically, but actual runtime transmission cannot be established "
+                            "without traffic capture. Static presence does not prove "
+                            "runtime data transmission."
+                        )
+                        if has_ep
+                        else (
+                            "Static presence does not prove runtime data transmission; "
+                            "network use cannot be determined statically."
+                        )
+                    ),
+                    false_positive_risk=rule.false_positive_risk,
+                    source_reference=rule.source_reference,
                 )
                 detected.append(sdk)
 

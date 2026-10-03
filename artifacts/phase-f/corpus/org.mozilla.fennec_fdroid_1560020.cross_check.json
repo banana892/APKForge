@@ -1,0 +1,352 @@
+{
+  "overlapping_findings": [
+    {
+      "topic": "Camera Access",
+      "privacy_id": "PRIV-CAP-CAMERA",
+      "security_id": "SEC-SPY-CAMERA-001",
+      "privacy_title": "Camera Capture Capability Detected",
+      "security_title": "Background Camera Capture Capability"
+    },
+    {
+      "topic": "Device Identifiers",
+      "privacy_id": "PRIV-CAP-DEVICE-IDENTIFIERS",
+      "security_id": "SEC-SPY-DEVICE-IDENTIFIERS",
+      "privacy_title": "Device Identifier Access References Detected",
+      "security_title": "Hardware & Persistent Device Identifier Collection Capability"
+    },
+    {
+      "topic": "Camera Access",
+      "privacy_id": "PRIV-API-CAMERA",
+      "security_id": "SEC-SPY-CAMERA-001",
+      "privacy_title": "Camera Hardware & Capture APIs",
+      "security_title": "Background Camera Capture Capability"
+    },
+    {
+      "topic": "Location Capability",
+      "privacy_id": "PRIV-API-LOCATION",
+      "security_id": "SEC-COMB-PERSISTENT-LOC",
+      "privacy_title": "Location Framework API Invocations",
+      "security_title": "Boot Persistence Combined with Location Tracking"
+    },
+    {
+      "topic": "Boot Persistence",
+      "privacy_id": "PRIV-REC-BOOT",
+      "security_id": "SEC-COMB-PERSISTENT-LOC",
+      "privacy_title": "Boot & Package Replacement Receivers",
+      "security_title": "Boot Persistence Combined with Location Tracking"
+    },
+    {
+      "topic": "Device Identifiers",
+      "privacy_id": "PRIV-API-DEVICE-IDENTIFIER",
+      "security_id": "SEC-SPY-DEVICE-IDENTIFIERS",
+      "privacy_title": "Hardware & Device Identifier Access",
+      "security_title": "Hardware & Persistent Device Identifier Collection Capability"
+    },
+    {
+      "topic": "Dynamic Code Loading",
+      "privacy_id": "PRIV-API-DYNAMIC-CODE",
+      "security_id": "SEC-MAL-DYN-LOAD",
+      "privacy_title": "Dynamic Code Loading Facilities",
+      "security_title": "Dynamic Class Loading Capability Detected"
+    },
+    {
+      "topic": "Device Identifiers",
+      "privacy_id": "PRIV-CAP-ADVERTISING-ID",
+      "security_id": "SEC-SPY-DEVICE-IDENTIFIERS",
+      "privacy_title": "Advertising ID (AAID) Capability Detected",
+      "security_title": "Hardware & Persistent Device Identifier Collection Capability"
+    },
+    {
+      "topic": "Location Capability",
+      "privacy_id": "PRIV-CAP-LOCATION",
+      "security_id": "SEC-COMB-PERSISTENT-LOC",
+      "privacy_title": "Location Capability Detected",
+      "security_title": "Boot Persistence Combined with Location Tracking"
+    }
+  ],
+  "new_privacy_findings": [
+    {
+      "id": "PRIV-CAP-MICROPHONE",
+      "category": "audio",
+      "title": "Microphone Audio Recording Capability Detected",
+      "evidence_state": "PARTIAL"
+    },
+    {
+      "id": "PRIV-API-CLIPBOARD",
+      "category": "clipboard",
+      "title": "Clipboard Access APIs",
+      "evidence_state": "OBSERVED"
+    },
+    {
+      "id": "PRIV-API-REFLECTION",
+      "category": "reflection",
+      "title": "Reflection on Internal or Sensitive Classes",
+      "evidence_state": "OBSERVED"
+    },
+    {
+      "id": "PRIV-API-SCHEDULING",
+      "category": "background_execution",
+      "title": "Background Job Scheduling & Alarm APIs",
+      "evidence_state": "OBSERVED"
+    },
+    {
+      "id": "PRIV-API-WEBVIEW",
+      "category": "network",
+      "title": "Embedded WebView & Web Interface APIs",
+      "evidence_state": "OBSERVED"
+    },
+    {
+      "id": "PRIV-PERM-UNCORRELATED-READ_MEDIA_AUDIO",
+      "category": "storage_files",
+      "title": "Declared Permission Without Static Code Reference: android.permission.READ_MEDIA_AUDIO",
+      "evidence_state": "PARTIAL"
+    },
+    {
+      "id": "PRIV-PERM-UNCORRELATED-RECORD_AUDIO",
+      "category": "microphone",
+      "title": "Declared Permission Without Static Code Reference: android.permission.RECORD_AUDIO",
+      "evidence_state": "PARTIAL"
+    },
+    {
+      "id": "PRIV-SDK-TELEMETRY-SENTRY",
+      "category": "crash_reporting",
+      "title": "Third-Party Crash reporting SDK Detected: Sentry",
+      "evidence_state": "OBSERVED"
+    },
+    {
+      "id": "PRIV-CAP-CLIPBOARD",
+      "category": "clipboard",
+      "title": "Clipboard Access Capability Detected",
+      "evidence_state": "OBSERVED"
+    },
+    {
+      "id": "PRIV-SDK-AD-GOOGLE-ADMOB",
+      "category": "advertising",
+      "title": "Third-Party Advertising SDK Detected: Google AdMob / Google Mobile Ads",
+      "evidence_state": "OBSERVED"
+    },
+    {
+      "id": "PRIV-CAP-ACCESSIBILITY",
+      "category": "accessibility",
+      "title": "Accessibility Service Capability Detected",
+      "evidence_state": "OBSERVED"
+    }
+  ],
+  "security_only_findings": [
+    {
+      "id": "SEC-COMB-SURVEILLANCE-SUITE",
+      "category": "spyware_indicator",
+      "title": "Multiple Concurrent Surveillance Capabilities",
+      "severity": "high"
+    },
+    {
+      "id": "SEC-MAL-CODE-EXEC",
+      "category": "code_execution",
+      "title": "OS Command Execution Capability Detected",
+      "severity": "high"
+    },
+    {
+      "id": "SEC-MAL-EXEC-001",
+      "category": "malware_indicator",
+      "title": "Local Command Execution Capability",
+      "severity": "high"
+    },
+    {
+      "id": "SEC-SPY-CAMERA-SURVEILLANCE",
+      "category": "surveillance",
+      "title": "Camera Capture & Video Capability",
+      "severity": "high"
+    },
+    {
+      "id": "SEC-VULN-EXPORTED-PROVIDER",
+      "category": "exported_component",
+      "title": "Exported Content Provider Lacks Permission Protection",
+      "severity": "high"
+    },
+    {
+      "id": "SEC-MAL-BOOT-001",
+      "category": "malware_indicator",
+      "title": "Persistent Boot Startup Receiver",
+      "severity": "medium"
+    },
+    {
+      "id": "SEC-MAL-PAYLOAD-ENTROPY-assets_dexopt_baseline_prof",
+      "category": "payload",
+      "title": "High-Entropy Asset Detected (Likely Encrypted/Compressed): assets/dexopt/baseline.prof",
+      "severity": "medium"
+    },
+    {
+      "id": "SEC-MAL-PAYLOAD-ENTROPY-assets_omni_ja",
+      "category": "payload",
+      "title": "High-Entropy Asset Detected (Likely Encrypted/Compressed): assets/omni.ja",
+      "severity": "medium"
+    },
+    {
+      "id": "SEC-NET-CAPABILITY-FLOW",
+      "category": "network",
+      "title": "Sensitive Data Capabilities Co-Occur with External NetworkCommunication",
+      "severity": "medium"
+    },
+    {
+      "id": "SEC-NET-DIRECT-IP",
+      "category": "network",
+      "title": "Direct IP Address Network Endpoint Detected",
+      "severity": "medium"
+    },
+    {
+      "id": "SEC-SPY-ACCESSIBILITY-001",
+      "category": "spyware_indicator",
+      "title": "Accessibility Service Implementation",
+      "severity": "medium"
+    },
+    {
+      "id": "SEC-SPY-ACCESSIBILITY-ABUSE",
+      "category": "collection",
+      "title": "Android Accessibility Service Implementation",
+      "severity": "medium"
+    },
+    {
+      "id": "SEC-SPY-LOCATION-001",
+      "category": "spyware_indicator",
+      "title": "Background Location Tracking Capability",
+      "severity": "medium"
+    },
+    {
+      "id": "SEC-SPY-LOCATION-TRACKING",
+      "category": "surveillance",
+      "title": "Physical Location Tracking Capability",
+      "severity": "medium"
+    },
+    {
+      "id": "SEC-VULN-CLEARTEXT-001",
+      "category": "vulnerability",
+      "title": "Cleartext Network Traffic Allowed",
+      "severity": "medium"
+    },
+    {
+      "id": "SEC-VULN-EXPORTED-SERVICE",
+      "category": "exported_component",
+      "title": "Exported Service Component Lacks Permission Protection",
+      "severity": "medium"
+    },
+    {
+      "id": "SEC-VULN-MANIFEST-CLEARTEXT",
+      "category": "configuration",
+      "title": "Cleartext Network Traffic Allowed by Manifest",
+      "severity": "medium"
+    },
+    {
+      "id": "SEC-MAL-PERSISTENCE-BOOT",
+      "category": "persistence",
+      "title": "Device Boot Persistence Mechanism Detected",
+      "severity": "low"
+    },
+    {
+      "id": "SEC-MAL-ROOT-INDICATORS",
+      "category": "malware_indicator",
+      "title": "Root Environment Query / Su Reference Detected",
+      "severity": "low"
+    },
+    {
+      "id": "SEC-NET-CLEARTEXT-URLS",
+      "category": "network",
+      "title": "Cleartext HTTP URL References Detected",
+      "severity": "low"
+    },
+    {
+      "id": "SEC-SPY-CLIPBOARD-001",
+      "category": "spyware_indicator",
+      "title": "Background Clipboard Access Capability",
+      "severity": "low"
+    },
+    {
+      "id": "SEC-VULN-EXPORTED-RECEIVER",
+      "category": "exported_component",
+      "title": "Exported Broadcast Receiver Lacks Permission Protection",
+      "severity": "low"
+    },
+    {
+      "id": "SEC-MAL-PERSISTENCE-FG-SERVICE",
+      "category": "persistence",
+      "title": "Foreground Service Declaration",
+      "severity": "informational"
+    }
+  ],
+  "strengthened_findings": [
+    {
+      "topic": "Camera Access",
+      "privacy_id": "PRIV-CAP-CAMERA",
+      "security_id": "SEC-SPY-CAMERA-001",
+      "reason": "Corroborated by both Phase B (4 items) and Phase F (86 locations)."
+    },
+    {
+      "topic": "Device Identifiers",
+      "privacy_id": "PRIV-CAP-DEVICE-IDENTIFIERS",
+      "security_id": "SEC-SPY-DEVICE-IDENTIFIERS",
+      "reason": "Corroborated by both Phase B (9 items) and Phase F (3 locations)."
+    },
+    {
+      "topic": "Camera Access",
+      "privacy_id": "PRIV-API-CAMERA",
+      "security_id": "SEC-SPY-CAMERA-001",
+      "reason": "Corroborated by both Phase B (4 items) and Phase F (2 locations)."
+    },
+    {
+      "topic": "Location Capability",
+      "privacy_id": "PRIV-API-LOCATION",
+      "security_id": "SEC-COMB-PERSISTENT-LOC",
+      "reason": "Corroborated by both Phase B (4 items) and Phase F (2 locations)."
+    },
+    {
+      "topic": "Boot Persistence",
+      "privacy_id": "PRIV-REC-BOOT",
+      "security_id": "SEC-COMB-PERSISTENT-LOC",
+      "reason": "Corroborated by both Phase B (4 items) and Phase F (1 locations)."
+    },
+    {
+      "topic": "Device Identifiers",
+      "privacy_id": "PRIV-API-DEVICE-IDENTIFIER",
+      "security_id": "SEC-SPY-DEVICE-IDENTIFIERS",
+      "reason": "Corroborated by both Phase B (9 items) and Phase F (3 locations)."
+    },
+    {
+      "topic": "Dynamic Code Loading",
+      "privacy_id": "PRIV-API-DYNAMIC-CODE",
+      "security_id": "SEC-MAL-DYN-LOAD",
+      "reason": "Corroborated by both Phase B (2 items) and Phase F (1 locations)."
+    },
+    {
+      "topic": "Device Identifiers",
+      "privacy_id": "PRIV-CAP-ADVERTISING-ID",
+      "security_id": "SEC-SPY-DEVICE-IDENTIFIERS",
+      "reason": "Corroborated by both Phase B (9 items) and Phase F (1 locations)."
+    },
+    {
+      "topic": "Location Capability",
+      "privacy_id": "PRIV-CAP-LOCATION",
+      "security_id": "SEC-COMB-PERSISTENT-LOC",
+      "reason": "Corroborated by both Phase B (4 items) and Phase F (74 locations)."
+    }
+  ],
+  "incomplete_evidence_findings": [
+    {
+      "id": "PRIV-CAP-MICROPHONE",
+      "title": "Microphone Audio Recording Capability Detected",
+      "state": "PARTIAL",
+      "limitation": "Static analysis cannot prove runtime microphone activation."
+    },
+    {
+      "id": "PRIV-PERM-UNCORRELATED-READ_MEDIA_AUDIO",
+      "title": "Declared Permission Without Static Code Reference: android.permission.READ_MEDIA_AUDIO",
+      "state": "PARTIAL",
+      "limitation": "Static analysis cannot determine whether the permission is requested dynamically at runtime."
+    },
+    {
+      "id": "PRIV-PERM-UNCORRELATED-RECORD_AUDIO",
+      "title": "Declared Permission Without Static Code Reference: android.permission.RECORD_AUDIO",
+      "state": "PARTIAL",
+      "limitation": "Static analysis cannot determine whether the permission is requested dynamically at runtime."
+    }
+  ],
+  "discrepancies": []
+}

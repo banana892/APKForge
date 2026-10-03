@@ -4,6 +4,9 @@ rules:
     vendor: Sentry
     category: crash_reporting
     description: Open-source error tracking and performance monitoring.
+    source_reference: Sentry Android SDK Documentation
+    evidence_requirements: Package io.sentry or Sentry class
+    false_positive_risk: Low; distinct io.sentry namespace
     packages:
       - io.sentry
       - io.sentry.android
@@ -21,6 +24,9 @@ rules:
     vendor: Google
     category: crash_reporting
     description: Real-time crash reporting and diagnostic issue logging.
+    source_reference: Firebase Crashlytics Android SDK Documentation
+    evidence_requirements: Package com.google.firebase.crashlytics or FirebaseCrashlytics class
+    false_positive_risk: Low; specific to Google Firebase Crashlytics
     packages:
       - com.google.firebase.crashlytics
     classes:
@@ -36,6 +42,9 @@ rules:
     vendor: SmartBear
     category: crash_reporting
     description: Full-stack application stability and error monitoring.
+    source_reference: Bugsnag Android SDK Documentation
+    evidence_requirements: Package com.bugsnag.android or Bugsnag class
+    false_positive_risk: Low; distinct com.bugsnag namespace
     packages:
       - com.bugsnag.android
     classes:
@@ -51,6 +60,9 @@ rules:
     vendor: Microsoft
     category: telemetry
     description: Microsoft diagnostics, crash reporting, and analytics service.
+    source_reference: Microsoft App Center Android SDK Documentation
+    evidence_requirements: Package com.microsoft.appcenter or AppCenter class
+    false_positive_risk: Low; distinct Microsoft AppCenter namespace
     packages:
       - com.microsoft.appcenter
       - com.microsoft.appcenter.crashes

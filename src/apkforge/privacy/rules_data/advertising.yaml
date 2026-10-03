@@ -4,6 +4,9 @@ rules:
     vendor: Google
     category: advertising
     description: Google Mobile Ads SDK for banner, interstitial, and rewarded advertisements.
+    source_reference: Google Mobile Ads SDK documentation
+    evidence_requirements: Package namespace com.google.android.gms.ads or AdView class or ca-app-pub string
+    false_positive_risk: Low; specific to Google Mobile Ads SDK components
     packages:
       - com.google.android.gms.ads
     classes:
@@ -23,6 +26,9 @@ rules:
     vendor: AppLovin
     category: advertising
     description: AppLovin mobile advertising and mediation platform.
+    source_reference: AppLovin MAX Developer documentation
+    evidence_requirements: Package namespace com.applovin.sdk or AppLovinSdk class or applovin.sdk.key string
+    false_positive_risk: Low; distinct class and package signatures
     packages:
       - com.applovin.sdk
       - com.applovin.mediation
@@ -43,6 +49,9 @@ rules:
     vendor: Unity Technologies
     category: advertising
     description: Unity Ads monetization platform for mobile games and apps.
+    source_reference: Unity Ads SDK documentation
+    evidence_requirements: Package com.unity3d.services.ads or UnityAds class
+    false_positive_risk: Low; specific to Unity monetization SDK
     packages:
       - com.unity3d.services.ads
       - com.unity3d.ads
@@ -59,6 +68,9 @@ rules:
     vendor: Meta
     category: advertising
     description: Meta Audience Network mobile advertising platform.
+    source_reference: Meta Audience Network Developer Docs
+    evidence_requirements: Package com.facebook.ads or AudienceNetworkAds class
+    false_positive_risk: Low; distinct from generic Facebook Login SDK
     packages:
       - com.facebook.ads
     classes:
@@ -75,6 +87,9 @@ rules:
     vendor: InMobi
     category: advertising
     description: InMobi mobile marketing and monetization platform.
+    source_reference: InMobi SDK Developer Documentation
+    evidence_requirements: Package com.inmobi.sdk or InMobiSdk class
+    false_positive_risk: Low; proprietary InMobi package namespace
     packages:
       - com.inmobi.ads
       - com.inmobi.sdk
@@ -92,6 +107,9 @@ rules:
     vendor: ironSource
     category: advertising
     description: ironSource ad mediation and monetization platform.
+    source_reference: ironSource Developer Network Documentation
+    evidence_requirements: Package com.ironsource.mediationsdk or IronSource class
+    false_positive_risk: Low; specific to ironSource mediation framework
     packages:
       - com.ironsource.mediationsdk
     classes:
@@ -107,6 +125,9 @@ rules:
     vendor: Liftoff
     category: advertising
     description: Vungle video ad platform.
+    source_reference: Liftoff Monetize / Vungle SDK Documentation
+    evidence_requirements: Package com.vungle.ads or VungleAds class
+    false_positive_risk: Low; proprietary Vungle namespaces
     packages:
       - com.vungle.ads
       - com.vungle.warren

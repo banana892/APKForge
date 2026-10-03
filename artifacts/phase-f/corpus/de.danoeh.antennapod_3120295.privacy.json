@@ -1,0 +1,3589 @@
+{
+  "status": "complete",
+  "package_name": "de.danoeh.antennapod",
+  "version_name": "3.12.2",
+  "version_code": "3120295",
+  "permissions": {
+    "declared_permissions": [
+      "android.permission.ACCESS_NETWORK_STATE",
+      "android.permission.ACCESS_WIFI_STATE",
+      "android.permission.BLUETOOTH",
+      "android.permission.FOREGROUND_SERVICE",
+      "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK",
+      "android.permission.INTERNET",
+      "android.permission.POST_NOTIFICATIONS",
+      "android.permission.RECEIVE_BOOT_COMPLETED",
+      "android.permission.VIBRATE",
+      "android.permission.WAKE_LOCK",
+      "de.danoeh.antennapod.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+    ],
+    "categorized_permissions": {
+      "bluetooth": [
+        "android.permission.BLUETOOTH"
+      ],
+      "network": [
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.ACCESS_WIFI_STATE",
+        "android.permission.INTERNET"
+      ],
+      "notifications": [
+        "android.permission.POST_NOTIFICATIONS"
+      ],
+      "other": [
+        "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK",
+        "android.permission.VIBRATE",
+        "android.permission.WAKE_LOCK",
+        "de.danoeh.antennapod.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+      ],
+      "system_special": [
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.RECEIVE_BOOT_COMPLETED"
+      ]
+    },
+    "usage_details": [
+      {
+        "permission": "android.permission.ACCESS_NETWORK_STATE",
+        "category": "network",
+        "protection_level": "normal",
+        "usage_status": "unknown",
+        "relevance": "unknown",
+        "description": "Network capability permission (normal)",
+        "related_apis": [],
+        "classes": [],
+        "methods": [],
+        "evidence": [],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      },
+      {
+        "permission": "android.permission.ACCESS_WIFI_STATE",
+        "category": "network",
+        "protection_level": "normal",
+        "usage_status": "unknown",
+        "relevance": "unknown",
+        "description": "Network capability permission (normal)",
+        "related_apis": [],
+        "classes": [],
+        "methods": [],
+        "evidence": [],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      },
+      {
+        "permission": "android.permission.BLUETOOTH",
+        "category": "bluetooth",
+        "protection_level": "normal",
+        "usage_status": "declared_only",
+        "relevance": "optional",
+        "description": "Bluetooth capability permission (normal)",
+        "related_apis": [],
+        "classes": [],
+        "methods": [],
+        "evidence": [],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime.",
+          "Permission 'android.permission.BLUETOOTH' is declared in the manifest, but no matching API or component references were observed statically; actual runtime use remains uncertain."
+        ]
+      },
+      {
+        "permission": "android.permission.FOREGROUND_SERVICE",
+        "category": "system_special",
+        "protection_level": "normal",
+        "usage_status": "unknown",
+        "relevance": "unknown",
+        "description": "System_special capability permission (normal)",
+        "related_apis": [],
+        "classes": [],
+        "methods": [],
+        "evidence": [],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      },
+      {
+        "permission": "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK",
+        "category": "other",
+        "protection_level": "unknown",
+        "usage_status": "unknown",
+        "relevance": "unknown",
+        "description": "Other capability permission (unknown)",
+        "related_apis": [],
+        "classes": [],
+        "methods": [],
+        "evidence": [],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      },
+      {
+        "permission": "android.permission.INTERNET",
+        "category": "network",
+        "protection_level": "normal",
+        "usage_status": "unknown",
+        "relevance": "unknown",
+        "description": "Network capability permission (normal)",
+        "related_apis": [],
+        "classes": [],
+        "methods": [],
+        "evidence": [],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      },
+      {
+        "permission": "android.permission.POST_NOTIFICATIONS",
+        "category": "notifications",
+        "protection_level": "dangerous",
+        "usage_status": "declared_and_referenced",
+        "relevance": "likely_required",
+        "description": "Notifications capability permission (dangerous)",
+        "related_apis": [
+          "android.app.NotificationManager"
+        ],
+        "classes": [],
+        "methods": [],
+        "evidence": [
+          {
+            "description": "Referenced API related to android.permission.POST_NOTIFICATIONS: android.app.NotificationManager",
+            "location": "api:android.app.NotificationManager",
+            "snippet": "Referenced API related to android.permission.POST_NOTIFICATIONS: android.app.NotificationManager",
+            "references": []
+          }
+        ],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      },
+      {
+        "permission": "android.permission.RECEIVE_BOOT_COMPLETED",
+        "category": "system_special",
+        "protection_level": "normal",
+        "usage_status": "declared_with_strong_code_correlation",
+        "relevance": "likely_required",
+        "description": "System_special capability permission (normal)",
+        "related_apis": [
+          "android.content.BroadcastReceiver"
+        ],
+        "classes": [
+          "androidx.work.impl.background.systemalarm.RescheduleReceiver"
+        ],
+        "methods": [],
+        "evidence": [
+          {
+            "description": "Referenced API related to android.permission.RECEIVE_BOOT_COMPLETED: android.content.BroadcastReceiver",
+            "location": "api:android.content.BroadcastReceiver",
+            "snippet": "Referenced API related to android.permission.RECEIVE_BOOT_COMPLETED: android.content.BroadcastReceiver",
+            "references": []
+          },
+          {
+            "description": "Manifest receiver androidx.work.impl.background.systemalarm.RescheduleReceiver configured for boot persistence",
+            "location": "receiver:androidx.work.impl.background.systemalarm.RescheduleReceiver",
+            "snippet": "receiver:androidx.work.impl.background.systemalarm.RescheduleReceiver",
+            "references": []
+          }
+        ],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      },
+      {
+        "permission": "android.permission.VIBRATE",
+        "category": "other",
+        "protection_level": "unknown",
+        "usage_status": "unknown",
+        "relevance": "unknown",
+        "description": "Other capability permission (unknown)",
+        "related_apis": [],
+        "classes": [],
+        "methods": [],
+        "evidence": [],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      },
+      {
+        "permission": "android.permission.WAKE_LOCK",
+        "category": "other",
+        "protection_level": "unknown",
+        "usage_status": "unknown",
+        "relevance": "unknown",
+        "description": "Other capability permission (unknown)",
+        "related_apis": [],
+        "classes": [],
+        "methods": [],
+        "evidence": [],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      },
+      {
+        "permission": "de.danoeh.antennapod.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+        "category": "other",
+        "protection_level": "unknown",
+        "usage_status": "unknown",
+        "relevance": "unknown",
+        "description": "Other capability permission (unknown)",
+        "related_apis": [],
+        "classes": [],
+        "methods": [],
+        "evidence": [],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      }
+    ],
+    "high_risk_permissions_count": 1
+  },
+  "trackers": {
+    "detected_trackers": [],
+    "total_trackers": 0
+  },
+  "advertising": {
+    "detected_advertising_sdks": [],
+    "total_advertising_sdks": 0
+  },
+  "analytics": {
+    "detected_analytics_sdks": [],
+    "total_analytics_sdks": 0
+  },
+  "telemetry": {
+    "detected_telemetry_sdks": [],
+    "total_telemetry_sdks": 0
+  },
+  "endpoints": {
+    "total_endpoints": 95,
+    "first_party_domains": [],
+    "third_party_domains": [
+      "127.0.0.1",
+      "action.de",
+      "android.app",
+      "android.intent.extra.cc",
+      "android.net",
+      "android.support.v4.app",
+      "androidx.appcompat.app",
+      "androidx.car.app",
+      "androidx.core.app",
+      "androidx.fragment.app",
+      "antennapod.org",
+      "aomedia.org",
+      "api.fyyd.de",
+      "api.podcastindex.org",
+      "argument.de",
+      "avatars2.githubusercontent.com",
+      "com.android.org",
+      "com.google.android.gms.org",
+      "de.danoeh.antennapod.net",
+      "default.url",
+      "developer.android.com",
+      "developer.apple.com",
+      "dispatchers.io",
+      "extra.de",
+      "forum.antennapod.org",
+      "g.co",
+      "github.com",
+      "gpodder.net",
+      "issuetracker.google.com",
+      "itunes.apple.com",
+      "java.net",
+      "javax.net",
+      "kotlin.int",
+      "kotlinx.coroutines.io",
+      "libcore.io",
+      "log.info",
+      "ns.adobe.com",
+      "openssl.org",
+      "org.openjsse.net",
+      "picsum.photos",
+      "play.google.com",
+      "podcastindex.org",
+      "podlove.org",
+      "purl.org",
+      "rx3.io",
+      "schemas.android.com",
+      "schemas.microsoft.com",
+      "search.yahoo.com",
+      "subscribeonandroid.com",
+      "sun.net",
+      "undefined",
+      "www.example.com",
+      "www.itunes.com",
+      "www.subscribeonandroid.com",
+      "www.w3.org",
+      "xmlpull.org",
+      "youtrack.jetbrains.com"
+    ],
+    "classified_endpoints": [
+      {
+        "endpoint": "action.de",
+        "domain": "action.de",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: action.de",
+            "location": "domain:action.de",
+            "snippet": "Extracted domain: action.de",
+            "references": []
+          }
+        ],
+        "raw_evidence": "action.de",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "android.app",
+        "domain": "android.app",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: android.app",
+            "location": "domain:android.app",
+            "snippet": "Extracted domain: android.app",
+            "references": []
+          }
+        ],
+        "raw_evidence": "android.app",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "android.intent.extra.cc",
+        "domain": "android.intent.extra.cc",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: android.intent.extra.cc",
+            "location": "domain:android.intent.extra.cc",
+            "snippet": "Extracted domain: android.intent.extra.cc",
+            "references": []
+          }
+        ],
+        "raw_evidence": "android.intent.extra.cc",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "android.net",
+        "domain": "android.net",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: android.net",
+            "location": "domain:android.net",
+            "snippet": "Extracted domain: android.net",
+            "references": []
+          }
+        ],
+        "raw_evidence": "android.net",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "android.support.v4.app",
+        "domain": "android.support.v4.app",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: android.support.v4.app",
+            "location": "domain:android.support.v4.app",
+            "snippet": "Extracted domain: android.support.v4.app",
+            "references": []
+          }
+        ],
+        "raw_evidence": "android.support.v4.app",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "androidx.appcompat.app",
+        "domain": "androidx.appcompat.app",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: androidx.appcompat.app",
+            "location": "domain:androidx.appcompat.app",
+            "snippet": "Extracted domain: androidx.appcompat.app",
+            "references": []
+          }
+        ],
+        "raw_evidence": "androidx.appcompat.app",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "androidx.car.app",
+        "domain": "androidx.car.app",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: androidx.car.app",
+            "location": "domain:androidx.car.app",
+            "snippet": "Extracted domain: androidx.car.app",
+            "references": []
+          }
+        ],
+        "raw_evidence": "androidx.car.app",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "androidx.core.app",
+        "domain": "androidx.core.app",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: androidx.core.app",
+            "location": "domain:androidx.core.app",
+            "snippet": "Extracted domain: androidx.core.app",
+            "references": []
+          }
+        ],
+        "raw_evidence": "androidx.core.app",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "androidx.fragment.app",
+        "domain": "androidx.fragment.app",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: androidx.fragment.app",
+            "location": "domain:androidx.fragment.app",
+            "snippet": "Extracted domain: androidx.fragment.app",
+            "references": []
+          }
+        ],
+        "raw_evidence": "androidx.fragment.app",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "antennapod.org",
+        "domain": "antennapod.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: antennapod.org",
+            "location": "domain:antennapod.org",
+            "snippet": "Extracted domain: antennapod.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "antennapod.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "aomedia.org",
+        "domain": "aomedia.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: aomedia.org",
+            "location": "domain:aomedia.org",
+            "snippet": "Extracted domain: aomedia.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "aomedia.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "api.fyyd.de",
+        "domain": "api.fyyd.de",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: api.fyyd.de",
+            "location": "domain:api.fyyd.de",
+            "snippet": "Extracted domain: api.fyyd.de",
+            "references": []
+          }
+        ],
+        "raw_evidence": "api.fyyd.de",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "api.podcastindex.org",
+        "domain": "api.podcastindex.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: api.podcastindex.org",
+            "location": "domain:api.podcastindex.org",
+            "snippet": "Extracted domain: api.podcastindex.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "api.podcastindex.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "argument.de",
+        "domain": "argument.de",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: argument.de",
+            "location": "domain:argument.de",
+            "snippet": "Extracted domain: argument.de",
+            "references": []
+          }
+        ],
+        "raw_evidence": "argument.de",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "avatars2.githubusercontent.com",
+        "domain": "avatars2.githubusercontent.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: avatars2.githubusercontent.com",
+            "location": "domain:avatars2.githubusercontent.com",
+            "snippet": "Extracted domain: avatars2.githubusercontent.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "avatars2.githubusercontent.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "com.android.org",
+        "domain": "com.android.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: com.android.org",
+            "location": "domain:com.android.org",
+            "snippet": "Extracted domain: com.android.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "com.android.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "com.google.android.gms.org",
+        "domain": "com.google.android.gms.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: com.google.android.gms.org",
+            "location": "domain:com.google.android.gms.org",
+            "snippet": "Extracted domain: com.google.android.gms.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "com.google.android.gms.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "de.danoeh.antennapod.net",
+        "domain": "de.danoeh.antennapod.net",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: de.danoeh.antennapod.net",
+            "location": "domain:de.danoeh.antennapod.net",
+            "snippet": "Extracted domain: de.danoeh.antennapod.net",
+            "references": []
+          }
+        ],
+        "raw_evidence": "de.danoeh.antennapod.net",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "developer.android.com",
+        "domain": "developer.android.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: developer.android.com",
+            "location": "domain:developer.android.com",
+            "snippet": "Extracted domain: developer.android.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "developer.android.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "developer.apple.com",
+        "domain": "developer.apple.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: developer.apple.com",
+            "location": "domain:developer.apple.com",
+            "snippet": "Extracted domain: developer.apple.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "developer.apple.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "dispatchers.io",
+        "domain": "dispatchers.io",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: dispatchers.io",
+            "location": "domain:dispatchers.io",
+            "snippet": "Extracted domain: dispatchers.io",
+            "references": []
+          }
+        ],
+        "raw_evidence": "dispatchers.io",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "extra.de",
+        "domain": "extra.de",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: extra.de",
+            "location": "domain:extra.de",
+            "snippet": "Extracted domain: extra.de",
+            "references": []
+          }
+        ],
+        "raw_evidence": "extra.de",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "forum.antennapod.org",
+        "domain": "forum.antennapod.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: forum.antennapod.org",
+            "location": "domain:forum.antennapod.org",
+            "snippet": "Extracted domain: forum.antennapod.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "forum.antennapod.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "g.co",
+        "domain": "g.co",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: g.co",
+            "location": "domain:g.co",
+            "snippet": "Extracted domain: g.co",
+            "references": []
+          }
+        ],
+        "raw_evidence": "g.co",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "github.com",
+        "domain": "github.com",
+        "is_url": false,
+        "category": "update_infrastructure",
+        "purpose": "GitHub source hosting, releases, and distribution infrastructure.",
+        "associated_sdk": "GitHub Infrastructure",
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: github.com",
+            "location": "domain:github.com",
+            "snippet": "Extracted domain: github.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "github.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "gpodder.net",
+        "domain": "gpodder.net",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: gpodder.net",
+            "location": "domain:gpodder.net",
+            "snippet": "Extracted domain: gpodder.net",
+            "references": []
+          }
+        ],
+        "raw_evidence": "gpodder.net",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "issuetracker.google.com",
+        "domain": "issuetracker.google.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: issuetracker.google.com",
+            "location": "domain:issuetracker.google.com",
+            "snippet": "Extracted domain: issuetracker.google.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "issuetracker.google.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "itunes.apple.com",
+        "domain": "itunes.apple.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: itunes.apple.com",
+            "location": "domain:itunes.apple.com",
+            "snippet": "Extracted domain: itunes.apple.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "itunes.apple.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "java.net",
+        "domain": "java.net",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: java.net",
+            "location": "domain:java.net",
+            "snippet": "Extracted domain: java.net",
+            "references": []
+          }
+        ],
+        "raw_evidence": "java.net",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "javax.net",
+        "domain": "javax.net",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: javax.net",
+            "location": "domain:javax.net",
+            "snippet": "Extracted domain: javax.net",
+            "references": []
+          }
+        ],
+        "raw_evidence": "javax.net",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "kotlin.int",
+        "domain": "kotlin.int",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: kotlin.int",
+            "location": "domain:kotlin.int",
+            "snippet": "Extracted domain: kotlin.int",
+            "references": []
+          }
+        ],
+        "raw_evidence": "kotlin.int",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "kotlinx.coroutines.io",
+        "domain": "kotlinx.coroutines.io",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: kotlinx.coroutines.io",
+            "location": "domain:kotlinx.coroutines.io",
+            "snippet": "Extracted domain: kotlinx.coroutines.io",
+            "references": []
+          }
+        ],
+        "raw_evidence": "kotlinx.coroutines.io",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "libcore.io",
+        "domain": "libcore.io",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: libcore.io",
+            "location": "domain:libcore.io",
+            "snippet": "Extracted domain: libcore.io",
+            "references": []
+          }
+        ],
+        "raw_evidence": "libcore.io",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "log.info",
+        "domain": "log.info",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: log.info",
+            "location": "domain:log.info",
+            "snippet": "Extracted domain: log.info",
+            "references": []
+          }
+        ],
+        "raw_evidence": "log.info",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "openssl.org",
+        "domain": "openssl.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: openssl.org",
+            "location": "domain:openssl.org",
+            "snippet": "Extracted domain: openssl.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "openssl.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "org.openjsse.net",
+        "domain": "org.openjsse.net",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: org.openjsse.net",
+            "location": "domain:org.openjsse.net",
+            "snippet": "Extracted domain: org.openjsse.net",
+            "references": []
+          }
+        ],
+        "raw_evidence": "org.openjsse.net",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "play.google.com",
+        "domain": "play.google.com",
+        "is_url": false,
+        "category": "update_infrastructure",
+        "purpose": "Google Play Store app distribution, updates, and licensing infrastructure.",
+        "associated_sdk": "Google Play Store Service",
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: play.google.com",
+            "location": "domain:play.google.com",
+            "snippet": "Extracted domain: play.google.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "play.google.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "podcastindex.org",
+        "domain": "podcastindex.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: podcastindex.org",
+            "location": "domain:podcastindex.org",
+            "snippet": "Extracted domain: podcastindex.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "podcastindex.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "podlove.org",
+        "domain": "podlove.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: podlove.org",
+            "location": "domain:podlove.org",
+            "snippet": "Extracted domain: podlove.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "podlove.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "rx3.io",
+        "domain": "rx3.io",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: rx3.io",
+            "location": "domain:rx3.io",
+            "snippet": "Extracted domain: rx3.io",
+            "references": []
+          }
+        ],
+        "raw_evidence": "rx3.io",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "schemas.microsoft.com",
+        "domain": "schemas.microsoft.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: schemas.microsoft.com",
+            "location": "domain:schemas.microsoft.com",
+            "snippet": "Extracted domain: schemas.microsoft.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "schemas.microsoft.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "search.yahoo.com",
+        "domain": "search.yahoo.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: search.yahoo.com",
+            "location": "domain:search.yahoo.com",
+            "snippet": "Extracted domain: search.yahoo.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "search.yahoo.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "subscribeonandroid.com",
+        "domain": "subscribeonandroid.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: subscribeonandroid.com",
+            "location": "domain:subscribeonandroid.com",
+            "snippet": "Extracted domain: subscribeonandroid.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "subscribeonandroid.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "sun.net",
+        "domain": "sun.net",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: sun.net",
+            "location": "domain:sun.net",
+            "snippet": "Extracted domain: sun.net",
+            "references": []
+          }
+        ],
+        "raw_evidence": "sun.net",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "www.example.com",
+        "domain": "www.example.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: www.example.com",
+            "location": "domain:www.example.com",
+            "snippet": "Extracted domain: www.example.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "www.example.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "www.itunes.com",
+        "domain": "www.itunes.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: www.itunes.com",
+            "location": "domain:www.itunes.com",
+            "snippet": "Extracted domain: www.itunes.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "www.itunes.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "www.subscribeonandroid.com",
+        "domain": "www.subscribeonandroid.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: www.subscribeonandroid.com",
+            "location": "domain:www.subscribeonandroid.com",
+            "snippet": "Extracted domain: www.subscribeonandroid.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "www.subscribeonandroid.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "youtrack.jetbrains.com",
+        "domain": "youtrack.jetbrains.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: youtrack.jetbrains.com",
+            "location": "domain:youtrack.jetbrains.com",
+            "snippet": "Extracted domain: youtrack.jetbrains.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "youtrack.jetbrains.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://g.co/dev/packagevisibility",
+        "domain": "g.co",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex -> androidx.media3.datasource.RawResourceDataSource -> openAssetFileDescriptor"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://g.co/dev/packagevisibility",
+            "location": "classes.dex -> androidx.media3.datasource.RawResourceDataSource -> openAssetFileDescriptor",
+            "snippet": "Extracted URL: http://g.co/dev/packagevisibility",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://g.co/dev/packagevisibility",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://ns.adobe.com/xap/1.0/",
+        "domain": "ns.adobe.com",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://ns.adobe.com/xap/1.0/",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: http://ns.adobe.com/xap/1.0/",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://ns.adobe.com/xap/1.0/",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://podlove.org/simple-chapters",
+        "domain": "podlove.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://podlove.org/simple-chapters",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: http://podlove.org/simple-chapters",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://podlove.org/simple-chapters",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://purl.org/dc/elements/1.1/",
+        "domain": "purl.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://purl.org/dc/elements/1.1/",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: http://purl.org/dc/elements/1.1/",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://purl.org/dc/elements/1.1/",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://purl.org/rss/1.0/modules/content/",
+        "domain": "purl.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://purl.org/rss/1.0/modules/content/",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: http://purl.org/rss/1.0/modules/content/",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://purl.org/rss/1.0/modules/content/",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://schemas.android.com/apk/com.bytehamster.lib.preferencesearch",
+        "domain": "schemas.android.com",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://schemas.android.com/apk/com.bytehamster.lib.preferencesearch",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: http://schemas.android.com/apk/com.bytehamster.lib.preferencesearch",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://schemas.android.com/apk/com.bytehamster.lib.preferencesearch",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://schemas.android.com/apk/res-auto",
+        "domain": "schemas.android.com",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://schemas.android.com/apk/res-auto",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: http://schemas.android.com/apk/res-auto",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://schemas.android.com/apk/res-auto",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://schemas.android.com/apk/res/android",
+        "domain": "schemas.android.com",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://schemas.android.com/apk/res/android",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: http://schemas.android.com/apk/res/android",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://schemas.android.com/apk/res/android",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://schemas.microsoft.com/DRM/2007/03/protocols/AcquireLicense",
+        "domain": "schemas.microsoft.com",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://schemas.microsoft.com/DRM/2007/03/protocols/AcquireLicense",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: http://schemas.microsoft.com/DRM/2007/03/protocols/AcquireLicense",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://schemas.microsoft.com/DRM/2007/03/protocols/AcquireLicense",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://search.yahoo.com/mrss/",
+        "domain": "search.yahoo.com",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://search.yahoo.com/mrss/",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: http://search.yahoo.com/mrss/",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://search.yahoo.com/mrss/",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://undefined/",
+        "domain": "undefined",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes3.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://undefined/",
+            "location": "classes3.dex",
+            "snippet": "Extracted URL: http://undefined/",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://undefined/",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://www.itunes.com/dtds/podcast-1.0.dtd",
+        "domain": "www.itunes.com",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://www.itunes.com/dtds/podcast-1.0.dtd",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: http://www.itunes.com/dtds/podcast-1.0.dtd",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://www.itunes.com/dtds/podcast-1.0.dtd",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://www.w3.org/2005/Atom",
+        "domain": "www.w3.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://www.w3.org/2005/Atom",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: http://www.w3.org/2005/Atom",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://www.w3.org/2005/Atom",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://www.w3.org/XML/1998/namespace",
+        "domain": "www.w3.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://www.w3.org/XML/1998/namespace",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: http://www.w3.org/XML/1998/namespace",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://www.w3.org/XML/1998/namespace",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://www.w3.org/ns/ttml#parameter",
+        "domain": "www.w3.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://www.w3.org/ns/ttml#parameter",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: http://www.w3.org/ns/ttml#parameter",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://www.w3.org/ns/ttml#parameter",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://xmlpull.org/v1/doc/features.html#indent-output",
+        "domain": "xmlpull.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes2.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://xmlpull.org/v1/doc/features.html#indent-output",
+            "location": "classes2.dex",
+            "snippet": "Extracted URL: http://xmlpull.org/v1/doc/features.html#indent-output",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://xmlpull.org/v1/doc/features.html#indent-output",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://xmlpull.org/v1/doc/features.html#process-namespaces",
+        "domain": "xmlpull.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://xmlpull.org/v1/doc/features.html#process-namespaces",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: http://xmlpull.org/v1/doc/features.html#process-namespaces",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://xmlpull.org/v1/doc/features.html#process-namespaces",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://xmlpull.org/v1/doc/features.html#report-namespace-prefixes",
+        "domain": "xmlpull.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://xmlpull.org/v1/doc/features.html#report-namespace-prefixes",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: http://xmlpull.org/v1/doc/features.html#report-namespace-prefixes",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://xmlpull.org/v1/doc/features.html#report-namespace-prefixes",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://127.0.0.1",
+        "domain": "127.0.0.1",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes3.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://127.0.0.1",
+            "location": "classes3.dex",
+            "snippet": "Extracted URL: https://127.0.0.1",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://127.0.0.1",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://antennapod.org/contribute/",
+        "domain": "antennapod.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes3.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://antennapod.org/contribute/",
+            "location": "classes3.dex",
+            "snippet": "Extracted URL: https://antennapod.org/contribute/",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://antennapod.org/contribute/",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://antennapod.org/documentation/",
+        "domain": "antennapod.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes3.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://antennapod.org/documentation/",
+            "location": "classes3.dex",
+            "snippet": "Extracted URL: https://antennapod.org/documentation/",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://antennapod.org/documentation/",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://antennapod.org/privacy/",
+        "domain": "antennapod.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes3.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://antennapod.org/privacy/",
+            "location": "classes3.dex",
+            "snippet": "Extracted URL: https://antennapod.org/privacy/",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://antennapod.org/privacy/",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://aomedia.org/emsg/ID3",
+        "domain": "aomedia.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://aomedia.org/emsg/ID3",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://aomedia.org/emsg/ID3",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://aomedia.org/emsg/ID3",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://api.fyyd.de/0.2/search/podcast?title=%s&count=10",
+        "domain": "api.fyyd.de",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://api.fyyd.de/0.2/search/podcast?title=%s&count=10",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://api.fyyd.de/0.2/search/podcast?title=%s&count=10",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://api.fyyd.de/0.2/search/podcast?title=%s&count=10",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://api.podcastindex.org/api/1.0/search/byterm?q=%s",
+        "domain": "api.podcastindex.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://api.podcastindex.org/api/1.0/search/byterm?q=%s",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://api.podcastindex.org/api/1.0/search/byterm?q=%s",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://api.podcastindex.org/api/1.0/search/byterm?q=%s",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://avatars2.githubusercontent.com/u/",
+        "domain": "avatars2.githubusercontent.com",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes3.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://avatars2.githubusercontent.com/u/",
+            "location": "classes3.dex",
+            "snippet": "Extracted URL: https://avatars2.githubusercontent.com/u/",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://avatars2.githubusercontent.com/u/",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://default.url",
+        "domain": "default.url",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://default.url",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://default.url",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://default.url",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://developer.android.com/guide/topics/media/issues/cleartext-not-permitted",
+        "domain": "developer.android.com",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://developer.android.com/guide/topics/media/issues/cleartext-not-permitted",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://developer.android.com/guide/topics/media/issues/cleartext-not-permitted",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://developer.android.com/guide/topics/media/issues/cleartext-not-permitted",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://developer.apple.com/streaming/emsg-id3",
+        "domain": "developer.apple.com",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://developer.apple.com/streaming/emsg-id3",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://developer.apple.com/streaming/emsg-id3",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://developer.apple.com/streaming/emsg-id3",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://forum.antennapod.org/",
+        "domain": "forum.antennapod.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes3.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://forum.antennapod.org/",
+            "location": "classes3.dex",
+            "snippet": "Extracted URL: https://forum.antennapod.org/",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://forum.antennapod.org/",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://forum.antennapod.org/search",
+        "domain": "forum.antennapod.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes3.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://forum.antennapod.org/search",
+            "location": "classes3.dex",
+            "snippet": "Extracted URL: https://forum.antennapod.org/search",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://forum.antennapod.org/search",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://github.com/",
+        "domain": "github.com",
+        "is_url": true,
+        "category": "update_infrastructure",
+        "purpose": "GitHub source hosting, releases, and distribution infrastructure.",
+        "associated_sdk": "GitHub Infrastructure",
+        "is_first_party": false,
+        "provenance": [
+          "classes3.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://github.com/",
+            "location": "classes3.dex",
+            "snippet": "Extracted URL: https://github.com/",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://github.com/",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://github.com/AntennaPod/AntennaPod/issues",
+        "domain": "github.com",
+        "is_url": true,
+        "category": "update_infrastructure",
+        "purpose": "GitHub source hosting, releases, and distribution infrastructure.",
+        "associated_sdk": "GitHub Infrastructure",
+        "is_first_party": false,
+        "provenance": [
+          "classes3.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://github.com/AntennaPod/AntennaPod/issues",
+            "location": "classes3.dex",
+            "snippet": "Extracted URL: https://github.com/AntennaPod/AntennaPod/issues",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://github.com/AntennaPod/AntennaPod/issues",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://github.com/Podcastindex-org/podcast-namespace/blob/main/docs/1.0.md",
+        "domain": "github.com",
+        "is_url": true,
+        "category": "update_infrastructure",
+        "purpose": "GitHub source hosting, releases, and distribution infrastructure.",
+        "associated_sdk": "GitHub Infrastructure",
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://github.com/Podcastindex-org/podcast-namespace/blob/main/docs/1.0.md",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://github.com/Podcastindex-org/podcast-namespace/blob/main/docs/1.0.md",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://github.com/Podcastindex-org/podcast-namespace/blob/main/docs/1.0.md",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://github.com/ReactiveX/RxJava/wiki/Error-Handling",
+        "domain": "github.com",
+        "is_url": true,
+        "category": "update_infrastructure",
+        "purpose": "GitHub source hosting, releases, and distribution infrastructure.",
+        "associated_sdk": "GitHub Infrastructure",
+        "is_first_party": false,
+        "provenance": [
+          "classes3.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://github.com/ReactiveX/RxJava/wiki/Error-Handling",
+            "location": "classes3.dex",
+            "snippet": "Extracted URL: https://github.com/ReactiveX/RxJava/wiki/Error-Handling",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://github.com/ReactiveX/RxJava/wiki/Error-Handling",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://github.com/ReactiveX/RxJava/wiki/Plugins",
+        "domain": "github.com",
+        "is_url": true,
+        "category": "update_infrastructure",
+        "purpose": "GitHub source hosting, releases, and distribution infrastructure.",
+        "associated_sdk": "GitHub Infrastructure",
+        "is_first_party": false,
+        "provenance": [
+          "classes3.dex -> io.reactivex.rxjava3.core.Completable -> subscribe"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://github.com/ReactiveX/RxJava/wiki/Plugins",
+            "location": "classes3.dex -> io.reactivex.rxjava3.core.Completable -> subscribe",
+            "snippet": "Extracted URL: https://github.com/ReactiveX/RxJava/wiki/Plugins",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://github.com/ReactiveX/RxJava/wiki/Plugins",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://github.com/ReactiveX/RxJava/wiki/What",
+        "domain": "github.com",
+        "is_url": true,
+        "category": "update_infrastructure",
+        "purpose": "GitHub source hosting, releases, and distribution infrastructure.",
+        "associated_sdk": "GitHub Infrastructure",
+        "is_first_party": false,
+        "provenance": [
+          "classes3.dex -> io.reactivex.rxjava3.exceptions.UndeliverableException -> <init>"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://github.com/ReactiveX/RxJava/wiki/What",
+            "location": "classes3.dex -> io.reactivex.rxjava3.exceptions.UndeliverableException -> <init>",
+            "snippet": "Extracted URL: https://github.com/ReactiveX/RxJava/wiki/What",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://github.com/ReactiveX/RxJava/wiki/What",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://github.com/androidx/media/issues/1730",
+        "domain": "github.com",
+        "is_url": true,
+        "category": "update_infrastructure",
+        "purpose": "GitHub source hosting, releases, and distribution infrastructure.",
+        "associated_sdk": "GitHub Infrastructure",
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex -> androidx.media3.session.MediaSessionLegacyStub$Api31 -> setMediaButtonBroadcastReceiver"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://github.com/androidx/media/issues/1730",
+            "location": "classes.dex -> androidx.media3.session.MediaSessionLegacyStub$Api31 -> setMediaButtonBroadcastReceiver",
+            "snippet": "Extracted URL: https://github.com/androidx/media/issues/1730",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://github.com/androidx/media/issues/1730",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://issuetracker.google.com/issues/new?component=413107&template=1096568",
+        "domain": "issuetracker.google.com",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex -> androidx.room.AutoCloser -> autoCloser$lambda$3"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://issuetracker.google.com/issues/new?component=413107&template=1096568",
+            "location": "classes.dex -> androidx.room.AutoCloser -> autoCloser$lambda$3",
+            "snippet": "Extracted URL: https://issuetracker.google.com/issues/new?component=413107&template=1096568",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://issuetracker.google.com/issues/new?component=413107&template=1096568",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://itunes.apple.com/%s/rss/toppodcasts/limit=25/explicit=true/json",
+        "domain": "itunes.apple.com",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://itunes.apple.com/%s/rss/toppodcasts/limit=25/explicit=true/json",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://itunes.apple.com/%s/rss/toppodcasts/limit=25/explicit=true/json",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://itunes.apple.com/%s/rss/toppodcasts/limit=25/explicit=true/json",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://itunes.apple.com/lookup?id=",
+        "domain": "itunes.apple.com",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://itunes.apple.com/lookup?id=",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://itunes.apple.com/lookup?id=",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://itunes.apple.com/lookup?id=",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://itunes.apple.com/search?media=podcast&term=%s",
+        "domain": "itunes.apple.com",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://itunes.apple.com/search?media=podcast&term=%s",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://itunes.apple.com/search?media=podcast&term=%s",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://itunes.apple.com/search?media=podcast&term=%s",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://picsum.photos/400/400?random=",
+        "domain": "picsum.photos",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes2.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://picsum.photos/400/400?random=",
+            "location": "classes2.dex",
+            "snippet": "Extracted URL: https://picsum.photos/400/400?random=",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://picsum.photos/400/400?random=",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://play.google.com/store/apps/details?id=de.danoeh.antennapod",
+        "domain": "play.google.com",
+        "is_url": true,
+        "category": "update_infrastructure",
+        "purpose": "Google Play Store app distribution, updates, and licensing infrastructure.",
+        "associated_sdk": "Google Play Store Service",
+        "is_first_party": false,
+        "provenance": [
+          "classes3.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://play.google.com/store/apps/details?id=de.danoeh.antennapod",
+            "location": "classes3.dex",
+            "snippet": "Extracted URL: https://play.google.com/store/apps/details?id=de.danoeh.antennapod",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://play.google.com/store/apps/details?id=de.danoeh.antennapod",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://podcastindex.org/namespace/1.0",
+        "domain": "podcastindex.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://podcastindex.org/namespace/1.0",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://podcastindex.org/namespace/1.0",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://podcastindex.org/namespace/1.0",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://www.example.com",
+        "domain": "www.example.com",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes3.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://www.example.com",
+            "location": "classes3.dex",
+            "snippet": "Extracted URL: https://www.example.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://www.example.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://youtrack.jetbrains.com/issue/KT-55980",
+        "domain": "youtrack.jetbrains.com",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes3.dex -> kotlin.jvm.internal.PropertyReference -> getReflected"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://youtrack.jetbrains.com/issue/KT-55980",
+            "location": "classes3.dex -> kotlin.jvm.internal.PropertyReference -> getReflected",
+            "snippet": "Extracted URL: https://youtrack.jetbrains.com/issue/KT-55980",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://youtrack.jetbrains.com/issue/KT-55980",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      }
+    ],
+    "by_category": {
+      "unknown": [
+        "action.de",
+        "android.app",
+        "android.intent.extra.cc",
+        "android.net",
+        "android.support.v4.app",
+        "androidx.appcompat.app",
+        "androidx.car.app",
+        "androidx.core.app",
+        "androidx.fragment.app",
+        "antennapod.org",
+        "aomedia.org",
+        "api.fyyd.de",
+        "api.podcastindex.org",
+        "argument.de",
+        "avatars2.githubusercontent.com",
+        "com.android.org",
+        "com.google.android.gms.org",
+        "de.danoeh.antennapod.net",
+        "developer.android.com",
+        "developer.apple.com",
+        "dispatchers.io",
+        "extra.de",
+        "forum.antennapod.org",
+        "g.co",
+        "gpodder.net",
+        "http://g.co/dev/packagevisibility",
+        "http://ns.adobe.com/xap/1.0/",
+        "http://podlove.org/simple-chapters",
+        "http://purl.org/dc/elements/1.1/",
+        "http://purl.org/rss/1.0/modules/content/",
+        "http://schemas.android.com/apk/com.bytehamster.lib.preferencesearch",
+        "http://schemas.android.com/apk/res-auto",
+        "http://schemas.android.com/apk/res/android",
+        "http://schemas.microsoft.com/DRM/2007/03/protocols/AcquireLicense",
+        "http://search.yahoo.com/mrss/",
+        "http://undefined/",
+        "http://www.itunes.com/dtds/podcast-1.0.dtd",
+        "http://www.w3.org/2005/Atom",
+        "http://www.w3.org/XML/1998/namespace",
+        "http://www.w3.org/ns/ttml#parameter",
+        "http://xmlpull.org/v1/doc/features.html#indent-output",
+        "http://xmlpull.org/v1/doc/features.html#process-namespaces",
+        "http://xmlpull.org/v1/doc/features.html#report-namespace-prefixes",
+        "https://127.0.0.1",
+        "https://antennapod.org/contribute/",
+        "https://antennapod.org/documentation/",
+        "https://antennapod.org/privacy/",
+        "https://aomedia.org/emsg/ID3",
+        "https://api.fyyd.de/0.2/search/podcast?title=%s&count=10",
+        "https://api.podcastindex.org/api/1.0/search/byterm?q=%s",
+        "https://avatars2.githubusercontent.com/u/",
+        "https://default.url",
+        "https://developer.android.com/guide/topics/media/issues/cleartext-not-permitted",
+        "https://developer.apple.com/streaming/emsg-id3",
+        "https://forum.antennapod.org/",
+        "https://forum.antennapod.org/search",
+        "https://issuetracker.google.com/issues/new?component=413107&template=1096568",
+        "https://itunes.apple.com/%s/rss/toppodcasts/limit=25/explicit=true/json",
+        "https://itunes.apple.com/lookup?id=",
+        "https://itunes.apple.com/search?media=podcast&term=%s",
+        "https://picsum.photos/400/400?random=",
+        "https://podcastindex.org/namespace/1.0",
+        "https://www.example.com",
+        "https://youtrack.jetbrains.com/issue/KT-55980",
+        "issuetracker.google.com",
+        "itunes.apple.com",
+        "java.net",
+        "javax.net",
+        "kotlin.int",
+        "kotlinx.coroutines.io",
+        "libcore.io",
+        "log.info",
+        "openssl.org",
+        "org.openjsse.net",
+        "podcastindex.org",
+        "podlove.org",
+        "rx3.io",
+        "schemas.microsoft.com",
+        "search.yahoo.com",
+        "subscribeonandroid.com",
+        "sun.net",
+        "www.example.com",
+        "www.itunes.com",
+        "www.subscribeonandroid.com",
+        "youtrack.jetbrains.com"
+      ],
+      "update_infrastructure": [
+        "github.com",
+        "https://github.com/",
+        "https://github.com/AntennaPod/AntennaPod/issues",
+        "https://github.com/Podcastindex-org/podcast-namespace/blob/main/docs/1.0.md",
+        "https://github.com/ReactiveX/RxJava/wiki/Error-Handling",
+        "https://github.com/ReactiveX/RxJava/wiki/Plugins",
+        "https://github.com/ReactiveX/RxJava/wiki/What",
+        "https://github.com/androidx/media/issues/1730",
+        "https://play.google.com/store/apps/details?id=de.danoeh.antennapod",
+        "play.google.com"
+      ]
+    }
+  },
+  "data_collection": {
+    "capabilities": [
+      {
+        "capability": "camera",
+        "description": "Device camera capture capability.",
+        "permissions": [],
+        "apis": [
+          "androidx.media3.exoplayer.DefaultRenderersFactory;->buildCameraMotionRenderers(Landroid.content.Context"
+        ],
+        "associated_sdks": [],
+        "associated_endpoints": [],
+        "components": [],
+        "assessment": "The APK declares camera capture capabilities.",
+        "evidence": [
+          {
+            "description": "Referenced camera API: androidx.media3.exoplayer.DefaultRenderersFactory;->buildCameraMotionRenderers(Landroid.content.Context",
+            "location": "api:androidx.media3.exoplayer.DefaultRenderersFactory;->buildCameraMotionRenderers(Landroid.content.Context",
+            "snippet": "androidx.media3.exoplayer.DefaultRenderersFactory;->buildCameraMotionRenderers(Landroid.content.Context",
+            "references": []
+          }
+        ],
+        "limitations": [
+          "Static analysis cannot prove runtime camera usage."
+        ]
+      },
+      {
+        "capability": "clipboard",
+        "description": "Clipboard access capability.",
+        "permissions": [],
+        "apis": [
+          "android.content.ClipboardManager"
+        ],
+        "associated_sdks": [],
+        "associated_endpoints": [],
+        "components": [],
+        "assessment": "Application references ClipboardManager.",
+        "evidence": [
+          {
+            "description": "Referenced ClipboardManager API",
+            "location": "dex:android.content.ClipboardManager",
+            "snippet": "Referenced ClipboardManager API",
+            "references": []
+          }
+        ],
+        "limitations": [
+          "Clipboard reading cannot be confirmed without dynamic execution."
+        ]
+      },
+      {
+        "capability": "contacts",
+        "description": "Address book and contacts reading/writing capability.",
+        "permissions": [],
+        "apis": [
+          "android.provider.ContactsContract$Contacts;->openContactPhotoInputStream(Landroid.content.ContentResolver",
+          "android.provider.ContactsContract$Contacts;->lookupContact(Landroid.content.ContentResolver"
+        ],
+        "associated_sdks": [],
+        "associated_endpoints": [],
+        "components": [],
+        "assessment": "The APK declares contact list access capabilities.",
+        "evidence": [
+          {
+            "description": "Referenced contacts API: android.provider.ContactsContract$Contacts;->openContactPhotoInputStream(Landroid.content.ContentResolver",
+            "location": "api:android.provider.ContactsContract$Contacts;->openContactPhotoInputStream(Landroid.content.ContentResolver",
+            "snippet": "android.provider.ContactsContract$Contacts;->openContactPhotoInputStream(Landroid.content.ContentResolver",
+            "references": []
+          },
+          {
+            "description": "Referenced contacts API: android.provider.ContactsContract$Contacts;->lookupContact(Landroid.content.ContentResolver",
+            "location": "api:android.provider.ContactsContract$Contacts;->lookupContact(Landroid.content.ContentResolver",
+            "snippet": "android.provider.ContactsContract$Contacts;->lookupContact(Landroid.content.ContentResolver",
+            "references": []
+          }
+        ],
+        "limitations": [
+          "Static analysis cannot establish runtime contacts extraction."
+        ]
+      },
+      {
+        "capability": "device_identifiers",
+        "description": "Hardware and persistent device identifier capability (IMEI, MEID, Android ID, Serial).",
+        "permissions": [],
+        "apis": [
+          "TelephonyManager.getDeviceId",
+          "Settings.Secure.ANDROID_ID",
+          "Build.SERIAL"
+        ],
+        "associated_sdks": [],
+        "associated_endpoints": [],
+        "components": [],
+        "assessment": "Static references to persistent device identifiers detected.",
+        "evidence": [
+          {
+            "description": "Referenced device identifier method: TelephonyManager.getDeviceId",
+            "location": "dex:TelephonyManager.getDeviceId",
+            "snippet": "Referenced device identifier method: TelephonyManager.getDeviceId",
+            "references": []
+          },
+          {
+            "description": "Referenced device identifier method: Settings.Secure.ANDROID_ID",
+            "location": "dex:Settings.Secure.ANDROID_ID",
+            "snippet": "Referenced device identifier method: Settings.Secure.ANDROID_ID",
+            "references": []
+          },
+          {
+            "description": "Referenced device identifier method: Build.SERIAL",
+            "location": "dex:Build.SERIAL",
+            "snippet": "Referenced device identifier method: Build.SERIAL",
+            "references": []
+          }
+        ],
+        "limitations": [
+          "Static method references do not verify runtime execution or exfiltration."
+        ]
+      },
+      {
+        "capability": "location",
+        "description": "Physical device location capability (GPS, Network, Fused Location).",
+        "permissions": [],
+        "apis": [
+          "androidx.media3.exoplayer.source.SampleDataQueue;->readData(Landroidx.media3.exoplayer.source.SampleDataQueue$AllocationNode",
+          "de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getFallbackImageLocation(Lde.danoeh.antennapod.model.playback.Playable;)Ljava.lang.String",
+          "de.danoeh.antennapod.model.playback.Playable;->getImageLocation()Ljava.lang.String",
+          "androidx.core.view.accessibility.AccessibilityNodeInfoCompat;->addSpanLocationToExtras(Landroid.text.style.ClickableSpan",
+          "androidx.appcompat.app.TwilightManager;->getLastKnownLocation()Landroid.location.Location",
+          "de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getEpisodeListImageLocation(Lde.danoeh.antennapod.model.feed.FeedItem;)Ljava.lang.String",
+          "de.danoeh.antennapod.storage.preferences.UserPreferences$EnqueueLocation;-><init>(Ljava.lang.String",
+          "com.google.android.material.carousel.CarouselLayoutManager;->calculateChildOffsetCenterForLocation(Landroid.view.View",
+          "android.location.LocationManager;->getLastKnownLocation(Ljava.lang.String;)Landroid.location.Location",
+          "de.danoeh.antennapod.storage.preferences.UserPreferences$EnqueueLocation;->valueOf(Ljava.lang.String;)Lde.danoeh.antennapod.storage.preferences.UserPreferences$EnqueueLocation",
+          "de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getFallbackImageLocation(Lde.danoeh.antennapod.model.feed.FeedItem;)Ljava.lang.String",
+          "android.location.Location",
+          "de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getEpisodeListImageLocation(Lde.danoeh.antennapod.model.playback.Playable;)Ljava.lang.String",
+          "android.widget.PopupWindow;->showAtLocation(Landroid.view.View",
+          "com.google.android.material.carousel.CarouselLayoutManager;->updateChildMaskForLocation(Landroid.view.View",
+          "androidx.appcompat.app.TwilightManager;->getLastKnownLocationForProvider(Ljava.lang.String;)Landroid.location.Location",
+          "org.jsoup.nodes.Document;->location()Ljava.lang.String",
+          "de.danoeh.antennapod.model.feed.FeedItem;->getImageLocation()Ljava.lang.String",
+          "android.location.LocationManager"
+        ],
+        "associated_sdks": [],
+        "associated_endpoints": [],
+        "components": [],
+        "assessment": "The APK declares location-related capabilities and static framework references.",
+        "evidence": [
+          {
+            "description": "Referenced location API: androidx.media3.exoplayer.source.SampleDataQueue;->readData(Landroidx.media3.exoplayer.source.SampleDataQueue$AllocationNode",
+            "location": "api:androidx.media3.exoplayer.source.SampleDataQueue;->readData(Landroidx.media3.exoplayer.source.SampleDataQueue$AllocationNode",
+            "snippet": "Referenced location API: androidx.media3.exoplayer.source.SampleDataQueue;->readData(Landroidx.media3.exoplayer.source.SampleDataQueue$AllocationNode",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getFallbackImageLocation(Lde.danoeh.antennapod.model.playback.Playable;)Ljava.lang.String",
+            "location": "api:de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getFallbackImageLocation(Lde.danoeh.antennapod.model.playback.Playable;)Ljava.lang.String",
+            "snippet": "Referenced location API: de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getFallbackImageLocation(Lde.danoeh.antennapod.model.playback.Playable;)Ljava.lang.String",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: de.danoeh.antennapod.model.playback.Playable;->getImageLocation()Ljava.lang.String",
+            "location": "api:de.danoeh.antennapod.model.playback.Playable;->getImageLocation()Ljava.lang.String",
+            "snippet": "Referenced location API: de.danoeh.antennapod.model.playback.Playable;->getImageLocation()Ljava.lang.String",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.core.view.accessibility.AccessibilityNodeInfoCompat;->addSpanLocationToExtras(Landroid.text.style.ClickableSpan",
+            "location": "api:androidx.core.view.accessibility.AccessibilityNodeInfoCompat;->addSpanLocationToExtras(Landroid.text.style.ClickableSpan",
+            "snippet": "Referenced location API: androidx.core.view.accessibility.AccessibilityNodeInfoCompat;->addSpanLocationToExtras(Landroid.text.style.ClickableSpan",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.appcompat.app.TwilightManager;->getLastKnownLocation()Landroid.location.Location",
+            "location": "api:androidx.appcompat.app.TwilightManager;->getLastKnownLocation()Landroid.location.Location",
+            "snippet": "Referenced location API: androidx.appcompat.app.TwilightManager;->getLastKnownLocation()Landroid.location.Location",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getEpisodeListImageLocation(Lde.danoeh.antennapod.model.feed.FeedItem;)Ljava.lang.String",
+            "location": "api:de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getEpisodeListImageLocation(Lde.danoeh.antennapod.model.feed.FeedItem;)Ljava.lang.String",
+            "snippet": "Referenced location API: de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getEpisodeListImageLocation(Lde.danoeh.antennapod.model.feed.FeedItem;)Ljava.lang.String",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: de.danoeh.antennapod.storage.preferences.UserPreferences$EnqueueLocation;-><init>(Ljava.lang.String",
+            "location": "api:de.danoeh.antennapod.storage.preferences.UserPreferences$EnqueueLocation;-><init>(Ljava.lang.String",
+            "snippet": "Referenced location API: de.danoeh.antennapod.storage.preferences.UserPreferences$EnqueueLocation;-><init>(Ljava.lang.String",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: com.google.android.material.carousel.CarouselLayoutManager;->calculateChildOffsetCenterForLocation(Landroid.view.View",
+            "location": "api:com.google.android.material.carousel.CarouselLayoutManager;->calculateChildOffsetCenterForLocation(Landroid.view.View",
+            "snippet": "Referenced location API: com.google.android.material.carousel.CarouselLayoutManager;->calculateChildOffsetCenterForLocation(Landroid.view.View",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.LocationManager;->getLastKnownLocation(Ljava.lang.String;)Landroid.location.Location",
+            "location": "api:android.location.LocationManager;->getLastKnownLocation(Ljava.lang.String;)Landroid.location.Location",
+            "snippet": "Referenced location API: android.location.LocationManager;->getLastKnownLocation(Ljava.lang.String;)Landroid.location.Location",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: de.danoeh.antennapod.storage.preferences.UserPreferences$EnqueueLocation;->valueOf(Ljava.lang.String;)Lde.danoeh.antennapod.storage.preferences.UserPreferences$EnqueueLocation",
+            "location": "api:de.danoeh.antennapod.storage.preferences.UserPreferences$EnqueueLocation;->valueOf(Ljava.lang.String;)Lde.danoeh.antennapod.storage.preferences.UserPreferences$EnqueueLocation",
+            "snippet": "Referenced location API: de.danoeh.antennapod.storage.preferences.UserPreferences$EnqueueLocation;->valueOf(Ljava.lang.String;)Lde.danoeh.antennapod.storage.preferences.UserPreferences$EnqueueLocation",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getFallbackImageLocation(Lde.danoeh.antennapod.model.feed.FeedItem;)Ljava.lang.String",
+            "location": "api:de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getFallbackImageLocation(Lde.danoeh.antennapod.model.feed.FeedItem;)Ljava.lang.String",
+            "snippet": "Referenced location API: de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getFallbackImageLocation(Lde.danoeh.antennapod.model.feed.FeedItem;)Ljava.lang.String",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.Location",
+            "location": "api:android.location.Location",
+            "snippet": "Referenced location API: android.location.Location",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getEpisodeListImageLocation(Lde.danoeh.antennapod.model.playback.Playable;)Ljava.lang.String",
+            "location": "api:de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getEpisodeListImageLocation(Lde.danoeh.antennapod.model.playback.Playable;)Ljava.lang.String",
+            "snippet": "Referenced location API: de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getEpisodeListImageLocation(Lde.danoeh.antennapod.model.playback.Playable;)Ljava.lang.String",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.widget.PopupWindow;->showAtLocation(Landroid.view.View",
+            "location": "api:android.widget.PopupWindow;->showAtLocation(Landroid.view.View",
+            "snippet": "Referenced location API: android.widget.PopupWindow;->showAtLocation(Landroid.view.View",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: com.google.android.material.carousel.CarouselLayoutManager;->updateChildMaskForLocation(Landroid.view.View",
+            "location": "api:com.google.android.material.carousel.CarouselLayoutManager;->updateChildMaskForLocation(Landroid.view.View",
+            "snippet": "Referenced location API: com.google.android.material.carousel.CarouselLayoutManager;->updateChildMaskForLocation(Landroid.view.View",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: androidx.appcompat.app.TwilightManager;->getLastKnownLocationForProvider(Ljava.lang.String;)Landroid.location.Location",
+            "location": "api:androidx.appcompat.app.TwilightManager;->getLastKnownLocationForProvider(Ljava.lang.String;)Landroid.location.Location",
+            "snippet": "Referenced location API: androidx.appcompat.app.TwilightManager;->getLastKnownLocationForProvider(Ljava.lang.String;)Landroid.location.Location",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: org.jsoup.nodes.Document;->location()Ljava.lang.String",
+            "location": "api:org.jsoup.nodes.Document;->location()Ljava.lang.String",
+            "snippet": "Referenced location API: org.jsoup.nodes.Document;->location()Ljava.lang.String",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: de.danoeh.antennapod.model.feed.FeedItem;->getImageLocation()Ljava.lang.String",
+            "location": "api:de.danoeh.antennapod.model.feed.FeedItem;->getImageLocation()Ljava.lang.String",
+            "snippet": "Referenced location API: de.danoeh.antennapod.model.feed.FeedItem;->getImageLocation()Ljava.lang.String",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.LocationManager",
+            "location": "api:android.location.LocationManager",
+            "snippet": "Referenced location API: android.location.LocationManager",
+            "references": []
+          }
+        ],
+        "limitations": [
+          "Static analysis cannot establish that physical location is collected or transmitted during runtime."
+        ]
+      }
+    ],
+    "device_identifiers_detected": [
+      "Build.SERIAL",
+      "Settings.Secure.ANDROID_ID",
+      "TelephonyManager.getDeviceId"
+    ],
+    "advertising_id_detected": false,
+    "clipboard_access_detected": true,
+    "accessibility_service_detected": false,
+    "background_data_capabilities": []
+  },
+  "detected_sdks": [],
+  "findings": [
+    {
+      "id": "PRIV-CAP-CAMERA",
+      "category": "camera",
+      "title": "Camera Capture Capability Detected",
+      "description": "Application requests camera permission and references camera capture APIs.",
+      "severity": "high",
+      "confidence": "medium",
+      "evidence_state": "PARTIAL",
+      "evidence_locations": [
+        "api:androidx.media3.exoplayer.DefaultRenderersFactory;->buildCameraMotionRenderers(Landroid.content.Context"
+      ],
+      "evidence_values": [
+        "androidx.media3.exoplayer.DefaultRenderersFactory;->buildCameraMotionRenderers(Landroid.content.Context"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Verify camera hardware access is necessary and accompanied by runtime prompts.",
+      "evidence": [
+        {
+          "description": "Referenced camera API: androidx.media3.exoplayer.DefaultRenderersFactory;->buildCameraMotionRenderers(Landroid.content.Context",
+          "location": "api:androidx.media3.exoplayer.DefaultRenderersFactory;->buildCameraMotionRenderers(Landroid.content.Context",
+          "snippet": "androidx.media3.exoplayer.DefaultRenderersFactory;->buildCameraMotionRenderers(Landroid.content.Context",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static analysis cannot prove runtime camera usage."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-CAP-CONTACTS",
+      "category": "contacts",
+      "title": "Contacts Access Capability Detected",
+      "description": "Application requests contacts permission and references ContactsContract APIs.",
+      "severity": "high",
+      "confidence": "medium",
+      "evidence_state": "PARTIAL",
+      "evidence_locations": [
+        "api:android.provider.ContactsContract$Contacts;->openContactPhotoInputStream(Landroid.content.ContentResolver",
+        "api:android.provider.ContactsContract$Contacts;->lookupContact(Landroid.content.ContentResolver"
+      ],
+      "evidence_values": [
+        "android.provider.ContactsContract$Contacts;->openContactPhotoInputStream(Landroid.content.ContentResolver",
+        "android.provider.ContactsContract$Contacts;->lookupContact(Landroid.content.ContentResolver"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Review if address book access aligns with declared privacy policy.",
+      "evidence": [
+        {
+          "description": "Referenced contacts API: android.provider.ContactsContract$Contacts;->openContactPhotoInputStream(Landroid.content.ContentResolver",
+          "location": "api:android.provider.ContactsContract$Contacts;->openContactPhotoInputStream(Landroid.content.ContentResolver",
+          "snippet": "android.provider.ContactsContract$Contacts;->openContactPhotoInputStream(Landroid.content.ContentResolver",
+          "references": []
+        },
+        {
+          "description": "Referenced contacts API: android.provider.ContactsContract$Contacts;->lookupContact(Landroid.content.ContentResolver",
+          "location": "api:android.provider.ContactsContract$Contacts;->lookupContact(Landroid.content.ContentResolver",
+          "snippet": "android.provider.ContactsContract$Contacts;->lookupContact(Landroid.content.ContentResolver",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static analysis cannot establish runtime contacts extraction."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-CAP-DEVICE-IDENTIFIERS",
+      "category": "identifiers",
+      "title": "Device Identifier Access References Detected",
+      "description": "Static code references found for device identifiers: TelephonyManager.getDeviceId, Settings.Secure.ANDROID_ID, Build.SERIAL.",
+      "severity": "high",
+      "confidence": "confirmed",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "dex:TelephonyManager.getDeviceId",
+        "dex:Settings.Secure.ANDROID_ID",
+        "dex:Build.SERIAL"
+      ],
+      "evidence_values": [
+        "Build.SERIAL",
+        "Settings.Secure.ANDROID_ID",
+        "TelephonyManager.getDeviceId"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Assess compliance with modern Android platform guidelines; prefer resettable identifiers.",
+      "evidence": [
+        {
+          "description": "Referenced device identifier method: TelephonyManager.getDeviceId",
+          "location": "dex:TelephonyManager.getDeviceId",
+          "snippet": "Referenced device identifier method: TelephonyManager.getDeviceId",
+          "references": []
+        },
+        {
+          "description": "Referenced device identifier method: Settings.Secure.ANDROID_ID",
+          "location": "dex:Settings.Secure.ANDROID_ID",
+          "snippet": "Referenced device identifier method: Settings.Secure.ANDROID_ID",
+          "references": []
+        },
+        {
+          "description": "Referenced device identifier method: Build.SERIAL",
+          "location": "dex:Build.SERIAL",
+          "snippet": "Referenced device identifier method: Build.SERIAL",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static method reference does not establish that the identifier is sent across the network."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-API-CLIPBOARD",
+      "category": "clipboard",
+      "title": "Clipboard Access APIs",
+      "description": "Static references to ClipboardManager clip access methods detected.",
+      "severity": "informational",
+      "confidence": "high",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "api:android.content.ClipboardManager"
+      ],
+      "evidence_values": [
+        "android.content.ClipboardManager"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Verify whether clipboard reads access user data unexpectedly.",
+      "evidence": [
+        {
+          "description": "Referenced API: android.content.ClipboardManager",
+          "location": "api:android.content.ClipboardManager",
+          "snippet": "api:android.content.ClipboardManager",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static observation of API or component reference does not guarantee runtime execution or data exfiltration."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-API-LOCATION",
+      "category": "location",
+      "title": "Location Framework API Invocations",
+      "description": "Static references to Android LocationManager or Google Play Services location providers detected in bytecode.",
+      "severity": "informational",
+      "confidence": "confirmed",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "api:android.location.LocationManager",
+        "method:getLastKnownLocation"
+      ],
+      "evidence_values": [
+        "android.location.LocationManager",
+        "getLastKnownLocation"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Informational; examine whether precise or coarse location access is required for core functionality.",
+      "evidence": [
+        {
+          "description": "Referenced API: android.location.LocationManager",
+          "location": "api:android.location.LocationManager",
+          "snippet": "api:android.location.LocationManager",
+          "references": []
+        },
+        {
+          "description": "Referenced method: getLastKnownLocation",
+          "location": "method:getLastKnownLocation",
+          "snippet": "method:getLastKnownLocation",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static observation of API or component reference does not guarantee runtime execution or data exfiltration."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-API-REFLECTION",
+      "category": "reflection",
+      "title": "Reflection on Internal or Sensitive Classes",
+      "description": "Static references to reflection APIs combined with internal framework class names detected.",
+      "severity": "informational",
+      "confidence": "medium",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "api:java.lang.Class",
+        "api:java.lang.reflect.Method",
+        "method:androidx.fragment.app.DefaultSpecialEffectsController$retainMatchingViews$1.invoke",
+        "method:androidx.work.impl.utils.CancelWorkRunnable.forName",
+        "string:android.app.ActivityThread",
+        "string:android.os.SystemProperties"
+      ],
+      "evidence_values": [
+        "android.app.ActivityThread",
+        "android.os.SystemProperties",
+        "androidx.fragment.app.DefaultSpecialEffectsController$retainMatchingViews$1.invoke",
+        "androidx.work.impl.utils.CancelWorkRunnable.forName",
+        "java.lang.Class",
+        "java.lang.reflect.Method"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Reflection may access hidden or non-SDK interfaces; ensure platform compatibility and policy compliance.",
+      "evidence": [
+        {
+          "description": "Referenced API: java.lang.reflect.Method",
+          "location": "api:java.lang.reflect.Method",
+          "snippet": "api:java.lang.reflect.Method",
+          "references": []
+        },
+        {
+          "description": "Referenced API: java.lang.Class",
+          "location": "api:java.lang.Class",
+          "snippet": "api:java.lang.Class",
+          "references": []
+        },
+        {
+          "description": "Referenced method: androidx.fragment.app.DefaultSpecialEffectsController$retainMatchingViews$1.invoke",
+          "location": "method:androidx.fragment.app.DefaultSpecialEffectsController$retainMatchingViews$1.invoke",
+          "snippet": "method:androidx.fragment.app.DefaultSpecialEffectsController$retainMatchingViews$1.invoke",
+          "references": []
+        },
+        {
+          "description": "Referenced method: androidx.work.impl.utils.CancelWorkRunnable.forName",
+          "location": "method:androidx.work.impl.utils.CancelWorkRunnable.forName",
+          "snippet": "method:androidx.work.impl.utils.CancelWorkRunnable.forName",
+          "references": []
+        },
+        {
+          "description": "Constant string reference: android.os.SystemProperties",
+          "location": "dex:string:android.os.SystemProperties",
+          "snippet": "string:android.os.SystemProperties",
+          "references": []
+        },
+        {
+          "description": "Constant string reference: android.app.ActivityThread",
+          "location": "dex:string:android.app.ActivityThread",
+          "snippet": "string:android.app.ActivityThread",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static observation of API or component reference does not guarantee runtime execution or data exfiltration."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-API-SCHEDULING",
+      "category": "background_execution",
+      "title": "Background Job Scheduling & Alarm APIs",
+      "description": "Static references to WorkManager, JobScheduler, or AlarmManager background execution detected.",
+      "severity": "informational",
+      "confidence": "confirmed",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "api:android.app.AlarmManager",
+        "api:android.app.job.JobScheduler",
+        "class:androidx.work.WorkManager$Companion",
+        "method:androidx.work.impl.WorkManagerImpl.enqueue"
+      ],
+      "evidence_values": [
+        "android.app.AlarmManager",
+        "android.app.job.JobScheduler",
+        "androidx.work.WorkManager$Companion",
+        "androidx.work.impl.WorkManagerImpl.enqueue"
+      ],
+      "source_component": "androidx.work.WorkManager$Companion",
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Evaluate whether background tasks perform unauthorized periodic synchronization or data transmission.",
+      "evidence": [
+        {
+          "description": "Referenced API: android.app.job.JobScheduler",
+          "location": "api:android.app.job.JobScheduler",
+          "snippet": "api:android.app.job.JobScheduler",
+          "references": []
+        },
+        {
+          "description": "Referenced API: android.app.AlarmManager",
+          "location": "api:android.app.AlarmManager",
+          "snippet": "api:android.app.AlarmManager",
+          "references": []
+        },
+        {
+          "description": "Referenced class: androidx.work.WorkManager$Companion",
+          "location": "class:androidx.work.WorkManager$Companion",
+          "snippet": "class:androidx.work.WorkManager$Companion",
+          "references": []
+        },
+        {
+          "description": "Referenced method: androidx.work.impl.WorkManagerImpl.enqueue",
+          "location": "method:androidx.work.impl.WorkManagerImpl.enqueue",
+          "snippet": "method:androidx.work.impl.WorkManagerImpl.enqueue",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static observation of API or component reference does not guarantee runtime execution or data exfiltration."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-API-WEBVIEW",
+      "category": "network",
+      "title": "Embedded WebView & Web Interface APIs",
+      "description": "Static references to Android WebView configuration and web execution interfaces detected.",
+      "severity": "informational",
+      "confidence": "high",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "api:android.webkit.WebView"
+      ],
+      "evidence_values": [
+        "android.webkit.WebView"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Review WebView security settings (e.g. JavaScript execution and native interface bridges).",
+      "evidence": [
+        {
+          "description": "Referenced API: android.webkit.WebView",
+          "location": "api:android.webkit.WebView",
+          "snippet": "api:android.webkit.WebView",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static observation of API or component reference does not guarantee runtime execution or data exfiltration."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-REC-BOOT",
+      "category": "persistence",
+      "title": "Boot & Package Replacement Receivers",
+      "description": "Manifest declarations for broadcast receivers listening to device boot or package replacement events.",
+      "severity": "informational",
+      "confidence": "confirmed",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "receiver:androidx.work.impl.background.systemalarm.RescheduleReceiver:action:android.intent.action.BOOT_COMPLETED"
+      ],
+      "evidence_values": [
+        "androidx.work.impl.background.systemalarm.RescheduleReceiver (android.intent.action.BOOT_COMPLETED)"
+      ],
+      "source_component": "androidx.work.impl.background.systemalarm.RescheduleReceiver",
+      "related_permissions": [
+        "android.permission.RECEIVE_BOOT_COMPLETED"
+      ],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Review background startup persistence at device boot.",
+      "evidence": [
+        {
+          "description": "Manifest broadcast receiver action: android.intent.action.BOOT_COMPLETED",
+          "location": "receiver:androidx.work.impl.background.systemalarm.RescheduleReceiver:action:android.intent.action.BOOT_COMPLETED",
+          "snippet": "<receiver android:name=\"androidx.work.impl.background.systemalarm.RescheduleReceiver\"> -> android.intent.action.BOOT_COMPLETED",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static observation of API or component reference does not guarantee runtime execution or data exfiltration."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-API-DEVICE-IDENTIFIER",
+      "category": "device_identifiers",
+      "title": "Hardware & Device Identifier Access",
+      "description": "Static references to persistent device identifiers (IMEI, MEID, SIM serial, or ANDROID_ID) detected.",
+      "severity": "low",
+      "confidence": "confirmed",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "api:android.telephony.TelephonyManager",
+        "method:de.danoeh.antennapod.storage.preferences.SynchronizationCredentials.getDeviceId",
+        "string:android_id"
+      ],
+      "evidence_values": [
+        "android.telephony.TelephonyManager",
+        "android_id",
+        "de.danoeh.antennapod.storage.preferences.SynchronizationCredentials.getDeviceId"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Assess compliance with modern Android platform privacy guidelines (prefer resettable advertising IDs or app-scoped UUIDs over hardware identifiers).",
+      "evidence": [
+        {
+          "description": "Referenced API: android.telephony.TelephonyManager",
+          "location": "api:android.telephony.TelephonyManager",
+          "snippet": "api:android.telephony.TelephonyManager",
+          "references": []
+        },
+        {
+          "description": "Referenced method: de.danoeh.antennapod.storage.preferences.SynchronizationCredentials.getDeviceId",
+          "location": "method:de.danoeh.antennapod.storage.preferences.SynchronizationCredentials.getDeviceId",
+          "snippet": "method:de.danoeh.antennapod.storage.preferences.SynchronizationCredentials.getDeviceId",
+          "references": []
+        },
+        {
+          "description": "Constant string reference: android_id",
+          "location": "dex:string:android_id",
+          "snippet": "string:android_id",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static observation of API or component reference does not guarantee runtime execution or data exfiltration."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-API-DYNAMIC-CODE",
+      "category": "dynamic_code",
+      "title": "Dynamic Code Loading Facilities",
+      "description": "Static references to DexClassLoader, PathClassLoader, or InMemoryDexClassLoader detected.",
+      "severity": "low",
+      "confidence": "high",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "method:loadClass"
+      ],
+      "evidence_values": [
+        "loadClass"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Dynamic loading allows runtime code execution bypassing static inspection; verify source and integrity.",
+      "evidence": [
+        {
+          "description": "Referenced method: loadClass",
+          "location": "method:loadClass",
+          "snippet": "method:loadClass",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static observation of API or component reference does not guarantee runtime execution or data exfiltration."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-CAP-CLIPBOARD",
+      "category": "clipboard",
+      "title": "Clipboard Access Capability Detected",
+      "description": "Application references android.content.ClipboardManager API.",
+      "severity": "low",
+      "confidence": "medium",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "dex:android.content.ClipboardManager"
+      ],
+      "evidence_values": [
+        "ClipboardManager"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Verify clipboard reads access user data only upon direct user paste interaction.",
+      "evidence": [
+        {
+          "description": "Referenced ClipboardManager API",
+          "location": "dex:android.content.ClipboardManager",
+          "snippet": "Referenced ClipboardManager API",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static reference does not prove unprompted clipboard reading."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-CAP-LOCATION",
+      "category": "location",
+      "title": "Location Capability Detected",
+      "description": "Application declares location permissions () and references location APIs (androidx.media3.exoplayer.source.SampleDataQueue;->readData(Landroidx.media3.exoplayer.source.SampleDataQueue$AllocationNode, de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getFallbackImageLocation(Lde.danoeh.antennapod.model.playback.Playable;)Ljava.lang.String, de.danoeh.antennapod.model.playback.Playable;->getImageLocation()Ljava.lang.String).",
+      "severity": "medium",
+      "confidence": "medium",
+      "evidence_state": "PARTIAL",
+      "evidence_locations": [
+        "api:androidx.media3.exoplayer.source.SampleDataQueue;->readData(Landroidx.media3.exoplayer.source.SampleDataQueue$AllocationNode",
+        "api:de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getFallbackImageLocation(Lde.danoeh.antennapod.model.playback.Playable;)Ljava.lang.String",
+        "api:de.danoeh.antennapod.model.playback.Playable;->getImageLocation()Ljava.lang.String",
+        "api:androidx.core.view.accessibility.AccessibilityNodeInfoCompat;->addSpanLocationToExtras(Landroid.text.style.ClickableSpan",
+        "api:androidx.appcompat.app.TwilightManager;->getLastKnownLocation()Landroid.location.Location",
+        "api:de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getEpisodeListImageLocation(Lde.danoeh.antennapod.model.feed.FeedItem;)Ljava.lang.String",
+        "api:de.danoeh.antennapod.storage.preferences.UserPreferences$EnqueueLocation;-><init>(Ljava.lang.String",
+        "api:com.google.android.material.carousel.CarouselLayoutManager;->calculateChildOffsetCenterForLocation(Landroid.view.View",
+        "api:android.location.LocationManager;->getLastKnownLocation(Ljava.lang.String;)Landroid.location.Location",
+        "api:de.danoeh.antennapod.storage.preferences.UserPreferences$EnqueueLocation;->valueOf(Ljava.lang.String;)Lde.danoeh.antennapod.storage.preferences.UserPreferences$EnqueueLocation",
+        "api:de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getFallbackImageLocation(Lde.danoeh.antennapod.model.feed.FeedItem;)Ljava.lang.String",
+        "api:android.location.Location",
+        "api:de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getEpisodeListImageLocation(Lde.danoeh.antennapod.model.playback.Playable;)Ljava.lang.String",
+        "api:android.widget.PopupWindow;->showAtLocation(Landroid.view.View",
+        "api:com.google.android.material.carousel.CarouselLayoutManager;->updateChildMaskForLocation(Landroid.view.View",
+        "api:androidx.appcompat.app.TwilightManager;->getLastKnownLocationForProvider(Ljava.lang.String;)Landroid.location.Location",
+        "api:org.jsoup.nodes.Document;->location()Ljava.lang.String",
+        "api:de.danoeh.antennapod.model.feed.FeedItem;->getImageLocation()Ljava.lang.String",
+        "api:android.location.LocationManager"
+      ],
+      "evidence_values": [
+        "Referenced location API: androidx.media3.exoplayer.source.SampleDataQueue;->readData(Landroidx.media3.exoplayer.source.SampleDataQueue$AllocationNode",
+        "Referenced location API: de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getFallbackImageLocation(Lde.danoeh.antennapod.model.playback.Playable;)Ljava.lang.String",
+        "Referenced location API: de.danoeh.antennapod.model.playback.Playable;->getImageLocation()Ljava.lang.String",
+        "Referenced location API: androidx.core.view.accessibility.AccessibilityNodeInfoCompat;->addSpanLocationToExtras(Landroid.text.style.ClickableSpan",
+        "Referenced location API: androidx.appcompat.app.TwilightManager;->getLastKnownLocation()Landroid.location.Location",
+        "Referenced location API: de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getEpisodeListImageLocation(Lde.danoeh.antennapod.model.feed.FeedItem;)Ljava.lang.String",
+        "Referenced location API: de.danoeh.antennapod.storage.preferences.UserPreferences$EnqueueLocation;-><init>(Ljava.lang.String",
+        "Referenced location API: com.google.android.material.carousel.CarouselLayoutManager;->calculateChildOffsetCenterForLocation(Landroid.view.View",
+        "Referenced location API: android.location.LocationManager;->getLastKnownLocation(Ljava.lang.String;)Landroid.location.Location",
+        "Referenced location API: de.danoeh.antennapod.storage.preferences.UserPreferences$EnqueueLocation;->valueOf(Ljava.lang.String;)Lde.danoeh.antennapod.storage.preferences.UserPreferences$EnqueueLocation",
+        "Referenced location API: de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getFallbackImageLocation(Lde.danoeh.antennapod.model.feed.FeedItem;)Ljava.lang.String",
+        "Referenced location API: android.location.Location",
+        "Referenced location API: de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getEpisodeListImageLocation(Lde.danoeh.antennapod.model.playback.Playable;)Ljava.lang.String",
+        "Referenced location API: android.widget.PopupWindow;->showAtLocation(Landroid.view.View",
+        "Referenced location API: com.google.android.material.carousel.CarouselLayoutManager;->updateChildMaskForLocation(Landroid.view.View",
+        "Referenced location API: androidx.appcompat.app.TwilightManager;->getLastKnownLocationForProvider(Ljava.lang.String;)Landroid.location.Location",
+        "Referenced location API: org.jsoup.nodes.Document;->location()Ljava.lang.String",
+        "Referenced location API: de.danoeh.antennapod.model.feed.FeedItem;->getImageLocation()Ljava.lang.String",
+        "Referenced location API: android.location.LocationManager"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Ensure location access is transparent and justified by application features.",
+      "evidence": [
+        {
+          "description": "Referenced location API: androidx.media3.exoplayer.source.SampleDataQueue;->readData(Landroidx.media3.exoplayer.source.SampleDataQueue$AllocationNode",
+          "location": "api:androidx.media3.exoplayer.source.SampleDataQueue;->readData(Landroidx.media3.exoplayer.source.SampleDataQueue$AllocationNode",
+          "snippet": "Referenced location API: androidx.media3.exoplayer.source.SampleDataQueue;->readData(Landroidx.media3.exoplayer.source.SampleDataQueue$AllocationNode",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getFallbackImageLocation(Lde.danoeh.antennapod.model.playback.Playable;)Ljava.lang.String",
+          "location": "api:de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getFallbackImageLocation(Lde.danoeh.antennapod.model.playback.Playable;)Ljava.lang.String",
+          "snippet": "Referenced location API: de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getFallbackImageLocation(Lde.danoeh.antennapod.model.playback.Playable;)Ljava.lang.String",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: de.danoeh.antennapod.model.playback.Playable;->getImageLocation()Ljava.lang.String",
+          "location": "api:de.danoeh.antennapod.model.playback.Playable;->getImageLocation()Ljava.lang.String",
+          "snippet": "Referenced location API: de.danoeh.antennapod.model.playback.Playable;->getImageLocation()Ljava.lang.String",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.core.view.accessibility.AccessibilityNodeInfoCompat;->addSpanLocationToExtras(Landroid.text.style.ClickableSpan",
+          "location": "api:androidx.core.view.accessibility.AccessibilityNodeInfoCompat;->addSpanLocationToExtras(Landroid.text.style.ClickableSpan",
+          "snippet": "Referenced location API: androidx.core.view.accessibility.AccessibilityNodeInfoCompat;->addSpanLocationToExtras(Landroid.text.style.ClickableSpan",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.appcompat.app.TwilightManager;->getLastKnownLocation()Landroid.location.Location",
+          "location": "api:androidx.appcompat.app.TwilightManager;->getLastKnownLocation()Landroid.location.Location",
+          "snippet": "Referenced location API: androidx.appcompat.app.TwilightManager;->getLastKnownLocation()Landroid.location.Location",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getEpisodeListImageLocation(Lde.danoeh.antennapod.model.feed.FeedItem;)Ljava.lang.String",
+          "location": "api:de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getEpisodeListImageLocation(Lde.danoeh.antennapod.model.feed.FeedItem;)Ljava.lang.String",
+          "snippet": "Referenced location API: de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getEpisodeListImageLocation(Lde.danoeh.antennapod.model.feed.FeedItem;)Ljava.lang.String",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: de.danoeh.antennapod.storage.preferences.UserPreferences$EnqueueLocation;-><init>(Ljava.lang.String",
+          "location": "api:de.danoeh.antennapod.storage.preferences.UserPreferences$EnqueueLocation;-><init>(Ljava.lang.String",
+          "snippet": "Referenced location API: de.danoeh.antennapod.storage.preferences.UserPreferences$EnqueueLocation;-><init>(Ljava.lang.String",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: com.google.android.material.carousel.CarouselLayoutManager;->calculateChildOffsetCenterForLocation(Landroid.view.View",
+          "location": "api:com.google.android.material.carousel.CarouselLayoutManager;->calculateChildOffsetCenterForLocation(Landroid.view.View",
+          "snippet": "Referenced location API: com.google.android.material.carousel.CarouselLayoutManager;->calculateChildOffsetCenterForLocation(Landroid.view.View",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.LocationManager;->getLastKnownLocation(Ljava.lang.String;)Landroid.location.Location",
+          "location": "api:android.location.LocationManager;->getLastKnownLocation(Ljava.lang.String;)Landroid.location.Location",
+          "snippet": "Referenced location API: android.location.LocationManager;->getLastKnownLocation(Ljava.lang.String;)Landroid.location.Location",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: de.danoeh.antennapod.storage.preferences.UserPreferences$EnqueueLocation;->valueOf(Ljava.lang.String;)Lde.danoeh.antennapod.storage.preferences.UserPreferences$EnqueueLocation",
+          "location": "api:de.danoeh.antennapod.storage.preferences.UserPreferences$EnqueueLocation;->valueOf(Ljava.lang.String;)Lde.danoeh.antennapod.storage.preferences.UserPreferences$EnqueueLocation",
+          "snippet": "Referenced location API: de.danoeh.antennapod.storage.preferences.UserPreferences$EnqueueLocation;->valueOf(Ljava.lang.String;)Lde.danoeh.antennapod.storage.preferences.UserPreferences$EnqueueLocation",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getFallbackImageLocation(Lde.danoeh.antennapod.model.feed.FeedItem;)Ljava.lang.String",
+          "location": "api:de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getFallbackImageLocation(Lde.danoeh.antennapod.model.feed.FeedItem;)Ljava.lang.String",
+          "snippet": "Referenced location API: de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getFallbackImageLocation(Lde.danoeh.antennapod.model.feed.FeedItem;)Ljava.lang.String",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.Location",
+          "location": "api:android.location.Location",
+          "snippet": "Referenced location API: android.location.Location",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getEpisodeListImageLocation(Lde.danoeh.antennapod.model.playback.Playable;)Ljava.lang.String",
+          "location": "api:de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getEpisodeListImageLocation(Lde.danoeh.antennapod.model.playback.Playable;)Ljava.lang.String",
+          "snippet": "Referenced location API: de.danoeh.antennapod.ui.episodes.ImageResourceUtils;->getEpisodeListImageLocation(Lde.danoeh.antennapod.model.playback.Playable;)Ljava.lang.String",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.widget.PopupWindow;->showAtLocation(Landroid.view.View",
+          "location": "api:android.widget.PopupWindow;->showAtLocation(Landroid.view.View",
+          "snippet": "Referenced location API: android.widget.PopupWindow;->showAtLocation(Landroid.view.View",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: com.google.android.material.carousel.CarouselLayoutManager;->updateChildMaskForLocation(Landroid.view.View",
+          "location": "api:com.google.android.material.carousel.CarouselLayoutManager;->updateChildMaskForLocation(Landroid.view.View",
+          "snippet": "Referenced location API: com.google.android.material.carousel.CarouselLayoutManager;->updateChildMaskForLocation(Landroid.view.View",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: androidx.appcompat.app.TwilightManager;->getLastKnownLocationForProvider(Ljava.lang.String;)Landroid.location.Location",
+          "location": "api:androidx.appcompat.app.TwilightManager;->getLastKnownLocationForProvider(Ljava.lang.String;)Landroid.location.Location",
+          "snippet": "Referenced location API: androidx.appcompat.app.TwilightManager;->getLastKnownLocationForProvider(Ljava.lang.String;)Landroid.location.Location",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: org.jsoup.nodes.Document;->location()Ljava.lang.String",
+          "location": "api:org.jsoup.nodes.Document;->location()Ljava.lang.String",
+          "snippet": "Referenced location API: org.jsoup.nodes.Document;->location()Ljava.lang.String",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: de.danoeh.antennapod.model.feed.FeedItem;->getImageLocation()Ljava.lang.String",
+          "location": "api:de.danoeh.antennapod.model.feed.FeedItem;->getImageLocation()Ljava.lang.String",
+          "snippet": "Referenced location API: de.danoeh.antennapod.model.feed.FeedItem;->getImageLocation()Ljava.lang.String",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.LocationManager",
+          "location": "api:android.location.LocationManager",
+          "snippet": "Referenced location API: android.location.LocationManager",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static analysis cannot establish runtime location collection."
+      ],
+      "details": {}
+    }
+  ],
+  "warnings": [],
+  "errors": [],
+  "limitations": [
+    "Static analysis cannot establish actual runtime data collection, transmission, or dynamic execution."
+  ]
+}

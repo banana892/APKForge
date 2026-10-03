@@ -1,0 +1,214 @@
+{
+  "status": "complete",
+  "package_name": "com.oF2pks.applicationsinfo",
+  "version_name": "1.7-19",
+  "version_code": "19",
+  "permissions": {
+    "declared_permissions": [
+      "android.permission.GET_PACKAGE_SIZE",
+      "android.permission.PACKAGE_USAGE_STATS",
+      "android.permission.QUERY_ALL_PACKAGES",
+      "android.permission.REQUEST_DELETE_PACKAGES"
+    ],
+    "categorized_permissions": {
+      "other": [
+        "android.permission.GET_PACKAGE_SIZE",
+        "android.permission.QUERY_ALL_PACKAGES",
+        "android.permission.REQUEST_DELETE_PACKAGES"
+      ],
+      "system_special": [
+        "android.permission.PACKAGE_USAGE_STATS"
+      ]
+    },
+    "usage_details": [
+      {
+        "permission": "android.permission.GET_PACKAGE_SIZE",
+        "category": "other",
+        "protection_level": "unknown",
+        "usage_status": "unknown",
+        "relevance": "unknown",
+        "description": "Other capability permission (unknown)",
+        "related_apis": [],
+        "classes": [],
+        "methods": [],
+        "evidence": [],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      },
+      {
+        "permission": "android.permission.PACKAGE_USAGE_STATS",
+        "category": "system_special",
+        "protection_level": "signature|appop",
+        "usage_status": "unknown",
+        "relevance": "unknown",
+        "description": "System_special capability permission (signature|appop)",
+        "related_apis": [],
+        "classes": [],
+        "methods": [],
+        "evidence": [],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      },
+      {
+        "permission": "android.permission.QUERY_ALL_PACKAGES",
+        "category": "other",
+        "protection_level": "unknown",
+        "usage_status": "unknown",
+        "relevance": "unknown",
+        "description": "Other capability permission (unknown)",
+        "related_apis": [],
+        "classes": [],
+        "methods": [],
+        "evidence": [],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      },
+      {
+        "permission": "android.permission.REQUEST_DELETE_PACKAGES",
+        "category": "other",
+        "protection_level": "unknown",
+        "usage_status": "unknown",
+        "relevance": "unknown",
+        "description": "Other capability permission (unknown)",
+        "related_apis": [],
+        "classes": [],
+        "methods": [],
+        "evidence": [],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      }
+    ],
+    "high_risk_permissions_count": 1
+  },
+  "trackers": {
+    "detected_trackers": [],
+    "total_trackers": 0
+  },
+  "advertising": {
+    "detected_advertising_sdks": [],
+    "total_advertising_sdks": 0
+  },
+  "analytics": {
+    "detected_analytics_sdks": [],
+    "total_analytics_sdks": 0
+  },
+  "telemetry": {
+    "detected_telemetry_sdks": [],
+    "total_telemetry_sdks": 0
+  },
+  "endpoints": {
+    "total_endpoints": 2,
+    "first_party_domains": [],
+    "third_party_domains": [
+      "xml.apache.org"
+    ],
+    "classified_endpoints": [
+      {
+        "endpoint": "xml.apache.org",
+        "domain": "xml.apache.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: xml.apache.org",
+            "location": "domain:xml.apache.org",
+            "snippet": "Extracted domain: xml.apache.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "xml.apache.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://xml.apache.org/xslt",
+        "domain": "xml.apache.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://xml.apache.org/xslt",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: http://xml.apache.org/xslt",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://xml.apache.org/xslt",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      }
+    ],
+    "by_category": {
+      "unknown": [
+        "http://xml.apache.org/xslt",
+        "xml.apache.org"
+      ]
+    }
+  },
+  "data_collection": {
+    "capabilities": [],
+    "device_identifiers_detected": [],
+    "advertising_id_detected": false,
+    "clipboard_access_detected": false,
+    "accessibility_service_detected": false,
+    "background_data_capabilities": []
+  },
+  "detected_sdks": [],
+  "findings": [
+    {
+      "id": "PRIV-API-WEBVIEW",
+      "category": "network",
+      "title": "Embedded WebView & Web Interface APIs",
+      "description": "Static references to Android WebView configuration and web execution interfaces detected.",
+      "severity": "informational",
+      "confidence": "high",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "api:android.webkit.WebView"
+      ],
+      "evidence_values": [
+        "android.webkit.WebView"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Review WebView security settings (e.g. JavaScript execution and native interface bridges).",
+      "evidence": [
+        {
+          "description": "Referenced API: android.webkit.WebView",
+          "location": "api:android.webkit.WebView",
+          "snippet": "api:android.webkit.WebView",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static observation of API or component reference does not guarantee runtime execution or data exfiltration."
+      ],
+      "details": {}
+    }
+  ],
+  "warnings": [],
+  "errors": [],
+  "limitations": [
+    "Static analysis cannot establish actual runtime data collection, transmission, or dynamic execution."
+  ]
+}

@@ -5,6 +5,16 @@
 
 ---
 
+## Phase F — Privacy, Tracker & Ads Intelligence
+
+`apkforge privacy APP.apk` provides dedicated static privacy auditing, third-party SDK detection,
+endpoint classification, and permission-to-code correlation with inspectable evidence provenance.
+It clearly separates observed facts, inferred capabilities, suspected third-party SDKs, confidence
+ratings, and explicit unknown/partial analysis states. It disclaims unverified runtime network traffic,
+avoids arbitrary privacy scores or spyware probabilities, and never labels apps "malware" solely based
+on static indicators. Output supports `--json` (ANSI-free guaranteed) and `--report PATH`. Programmatic
+workflows use `PrivacyAnalysisService`. See [docs/privacy-analysis.md](docs/privacy-analysis.md).
+
 ## Phase E — Diff and verification
 
 `apkforge diff A B` reports a raw archive diff, per-comparator semantic status (never

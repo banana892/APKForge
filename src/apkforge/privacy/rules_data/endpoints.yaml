@@ -3,7 +3,10 @@ rules:
     name: Google Static Content CDN
     vendor: Google
     category: other
-    description: Public Google content delivery network.
+    endpoint_category: content_cdn
+    description: Public Google content delivery network for fonts and static assets.
+    source_reference: Google CDN documentation
+    false_positive_risk: Minimal; public asset distribution
     domains:
       - gstatic.com
       - fonts.googleapis.com
@@ -13,7 +16,10 @@ rules:
     name: Cloudflare CDN
     vendor: Cloudflare
     category: other
+    endpoint_category: content_cdn
     description: Cloudflare content delivery and acceleration network.
+    source_reference: Cloudflare network documentation
+    false_positive_risk: Minimal; public asset distribution
     domains:
       - cdnjs.cloudflare.com
       - cloudflare.com
@@ -22,6 +28,80 @@ rules:
     name: Amazon CloudFront
     vendor: Amazon
     category: other
+    endpoint_category: content_cdn
     description: Amazon Web Services content distribution network.
+    source_reference: AWS CloudFront documentation
+    false_positive_risk: Minimal; public asset distribution
     domains:
       - cloudfront.net
+
+  - id: endpoint.google.play.update
+    name: Google Play Store Service
+    vendor: Google
+    category: other
+    endpoint_category: update_infrastructure
+    description: Google Play Store app distribution, updates, and licensing infrastructure.
+    source_reference: Google Play Developer documentation
+    false_positive_risk: Minimal; official app store infrastructure
+    domains:
+      - play.google.com
+      - market.android.com
+
+  - id: endpoint.fdroid.update
+    name: F-Droid Repository
+    vendor: F-Droid
+    category: other
+    endpoint_category: update_infrastructure
+    description: F-Droid free software repository and update distribution service.
+    source_reference: F-Droid documentation
+    false_positive_risk: Minimal; official open-source repository
+    domains:
+      - f-droid.org
+
+  - id: endpoint.github.releases
+    name: GitHub Infrastructure
+    vendor: GitHub
+    category: other
+    endpoint_category: update_infrastructure
+    description: GitHub source hosting, releases, and distribution infrastructure.
+    source_reference: GitHub Docs
+    false_positive_risk: Minimal; developer source and release hosting
+    domains:
+      - github.com
+      - raw.githubusercontent.com
+
+  - id: endpoint.social.google
+    name: Google Identity & Sign-In
+    vendor: Google
+    category: social
+    endpoint_category: social_login
+    description: Google OAuth and federated identity authentication endpoints.
+    source_reference: Google Identity Platform
+    false_positive_risk: Standard authentication endpoint
+    domains:
+      - accounts.google.com
+
+  - id: endpoint.social.facebook
+    name: Facebook Login & Graph
+    vendor: Meta
+    category: social
+    endpoint_category: social_login
+    description: Facebook OAuth login and Graph API endpoints.
+    source_reference: Meta for Developers
+    false_positive_risk: Can be used for auth or social sharing
+    domains:
+      - facebook.com
+      - graph.facebook.com
+
+  - id: endpoint.social.microsoft
+    name: Microsoft Identity
+    vendor: Microsoft
+    category: social
+    endpoint_category: social_login
+    description: Microsoft identity authentication and login service.
+    source_reference: Microsoft Entra / Identity Platform
+    false_positive_risk: Standard corporate/consumer identity provider
+    domains:
+      - login.microsoftonline.com
+      - login.live.com
+

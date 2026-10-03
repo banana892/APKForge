@@ -15,6 +15,7 @@
 │                                                                 │
 │   AnalysisService │ DiffService │ ModificationService          │
 │   BuildService    │ VerificationService │ ReportingService      │
+│   PrivacyAnalysisService                                        │
 └───────────────────────────┬─────────────────────────────────────┘
                             │
                             ▼
@@ -241,16 +242,19 @@ src/apkforge/
 │   └── summary.py      — SummaryEngine aggregating metrics and summary lines
 │
 │
-├── privacy/            — Phase 4: Privacy & Tracker Engine
+├── privacy/            — Phase F: Privacy, Tracker & Ads Intelligence Layer
 │   ├── advertising.py  — AdvertisingDetector (ad networks & mediation)
 │   ├── analytics.py    — AnalyticsDetector (event logging & metrics)
+│   ├── behavior.py     — BehaviorAnalyzer (13 static behavior indicator patterns)
+│   ├── cross_check.py  — compare_privacy_with_security (Phase B cross-check reconciliation)
 │   ├── data_collection.py — DataCollectionAnalyzer (identifiers, clipboard, accessibility)
-│   ├── endpoints.py    — EndpointAnalyzer (domains, URLs, first-party, provenance)
+│   ├── endpoints.py    — EndpointAnalyzer (domains, URLs, first-party, CDN, sensitive)
 │   ├── engine.py       — PrivacyEngine coordinator & EvidenceIndex builder
-│   ├── models.py       — PrivacyResult, PrivacyFinding, SDK, and endpoint models
-│   ├── permissions.py  — PermissionAnalyzer (taxonomy, risk, API correlation)
+│   ├── models.py       — PrivacyResult, PrivacyFinding, PrivacyReport (Sections A-H), SDKs, endpoints
+│   ├── permissions.py  — PermissionAnalyzer (taxonomy, risk, component & API correlation)
 │   ├── rules.py        — Declarative rule engine, single-pass indexer, confidence logic
-│   ├── rules_data/     — External declarative rules (YAML/JSON)
+│   ├── rules_data/     — External declarative rules (YAML/JSON with auditable metadata)
+│   ├── service.py      — PrivacyAnalysisService (programmatic API service)
 │   ├── telemetry.py    — TelemetryDetector (crash reporting & diagnostics)
 │   └── trackers.py     — TrackerDetector (attribution & tracking SDKs)
 │

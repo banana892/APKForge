@@ -4,6 +4,9 @@ rules:
     vendor: Google
     category: analytics
     description: Firebase Analytics event logging and user engagement tracking.
+    source_reference: Firebase Analytics Android SDK Documentation
+    evidence_requirements: Package com.google.firebase.analytics or FirebaseAnalytics class
+    false_positive_risk: Low; specific to Google Firebase Analytics components
     packages:
       - com.google.android.gms.measurement
       - com.google.firebase.analytics
@@ -24,6 +27,9 @@ rules:
     vendor: Yahoo
     category: analytics
     description: Flurry mobile analytics and app performance monitoring.
+    source_reference: Flurry Developer Portal
+    evidence_requirements: Package com.flurry.android or FlurryAgent class
+    false_positive_risk: Low; proprietary Flurry namespaces
     packages:
       - com.flurry.android
     classes:
@@ -39,6 +45,9 @@ rules:
     vendor: Mixpanel
     category: analytics
     description: Mixpanel product analytics and event tracking.
+    source_reference: Mixpanel Android SDK Documentation
+    evidence_requirements: Package com.mixpanel.android or MixpanelAPI class
+    false_positive_risk: Low; proprietary Mixpanel namespaces
     packages:
       - com.mixpanel.android.mpmetrics
     classes:
@@ -54,6 +63,9 @@ rules:
     vendor: Amplitude
     category: analytics
     description: Amplitude product intelligence and behavioral analytics.
+    source_reference: Amplitude Android SDK Documentation
+    evidence_requirements: Package com.amplitude.api or AmplitudeClient class
+    false_positive_risk: Low; proprietary Amplitude namespaces
     packages:
       - com.amplitude.api
     classes:
@@ -70,6 +82,9 @@ rules:
     vendor: Twilio
     category: analytics
     description: Segment customer data platform and routing library.
+    source_reference: Twilio Segment Developer Documentation
+    evidence_requirements: Package com.segment.analytics or Analytics class in com.segment
+    false_positive_risk: Low; distinct com.segment namespace
     packages:
       - com.segment.analytics
     classes:
@@ -85,6 +100,9 @@ rules:
     vendor: CleverTap
     category: analytics
     description: CleverTap customer engagement and behavioral tracking platform.
+    source_reference: CleverTap Android SDK Documentation
+    evidence_requirements: Package com.clevertap.android.sdk or CleverTapAPI class
+    false_positive_risk: Low; proprietary CleverTap namespaces
     packages:
       - com.clevertap.android.sdk
     classes:

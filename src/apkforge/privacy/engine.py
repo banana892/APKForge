@@ -6,19 +6,23 @@ import logging
 from pathlib import Path
 from typing import TYPE_CHECKING, TypeVar
 
-from apkforge.core.models import AnalysisStatus, Evidence, Severity
+from apkforge.core.models import AnalysisStatus, Confidence, Evidence, Severity
 from apkforge.inspection.engine import InspectionEngine
 from apkforge.inspection.models import InspectionResult
 from apkforge.privacy.advertising import AdvertisingDetector
 from apkforge.privacy.analytics import AnalyticsDetector
+from apkforge.privacy.behavior import BehaviorAnalyzer
 from apkforge.privacy.data_collection import DataCollectionAnalyzer
 from apkforge.privacy.endpoints import EndpointAnalyzer
 from apkforge.privacy.models import (
     AdvertisingResult,
+    AnalysisCompleteness,
     AnalyticsResult,
     DataCollectionResult,
     EndpointResult,
+    EvidenceState,
     PermissionPrivacyResult,
+    PermissionUsageStatus,
     PrivacyFinding,
     PrivacyResult,
     TelemetryResult,
@@ -65,6 +69,7 @@ class PrivacyEngine:
         self._telemetry_detector = TelemetryDetector(self._rule_engine)
         self._endpoint_analyzer = EndpointAnalyzer(self._rule_engine)
         self._data_collection_analyzer = DataCollectionAnalyzer()
+        self._behavior_analyzer = BehaviorAnalyzer()
 
     def analyze(
         self,
@@ -90,9 +95,10 @@ class PrivacyEngine:
             inspection_engine = InspectionEngine(self._config)
             inspection = inspection_engine.inspect(apk_path, keep_workspace=keep_workspace)
             package = inspection.package
-            warnings.extend(inspection.warnings)
-            errors.extend(inspection.errors)
-            limitations.extend(inspection.limitations)
+
+        warnings.extend(inspection.warnings)
+        errors.extend(inspection.errors)
+        limitations.extend(inspection.limitations)
 
         # Determine package identity
         pkg_name: str | None = None
@@ -171,6 +177,10 @@ class PrivacyEngine:
         )
 
         # 6. Run Data Collection Capability Analysis
+        data_collection_default: tuple[DataCollectionResult, list[PrivacyFinding]] = (
+            DataCollectionResult(),
+            [],
+        )
         data_collection_result, capability_findings = self._safe_run(
             "data_collection",
             lambda: self._data_collection_analyzer.analyze(
@@ -179,13 +189,23 @@ class PrivacyEngine:
                 detected_sdks=all_detected_sdks,
                 endpoints=endpoint_result,
             ),
-            default=(DataCollectionResult(), []),
+            default=data_collection_default,
             limitations=limitations,
             degraded=degraded_categories,
         )
 
-        # 7. Synthesize Privacy Findings
-        findings: list[PrivacyFinding] = list(capability_findings)
+        # 7. Run Static Behavior Indicator Analysis
+        behavior_default: list[PrivacyFinding] = []
+        behavior_findings: list[PrivacyFinding] = self._safe_run(
+            "behavior",
+            lambda: self._behavior_analyzer.analyze(inspection, index),
+            default=behavior_default,
+            limitations=limitations,
+            degraded=degraded_categories,
+        )
+
+        # 8. Synthesize Privacy Findings
+        findings: list[PrivacyFinding] = list(capability_findings) + list(behavior_findings)
 
         # Add findings for third-party SDKs
         for sdk in all_detected_sdks:
@@ -215,6 +235,19 @@ class PrivacyEngine:
                     description=desc,
                     severity=sdk_sev,
                     confidence=sdk.confidence,
+                    evidence_state=EvidenceState.OBSERVED,
+                    evidence_locations=sdk.evidence_locations,
+                    evidence_values=sdk.matched_packages
+                    + sdk.matched_classes
+                    + sdk.matched_endpoints,
+                    related_domains=sdk.matched_endpoints,
+                    related_sdks=[sdk.name],
+                    is_direct=True,
+                    analysis_completeness=AnalysisCompleteness.COMPLETE,
+                    remediation_relevance=(
+                        "Review third-party library integration and privacy policy disclosures; "
+                        "static presence does not prove runtime data exfiltration."
+                    ),
                     evidence=sdk_ev,
                     limitations=[
                         "Static presence does not establish whether or when this SDK transmits "
@@ -222,6 +255,60 @@ class PrivacyEngine:
                     ],
                 )
             )
+
+        # Add findings for permissions declared without static code reference
+        for usage in perm_result.usage_details:
+            if (
+                usage.usage_status == PermissionUsageStatus.DECLARED_ONLY
+                and usage.protection_level
+                in ("dangerous", "signature|privileged", "signature|appop")
+            ):
+                norm_perm = usage.permission.replace("android.permission.", "").replace(".", "-")
+                findings.append(
+                    PrivacyFinding(
+                        id=f"PRIV-PERM-UNCORRELATED-{norm_perm}",
+                        category=usage.category.value,
+                        title=(
+                            f"Declared Permission Without Static Code Reference: {usage.permission}"
+                        ),
+                        description=(
+                            f"Permission '{usage.permission}' is declared in AndroidManifest.xml, "
+                            "but no matching framework API calls or components were observed "
+                            "statically."
+                        ),
+                        severity=Severity.INFORMATIONAL,
+                        confidence=Confidence.MEDIUM,
+                        evidence_state=EvidenceState.PARTIAL,
+                        evidence_locations=[f"manifest:permission:{usage.permission}"],
+                        evidence_values=[usage.permission],
+                        related_permissions=[usage.permission],
+                        is_direct=True,
+                        analysis_completeness=AnalysisCompleteness.PARTIAL,
+                        remediation_relevance=(
+                            "Informational; verify if this permission is needed dynamically "
+                            "or is an unused declaration residue."
+                        ),
+                        evidence=[
+                            Evidence(
+                                description=f"Manifest declaration of {usage.permission}",
+                                location=f"permission:{usage.permission}",
+                                snippet=usage.permission,
+                            )
+                        ],
+                        limitations=[
+                            "Static analysis cannot determine whether the permission is "
+                            "requested dynamically at runtime."
+                        ],
+                    )
+                )
+
+        # Deduplicate findings by finding ID
+        seen_ids: set[str] = set()
+        deduped_findings: list[PrivacyFinding] = []
+        for f in findings:
+            if f.id not in seen_ids:
+                seen_ids.add(f.id)
+                deduped_findings.append(f)
 
         # Global analysis limitations (informational static-analysis disclaimer)
         limitations.append(
@@ -236,7 +323,6 @@ class PrivacyEngine:
         elif inspection.status == AnalysisStatus.PARTIAL or degraded_categories:
             overall_status = AnalysisStatus.PARTIAL
 
-
         return PrivacyResult(
             status=overall_status,
             package_name=pkg_name,
@@ -249,7 +335,7 @@ class PrivacyEngine:
             telemetry=telemetry_result,
             endpoints=endpoint_result,
             data_collection=data_collection_result,
-            findings=sorted(findings, key=lambda f: (f.severity.value, f.id)),
+            findings=sorted(deduped_findings, key=lambda f: (f.severity.value, f.id)),
             warnings=sorted(set(warnings)),
             errors=sorted(set(errors)),
             limitations=sorted(set(limitations)),
@@ -330,4 +416,3 @@ class PrivacyEngine:
             if degraded is not None:
                 degraded.append(category)
             return default
-

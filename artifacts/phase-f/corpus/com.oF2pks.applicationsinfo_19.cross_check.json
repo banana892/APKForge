@@ -1,0 +1,22 @@
+{
+  "overlapping_findings": [],
+  "new_privacy_findings": [
+    {
+      "id": "PRIV-API-WEBVIEW",
+      "category": "network",
+      "title": "Embedded WebView & Web Interface APIs",
+      "evidence_state": "OBSERVED"
+    }
+  ],
+  "security_only_findings": [
+    {
+      "id": "SEC-NET-CLEARTEXT-URLS",
+      "category": "network",
+      "title": "Cleartext HTTP URL References Detected",
+      "severity": "low"
+    }
+  ],
+  "strengthened_findings": [],
+  "incomplete_evidence_findings": [],
+  "discrepancies": []
+}

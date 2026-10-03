@@ -778,3 +778,30 @@ Evidence: `artifacts/phase-e/` (`build-tests/run_phase_e_validation.py`).
 - The schema-1 C.5 baseline remains loadable but can never yield VERIFIED.
 - A clean diff does not prove that an APK is malware-free; a verified signature proves
   structural/signing validity, not safety.
+
+---
+
+## Status update — Phase F Privacy, Tracker & Ads Intelligence
+
+Recorded here as part of Phase F verification. Design and models: [`docs/privacy-analysis.md`](privacy-analysis.md).
+Evidence: `artifacts/phase-f/` (`build-tests/run_phase_f_validation.py`).
+
+**Introduced by Phase F**
+
+- *Dedicated Privacy Layer*: Structured static intelligence model separating observed evidence, inferred capabilities, suspected third-party SDKs, confidence levels, and explicit unknown/partial analysis states.
+- *Auditable Tracker & SDK Catalog*: Declarative detection rules for advertising, analytics, tracking, attribution, and crash telemetry SDKs with explicit false-positive risk assessment and source references.
+- *Domain & Endpoint Categorization*: Categorization of network endpoints (first-party, CDN, social login, update infrastructure, potentially sensitive, unknown) with raw endpoint preservation and runtime transmission disclaimers.
+- *Permission + Component Static Correlation*: Explicit classification of permission status (`STRONG_CORRELATION`, `DECLARED_ONLY`, `API_WITHOUT_PERMISSION`), reporting declared-only permissions as uncertain rather than active.
+- *Static Behavior Indicators*: Declarative catalog detecting 13 sensitive behavior patterns (device IDs, audio capture, camera, contacts, clipboard, accessibility, notification listeners, webviews, background scheduling, boot receivers, dynamic code loading, reflection).
+- *Phase B Security Cross-Check*: Systematic reconciliation comparing overlapping, new, strengthened, and incomplete findings, with documented technical justifications for labeling differences.
+- *Dedicated CLI & Programmatic Service*: `apkforge privacy APK` (ANSI-free `--json`, `--report PATH`, `--verbose`) and `PrivacyAnalysisService`.
+
+**Static Analysis Boundaries & Invariants (Not Defects)**
+
+- *Static Presence != Runtime Execution*: The presence of classes, methods, or strings proves that code is packaged in the APK, not that it is executed during user sessions.
+- *Endpoint Presence != Network Transmission*: Discovered URLs and domains indicate configured endpoints. They do not constitute proof of active data transfer without dynamic traffic capture.
+- *No Malicious Intent Inferences*: Third-party tracking libraries and sensitive permissions are common in legitimate commercial and open-source applications; APKForge never labels apps "malware" or "spyware" based solely on static indicator presence.
+- *Obfuscation and Reflection*: Bytecode obfuscated via aggressive renaming or classes loaded dynamically via reflection or `DexClassLoader` cannot be fully mapped to static catalog signatures.
+- *Native Code Boundaries*: Network communication or device identifier access performed exclusively inside compiled native binaries (`.so`) is invisible to DEX bytecode scanners.
+- *Absence of Evidence Is Not Proof of Safety*: Zero detected trackers or APIs does not prove that an application is harmless.
+

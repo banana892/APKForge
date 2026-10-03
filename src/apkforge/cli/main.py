@@ -27,6 +27,7 @@ Command structure (Phase 0 — stubs)::
 from __future__ import annotations
 
 from pathlib import Path
+import sys
 from typing import TYPE_CHECKING
 
 import typer
@@ -1264,6 +1265,12 @@ def cmd_privacy(
         "--keep-workspace",
         help="Retain workspace directory after analysis.",
     ),
+    report: Path | None = typer.Option(
+        None,
+        "--report",
+        help="Path to save the structured privacy report (.md or .json).",
+        dir_okay=False,
+    ),
 ) -> None:
     """Analyze an APK for privacy capabilities, third-party trackers, and network endpoints."""
     from apkforge.privacy.engine import PrivacyEngine
@@ -1274,8 +1281,17 @@ def cmd_privacy(
     engine = PrivacyEngine()
     result = engine.analyze(apk, keep_workspace=keep_workspace)
 
+    if report is not None:
+        rep_obj = result.to_report()
+        report.parent.mkdir(parents=True, exist_ok=True)
+        if report.suffix.lower() == ".json":
+            report.write_text(rep_obj.to_json(), encoding="utf-8")
+        else:
+            report.write_text(rep_obj.to_markdown(), encoding="utf-8")
+
     if json_output or output_format.lower() == "json":
-        typer.echo(result.model_dump_json(indent=2))
+        sys.stdout.write(result.model_dump_json(indent=2) + "\n")
+        sys.stdout.flush()
     else:
         _render_privacy_summary(
             result,

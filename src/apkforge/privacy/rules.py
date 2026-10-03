@@ -45,6 +45,7 @@ class PrivacyRule(BaseModel):
     name: str
     vendor: str | None = None
     category: SDKCategory
+    endpoint_category: EndpointCategory | None = None
     description: str | None = None
     packages: list[str] = Field(default_factory=list)
     classes: list[str] = Field(default_factory=list)
@@ -56,6 +57,9 @@ class PrivacyRule(BaseModel):
     min_matches_required: int = 1
     confidence_rules: dict[str, Confidence] = Field(default_factory=dict)
     version_patterns: list[str] = Field(default_factory=list)
+    source_reference: str | None = None
+    false_positive_risk: str | None = None
+    evidence_requirements: str | None = None
 
 
 class EvidenceIndex:
@@ -94,6 +98,7 @@ class RuleEngine:
 
     def __init__(self, rules: list[PrivacyRule] | None = None) -> None:
         self._rules: list[PrivacyRule] = []
+        self._rules_by_id: dict[str, PrivacyRule] = {}
         self._domain_to_rule: dict[str, PrivacyRule] = {}
         if rules:
             for r in rules:
@@ -104,7 +109,12 @@ class RuleEngine:
         return list(self._rules)
 
     def add_rule(self, rule: PrivacyRule) -> None:
-        self._rules.append(rule)
+        if rule.id in self._rules_by_id:
+            idx = next(i for i, r in enumerate(self._rules) if r.id == rule.id)
+            self._rules[idx] = rule
+        else:
+            self._rules.append(rule)
+        self._rules_by_id[rule.id] = rule
         for d in rule.domains:
             norm_d = d.strip().lower()
             self._domain_to_rule[norm_d] = rule
@@ -315,13 +325,13 @@ class RuleEngine:
         # Exact match
         if norm_d in self._domain_to_rule:
             rule = self._domain_to_rule[norm_d]
-            cat = self._sdk_cat_to_endpoint_cat(rule.category)
+            cat = rule.endpoint_category or self._sdk_cat_to_endpoint_cat(rule.category)
             return cat, rule.description or rule.name, rule.name
 
         # Suffix match (e.g. sub.analytics.google.com -> google.com)
         for d, rule in self._domain_to_rule.items():
             if norm_d.endswith("." + d):
-                cat = self._sdk_cat_to_endpoint_cat(rule.category)
+                cat = rule.endpoint_category or self._sdk_cat_to_endpoint_cat(rule.category)
                 return cat, rule.description or rule.name, rule.name
 
         return EndpointCategory.UNKNOWN, None, None
@@ -335,5 +345,6 @@ class RuleEngine:
             SDKCategory.TELEMETRY: EndpointCategory.TELEMETRY,
             SDKCategory.ATTRIBUTION: EndpointCategory.ATTRIBUTION,
             SDKCategory.CRASH_REPORTING: EndpointCategory.CRASH_REPORTING,
+            SDKCategory.SOCIAL: EndpointCategory.SOCIAL_LOGIN,
         }
         return mapping.get(cat, EndpointCategory.UNKNOWN)

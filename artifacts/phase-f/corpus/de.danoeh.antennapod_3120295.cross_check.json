@@ -1,0 +1,232 @@
+{
+  "overlapping_findings": [
+    {
+      "topic": "Device Identifiers",
+      "privacy_id": "PRIV-CAP-DEVICE-IDENTIFIERS",
+      "security_id": "SEC-SPY-DEVICE-IDENTIFIERS",
+      "privacy_title": "Device Identifier Access References Detected",
+      "security_title": "Hardware & Persistent Device Identifier Collection Capability"
+    },
+    {
+      "topic": "Boot Persistence",
+      "privacy_id": "PRIV-REC-BOOT",
+      "security_id": "SEC-MAL-BOOT-001",
+      "privacy_title": "Boot & Package Replacement Receivers",
+      "security_title": "Persistent Boot Startup Receiver"
+    },
+    {
+      "topic": "Device Identifiers",
+      "privacy_id": "PRIV-API-DEVICE-IDENTIFIER",
+      "security_id": "SEC-SPY-DEVICE-IDENTIFIERS",
+      "privacy_title": "Hardware & Device Identifier Access",
+      "security_title": "Hardware & Persistent Device Identifier Collection Capability"
+    }
+  ],
+  "new_privacy_findings": [
+    {
+      "id": "PRIV-CAP-CAMERA",
+      "category": "camera",
+      "title": "Camera Capture Capability Detected",
+      "evidence_state": "PARTIAL"
+    },
+    {
+      "id": "PRIV-CAP-CONTACTS",
+      "category": "contacts",
+      "title": "Contacts Access Capability Detected",
+      "evidence_state": "PARTIAL"
+    },
+    {
+      "id": "PRIV-API-CLIPBOARD",
+      "category": "clipboard",
+      "title": "Clipboard Access APIs",
+      "evidence_state": "OBSERVED"
+    },
+    {
+      "id": "PRIV-API-LOCATION",
+      "category": "location",
+      "title": "Location Framework API Invocations",
+      "evidence_state": "OBSERVED"
+    },
+    {
+      "id": "PRIV-API-REFLECTION",
+      "category": "reflection",
+      "title": "Reflection on Internal or Sensitive Classes",
+      "evidence_state": "OBSERVED"
+    },
+    {
+      "id": "PRIV-API-SCHEDULING",
+      "category": "background_execution",
+      "title": "Background Job Scheduling & Alarm APIs",
+      "evidence_state": "OBSERVED"
+    },
+    {
+      "id": "PRIV-API-WEBVIEW",
+      "category": "network",
+      "title": "Embedded WebView & Web Interface APIs",
+      "evidence_state": "OBSERVED"
+    },
+    {
+      "id": "PRIV-API-DYNAMIC-CODE",
+      "category": "dynamic_code",
+      "title": "Dynamic Code Loading Facilities",
+      "evidence_state": "OBSERVED"
+    },
+    {
+      "id": "PRIV-CAP-CLIPBOARD",
+      "category": "clipboard",
+      "title": "Clipboard Access Capability Detected",
+      "evidence_state": "OBSERVED"
+    },
+    {
+      "id": "PRIV-CAP-LOCATION",
+      "category": "location",
+      "title": "Location Capability Detected",
+      "evidence_state": "PARTIAL"
+    }
+  ],
+  "security_only_findings": [
+    {
+      "id": "SEC-VULN-CRYPTO-ECB",
+      "category": "crypto",
+      "title": "Insecure Electronic Codebook (ECB) Cipher Mode Detected",
+      "severity": "high"
+    },
+    {
+      "id": "SEC-NET-CAPABILITY-FLOW",
+      "category": "network",
+      "title": "Sensitive Data Capabilities Co-Occur with External NetworkCommunication",
+      "severity": "medium"
+    },
+    {
+      "id": "SEC-NET-DIRECT-IP",
+      "category": "network",
+      "title": "Direct IP Address Network Endpoint Detected",
+      "severity": "medium"
+    },
+    {
+      "id": "SEC-SPY-ACCESSIBILITY-001",
+      "category": "spyware_indicator",
+      "title": "Accessibility Service Implementation",
+      "severity": "medium"
+    },
+    {
+      "id": "SEC-SPY-ACCESSIBILITY-ABUSE",
+      "category": "collection",
+      "title": "Android Accessibility Service Implementation",
+      "severity": "medium"
+    },
+    {
+      "id": "SEC-VULN-CLEARTEXT-001",
+      "category": "vulnerability",
+      "title": "Cleartext Network Traffic Allowed",
+      "severity": "medium"
+    },
+    {
+      "id": "SEC-VULN-EXPORTED-SERVICE",
+      "category": "exported_component",
+      "title": "Exported Service Component Lacks Permission Protection",
+      "severity": "medium"
+    },
+    {
+      "id": "SEC-VULN-MANIFEST-CLEARTEXT",
+      "category": "configuration",
+      "title": "Cleartext Network Traffic Allowed by Manifest",
+      "severity": "medium"
+    },
+    {
+      "id": "SEC-MAL-PERSISTENCE-BOOT",
+      "category": "persistence",
+      "title": "Device Boot Persistence Mechanism Detected",
+      "severity": "low"
+    },
+    {
+      "id": "SEC-NET-CLEARTEXT-URLS",
+      "category": "network",
+      "title": "Cleartext HTTP URL References Detected",
+      "severity": "low"
+    },
+    {
+      "id": "SEC-SPY-CLIPBOARD-001",
+      "category": "spyware_indicator",
+      "title": "Background Clipboard Access Capability",
+      "severity": "low"
+    },
+    {
+      "id": "SEC-VULN-BACKUP-001",
+      "category": "vulnerability",
+      "title": "Application Backup Enabled Without Restriction",
+      "severity": "low"
+    },
+    {
+      "id": "SEC-VULN-CRYPTO-WEAK-HASH",
+      "category": "crypto",
+      "title": "Legacy Cryptographic Hash Algorithm Referenced (MD5/SHA-1)",
+      "severity": "low"
+    },
+    {
+      "id": "SEC-VULN-EXPORTED-RECEIVER",
+      "category": "exported_component",
+      "title": "Exported Broadcast Receiver Lacks Permission Protection",
+      "severity": "low"
+    },
+    {
+      "id": "SEC-VULN-MANIFEST-BACKUP",
+      "category": "configuration",
+      "title": "Application Data Backup Enabled (allowBackup=true)",
+      "severity": "low"
+    },
+    {
+      "id": "SEC-VULN-WEAK-HASH-001",
+      "category": "vulnerability",
+      "title": "Weak Cryptographic Hash Algorithm Referenced",
+      "severity": "low"
+    },
+    {
+      "id": "SEC-MAL-PERSISTENCE-FG-SERVICE",
+      "category": "persistence",
+      "title": "Foreground Service Declaration",
+      "severity": "informational"
+    }
+  ],
+  "strengthened_findings": [
+    {
+      "topic": "Device Identifiers",
+      "privacy_id": "PRIV-CAP-DEVICE-IDENTIFIERS",
+      "security_id": "SEC-SPY-DEVICE-IDENTIFIERS",
+      "reason": "Corroborated by both Phase B (7 items) and Phase F (3 locations)."
+    },
+    {
+      "topic": "Boot Persistence",
+      "privacy_id": "PRIV-REC-BOOT",
+      "security_id": "SEC-MAL-BOOT-001",
+      "reason": "Corroborated by both Phase B (2 items) and Phase F (1 locations)."
+    },
+    {
+      "topic": "Device Identifiers",
+      "privacy_id": "PRIV-API-DEVICE-IDENTIFIER",
+      "security_id": "SEC-SPY-DEVICE-IDENTIFIERS",
+      "reason": "Corroborated by both Phase B (7 items) and Phase F (3 locations)."
+    }
+  ],
+  "incomplete_evidence_findings": [
+    {
+      "id": "PRIV-CAP-CAMERA",
+      "title": "Camera Capture Capability Detected",
+      "state": "PARTIAL",
+      "limitation": "Static analysis cannot prove runtime camera usage."
+    },
+    {
+      "id": "PRIV-CAP-CONTACTS",
+      "title": "Contacts Access Capability Detected",
+      "state": "PARTIAL",
+      "limitation": "Static analysis cannot establish runtime contacts extraction."
+    },
+    {
+      "id": "PRIV-CAP-LOCATION",
+      "title": "Location Capability Detected",
+      "state": "PARTIAL",
+      "limitation": "Static analysis cannot establish runtime location collection."
+    }
+  ],
+  "discrepancies": []
+}

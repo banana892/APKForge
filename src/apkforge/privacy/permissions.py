@@ -93,6 +93,22 @@ PERMISSION_TAXONOMY: dict[str, tuple[PermissionCategory, str]] = {
         PermissionCategory.SYSTEM_SPECIAL,
         "signature|appop",
     ),
+    "android.permission.RECEIVE_BOOT_COMPLETED": (
+        PermissionCategory.SYSTEM_SPECIAL,
+        "normal",
+    ),
+    "android.permission.BIND_ACCESSIBILITY_SERVICE": (
+        PermissionCategory.SYSTEM_SPECIAL,
+        "signature",
+    ),
+    "android.permission.BIND_NOTIFICATION_LISTENER_SERVICE": (
+        PermissionCategory.NOTIFICATIONS,
+        "signature",
+    ),
+    "android.permission.FOREGROUND_SERVICE": (
+        PermissionCategory.SYSTEM_SPECIAL,
+        "normal",
+    ),
 }
 
 # Permission to related framework classes and API signatures
@@ -109,6 +125,10 @@ PERMISSION_RELATED_APIS: dict[str, list[str]] = {
         "com.google.android.gms.location.FusedLocationProviderClient",
     ],
     "android.permission.READ_CONTACTS": [
+        "android.provider.ContactsContract",
+        "android.content.ContentResolver",
+    ],
+    "android.permission.WRITE_CONTACTS": [
         "android.provider.ContactsContract",
         "android.content.ContentResolver",
     ],
@@ -147,6 +167,39 @@ PERMISSION_RELATED_APIS: dict[str, list[str]] = {
     "android.permission.POST_NOTIFICATIONS": [
         "android.app.NotificationManager",
         "androidx.core.app.NotificationManagerCompat",
+    ],
+    "android.permission.READ_EXTERNAL_STORAGE": [
+        "java.io.File",
+        "android.os.Environment",
+        "android.provider.MediaStore",
+    ],
+    "android.permission.WRITE_EXTERNAL_STORAGE": [
+        "java.io.File",
+        "android.os.Environment",
+        "android.provider.MediaStore",
+    ],
+    "android.permission.MANAGE_EXTERNAL_STORAGE": [
+        "java.io.File",
+        "android.os.Environment",
+    ],
+    "android.permission.READ_MEDIA_IMAGES": [
+        "android.provider.MediaStore.Images",
+    ],
+    "android.permission.READ_MEDIA_VIDEO": [
+        "android.provider.MediaStore.Video",
+    ],
+    "android.permission.READ_MEDIA_AUDIO": [
+        "android.provider.MediaStore.Audio",
+    ],
+    "android.permission.RECEIVE_BOOT_COMPLETED": [
+        "android.content.BroadcastReceiver",
+        "android.intent.action.BOOT_COMPLETED",
+    ],
+    "android.permission.BIND_ACCESSIBILITY_SERVICE": [
+        "android.accessibilityservice.AccessibilityService",
+    ],
+    "android.permission.BIND_NOTIFICATION_LISTENER_SERVICE": [
+        "android.service.notification.NotificationListenerService",
     ],
 }
 
@@ -218,11 +271,72 @@ class PermissionAnalyzer:
                     if api in c:
                         correlated_classes.append(c)
 
+            # Correlate with manifest components when applicable
+            if inspection.manifest:
+                if perm == "android.permission.RECEIVE_BOOT_COMPLETED":
+                    for r in inspection.manifest.receivers:
+                        boot_match = False
+                        for filt in r.intent_filters:
+                            if any(
+                                "BOOT_COMPLETED" in a or "MY_PACKAGE_REPLACED" in a
+                                for a in filt.actions
+                            ):
+                                boot_match = True
+                                break
+                        if boot_match:
+                            correlated_classes.append(r.name)
+                            evidence_list.append(
+                                Evidence(
+                                    description=(
+                                        f"Manifest receiver {r.name} "
+                                        "configured for boot persistence"
+                                    ),
+                                    location=f"receiver:{r.name}",
+                                    snippet=f"receiver:{r.name}",
+                                )
+                            )
+                elif perm == "android.permission.BIND_ACCESSIBILITY_SERVICE":
+                    for s in inspection.manifest.services:
+                        if (
+                            s.permission == "android.permission.BIND_ACCESSIBILITY_SERVICE"
+                            or "AccessibilityService" in s.name
+                        ):
+                            correlated_classes.append(s.name)
+                            evidence_list.append(
+                                Evidence(
+                                    description=(
+                                        f"Manifest accessibility service declaration: {s.name}"
+                                    ),
+                                    location=f"service:{s.name}",
+                                    snippet=f"service:{s.name}",
+                                )
+                            )
+                elif perm == "android.permission.BIND_NOTIFICATION_LISTENER_SERVICE":
+                    for s in inspection.manifest.services:
+                        if (
+                            s.permission == "android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+                            or "NotificationListener" in s.name
+                        ):
+                            correlated_classes.append(s.name)
+                            evidence_list.append(
+                                Evidence(
+                                    description=(
+                                        f"Manifest notification listener service: {s.name}"
+                                    ),
+                                    location=f"service:{s.name}",
+                                    snippet=f"service:{s.name}",
+                                )
+                            )
+
             # Cap classes to 10
             correlated_classes = sorted(set(correlated_classes))[:10]
 
             # 3. Determine Usage Status
-            if correlated_classes:
+            if correlated_classes and (
+                matched_apis
+                or perm.startswith("android.permission.BIND_")
+                or perm == "android.permission.RECEIVE_BOOT_COMPLETED"
+            ):
                 usage_status = PermissionUsageStatus.DECLARED_WITH_STRONG_CODE_CORRELATION
             elif matched_apis:
                 usage_status = PermissionUsageStatus.DECLARED_AND_REFERENCED
@@ -250,6 +364,12 @@ class PermissionAnalyzer:
                 "Static analysis cannot establish that permission-protected capabilities "
                 "are exercised at runtime."
             ]
+            if usage_status == PermissionUsageStatus.DECLARED_ONLY:
+                limitations.append(
+                    f"Permission '{perm}' is declared in the manifest, but no matching API "
+                    "or component references were observed statically; "
+                    "actual runtime use remains uncertain."
+                )
 
             usage_details.append(
                 PermissionUsage(

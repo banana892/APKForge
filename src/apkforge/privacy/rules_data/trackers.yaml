@@ -4,6 +4,9 @@ rules:
     vendor: Criteo
     category: tracking
     description: Dynamic retargeting and behavioral user tracking platform.
+    source_reference: Criteo Publisher SDK Documentation
+    evidence_requirements: Package com.criteo.publisher or Criteo class
+    false_positive_risk: Low; proprietary Criteo namespace
     packages:
       - com.criteo.publisher
       - com.criteo.sync
@@ -20,6 +23,9 @@ rules:
     vendor: mParticle
     category: tracking
     description: Customer data platform orchestrating identity and behavioral tracking.
+    source_reference: mParticle Android SDK Documentation
+    evidence_requirements: Package com.mparticle or MParticle class
+    false_positive_risk: Low; distinct mParticle namespace
     packages:
       - com.mparticle
     classes:
@@ -35,6 +41,9 @@ rules:
     vendor: OneSignal
     category: tracking
     description: Push notification service collecting device metadata and behavioral events.
+    source_reference: OneSignal Android SDK Documentation
+    evidence_requirements: Package com.onesignal or OneSignal class
+    false_positive_risk: Low; distinct OneSignal namespace
     packages:
       - com.onesignal
     classes:

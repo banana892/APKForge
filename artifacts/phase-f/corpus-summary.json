@@ -1,0 +1,478 @@
+{
+  "timestamp": "2026-10-03T04:46:07.352003+00:00",
+  "toolchain": {
+    "python": "3.14.7",
+    "platform": "Linux-7.2.7-200.fc44.x86_64-x86_64-with-glibc2.43",
+    "arch": "x86_64",
+    "git_commit": "e0d8e9b143bf15eb830ecc77dcf467b271319bcc",
+    "apktool": "3.0.3",
+    "java": "openjdk version \"25.0.4.1\" 2026-08-18"
+  },
+  "total_apks": 9,
+  "apks": {
+    "com.oF2pks.applicationsinfo_19.apk": {
+      "package_name": "com.oF2pks.applicationsinfo",
+      "version_name": "1.7-19",
+      "version_code": "19",
+      "duration_seconds": 0.66,
+      "status": "complete",
+      "findings_count": 1,
+      "unknown_partial_count": 0,
+      "sdk_indicators_count": 0,
+      "detected_sdks": [],
+      "endpoints_count": 2,
+      "endpoints_by_category": {
+        "unknown": 2
+      },
+      "declared_permissions_count": 4,
+      "uncertain_permissions_count": 0,
+      "findings_by_category": {
+        "network": 1
+      },
+      "findings_by_severity": {
+        "informational": 1
+      },
+      "cross_check": {
+        "overlapping": 0,
+        "new_privacy": 1,
+        "security_only": 1,
+        "strengthened": 0,
+        "incomplete": 0,
+        "discrepancies": 0
+      }
+    },
+    "de.audioattack.openlink_28.apk": {
+      "package_name": "de.audioattack.openlink",
+      "version_name": "1.5.11",
+      "version_code": "28",
+      "duration_seconds": 0.85,
+      "status": "complete",
+      "findings_count": 2,
+      "unknown_partial_count": 0,
+      "sdk_indicators_count": 0,
+      "detected_sdks": [],
+      "endpoints_count": 2,
+      "endpoints_by_category": {
+        "unknown": 2
+      },
+      "declared_permissions_count": 2,
+      "uncertain_permissions_count": 0,
+      "findings_by_category": {
+        "reflection": 1,
+        "persistence": 1
+      },
+      "findings_by_severity": {
+        "informational": 2
+      },
+      "cross_check": {
+        "overlapping": 1,
+        "new_privacy": 1,
+        "security_only": 4,
+        "strengthened": 1,
+        "incomplete": 0,
+        "discrepancies": 0
+      }
+    },
+    "com.emanuelef.remote_capture_95.apk": {
+      "package_name": "com.emanuelef.remote_capture",
+      "version_name": "2.0.2",
+      "version_code": "95",
+      "duration_seconds": 22.84,
+      "status": "complete",
+      "findings_count": 10,
+      "unknown_partial_count": 1,
+      "sdk_indicators_count": 0,
+      "detected_sdks": [],
+      "endpoints_count": 127,
+      "endpoints_by_category": {
+        "unknown": 117,
+        "update_infrastructure": 10
+      },
+      "declared_permissions_count": 13,
+      "uncertain_permissions_count": 0,
+      "findings_by_category": {
+        "identifiers": 1,
+        "clipboard": 2,
+        "location": 2,
+        "reflection": 1,
+        "background_execution": 1,
+        "persistence": 1,
+        "device_identifiers": 1,
+        "dynamic_code": 1
+      },
+      "findings_by_severity": {
+        "high": 1,
+        "informational": 5,
+        "low": 3,
+        "medium": 1
+      },
+      "cross_check": {
+        "overlapping": 3,
+        "new_privacy": 7,
+        "security_only": 8,
+        "strengthened": 3,
+        "incomplete": 1,
+        "discrepancies": 0
+      }
+    },
+    "de.danoeh.antennapod_3120295.apk": {
+      "package_name": "de.danoeh.antennapod",
+      "version_name": "3.12.2",
+      "version_code": "3120295",
+      "duration_seconds": 57.04,
+      "status": "complete",
+      "findings_count": 13,
+      "unknown_partial_count": 3,
+      "sdk_indicators_count": 0,
+      "detected_sdks": [],
+      "endpoints_count": 95,
+      "endpoints_by_category": {
+        "unknown": 85,
+        "update_infrastructure": 10
+      },
+      "declared_permissions_count": 11,
+      "uncertain_permissions_count": 1,
+      "findings_by_category": {
+        "camera": 1,
+        "contacts": 1,
+        "identifiers": 1,
+        "clipboard": 2,
+        "location": 2,
+        "reflection": 1,
+        "background_execution": 1,
+        "network": 1,
+        "persistence": 1,
+        "device_identifiers": 1,
+        "dynamic_code": 1
+      },
+      "findings_by_severity": {
+        "high": 3,
+        "informational": 6,
+        "low": 3,
+        "medium": 1
+      },
+      "cross_check": {
+        "overlapping": 3,
+        "new_privacy": 10,
+        "security_only": 17,
+        "strengthened": 3,
+        "incomplete": 3,
+        "discrepancies": 0
+      }
+    },
+    "eu.siacs.conversations_4218104.apk": {
+      "package_name": "eu.siacs.conversations",
+      "version_name": "2.20.4+free",
+      "version_code": "4218104",
+      "duration_seconds": 64.15,
+      "status": "complete",
+      "findings_count": 19,
+      "unknown_partial_count": 5,
+      "sdk_indicators_count": 0,
+      "detected_sdks": [],
+      "endpoints_count": 149,
+      "endpoints_by_category": {
+        "unknown": 146,
+        "update_infrastructure": 3
+      },
+      "declared_permissions_count": 51,
+      "uncertain_permissions_count": 4,
+      "findings_by_category": {
+        "camera": 2,
+        "contacts": 2,
+        "identifiers": 1,
+        "audio": 1,
+        "microphone": 1,
+        "clipboard": 2,
+        "location": 2,
+        "reflection": 1,
+        "background_execution": 1,
+        "storage_files": 3,
+        "persistence": 1,
+        "device_identifiers": 1,
+        "dynamic_code": 1
+      },
+      "findings_by_severity": {
+        "high": 4,
+        "informational": 11,
+        "low": 3,
+        "medium": 1
+      },
+      "cross_check": {
+        "overlapping": 9,
+        "new_privacy": 10,
+        "security_only": 23,
+        "strengthened": 9,
+        "incomplete": 5,
+        "discrepancies": 0
+      }
+    },
+    "godau.fynn.usagedirect_10.apk": {
+      "package_name": "godau.fynn.usagedirect",
+      "version_name": "0.8.1",
+      "version_code": "10",
+      "duration_seconds": 29.48,
+      "status": "complete",
+      "findings_count": 12,
+      "unknown_partial_count": 2,
+      "sdk_indicators_count": 0,
+      "detected_sdks": [],
+      "endpoints_count": 28,
+      "endpoints_by_category": {
+        "unknown": 24,
+        "update_infrastructure": 4
+      },
+      "declared_permissions_count": 2,
+      "uncertain_permissions_count": 0,
+      "findings_by_category": {
+        "camera": 2,
+        "identifiers": 1,
+        "clipboard": 2,
+        "location": 2,
+        "reflection": 1,
+        "background_execution": 1,
+        "device_identifiers": 1,
+        "dynamic_code": 1,
+        "accessibility": 1
+      },
+      "findings_by_severity": {
+        "high": 2,
+        "informational": 5,
+        "low": 3,
+        "medium": 2
+      },
+      "cross_check": {
+        "overlapping": 2,
+        "new_privacy": 10,
+        "security_only": 6,
+        "strengthened": 2,
+        "incomplete": 2,
+        "discrepancies": 0
+      }
+    },
+    "io.github.muntashirakon.AppManager_451.apk": {
+      "package_name": "io.github.muntashirakon.AppManager",
+      "version_name": "4.1.1",
+      "version_code": "451",
+      "duration_seconds": 245.32,
+      "status": "complete",
+      "findings_count": 15,
+      "unknown_partial_count": 2,
+      "sdk_indicators_count": 0,
+      "detected_sdks": [],
+      "endpoints_count": 113,
+      "endpoints_by_category": {
+        "unknown": 101,
+        "update_infrastructure": 12
+      },
+      "declared_permissions_count": 63,
+      "uncertain_permissions_count": 0,
+      "findings_by_category": {
+        "camera": 2,
+        "identifiers": 1,
+        "clipboard": 2,
+        "location": 2,
+        "reflection": 1,
+        "background_execution": 1,
+        "network": 1,
+        "persistence": 1,
+        "accessibility": 2,
+        "device_identifiers": 1,
+        "dynamic_code": 1
+      },
+      "findings_by_severity": {
+        "high": 2,
+        "informational": 7,
+        "low": 4,
+        "medium": 2
+      },
+      "cross_check": {
+        "overlapping": 4,
+        "new_privacy": 11,
+        "security_only": 26,
+        "strengthened": 4,
+        "incomplete": 2,
+        "discrepancies": 0
+      }
+    },
+    "org.mozilla.fennec_fdroid_1560020.apk": {
+      "package_name": "org.mozilla.fennec_fdroid",
+      "version_name": "156.0.0",
+      "version_code": "1560020",
+      "duration_seconds": 301.79,
+      "status": "partial",
+      "findings_count": 20,
+      "unknown_partial_count": 3,
+      "sdk_indicators_count": 2,
+      "detected_sdks": [
+        {
+          "id": "ad.google.admob",
+          "name": "Google AdMob / Google Mobile Ads",
+          "category": "advertising",
+          "confidence": "high",
+          "evidence_locations": [
+            "package:com.google.android.gms.ads"
+          ],
+          "actual_network_use_observed": false,
+          "network_use_status": "CANNOT_DETERMINE_STATICALLY"
+        },
+        {
+          "id": "telemetry.sentry",
+          "name": "Sentry",
+          "category": "crash_reporting",
+          "confidence": "confirmed",
+          "evidence_locations": [
+            "package:io.sentry",
+            "package:io.sentry.android",
+            "class:io.sentry.Sentry"
+          ],
+          "actual_network_use_observed": false,
+          "network_use_status": "CANNOT_DETERMINE_STATICALLY"
+        }
+      ],
+      "endpoints_count": 301,
+      "endpoints_by_category": {
+        "first_party": 32,
+        "social_login": 1,
+        "unknown": 266,
+        "update_infrastructure": 2
+      },
+      "declared_permissions_count": 32,
+      "uncertain_permissions_count": 2,
+      "findings_by_category": {
+        "camera": 2,
+        "identifiers": 2,
+        "audio": 1,
+        "clipboard": 2,
+        "location": 2,
+        "reflection": 1,
+        "background_execution": 1,
+        "network": 1,
+        "storage_files": 1,
+        "microphone": 1,
+        "persistence": 1,
+        "crash_reporting": 1,
+        "device_identifiers": 1,
+        "dynamic_code": 1,
+        "advertising": 1,
+        "accessibility": 1
+      },
+      "findings_by_severity": {
+        "high": 3,
+        "informational": 10,
+        "low": 4,
+        "medium": 3
+      },
+      "cross_check": {
+        "overlapping": 9,
+        "new_privacy": 11,
+        "security_only": 23,
+        "strengthened": 9,
+        "incomplete": 3,
+        "discrepancies": 0
+      }
+    },
+    "org.schabi.newpipe_1015_cb84069.apk": {
+      "package_name": "org.schabi.newpipe",
+      "version_name": "0.29.1",
+      "version_code": "1015",
+      "duration_seconds": 146.12,
+      "status": "complete",
+      "findings_count": 13,
+      "unknown_partial_count": 2,
+      "sdk_indicators_count": 1,
+      "detected_sdks": [
+        {
+          "id": "ad.google.admob",
+          "name": "Google AdMob / Google Mobile Ads",
+          "category": "advertising",
+          "confidence": "medium",
+          "evidence_locations": [
+            "domain:googleads.g.doubleclick.net"
+          ],
+          "actual_network_use_observed": false,
+          "network_use_status": "STATICALLY_REFERENCED_ENDPOINT"
+        }
+      ],
+      "endpoints_count": 246,
+      "endpoints_by_category": {
+        "advertising": 1,
+        "first_party": 1,
+        "unknown": 236,
+        "update_infrastructure": 8
+      },
+      "declared_permissions_count": 11,
+      "uncertain_permissions_count": 0,
+      "findings_by_category": {
+        "camera": 1,
+        "identifiers": 1,
+        "clipboard": 2,
+        "location": 2,
+        "reflection": 1,
+        "background_execution": 1,
+        "network": 1,
+        "persistence": 1,
+        "device_identifiers": 1,
+        "dynamic_code": 1,
+        "advertising": 1
+      },
+      "findings_by_severity": {
+        "high": 2,
+        "informational": 6,
+        "low": 4,
+        "medium": 1
+      },
+      "cross_check": {
+        "overlapping": 3,
+        "new_privacy": 10,
+        "security_only": 13,
+        "strengthened": 3,
+        "incomplete": 2,
+        "discrepancies": 0
+      }
+    }
+  },
+  "totals": {
+    "findings_count": 105,
+    "sdk_indicators_count": 3,
+    "domain_classifications_count": 1063,
+    "unknown_partial_count": 18,
+    "findings_by_category": {
+      "network": 5,
+      "reflection": 8,
+      "persistence": 7,
+      "identifiers": 8,
+      "clipboard": 14,
+      "location": 14,
+      "background_execution": 7,
+      "device_identifiers": 7,
+      "dynamic_code": 7,
+      "camera": 10,
+      "contacts": 3,
+      "audio": 2,
+      "microphone": 2,
+      "storage_files": 4,
+      "accessibility": 4,
+      "crash_reporting": 1,
+      "advertising": 2
+    },
+    "findings_by_severity": {
+      "informational": 53,
+      "high": 17,
+      "low": 24,
+      "medium": 11
+    },
+    "sdk_by_category": {
+      "advertising": 2,
+      "crash_reporting": 1
+    },
+    "endpoints_by_category": {
+      "unknown": 9,
+      "update_infrastructure": 7,
+      "first_party": 2,
+      "social_login": 1,
+      "advertising": 1
+    }
+  },
+  "total_duration_seconds": 868.29
+}

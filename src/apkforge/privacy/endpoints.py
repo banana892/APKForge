@@ -53,13 +53,24 @@ class EndpointAnalyzer:
                 continue
 
             is_first_party = self._is_domain_first_party(dom, first_party_candidates)
+            raw_ev = dom
+            is_ip = False
+            parts_ip = dom.split(".")
+            if len(parts_ip) == 4 and all(p.isdigit() and 0 <= int(p) <= 255 for p in parts_ip):
+                is_ip = True
+
             if is_first_party:
                 category = EndpointCategory.FIRST_PARTY
                 purpose = "Application first-party service endpoint"
                 sdk_name = None
                 first_party_domains.add(dom)
             else:
-                category, purpose, sdk_name = self._engine.classify_domain(dom)
+                cat_class, class_purpose, sdk_name = self._engine.classify_domain(dom)
+                category = cat_class
+                purpose = class_purpose or "Third-party endpoint"
+                if category == EndpointCategory.UNKNOWN and is_ip:
+                    category = EndpointCategory.POTENTIALLY_SENSITIVE
+                    purpose = "Direct raw IP address endpoint"
                 third_party_domains.add(dom)
 
             by_category.setdefault(category.value, set()).add(dom)
@@ -83,6 +94,12 @@ class EndpointAnalyzer:
                     is_first_party=is_first_party,
                     provenance=["network:extracted_domain"],
                     evidence=evidence_items,
+                    raw_evidence=raw_ev,
+                    transmission_verified=False,
+                    disclaimer=(
+                        "Presence of domain or URL in static binary does not prove "
+                        "data is transmitted to this endpoint."
+                    ),
                 )
             )
 
@@ -102,7 +119,16 @@ class EndpointAnalyzer:
                     sdk_name = None
                     first_party_domains.add(dom)
                 else:
-                    category, purpose, sdk_name = self._engine.classify_domain(dom)
+                    cat_class, class_purpose, sdk_name = self._engine.classify_domain(dom)
+                    category = cat_class
+                    purpose = class_purpose or "Third-party endpoint"
+                    if category == EndpointCategory.UNKNOWN:
+                        lower_url = url_str.lower()
+                        if lower_url.startswith("http://") and any(
+                            s in lower_url for s in ("/auth", "/login", "/token", "/password")
+                        ):
+                            category = EndpointCategory.POTENTIALLY_SENSITIVE
+                            purpose = "Unencrypted HTTP endpoint with authentication path"
                     if dom:
                         third_party_domains.add(dom)
 
@@ -140,6 +166,12 @@ class EndpointAnalyzer:
                                 snippet=f"Extracted URL: {url_str}",
                             )
                         ],
+                        raw_evidence=url_str,
+                        transmission_verified=False,
+                        disclaimer=(
+                            "Presence of domain or URL in static binary does not prove "
+                            "data is transmitted to this endpoint."
+                        ),
                     )
                 )
 

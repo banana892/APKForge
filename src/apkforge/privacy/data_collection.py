@@ -6,9 +6,11 @@ from typing import TYPE_CHECKING
 
 from apkforge.core.models import Confidence, Evidence, Severity
 from apkforge.privacy.models import (
+    AnalysisCompleteness,
     DataCapabilityAssessment,
     DataCapabilityType,
     DataCollectionResult,
+    EvidenceState,
     PrivacyFinding,
 )
 
@@ -182,6 +184,19 @@ class DataCollectionAnalyzer:
                     ),
                     severity=Severity.MEDIUM,
                     confidence=Confidence.HIGH if (loc_perms and loc_apis) else Confidence.MEDIUM,
+                    evidence_state=(
+                        EvidenceState.OBSERVED
+                        if (loc_perms and loc_apis)
+                        else EvidenceState.PARTIAL
+                    ),
+                    evidence_locations=[e.location for e in loc_evidence if e.location],
+                    evidence_values=[e.snippet for e in loc_evidence if e.snippet],
+                    related_permissions=loc_perms,
+                    analysis_completeness=AnalysisCompleteness.COMPLETE,
+                    remediation_relevance=(
+                        "Ensure location access is transparent and justified by application "
+                        "features."
+                    ),
                     evidence=loc_evidence,
                     limitations=["Static analysis cannot establish runtime location collection."],
                 )
@@ -237,6 +252,18 @@ class DataCollectionAnalyzer:
                     ),
                     severity=Severity.HIGH,
                     confidence=Confidence.HIGH if (mic_perms and mic_apis) else Confidence.MEDIUM,
+                    evidence_state=(
+                        EvidenceState.OBSERVED
+                        if (mic_perms and mic_apis)
+                        else EvidenceState.PARTIAL
+                    ),
+                    evidence_locations=[e.location for e in mic_ev if e.location],
+                    evidence_values=[e.snippet for e in mic_ev if e.snippet],
+                    related_permissions=mic_perms,
+                    analysis_completeness=AnalysisCompleteness.COMPLETE,
+                    remediation_relevance=(
+                        "Verify microphone recording prompts the user explicitly before capture."
+                    ),
                     evidence=mic_ev,
                     limitations=["Static analysis cannot prove runtime microphone activation."],
                 )
@@ -275,6 +302,33 @@ class DataCollectionAnalyzer:
                     limitations=["Static analysis cannot prove runtime camera usage."],
                 )
             )
+            findings.append(
+                PrivacyFinding(
+                    id="PRIV-CAP-CAMERA",
+                    category="camera",
+                    title="Camera Capture Capability Detected",
+                    description=(
+                        "Application requests camera permission and references camera capture APIs."
+                    ),
+                    severity=Severity.HIGH,
+                    confidence=Confidence.HIGH if (cam_perms and cam_apis) else Confidence.MEDIUM,
+                    evidence_state=(
+                        EvidenceState.OBSERVED
+                        if (cam_perms and cam_apis)
+                        else EvidenceState.PARTIAL
+                    ),
+                    evidence_locations=[e.location for e in cam_ev if e.location],
+                    evidence_values=[e.snippet for e in cam_ev if e.snippet],
+                    related_permissions=cam_perms,
+                    analysis_completeness=AnalysisCompleteness.COMPLETE,
+                    remediation_relevance=(
+                        "Verify camera hardware access is necessary and accompanied by "
+                        "runtime prompts."
+                    ),
+                    evidence=cam_ev,
+                    limitations=["Static analysis cannot prove runtime camera usage."],
+                )
+            )
 
         # Capability: Contacts
         contacts_perms = [p for p in index.permissions if "CONTACTS" in p]
@@ -305,6 +359,35 @@ class DataCollectionAnalyzer:
                     associated_endpoints=[],
                     components=[],
                     assessment="The APK declares contact list access capabilities.",
+                    evidence=cont_ev,
+                    limitations=["Static analysis cannot establish runtime contacts extraction."],
+                )
+            )
+            findings.append(
+                PrivacyFinding(
+                    id="PRIV-CAP-CONTACTS",
+                    category="contacts",
+                    title="Contacts Access Capability Detected",
+                    description=(
+                        "Application requests contacts permission and references "
+                        "ContactsContract APIs."
+                    ),
+                    severity=Severity.HIGH,
+                    confidence=Confidence.HIGH
+                    if (contacts_perms and contacts_apis)
+                    else Confidence.MEDIUM,
+                    evidence_state=(
+                        EvidenceState.OBSERVED
+                        if (contacts_perms and contacts_apis)
+                        else EvidenceState.PARTIAL
+                    ),
+                    evidence_locations=[e.location for e in cont_ev if e.location],
+                    evidence_values=[e.snippet for e in cont_ev if e.snippet],
+                    related_permissions=contacts_perms,
+                    analysis_completeness=AnalysisCompleteness.COMPLETE,
+                    remediation_relevance=(
+                        "Review if address book access aligns with declared privacy policy."
+                    ),
                     evidence=cont_ev,
                     limitations=["Static analysis cannot establish runtime contacts extraction."],
                 )
@@ -352,6 +435,15 @@ class DataCollectionAnalyzer:
                     confidence=(
                         Confidence.CONFIRMED if len(device_ids_found) >= 2 else Confidence.HIGH
                     ),
+                    evidence_state=EvidenceState.OBSERVED,
+                    evidence_locations=[e.location for e in id_ev if e.location],
+                    evidence_values=sorted(device_ids_found),
+                    related_permissions=[p for p in index.permissions if "PHONE_STATE" in p],
+                    analysis_completeness=AnalysisCompleteness.COMPLETE,
+                    remediation_relevance=(
+                        "Assess compliance with modern Android platform guidelines; "
+                        "prefer resettable identifiers."
+                    ),
                     evidence=id_ev,
                     limitations=[
                         "Static method reference does not establish that the identifier is sent "
@@ -397,6 +489,13 @@ class DataCollectionAnalyzer:
                     ),
                     severity=Severity.MEDIUM,
                     confidence=Confidence.HIGH,
+                    evidence_state=EvidenceState.OBSERVED,
+                    evidence_locations=[e.location for e in ad_ev if e.location],
+                    evidence_values=["AdvertisingIdClient"],
+                    analysis_completeness=AnalysisCompleteness.COMPLETE,
+                    remediation_relevance=(
+                        "Ensure advertising ID collection complies with user ad-tracking choices."
+                    ),
                     evidence=ad_ev,
                     limitations=["Static analysis cannot prove runtime AAID extraction."],
                 )
@@ -435,6 +534,14 @@ class DataCollectionAnalyzer:
                     description="Application references android.content.ClipboardManager API.",
                     severity=Severity.LOW,
                     confidence=Confidence.MEDIUM,
+                    evidence_state=EvidenceState.OBSERVED,
+                    evidence_locations=[e.location for e in clip_ev if e.location],
+                    evidence_values=["ClipboardManager"],
+                    analysis_completeness=AnalysisCompleteness.COMPLETE,
+                    remediation_relevance=(
+                        "Verify clipboard reads access user data only upon direct "
+                        "user paste interaction."
+                    ),
                     evidence=clip_ev,
                     limitations=["Static reference does not prove unprompted clipboard reading."],
                 )
@@ -475,6 +582,15 @@ class DataCollectionAnalyzer:
                     ),
                     severity=Severity.MEDIUM,
                     confidence=Confidence.CONFIRMED,
+                    evidence_state=EvidenceState.OBSERVED,
+                    evidence_locations=[e.location for e in acc_ev if e.location],
+                    evidence_values=["AccessibilityService"],
+                    related_permissions=["android.permission.BIND_ACCESSIBILITY_SERVICE"],
+                    analysis_completeness=AnalysisCompleteness.COMPLETE,
+                    remediation_relevance=(
+                        "Accessibility services require explicit user opt-in in Android "
+                        "system settings."
+                    ),
                     evidence=acc_ev,
                     limitations=["Requires explicit user opt-in in Android system settings."],
                 )

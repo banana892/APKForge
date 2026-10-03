@@ -1,0 +1,4100 @@
+{
+  "status": "complete",
+  "package_name": "com.emanuelef.remote_capture",
+  "version_name": "2.0.2",
+  "version_code": "95",
+  "permissions": {
+    "declared_permissions": [
+      "android.permission.ACCESS_LOCAL_NETWORK",
+      "android.permission.ACCESS_NETWORK_STATE",
+      "android.permission.ACCESS_WIFI_STATE",
+      "android.permission.FOREGROUND_SERVICE",
+      "android.permission.FOREGROUND_SERVICE_SPECIAL_USE",
+      "android.permission.INTERACT_ACROSS_USERS",
+      "android.permission.INTERNET",
+      "android.permission.POST_NOTIFICATIONS",
+      "android.permission.READ_EXTERNAL_STORAGE",
+      "android.permission.RECEIVE_BOOT_COMPLETED",
+      "android.permission.WRITE_CLIPS",
+      "android.permission.WRITE_EXTERNAL_STORAGE",
+      "com.emanuelef.remote_capture.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+    ],
+    "categorized_permissions": {
+      "network": [
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.ACCESS_WIFI_STATE",
+        "android.permission.INTERNET"
+      ],
+      "notifications": [
+        "android.permission.POST_NOTIFICATIONS"
+      ],
+      "other": [
+        "android.permission.ACCESS_LOCAL_NETWORK",
+        "android.permission.FOREGROUND_SERVICE_SPECIAL_USE",
+        "android.permission.INTERACT_ACROSS_USERS",
+        "android.permission.WRITE_CLIPS",
+        "com.emanuelef.remote_capture.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+      ],
+      "storage_files": [
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
+      ],
+      "system_special": [
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.RECEIVE_BOOT_COMPLETED"
+      ]
+    },
+    "usage_details": [
+      {
+        "permission": "android.permission.ACCESS_LOCAL_NETWORK",
+        "category": "other",
+        "protection_level": "unknown",
+        "usage_status": "unknown",
+        "relevance": "unknown",
+        "description": "Other capability permission (unknown)",
+        "related_apis": [],
+        "classes": [],
+        "methods": [],
+        "evidence": [],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      },
+      {
+        "permission": "android.permission.ACCESS_NETWORK_STATE",
+        "category": "network",
+        "protection_level": "normal",
+        "usage_status": "unknown",
+        "relevance": "unknown",
+        "description": "Network capability permission (normal)",
+        "related_apis": [],
+        "classes": [],
+        "methods": [],
+        "evidence": [],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      },
+      {
+        "permission": "android.permission.ACCESS_WIFI_STATE",
+        "category": "network",
+        "protection_level": "normal",
+        "usage_status": "unknown",
+        "relevance": "unknown",
+        "description": "Network capability permission (normal)",
+        "related_apis": [],
+        "classes": [],
+        "methods": [],
+        "evidence": [],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      },
+      {
+        "permission": "android.permission.FOREGROUND_SERVICE",
+        "category": "system_special",
+        "protection_level": "normal",
+        "usage_status": "unknown",
+        "relevance": "unknown",
+        "description": "System_special capability permission (normal)",
+        "related_apis": [],
+        "classes": [],
+        "methods": [],
+        "evidence": [],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      },
+      {
+        "permission": "android.permission.FOREGROUND_SERVICE_SPECIAL_USE",
+        "category": "other",
+        "protection_level": "unknown",
+        "usage_status": "unknown",
+        "relevance": "unknown",
+        "description": "Other capability permission (unknown)",
+        "related_apis": [],
+        "classes": [],
+        "methods": [],
+        "evidence": [],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      },
+      {
+        "permission": "android.permission.INTERACT_ACROSS_USERS",
+        "category": "other",
+        "protection_level": "unknown",
+        "usage_status": "unknown",
+        "relevance": "unknown",
+        "description": "Other capability permission (unknown)",
+        "related_apis": [],
+        "classes": [],
+        "methods": [],
+        "evidence": [],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      },
+      {
+        "permission": "android.permission.INTERNET",
+        "category": "network",
+        "protection_level": "normal",
+        "usage_status": "unknown",
+        "relevance": "unknown",
+        "description": "Network capability permission (normal)",
+        "related_apis": [],
+        "classes": [],
+        "methods": [],
+        "evidence": [],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      },
+      {
+        "permission": "android.permission.POST_NOTIFICATIONS",
+        "category": "notifications",
+        "protection_level": "dangerous",
+        "usage_status": "declared_and_referenced",
+        "relevance": "likely_required",
+        "description": "Notifications capability permission (dangerous)",
+        "related_apis": [
+          "android.app.NotificationManager"
+        ],
+        "classes": [],
+        "methods": [],
+        "evidence": [
+          {
+            "description": "Referenced API related to android.permission.POST_NOTIFICATIONS: android.app.NotificationManager",
+            "location": "api:android.app.NotificationManager",
+            "snippet": "Referenced API related to android.permission.POST_NOTIFICATIONS: android.app.NotificationManager",
+            "references": []
+          }
+        ],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      },
+      {
+        "permission": "android.permission.READ_EXTERNAL_STORAGE",
+        "category": "storage_files",
+        "protection_level": "dangerous",
+        "usage_status": "declared_and_referenced",
+        "relevance": "likely_required",
+        "description": "Storage_files capability permission (dangerous)",
+        "related_apis": [
+          "java.io.File"
+        ],
+        "classes": [],
+        "methods": [],
+        "evidence": [
+          {
+            "description": "Referenced API related to android.permission.READ_EXTERNAL_STORAGE: java.io.File",
+            "location": "api:java.io.File",
+            "snippet": "Referenced API related to android.permission.READ_EXTERNAL_STORAGE: java.io.File",
+            "references": []
+          }
+        ],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      },
+      {
+        "permission": "android.permission.RECEIVE_BOOT_COMPLETED",
+        "category": "system_special",
+        "protection_level": "normal",
+        "usage_status": "declared_with_strong_code_correlation",
+        "relevance": "likely_required",
+        "description": "System_special capability permission (normal)",
+        "related_apis": [
+          "android.content.BroadcastReceiver"
+        ],
+        "classes": [
+          "com.emanuelef.remote_capture.BootReceiver"
+        ],
+        "methods": [],
+        "evidence": [
+          {
+            "description": "Referenced API related to android.permission.RECEIVE_BOOT_COMPLETED: android.content.BroadcastReceiver",
+            "location": "api:android.content.BroadcastReceiver",
+            "snippet": "Referenced API related to android.permission.RECEIVE_BOOT_COMPLETED: android.content.BroadcastReceiver",
+            "references": []
+          },
+          {
+            "description": "Manifest receiver com.emanuelef.remote_capture.BootReceiver configured for boot persistence",
+            "location": "receiver:com.emanuelef.remote_capture.BootReceiver",
+            "snippet": "receiver:com.emanuelef.remote_capture.BootReceiver",
+            "references": []
+          }
+        ],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      },
+      {
+        "permission": "android.permission.WRITE_CLIPS",
+        "category": "other",
+        "protection_level": "unknown",
+        "usage_status": "unknown",
+        "relevance": "unknown",
+        "description": "Other capability permission (unknown)",
+        "related_apis": [],
+        "classes": [],
+        "methods": [],
+        "evidence": [],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      },
+      {
+        "permission": "android.permission.WRITE_EXTERNAL_STORAGE",
+        "category": "storage_files",
+        "protection_level": "dangerous",
+        "usage_status": "declared_and_referenced",
+        "relevance": "likely_required",
+        "description": "Storage_files capability permission (dangerous)",
+        "related_apis": [
+          "java.io.File"
+        ],
+        "classes": [],
+        "methods": [],
+        "evidence": [
+          {
+            "description": "Referenced API related to android.permission.WRITE_EXTERNAL_STORAGE: java.io.File",
+            "location": "api:java.io.File",
+            "snippet": "Referenced API related to android.permission.WRITE_EXTERNAL_STORAGE: java.io.File",
+            "references": []
+          }
+        ],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      },
+      {
+        "permission": "com.emanuelef.remote_capture.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+        "category": "other",
+        "protection_level": "unknown",
+        "usage_status": "unknown",
+        "relevance": "unknown",
+        "description": "Other capability permission (unknown)",
+        "related_apis": [],
+        "classes": [],
+        "methods": [],
+        "evidence": [],
+        "limitations": [
+          "Static analysis cannot establish that permission-protected capabilities are exercised at runtime."
+        ]
+      }
+    ],
+    "high_risk_permissions_count": 3
+  },
+  "trackers": {
+    "detected_trackers": [],
+    "total_trackers": 0
+  },
+  "advertising": {
+    "detected_advertising_sdks": [],
+    "total_advertising_sdks": 0
+  },
+  "analytics": {
+    "detected_analytics_sdks": [],
+    "total_analytics_sdks": 0
+  },
+  "telemetry": {
+    "detected_telemetry_sdks": [],
+    "total_telemetry_sdks": 0
+  },
+  "endpoints": {
+    "total_endpoints": 127,
+    "first_party_domains": [],
+    "third_party_domains": [
+      "adblock.dns.mullvad.net",
+      "addlive.io",
+      "adult-filter-dns.cleanbrowsing.org",
+      "akamaiedge.net",
+      "akamaihd.net",
+      "all.dns.mullvad.net",
+      "amazonaws.com",
+      "android.app",
+      "android.googlesource.com",
+      "android.net",
+      "androidx.appcompat.app",
+      "androidx.core.app",
+      "anycast.dns.nextdns.io",
+      "base.dns.mullvad.net",
+      "bootid.upnp.org",
+      "chrome.cloudflare-dns.com",
+      "chromium.dns.nextdns.io",
+      "com.google.android.tv",
+      "data.rel.ro",
+      "delivery.mp.microsoft.com",
+      "dns-tls.qis.io",
+      "dns.adguard-dns.com",
+      "dns.adguard.com",
+      "dns.cloudflare.com",
+      "dns.dnslify.com",
+      "dns.mullvad.net",
+      "dns.nextdns.io",
+      "dns.opendns.com",
+      "dns.quad9.net",
+      "dns10.quad9.net",
+      "dns11.quad9.net",
+      "doh.cleanbrowsing.org",
+      "doh.familyshield.opendns.com",
+      "doh.libredns.gr",
+      "doh.opendns.com",
+      "doh.qis.io",
+      "doh.sandbox.opendns.com",
+      "dontkillmyapp.com",
+      "dot.libredns.gr",
+      "download.db-ip.com",
+      "download.windowsupdate.com",
+      "dropboxusercontent.com",
+      "emanuele-f.github.io",
+      "etherx.jabber.org",
+      "extended.dns.mullvad.net",
+      "family-filter-dns.cleanbrowsing.org",
+      "family.adguard-dns.com",
+      "family.cloudflare-dns.com",
+      "family.dns.mullvad.net",
+      "familyshield.opendns.com",
+      "firefox.dns.nextdns.io",
+      "freedns.controld.com",
+      "g.whatsapp.net",
+      "github.com",
+      "google.com",
+      "hotmail.it",
+      "http.body.reassembled.in",
+      "im.truphone.com",
+      "internetbadguys.com",
+      "ip.geoip.org",
+      "ip2p.com",
+      "ipv6.geoip.org",
+      "ipv6.reassembled.in",
+      "jabber.org",
+      "kotlin.int",
+      "micloud.xiaomi.net",
+      "microsoft.com",
+      "mozilla.cloudflare-dns.com",
+      "multi.surbl.org",
+      "mx-verification.google.com",
+      "office365.com",
+      "p0.freedns.controld.com",
+      "p1.freedns.controld.com",
+      "p2.freedns.controld.com",
+      "p3.freedns.controld.com",
+      "pcapdroid.org",
+      "rackcdn.com",
+      "raw.githubusercontent.com",
+      "rules.emergingthreats.net",
+      "sandbox.opendns.com",
+      "schemas.android.com",
+      "search.arin.net",
+      "securelocation.upnp.org",
+      "security-filter-dns.cleanbrowsing.org",
+      "security.cloudflare-dns.com",
+      "signal.org",
+      "spamhaus.org",
+      "stripcdn.com",
+      "t.me",
+      "turn.cloudflare.com",
+      "unfiltered.adguard-dns.com",
+      "whispersystems.org",
+      "windows.com",
+      "windowsupdate.com",
+      "wireshark.org",
+      "www.speedtest.net"
+    ],
+    "classified_endpoints": [
+      {
+        "endpoint": "adblock.dns.mullvad.net",
+        "domain": "adblock.dns.mullvad.net",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: adblock.dns.mullvad.net",
+            "location": "domain:adblock.dns.mullvad.net",
+            "snippet": "Extracted domain: adblock.dns.mullvad.net",
+            "references": []
+          }
+        ],
+        "raw_evidence": "adblock.dns.mullvad.net",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "addlive.io",
+        "domain": "addlive.io",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: addlive.io",
+            "location": "domain:addlive.io",
+            "snippet": "Extracted domain: addlive.io",
+            "references": []
+          }
+        ],
+        "raw_evidence": "addlive.io",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "adult-filter-dns.cleanbrowsing.org",
+        "domain": "adult-filter-dns.cleanbrowsing.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: adult-filter-dns.cleanbrowsing.org",
+            "location": "domain:adult-filter-dns.cleanbrowsing.org",
+            "snippet": "Extracted domain: adult-filter-dns.cleanbrowsing.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "adult-filter-dns.cleanbrowsing.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "akamaiedge.net",
+        "domain": "akamaiedge.net",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: akamaiedge.net",
+            "location": "domain:akamaiedge.net",
+            "snippet": "Extracted domain: akamaiedge.net",
+            "references": []
+          }
+        ],
+        "raw_evidence": "akamaiedge.net",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "akamaihd.net",
+        "domain": "akamaihd.net",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: akamaihd.net",
+            "location": "domain:akamaihd.net",
+            "snippet": "Extracted domain: akamaihd.net",
+            "references": []
+          }
+        ],
+        "raw_evidence": "akamaihd.net",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "all.dns.mullvad.net",
+        "domain": "all.dns.mullvad.net",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: all.dns.mullvad.net",
+            "location": "domain:all.dns.mullvad.net",
+            "snippet": "Extracted domain: all.dns.mullvad.net",
+            "references": []
+          }
+        ],
+        "raw_evidence": "all.dns.mullvad.net",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "amazonaws.com",
+        "domain": "amazonaws.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: amazonaws.com",
+            "location": "domain:amazonaws.com",
+            "snippet": "Extracted domain: amazonaws.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "amazonaws.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "android.app",
+        "domain": "android.app",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: android.app",
+            "location": "domain:android.app",
+            "snippet": "Extracted domain: android.app",
+            "references": []
+          }
+        ],
+        "raw_evidence": "android.app",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "android.googlesource.com",
+        "domain": "android.googlesource.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: android.googlesource.com",
+            "location": "domain:android.googlesource.com",
+            "snippet": "Extracted domain: android.googlesource.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "android.googlesource.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "android.net",
+        "domain": "android.net",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: android.net",
+            "location": "domain:android.net",
+            "snippet": "Extracted domain: android.net",
+            "references": []
+          }
+        ],
+        "raw_evidence": "android.net",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "androidx.appcompat.app",
+        "domain": "androidx.appcompat.app",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: androidx.appcompat.app",
+            "location": "domain:androidx.appcompat.app",
+            "snippet": "Extracted domain: androidx.appcompat.app",
+            "references": []
+          }
+        ],
+        "raw_evidence": "androidx.appcompat.app",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "androidx.core.app",
+        "domain": "androidx.core.app",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: androidx.core.app",
+            "location": "domain:androidx.core.app",
+            "snippet": "Extracted domain: androidx.core.app",
+            "references": []
+          }
+        ],
+        "raw_evidence": "androidx.core.app",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "anycast.dns.nextdns.io",
+        "domain": "anycast.dns.nextdns.io",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: anycast.dns.nextdns.io",
+            "location": "domain:anycast.dns.nextdns.io",
+            "snippet": "Extracted domain: anycast.dns.nextdns.io",
+            "references": []
+          }
+        ],
+        "raw_evidence": "anycast.dns.nextdns.io",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "base.dns.mullvad.net",
+        "domain": "base.dns.mullvad.net",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: base.dns.mullvad.net",
+            "location": "domain:base.dns.mullvad.net",
+            "snippet": "Extracted domain: base.dns.mullvad.net",
+            "references": []
+          }
+        ],
+        "raw_evidence": "base.dns.mullvad.net",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "bootid.upnp.org",
+        "domain": "bootid.upnp.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: bootid.upnp.org",
+            "location": "domain:bootid.upnp.org",
+            "snippet": "Extracted domain: bootid.upnp.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "bootid.upnp.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "chrome.cloudflare-dns.com",
+        "domain": "chrome.cloudflare-dns.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: chrome.cloudflare-dns.com",
+            "location": "domain:chrome.cloudflare-dns.com",
+            "snippet": "Extracted domain: chrome.cloudflare-dns.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "chrome.cloudflare-dns.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "chromium.dns.nextdns.io",
+        "domain": "chromium.dns.nextdns.io",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: chromium.dns.nextdns.io",
+            "location": "domain:chromium.dns.nextdns.io",
+            "snippet": "Extracted domain: chromium.dns.nextdns.io",
+            "references": []
+          }
+        ],
+        "raw_evidence": "chromium.dns.nextdns.io",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "com.google.android.tv",
+        "domain": "com.google.android.tv",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: com.google.android.tv",
+            "location": "domain:com.google.android.tv",
+            "snippet": "Extracted domain: com.google.android.tv",
+            "references": []
+          }
+        ],
+        "raw_evidence": "com.google.android.tv",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "data.rel.ro",
+        "domain": "data.rel.ro",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: data.rel.ro",
+            "location": "domain:data.rel.ro",
+            "snippet": "Extracted domain: data.rel.ro",
+            "references": []
+          }
+        ],
+        "raw_evidence": "data.rel.ro",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "delivery.mp.microsoft.com",
+        "domain": "delivery.mp.microsoft.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: delivery.mp.microsoft.com",
+            "location": "domain:delivery.mp.microsoft.com",
+            "snippet": "Extracted domain: delivery.mp.microsoft.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "delivery.mp.microsoft.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "dns-tls.qis.io",
+        "domain": "dns-tls.qis.io",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: dns-tls.qis.io",
+            "location": "domain:dns-tls.qis.io",
+            "snippet": "Extracted domain: dns-tls.qis.io",
+            "references": []
+          }
+        ],
+        "raw_evidence": "dns-tls.qis.io",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "dns.adguard-dns.com",
+        "domain": "dns.adguard-dns.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: dns.adguard-dns.com",
+            "location": "domain:dns.adguard-dns.com",
+            "snippet": "Extracted domain: dns.adguard-dns.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "dns.adguard-dns.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "dns.adguard.com",
+        "domain": "dns.adguard.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: dns.adguard.com",
+            "location": "domain:dns.adguard.com",
+            "snippet": "Extracted domain: dns.adguard.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "dns.adguard.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "dns.cloudflare.com",
+        "domain": "dns.cloudflare.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Cloudflare content delivery and acceleration network.",
+        "associated_sdk": "Cloudflare CDN",
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: dns.cloudflare.com",
+            "location": "domain:dns.cloudflare.com",
+            "snippet": "Extracted domain: dns.cloudflare.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "dns.cloudflare.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "dns.dnslify.com",
+        "domain": "dns.dnslify.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: dns.dnslify.com",
+            "location": "domain:dns.dnslify.com",
+            "snippet": "Extracted domain: dns.dnslify.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "dns.dnslify.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "dns.mullvad.net",
+        "domain": "dns.mullvad.net",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: dns.mullvad.net",
+            "location": "domain:dns.mullvad.net",
+            "snippet": "Extracted domain: dns.mullvad.net",
+            "references": []
+          }
+        ],
+        "raw_evidence": "dns.mullvad.net",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "dns.nextdns.io",
+        "domain": "dns.nextdns.io",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: dns.nextdns.io",
+            "location": "domain:dns.nextdns.io",
+            "snippet": "Extracted domain: dns.nextdns.io",
+            "references": []
+          }
+        ],
+        "raw_evidence": "dns.nextdns.io",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "dns.opendns.com",
+        "domain": "dns.opendns.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: dns.opendns.com",
+            "location": "domain:dns.opendns.com",
+            "snippet": "Extracted domain: dns.opendns.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "dns.opendns.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "dns.quad9.net",
+        "domain": "dns.quad9.net",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: dns.quad9.net",
+            "location": "domain:dns.quad9.net",
+            "snippet": "Extracted domain: dns.quad9.net",
+            "references": []
+          }
+        ],
+        "raw_evidence": "dns.quad9.net",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "dns10.quad9.net",
+        "domain": "dns10.quad9.net",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: dns10.quad9.net",
+            "location": "domain:dns10.quad9.net",
+            "snippet": "Extracted domain: dns10.quad9.net",
+            "references": []
+          }
+        ],
+        "raw_evidence": "dns10.quad9.net",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "dns11.quad9.net",
+        "domain": "dns11.quad9.net",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: dns11.quad9.net",
+            "location": "domain:dns11.quad9.net",
+            "snippet": "Extracted domain: dns11.quad9.net",
+            "references": []
+          }
+        ],
+        "raw_evidence": "dns11.quad9.net",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "doh.cleanbrowsing.org",
+        "domain": "doh.cleanbrowsing.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: doh.cleanbrowsing.org",
+            "location": "domain:doh.cleanbrowsing.org",
+            "snippet": "Extracted domain: doh.cleanbrowsing.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "doh.cleanbrowsing.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "doh.familyshield.opendns.com",
+        "domain": "doh.familyshield.opendns.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: doh.familyshield.opendns.com",
+            "location": "domain:doh.familyshield.opendns.com",
+            "snippet": "Extracted domain: doh.familyshield.opendns.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "doh.familyshield.opendns.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "doh.libredns.gr",
+        "domain": "doh.libredns.gr",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: doh.libredns.gr",
+            "location": "domain:doh.libredns.gr",
+            "snippet": "Extracted domain: doh.libredns.gr",
+            "references": []
+          }
+        ],
+        "raw_evidence": "doh.libredns.gr",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "doh.opendns.com",
+        "domain": "doh.opendns.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: doh.opendns.com",
+            "location": "domain:doh.opendns.com",
+            "snippet": "Extracted domain: doh.opendns.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "doh.opendns.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "doh.qis.io",
+        "domain": "doh.qis.io",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: doh.qis.io",
+            "location": "domain:doh.qis.io",
+            "snippet": "Extracted domain: doh.qis.io",
+            "references": []
+          }
+        ],
+        "raw_evidence": "doh.qis.io",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "doh.sandbox.opendns.com",
+        "domain": "doh.sandbox.opendns.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: doh.sandbox.opendns.com",
+            "location": "domain:doh.sandbox.opendns.com",
+            "snippet": "Extracted domain: doh.sandbox.opendns.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "doh.sandbox.opendns.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "dontkillmyapp.com",
+        "domain": "dontkillmyapp.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: dontkillmyapp.com",
+            "location": "domain:dontkillmyapp.com",
+            "snippet": "Extracted domain: dontkillmyapp.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "dontkillmyapp.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "dot.libredns.gr",
+        "domain": "dot.libredns.gr",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: dot.libredns.gr",
+            "location": "domain:dot.libredns.gr",
+            "snippet": "Extracted domain: dot.libredns.gr",
+            "references": []
+          }
+        ],
+        "raw_evidence": "dot.libredns.gr",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "download.db-ip.com",
+        "domain": "download.db-ip.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: download.db-ip.com",
+            "location": "domain:download.db-ip.com",
+            "snippet": "Extracted domain: download.db-ip.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "download.db-ip.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "download.windowsupdate.com",
+        "domain": "download.windowsupdate.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: download.windowsupdate.com",
+            "location": "domain:download.windowsupdate.com",
+            "snippet": "Extracted domain: download.windowsupdate.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "download.windowsupdate.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "dropboxusercontent.com",
+        "domain": "dropboxusercontent.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: dropboxusercontent.com",
+            "location": "domain:dropboxusercontent.com",
+            "snippet": "Extracted domain: dropboxusercontent.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "dropboxusercontent.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "emanuele-f.github.io",
+        "domain": "emanuele-f.github.io",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: emanuele-f.github.io",
+            "location": "domain:emanuele-f.github.io",
+            "snippet": "Extracted domain: emanuele-f.github.io",
+            "references": []
+          }
+        ],
+        "raw_evidence": "emanuele-f.github.io",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "etherx.jabber.org",
+        "domain": "etherx.jabber.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: etherx.jabber.org",
+            "location": "domain:etherx.jabber.org",
+            "snippet": "Extracted domain: etherx.jabber.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "etherx.jabber.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "extended.dns.mullvad.net",
+        "domain": "extended.dns.mullvad.net",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: extended.dns.mullvad.net",
+            "location": "domain:extended.dns.mullvad.net",
+            "snippet": "Extracted domain: extended.dns.mullvad.net",
+            "references": []
+          }
+        ],
+        "raw_evidence": "extended.dns.mullvad.net",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "family-filter-dns.cleanbrowsing.org",
+        "domain": "family-filter-dns.cleanbrowsing.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: family-filter-dns.cleanbrowsing.org",
+            "location": "domain:family-filter-dns.cleanbrowsing.org",
+            "snippet": "Extracted domain: family-filter-dns.cleanbrowsing.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "family-filter-dns.cleanbrowsing.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "family.adguard-dns.com",
+        "domain": "family.adguard-dns.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: family.adguard-dns.com",
+            "location": "domain:family.adguard-dns.com",
+            "snippet": "Extracted domain: family.adguard-dns.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "family.adguard-dns.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "family.cloudflare-dns.com",
+        "domain": "family.cloudflare-dns.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: family.cloudflare-dns.com",
+            "location": "domain:family.cloudflare-dns.com",
+            "snippet": "Extracted domain: family.cloudflare-dns.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "family.cloudflare-dns.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "family.dns.mullvad.net",
+        "domain": "family.dns.mullvad.net",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: family.dns.mullvad.net",
+            "location": "domain:family.dns.mullvad.net",
+            "snippet": "Extracted domain: family.dns.mullvad.net",
+            "references": []
+          }
+        ],
+        "raw_evidence": "family.dns.mullvad.net",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "familyshield.opendns.com",
+        "domain": "familyshield.opendns.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: familyshield.opendns.com",
+            "location": "domain:familyshield.opendns.com",
+            "snippet": "Extracted domain: familyshield.opendns.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "familyshield.opendns.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "firefox.dns.nextdns.io",
+        "domain": "firefox.dns.nextdns.io",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: firefox.dns.nextdns.io",
+            "location": "domain:firefox.dns.nextdns.io",
+            "snippet": "Extracted domain: firefox.dns.nextdns.io",
+            "references": []
+          }
+        ],
+        "raw_evidence": "firefox.dns.nextdns.io",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "freedns.controld.com",
+        "domain": "freedns.controld.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: freedns.controld.com",
+            "location": "domain:freedns.controld.com",
+            "snippet": "Extracted domain: freedns.controld.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "freedns.controld.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "g.whatsapp.net",
+        "domain": "g.whatsapp.net",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: g.whatsapp.net",
+            "location": "domain:g.whatsapp.net",
+            "snippet": "Extracted domain: g.whatsapp.net",
+            "references": []
+          }
+        ],
+        "raw_evidence": "g.whatsapp.net",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "github.com",
+        "domain": "github.com",
+        "is_url": false,
+        "category": "update_infrastructure",
+        "purpose": "GitHub source hosting, releases, and distribution infrastructure.",
+        "associated_sdk": "GitHub Infrastructure",
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: github.com",
+            "location": "domain:github.com",
+            "snippet": "Extracted domain: github.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "github.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "google.com",
+        "domain": "google.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: google.com",
+            "location": "domain:google.com",
+            "snippet": "Extracted domain: google.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "google.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "hotmail.it",
+        "domain": "hotmail.it",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: hotmail.it",
+            "location": "domain:hotmail.it",
+            "snippet": "Extracted domain: hotmail.it",
+            "references": []
+          }
+        ],
+        "raw_evidence": "hotmail.it",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http.body.reassembled.in",
+        "domain": "http.body.reassembled.in",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: http.body.reassembled.in",
+            "location": "domain:http.body.reassembled.in",
+            "snippet": "Extracted domain: http.body.reassembled.in",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http.body.reassembled.in",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "im.truphone.com",
+        "domain": "im.truphone.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: im.truphone.com",
+            "location": "domain:im.truphone.com",
+            "snippet": "Extracted domain: im.truphone.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "im.truphone.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "internetbadguys.com",
+        "domain": "internetbadguys.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: internetbadguys.com",
+            "location": "domain:internetbadguys.com",
+            "snippet": "Extracted domain: internetbadguys.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "internetbadguys.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "ip.geoip.org",
+        "domain": "ip.geoip.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: ip.geoip.org",
+            "location": "domain:ip.geoip.org",
+            "snippet": "Extracted domain: ip.geoip.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "ip.geoip.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "ip2p.com",
+        "domain": "ip2p.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: ip2p.com",
+            "location": "domain:ip2p.com",
+            "snippet": "Extracted domain: ip2p.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "ip2p.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "ipv6.geoip.org",
+        "domain": "ipv6.geoip.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: ipv6.geoip.org",
+            "location": "domain:ipv6.geoip.org",
+            "snippet": "Extracted domain: ipv6.geoip.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "ipv6.geoip.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "ipv6.reassembled.in",
+        "domain": "ipv6.reassembled.in",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: ipv6.reassembled.in",
+            "location": "domain:ipv6.reassembled.in",
+            "snippet": "Extracted domain: ipv6.reassembled.in",
+            "references": []
+          }
+        ],
+        "raw_evidence": "ipv6.reassembled.in",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "jabber.org",
+        "domain": "jabber.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: jabber.org",
+            "location": "domain:jabber.org",
+            "snippet": "Extracted domain: jabber.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "jabber.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "kotlin.int",
+        "domain": "kotlin.int",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: kotlin.int",
+            "location": "domain:kotlin.int",
+            "snippet": "Extracted domain: kotlin.int",
+            "references": []
+          }
+        ],
+        "raw_evidence": "kotlin.int",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "micloud.xiaomi.net",
+        "domain": "micloud.xiaomi.net",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: micloud.xiaomi.net",
+            "location": "domain:micloud.xiaomi.net",
+            "snippet": "Extracted domain: micloud.xiaomi.net",
+            "references": []
+          }
+        ],
+        "raw_evidence": "micloud.xiaomi.net",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "microsoft.com",
+        "domain": "microsoft.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: microsoft.com",
+            "location": "domain:microsoft.com",
+            "snippet": "Extracted domain: microsoft.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "microsoft.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "mozilla.cloudflare-dns.com",
+        "domain": "mozilla.cloudflare-dns.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: mozilla.cloudflare-dns.com",
+            "location": "domain:mozilla.cloudflare-dns.com",
+            "snippet": "Extracted domain: mozilla.cloudflare-dns.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "mozilla.cloudflare-dns.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "multi.surbl.org",
+        "domain": "multi.surbl.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: multi.surbl.org",
+            "location": "domain:multi.surbl.org",
+            "snippet": "Extracted domain: multi.surbl.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "multi.surbl.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "mx-verification.google.com",
+        "domain": "mx-verification.google.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: mx-verification.google.com",
+            "location": "domain:mx-verification.google.com",
+            "snippet": "Extracted domain: mx-verification.google.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "mx-verification.google.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "office365.com",
+        "domain": "office365.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: office365.com",
+            "location": "domain:office365.com",
+            "snippet": "Extracted domain: office365.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "office365.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "p0.freedns.controld.com",
+        "domain": "p0.freedns.controld.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: p0.freedns.controld.com",
+            "location": "domain:p0.freedns.controld.com",
+            "snippet": "Extracted domain: p0.freedns.controld.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "p0.freedns.controld.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "p1.freedns.controld.com",
+        "domain": "p1.freedns.controld.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: p1.freedns.controld.com",
+            "location": "domain:p1.freedns.controld.com",
+            "snippet": "Extracted domain: p1.freedns.controld.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "p1.freedns.controld.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "p2.freedns.controld.com",
+        "domain": "p2.freedns.controld.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: p2.freedns.controld.com",
+            "location": "domain:p2.freedns.controld.com",
+            "snippet": "Extracted domain: p2.freedns.controld.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "p2.freedns.controld.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "p3.freedns.controld.com",
+        "domain": "p3.freedns.controld.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: p3.freedns.controld.com",
+            "location": "domain:p3.freedns.controld.com",
+            "snippet": "Extracted domain: p3.freedns.controld.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "p3.freedns.controld.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "pcapdroid.org",
+        "domain": "pcapdroid.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: pcapdroid.org",
+            "location": "domain:pcapdroid.org",
+            "snippet": "Extracted domain: pcapdroid.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "pcapdroid.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "rackcdn.com",
+        "domain": "rackcdn.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: rackcdn.com",
+            "location": "domain:rackcdn.com",
+            "snippet": "Extracted domain: rackcdn.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "rackcdn.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "raw.githubusercontent.com",
+        "domain": "raw.githubusercontent.com",
+        "is_url": false,
+        "category": "update_infrastructure",
+        "purpose": "GitHub source hosting, releases, and distribution infrastructure.",
+        "associated_sdk": "GitHub Infrastructure",
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: raw.githubusercontent.com",
+            "location": "domain:raw.githubusercontent.com",
+            "snippet": "Extracted domain: raw.githubusercontent.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "raw.githubusercontent.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "rules.emergingthreats.net",
+        "domain": "rules.emergingthreats.net",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: rules.emergingthreats.net",
+            "location": "domain:rules.emergingthreats.net",
+            "snippet": "Extracted domain: rules.emergingthreats.net",
+            "references": []
+          }
+        ],
+        "raw_evidence": "rules.emergingthreats.net",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "sandbox.opendns.com",
+        "domain": "sandbox.opendns.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: sandbox.opendns.com",
+            "location": "domain:sandbox.opendns.com",
+            "snippet": "Extracted domain: sandbox.opendns.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "sandbox.opendns.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "search.arin.net",
+        "domain": "search.arin.net",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: search.arin.net",
+            "location": "domain:search.arin.net",
+            "snippet": "Extracted domain: search.arin.net",
+            "references": []
+          }
+        ],
+        "raw_evidence": "search.arin.net",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "securelocation.upnp.org",
+        "domain": "securelocation.upnp.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: securelocation.upnp.org",
+            "location": "domain:securelocation.upnp.org",
+            "snippet": "Extracted domain: securelocation.upnp.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "securelocation.upnp.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "security-filter-dns.cleanbrowsing.org",
+        "domain": "security-filter-dns.cleanbrowsing.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: security-filter-dns.cleanbrowsing.org",
+            "location": "domain:security-filter-dns.cleanbrowsing.org",
+            "snippet": "Extracted domain: security-filter-dns.cleanbrowsing.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "security-filter-dns.cleanbrowsing.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "security.cloudflare-dns.com",
+        "domain": "security.cloudflare-dns.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: security.cloudflare-dns.com",
+            "location": "domain:security.cloudflare-dns.com",
+            "snippet": "Extracted domain: security.cloudflare-dns.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "security.cloudflare-dns.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "signal.org",
+        "domain": "signal.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: signal.org",
+            "location": "domain:signal.org",
+            "snippet": "Extracted domain: signal.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "signal.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "spamhaus.org",
+        "domain": "spamhaus.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: spamhaus.org",
+            "location": "domain:spamhaus.org",
+            "snippet": "Extracted domain: spamhaus.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "spamhaus.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "stripcdn.com",
+        "domain": "stripcdn.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: stripcdn.com",
+            "location": "domain:stripcdn.com",
+            "snippet": "Extracted domain: stripcdn.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "stripcdn.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "t.me",
+        "domain": "t.me",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: t.me",
+            "location": "domain:t.me",
+            "snippet": "Extracted domain: t.me",
+            "references": []
+          }
+        ],
+        "raw_evidence": "t.me",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "turn.cloudflare.com",
+        "domain": "turn.cloudflare.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Cloudflare content delivery and acceleration network.",
+        "associated_sdk": "Cloudflare CDN",
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: turn.cloudflare.com",
+            "location": "domain:turn.cloudflare.com",
+            "snippet": "Extracted domain: turn.cloudflare.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "turn.cloudflare.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "unfiltered.adguard-dns.com",
+        "domain": "unfiltered.adguard-dns.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: unfiltered.adguard-dns.com",
+            "location": "domain:unfiltered.adguard-dns.com",
+            "snippet": "Extracted domain: unfiltered.adguard-dns.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "unfiltered.adguard-dns.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "whispersystems.org",
+        "domain": "whispersystems.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: whispersystems.org",
+            "location": "domain:whispersystems.org",
+            "snippet": "Extracted domain: whispersystems.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "whispersystems.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "windows.com",
+        "domain": "windows.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: windows.com",
+            "location": "domain:windows.com",
+            "snippet": "Extracted domain: windows.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "windows.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "windowsupdate.com",
+        "domain": "windowsupdate.com",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: windowsupdate.com",
+            "location": "domain:windowsupdate.com",
+            "snippet": "Extracted domain: windowsupdate.com",
+            "references": []
+          }
+        ],
+        "raw_evidence": "windowsupdate.com",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "wireshark.org",
+        "domain": "wireshark.org",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: wireshark.org",
+            "location": "domain:wireshark.org",
+            "snippet": "Extracted domain: wireshark.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "wireshark.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "www.speedtest.net",
+        "domain": "www.speedtest.net",
+        "is_url": false,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "network:extracted_domain"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted domain: www.speedtest.net",
+            "location": "domain:www.speedtest.net",
+            "snippet": "Extracted domain: www.speedtest.net",
+            "references": []
+          }
+        ],
+        "raw_evidence": "www.speedtest.net",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://etherx.jabber.org/streams",
+        "domain": "etherx.jabber.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "lib/arm64-v8a/libndpi.so"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://etherx.jabber.org/streams",
+            "location": "lib/arm64-v8a/libndpi.so",
+            "snippet": "Extracted URL: http://etherx.jabber.org/streams",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://etherx.jabber.org/streams",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://jabber.org/protocol/",
+        "domain": "jabber.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "lib/arm64-v8a/libndpi.so"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://jabber.org/protocol/",
+            "location": "lib/arm64-v8a/libndpi.so",
+            "snippet": "Extracted URL: http://jabber.org/protocol/",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://jabber.org/protocol/",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://jabber.org/protocol/commands",
+        "domain": "jabber.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "lib/arm64-v8a/libndpi.so"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://jabber.org/protocol/commands",
+            "location": "lib/arm64-v8a/libndpi.so",
+            "snippet": "Extracted URL: http://jabber.org/protocol/commands",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://jabber.org/protocol/commands",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://schemas.android.com/apk/res-auto",
+        "domain": "schemas.android.com",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://schemas.android.com/apk/res-auto",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: http://schemas.android.com/apk/res-auto",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://schemas.android.com/apk/res-auto",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://schemas.android.com/apk/res/android",
+        "domain": "schemas.android.com",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://schemas.android.com/apk/res/android",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: http://schemas.android.com/apk/res/android",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://schemas.android.com/apk/res/android",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "http://t.me/PCAPdroid",
+        "domain": "t.me",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: http://t.me/PCAPdroid",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: http://t.me/PCAPdroid",
+            "references": []
+          }
+        ],
+        "raw_evidence": "http://t.me/PCAPdroid",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://android.googlesource.com/toolchain/llvm-project",
+        "domain": "android.googlesource.com",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "lib/arm64-v8a/libcapture.so"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://android.googlesource.com/toolchain/llvm-project",
+            "location": "lib/arm64-v8a/libcapture.so",
+            "snippet": "Extracted URL: https://android.googlesource.com/toolchain/llvm-project",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://android.googlesource.com/toolchain/llvm-project",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://dontkillmyapp.com/xiaomi#app-battery-saver",
+        "domain": "dontkillmyapp.com",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://dontkillmyapp.com/xiaomi#app-battery-saver",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://dontkillmyapp.com/xiaomi#app-battery-saver",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://dontkillmyapp.com/xiaomi#app-battery-saver",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://download.db-ip.com/free/dbip-asn-lite-",
+        "domain": "download.db-ip.com",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://download.db-ip.com/free/dbip-asn-lite-",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://download.db-ip.com/free/dbip-asn-lite-",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://download.db-ip.com/free/dbip-asn-lite-",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://download.db-ip.com/free/dbip-country-lite-",
+        "domain": "download.db-ip.com",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://download.db-ip.com/free/dbip-country-lite-",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://download.db-ip.com/free/dbip-country-lite-",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://download.db-ip.com/free/dbip-country-lite-",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://emanuele-f.github.io/PCAPdroid",
+        "domain": "emanuele-f.github.io",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://emanuele-f.github.io/PCAPdroid",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://emanuele-f.github.io/PCAPdroid",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://emanuele-f.github.io/PCAPdroid",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://emanuele-f.github.io/PCAPdroid/advanced_features#45-pcapdroid-extensions",
+        "domain": "emanuele-f.github.io",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://emanuele-f.github.io/PCAPdroid/advanced_features#45-pcapdroid-extensions",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://emanuele-f.github.io/PCAPdroid/advanced_features#45-pcapdroid-extensions",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://emanuele-f.github.io/PCAPdroid/advanced_features#45-pcapdroid-extensions",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://emanuele-f.github.io/PCAPdroid/donate",
+        "domain": "emanuele-f.github.io",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://emanuele-f.github.io/PCAPdroid/donate",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://emanuele-f.github.io/PCAPdroid/donate",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://emanuele-f.github.io/PCAPdroid/donate",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://emanuele-f.github.io/PCAPdroid/dump_modes",
+        "domain": "emanuele-f.github.io",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex -> com.emanuelef.remote_capture.activities.OnBoardingActivity -> onCreate"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://emanuele-f.github.io/PCAPdroid/dump_modes",
+            "location": "classes.dex -> com.emanuelef.remote_capture.activities.OnBoardingActivity -> onCreate",
+            "snippet": "Extracted URL: https://emanuele-f.github.io/PCAPdroid/dump_modes",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://emanuele-f.github.io/PCAPdroid/dump_modes",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://emanuele-f.github.io/PCAPdroid/paid_features",
+        "domain": "emanuele-f.github.io",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://emanuele-f.github.io/PCAPdroid/paid_features",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://emanuele-f.github.io/PCAPdroid/paid_features",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://emanuele-f.github.io/PCAPdroid/paid_features",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://emanuele-f.github.io/PCAPdroid/paid_features#51-firewall",
+        "domain": "emanuele-f.github.io",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://emanuele-f.github.io/PCAPdroid/paid_features#51-firewall",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://emanuele-f.github.io/PCAPdroid/paid_features#51-firewall",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://emanuele-f.github.io/PCAPdroid/paid_features#51-firewall",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://emanuele-f.github.io/PCAPdroid/paid_features#52-malware-detection",
+        "domain": "emanuele-f.github.io",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex -> com.emanuelef.remote_capture.activities.OnBoardingActivity -> onCreate"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://emanuele-f.github.io/PCAPdroid/paid_features#52-malware-detection",
+            "location": "classes.dex -> com.emanuelef.remote_capture.activities.OnBoardingActivity -> onCreate",
+            "snippet": "Extracted URL: https://emanuele-f.github.io/PCAPdroid/paid_features#52-malware-detection",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://emanuele-f.github.io/PCAPdroid/paid_features#52-malware-detection",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://emanuele-f.github.io/PCAPdroid/paid_features#53-pcapng-format",
+        "domain": "emanuele-f.github.io",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://emanuele-f.github.io/PCAPdroid/paid_features#53-pcapng-format",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://emanuele-f.github.io/PCAPdroid/paid_features#53-pcapng-format",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://emanuele-f.github.io/PCAPdroid/paid_features#53-pcapng-format",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://emanuele-f.github.io/PCAPdroid/privacy",
+        "domain": "emanuele-f.github.io",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://emanuele-f.github.io/PCAPdroid/privacy",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://emanuele-f.github.io/PCAPdroid/privacy",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://emanuele-f.github.io/PCAPdroid/privacy",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://emanuele-f.github.io/PCAPdroid/tls_decryption",
+        "domain": "emanuele-f.github.io",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex -> com.emanuelef.remote_capture.activities.OnBoardingActivity -> onCreate"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://emanuele-f.github.io/PCAPdroid/tls_decryption",
+            "location": "classes.dex -> com.emanuelef.remote_capture.activities.OnBoardingActivity -> onCreate",
+            "snippet": "Extracted URL: https://emanuele-f.github.io/PCAPdroid/tls_decryption",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://emanuele-f.github.io/PCAPdroid/tls_decryption",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://github.com/emanuele-f/PCAPdroid",
+        "domain": "github.com",
+        "is_url": true,
+        "category": "update_infrastructure",
+        "purpose": "GitHub source hosting, releases, and distribution infrastructure.",
+        "associated_sdk": "GitHub Infrastructure",
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://github.com/emanuele-f/PCAPdroid",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://github.com/emanuele-f/PCAPdroid",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://github.com/emanuele-f/PCAPdroid",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://github.com/emanuele-f/PCAPdroid-mitm",
+        "domain": "github.com",
+        "is_url": true,
+        "category": "update_infrastructure",
+        "purpose": "GitHub source hosting, releases, and distribution infrastructure.",
+        "associated_sdk": "GitHub Infrastructure",
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://github.com/emanuele-f/PCAPdroid-mitm",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://github.com/emanuele-f/PCAPdroid-mitm",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://github.com/emanuele-f/PCAPdroid-mitm",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://github.com/emanuele-f/PCAPdroid-mitm/releases/download/v",
+        "domain": "github.com",
+        "is_url": true,
+        "category": "update_infrastructure",
+        "purpose": "GitHub source hosting, releases, and distribution infrastructure.",
+        "associated_sdk": "GitHub Infrastructure",
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://github.com/emanuele-f/PCAPdroid-mitm/releases/download/v",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://github.com/emanuele-f/PCAPdroid-mitm/releases/download/v",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://github.com/emanuele-f/PCAPdroid-mitm/releases/download/v",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://github.com/emanuele-f/PCAPdroid/blob/master/docs/app_api.md",
+        "domain": "github.com",
+        "is_url": true,
+        "category": "update_infrastructure",
+        "purpose": "GitHub source hosting, releases, and distribution infrastructure.",
+        "associated_sdk": "GitHub Infrastructure",
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://github.com/emanuele-f/PCAPdroid/blob/master/docs/app_api.md",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://github.com/emanuele-f/PCAPdroid/blob/master/docs/app_api.md",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://github.com/emanuele-f/PCAPdroid/blob/master/docs/app_api.md",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://github.com/emanuele-f/PCAPdroid/tree/",
+        "domain": "github.com",
+        "is_url": true,
+        "category": "update_infrastructure",
+        "purpose": "GitHub source hosting, releases, and distribution infrastructure.",
+        "associated_sdk": "GitHub Infrastructure",
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://github.com/emanuele-f/PCAPdroid/tree/",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://github.com/emanuele-f/PCAPdroid/tree/",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://github.com/emanuele-f/PCAPdroid/tree/",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://github.com/google/gson/blob/main/Troubleshooting.md#",
+        "domain": "github.com",
+        "is_url": true,
+        "category": "update_infrastructure",
+        "purpose": "GitHub source hosting, releases, and distribution infrastructure.",
+        "associated_sdk": "GitHub Infrastructure",
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://github.com/google/gson/blob/main/Troubleshooting.md#",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://github.com/google/gson/blob/main/Troubleshooting.md#",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://github.com/google/gson/blob/main/Troubleshooting.md#",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://github.com/stamparm/trails/releases/latest/download/maltrail-malware-domains.txt",
+        "domain": "github.com",
+        "is_url": true,
+        "category": "update_infrastructure",
+        "purpose": "GitHub source hosting, releases, and distribution infrastructure.",
+        "associated_sdk": "GitHub Infrastructure",
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://github.com/stamparm/trails/releases/latest/download/maltrail-malware-domains.txt",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://github.com/stamparm/trails/releases/latest/download/maltrail-malware-domains.txt",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://github.com/stamparm/trails/releases/latest/download/maltrail-malware-domains.txt",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://pcapdroid.org",
+        "domain": "pcapdroid.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://pcapdroid.org",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://pcapdroid.org",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://pcapdroid.org",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://pcapdroid.org/getlicense/qr_activation",
+        "domain": "pcapdroid.org",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://pcapdroid.org/getlicense/qr_activation",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://pcapdroid.org/getlicense/qr_activation",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://pcapdroid.org/getlicense/qr_activation",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://raw.githubusercontent.com/davidonzo/Threat-Intel/master/lists/latestips.txt",
+        "domain": "raw.githubusercontent.com",
+        "is_url": true,
+        "category": "update_infrastructure",
+        "purpose": "GitHub source hosting, releases, and distribution infrastructure.",
+        "associated_sdk": "GitHub Infrastructure",
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://raw.githubusercontent.com/davidonzo/Threat-Intel/master/lists/latestips.txt",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://raw.githubusercontent.com/davidonzo/Threat-Intel/master/lists/latestips.txt",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://raw.githubusercontent.com/davidonzo/Threat-Intel/master/lists/latestips.txt",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://rules.emergingthreats.net/fwrules/emerging-Block-IPs.txt",
+        "domain": "rules.emergingthreats.net",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://rules.emergingthreats.net/fwrules/emerging-Block-IPs.txt",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://rules.emergingthreats.net/fwrules/emerging-Block-IPs.txt",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://rules.emergingthreats.net/fwrules/emerging-Block-IPs.txt",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      },
+      {
+        "endpoint": "https://search.arin.net/rdap/?query=",
+        "domain": "search.arin.net",
+        "is_url": true,
+        "category": "unknown",
+        "purpose": "Third-party endpoint",
+        "associated_sdk": null,
+        "is_first_party": false,
+        "provenance": [
+          "classes.dex"
+        ],
+        "evidence": [
+          {
+            "description": "Extracted URL: https://search.arin.net/rdap/?query=",
+            "location": "classes.dex",
+            "snippet": "Extracted URL: https://search.arin.net/rdap/?query=",
+            "references": []
+          }
+        ],
+        "raw_evidence": "https://search.arin.net/rdap/?query=",
+        "transmission_verified": false,
+        "disclaimer": "Presence of domain or URL in static binary does not prove data is transmitted to this endpoint."
+      }
+    ],
+    "by_category": {
+      "unknown": [
+        "adblock.dns.mullvad.net",
+        "addlive.io",
+        "adult-filter-dns.cleanbrowsing.org",
+        "akamaiedge.net",
+        "akamaihd.net",
+        "all.dns.mullvad.net",
+        "amazonaws.com",
+        "android.app",
+        "android.googlesource.com",
+        "android.net",
+        "androidx.appcompat.app",
+        "androidx.core.app",
+        "anycast.dns.nextdns.io",
+        "base.dns.mullvad.net",
+        "bootid.upnp.org",
+        "chrome.cloudflare-dns.com",
+        "chromium.dns.nextdns.io",
+        "com.google.android.tv",
+        "data.rel.ro",
+        "delivery.mp.microsoft.com",
+        "dns-tls.qis.io",
+        "dns.adguard-dns.com",
+        "dns.adguard.com",
+        "dns.cloudflare.com",
+        "dns.dnslify.com",
+        "dns.mullvad.net",
+        "dns.nextdns.io",
+        "dns.opendns.com",
+        "dns.quad9.net",
+        "dns10.quad9.net",
+        "dns11.quad9.net",
+        "doh.cleanbrowsing.org",
+        "doh.familyshield.opendns.com",
+        "doh.libredns.gr",
+        "doh.opendns.com",
+        "doh.qis.io",
+        "doh.sandbox.opendns.com",
+        "dontkillmyapp.com",
+        "dot.libredns.gr",
+        "download.db-ip.com",
+        "download.windowsupdate.com",
+        "dropboxusercontent.com",
+        "emanuele-f.github.io",
+        "etherx.jabber.org",
+        "extended.dns.mullvad.net",
+        "family-filter-dns.cleanbrowsing.org",
+        "family.adguard-dns.com",
+        "family.cloudflare-dns.com",
+        "family.dns.mullvad.net",
+        "familyshield.opendns.com",
+        "firefox.dns.nextdns.io",
+        "freedns.controld.com",
+        "g.whatsapp.net",
+        "google.com",
+        "hotmail.it",
+        "http.body.reassembled.in",
+        "http://etherx.jabber.org/streams",
+        "http://jabber.org/protocol/",
+        "http://jabber.org/protocol/commands",
+        "http://schemas.android.com/apk/res-auto",
+        "http://schemas.android.com/apk/res/android",
+        "http://t.me/PCAPdroid",
+        "https://android.googlesource.com/toolchain/llvm-project",
+        "https://dontkillmyapp.com/xiaomi#app-battery-saver",
+        "https://download.db-ip.com/free/dbip-asn-lite-",
+        "https://download.db-ip.com/free/dbip-country-lite-",
+        "https://emanuele-f.github.io/PCAPdroid",
+        "https://emanuele-f.github.io/PCAPdroid/advanced_features#45-pcapdroid-extensions",
+        "https://emanuele-f.github.io/PCAPdroid/donate",
+        "https://emanuele-f.github.io/PCAPdroid/dump_modes",
+        "https://emanuele-f.github.io/PCAPdroid/paid_features",
+        "https://emanuele-f.github.io/PCAPdroid/paid_features#51-firewall",
+        "https://emanuele-f.github.io/PCAPdroid/paid_features#52-malware-detection",
+        "https://emanuele-f.github.io/PCAPdroid/paid_features#53-pcapng-format",
+        "https://emanuele-f.github.io/PCAPdroid/privacy",
+        "https://emanuele-f.github.io/PCAPdroid/tls_decryption",
+        "https://pcapdroid.org",
+        "https://pcapdroid.org/getlicense/qr_activation",
+        "https://rules.emergingthreats.net/fwrules/emerging-Block-IPs.txt",
+        "https://search.arin.net/rdap/?query=",
+        "im.truphone.com",
+        "internetbadguys.com",
+        "ip.geoip.org",
+        "ip2p.com",
+        "ipv6.geoip.org",
+        "ipv6.reassembled.in",
+        "jabber.org",
+        "kotlin.int",
+        "micloud.xiaomi.net",
+        "microsoft.com",
+        "mozilla.cloudflare-dns.com",
+        "multi.surbl.org",
+        "mx-verification.google.com",
+        "office365.com",
+        "p0.freedns.controld.com",
+        "p1.freedns.controld.com",
+        "p2.freedns.controld.com",
+        "p3.freedns.controld.com",
+        "pcapdroid.org",
+        "rackcdn.com",
+        "rules.emergingthreats.net",
+        "sandbox.opendns.com",
+        "search.arin.net",
+        "securelocation.upnp.org",
+        "security-filter-dns.cleanbrowsing.org",
+        "security.cloudflare-dns.com",
+        "signal.org",
+        "spamhaus.org",
+        "stripcdn.com",
+        "t.me",
+        "turn.cloudflare.com",
+        "unfiltered.adguard-dns.com",
+        "whispersystems.org",
+        "windows.com",
+        "windowsupdate.com",
+        "wireshark.org",
+        "www.speedtest.net"
+      ],
+      "update_infrastructure": [
+        "github.com",
+        "https://github.com/emanuele-f/PCAPdroid",
+        "https://github.com/emanuele-f/PCAPdroid-mitm",
+        "https://github.com/emanuele-f/PCAPdroid-mitm/releases/download/v",
+        "https://github.com/emanuele-f/PCAPdroid/blob/master/docs/app_api.md",
+        "https://github.com/emanuele-f/PCAPdroid/tree/",
+        "https://github.com/google/gson/blob/main/Troubleshooting.md#",
+        "https://github.com/stamparm/trails/releases/latest/download/maltrail-malware-domains.txt",
+        "https://raw.githubusercontent.com/davidonzo/Threat-Intel/master/lists/latestips.txt",
+        "raw.githubusercontent.com"
+      ]
+    }
+  },
+  "data_collection": {
+    "capabilities": [
+      {
+        "capability": "clipboard",
+        "description": "Clipboard access capability.",
+        "permissions": [],
+        "apis": [
+          "android.content.ClipboardManager"
+        ],
+        "associated_sdks": [],
+        "associated_endpoints": [],
+        "components": [],
+        "assessment": "Application references ClipboardManager.",
+        "evidence": [
+          {
+            "description": "Referenced ClipboardManager API",
+            "location": "dex:android.content.ClipboardManager",
+            "snippet": "Referenced ClipboardManager API",
+            "references": []
+          }
+        ],
+        "limitations": [
+          "Clipboard reading cannot be confirmed without dynamic execution."
+        ]
+      },
+      {
+        "capability": "device_identifiers",
+        "description": "Hardware and persistent device identifier capability (IMEI, MEID, Android ID, Serial).",
+        "permissions": [],
+        "apis": [
+          "TelephonyManager.getDeviceId",
+          "Settings.Secure.ANDROID_ID",
+          "Build.SERIAL"
+        ],
+        "associated_sdks": [],
+        "associated_endpoints": [],
+        "components": [],
+        "assessment": "Static references to persistent device identifiers detected.",
+        "evidence": [
+          {
+            "description": "Referenced device identifier method: TelephonyManager.getDeviceId",
+            "location": "dex:TelephonyManager.getDeviceId",
+            "snippet": "Referenced device identifier method: TelephonyManager.getDeviceId",
+            "references": []
+          },
+          {
+            "description": "Referenced device identifier method: Settings.Secure.ANDROID_ID",
+            "location": "dex:Settings.Secure.ANDROID_ID",
+            "snippet": "Referenced device identifier method: Settings.Secure.ANDROID_ID",
+            "references": []
+          },
+          {
+            "description": "Referenced device identifier method: Build.SERIAL",
+            "location": "dex:Build.SERIAL",
+            "snippet": "Referenced device identifier method: Build.SERIAL",
+            "references": []
+          }
+        ],
+        "limitations": [
+          "Static method references do not verify runtime execution or exfiltration."
+        ]
+      },
+      {
+        "capability": "location",
+        "description": "Physical device location capability (GPS, Network, Fused Location).",
+        "permissions": [],
+        "apis": [
+          "com.emanuelef.remote_capture.Geolocation;->getCountryCode(Ljava.net.InetAddress;)Ljava.lang.String",
+          "com.emanuelef.remote_capture.Geolocation;->getASN(Ljava.net.InetAddress;)Lcom.emanuelef.remote_capture.model.Geomodel$ASN",
+          "android.widget.PopupWindow;->showAtLocation(Landroid.view.View",
+          "com.emanuelef.remote_capture.Geolocation;->getCountryFile(Landroid.content.Context;)Ljava.io.File",
+          "com.emanuelef.remote_capture.Geolocation;->getAsnFile(Landroid.content.Context;)Ljava.io.File",
+          "com.emanuelef.remote_capture.Geolocation;->downloadAndUnzip(Landroid.content.Context",
+          "com.google.gson.stream.JsonReader;->locationString()Ljava.lang.String",
+          "com.emanuelef.remote_capture.Geolocation;->getDbDate(Landroid.content.Context;)Ljava.util.Date",
+          "com.emanuelef.remote_capture.Geolocation;->getDbDate(Ljava.io.File;)Ljava.util.Date",
+          "android.location.LocationManager;->getLastKnownLocation(Ljava.lang.String;)Landroid.location.Location",
+          "android.location.LocationManager"
+        ],
+        "associated_sdks": [],
+        "associated_endpoints": [],
+        "components": [],
+        "assessment": "The APK declares location-related capabilities and static framework references.",
+        "evidence": [
+          {
+            "description": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getCountryCode(Ljava.net.InetAddress;)Ljava.lang.String",
+            "location": "api:com.emanuelef.remote_capture.Geolocation;->getCountryCode(Ljava.net.InetAddress;)Ljava.lang.String",
+            "snippet": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getCountryCode(Ljava.net.InetAddress;)Ljava.lang.String",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getASN(Ljava.net.InetAddress;)Lcom.emanuelef.remote_capture.model.Geomodel$ASN",
+            "location": "api:com.emanuelef.remote_capture.Geolocation;->getASN(Ljava.net.InetAddress;)Lcom.emanuelef.remote_capture.model.Geomodel$ASN",
+            "snippet": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getASN(Ljava.net.InetAddress;)Lcom.emanuelef.remote_capture.model.Geomodel$ASN",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.widget.PopupWindow;->showAtLocation(Landroid.view.View",
+            "location": "api:android.widget.PopupWindow;->showAtLocation(Landroid.view.View",
+            "snippet": "Referenced location API: android.widget.PopupWindow;->showAtLocation(Landroid.view.View",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getCountryFile(Landroid.content.Context;)Ljava.io.File",
+            "location": "api:com.emanuelef.remote_capture.Geolocation;->getCountryFile(Landroid.content.Context;)Ljava.io.File",
+            "snippet": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getCountryFile(Landroid.content.Context;)Ljava.io.File",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getAsnFile(Landroid.content.Context;)Ljava.io.File",
+            "location": "api:com.emanuelef.remote_capture.Geolocation;->getAsnFile(Landroid.content.Context;)Ljava.io.File",
+            "snippet": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getAsnFile(Landroid.content.Context;)Ljava.io.File",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->downloadAndUnzip(Landroid.content.Context",
+            "location": "api:com.emanuelef.remote_capture.Geolocation;->downloadAndUnzip(Landroid.content.Context",
+            "snippet": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->downloadAndUnzip(Landroid.content.Context",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: com.google.gson.stream.JsonReader;->locationString()Ljava.lang.String",
+            "location": "api:com.google.gson.stream.JsonReader;->locationString()Ljava.lang.String",
+            "snippet": "Referenced location API: com.google.gson.stream.JsonReader;->locationString()Ljava.lang.String",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getDbDate(Landroid.content.Context;)Ljava.util.Date",
+            "location": "api:com.emanuelef.remote_capture.Geolocation;->getDbDate(Landroid.content.Context;)Ljava.util.Date",
+            "snippet": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getDbDate(Landroid.content.Context;)Ljava.util.Date",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getDbDate(Ljava.io.File;)Ljava.util.Date",
+            "location": "api:com.emanuelef.remote_capture.Geolocation;->getDbDate(Ljava.io.File;)Ljava.util.Date",
+            "snippet": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getDbDate(Ljava.io.File;)Ljava.util.Date",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.LocationManager;->getLastKnownLocation(Ljava.lang.String;)Landroid.location.Location",
+            "location": "api:android.location.LocationManager;->getLastKnownLocation(Ljava.lang.String;)Landroid.location.Location",
+            "snippet": "Referenced location API: android.location.LocationManager;->getLastKnownLocation(Ljava.lang.String;)Landroid.location.Location",
+            "references": []
+          },
+          {
+            "description": "Referenced location API: android.location.LocationManager",
+            "location": "api:android.location.LocationManager",
+            "snippet": "Referenced location API: android.location.LocationManager",
+            "references": []
+          }
+        ],
+        "limitations": [
+          "Static analysis cannot establish that physical location is collected or transmitted during runtime."
+        ]
+      }
+    ],
+    "device_identifiers_detected": [
+      "Build.SERIAL",
+      "Settings.Secure.ANDROID_ID",
+      "TelephonyManager.getDeviceId"
+    ],
+    "advertising_id_detected": false,
+    "clipboard_access_detected": true,
+    "accessibility_service_detected": false,
+    "background_data_capabilities": []
+  },
+  "detected_sdks": [],
+  "findings": [
+    {
+      "id": "PRIV-CAP-DEVICE-IDENTIFIERS",
+      "category": "identifiers",
+      "title": "Device Identifier Access References Detected",
+      "description": "Static code references found for device identifiers: TelephonyManager.getDeviceId, Settings.Secure.ANDROID_ID, Build.SERIAL.",
+      "severity": "high",
+      "confidence": "confirmed",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "dex:TelephonyManager.getDeviceId",
+        "dex:Settings.Secure.ANDROID_ID",
+        "dex:Build.SERIAL"
+      ],
+      "evidence_values": [
+        "Build.SERIAL",
+        "Settings.Secure.ANDROID_ID",
+        "TelephonyManager.getDeviceId"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Assess compliance with modern Android platform guidelines; prefer resettable identifiers.",
+      "evidence": [
+        {
+          "description": "Referenced device identifier method: TelephonyManager.getDeviceId",
+          "location": "dex:TelephonyManager.getDeviceId",
+          "snippet": "Referenced device identifier method: TelephonyManager.getDeviceId",
+          "references": []
+        },
+        {
+          "description": "Referenced device identifier method: Settings.Secure.ANDROID_ID",
+          "location": "dex:Settings.Secure.ANDROID_ID",
+          "snippet": "Referenced device identifier method: Settings.Secure.ANDROID_ID",
+          "references": []
+        },
+        {
+          "description": "Referenced device identifier method: Build.SERIAL",
+          "location": "dex:Build.SERIAL",
+          "snippet": "Referenced device identifier method: Build.SERIAL",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static method reference does not establish that the identifier is sent across the network."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-API-CLIPBOARD",
+      "category": "clipboard",
+      "title": "Clipboard Access APIs",
+      "description": "Static references to ClipboardManager clip access methods detected.",
+      "severity": "informational",
+      "confidence": "high",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "api:android.content.ClipboardManager"
+      ],
+      "evidence_values": [
+        "android.content.ClipboardManager"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Verify whether clipboard reads access user data unexpectedly.",
+      "evidence": [
+        {
+          "description": "Referenced API: android.content.ClipboardManager",
+          "location": "api:android.content.ClipboardManager",
+          "snippet": "api:android.content.ClipboardManager",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static observation of API or component reference does not guarantee runtime execution or data exfiltration."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-API-LOCATION",
+      "category": "location",
+      "title": "Location Framework API Invocations",
+      "description": "Static references to Android LocationManager or Google Play Services location providers detected in bytecode.",
+      "severity": "informational",
+      "confidence": "high",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "api:android.location.LocationManager"
+      ],
+      "evidence_values": [
+        "android.location.LocationManager"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Informational; examine whether precise or coarse location access is required for core functionality.",
+      "evidence": [
+        {
+          "description": "Referenced API: android.location.LocationManager",
+          "location": "api:android.location.LocationManager",
+          "snippet": "api:android.location.LocationManager",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static observation of API or component reference does not guarantee runtime execution or data exfiltration."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-API-REFLECTION",
+      "category": "reflection",
+      "title": "Reflection on Internal or Sensitive Classes",
+      "description": "Static references to reflection APIs combined with internal framework class names detected.",
+      "severity": "informational",
+      "confidence": "medium",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "api:java.lang.Class",
+        "api:java.lang.reflect.Method",
+        "method:androidx.fragment.app.DefaultSpecialEffectsController$TransitionEffect$onStart$4.invoke",
+        "string:android.app.ActivityThread"
+      ],
+      "evidence_values": [
+        "android.app.ActivityThread",
+        "androidx.fragment.app.DefaultSpecialEffectsController$TransitionEffect$onStart$4.invoke",
+        "java.lang.Class",
+        "java.lang.reflect.Method"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Reflection may access hidden or non-SDK interfaces; ensure platform compatibility and policy compliance.",
+      "evidence": [
+        {
+          "description": "Referenced API: java.lang.reflect.Method",
+          "location": "api:java.lang.reflect.Method",
+          "snippet": "api:java.lang.reflect.Method",
+          "references": []
+        },
+        {
+          "description": "Referenced API: java.lang.Class",
+          "location": "api:java.lang.Class",
+          "snippet": "api:java.lang.Class",
+          "references": []
+        },
+        {
+          "description": "Referenced method: androidx.fragment.app.DefaultSpecialEffectsController$TransitionEffect$onStart$4.invoke",
+          "location": "method:androidx.fragment.app.DefaultSpecialEffectsController$TransitionEffect$onStart$4.invoke",
+          "snippet": "method:androidx.fragment.app.DefaultSpecialEffectsController$TransitionEffect$onStart$4.invoke",
+          "references": []
+        },
+        {
+          "description": "Constant string reference: android.app.ActivityThread",
+          "location": "dex:string:android.app.ActivityThread",
+          "snippet": "string:android.app.ActivityThread",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static observation of API or component reference does not guarantee runtime execution or data exfiltration."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-API-SCHEDULING",
+      "category": "background_execution",
+      "title": "Background Job Scheduling & Alarm APIs",
+      "description": "Static references to WorkManager, JobScheduler, or AlarmManager background execution detected.",
+      "severity": "informational",
+      "confidence": "high",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "method:enqueue"
+      ],
+      "evidence_values": [
+        "enqueue"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Evaluate whether background tasks perform unauthorized periodic synchronization or data transmission.",
+      "evidence": [
+        {
+          "description": "Referenced method: enqueue",
+          "location": "method:enqueue",
+          "snippet": "method:enqueue",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static observation of API or component reference does not guarantee runtime execution or data exfiltration."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-REC-BOOT",
+      "category": "persistence",
+      "title": "Boot & Package Replacement Receivers",
+      "description": "Manifest declarations for broadcast receivers listening to device boot or package replacement events.",
+      "severity": "informational",
+      "confidence": "confirmed",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "receiver:com.emanuelef.remote_capture.BootReceiver:action:android.intent.action.BOOT_COMPLETED"
+      ],
+      "evidence_values": [
+        "com.emanuelef.remote_capture.BootReceiver (android.intent.action.BOOT_COMPLETED)"
+      ],
+      "source_component": "com.emanuelef.remote_capture.BootReceiver",
+      "related_permissions": [
+        "android.permission.RECEIVE_BOOT_COMPLETED"
+      ],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Review background startup persistence at device boot.",
+      "evidence": [
+        {
+          "description": "Manifest broadcast receiver action: android.intent.action.BOOT_COMPLETED",
+          "location": "receiver:com.emanuelef.remote_capture.BootReceiver:action:android.intent.action.BOOT_COMPLETED",
+          "snippet": "<receiver android:name=\"com.emanuelef.remote_capture.BootReceiver\"> -> android.intent.action.BOOT_COMPLETED",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static observation of API or component reference does not guarantee runtime execution or data exfiltration."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-API-DEVICE-IDENTIFIER",
+      "category": "device_identifiers",
+      "title": "Hardware & Device Identifier Access",
+      "description": "Static references to persistent device identifiers (IMEI, MEID, SIM serial, or ANDROID_ID) detected.",
+      "severity": "low",
+      "confidence": "high",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "string:android_id"
+      ],
+      "evidence_values": [
+        "android_id"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Assess compliance with modern Android platform privacy guidelines (prefer resettable advertising IDs or app-scoped UUIDs over hardware identifiers).",
+      "evidence": [
+        {
+          "description": "Constant string reference: android_id",
+          "location": "dex:string:android_id",
+          "snippet": "string:android_id",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static observation of API or component reference does not guarantee runtime execution or data exfiltration."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-API-DYNAMIC-CODE",
+      "category": "dynamic_code",
+      "title": "Dynamic Code Loading Facilities",
+      "description": "Static references to DexClassLoader, PathClassLoader, or InMemoryDexClassLoader detected.",
+      "severity": "low",
+      "confidence": "high",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "method:loadClass"
+      ],
+      "evidence_values": [
+        "loadClass"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Dynamic loading allows runtime code execution bypassing static inspection; verify source and integrity.",
+      "evidence": [
+        {
+          "description": "Referenced method: loadClass",
+          "location": "method:loadClass",
+          "snippet": "method:loadClass",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static observation of API or component reference does not guarantee runtime execution or data exfiltration."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-CAP-CLIPBOARD",
+      "category": "clipboard",
+      "title": "Clipboard Access Capability Detected",
+      "description": "Application references android.content.ClipboardManager API.",
+      "severity": "low",
+      "confidence": "medium",
+      "evidence_state": "OBSERVED",
+      "evidence_locations": [
+        "dex:android.content.ClipboardManager"
+      ],
+      "evidence_values": [
+        "ClipboardManager"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Verify clipboard reads access user data only upon direct user paste interaction.",
+      "evidence": [
+        {
+          "description": "Referenced ClipboardManager API",
+          "location": "dex:android.content.ClipboardManager",
+          "snippet": "Referenced ClipboardManager API",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static reference does not prove unprompted clipboard reading."
+      ],
+      "details": {}
+    },
+    {
+      "id": "PRIV-CAP-LOCATION",
+      "category": "location",
+      "title": "Location Capability Detected",
+      "description": "Application declares location permissions () and references location APIs (com.emanuelef.remote_capture.Geolocation;->getCountryCode(Ljava.net.InetAddress;)Ljava.lang.String, com.emanuelef.remote_capture.Geolocation;->getASN(Ljava.net.InetAddress;)Lcom.emanuelef.remote_capture.model.Geomodel$ASN, android.widget.PopupWindow;->showAtLocation(Landroid.view.View).",
+      "severity": "medium",
+      "confidence": "medium",
+      "evidence_state": "PARTIAL",
+      "evidence_locations": [
+        "api:com.emanuelef.remote_capture.Geolocation;->getCountryCode(Ljava.net.InetAddress;)Ljava.lang.String",
+        "api:com.emanuelef.remote_capture.Geolocation;->getASN(Ljava.net.InetAddress;)Lcom.emanuelef.remote_capture.model.Geomodel$ASN",
+        "api:android.widget.PopupWindow;->showAtLocation(Landroid.view.View",
+        "api:com.emanuelef.remote_capture.Geolocation;->getCountryFile(Landroid.content.Context;)Ljava.io.File",
+        "api:com.emanuelef.remote_capture.Geolocation;->getAsnFile(Landroid.content.Context;)Ljava.io.File",
+        "api:com.emanuelef.remote_capture.Geolocation;->downloadAndUnzip(Landroid.content.Context",
+        "api:com.google.gson.stream.JsonReader;->locationString()Ljava.lang.String",
+        "api:com.emanuelef.remote_capture.Geolocation;->getDbDate(Landroid.content.Context;)Ljava.util.Date",
+        "api:com.emanuelef.remote_capture.Geolocation;->getDbDate(Ljava.io.File;)Ljava.util.Date",
+        "api:android.location.LocationManager;->getLastKnownLocation(Ljava.lang.String;)Landroid.location.Location",
+        "api:android.location.LocationManager"
+      ],
+      "evidence_values": [
+        "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getCountryCode(Ljava.net.InetAddress;)Ljava.lang.String",
+        "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getASN(Ljava.net.InetAddress;)Lcom.emanuelef.remote_capture.model.Geomodel$ASN",
+        "Referenced location API: android.widget.PopupWindow;->showAtLocation(Landroid.view.View",
+        "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getCountryFile(Landroid.content.Context;)Ljava.io.File",
+        "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getAsnFile(Landroid.content.Context;)Ljava.io.File",
+        "Referenced location API: com.emanuelef.remote_capture.Geolocation;->downloadAndUnzip(Landroid.content.Context",
+        "Referenced location API: com.google.gson.stream.JsonReader;->locationString()Ljava.lang.String",
+        "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getDbDate(Landroid.content.Context;)Ljava.util.Date",
+        "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getDbDate(Ljava.io.File;)Ljava.util.Date",
+        "Referenced location API: android.location.LocationManager;->getLastKnownLocation(Ljava.lang.String;)Landroid.location.Location",
+        "Referenced location API: android.location.LocationManager"
+      ],
+      "source_component": null,
+      "related_permissions": [],
+      "related_domains": [],
+      "related_sdks": [],
+      "is_direct": true,
+      "analysis_completeness": "COMPLETE",
+      "remediation_relevance": "Ensure location access is transparent and justified by application features.",
+      "evidence": [
+        {
+          "description": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getCountryCode(Ljava.net.InetAddress;)Ljava.lang.String",
+          "location": "api:com.emanuelef.remote_capture.Geolocation;->getCountryCode(Ljava.net.InetAddress;)Ljava.lang.String",
+          "snippet": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getCountryCode(Ljava.net.InetAddress;)Ljava.lang.String",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getASN(Ljava.net.InetAddress;)Lcom.emanuelef.remote_capture.model.Geomodel$ASN",
+          "location": "api:com.emanuelef.remote_capture.Geolocation;->getASN(Ljava.net.InetAddress;)Lcom.emanuelef.remote_capture.model.Geomodel$ASN",
+          "snippet": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getASN(Ljava.net.InetAddress;)Lcom.emanuelef.remote_capture.model.Geomodel$ASN",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.widget.PopupWindow;->showAtLocation(Landroid.view.View",
+          "location": "api:android.widget.PopupWindow;->showAtLocation(Landroid.view.View",
+          "snippet": "Referenced location API: android.widget.PopupWindow;->showAtLocation(Landroid.view.View",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getCountryFile(Landroid.content.Context;)Ljava.io.File",
+          "location": "api:com.emanuelef.remote_capture.Geolocation;->getCountryFile(Landroid.content.Context;)Ljava.io.File",
+          "snippet": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getCountryFile(Landroid.content.Context;)Ljava.io.File",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getAsnFile(Landroid.content.Context;)Ljava.io.File",
+          "location": "api:com.emanuelef.remote_capture.Geolocation;->getAsnFile(Landroid.content.Context;)Ljava.io.File",
+          "snippet": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getAsnFile(Landroid.content.Context;)Ljava.io.File",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->downloadAndUnzip(Landroid.content.Context",
+          "location": "api:com.emanuelef.remote_capture.Geolocation;->downloadAndUnzip(Landroid.content.Context",
+          "snippet": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->downloadAndUnzip(Landroid.content.Context",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: com.google.gson.stream.JsonReader;->locationString()Ljava.lang.String",
+          "location": "api:com.google.gson.stream.JsonReader;->locationString()Ljava.lang.String",
+          "snippet": "Referenced location API: com.google.gson.stream.JsonReader;->locationString()Ljava.lang.String",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getDbDate(Landroid.content.Context;)Ljava.util.Date",
+          "location": "api:com.emanuelef.remote_capture.Geolocation;->getDbDate(Landroid.content.Context;)Ljava.util.Date",
+          "snippet": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getDbDate(Landroid.content.Context;)Ljava.util.Date",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getDbDate(Ljava.io.File;)Ljava.util.Date",
+          "location": "api:com.emanuelef.remote_capture.Geolocation;->getDbDate(Ljava.io.File;)Ljava.util.Date",
+          "snippet": "Referenced location API: com.emanuelef.remote_capture.Geolocation;->getDbDate(Ljava.io.File;)Ljava.util.Date",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.LocationManager;->getLastKnownLocation(Ljava.lang.String;)Landroid.location.Location",
+          "location": "api:android.location.LocationManager;->getLastKnownLocation(Ljava.lang.String;)Landroid.location.Location",
+          "snippet": "Referenced location API: android.location.LocationManager;->getLastKnownLocation(Ljava.lang.String;)Landroid.location.Location",
+          "references": []
+        },
+        {
+          "description": "Referenced location API: android.location.LocationManager",
+          "location": "api:android.location.LocationManager",
+          "snippet": "Referenced location API: android.location.LocationManager",
+          "references": []
+        }
+      ],
+      "limitations": [
+        "Static analysis cannot establish runtime location collection."
+      ],
+      "details": {}
+    }
+  ],
+  "warnings": [],
+  "errors": [],
+  "limitations": [
+    "Static analysis cannot establish actual runtime data collection, transmission, or dynamic execution."
+  ]
+}

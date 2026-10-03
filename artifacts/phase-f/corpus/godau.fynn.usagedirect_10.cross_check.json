@@ -1,0 +1,147 @@
+{
+  "overlapping_findings": [
+    {
+      "topic": "Device Identifiers",
+      "privacy_id": "PRIV-CAP-DEVICE-IDENTIFIERS",
+      "security_id": "SEC-SPY-DEVICE-IDENTIFIERS",
+      "privacy_title": "Device Identifier Access References Detected",
+      "security_title": "Hardware & Persistent Device Identifier Collection Capability"
+    },
+    {
+      "topic": "Device Identifiers",
+      "privacy_id": "PRIV-API-DEVICE-IDENTIFIER",
+      "security_id": "SEC-SPY-DEVICE-IDENTIFIERS",
+      "privacy_title": "Hardware & Device Identifier Access",
+      "security_title": "Hardware & Persistent Device Identifier Collection Capability"
+    }
+  ],
+  "new_privacy_findings": [
+    {
+      "id": "PRIV-CAP-CAMERA",
+      "category": "camera",
+      "title": "Camera Capture Capability Detected",
+      "evidence_state": "PARTIAL"
+    },
+    {
+      "id": "PRIV-API-CAMERA",
+      "category": "camera",
+      "title": "Camera Hardware & Capture APIs",
+      "evidence_state": "OBSERVED"
+    },
+    {
+      "id": "PRIV-API-CLIPBOARD",
+      "category": "clipboard",
+      "title": "Clipboard Access APIs",
+      "evidence_state": "OBSERVED"
+    },
+    {
+      "id": "PRIV-API-LOCATION",
+      "category": "location",
+      "title": "Location Framework API Invocations",
+      "evidence_state": "OBSERVED"
+    },
+    {
+      "id": "PRIV-API-REFLECTION",
+      "category": "reflection",
+      "title": "Reflection on Internal or Sensitive Classes",
+      "evidence_state": "OBSERVED"
+    },
+    {
+      "id": "PRIV-API-SCHEDULING",
+      "category": "background_execution",
+      "title": "Background Job Scheduling & Alarm APIs",
+      "evidence_state": "OBSERVED"
+    },
+    {
+      "id": "PRIV-API-DYNAMIC-CODE",
+      "category": "dynamic_code",
+      "title": "Dynamic Code Loading Facilities",
+      "evidence_state": "OBSERVED"
+    },
+    {
+      "id": "PRIV-CAP-CLIPBOARD",
+      "category": "clipboard",
+      "title": "Clipboard Access Capability Detected",
+      "evidence_state": "OBSERVED"
+    },
+    {
+      "id": "PRIV-CAP-ACCESSIBILITY",
+      "category": "accessibility",
+      "title": "Accessibility Service Capability Detected",
+      "evidence_state": "OBSERVED"
+    },
+    {
+      "id": "PRIV-CAP-LOCATION",
+      "category": "location",
+      "title": "Location Capability Detected",
+      "evidence_state": "PARTIAL"
+    }
+  ],
+  "security_only_findings": [
+    {
+      "id": "SEC-SPY-ACCESSIBILITY-001",
+      "category": "spyware_indicator",
+      "title": "Accessibility Service Implementation",
+      "severity": "medium"
+    },
+    {
+      "id": "SEC-SPY-ACCESSIBILITY-ABUSE",
+      "category": "collection",
+      "title": "Android Accessibility Service Implementation",
+      "severity": "medium"
+    },
+    {
+      "id": "SEC-MAL-PERSISTENCE-BOOT",
+      "category": "persistence",
+      "title": "Device Boot Persistence Mechanism Detected",
+      "severity": "low"
+    },
+    {
+      "id": "SEC-SPY-CLIPBOARD-001",
+      "category": "spyware_indicator",
+      "title": "Background Clipboard Access Capability",
+      "severity": "low"
+    },
+    {
+      "id": "SEC-VULN-BACKUP-001",
+      "category": "vulnerability",
+      "title": "Application Backup Enabled Without Restriction",
+      "severity": "low"
+    },
+    {
+      "id": "SEC-VULN-MANIFEST-BACKUP",
+      "category": "configuration",
+      "title": "Application Data Backup Enabled (allowBackup=true)",
+      "severity": "low"
+    }
+  ],
+  "strengthened_findings": [
+    {
+      "topic": "Device Identifiers",
+      "privacy_id": "PRIV-CAP-DEVICE-IDENTIFIERS",
+      "security_id": "SEC-SPY-DEVICE-IDENTIFIERS",
+      "reason": "Corroborated by both Phase B (12 items) and Phase F (4 locations)."
+    },
+    {
+      "topic": "Device Identifiers",
+      "privacy_id": "PRIV-API-DEVICE-IDENTIFIER",
+      "security_id": "SEC-SPY-DEVICE-IDENTIFIERS",
+      "reason": "Corroborated by both Phase B (12 items) and Phase F (4 locations)."
+    }
+  ],
+  "incomplete_evidence_findings": [
+    {
+      "id": "PRIV-CAP-CAMERA",
+      "title": "Camera Capture Capability Detected",
+      "state": "PARTIAL",
+      "limitation": "Static analysis cannot prove runtime camera usage."
+    },
+    {
+      "id": "PRIV-CAP-LOCATION",
+      "title": "Location Capability Detected",
+      "state": "PARTIAL",
+      "limitation": "Static analysis cannot establish runtime location collection."
+    }
+  ],
+  "discrepancies": []
+}

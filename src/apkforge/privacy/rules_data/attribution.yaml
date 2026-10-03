@@ -4,6 +4,9 @@ rules:
     vendor: AppsFlyer
     category: attribution
     description: Mobile attribution, marketing analytics, and deep linking platform.
+    source_reference: AppsFlyer Android SDK Documentation
+    evidence_requirements: Package com.appsflyer or AppsFlyerLib class
+    false_positive_risk: Low; distinct proprietary AppsFlyer library classes
     packages:
       - com.appsflyer
     classes:
@@ -23,6 +26,9 @@ rules:
     vendor: Adjust
     category: attribution
     description: Adjust mobile measurement, attribution, and fraud prevention platform.
+    source_reference: Adjust Android SDK Documentation
+    evidence_requirements: Package com.adjust.sdk or Adjust class
+    false_positive_risk: Low; proprietary Adjust SDK namespaces
     packages:
       - com.adjust.sdk
     classes:
@@ -40,6 +46,9 @@ rules:
     vendor: Branch
     category: attribution
     description: Branch deep linking, install attribution, and cross-channel marketing.
+    source_reference: Branch Android SDK Documentation
+    evidence_requirements: Package io.branch.referral or Branch class
+    false_positive_risk: Low; distinct io.branch namespace
     packages:
       - io.branch.referral
     classes:
@@ -56,6 +65,9 @@ rules:
     vendor: Kochava
     category: attribution
     description: Kochava mobile attribution and analytics measurement engine.
+    source_reference: Kochava Android SDK Documentation
+    evidence_requirements: Package com.kochava.tracker or Kochava Tracker class
+    false_positive_risk: Low; proprietary Kochava namespaces
     packages:
       - com.kochava.tracker
       - com.kochava.base
@@ -72,6 +84,9 @@ rules:
     vendor: Singular
     category: attribution
     description: Singular marketing analytics and attribution platform.
+    source_reference: Singular Android SDK Documentation
+    evidence_requirements: Package com.singular.sdk or Singular class
+    false_positive_risk: Low; proprietary Singular namespaces
     packages:
       - com.singular.sdk
     classes:

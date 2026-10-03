@@ -1,0 +1,108 @@
+============================= test session starts ==============================
+platform linux -- Python 3.14.7, pytest-8.4.2, pluggy-1.6.0
+rootdir: /home/naishring/APKForge
+configfile: pyproject.toml
+testpaths: tests
+plugins: cov-5.0.0
+collected 905 items
+
+tests/integration/test_build_service_corpus.py ....sssssssss             [  1%]
+tests/integration/test_c5_openlink.py ..                                 [  1%]
+tests/integration/test_phase_d_pipeline.py ......                        [  2%]
+tests/integration/test_phase_e_verification.py ........s.                [  3%]
+tests/unit/test_build_corpus.py ........................................ [  7%]
+.....                                                                    [  8%]
+tests/unit/test_build_service.py ....................................... [ 12%]
+.....................................................................    [ 20%]
+tests/unit/test_c5_boot_receiver.py ....................                 [ 22%]
+tests/unit/test_c5_controlled.py ...........                             [ 23%]
+tests/unit/test_c5_expectations.py ....................                  [ 25%]
+tests/unit/test_cli.py ..................                                [ 27%]
+tests/unit/test_config.py .................                              [ 29%]
+tests/unit/test_diff_engine.py ...........                               [ 31%]
+tests/unit/test_diff_gap_fixes.py .................                      [ 32%]
+tests/unit/test_exceptions.py .........................                  [ 35%]
+tests/unit/test_inspection_dex.py ...                                    [ 36%]
+tests/unit/test_inspection_embedded.py .                                 [ 36%]
+tests/unit/test_inspection_engine.py ....                                [ 36%]
+tests/unit/test_inspection_manifest.py ..                                [ 36%]
+tests/unit/test_inspection_manifest_intent_filters.py .......            [ 37%]
+tests/unit/test_inspection_models.py ........                            [ 38%]
+tests/unit/test_inspection_native.py ...                                 [ 38%]
+tests/unit/test_inspection_network.py ..                                 [ 39%]
+tests/unit/test_inspection_obfuscation.py ..                             [ 39%]
+tests/unit/test_inspection_resources_assets.py ..                        [ 39%]
+tests/unit/test_intake_archive.py .............                          [ 40%]
+tests/unit/test_intake_certificates.py ...                               [ 41%]
+tests/unit/test_intake_cli.py ......                                     [ 41%]
+tests/unit/test_intake_detector.py ..........                            [ 42%]
+tests/unit/test_intake_handlers.py ....                                  [ 43%]
+tests/unit/test_intake_hashing.py ....                                   [ 43%]
+tests/unit/test_intake_inventory.py ..                                   [ 44%]
+tests/unit/test_intake_manifest.py ...                                   [ 44%]
+tests/unit/test_intake_security.py ....                                  [ 44%]
+tests/unit/test_intake_service.py .......                                [ 45%]
+tests/unit/test_logging.py .........                                     [ 46%]
+tests/unit/test_models.py ................................               [ 50%]
+tests/unit/test_modification_framework.py .............................. [ 53%]
+.............                                                            [ 54%]
+tests/unit/test_modification_planner.py ......................           [ 57%]
+tests/unit/test_modification_status_semantics.py ....................... [ 59%]
+........                                                                 [ 60%]
+tests/unit/test_phase_b_closeout.py .......................              [ 63%]
+tests/unit/test_phase_b_final_closeout.py ................               [ 65%]
+tests/unit/test_phase_b_step5.py .........................               [ 67%]
+tests/unit/test_phase_d_cli.py ................                          [ 69%]
+tests/unit/test_phase_d_contract.py ......................               [ 72%]
+tests/unit/test_phase_d_pipeline.py .................................... [ 76%]
+................                                                         [ 77%]
+tests/unit/test_phase_e_archive.py ........................              [ 80%]
+tests/unit/test_phase_e_manifest_tree.py ............                    [ 81%]
+tests/unit/test_phase_e_normalization.py .........................       [ 84%]
+tests/unit/test_phase_e_pipeline.py ....                                 [ 84%]
+tests/unit/test_phase_e_semantic_security.py .............               [ 86%]
+tests/unit/test_phase_e_verification.py ....................             [ 88%]
+tests/unit/test_phase_f_privacy.py ..............                        [ 90%]
+tests/unit/test_plugins.py ...............                               [ 91%]
+tests/unit/test_privacy_engine.py ...........                            [ 93%]
+tests/unit/test_security_engine.py ...........................           [ 96%]
+tests/unit/test_security_precision_prc.py ............                   [ 97%]
+tests/unit/test_workspace.py ...........                                 [ 98%]
+tests/unit/test_workspace_lifecycle.py .............                     [100%]
+
+================== 895 passed, 10 skipped in 76.86s (0:01:16) ==================
+
+======================================================================
+RUFF & MYPY QUALITY GATES
+======================================================================
+Ruff:
+All checks passed!
+15 files already formatted
+
+Mypy:
+Success: no issues found in 14 source files
+
+======================================================================
+PHASE D VALIDATION (run_phase_d_validation.py)
+======================================================================
+A: verified OK
+B: verified OK
+C: verified OK
+D: failed OK
+E: dry_run OK
+F: failed OK
+
+======================================================================
+PHASE E BASELINE VALIDATION (run_phase_e_validation.py baseline)
+======================================================================
+| APK | result | fingerprint (exact / path_only / signer) | rebuild #2 content diffs | reproducible | pair verification | drift vs C.5 |
+|---|---|---|---:|---|---|---|
+| com.emanuelef.remote_capture@95 | EQUIVALENT_WITH_RESIDUE | 2236 / 5 / 1 | 0 | True | VERIFIED | none |
+| com.oF2pks.applicationsinfo@19 | EQUIVALENT_WITH_RESIDUE | 36 / 5 / 1 | 0 | True | VERIFIED | none |
+| de.audioattack.openlink@28 | EQUIVALENT | 68 / 5 / 1 | 0 | True | VERIFIED | none |
+| de.danoeh.antennapod@3120295 | EQUIVALENT_WITH_RESIDUE | 1409 / 5 / 1 | 0 | True | VERIFIED | new noise rule(s) {'manifest_reference_inlined': 1} |
+| eu.siacs.conversations@4218104 | EQUIVALENT | 1234 / 5 / 1 | 0 | True | VERIFIED | none |
+| godau.fynn.usagedirect@10 | EQUIVALENT | 470 / 5 / 1 | 0 | True | VERIFIED | none |
+| io.github.muntashirakon.AppManager@451 | EQUIVALENT_WITH_RESIDUE | 1457 / 5 / 1 | 0 | True | VERIFIED | none |
+| org.mozilla.fennec_fdroid@1560020 | UNDETERMINED | 2512 / 5 / 1 | 0 | True | UNDETERMINED | none |
+| org.schabi.newpipe@1015 | EQUIVALENT | 1086 / 5 / 1 | 0 | True | VERIFIED | none |
