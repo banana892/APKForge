@@ -22,6 +22,7 @@ Command structure (Phase 0 — stubs)::
     ├── modify   <apk>   — apply a plan, or Phase D modifiers (--modifier)
     ├── modifiers        — list Phase D modifiers
     ├── references <apk> — read-only reference/evidence analysis (Phase H.1)
+    ├── transform  <apk> — transformation eligibility & planning, never applied (H.2)
     └── verify   <apk> [<modified>] — verification matrix (Phase E)
 """
 
@@ -54,6 +55,7 @@ if TYPE_CHECKING:
     from apkforge.privacy.models import PrivacyResult
     from apkforge.reference import AbsenceAssessment, ReferenceAnalysisResult
     from apkforge.security.models import FullAnalysisResult, SecurityResult
+    from apkforge.transformation import PlanningResult
     from apkforge.verification import VerificationMatrix
 
 
@@ -2398,6 +2400,181 @@ def _render_reference_summary(
     _console.print(
         "[dim]Absent evidence is not proof of absence unless every relevant component is "
         "COMPLETE. H.1 performs no transformation.[/dim]"
+    )
+
+
+@app.command("transform")
+def cmd_transform(
+    apk: Path = typer.Argument(
+        ...,
+        metavar="APK",
+        help="APK to plan against (read-only; never modified).",
+        exists=True,
+        file_okay=True,
+        dir_okay=False,
+        readable=True,
+        resolve_path=True,
+    ),
+    transform_ids: list[str] = typer.Option(
+        [],
+        "--transform",
+        "-t",
+        help="Transformation id (H-TRANS-001, H-TRANS-002). Repeat to pair with --target.",
+    ),
+    targets: list[str] = typer.Option(
+        [],
+        "--target",
+        help=(
+            "Target: com.example.Foo (class) or 'com.example.Foo->bar(I)V' (method). "
+            "Repeatable; requests in one run are checked for conflicts."
+        ),
+    ),
+    dry_run: bool = typer.Option(
+        False, "--dry-run", help="Plan only. H.2 always plans only; accepted for explicitness."
+    ),
+    apply: bool = typer.Option(
+        False, "--apply", hidden=True, help="Not supported: H.2 never applies a plan."
+    ),
+    json_output: bool = typer.Option(False, "--json", help="Print the planning result as JSON."),
+    report: Path | None = typer.Option(
+        None, "--report", help="Write a report (.md, or .json for the JSON).", dir_okay=False
+    ),
+    verbose: bool = typer.Option(
+        False, "--verbose", "-v", help="Show preconditions and evidence categories."
+    ),
+    skip_resources: bool = typer.Option(
+        False,
+        "--skip-resources",
+        help="Do not scan res/ and assets/ (resource requirements become UNDETERMINED).",
+    ),
+    work_dir: Path | None = typer.Option(
+        None, "--work-dir", help="Workspace parent directory for the H.1 decode.", file_okay=False
+    ),
+) -> None:
+    """[green]🧭 Phase H.2[/green] — Transformation eligibility & deterministic planning.
+
+    Evaluates whether each requested transformation is supported by the H.1 static
+    evidence (ELIGIBLE, CONDITIONALLY_ELIGIBLE, REFUSED, UNSUPPORTED, UNDETERMINED) and
+    emits a deterministic plan for eligible requests. Planning only: the APK is never
+    modified, rebuilt, signed or installed, and no plan is applied.
+
+    Exit codes: 0 planned; 1 analysis error or input changed; 2 invalid usage.
+    """
+    _ = dry_run  # planning is the only mode
+    if apply:
+        typer.echo(
+            "error: --apply is not supported. Phase H.2 is planning-only and never modifies "
+            "an APK; plans are applied by a future, separately verified phase (H.3).",
+            err=True,
+        )
+        raise typer.Exit(code=2)
+    if not transform_ids or not targets:
+        typer.echo("error: at least one --transform and one --target are required.", err=True)
+        raise typer.Exit(code=2)
+    if len(transform_ids) not in (1, len(targets)):
+        typer.echo(
+            "error: give one --transform for all targets, or one --transform per --target.",
+            err=True,
+        )
+        raise typer.Exit(code=2)
+
+    from apkforge.reference import ReferenceAnalysisService
+    from apkforge.transformation import (
+        TransformationPlanningService,
+        TransformationRequest,
+        format_planning_report,
+    )
+
+    cfg = load_default_config()
+    setup_logging(cfg.log_level)
+
+    ids = transform_ids * len(targets) if len(transform_ids) == 1 else transform_ids
+    requests = [
+        TransformationRequest(transformation_id=t, target=x)
+        for t, x in zip(ids, targets, strict=True)
+    ]
+    service = TransformationPlanningService(ReferenceAnalysisService(work_dir=work_dir))
+    result = service.plan(apk, requests, include_resources=not skip_resources)
+
+    if report is not None:
+        report.parent.mkdir(parents=True, exist_ok=True)
+        if report.suffix.lower() == ".json":
+            report.write_text(result.to_json() + "\n", encoding="utf-8")
+        else:
+            report.write_text(format_planning_report(result, verbose=verbose), encoding="utf-8")
+
+    if json_output:
+        typer.echo(result.to_json())
+    else:
+        _render_planning_summary(result, verbose=verbose)
+
+    if result.errors:
+        raise typer.Exit(code=1)
+
+
+def _render_planning_summary(result: PlanningResult, *, verbose: bool = False) -> None:
+    from apkforge.transformation import EligibilityState
+
+    colors = {
+        EligibilityState.ELIGIBLE: "green",
+        EligibilityState.CONDITIONALLY_ELIGIBLE: "cyan",
+        EligibilityState.REFUSED: "red",
+        EligibilityState.UNSUPPORTED: "magenta",
+        EligibilityState.UNDETERMINED: "yellow",
+    }
+    a = result.apk
+    _console.print(
+        Panel(
+            f"[bold]{a.package_name or a.file_name}[/bold] {a.version_name or ''}\n"
+            f"H.1 analysis: {result.analysis_state.value}   "
+            f"Input unchanged: {result.original_unchanged}   Applied: {result.applied}",
+            title="[bold blue]APKForge Transformation Planning (H.2, planning only)[/bold blue]",
+            expand=False,
+        )
+    )
+    table = Table(title="Decisions", border_style="dim")
+    table.add_column("Transformation", no_wrap=True)
+    table.add_column("Target", overflow="fold")
+    table.add_column("Eligibility")
+    table.add_column("Reasons", overflow="fold")
+    table.add_column("Plan", overflow="fold", style="dim")
+    for d in result.decisions:
+        color = colors[d.eligibility]
+        codes = sorted({r.code.value for r in d.reasons})
+        table.add_row(
+            d.transformation_id,
+            d.target.canonical if d.target else "(invalid)",
+            f"[{color}]{d.eligibility.value}[/{color}]",
+            ", ".join(codes) or "-",
+            d.plan.plan_id if d.plan else "-",
+        )
+    _console.print(table)
+    for d in result.decisions:
+        if not verbose and not d.reasons:
+            continue
+        lines = [f"  {r.code.value}: {r.message}" for r in d.reasons]
+        if verbose:
+            lines += [
+                f"  [{c.status.value}] {c.id}" + (f" ({', '.join(c.reasons)})" if c.reasons else "")
+                for c in d.requirements
+            ]
+            if d.target_evidence_summary is not None:
+                lines += [
+                    f"  evidence {c.category}: {c.count} ({c.absence.value}, "
+                    f"{c.analysis_state.value})"
+                    for c in d.target_evidence_summary.categories
+                ]
+            if d.plan is not None:
+                lines += [f"  plan: {ch.type} {ch.target}" for ch in d.plan.planned_changes]
+        _console.print(f"[bold]{d.target.canonical if d.target else d.transformation_id}[/bold]")
+        for line in lines:
+            _console.print(line, markup=False)
+    for err in result.errors:
+        _console.print(f"[red]{err}[/red]")
+    _console.print(
+        "[dim]H.2 determines whether a transformation is supported by the static evidence and "
+        "produces a deterministic plan. It does not apply it and does not establish that the "
+        "target behavior is malicious.[/dim]"
     )
 
 

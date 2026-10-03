@@ -23,6 +23,7 @@ from sys import intern
 from apkforge.reference.models import (
     AnalysisIssue,
     AnalysisState,
+    DefinedMethod,
     Evidence,
     FieldAccess,
     InvokeKind,
@@ -344,6 +345,10 @@ class SmaliFileResult:
     dex: str | None
     class_name: str | None = None
     superclass: str | None = None
+    access_flags: list[str] = field(default_factory=list)
+    interfaces: list[str] = field(default_factory=list)
+    annotations: list[str] = field(default_factory=list)
+    methods: list[DefinedMethod] = field(default_factory=list)
     evidence: list[Evidence] = field(default_factory=list)
     issues: list[AnalysisIssue] = field(default_factory=list)
     analyzed: bool = False
@@ -369,6 +374,9 @@ class _Parser:
         self.pending: _Value | None = None
         self.dedupe: dict[tuple[str, str | None, str, str, str], Evidence] = {}
         self.assoc: dict[int, list[Evidence]] = {}
+        #: ``.field`` / ``.param`` whose annotations may follow (not class/method level)
+        self.member_ctx: str | None = None
+        self.current: DefinedMethod | None = None
 
     # -- recording -----------------------------------------------------------
 
@@ -470,17 +478,20 @@ class _Parser:
                     return self.finish()
                 self.cls = class_name_from_descriptor(m.group("type"))[0]
                 self.res.class_name = self.cls
+                self.res.access_flags = line.split()[1:-1]
                 self.res.analyzed = True
                 continue
             if line.startswith("."):
                 self.directive(line)
             elif line.startswith(":"):
+                self.member_ctx = None
                 if not line.startswith(_NON_MERGE_LABELS):
                     self.regs.clear()
                     self.pending = None
             elif self.method is None:
                 self.issue("MALFORMED_SMALI", f"instruction outside a method: {line[:120]}")
             else:
+                self.member_ctx = None
                 self.instruction(line)
         if self.method is not None:
             self.issue("MALFORMED_SMALI", f"unterminated method {self.method}")
@@ -506,6 +517,8 @@ class _Parser:
     def directive(self, line: str) -> None:
         word = line.split(None, 1)[0]
         rest = line[len(word) :].strip()
+        if word != ".annotation" and not (word == ".end" and rest in ("field", "param")):
+            self.member_ctx = None
         if word in (".super", ".implements"):
             if not re.fullmatch(r"L[^;\s]+;", rest):
                 self.issue("MALFORMED_SMALI", f"bad {word} operand: {rest[:120]}")
@@ -513,10 +526,17 @@ class _Parser:
             context = "superclass" if word == ".super" else "interface"
             if word == ".super":
                 self.res.superclass = class_name_from_descriptor(rest)[0]
+            else:
+                iface = class_name_from_descriptor(rest)[0]
+                if iface is not None:
+                    self.res.interfaces.append(iface)
             self.class_ref(rest, word, context)
             self.type_ref(rest, context, word)
         elif word == ".field":
             self.field_decl(line)
+            self.member_ctx = "field"
+        elif word == ".param":
+            self.member_ctx = "param"
         elif word == ".method":
             self.method_decl(line)
         elif word == ".end":
@@ -524,11 +544,12 @@ class _Parser:
                 if self.method is None:
                     self.issue("MALFORMED_SMALI", ".end method without .method")
                 self.method = None
+                self.current = None
                 self.java_line = None
                 self.regs.clear()
                 self.pending = None
             elif rest.split(None, 1)[0] in ("field", "param", "local"):
-                pass  # ".end local v2" carries a register operand
+                self.member_ctx = None  # ".end local v2" carries a register operand
             else:
                 self.issue("UNSUPPORTED_DIRECTIVE", f"unexpected {line[:120]}")
         elif word == ".line":
@@ -575,6 +596,7 @@ class _Parser:
     def method_decl(self, line: str) -> None:
         if self.method is not None:
             self.issue("MALFORMED_SMALI", f"method {self.method} not terminated before .method")
+        self.current = None
         m = _METHOD_DECL.fullmatch(line)
         if m is None:
             self.issue("MALFORMED_SMALI", f"unparseable method header: {line[:120]}")
@@ -585,6 +607,13 @@ class _Parser:
             self.issue("MALFORMED_SMALI", f"invalid parameter descriptor: {m.group('params')}")
             params = []
         self.method = m.group("name") + m.group("proto")
+        self.current = DefinedMethod(
+            name=intern(m.group("name")),
+            descriptor=intern(m.group("proto")),
+            access_flags=tuple(intern(f) for f in m.group("mods").split()),
+            source_line=self.line_no,
+        )
+        self.res.methods.append(self.current)
         self.java_line = None
         self.regs.clear()
         self.pending = None
@@ -618,6 +647,11 @@ class _Parser:
             self.annotations.append("?")
             return
         cls = self.type_ref(m.group(1), "annotation", ".annotation")
+        if cls is not None and self.member_ctx is None:
+            if self.current is not None:
+                self.current.annotations = (*self.current.annotations, intern(cls))
+            elif self.method is None:
+                self.res.annotations.append(cls)
         self.annotations.append(cls or "?")
 
     def annotation_line(self, line: str) -> None:

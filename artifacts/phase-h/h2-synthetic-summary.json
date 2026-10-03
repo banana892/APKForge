@@ -1,0 +1,579 @@
+{
+  "toolchain": {
+    "python": "3.14.7",
+    "platform": "Linux-7.2.7-200.fc44.x86_64-x86_64-with-glibc2.43",
+    "apktool": "3.0.3",
+    "java": "openjdk version \"25.0.4.1\" 2026-08-18",
+    "git_head": "4013e9e"
+  },
+  "synthetic": {
+    "cases": [
+      {
+        "fixture": "f01_isolated",
+        "transformation": "H-TRANS-001",
+        "target": "B",
+        "expected": "ELIGIBLE",
+        "eligibility": "ELIGIBLE",
+        "reasons": [],
+        "plan_id": "plan-656d05abf8ece54ef877",
+        "apk_sha256": "2ced88dc453adfaecbef8f9069f716e24d7fe0f3eb272d9b31e1daf84704a879",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f01_isolated",
+        "transformation": "H-TRANS-001",
+        "target": "Missing",
+        "expected": "REFUSED",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "TARGET_NOT_FOUND"
+        ],
+        "plan_id": null,
+        "apk_sha256": "2ced88dc453adfaecbef8f9069f716e24d7fe0f3eb272d9b31e1daf84704a879",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f02_class_ref",
+        "transformation": "H-TRANS-001",
+        "target": "B",
+        "expected": "REFUSED",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "CLASS_CALLER_PRESENT",
+          "TYPE_REFERENCE_PRESENT"
+        ],
+        "plan_id": null,
+        "apk_sha256": "fa277c9a7c461b3360cd3733a485d699bd000fe2798c7c706ae0d740c6f5ef2b",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f03_multiple_callers",
+        "transformation": "H-TRANS-001",
+        "target": "B",
+        "expected": "REFUSED",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "CLASS_CALLER_PRESENT",
+          "TYPE_REFERENCE_PRESENT"
+        ],
+        "plan_id": null,
+        "apk_sha256": "95a5977ac045737627ce5f8a3471a5958e3b96ffb77b0bbdc5f2d97aa8cac471",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f03_multiple_callers",
+        "transformation": "H-TRANS-001",
+        "target": "C",
+        "expected": "ELIGIBLE",
+        "eligibility": "ELIGIBLE",
+        "reasons": [],
+        "plan_id": "plan-cbe5eb20a0b5ba886429",
+        "apk_sha256": "95a5977ac045737627ce5f8a3471a5958e3b96ffb77b0bbdc5f2d97aa8cac471",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f04_method_ref",
+        "transformation": "H-TRANS-001",
+        "target": "B",
+        "expected": "REFUSED",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "CLASS_CALLER_PRESENT",
+          "METHOD_CALLER_PRESENT",
+          "TYPE_REFERENCE_PRESENT"
+        ],
+        "plan_id": null,
+        "apk_sha256": "dd9d5de69fd2b9b2677f7a566ee1ff5e92ab2e8c9712c09d6a8bf739b555a002",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f05_field_ref",
+        "transformation": "H-TRANS-001",
+        "target": "B",
+        "expected": "REFUSED",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "CLASS_CALLER_PRESENT",
+          "FIELD_REFERENCE_PRESENT",
+          "TYPE_REFERENCE_PRESENT"
+        ],
+        "plan_id": null,
+        "apk_sha256": "79197f8f92d48b638b75d5b55518c48254b7a30461d454e61d64b3ed4490c392",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f06_constructor",
+        "transformation": "H-TRANS-001",
+        "target": "B",
+        "expected": "REFUSED",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "CLASS_CALLER_PRESENT",
+          "CONSTRUCTOR_REFERENCE_PRESENT",
+          "TYPE_REFERENCE_PRESENT"
+        ],
+        "plan_id": null,
+        "apk_sha256": "28b570db1e32721fa0e2f19d3e18b8e3e4d8834356449ffd6913095ff2cdc169",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f07_const_class",
+        "transformation": "H-TRANS-001",
+        "target": "B",
+        "expected": "REFUSED",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "CLASS_CALLER_PRESENT",
+          "CONST_CLASS_REFERENCE_PRESENT",
+          "TYPE_REFERENCE_PRESENT"
+        ],
+        "plan_id": null,
+        "apk_sha256": "09b8cfda84844198008267caac598abf36f0a05cb7f5742c0d6850095355309a",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f08_string",
+        "transformation": "H-TRANS-001",
+        "target": "B",
+        "expected": "UNDETERMINED",
+        "eligibility": "UNDETERMINED",
+        "reasons": [
+          "STRING_REFERENCE_UNRESOLVED"
+        ],
+        "plan_id": null,
+        "apk_sha256": "c21b91e931893686005a312d6df2088c70e51cc8214198d23c1f76971c771748",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f09_reflection",
+        "transformation": "H-TRANS-001",
+        "target": "B",
+        "expected": "REFUSED",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "REFLECTION_TARGET_PRESENT",
+          "REFLECTION_TARGET_UNKNOWN",
+          "STRING_REFERENCE_UNRESOLVED"
+        ],
+        "plan_id": null,
+        "apk_sha256": "1e656851200192f036d0e6c08d453c19e5a0c936a7f0a92ab78c496f04f1d60b",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f09_reflection",
+        "transformation": "H-TRANS-001",
+        "target": "C",
+        "expected": "UNDETERMINED",
+        "eligibility": "UNDETERMINED",
+        "reasons": [
+          "REFLECTION_TARGET_UNKNOWN"
+        ],
+        "plan_id": null,
+        "apk_sha256": "1e656851200192f036d0e6c08d453c19e5a0c936a7f0a92ab78c496f04f1d60b",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f09_reflection",
+        "transformation": "H-TRANS-002",
+        "target": "C->bar()V",
+        "expected": "UNDETERMINED",
+        "eligibility": "UNDETERMINED",
+        "reasons": [
+          "REFLECTION_TARGET_UNKNOWN"
+        ],
+        "plan_id": null,
+        "apk_sha256": "1e656851200192f036d0e6c08d453c19e5a0c936a7f0a92ab78c496f04f1d60b",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f10_native_method",
+        "transformation": "H-TRANS-001",
+        "target": "B",
+        "expected": "UNSUPPORTED",
+        "eligibility": "UNSUPPORTED",
+        "reasons": [
+          "NATIVE_DEPENDENCY_UNKNOWN",
+          "NATIVE_METHOD_DECLARED"
+        ],
+        "plan_id": null,
+        "apk_sha256": "15664cffc8989ebc9a9c1c5f7d216a6ae0a461c498f7f349c999970e57c4ab82",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f10_native_method",
+        "transformation": "H-TRANS-002",
+        "target": "B->nativeCall(I)I",
+        "expected": "UNSUPPORTED",
+        "eligibility": "UNSUPPORTED",
+        "reasons": [
+          "NATIVE_DEPENDENCY_UNKNOWN",
+          "NATIVE_METHOD"
+        ],
+        "plan_id": null,
+        "apk_sha256": "15664cffc8989ebc9a9c1c5f7d216a6ae0a461c498f7f349c999970e57c4ab82",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f11_load_library",
+        "transformation": "H-TRANS-001",
+        "target": "B",
+        "expected": "UNDETERMINED",
+        "eligibility": "UNDETERMINED",
+        "reasons": [
+          "NATIVE_DEPENDENCY_UNKNOWN"
+        ],
+        "plan_id": null,
+        "apk_sha256": "bdc359af52df35c8a9cb55a167ddf9da0c0c8baad949a2057325c46b9a644930",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f12_manifest",
+        "transformation": "H-TRANS-001",
+        "target": "B",
+        "expected": "REFUSED",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "MANIFEST_COMPONENT_REFERENCE"
+        ],
+        "plan_id": null,
+        "apk_sha256": "d60f13444713371fd51275391c1f9ec4a7fd989d272cea4a35c5f4beffe0ef8c",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f12_manifest",
+        "transformation": "H-TRANS-001",
+        "target": "C",
+        "expected": "REFUSED",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "MANIFEST_COMPONENT_REFERENCE"
+        ],
+        "plan_id": null,
+        "apk_sha256": "d60f13444713371fd51275391c1f9ec4a7fd989d272cea4a35c5f4beffe0ef8c",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f13_resource",
+        "transformation": "H-TRANS-001",
+        "target": "B",
+        "expected": "REFUSED",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "RESOURCE_REFERENCE_PRESENT"
+        ],
+        "plan_id": null,
+        "apk_sha256": "78f79f63a2c279b7471bc614648fee4b6e40af48c896a6b1882fee7e81bdc5cd",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f13_resource",
+        "transformation": "H-TRANS-001",
+        "target": "C",
+        "expected": "UNDETERMINED",
+        "eligibility": "UNDETERMINED",
+        "reasons": [
+          "RESOURCE_TEXTUAL_MATCH"
+        ],
+        "plan_id": null,
+        "apk_sha256": "78f79f63a2c279b7471bc614648fee4b6e40af48c896a6b1882fee7e81bdc5cd",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f14_incomplete",
+        "transformation": "H-TRANS-001",
+        "target": "B",
+        "expected": "UNDETERMINED",
+        "eligibility": "UNDETERMINED",
+        "reasons": [
+          "RESOURCE_ANALYSIS_INCOMPLETE"
+        ],
+        "plan_id": null,
+        "apk_sha256": "ef72f8baca38b7cabe8c3b9c5524a6fa6db46259ef5a7d756dc901f2fc574f38",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "g01_methods",
+        "transformation": "H-TRANS-002",
+        "target": "D->helper()V",
+        "expected": "ELIGIBLE",
+        "eligibility": "ELIGIBLE",
+        "reasons": [],
+        "plan_id": "plan-5a6d7e645012b476387d",
+        "apk_sha256": "93feb5b05c89079cfc1b242a6dd0c5dbd6e804c533ce6e9e53749bd831cc79fa",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "g01_methods",
+        "transformation": "H-TRANS-002",
+        "target": "E->own()V",
+        "expected": "ELIGIBLE",
+        "eligibility": "ELIGIBLE",
+        "reasons": [],
+        "plan_id": "plan-42726508a2c43d07f43f",
+        "apk_sha256": "93feb5b05c89079cfc1b242a6dd0c5dbd6e804c533ce6e9e53749bd831cc79fa",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "g01_methods",
+        "transformation": "H-TRANS-002",
+        "target": "D->used()V",
+        "expected": "REFUSED",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "METHOD_CALLER_PRESENT"
+        ],
+        "plan_id": null,
+        "apk_sha256": "93feb5b05c89079cfc1b242a6dd0c5dbd6e804c533ce6e9e53749bd831cc79fa",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "g01_methods",
+        "transformation": "H-TRANS-002",
+        "target": "D->shared()V",
+        "expected": "REFUSED",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "METHOD_CALLER_PRESENT"
+        ],
+        "plan_id": null,
+        "apk_sha256": "93feb5b05c89079cfc1b242a6dd0c5dbd6e804c533ce6e9e53749bd831cc79fa",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "g01_methods",
+        "transformation": "H-TRANS-002",
+        "target": "D->sutil()V",
+        "expected": "REFUSED",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "METHOD_CALLER_PRESENT"
+        ],
+        "plan_id": null,
+        "apk_sha256": "93feb5b05c89079cfc1b242a6dd0c5dbd6e804c533ce6e9e53749bd831cc79fa",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "g01_methods",
+        "transformation": "H-TRANS-002",
+        "target": "I->run()V",
+        "expected": "UNSUPPORTED",
+        "eligibility": "UNSUPPORTED",
+        "reasons": [
+          "ABSTRACT_METHOD",
+          "INTERFACE_METHOD",
+          "METHOD_OVERRIDDEN"
+        ],
+        "plan_id": null,
+        "apk_sha256": "93feb5b05c89079cfc1b242a6dd0c5dbd6e804c533ce6e9e53749bd831cc79fa",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "g01_methods",
+        "transformation": "H-TRANS-002",
+        "target": "E->run()V",
+        "expected": "UNSUPPORTED",
+        "eligibility": "UNSUPPORTED",
+        "reasons": [
+          "METHOD_OVERRIDES"
+        ],
+        "plan_id": null,
+        "apk_sha256": "93feb5b05c89079cfc1b242a6dd0c5dbd6e804c533ce6e9e53749bd831cc79fa",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "g01_methods",
+        "transformation": "H-TRANS-002",
+        "target": "D->helper2()V",
+        "expected": "UNSUPPORTED",
+        "eligibility": "UNSUPPORTED",
+        "reasons": [
+          "METHOD_OVERRIDDEN"
+        ],
+        "plan_id": null,
+        "apk_sha256": "93feb5b05c89079cfc1b242a6dd0c5dbd6e804c533ce6e9e53749bd831cc79fa",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "g01_methods",
+        "transformation": "H-TRANS-002",
+        "target": "N->values()[Lcom/example/h1/N;",
+        "expected": "UNSUPPORTED",
+        "eligibility": "UNSUPPORTED",
+        "reasons": [
+          "ENUM_IMPLICIT_METHOD"
+        ],
+        "plan_id": null,
+        "apk_sha256": "93feb5b05c89079cfc1b242a6dd0c5dbd6e804c533ce6e9e53749bd831cc79fa",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "g01_methods",
+        "transformation": "H-TRANS-002",
+        "target": "D->readResolve()Ljava/lang/Object;",
+        "expected": "UNSUPPORTED",
+        "eligibility": "UNSUPPORTED",
+        "reasons": [
+          "SERIALIZATION_HOOK_METHOD"
+        ],
+        "plan_id": null,
+        "apk_sha256": "93feb5b05c89079cfc1b242a6dd0c5dbd6e804c533ce6e9e53749bd831cc79fa",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "g01_methods",
+        "transformation": "H-TRANS-002",
+        "target": "H->handle()V",
+        "expected": "UNDETERMINED",
+        "eligibility": "UNDETERMINED",
+        "reasons": [
+          "OVERRIDE_RELATIONSHIP_UNRESOLVED"
+        ],
+        "plan_id": null,
+        "apk_sha256": "93feb5b05c89079cfc1b242a6dd0c5dbd6e804c533ce6e9e53749bd831cc79fa",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "g01_methods",
+        "transformation": "H-TRANS-002",
+        "target": "J->js()V",
+        "expected": "UNDETERMINED",
+        "eligibility": "UNDETERMINED",
+        "reasons": [
+          "ANNOTATION_DRIVEN_ACCESS_POSSIBLE"
+        ],
+        "plan_id": null,
+        "apk_sha256": "93feb5b05c89079cfc1b242a6dd0c5dbd6e804c533ce6e9e53749bd831cc79fa",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "g01_methods",
+        "transformation": "H-TRANS-002",
+        "target": "K->k()V",
+        "expected": "CONDITIONALLY_ELIGIBLE",
+        "eligibility": "CONDITIONALLY_ELIGIBLE",
+        "reasons": [
+          "KOTLIN_METADATA_UPDATE_REQUIRED"
+        ],
+        "plan_id": "plan-12969bd23bfec69e9add",
+        "apk_sha256": "93feb5b05c89079cfc1b242a6dd0c5dbd6e804c533ce6e9e53749bd831cc79fa",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "g01_methods",
+        "transformation": "H-TRANS-002",
+        "target": "D->over",
+        "expected": "REFUSED",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "TARGET_AMBIGUOUS"
+        ],
+        "plan_id": null,
+        "apk_sha256": "93feb5b05c89079cfc1b242a6dd0c5dbd6e804c533ce6e9e53749bd831cc79fa",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "g02_method_reflection",
+        "transformation": "H-TRANS-002",
+        "target": "D->secret()V",
+        "expected": "REFUSED",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "REFLECTION_TARGET_PRESENT",
+          "STRING_REFERENCE_UNRESOLVED"
+        ],
+        "plan_id": null,
+        "apk_sha256": "4375853b7d190740b5c038976a0b77614674ff085e1bc94f3868c15ca357c282",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "g03_duplicate_class",
+        "transformation": "H-TRANS-001",
+        "target": "C",
+        "expected": "REFUSED",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "TARGET_AMBIGUOUS"
+        ],
+        "plan_id": null,
+        "apk_sha256": "84094fbf319c600826fc936aaa798bc3892139969d37e4a9b0ae1fe56a5f3fdf",
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      }
+    ],
+    "workspaces_left_behind": [],
+    "status": "PASS"
+  }
+}

@@ -168,6 +168,29 @@ APK (read-only, SHA-256 before/after)
 H.1 produces evidence only; it never modifies, builds or signs. Future H stages
 (eligibility, transformations) consume it.
 
+### Transformation Eligibility & Planning (Phase H.2, planning only)
+
+`apkforge.transformation.TransformationPlanningService` consumes an H.1 result and decides,
+per requested transformation (H-TRANS-001 remove isolated class, H-TRANS-002 remove
+isolated method), whether the static evidence supports it. See
+[`transformation.md`](transformation.md#phase-h2--transformation-eligibility--deterministic-planning).
+
+```
+ReferenceAnalysisService (H.1)      ─> ReferenceAnalysisResult + ReferenceIndex (built once)
+TargetEvidenceSelector              ─> per-result lookup tables (built once)
+  └─ select(target)                 ─> TargetEvidenceSet (target's records only, by category)
+EligibilityEvaluator                ─> ELIGIBLE | CONDITIONALLY_ELIGIBLE | REFUSED |
+                                       UNSUPPORTED | UNDETERMINED + reason codes
+conflicts.detect_conflicts          ─> overlapping requests REFUSED
+TransformationPlanner               ─> TransformationDecision (+ deterministic plan)
+                                       [STOP — no APK is modified; H.3 applies plans]
+```
+
+The future chain stays `evidence -> eligibility -> plan -> approval -> transformation ->
+build -> verification`; H.2 ends at the plan. It reuses the Phase D risk/reversibility
+enums and adds no second modification engine; H.3 is expected to execute plans through the
+existing `ModificationPipeline` / `BuildService` / Phase E verification.
+
 
 The implemented pipeline is `apkforge.modification.pipeline.ModificationPipeline`; see
 `docs/modification-framework.md`. Modifiers plan and edit decoded files, BuildService
@@ -298,6 +321,16 @@ src/apkforge/
 │   ├── index.py        — ReferenceIndex: deterministic find_* queries, assess_absence
 │   ├── report.py       — format_reference_report (Markdown)
 │   └── service.py      — ReferenceAnalysisService.analyze / analyze_decoded
+│
+├── transformation/     — Phase H.2: transformation eligibility & deterministic planning
+│   ├── models.py       — EligibilityState, DecisionReason (+ REASON_STATES), plan/decision models
+│   ├── catalog.py      — H-TRANS-001 / H-TRANS-002 specifications (no executors)
+│   ├── targets.py      — target parsing and resolution (never guesses names)
+│   ├── selector.py     — TargetEvidenceSelector / TargetEvidenceSet (index-based extraction)
+│   ├── eligibility.py  — EligibilityEvaluator (completeness-respecting rules)
+│   ├── conflicts.py    — overlapping-request detection
+│   ├── planner.py      — TransformationPlanner, TransformationPlanningService
+│   └── report.py       — format_planning_report (Markdown)
 │
 ├── security/           — Phase 5: Security Analysis Engine
 │   ├── engine.py       — SecurityEngine coordinator, index builder, error isolation

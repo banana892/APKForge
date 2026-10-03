@@ -327,9 +327,18 @@ class ReferenceAnalysisService:
                 continue
             if f.class_name in defined:
                 duplicates.append(f.class_name)
+                defined[f.class_name].duplicate_sources.append(f.path)
                 continue
             defined[f.class_name] = DefinedClass(
-                name=f.class_name, source_file=f.path, source_dex=f.dex, superclass=f.superclass
+                name=f.class_name,
+                source_file=f.path,
+                source_dex=f.dex,
+                superclass=f.superclass,
+                access_flags=f.access_flags,
+                interfaces=f.interfaces,
+                annotations=f.annotations,
+                methods=f.methods,
+                analysis_state=f.state,
             )
         if duplicates:
             dex_comp.notes.append(

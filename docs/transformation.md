@@ -1,16 +1,21 @@
-# Transformation — Evidence Prerequisite (Phase H.1)
+# Transformation — Evidence (H.1) and Eligibility Planning (H.2)
 
 > **H.1 does not perform APK transformations. It only produces evidence that future
 > transformation stages may consume.**
+>
+> **H.2 determines whether a proposed transformation is supported by the available static
+> evidence and produces a deterministic plan. It does not apply the transformation and
+> does not establish that the target behavior is malicious.**
 
 Phase H is built incrementally. Each stage must pass its own verification gate before the
 next one begins:
 
 ```text
-H.1  Evidence + reference analysis          <- this document (implemented)
-H.2  Transformation eligibility / planning  (not started)
+H.1  Evidence + reference analysis          (implemented, read-only)
+H.2  Transformation eligibility / planning  (implemented, planning only — see below)
 H.3  First narrow transformation            (not started)
-H.4  Expanded controlled transformations    (not started)
+H.4  Verification of transformed APK        (not started)
+H.5  Additional controlled transformations  (not started)
 ```
 
 The intended flow for a future deep transformation (for example removing an SDK class) is:
@@ -254,3 +259,316 @@ blocking for any transformation that relies on absence.
   APKs with Apktool 3.0.3 (`tests/fixtures/h1_apks.py`), CLI JSON with `FORCE_COLOR=3`.
 - `build-tests/run_phase_h1_validation.py all --write` — synthetic + read-only corpus run;
   evidence in `artifacts/phase-h/` (see `H1-REFERENCE-ANALYSIS.md`).
+
+### Declarations (H.1 schema 2, added for H.2)
+
+`DefinedClass` additionally records the class `access_flags` (smali modifiers, e.g.
+`public`, `interface`, `abstract`, `enum`), `interfaces`, class-level `annotations`, the
+`analysis_state` of the defining smali file, `duplicate_sources` (other files defining the
+same class; the first definition is kept) and `methods` (`DefinedMethod`: name, proto
+descriptor, access flags, method-level annotations, declaration line). Field and parameter
+annotations are not recorded as class/method annotations. The change is additive; existing
+evidence is unchanged. Compact JSON (`include_code_references=False`, the CLI default)
+omits the per-class `methods`.
+
+---
+
+# Phase H.2 — Transformation Eligibility & Deterministic Planning
+
+H.2 is the decision layer between H.1 evidence and any future APK transformation:
+
+```text
+Phase F/G evidence ─> H.1 reference analysis ─> H.2 eligibility ─> deterministic plan
+                                                                    │
+                                                                 [STOP]
+                                                                    │
+                                    approval ─> H.3 transformation ─> build ─> verification
+```
+
+H.2 answers: *given the available evidence, is this proposed transformation sufficiently
+supported to be considered eligible, or must APKForge refuse or defer it?* It never
+modifies, rebuilds, aligns, signs or installs an APK, never executes app code, and accepts
+no `--apply`. Plans describe what a future H.3 engine would do; `applied` is always false.
+
+**Why H.2 does not modify APKs.** A plan is only as good as the evidence behind it. Keeping
+decision and mutation in separate, separately verified layers means a wrong eligibility
+rule can only produce a wrong *plan* — which is reviewable, deterministic and harmless —
+never a damaged APK. The first transformation belongs to H.3 and is evaluated
+independently.
+
+## Using it
+
+```bash
+apkforge transform app.apk --transform H-TRANS-001 --target com.example.Target --dry-run
+apkforge transform app.apk --transform H-TRANS-002 \
+    --target 'com.example.Target->method(Ljava/lang/String;)V' --dry-run
+apkforge transform app.apk -t H-TRANS-001 --target com.x.A --target com.x.B --json
+apkforge transform app.apk -t H-TRANS-001 --target com.x.A \
+    -t H-TRANS-002 --target 'com.x.B->m()V' --report plan.md -v
+```
+
+One `--transform` applies to every `--target`; otherwise give one per target (paired in
+order). `--json` (ANSI-free, deterministic), `--report x.md|x.json`, `--verbose`,
+`--skip-resources` (resource requirements become UNDETERMINED), `--work-dir`. `--dry-run`
+is accepted for explicitness; planning is the only mode. `--apply` exits with code 2
+("H.2 is planning-only"). Exit codes: 0 planned, 1 analysis error / input changed,
+2 usage error.
+
+```python
+from apkforge.transformation import TransformationPlanningService, TransformationRequest
+
+svc = TransformationPlanningService()  # wraps ReferenceAnalysisService
+result = svc.plan(
+    "app.apk",
+    [
+        TransformationRequest(transformation_id="H-TRANS-001", target="com.example.Unused"),
+    ],
+)
+result.decisions[0].eligibility  # EligibilityState
+result.decisions[0].reasons  # [ReasonDetail(code=..., ...)]
+result.plans  # plans for (conditionally) eligible requests
+
+# over an existing H.1 result (pure, no I/O):
+TransformationPlanningService.plan_from_result(reference_result, requests)
+```
+
+Package `apkforge.transformation`: `models` (states, reasons, plan models), `catalog`
+(H-TRANS-001/002), `targets` (parsing/resolution), `selector`
+(`TargetEvidenceSelector`), `eligibility` (`EligibilityEvaluator`), `conflicts`,
+`planner` (`TransformationPlanner`, `TransformationPlanningService`), `report`.
+Risk and reversibility reuse the Phase D `ModificationRisk` / `Reversibility` enums.
+
+## Eligibility states
+
+| State | Meaning |
+|---|---|
+| `ELIGIBLE` | Every required evidence item and precondition is satisfied (static scope). A plan is generated. |
+| `CONDITIONALLY_ELIGIBLE` | Satisfied, but an explicit documented condition must be met before application. A plan is generated with unsatisfied `conditions`; it is **not** an approval. |
+| `REFUSED` | The request conflicts with observed evidence or a defined safety rule. |
+| `UNSUPPORTED` | APKForge does not support this transformation for this target shape. |
+| `UNDETERMINED` | The available analysis is insufficient to establish eligibility. Never converted to `ELIGIBLE`. |
+
+Every reason code imposes exactly one state (`REASON_STATES`). When several apply, the
+strongest wins: `REFUSED > UNSUPPORTED > UNDETERMINED > CONDITIONALLY_ELIGIBLE`. `ELIGIBLE`
+is the absence of reasons *and* every precondition `SATISFIED`; an unanswered
+precondition can never become eligible. All reasons are reported, not only the deciding one.
+
+## Decision reason codes
+
+| Code | State | When |
+|---|---|---|
+| `TARGET_NOT_FOUND` | REFUSED | class/method not defined (and every class definition was read) |
+| `TARGET_AMBIGUOUS` | REFUSED | class defined in several files, simple name matching several classes, or method name with several overloads and no proto |
+| `TARGET_NOT_FULLY_QUALIFIED` | REFUSED | unqualified name matching exactly one class (never guessed) |
+| `UNSUPPORTED_TARGET_TYPE` | UNSUPPORTED | member target for a class transformation (or vice versa), arrays/primitives, malformed proto |
+| `UNKNOWN_TRANSFORMATION` | UNSUPPORTED | id not in the catalog |
+| `ANALYSIS_INCOMPLETE` | UNDETERMINED | target not found but not every class definition was read (decode failure, missing decoded DEX) |
+| `DEX_ANALYSIS_INCOMPLETE` | UNDETERMINED | `dex` is not COMPLETE, so code-reference absence is not established |
+| `TARGET_DEFINITION_INCOMPLETE` | UNDETERMINED | the target's own smali file is PARTIAL |
+| `REFLECTION_ANALYSIS_INCOMPLETE` | UNDETERMINED | `reflection` not COMPLETE although no unresolved target exists |
+| `MANIFEST_ANALYSIS_INCOMPLETE` | UNDETERMINED | `manifest` not COMPLETE |
+| `RESOURCE_ANALYSIS_INCOMPLETE` | UNDETERMINED | `resources` or `assets` not COMPLETE (incl. `--skip-resources`) |
+| `CLASS_CALLER_PRESENT` | REFUSED | another class has an instruction-level class reference |
+| `TYPE_REFERENCE_PRESENT` | REFUSED | another class mentions the type (signatures, fields, casts, annotations...) |
+| `METHOD_CALLER_PRESENT` | REFUSED | method call through the class (H-TRANS-001) / call site on the class or a defined subclass (H-TRANS-002) |
+| `FIELD_REFERENCE_PRESENT` | REFUSED | field access through the class |
+| `CONSTRUCTOR_REFERENCE_PRESENT` | REFUSED | constructor invocation |
+| `CONST_CLASS_REFERENCE_PRESENT` | REFUSED | `const-class` load |
+| `STRING_REFERENCE_UNRESOLVED` | UNDETERMINED | a string constant names the target (indirect evidence; never a direct reference) |
+| `REFLECTION_TARGET_PRESENT` | REFUSED | reflection statically resolved to the target |
+| `REFLECTION_TARGET_UNKNOWN` | UNDETERMINED | reflection with an unresolved target exists (may reach the target) |
+| `DYNAMIC_CODE_LOADING_PRESENT` | UNDETERMINED | a class loader is constructed |
+| `ANNOTATION_DRIVEN_ACCESS_POSSIBLE` | UNDETERMINED | runtime annotation on the method (e.g. `@JavascriptInterface`, event-bus `@Subscribe`) |
+| `NATIVE_METHOD_DECLARED` | UNSUPPORTED | the class declares native methods |
+| `NATIVE_DEPENDENCY_UNKNOWN` | UNDETERMINED | `native_indicators` / `native_code` not COMPLETE (JNI can reach any class/method) |
+| `MANIFEST_COMPONENT_REFERENCE` | REFUSED | activity / activity-alias / service / receiver / provider names the class |
+| `MANIFEST_REFERENCE_PRESENT` | REFUSED | other structural manifest reference (application name, backupAgent, instrumentation...) |
+| `MANIFEST_TEXTUAL_MATCH` | UNDETERMINED | a manifest value equals the class name (textual) |
+| `RESOURCE_REFERENCE_PRESENT` | REFUSED | structural res/asset reference (custom view tag, `class=`, `android:fragment`, ServiceLoader entry...) |
+| `RESOURCE_TEXTUAL_MATCH` | UNDETERMINED | textual res/asset match (`EXACT_VALUE`, `EMBEDDED_TOKEN`) |
+| `RESOURCE_METHOD_REFERENCE_NOT_ANALYZED` | UNDETERMINED | public `(Landroid/view/View;)V` method (android:onClick shape; H.1 does not index method names in layouts) |
+| `CONSTRUCTOR_METHOD`, `CLASS_INITIALIZER`, `ABSTRACT_METHOD`, `INTERFACE_METHOD`, `NATIVE_METHOD`, `SYNTHETIC_METHOD`, `ENUM_IMPLICIT_METHOD`, `SERIALIZATION_HOOK_METHOD` | UNSUPPORTED | special method shapes (see H-TRANS-002) |
+| `METHOD_OVERRIDES` | UNSUPPORTED | overrides/implements a method of a defined supertype or `java.lang.Object` |
+| `METHOD_OVERRIDDEN` | UNSUPPORTED | a defined subclass overrides it |
+| `OVERRIDE_RELATIONSHIP_UNRESOLVED` | UNDETERMINED | a supertype of a virtual method is not defined in the APK (framework/library) |
+| `CONFLICTING_TRANSFORMATION` | REFUSED | another request in the same set overlaps the target |
+| `KOTLIN_METADATA_UPDATE_REQUIRED` | CONDITIONALLY_ELIGIBLE | the class carries `kotlin.Metadata`, which would still describe the removed function |
+
+Each `ReasonDetail` carries the code, its state, the precondition it answers, a
+human-readable message, the total `evidence_count` and up to 10 H.1 `evidence_ids`.
+
+## H.1 -> H.2 data flow and target evidence extraction
+
+```text
+ReferenceAnalysisResult ─> result.index() (H.1, built once)
+      └─ TargetEvidenceSelector (built once per result: class map, subtype map,
+         reflection/native/manifest/resource records by class, string-token index)
+            └─ select(target) ─> TargetEvidenceSet (only the target's records, by category)
+                  └─ EligibilityEvaluator ─> state + reasons + precondition checks
+                        └─ TransformationPlanner ─> TransformationDecision (+ plan)
+```
+
+The selector answers each target with dictionary lookups (`ReferenceIndex.evidence_targeting`
+and the per-class tables); it never walks the full evidence list per target. The string-token
+table (defined class name -> string constants mentioning it, same boundary rule as H.1
+`assess_absence`) is built once, lazily, over the distinct strings.
+
+Categories of a class target: `class_references`, `type_references`, `method_references`,
+`field_references`, `constructor_references`, `const_class_references` (all excluding the
+class's own self-references), `string_mentions`, `reflection_targeting` (resolved to the
+class), `reflection_unresolved` (APK-wide `TARGET_UNKNOWN`), `dynamic_code_loading`,
+`native_declared`, `native_code` (loads performed by the class), `manifest_references`,
+`resource_references`. A method target: `call_sites` (owner = the class or any defined
+subclass; a method calling itself is not a remaining caller), `reflection_targeting`
+(member name resolved on the class/subclass, or `getMethods`/`getDeclaredMethods` on it),
+`reflection_name_match` (member name resolved on an unresolved class),
+`reflection_unresolved`, `dynamic_code_loading`, `string_mentions` (constants equal to the
+method name), `native_declared`.
+
+Every category reports its count, H.2 absence status, the combined state of the components
+it depends on, up to 10 evidence ids (`truncated` when more) and up to 10 source classes.
+
+### Completeness and absence rules
+
+A category's absence status follows H.1 semantics:
+
+| Status | When | Effect |
+|---|---|---|
+| `ABSENCE_ESTABLISHED` | nothing observed and the category's components are COMPLETE | may satisfy a precondition |
+| `ABSENCE_NOT_ESTABLISHED` | nothing observed, a component is not COMPLETE | blocks: the precondition is `NOT_ESTABLISHED` (UNDETERMINED) |
+| `ONLY_INDIRECT_EVIDENCE` | only strings / textual / unresolved hints | never a direct reference; UNDETERMINED (or REFUSED where a rule says so) |
+| `REFERENCES_PRESENT` | structural references observed | REFUSED for removal preconditions |
+
+Category -> components: code/strings/dynamic loading -> `dex`; reflection -> `dex`,
+`reflection`; native -> `dex`, `native_indicators`, `native_code`; manifest -> `manifest`;
+resources -> `resources`, `assets`. A decision is never stronger than these states:
+`dex COMPLETE + reflection PARTIAL` cannot yield "no references", and `reflection UNKNOWN`
+is never read as "no reflection".
+
+## H-TRANS-001 — Remove isolated class
+
+Target: a fully-qualified class name (`com.x.A`, `com/x/A` or `Lcom/x/A;`).
+
+| Precondition | Satisfied when | Otherwise |
+|---|---|---|
+| `class_exists` | defined exactly once | `TARGET_NOT_FOUND` / `TARGET_AMBIGUOUS` / `TARGET_NOT_FULLY_QUALIFIED` (REFUSED); `ANALYSIS_INCOMPLETE` if definitions were not all read |
+| `dex_analysis_complete` | `dex` and the class's file COMPLETE | `DEX_ANALYSIS_INCOMPLETE`, `TARGET_DEFINITION_INCOMPLETE` |
+| `no_callers` | no class reference from another class | `CLASS_CALLER_PRESENT` |
+| `no_type_references` | no type mention from another class | `TYPE_REFERENCE_PRESENT` |
+| `no_member_references` | no method call / field access through the class | `METHOD_CALLER_PRESENT`, `FIELD_REFERENCE_PRESENT` |
+| `no_constructor_references` | — | `CONSTRUCTOR_REFERENCE_PRESENT` |
+| `no_const_class_references` | — | `CONST_CLASS_REFERENCE_PRESENT` |
+| `no_string_references` | no string names the class | `STRING_REFERENCE_UNRESOLVED` |
+| `no_reflection_target` | reflection COMPLETE and none resolved to the class | `REFLECTION_TARGET_PRESENT`, `REFLECTION_TARGET_UNKNOWN`, `REFLECTION_ANALYSIS_INCOMPLETE` |
+| `no_dynamic_code_loading` | no class loader constructed | `DYNAMIC_CODE_LOADING_PRESENT` |
+| `no_native_dependency` | no native method in the class; native components COMPLETE | `NATIVE_METHOD_DECLARED`, `NATIVE_DEPENDENCY_UNKNOWN` |
+| `no_manifest_reference` | manifest COMPLETE, nothing names the class | `MANIFEST_COMPONENT_REFERENCE`, `MANIFEST_REFERENCE_PRESENT`, `MANIFEST_TEXTUAL_MATCH`, `MANIFEST_ANALYSIS_INCOMPLETE` |
+| `no_resource_reference` | resources/assets COMPLETE, nothing names the class | `RESOURCE_REFERENCE_PRESENT`, `RESOURCE_TEXTUAL_MATCH`, `RESOURCE_ANALYSIS_INCOMPLETE` |
+| `no_conflicting_transformation` | no overlapping request | `CONFLICTING_TRANSFORMATION` |
+
+Inner/nested classes that reference the target count as references, so a class group that
+only references itself is refused one class at a time (group removal is out of scope).
+
+## H-TRANS-002 — Remove isolated method
+
+Target: `class->name(proto)` with a smali proto (`com.x.A->m(ILjava/lang/String;)V`); the
+proto may be omitted only when the name is not overloaded.
+
+| Precondition | Satisfied when | Otherwise |
+|---|---|---|
+| `method_exists` | declared exactly once by the class | `TARGET_NOT_FOUND`, `TARGET_AMBIGUOUS` |
+| `dex_analysis_complete` | `dex` and the class's file COMPLETE | `DEX_ANALYSIS_INCOMPLETE`, `TARGET_DEFINITION_INCOMPLETE` |
+| `ordinary_method` | not one of the special shapes below | UNSUPPORTED codes |
+| `no_call_sites` | no invocation with owner = the class or a defined subclass | `METHOD_CALLER_PRESENT` |
+| `no_override_relationship` | private/static, or every supertype defined and no override either way | `METHOD_OVERRIDES`, `METHOD_OVERRIDDEN` (UNSUPPORTED), `OVERRIDE_RELATIONSHIP_UNRESOLVED` (UNDETERMINED) |
+| `no_reflection_target` | as for classes, by member name / method enumeration | `REFLECTION_TARGET_PRESENT`, `REFLECTION_TARGET_UNKNOWN`, `REFLECTION_ANALYSIS_INCOMPLETE` |
+| `no_dynamic_invocation` | no class loader (`invoke-custom`/method handles already make `dex`/`reflection` incomplete) | `DYNAMIC_CODE_LOADING_PRESENT` |
+| `no_native_boundary` | native components COMPLETE | `NATIVE_DEPENDENCY_UNKNOWN` |
+| `no_annotation_driven_access` | no method annotation besides `dalvik.annotation.*` / Kotlin metadata | `ANNOTATION_DRIVEN_ACCESS_POSSIBLE` |
+| `no_resource_method_reference` | not a public `(Landroid/view/View;)V` method | `RESOURCE_METHOD_REFERENCE_NOT_ANALYZED` |
+| `no_string_references` | no string constant equals the method name | `STRING_REFERENCE_UNRESOLVED` |
+| `metadata_consistency` | class has no `kotlin.Metadata` | `KOTLIN_METADATA_UPDATE_REQUIRED` (CONDITIONALLY_ELIGIBLE) |
+| `no_conflicting_transformation` | no overlapping request | `CONFLICTING_TRANSFORMATION` |
+
+Special shapes, never treated as ordinary removable methods (UNSUPPORTED): constructors
+(`<init>`), the class initializer (`<clinit>`), `abstract` methods, any method of an
+interface (incl. default/static), `native` methods, `bridge`/`synthetic` methods, enum
+`values()`/`valueOf(String)` (called reflectively by the runtime), and Java serialization
+hooks (`writeObject`, `readObject`, `readObjectNoData`, `writeReplace`, `readResolve`).
+Overrides of `java.lang.Object` methods (`equals`, `hashCode`, `toString`, `finalize`,
+`clone`) are `METHOD_OVERRIDES`.
+
+## Policies
+
+- **Reflection** (conservative): a reflection call statically associated with the target
+  (class constant / resolved member name on the class or a subclass / method enumeration on
+  it) -> REFUSED `REFLECTION_TARGET_PRESENT`. Any reflection with an unresolved target ->
+  UNDETERMINED `REFLECTION_TARGET_UNKNOWN`. Only a COMPLETE reflection component with no
+  target evidence satisfies the requirement. A reflection call resolved to a *different*
+  class is unrelated and ignored.
+- **Native/JNI**: a native target method or a class declaring native methods ->
+  UNSUPPORTED. Native code present but not analysed (`native_code NOT_ANALYZED`) or an
+  unidentified library load -> UNDETERMINED `NATIVE_DEPENDENCY_UNKNOWN` for every target,
+  because JNI can reach Java classes and methods without static evidence.
+- **Manifest**: a class named by `activity`, `activity-alias`, `service`, `receiver` or
+  `provider` -> REFUSED `MANIFEST_COMPONENT_REFERENCE`. H.2 never proposes disabling the
+  component instead; that is a Phase G remediation.
+- **Resources/XML**: structural references -> REFUSED; textual matches are respected as H.1
+  evidence kinds (indirect -> UNDETERMINED, never a definitive reference); incomplete
+  resource or asset analysis -> UNDETERMINED `RESOURCE_ANALYSIS_INCOMPLETE`.
+
+## Conflict handling
+
+Each request is evaluated against the *original* APK; requests in a set are never assumed
+to have been applied. Overlapping requests are detected before any plan is generated and
+every participant is REFUSED with `CONFLICTING_TRANSFORMATION` (`PlanningResult.conflicts`
+lists them):
+
+- `duplicate_class_target` — the same class targeted twice (any target spelling);
+- `duplicate_method_target` — the same method twice (a proto-less name overlaps every
+  overload of that name; different overloads do not conflict);
+- `class_method_overlap` — removing a class and transforming one of its methods.
+
+No plan is ever marked eligible while its own request set is contradictory.
+
+## Deterministic plans
+
+A plan (for ELIGIBLE / CONDITIONALLY_ELIGIBLE only) contains `plan_id`, `planning_schema`,
+`analysis_schema`, `transformation_id`, the APK identity (file name, size, SHA-256,
+package, version — never a path), the normalised `target`, `parameters`, `eligibility`,
+`decision_reasons`, `target_evidence_summary`, `preconditions` (every requirement with its
+status), `conditions`, `planned_changes`, `expected_changes`, `verification_requirements`,
+`risk`, `reversibility`, `compatibility_constraints`, `limitations` and `applied: false`.
+
+```json
+{
+  "plan_id": "plan-8651a6db9a945c3a2761",
+  "transformation_id": "H-TRANS-002",
+  "target": {"kind": "method", "class_name": "com.example.h1.D",
+             "method_name": "helper", "descriptor": "()V", "raw": "..."},
+  "eligibility": "ELIGIBLE",
+  "planned_changes": [{"type": "remove_method", "target": "com.example.h1.D->helper()V",
+                       "artifact": "smali/com/example/h1/D.smali",
+                       "details": {"dex": "classes.dex", "declaration_line": "47",
+                                   "access_flags": "public"}}],
+  "applied": false
+}
+```
+
+`plan_id` (and `decision_id`) = SHA-256 over APK SHA-256 + transformation id + normalised
+target + sorted parameters + H.1 schema + H.2 schema (first 20 hex). The same inputs give
+the same id and identical plan content; nothing time-, machine- or path-dependent is
+included and every list is sorted. Plans store a target evidence *summary* with evidence
+ids, never the H.1 index: a decision stays a few KB even when 100,000 records reference the
+target (`tests/unit/test_phase_h2_transformation.py::test_planning_is_index_based_and_compact`).
+
+## Verification (H.2)
+
+- `tests/unit/test_phase_h2_transformation.py` — every H-TRANS-001/002 case, reason
+  codes, completeness propagation, conflicts, determinism, serialization, no filesystem
+  mutation, and a 420k-record performance/size regression.
+- `tests/integration/test_phase_h2_transformation.py` — real APKs built from
+  `tests/fixtures/h1_apks.py` + `tests/fixtures/h2_apks.py`; CLI JSON with `FORCE_COLOR=3`,
+  `--apply` rejection, usage errors, reports, input SHA preservation.
+- `build-tests/run_phase_h2_validation.py all --write` — synthetic + 9-APK planning run;
+  evidence in `artifacts/phase-h/` (see `H2-TRANSFORMATION-PLANNING.md`).

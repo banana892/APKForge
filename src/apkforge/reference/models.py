@@ -39,6 +39,7 @@ __all__ = [
     "Component",
     "ComponentAnalysis",
     "DefinedClass",
+    "DefinedMethod",
     "Evidence",
     "FieldAccess",
     "InvokeKind",
@@ -53,7 +54,9 @@ __all__ = [
     "evidence_id_for",
 ]
 
-SCHEMA_VERSION = 1
+#: 2: DefinedClass carries access flags, interfaces, annotations, method declarations,
+#: its file's analysis state and duplicate definitions (additive; used by Phase H.2)
+SCHEMA_VERSION = 2
 
 
 class AnalysisState(StrEnum):
@@ -310,11 +313,40 @@ class ComponentAnalysis(BaseModel):
     subcomponents: list[ComponentAnalysis] = Field(default_factory=list)
 
 
+@dataclass(slots=True)
+class DefinedMethod:
+    """A method declared in a class (``.method`` header), as decoded from smali.
+
+    ``access_flags`` are the smali modifiers in source order (``public``, ``static``,
+    ``native``, ``abstract``, ``constructor``, ``bridge``, ``synthetic``...).
+    ``annotations`` are the method-level annotation types (parameter annotations excluded).
+    """
+
+    name: str
+    descriptor: str
+    access_flags: tuple[str, ...] = ()
+    annotations: tuple[str, ...] = ()
+    source_line: int | None = None
+
+    @property
+    def signature(self) -> str:
+        return self.name + self.descriptor
+
+
 class DefinedClass(BaseModel):
     name: str
     source_file: str
     source_dex: str | None = None
     superclass: str | None = None
+    access_flags: list[str] = Field(default_factory=list)
+    interfaces: list[str] = Field(default_factory=list)
+    #: class-level annotation types
+    annotations: list[str] = Field(default_factory=list)
+    methods: list[DefinedMethod] = Field(default_factory=list)
+    #: state of the smali file that defines the class (PARTIAL: declarations may be missing)
+    analysis_state: AnalysisState = AnalysisState.COMPLETE
+    #: other project files defining the same class (the first definition is kept)
+    duplicate_sources: list[str] = Field(default_factory=list)
 
 
 class ApkIdentity(BaseModel):
@@ -445,7 +477,12 @@ class ReferenceAnalysisResult(BaseModel):
         """Deterministic JSON (no timestamps, no absolute paths, None fields omitted).
 
         ``include_code_references=False`` drops the per-instruction ``references`` list
-        (millions of records for large apps); ``evidence_counts`` still reports it.
+        (millions of records for large apps; ``evidence_counts`` still reports it) and the
+        per-class method declarations.
         """
-        exclude = None if include_code_references else {"references"}
+        exclude: dict[str, Any] | None = (
+            None
+            if include_code_references
+            else {"references": True, "defined_classes": {"__all__": {"methods"}}}
+        )
         return self.model_dump_json(indent=indent, exclude_none=True, exclude=exclude)

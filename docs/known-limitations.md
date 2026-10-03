@@ -879,3 +879,45 @@ Design and models: [`docs/transformation.md`](transformation.md). Evidence:
 - *Class / type mentions are aggregated per (source method, target, role)*: the first
   location is kept and `occurrences` counts the rest; method/field/string records are
   per occurrence.
+
+## Status update — Phase H.2 Transformation Eligibility & Planning
+
+Design: [`docs/transformation.md`](transformation.md#phase-h2--transformation-eligibility--deterministic-planning).
+Evidence: `artifacts/phase-h/H2-TRANSFORMATION-PLANNING.md`
+(`build-tests/run_phase_h2_validation.py`).
+
+**Introduced by Phase H.2**
+
+- *Planning only*: `apkforge transform` / `TransformationPlanningService` evaluate
+  H-TRANS-001 (remove isolated class) and H-TRANS-002 (remove isolated method) and emit
+  deterministic plans; nothing is modified, rebuilt, signed or installed, `--apply` is
+  rejected.
+- *Machine-readable decisions*: five eligibility states, reason codes with a fixed state
+  each, per-precondition status, compact target evidence summaries with H.1 evidence ids.
+- *H.1 schema 2 (additive)*: class access flags, interfaces, annotations, file state,
+  duplicate definitions and method declarations are now recorded by the smali indexer.
+  H.1 artifacts committed at 4013e9e were produced with schema 1 and are not regenerated.
+
+**Limitations (by design, not defects)**
+
+- *Most real-app decisions are UNDETERMINED*: one unresolved reflection call, any native
+  code or any incomplete resource/asset input anywhere in the APK blocks every removal
+  that relies on absence. This is intended; the rules are not relaxed to produce plans.
+- *Override resolution needs supertypes*: a virtual method whose class extends or
+  implements a framework/library type that is not defined in the APK is UNDETERMINED
+  (`OVERRIDE_RELATIONSHIP_UNRESOLVED`); there is no Android API database. Package-private
+  visibility is not modelled (a same-signature method in a sub/supertype is treated as an
+  override).
+- *Method names in resources are not indexed*: only the android:onClick shape (public
+  `(Landroid/view/View;)V`) is caught (UNDETERMINED). Data-binding and other XML method
+  references are visible only through the generated code H.1 does index.
+- *Strings are matched exactly for methods*: any string constant equal to the method name
+  (common for short/obfuscated names) makes H-TRANS-002 UNDETERMINED.
+- *Runtime annotations are treated as possible dispatch*: any method annotation other than
+  `dalvik.annotation.*` / Kotlin metadata blocks H-TRANS-002 (UNDETERMINED).
+- *Single-target evaluation*: each request is evaluated against the original APK; a group
+  of classes that only reference each other is refused one by one. Group removal and
+  cascading plans are out of scope.
+- *Plans are not proofs*: an ELIGIBLE plan states that the static evidence supports the
+  change within H.1's scope; it does not establish runtime safety, and it does not
+  establish that the target is malicious, unnecessary or tracking-related.

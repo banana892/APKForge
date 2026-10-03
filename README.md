@@ -5,6 +5,19 @@
 
 ---
 
+## Phase H.2 — Transformation Eligibility & Deterministic Planning (planning only)
+
+`apkforge transform APP.apk --transform H-TRANS-001 --target com.example.Foo --dry-run`
+(or `H-TRANS-002` with `--target 'com.example.Foo->bar(I)V'`) decides from the H.1
+evidence whether removing an isolated class / method is supported: `ELIGIBLE`,
+`CONDITIONALLY_ELIGIBLE`, `REFUSED`, `UNSUPPORTED` or `UNDETERMINED`, with machine-readable
+reason codes, and emits a deterministic plan for eligible requests. H.2 determines whether a
+proposed transformation is supported by the available static evidence and produces a
+deterministic plan. It does not apply the transformation (`--apply` is rejected) and does
+not establish that the target behavior is malicious. Programmatic API:
+`TransformationPlanningService.plan(apk, requests)`. See
+[docs/transformation.md](docs/transformation.md).
+
 ## Phase H.1 — Evidence & Reference Model (read-only)
 
 `apkforge references APP.apk [--class com.example.Foo] [--json] [--report PATH] [--verbose]`
@@ -208,6 +221,10 @@ apkforge verify original.apk modified.apk --baseline tests/corpus/results/phase-
 # Reference & evidence analysis (Phase H.1, read-only)
 apkforge references path/to/app.apk --class com.example.Foo --verbose
 apkforge references path/to/app.apk --json > references.json
+
+# Transformation eligibility & planning (Phase H.2, never applied)
+apkforge transform path/to/app.apk --transform H-TRANS-001 --target com.example.Foo --dry-run
+apkforge transform path/to/app.apk -t H-TRANS-002 --target 'com.example.Foo->bar()V' --json
 
 # Controlled Remediation (Phase G)
 # List available remediation definitions

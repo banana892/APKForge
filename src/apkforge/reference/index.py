@@ -88,6 +88,17 @@ class ReferenceIndex:
         evs = self._by_target.get((kind, cls), [])
         return evs if include_self else [e for e in evs if e.source_class != cls]
 
+    # -- raw lookups (no state attached; callers must apply completeness) ---------
+
+    def evidence_targeting(self, kind: ReferenceKind, class_name: str) -> list[Evidence]:
+        """Indexed records of *kind* whose ``target_class`` is *class_name* (unsorted,
+        self-references included). O(matches); never traverses the whole index."""
+        return list(self._by_target.get((kind, normalize_class_name(class_name)), ()))
+
+    def string_values(self) -> Iterable[tuple[str, list[Evidence]]]:
+        """Distinct string constants with the records that load them."""
+        return self._strings.items()
+
     # -- queries ---------------------------------------------------------------
 
     def find_class_references(self, class_name: str, *, include_self: bool = False) -> QueryResult:
