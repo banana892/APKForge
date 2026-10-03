@@ -830,4 +830,52 @@ Evidence: `artifacts/phase-g/` (`build-tests/run_phase_g_validation.py`).
 - *SDK Stripping Limits*: Complete removal of third-party SDKs without breaking bytecode references requires byte-level stubbing or AST refactoring, which is beyond Phase G's conservative scope (`G-REM-004` is conditional and refused when references remain).
 - *Dynamic Feature / Split APK Limits*: Remediation operates on monolithic APKs; split APKs with external feature modules are not supported.
 
+---
 
+## Status update — Phase H.1 Evidence & Reference Model
+
+Design and models: [`docs/transformation.md`](transformation.md). Evidence:
+`artifacts/phase-h/` (`build-tests/run_phase_h1_validation.py`).
+
+**Introduced by Phase H.1**
+
+- *Read-only reference index*: class, method, field, type, string, constructor and
+  `const-class` references from decoded smali; reflection and native/JNI indicators;
+  manifest and resource/asset references — each with file/line/XML provenance and a
+  stable evidence id.
+- *Explicit completeness*: `COMPLETE` / `PARTIAL` / `UNKNOWN` / `NOT_ANALYZED` per
+  component and per query; aggregates are never more complete than their weakest input.
+- *No false proof of absence*: `absence_established` is true only for an empty result of a
+  COMPLETE analysis; `assess_absence` reports `ABSENCE_NOT_ESTABLISHED` otherwise.
+- *No transformation*: H.1 never modifies, rebuilds, signs or installs an APK.
+
+**Limitations (by design, not defects)**
+
+- *Static scope only*: unresolved reflection, dynamic code loading (`DexClassLoader`...),
+  native code, generated code, incomplete decoding, encrypted/obfuscated configuration and
+  server-driven behaviour can reference a class with no static evidence. Evidence (or its
+  absence) never establishes runtime behaviour.
+- *Local register tracking*: reflection and `loadLibrary` targets resolve only from a
+  constant in the same straight-line block (cleared at branch-target labels). Values built
+  by concatenation, loaded from fields/resources, or passed across methods are
+  `TARGET_UNKNOWN`. Any unresolved indicator makes `reflection` PARTIAL, so in practice
+  most real apps never reach a COMPLETE class-reference conclusion.
+- *Native binaries are not analysed*: any native method, `System.load*` call or bundled
+  `.so` makes `native_code` `NOT_ANALYZED`; JNI `FindClass`/`RegisterNatives` references
+  are not observed. Third-party loaders (e.g. ReLinker) are not recognised as library
+  loads (their calls are still ordinary method references).
+- *Uninterpreted smali*: `invoke-custom`, `const-method-handle`, `const-method-type`,
+  odex `*-quick` instructions and unknown directives are reported as issues (the file is
+  PARTIAL); their type descriptors are still recorded as `unsupported-operand` mentions.
+- *Resource matching is target-bound*: res/assets are matched only against classes
+  defined in the analysed smali and manifest provider authorities; textual matches
+  (`EXACT_VALUE`, `EMBEDDED_TOKEN`) are indirect evidence. Binary assets that are not a
+  known media/font format (embedded DEX/JAR/ZIP, databases...) are not inspected and make
+  `assets` PARTIAL. Strings inside `dalvik.annotation.*` system annotations are ignored.
+- *Manifest XML location* is the Phase E manifest-tree element key, not a line number.
+- *Volume*: large apps produce millions of records (NewPipe: ~1.5M, ~40 s, ~0.85 GB RSS).
+  The CLI JSON omits per-instruction code references unless `--all-evidence` is given;
+  the programmatic result and `--report x.json` keep everything.
+- *Class / type mentions are aggregated per (source method, target, role)*: the first
+  location is kept and `occurrences` counts the rest; method/field/string records are
+  per occurrence.

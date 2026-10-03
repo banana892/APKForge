@@ -1,0 +1,377 @@
+{
+  "toolchain": {
+    "python": "3.14.7",
+    "platform": "Linux-7.2.7-200.fc44.x86_64-x86_64-with-glibc2.43",
+    "apktool": "3.0.3",
+    "java": "openjdk version \"25.0.4.1\" 2026-08-18",
+    "git_head": "ded323f"
+  },
+  "synthetic": {
+    "fixtures": [
+      {
+        "fixture": "f01_isolated",
+        "description": "A and B; B has no references",
+        "apk_sha256": "bd6c7d690811c72ae0aa1b0c0f520679783ff292aee23538b00e80eea9b3b19c",
+        "analysis_state": "COMPLETE",
+        "components": {
+          "dex": "COMPLETE",
+          "reflection": "COMPLETE",
+          "native_indicators": "COMPLETE",
+          "native_code": "COMPLETE",
+          "manifest": "COMPLETE",
+          "resources": "COMPLETE",
+          "assets": "COMPLETE"
+        },
+        "evidence_counts": {
+          "CLASS_REFERENCE": 4,
+          "TYPE_REFERENCE": 4,
+          "CONSTRUCTOR_REFERENCE": 2,
+          "MANIFEST_REFERENCE": 1
+        },
+        "deterministic": true,
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f02_class_ref",
+        "description": "A -> B (instance-of)",
+        "apk_sha256": "fc8aec7444e5228a57784af704f5c3a40f146bdf5349b9e06bb654ec00cdbc60",
+        "analysis_state": "COMPLETE",
+        "components": {
+          "dex": "COMPLETE",
+          "reflection": "COMPLETE",
+          "native_indicators": "COMPLETE",
+          "native_code": "COMPLETE",
+          "manifest": "COMPLETE",
+          "resources": "COMPLETE",
+          "assets": "COMPLETE"
+        },
+        "evidence_counts": {
+          "CLASS_REFERENCE": 5,
+          "TYPE_REFERENCE": 6,
+          "CONSTRUCTOR_REFERENCE": 2,
+          "MANIFEST_REFERENCE": 1
+        },
+        "deterministic": true,
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f03_multiple_callers",
+        "description": "A -> B and C -> B (check-cast)",
+        "apk_sha256": "2ab237e38bbf1393c66de435230a7f5a203b7b3dc68ee3334941bf51368a42a9",
+        "analysis_state": "COMPLETE",
+        "components": {
+          "dex": "COMPLETE",
+          "reflection": "COMPLETE",
+          "native_indicators": "COMPLETE",
+          "native_code": "COMPLETE",
+          "manifest": "COMPLETE",
+          "resources": "COMPLETE",
+          "assets": "COMPLETE"
+        },
+        "evidence_counts": {
+          "CLASS_REFERENCE": 8,
+          "TYPE_REFERENCE": 10,
+          "CONSTRUCTOR_REFERENCE": 3,
+          "MANIFEST_REFERENCE": 1
+        },
+        "deterministic": true,
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f04_method_ref",
+        "description": "A.foo() -> B.bar()",
+        "apk_sha256": "6eeae86da32a30ed8e73e48f74497d0c0b567f083b3e82c0fdfd0855e10a1bf3",
+        "analysis_state": "COMPLETE",
+        "components": {
+          "dex": "COMPLETE",
+          "reflection": "COMPLETE",
+          "native_indicators": "COMPLETE",
+          "native_code": "COMPLETE",
+          "manifest": "COMPLETE",
+          "resources": "COMPLETE",
+          "assets": "COMPLETE"
+        },
+        "evidence_counts": {
+          "CLASS_REFERENCE": 5,
+          "METHOD_REFERENCE": 1,
+          "TYPE_REFERENCE": 5,
+          "CONSTRUCTOR_REFERENCE": 2,
+          "MANIFEST_REFERENCE": 1
+        },
+        "deterministic": true,
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f05_field_ref",
+        "description": "A -> B.counter (sget/sput)",
+        "apk_sha256": "16e2c1db5ef118e03a4c796f62b258e155631d92e4a8eb1fe02a10cb77bd8ed1",
+        "analysis_state": "COMPLETE",
+        "components": {
+          "dex": "COMPLETE",
+          "reflection": "COMPLETE",
+          "native_indicators": "COMPLETE",
+          "native_code": "COMPLETE",
+          "manifest": "COMPLETE",
+          "resources": "COMPLETE",
+          "assets": "COMPLETE"
+        },
+        "evidence_counts": {
+          "CLASS_REFERENCE": 6,
+          "FIELD_REFERENCE": 2,
+          "TYPE_REFERENCE": 6,
+          "CONSTRUCTOR_REFERENCE": 2,
+          "MANIFEST_REFERENCE": 1
+        },
+        "deterministic": true,
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f06_constructor",
+        "description": "new-instance B; invoke-direct B.<init>",
+        "apk_sha256": "3d92c330d7fa438274bea9b5008788fb13787dd70f1950391e36cc12a4157f91",
+        "analysis_state": "COMPLETE",
+        "components": {
+          "dex": "COMPLETE",
+          "reflection": "COMPLETE",
+          "native_indicators": "COMPLETE",
+          "native_code": "COMPLETE",
+          "manifest": "COMPLETE",
+          "resources": "COMPLETE",
+          "assets": "COMPLETE"
+        },
+        "evidence_counts": {
+          "CLASS_REFERENCE": 6,
+          "TYPE_REFERENCE": 7,
+          "CONSTRUCTOR_REFERENCE": 3,
+          "MANIFEST_REFERENCE": 1
+        },
+        "deterministic": true,
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f07_const_class",
+        "description": "const-class B",
+        "apk_sha256": "3b06e3c717aca1adaad000da33ae8b2aa003f45208f5aa79a446dacdb9817386",
+        "analysis_state": "COMPLETE",
+        "components": {
+          "dex": "COMPLETE",
+          "reflection": "COMPLETE",
+          "native_indicators": "COMPLETE",
+          "native_code": "COMPLETE",
+          "manifest": "COMPLETE",
+          "resources": "COMPLETE",
+          "assets": "COMPLETE"
+        },
+        "evidence_counts": {
+          "CLASS_REFERENCE": 5,
+          "TYPE_REFERENCE": 6,
+          "CONSTRUCTOR_REFERENCE": 2,
+          "CONST_CLASS_REFERENCE": 1,
+          "MANIFEST_REFERENCE": 1
+        },
+        "deterministic": true,
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f08_string",
+        "description": "a string naming B (not a structural reference)",
+        "apk_sha256": "45b516caf877117d9c15e6d0ca13a762b5c0e29eab66b667334226e00b14b3cd",
+        "analysis_state": "COMPLETE",
+        "components": {
+          "dex": "COMPLETE",
+          "reflection": "COMPLETE",
+          "native_indicators": "COMPLETE",
+          "native_code": "COMPLETE",
+          "manifest": "COMPLETE",
+          "resources": "COMPLETE",
+          "assets": "COMPLETE"
+        },
+        "evidence_counts": {
+          "CLASS_REFERENCE": 4,
+          "TYPE_REFERENCE": 5,
+          "STRING_REFERENCE": 1,
+          "CONSTRUCTOR_REFERENCE": 2,
+          "MANIFEST_REFERENCE": 1
+        },
+        "deterministic": true,
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f09_reflection",
+        "description": "Class.forName(\"com.example.h1.B\") plus an unresolved Class.forName(p1); C isolated",
+        "apk_sha256": "7132db96d31e4421a2a8dbef1ae0ca7e9c780f96b6a67852db2dfe4025a1dca4",
+        "analysis_state": "PARTIAL",
+        "components": {
+          "dex": "COMPLETE",
+          "reflection": "PARTIAL",
+          "native_indicators": "COMPLETE",
+          "native_code": "COMPLETE",
+          "manifest": "COMPLETE",
+          "resources": "COMPLETE",
+          "assets": "COMPLETE"
+        },
+        "evidence_counts": {
+          "CLASS_REFERENCE": 9,
+          "METHOD_REFERENCE": 3,
+          "TYPE_REFERENCE": 17,
+          "STRING_REFERENCE": 1,
+          "CONSTRUCTOR_REFERENCE": 3,
+          "REFLECTION_INDICATOR": 3,
+          "MANIFEST_REFERENCE": 1
+        },
+        "deterministic": true,
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f10_native_method",
+        "description": "B declares a native method",
+        "apk_sha256": "6f5382fdc86080a1350277565703a6977a748dac507a8153c783a4cb14562497",
+        "analysis_state": "PARTIAL",
+        "components": {
+          "dex": "COMPLETE",
+          "reflection": "COMPLETE",
+          "native_indicators": "COMPLETE",
+          "native_code": "NOT_ANALYZED",
+          "manifest": "COMPLETE",
+          "resources": "COMPLETE",
+          "assets": "COMPLETE"
+        },
+        "evidence_counts": {
+          "CLASS_REFERENCE": 4,
+          "TYPE_REFERENCE": 4,
+          "CONSTRUCTOR_REFERENCE": 2,
+          "NATIVE_METHOD": 1,
+          "MANIFEST_REFERENCE": 1
+        },
+        "deterministic": true,
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f11_load_library",
+        "description": "System.loadLibrary(\"h1native\") with a bundled lib/arm64-v8a/libh1native.so",
+        "apk_sha256": "d30f391349c8386c1176e24001d980c7f4c3c8654f8027ffa636c71ae4d33d98",
+        "analysis_state": "PARTIAL",
+        "components": {
+          "dex": "COMPLETE",
+          "reflection": "COMPLETE",
+          "native_indicators": "COMPLETE",
+          "native_code": "NOT_ANALYZED",
+          "manifest": "COMPLETE",
+          "resources": "COMPLETE",
+          "assets": "COMPLETE"
+        },
+        "evidence_counts": {
+          "CLASS_REFERENCE": 5,
+          "METHOD_REFERENCE": 1,
+          "TYPE_REFERENCE": 6,
+          "STRING_REFERENCE": 1,
+          "CONSTRUCTOR_REFERENCE": 2,
+          "NATIVE_LIBRARY_LOAD": 1,
+          "MANIFEST_REFERENCE": 1
+        },
+        "deterministic": true,
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f12_manifest",
+        "description": "manifest service .B, receiver C, activity-alias -> A",
+        "apk_sha256": "e7cefe7262261d7502a4a5a0437477df446ded31b9cf69da68d61d0ca9a5a2e4",
+        "analysis_state": "COMPLETE",
+        "components": {
+          "dex": "COMPLETE",
+          "reflection": "COMPLETE",
+          "native_indicators": "COMPLETE",
+          "native_code": "COMPLETE",
+          "manifest": "COMPLETE",
+          "resources": "COMPLETE",
+          "assets": "COMPLETE"
+        },
+        "evidence_counts": {
+          "CLASS_REFERENCE": 6,
+          "TYPE_REFERENCE": 6,
+          "CONSTRUCTOR_REFERENCE": 3,
+          "MANIFEST_REFERENCE": 4
+        },
+        "deterministic": true,
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f13_resource",
+        "description": "layout inflates <com.example.h1.B>; assets text mentions C",
+        "apk_sha256": "615fa00c8b1c2d9b12e1eecd92a4c3ade759636760e08de859309e1590704edf",
+        "analysis_state": "COMPLETE",
+        "components": {
+          "dex": "COMPLETE",
+          "reflection": "COMPLETE",
+          "native_indicators": "COMPLETE",
+          "native_code": "COMPLETE",
+          "manifest": "COMPLETE",
+          "resources": "COMPLETE",
+          "assets": "COMPLETE"
+        },
+        "evidence_counts": {
+          "CLASS_REFERENCE": 6,
+          "TYPE_REFERENCE": 6,
+          "CONSTRUCTOR_REFERENCE": 3,
+          "MANIFEST_REFERENCE": 1,
+          "RESOURCE_REFERENCE": 2
+        },
+        "deterministic": true,
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "fixture": "f14_incomplete",
+        "description": "multidex (C in classes2.dex) + malformed assets/broken.xml; B unreferenced",
+        "apk_sha256": "1fe0ce1e4a42f7cee65d7963741dcdf27e03ce953196ddcd964a3d3098fdc9b2",
+        "analysis_state": "PARTIAL",
+        "components": {
+          "dex": "COMPLETE",
+          "reflection": "COMPLETE",
+          "native_indicators": "COMPLETE",
+          "native_code": "COMPLETE",
+          "manifest": "COMPLETE",
+          "resources": "COMPLETE",
+          "assets": "PARTIAL"
+        },
+        "evidence_counts": {
+          "CLASS_REFERENCE": 6,
+          "TYPE_REFERENCE": 6,
+          "CONSTRUCTOR_REFERENCE": 3,
+          "MANIFEST_REFERENCE": 1
+        },
+        "deterministic": true,
+        "original_unchanged": true,
+        "result": "PASS",
+        "failures": []
+      }
+    ],
+    "workspaces_left_behind": [],
+    "status": "PASS"
+  }
+}

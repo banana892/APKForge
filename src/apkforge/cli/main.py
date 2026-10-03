@@ -21,6 +21,7 @@ Command structure (Phase 0 — stubs)::
     ├── diff     <a> <b> — compare two APKs (raw / normalized / semantic / security)
     ├── modify   <apk>   — apply a plan, or Phase D modifiers (--modifier)
     ├── modifiers        — list Phase D modifiers
+    ├── references <apk> — read-only reference/evidence analysis (Phase H.1)
     └── verify   <apk> [<modified>] — verification matrix (Phase E)
 """
 
@@ -51,6 +52,7 @@ if TYPE_CHECKING:
     from apkforge.modification.modifiers.base import ModificationResult, StepStatus
     from apkforge.modification.pipeline import PipelineResult
     from apkforge.privacy.models import PrivacyResult
+    from apkforge.reference import AbsenceAssessment, ReferenceAnalysisResult
     from apkforge.security.models import FullAnalysisResult, SecurityResult
     from apkforge.verification import VerificationMatrix
 
@@ -2217,6 +2219,186 @@ def cmd_remediate(
         raise typer.Exit(code=3)
     else:
         raise typer.Exit(code=1)
+
+
+@app.command("references")
+def cmd_references(
+    apk: Path = typer.Argument(
+        ...,
+        metavar="APK",
+        help="APK to index (read-only; never modified).",
+        exists=True,
+        file_okay=True,
+        dir_okay=False,
+        readable=True,
+        resolve_path=True,
+    ),
+    json_output: bool = typer.Option(False, "--json", help="Print the result as JSON."),
+    report: Path | None = typer.Option(
+        None, "--report", help="Write a report (.md, or .json for the full JSON).", dir_okay=False
+    ),
+    verbose: bool = typer.Option(False, "--verbose", "-v", help="Show every evidence list."),
+    target_classes: list[str] = typer.Option(
+        [],
+        "--class",
+        "-c",
+        help="Assess references to this class (repeatable): is absence established?",
+    ),
+    all_evidence: bool = typer.Option(
+        False,
+        "--all-evidence",
+        help="Include every per-instruction code reference in JSON (large for big apps).",
+    ),
+    skip_resources: bool = typer.Option(
+        False, "--skip-resources", help="Do not scan res/ and assets/ (reported NOT_ANALYZED)."
+    ),
+    keep_workspace: bool = typer.Option(
+        False, "--keep-workspace", help="Keep the decoded workspace."
+    ),
+    work_dir: Path | None = typer.Option(
+        None, "--work-dir", help="Workspace parent directory.", file_okay=False
+    ),
+) -> None:
+    """[green]🔎 Phase H.1[/green] — Read-only reference & evidence analysis.
+
+    Indexes class / method / field / type / string / const-class references, reflection
+    and native/JNI indicators, manifest and resource references, each with an explicit
+    completeness state. Never modifies, rebuilds or signs the APK.
+    """
+    import json
+
+    from apkforge.reference import ReferenceAnalysisService, format_reference_report
+
+    cfg = load_default_config()
+    setup_logging(cfg.log_level)
+
+    result = ReferenceAnalysisService(work_dir=work_dir).analyze(
+        apk, keep_workspace=keep_workspace, include_resources=not skip_resources
+    )
+    index = result.index()
+    assessments = [index.assess_absence(c) for c in target_classes]
+
+    def payload(full: bool) -> str:
+        data = json.loads(result.to_json(indent=None, include_code_references=full))
+        data["assessments"] = [a.model_dump(mode="json", exclude_none=True) for a in assessments]
+        return json.dumps(data, indent=2, ensure_ascii=False)
+
+    if report is not None:
+        report.parent.mkdir(parents=True, exist_ok=True)
+        if report.suffix.lower() == ".json":
+            report.write_text(payload(True) + "\n", encoding="utf-8")
+        else:
+            report.write_text(
+                format_reference_report(result, assessments, verbose=verbose), encoding="utf-8"
+            )
+
+    if json_output:
+        typer.echo(payload(all_evidence))
+    else:
+        _render_reference_summary(result, assessments, verbose=verbose)
+
+    if result.errors:
+        raise typer.Exit(code=1)
+
+
+def _render_reference_summary(
+    result: ReferenceAnalysisResult,
+    assessments: list[AbsenceAssessment],
+    *,
+    verbose: bool = False,
+) -> None:
+    from apkforge.reference import AnalysisState
+
+    colors = {
+        AnalysisState.COMPLETE: "green",
+        AnalysisState.PARTIAL: "yellow",
+        AnalysisState.UNKNOWN: "red",
+        AnalysisState.NOT_ANALYZED: "dim",
+    }
+
+    def st(state: AnalysisState) -> str:
+        return f"[{colors[state]}]{state.value}[/{colors[state]}]"
+
+    a = result.apk
+    _console.print(
+        Panel(
+            f"[bold]{a.package_name or a.file_name}[/bold] {a.version_name or ''}\n"
+            f"Overall analysis: {st(result.analysis_state)}   "
+            f"Original unchanged: {result.original_unchanged}   "
+            f"Classes defined: {len(result.defined_classes)}",
+            title="[bold blue]APKForge Reference Analysis (H.1, read-only)[/bold blue]",
+            expand=False,
+        )
+    )
+    table = Table(title="Component states", border_style="dim")
+    table.add_column("Component", no_wrap=True)
+    table.add_column("State")
+    table.add_column("Analysed/Total", justify="right")
+    table.add_column("Issues", justify="right")
+    table.add_column("Notes", overflow="fold", style="dim")
+    for c in result.components:
+        table.add_row(
+            c.component,
+            st(c.state),
+            f"{c.inputs_analyzed}/{c.inputs_total}",
+            str(c.issue_count),
+            "; ".join(c.notes),
+        )
+        for sub in c.subcomponents:
+            table.add_row(
+                f"  {sub.component}",
+                st(sub.state),
+                f"{sub.inputs_analyzed}/{sub.inputs_total}",
+                str(sub.issue_count),
+                "; ".join(sub.notes),
+            )
+    _console.print(table)
+    counts = Table(title="Evidence", border_style="dim")
+    counts.add_column("Kind")
+    counts.add_column("Count", justify="right")
+    for kind, n in result.summary().items():
+        counts.add_row(kind, str(n))
+    _console.print(counts)
+
+    for aa in assessments:
+        _console.print(
+            Panel(
+                f"Conclusion: [bold]{aa.conclusion.value}[/bold] "
+                f"(absence established: {aa.absence_established})\n{aa.statement}\n"
+                f"Structural: {len(aa.definitive_references)}   "
+                f"Indirect: {len(aa.indirect_evidence)}",
+                title=f"[bold]{aa.target}[/bold]",
+                expand=False,
+            )
+        )
+        if verbose:
+            for ev in [*aa.definitive_references, *aa.indirect_evidence][:40]:
+                _console.print(
+                    f"  {ev.kind.value:<22} {ev.source_class or ev.source_file}"
+                    f":{ev.source_line or ''} {ev.instruction or ''}"
+                )
+    if verbose:
+        for title, evs in (
+            ("Reflection", result.reflection),
+            ("Native", result.native),
+            ("Manifest", result.manifest),
+            ("Resources", result.resources),
+        ):
+            _console.print(f"[bold]{title}[/bold] ({len(evs)})")
+            for ev in evs[:40]:
+                extra = ev.resolution or ev.native_resolution or ev.match_basis or ""
+                loc = (
+                    f"{ev.source_file}:{ev.source_line}"
+                    if ev.source_line
+                    else f"{ev.source_file}#{ev.xml_location or ''}"
+                )
+                _console.print(f"  {ev.target} [{extra}] {loc}", markup=False)
+    for err in result.errors:
+        _console.print(f"[red]{err}[/red]")
+    _console.print(
+        "[dim]Absent evidence is not proof of absence unless every relevant component is "
+        "COMPLETE. H.1 performs no transformation.[/dim]"
+    )
 
 
 @app.command("modify")

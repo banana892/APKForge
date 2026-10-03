@@ -5,6 +5,17 @@
 
 ---
 
+## Phase H.1 — Evidence & Reference Model (read-only)
+
+`apkforge references APP.apk [--class com.example.Foo] [--json] [--report PATH] [--verbose]`
+indexes class / method / field / type / string / constructor / `const-class` references,
+reflection and native/JNI indicators, and manifest and resource references — each with
+provenance and an explicit `COMPLETE` / `PARTIAL` / `UNKNOWN` / `NOT_ANALYZED` state.
+Absence of observed references is only reported as established when every relevant
+analysis component is COMPLETE. H.1 does not perform APK transformations; it produces the
+evidence future transformation stages will consume. Programmatic API:
+`ReferenceAnalysisService.analyze(apk)`. See [docs/transformation.md](docs/transformation.md).
+
 ## Phase G — Controlled Privacy/Security Remediation
 
 `apkforge remediate APP.apk --finding FINDING_ID` enables evidence-backed, controlled remediation of findings identified by Phase F or Phase B.
@@ -193,6 +204,10 @@ apkforge modify path/to/app.apk --approve-all --json > result.json
 # Verify a built APK (structure + signature), or a modified APK against its original
 apkforge verify output.apk
 apkforge verify original.apk modified.apk --baseline tests/corpus/results/phase-e-noise-baseline.json --built-locally
+
+# Reference & evidence analysis (Phase H.1, read-only)
+apkforge references path/to/app.apk --class com.example.Foo --verbose
+apkforge references path/to/app.apk --json > references.json
 
 # Controlled Remediation (Phase G)
 # List available remediation definitions

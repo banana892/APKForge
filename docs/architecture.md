@@ -146,7 +146,28 @@ APK / InspectionResult
                           (Text CLI / JSON)
 ```
 
-### Modification Pipeline (Phase D)
+### Reference & Evidence Analysis (Phase H.1, read-only)
+
+`apkforge.reference.ReferenceAnalysisService` indexes what references a class, method or
+field, and how complete that analysis is. It reuses existing machinery instead of adding a
+second APK pipeline: `BuildService.decode` (Apktool, private workspace copy) and the
+Phase E `diff.manifest_tree.parse_manifest_xml`. See [`transformation.md`](transformation.md).
+
+```
+APK (read-only, SHA-256 before/after)
+  └─ BuildService.decode ─> decoded project (throwaway workspace)
+       ├─ smali/, smali_classesN/ ─> reference.smali   (class/method/field/type/string/
+       │                                                const-class, reflection, native)
+       ├─ AndroidManifest.xml     ─> reference.manifest (parse_manifest_xml)
+       └─ res/, assets/, unknown/ ─> reference.resources
+  ─> ReferenceAnalysisResult (component states: dex, reflection, native_indicators,
+     native_code, manifest, resources, assets; aggregate never more complete than its
+     weakest component) ─> ReferenceIndex queries / assess_absence
+```
+
+H.1 produces evidence only; it never modifies, builds or signs. Future H stages
+(eligibility, transformations) consume it.
+
 
 The implemented pipeline is `apkforge.modification.pipeline.ModificationPipeline`; see
 `docs/modification-framework.md`. Modifiers plan and edit decoded files, BuildService
@@ -268,6 +289,15 @@ src/apkforge/
 │   ├── planner.py      — RemediationPlanner (machine-checkable preconditions, deterministic plan generator)
 │   ├── report.py       — format_remediation_diff_report, format_remediation_plan_report
 │   └── service.py      — RemediationService (high-level programmatic API)
+│
+├── reference/          — Phase H.1: read-only evidence & reference analysis
+│   ├── models.py       — AnalysisState, combine_states, Evidence, QueryResult, AbsenceAssessment, result
+│   ├── smali.py        — parse_smali: decoded-smali indexer (refs, reflection, native indicators)
+│   ├── manifest.py     — manifest class/authority references (via diff.manifest_tree)
+│   ├── resources.py    — res/, assets/, unknown/ structural and textual references
+│   ├── index.py        — ReferenceIndex: deterministic find_* queries, assess_absence
+│   ├── report.py       — format_reference_report (Markdown)
+│   └── service.py      — ReferenceAnalysisService.analyze / analyze_decoded
 │
 ├── security/           — Phase 5: Security Analysis Engine
 │   ├── engine.py       — SecurityEngine coordinator, index builder, error isolation

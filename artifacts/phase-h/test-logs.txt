@@ -1,0 +1,20 @@
+Phase H.1 quality-gate log (started from ded323f, clean tree)
+
+1. Full pytest            .venv-validation/bin/python -m pytest -q
+   995 passed, 10 skipped in 115.16s
+2. H.1 tests, FORCE_COLOR=3  pytest tests/unit/test_phase_h1_reference.py tests/integration/test_phase_h1_references.py
+   86 passed in 20.55s
+3. Phase D regression     build-tests/run_phase_d_validation.py
+   A verified OK; B verified OK; C verified OK; D failed OK; E dry_run OK; F failed OK  (exit 0)
+4. Phase E corpus         build-tests/run_phase_e_validation.py baseline   (exit 0, 1225 s)
+   8 VERIFIED; org.mozilla.fennec_fdroid@1560020 UNDETERMINED (diff partial, by design; same as Phase G record)
+5. Phase F corpus         build-tests/run_phase_f_validation.py --output-dir work/h1/phase-f   (exit 0, 442 s)
+   Committed artifacts/phase-f predate Phase G (e0d8e9b): 3 fewer persistence findings now;
+   identical findings reproduced on a clean ded323f worktree -> not caused by H.1. Not rewritten.
+6. Phase G corpus         run_phase_g_validation with ARTIFACTS_DIR redirected to work/h1/phase-g   (exit 0)
+   corpus-summary.json identical to committed artifacts/phase-g (timing fields excluded)
+7. H.1 validation         build-tests/run_phase_h1_validation.py all --write   (exit 0)
+   synthetic 14/14 PASS (deterministic, APKs unchanged, no workspace left); corpus 9/9 PASS
+8. ruff                   ruff check / ruff format --check on touched files: clean
+   repo-wide: 517 lint errors, 56 unformatted files -- identical to ded323f
+9. mypy                   mypy src/apkforge: 102 errors before and after (pre-existing); src/apkforge/reference: 0

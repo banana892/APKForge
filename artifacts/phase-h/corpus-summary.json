@@ -1,0 +1,885 @@
+{
+  "toolchain": {
+    "python": "3.14.7",
+    "platform": "Linux-7.2.7-200.fc44.x86_64-x86_64-with-glibc2.43",
+    "apktool": "3.0.3",
+    "java": "openjdk version \"25.0.4.1\" 2026-08-18",
+    "git_head": "ded323f"
+  },
+  "corpus": {
+    "apks": [
+      {
+        "apk": "com.emanuelef.remote_capture_95.apk",
+        "sha256": "e03f79082278b3754b4954c7537e7c9f7681e5995a44e70aa1589eca10190066",
+        "package": "com.emanuelef.remote_capture",
+        "analysis_state": "PARTIAL",
+        "components": {
+          "dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 2845,
+            "total": 2845
+          },
+          "dex:classes.dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 2309,
+            "total": 2309
+          },
+          "dex:classes2.dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 536,
+            "total": 536
+          },
+          "reflection": {
+            "state": "PARTIAL",
+            "issues": 244,
+            "analysed": 107,
+            "total": 351
+          },
+          "native_indicators": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 2,
+            "total": 2
+          },
+          "native_code": {
+            "state": "NOT_ANALYZED",
+            "issues": 0,
+            "analysed": 0,
+            "total": 20
+          },
+          "manifest": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 1,
+            "total": 1
+          },
+          "resources": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 2322,
+            "total": 2322
+          },
+          "assets": {
+            "state": "PARTIAL",
+            "issues": 11,
+            "analysed": 61,
+            "total": 72
+          }
+        },
+        "issue_codes_sampled": {
+          "BINARY_NOT_INSPECTED": 11,
+          "REFLECTION_NO_TARGET_IDENTIFIED": 36,
+          "REFLECTION_TARGET_UNKNOWN": 14
+        },
+        "defined_classes": 2845,
+        "evidence_counts": {
+          "CLASS_REFERENCE": 99992,
+          "METHOD_REFERENCE": 78508,
+          "FIELD_REFERENCE": 66359,
+          "TYPE_REFERENCE": 191113,
+          "STRING_REFERENCE": 8874,
+          "CONSTRUCTOR_REFERENCE": 12324,
+          "CONST_CLASS_REFERENCE": 618,
+          "REFLECTION_INDICATOR": 351,
+          "NATIVE_METHOD": 28,
+          "NATIVE_LIBRARY_LOAD": 2,
+          "MANIFEST_REFERENCE": 54,
+          "RESOURCE_REFERENCE": 266
+        },
+        "unresolved_reflection": 244,
+        "bundled_native_libraries": 20,
+        "declared_activity_checked": "cat.ereza.customactivityoncrash.activity.DefaultErrorActivity",
+        "declared_activity_conclusion": "REFERENCES_OBSERVED",
+        "absence_sample_size": 26,
+        "absence_established_in_sample": 0,
+        "deterministic": null,
+        "original_unchanged": true,
+        "duration_seconds": 16.3,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "apk": "com.oF2pks.applicationsinfo_19.apk",
+        "sha256": "c0188f5f1f566e12324bd6bf4bf4f1b9408d852c6cc6b113706503031f13eebd",
+        "package": "com.oF2pks.applicationsinfo",
+        "analysis_state": "PARTIAL",
+        "components": {
+          "dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 63,
+            "total": 63
+          },
+          "dex:classes.dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 63,
+            "total": 63
+          },
+          "reflection": {
+            "state": "PARTIAL",
+            "issues": 2,
+            "analysed": 2,
+            "total": 4
+          },
+          "native_indicators": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 0,
+            "total": 0
+          },
+          "native_code": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 0,
+            "total": 0
+          },
+          "manifest": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 1,
+            "total": 1
+          },
+          "resources": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 43,
+            "total": 43
+          },
+          "assets": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 1,
+            "total": 1
+          }
+        },
+        "issue_codes_sampled": {
+          "REFLECTION_NO_TARGET_IDENTIFIED": 2
+        },
+        "defined_classes": 63,
+        "evidence_counts": {
+          "CLASS_REFERENCE": 1897,
+          "METHOD_REFERENCE": 2220,
+          "FIELD_REFERENCE": 1232,
+          "TYPE_REFERENCE": 3945,
+          "STRING_REFERENCE": 437,
+          "CONSTRUCTOR_REFERENCE": 342,
+          "CONST_CLASS_REFERENCE": 11,
+          "REFLECTION_INDICATOR": 4,
+          "NATIVE_METHOD": 0,
+          "NATIVE_LIBRARY_LOAD": 0,
+          "MANIFEST_REFERENCE": 4,
+          "RESOURCE_REFERENCE": 2
+        },
+        "unresolved_reflection": 2,
+        "bundled_native_libraries": 0,
+        "declared_activity_checked": "com.oF2pks.applicationsinfo.DetailActivity",
+        "declared_activity_conclusion": "REFERENCES_OBSERVED",
+        "absence_sample_size": 32,
+        "absence_established_in_sample": 0,
+        "deterministic": null,
+        "original_unchanged": true,
+        "duration_seconds": 1.1,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "apk": "de.audioattack.openlink_28.apk",
+        "sha256": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+        "package": "de.audioattack.openlink",
+        "analysis_state": "PARTIAL",
+        "components": {
+          "dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 108,
+            "total": 108
+          },
+          "dex:classes.dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 108,
+            "total": 108
+          },
+          "reflection": {
+            "state": "PARTIAL",
+            "issues": 10,
+            "analysed": 5,
+            "total": 15
+          },
+          "native_indicators": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 0,
+            "total": 0
+          },
+          "native_code": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 0,
+            "total": 0
+          },
+          "manifest": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 1,
+            "total": 1
+          },
+          "resources": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 166,
+            "total": 166
+          },
+          "assets": {
+            "state": "PARTIAL",
+            "issues": 10,
+            "analysed": 16,
+            "total": 26
+          }
+        },
+        "issue_codes_sampled": {
+          "BINARY_NOT_INSPECTED": 10,
+          "REFLECTION_NO_TARGET_IDENTIFIED": 6,
+          "REFLECTION_TARGET_UNKNOWN": 4
+        },
+        "defined_classes": 108,
+        "evidence_counts": {
+          "CLASS_REFERENCE": 1950,
+          "METHOD_REFERENCE": 1520,
+          "FIELD_REFERENCE": 803,
+          "TYPE_REFERENCE": 4020,
+          "STRING_REFERENCE": 256,
+          "CONSTRUCTOR_REFERENCE": 306,
+          "CONST_CLASS_REFERENCE": 19,
+          "REFLECTION_INDICATOR": 15,
+          "NATIVE_METHOD": 0,
+          "NATIVE_LIBRARY_LOAD": 0,
+          "MANIFEST_REFERENCE": 9,
+          "RESOURCE_REFERENCE": 0
+        },
+        "unresolved_reflection": 10,
+        "bundled_native_libraries": 0,
+        "declared_activity_checked": "de.audioattack.openlink.ui.IncognitoActivity",
+        "declared_activity_conclusion": "REFERENCES_OBSERVED",
+        "absence_sample_size": 27,
+        "absence_established_in_sample": 0,
+        "deterministic": true,
+        "original_unchanged": true,
+        "duration_seconds": 1.2,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "apk": "de.danoeh.antennapod_3120295.apk",
+        "sha256": "3f43a4337a693cdb49141afe06cb596e88c796009ed77bff51e9444ce2d1ebfc",
+        "package": "de.danoeh.antennapod",
+        "analysis_state": "PARTIAL",
+        "components": {
+          "dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 12065,
+            "total": 12065
+          },
+          "dex:classes.dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 8391,
+            "total": 8391
+          },
+          "dex:classes2.dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 643,
+            "total": 643
+          },
+          "dex:classes3.dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 3031,
+            "total": 3031
+          },
+          "reflection": {
+            "state": "PARTIAL",
+            "issues": 336,
+            "analysed": 233,
+            "total": 569
+          },
+          "native_indicators": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 2,
+            "total": 2
+          },
+          "native_code": {
+            "state": "NOT_ANALYZED",
+            "issues": 0,
+            "analysed": 0,
+            "total": 4
+          },
+          "manifest": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 1,
+            "total": 1
+          },
+          "resources": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 1557,
+            "total": 1557
+          },
+          "assets": {
+            "state": "PARTIAL",
+            "issues": 11,
+            "analysed": 93,
+            "total": 104
+          }
+        },
+        "issue_codes_sampled": {
+          "BINARY_NOT_INSPECTED": 11,
+          "REFLECTION_NO_TARGET_IDENTIFIED": 39,
+          "REFLECTION_TARGET_UNKNOWN": 11
+        },
+        "defined_classes": 12065,
+        "evidence_counts": {
+          "CLASS_REFERENCE": 259778,
+          "METHOD_REFERENCE": 196654,
+          "FIELD_REFERENCE": 149801,
+          "TYPE_REFERENCE": 559589,
+          "STRING_REFERENCE": 28165,
+          "CONSTRUCTOR_REFERENCE": 34947,
+          "CONST_CLASS_REFERENCE": 1022,
+          "REFLECTION_INDICATOR": 569,
+          "NATIVE_METHOD": 288,
+          "NATIVE_LIBRARY_LOAD": 2,
+          "MANIFEST_REFERENCE": 54,
+          "RESOURCE_REFERENCE": 327
+        },
+        "unresolved_reflection": 336,
+        "bundled_native_libraries": 4,
+        "declared_activity_checked": "androidx.car.app.CarAppPermissionActivity",
+        "declared_activity_conclusion": "REFERENCES_OBSERVED",
+        "absence_sample_size": 26,
+        "absence_established_in_sample": 0,
+        "deterministic": null,
+        "original_unchanged": true,
+        "duration_seconds": 35.8,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "apk": "eu.siacs.conversations_4218104.apk",
+        "sha256": "3fae646e33b59b95f049ce9bd828022e2edbb374fa82e517bd782aced71ba980",
+        "package": "eu.siacs.conversations",
+        "analysis_state": "PARTIAL",
+        "components": {
+          "dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 7686,
+            "total": 7686
+          },
+          "dex:classes.dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 7101,
+            "total": 7101
+          },
+          "dex:classes2.dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 585,
+            "total": 585
+          },
+          "reflection": {
+            "state": "PARTIAL",
+            "issues": 356,
+            "analysed": 243,
+            "total": 599
+          },
+          "native_indicators": {
+            "state": "PARTIAL",
+            "issues": 1,
+            "analysed": 3,
+            "total": 4
+          },
+          "native_code": {
+            "state": "NOT_ANALYZED",
+            "issues": 0,
+            "analysed": 0,
+            "total": 2
+          },
+          "manifest": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 1,
+            "total": 1
+          },
+          "resources": {
+            "state": "PARTIAL",
+            "issues": 1,
+            "analysed": 1475,
+            "total": 1476
+          },
+          "assets": {
+            "state": "PARTIAL",
+            "issues": 17,
+            "analysed": 87,
+            "total": 104
+          }
+        },
+        "issue_codes_sampled": {
+          "BINARY_NOT_INSPECTED": 17,
+          "FILE_TOO_LARGE": 1,
+          "NATIVE_LIBRARY_UNKNOWN": 1,
+          "REFLECTION_NO_TARGET_IDENTIFIED": 35,
+          "REFLECTION_TARGET_UNKNOWN": 15
+        },
+        "defined_classes": 7686,
+        "evidence_counts": {
+          "CLASS_REFERENCE": 221720,
+          "METHOD_REFERENCE": 181424,
+          "FIELD_REFERENCE": 138287,
+          "TYPE_REFERENCE": 423924,
+          "STRING_REFERENCE": 38704,
+          "CONSTRUCTOR_REFERENCE": 40051,
+          "CONST_CLASS_REFERENCE": 3133,
+          "REFLECTION_INDICATOR": 599,
+          "NATIVE_METHOD": 542,
+          "NATIVE_LIBRARY_LOAD": 4,
+          "MANIFEST_REFERENCE": 70,
+          "RESOURCE_REFERENCE": 286
+        },
+        "unresolved_reflection": 356,
+        "bundled_native_libraries": 2,
+        "declared_activity_checked": "com.canhub.cropper.CropImageActivity",
+        "declared_activity_conclusion": "REFERENCES_OBSERVED",
+        "absence_sample_size": 26,
+        "absence_established_in_sample": 0,
+        "deterministic": null,
+        "original_unchanged": true,
+        "duration_seconds": 35.3,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "apk": "godau.fynn.usagedirect_10.apk",
+        "sha256": "c55079192a77fc6696a80c6d337c3f0c64fe4ebc27e5970aaf4baac0a60a3b31",
+        "package": "godau.fynn.usagedirect",
+        "analysis_state": "PARTIAL",
+        "components": {
+          "dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 5902,
+            "total": 5902
+          },
+          "dex:classes.dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 5033,
+            "total": 5033
+          },
+          "dex:classes2.dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 869,
+            "total": 869
+          },
+          "reflection": {
+            "state": "PARTIAL",
+            "issues": 286,
+            "analysed": 175,
+            "total": 461
+          },
+          "native_indicators": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 0,
+            "total": 0
+          },
+          "native_code": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 0,
+            "total": 0
+          },
+          "manifest": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 1,
+            "total": 1
+          },
+          "resources": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 597,
+            "total": 597
+          },
+          "assets": {
+            "state": "PARTIAL",
+            "issues": 10,
+            "analysed": 48,
+            "total": 58
+          }
+        },
+        "issue_codes_sampled": {
+          "BINARY_NOT_INSPECTED": 10,
+          "REFLECTION_NO_TARGET_IDENTIFIED": 40,
+          "REFLECTION_TARGET_UNKNOWN": 10
+        },
+        "defined_classes": 5902,
+        "evidence_counts": {
+          "CLASS_REFERENCE": 150328,
+          "METHOD_REFERENCE": 108365,
+          "FIELD_REFERENCE": 61290,
+          "TYPE_REFERENCE": 342629,
+          "STRING_REFERENCE": 68710,
+          "CONSTRUCTOR_REFERENCE": 18935,
+          "CONST_CLASS_REFERENCE": 629,
+          "REFLECTION_INDICATOR": 461,
+          "NATIVE_METHOD": 0,
+          "NATIVE_LIBRARY_LOAD": 0,
+          "MANIFEST_REFERENCE": 15,
+          "RESOURCE_REFERENCE": 56
+        },
+        "unresolved_reflection": 286,
+        "bundled_native_libraries": 0,
+        "declared_activity_checked": "godau.fynn.librariesdirect.AboutDirectActivity",
+        "declared_activity_conclusion": "REFERENCES_OBSERVED",
+        "absence_sample_size": 26,
+        "absence_established_in_sample": 0,
+        "deterministic": null,
+        "original_unchanged": true,
+        "duration_seconds": 23.6,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "apk": "io.github.muntashirakon.AppManager_451.apk",
+        "sha256": "e1f6ba10812c74016ad626e11e27a1ae450aec2c0964a11466abb9e7a9c8ef84",
+        "package": "io.github.muntashirakon.AppManager",
+        "analysis_state": "PARTIAL",
+        "components": {
+          "dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 30717,
+            "total": 30717
+          },
+          "dex:classes.dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 6127,
+            "total": 6127
+          },
+          "dex:classes2.dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 1,
+            "total": 1
+          },
+          "dex:classes3.dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 917,
+            "total": 917
+          },
+          "dex:classes4.dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 6309,
+            "total": 6309
+          },
+          "dex:classes5.dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 7570,
+            "total": 7570
+          },
+          "dex:classes6.dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 9793,
+            "total": 9793
+          },
+          "reflection": {
+            "state": "PARTIAL",
+            "issues": 1032,
+            "analysed": 474,
+            "total": 1506
+          },
+          "native_indicators": {
+            "state": "PARTIAL",
+            "issues": 2,
+            "analysed": 4,
+            "total": 6
+          },
+          "native_code": {
+            "state": "NOT_ANALYZED",
+            "issues": 0,
+            "analysed": 0,
+            "total": 16
+          },
+          "manifest": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 1,
+            "total": 1
+          },
+          "resources": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 1692,
+            "total": 1692
+          },
+          "assets": {
+            "state": "PARTIAL",
+            "issues": 691,
+            "analysed": 149,
+            "total": 840
+          }
+        },
+        "issue_codes_sampled": {
+          "BINARY_NOT_INSPECTED": 50,
+          "NATIVE_LIBRARY_UNKNOWN": 2,
+          "REFLECTION_NO_TARGET_IDENTIFIED": 30,
+          "REFLECTION_TARGET_UNKNOWN": 20
+        },
+        "defined_classes": 30717,
+        "evidence_counts": {
+          "CLASS_REFERENCE": 802438,
+          "METHOD_REFERENCE": 636841,
+          "FIELD_REFERENCE": 426837,
+          "TYPE_REFERENCE": 1807007,
+          "STRING_REFERENCE": 157380,
+          "CONSTRUCTOR_REFERENCE": 132681,
+          "CONST_CLASS_REFERENCE": 3750,
+          "REFLECTION_INDICATOR": 1506,
+          "NATIVE_METHOD": 164,
+          "NATIVE_LIBRARY_LOAD": 6,
+          "MANIFEST_REFERENCE": 78,
+          "RESOURCE_REFERENCE": 2051
+        },
+        "unresolved_reflection": 1032,
+        "bundled_native_libraries": 16,
+        "declared_activity_checked": "io.github.muntashirakon.AppManager.DummyActivity",
+        "declared_activity_conclusion": "REFERENCES_OBSERVED",
+        "absence_sample_size": 26,
+        "absence_established_in_sample": 0,
+        "deterministic": null,
+        "original_unchanged": true,
+        "duration_seconds": 107.7,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "apk": "org.mozilla.fennec_fdroid_1560020.apk",
+        "sha256": "27f2951376ca1085e0933066c902fdfe4d260916d381e233475c5fd6964f5745",
+        "package": "org.mozilla.fennec_fdroid",
+        "analysis_state": "PARTIAL",
+        "components": {
+          "dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 37886,
+            "total": 37886
+          },
+          "dex:classes.dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 15001,
+            "total": 15001
+          },
+          "dex:classes2.dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 13829,
+            "total": 13829
+          },
+          "dex:classes3.dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 9056,
+            "total": 9056
+          },
+          "reflection": {
+            "state": "PARTIAL",
+            "issues": 516,
+            "analysed": 359,
+            "total": 875
+          },
+          "native_indicators": {
+            "state": "PARTIAL",
+            "issues": 7,
+            "analysed": 5,
+            "total": 12
+          },
+          "native_code": {
+            "state": "NOT_ANALYZED",
+            "issues": 0,
+            "analysed": 0,
+            "total": 15
+          },
+          "manifest": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 1,
+            "total": 1
+          },
+          "resources": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 2832,
+            "total": 2832
+          },
+          "assets": {
+            "state": "PARTIAL",
+            "issues": 14,
+            "analysed": 717,
+            "total": 731
+          }
+        },
+        "issue_codes_sampled": {
+          "BINARY_NOT_INSPECTED": 13,
+          "FILE_TOO_LARGE": 1,
+          "NATIVE_LIBRARY_UNKNOWN": 7,
+          "REFLECTION_NO_TARGET_IDENTIFIED": 39,
+          "REFLECTION_TARGET_UNKNOWN": 11
+        },
+        "defined_classes": 37886,
+        "evidence_counts": {
+          "CLASS_REFERENCE": 754324,
+          "METHOD_REFERENCE": 467476,
+          "FIELD_REFERENCE": 415273,
+          "TYPE_REFERENCE": 1629257,
+          "STRING_REFERENCE": 71479,
+          "CONSTRUCTOR_REFERENCE": 104003,
+          "CONST_CLASS_REFERENCE": 3320,
+          "REFLECTION_INDICATOR": 875,
+          "NATIVE_METHOD": 1628,
+          "NATIVE_LIBRARY_LOAD": 12,
+          "MANIFEST_REFERENCE": 189,
+          "RESOURCE_REFERENCE": 825
+        },
+        "unresolved_reflection": 516,
+        "bundled_native_libraries": 15,
+        "declared_activity_checked": "com.google.android.gms.common.api.GoogleApiActivity",
+        "declared_activity_conclusion": "REFERENCES_OBSERVED",
+        "absence_sample_size": 26,
+        "absence_established_in_sample": 0,
+        "deterministic": null,
+        "original_unchanged": true,
+        "duration_seconds": 112.0,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "apk": "org.schabi.newpipe_1015_cb84069.apk",
+        "sha256": "18447bfb1e06d113edc88df93f471827280de06f6f3d4dc42f56f28b9c1bab79",
+        "package": "org.schabi.newpipe",
+        "analysis_state": "PARTIAL",
+        "components": {
+          "dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 10671,
+            "total": 10671
+          },
+          "dex:classes.dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 9583,
+            "total": 9583
+          },
+          "dex:classes2.dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 733,
+            "total": 733
+          },
+          "dex:classes3.dex": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 355,
+            "total": 355
+          },
+          "reflection": {
+            "state": "PARTIAL",
+            "issues": 575,
+            "analysed": 291,
+            "total": 866
+          },
+          "native_indicators": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 1,
+            "total": 1
+          },
+          "native_code": {
+            "state": "NOT_ANALYZED",
+            "issues": 0,
+            "analysed": 0,
+            "total": 4
+          },
+          "manifest": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 1,
+            "total": 1
+          },
+          "resources": {
+            "state": "COMPLETE",
+            "issues": 0,
+            "analysed": 1426,
+            "total": 1426
+          },
+          "assets": {
+            "state": "PARTIAL",
+            "issues": 13,
+            "analysed": 272,
+            "total": 285
+          }
+        },
+        "issue_codes_sampled": {
+          "BINARY_NOT_INSPECTED": 13,
+          "REFLECTION_NO_TARGET_IDENTIFIED": 37,
+          "REFLECTION_TARGET_UNKNOWN": 13
+        },
+        "defined_classes": 10671,
+        "evidence_counts": {
+          "CLASS_REFERENCE": 324448,
+          "METHOD_REFERENCE": 241442,
+          "FIELD_REFERENCE": 203469,
+          "TYPE_REFERENCE": 644087,
+          "STRING_REFERENCE": 45124,
+          "CONSTRUCTOR_REFERENCE": 42508,
+          "CONST_CLASS_REFERENCE": 1679,
+          "REFLECTION_INDICATOR": 866,
+          "NATIVE_METHOD": 8,
+          "NATIVE_LIBRARY_LOAD": 1,
+          "MANIFEST_REFERENCE": 44,
+          "RESOURCE_REFERENCE": 545
+        },
+        "unresolved_reflection": 575,
+        "bundled_native_libraries": 4,
+        "declared_activity_checked": "com.jakewharton.processphoenix.PhoenixActivity",
+        "declared_activity_conclusion": "REFERENCES_OBSERVED",
+        "absence_sample_size": 26,
+        "absence_established_in_sample": 0,
+        "deterministic": null,
+        "original_unchanged": true,
+        "duration_seconds": 50.2,
+        "result": "PASS",
+        "failures": []
+      }
+    ],
+    "workspaces_left_behind": [],
+    "status": "PASS"
+  }
+}
