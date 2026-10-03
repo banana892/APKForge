@@ -47,6 +47,7 @@ if TYPE_CHECKING:
     from apkforge.builders.semantic_baseline import BaselineCheck
     from apkforge.diff.expectations import ExpectationVerdict
     from apkforge.diff.models import DiffResult
+    from apkforge.diff.normalization import ToolchainIdentity
     from apkforge.diff.security import SecurityDiff
     from apkforge.inspection import InspectionResult
     from apkforge.modification.models import ModificationPlan
@@ -3447,6 +3448,27 @@ def cmd_verify(
     expected_signer: str | None = typer.Option(
         None, "--expected-signer", help="SHA-256 of the certificate MODIFIED must be signed with."
     ),
+    plan_file: Path | None = typer.Option(
+        None,
+        "--plan",
+        help="H.4: the H.2 plan MODIFIED was transformed with (H-TRANS-001). Verifies "
+        "ORIGINAL / --control / MODIFIED per domain with explicit completeness.",
+        exists=True,
+        dir_okay=False,
+    ),
+    control: Path | None = typer.Option(
+        None,
+        "--control",
+        help="H.4: unmodified rebuild of ORIGINAL (the measured noise floor).",
+        exists=True,
+        dir_okay=False,
+        resolve_path=True,
+    ),
+    build_control: bool = typer.Option(
+        False,
+        "--build-control",
+        help="H.4: build the unmodified control rebuild locally (implies --built-locally).",
+    ),
     json_output: bool = typer.Option(False, "--json", help="Machine-readable JSON report."),
     report_file: Path | None = typer.Option(
         None, "--report", help="Also write the Markdown report to this file."
@@ -3459,6 +3481,13 @@ def cmd_verify(
     expected changes, unexpected changes, semantic diff and security diff, with an
     overall VERIFIED / FAILED / UNDETERMINED. Exit codes: 0 VERIFIED, 1 FAILED,
     3 UNDETERMINED, 2 usage/toolchain error.
+
+    H.4 transformation verification (--plan with --control or --build-control): MODIFIED
+    is the transformed rebuild; every difference is classified NOISE /
+    EXPECTED_TRANSFORMATION / UNEXPECTED_CHANGE / UNKNOWN against the control rebuild,
+    per domain (dex, manifest, resources, assets, native, archive, signing, endpoints).
+    Exit codes: 0 VERIFIED, 4 VERIFIED_WITH_LIMITATIONS, 1 FAILED, 3 UNKNOWN /
+    UNVERIFIED, 2 usage/toolchain error.
 
     Verification proves structural/signing validity and plan conformance within the
     comparator coverage; it does not prove the application is safe.
@@ -3497,6 +3526,34 @@ def cmd_verify(
         service = None
 
     exit_codes = {"VERIFIED": 0, "FAILED": 1, "UNDETERMINED": 3}
+    if plan_file is not None or control is not None or build_control:
+        if plan_file is None or modified is None:
+            typer.echo("error: --control/--build-control need --plan and MODIFIED.", err=True)
+            raise typer.Exit(code=2)
+        if (control is None) == (not build_control):
+            typer.echo("error: --plan needs exactly one of --control or --build-control.", err=True)
+            raise typer.Exit(code=2)
+        if baseline_file is not None or measure or expected_file is not None:
+            typer.echo(
+                "error: --plan (H.4) measures noise with the control rebuild and derives the "
+                "declared changes from the plan; drop --baseline/--measure-noise-floor/"
+                "--expected.",
+                err=True,
+            )
+            raise typer.Exit(code=2)
+        _verify_transformation(
+            apk,
+            modified,
+            plan_file,
+            control=control,
+            build_control=build_control,
+            built_locally=built_locally,
+            service=service,
+            work_dir=work_dir,
+            json_output=json_output,
+            report_file=report_file,
+        )
+        return
     if modified is None:
         matrix = VerificationMatrix()
         matrix.checks["structural"] = structural_check(apk)
@@ -3554,6 +3611,78 @@ def cmd_verify(
         if report_file is not None:
             _console.print(f"[dim]Report written to {report_file}[/dim]")
     raise typer.Exit(code=exit_codes[str(report.verification.overall)])
+
+
+_H4_EXIT = {
+    "VERIFIED": 0,
+    "VERIFIED_WITH_LIMITATIONS": 4,
+    "FAILED": 1,
+    "UNKNOWN": 3,
+    "UNVERIFIED": 3,
+}
+
+
+def _verify_transformation(
+    original: Path,
+    transformed: Path,
+    plan_file: Path,
+    *,
+    control: Path | None,
+    build_control: bool,
+    built_locally: bool,
+    service: BuildService | None,
+    work_dir: Path | None,
+    json_output: bool,
+    report_file: Path | None,
+) -> None:
+    """``verify --plan``: H.4 verification of a transformed rebuild with a control."""
+    import shutil
+    import tempfile
+
+    from apkforge.builders.semantic_baseline import run_semantic_noop
+    from apkforge.transformation import TransformationVerifier, format_verification_report
+
+    tmp: Path | None = None
+    try:
+        if build_control:
+            if service is None:
+                _console.print("[red]--build-control needs a valid build toolchain.[/red]")
+                raise typer.Exit(code=2)
+            tmp = Path(tempfile.mkdtemp(prefix="h4-control-", dir=_ensure_dir(service.work_dir)))
+            run_semantic_noop(service, original, entry_id=original.name, work_dir=tmp)
+            control = tmp / f"{original.stem}.noop.apk"
+            built_locally = True
+        verifier = TransformationVerifier(service)
+        result = verifier.verify(
+            original,
+            control if control is not None and control.is_file() else None,
+            transformed,
+            plan_file,
+            toolchain=None if not built_locally else _local_toolchain(service),
+            work_dir=work_dir,
+        )
+    finally:
+        if tmp is not None:
+            shutil.rmtree(tmp, ignore_errors=True)
+    md = format_verification_report(result)
+    if report_file is not None:
+        report_file.parent.mkdir(parents=True, exist_ok=True)
+        if report_file.suffix.lower() == ".json":
+            report_file.write_text(result.to_json() + "\n", encoding="utf-8")
+        else:
+            report_file.write_text(md, encoding="utf-8")
+    if json_output:
+        typer.echo(result.to_json())
+    else:
+        _console.print(md, markup=False, highlight=False)
+    raise typer.Exit(code=_H4_EXIT[result.status.value])
+
+
+def _local_toolchain(service: BuildService | None) -> ToolchainIdentity | None:
+    """Identity of the local toolchain (the control and transformed APKs were built here)."""
+    from apkforge.builders.semantic_baseline import current_toolchain_identity
+
+    return current_toolchain_identity(service) if service is not None else None
 
 
 def _render_matrix(matrix: VerificationMatrix) -> None:

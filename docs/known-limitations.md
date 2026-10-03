@@ -958,3 +958,40 @@ Evidence: `artifacts/phase-h/H3-CONTROLLED-TRANSFORMATION.md`
   apps are.
 - *Archive bytes are not reproducible*: two applications of the same plan give the same
   result and identical entry contents; the APK bytes differ by ZIP metadata.
+
+## Status update — Phase H.4 Transformation Verification Hardening
+
+Design: [`docs/transformation.md`](transformation.md#phase-h4--transformation-verification-hardening).
+Evidence: `artifacts/phase-h/H4-TRANSFORMATION-VERIFICATION.md`
+(`build-tests/run_phase_h4_validation.py`).
+
+**Introduced by Phase H.4**
+
+- *Control rebuild*: an H-TRANS-001 output is verified against the original and an
+  unmodified control rebuild of it; noise is accepted only when the control reproduces the
+  same difference with the same content, and the control -> transformed signal must be
+  exactly the declared change.
+- *Per-domain completeness*: dex, manifest, resources, assets, native, archive, signing and
+  endpoints each report `COMPLETE` / `PARTIAL` / `UNKNOWN` / `NOT_ANALYZED`; the overall
+  status is never stronger than the weakest mandatory domain.
+
+**Limitations (by design, not defects)**
+
+- *Static only*: H.4 does not establish that the transformed application is safe,
+  malware-free, spyware-free or functionally correct when executed.
+- *Re-encoded resources are bounded, not proven*: when the toolchain re-encodes
+  `resources.arsc` / `res/` binary XML, H.4 establishes byte identity with the control
+  rebuild but not semantic identity with the original; the result is at most
+  `VERIFIED_WITH_LIMITATIONS` (stricter than the Phase E matrix, which accepts content-
+  assured noise as complete).
+- *Native code is not analysed*: libraries are compared by content hash and ELF metadata;
+  a change is detected, never interpreted. No ELIGIBLE plan exists for an APK with native
+  libraries (H.2: `NATIVE_DEPENDENCY_UNKNOWN`), so native modification is demonstrated with
+  the plan-less control experiment.
+- *v1 signature files* between the control and transformed rebuild are accepted by path
+  only; their correctness rests on apksigner and the certificate check.
+- *Eligibility is H.2/H.3's*: H.4 checks plan identity and source SHA-256 but does not
+  re-run the H.2 eligibility evaluation.
+- *No real-world transformation*: H.2 yields no ELIGIBLE target on the 9-APK corpus, so H.4
+  is exercised on real APKs only through the noise-floor experiment.
+

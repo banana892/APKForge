@@ -1,0 +1,1140 @@
+{
+  "run_id": "20261003T173957Z",
+  "toolchain": {
+    "python": "3.14.7",
+    "platform": "Linux-7.2.7-200.fc44.x86_64-x86_64-with-glibc2.43",
+    "apktool": "3.0.3",
+    "java": "openjdk version \"25.0.4.1\" 2026-08-18",
+    "git_head": "563178d"
+  },
+  "synthetic": {
+    "fixtures": {
+      "h3_isolated": {
+        "sha256": "2d6816c133f618e1d3574b96a38ad04cc1403f84ce1b4bf0f9efb1b90030161d",
+        "unchanged": true
+      },
+      "h3_native": {
+        "sha256": "8cb5e0ec2a5909bc9b9f42328be30227715b28ffedb2f73837bb18518b1ec222",
+        "unchanged": true
+      },
+      "unpublished": {
+        "sha256": "368384c8b0f18651cf7fdb476ba2c05e70434a0f2a356a26622c9bb103cb4030",
+        "unchanged": true
+      }
+    },
+    "publish_seconds": 5.4,
+    "cases": [
+      {
+        "case": "1_clean",
+        "description": "eligible plan applied by H.3, verified by H.4",
+        "h2": "ELIGIBLE",
+        "h3": "VERIFIED",
+        "expected": "VERIFIED",
+        "status": "VERIFIED",
+        "verification": {
+          "status": "VERIFIED",
+          "status_reason": "every mandatory domain COMPLETE, every invariant passed, every difference is the declared transformation or noise reproduced by the control rebuild",
+          "completeness": "COMPLETE",
+          "domains": {
+            "dex": "COMPLETE/passed",
+            "manifest": "COMPLETE/passed",
+            "resources": "COMPLETE/passed",
+            "assets": "COMPLETE/passed",
+            "native": "COMPLETE/passed",
+            "archive": "COMPLETE/passed",
+            "signing": "COMPLETE/passed",
+            "endpoints": "COMPLETE/passed"
+          },
+          "counts": {
+            "expected": 10,
+            "noise": 7,
+            "unexpected": 0,
+            "unknown": 0
+          },
+          "noise_rules": {
+            "certificate_replaced": 1,
+            "signature_replaced": 3
+          },
+          "control_noop": "EQUIVALENT",
+          "baseline_status": "COMPATIBLE",
+          "unexpected": [],
+          "unknown": [],
+          "invariants_failed": [],
+          "invariants_open": [],
+          "limitations": [],
+          "original_unchanged": true,
+          "timings": {
+            "expectations": 1.02,
+            "signature": 0.281,
+            "dex_state": 1.823,
+            "total": 3.459
+          }
+        },
+        "seconds": 9.975,
+        "result": "PASS",
+        "failures": [],
+        "plan_id": "plan-31a7a159ca83fe4e9e67",
+        "experiment_seconds": {
+          "control_rebuild": 2.64,
+          "h3": 3.871,
+          "h4": 3.459,
+          "total": 9.975
+        },
+        "expected_changes": [
+          "dex_class removed com.example.h1.B",
+          "dex_api_reference removed android.os.Looper;->getMainLooper()Landroid.os.Looper",
+          "dex_string removed B.java",
+          "dex_string removed Landroid/os/Looper;",
+          "dex_string removed Lcom/example/h1/B;",
+          "dex_string removed Ljava/lang/String;",
+          "dex_string removed getMainLooper",
+          "dex_string removed h3-only-in-b",
+          "dex_string removed stamp",
+          "file modified classes.dex"
+        ],
+        "noise_changes": [
+          "original->transformed: certificate modified signing_certificate [certificate_replaced, control same_content]",
+          "original->transformed: file added META-INF/APKFORGE.RSA [signature_replaced, control different_content]",
+          "original->transformed: file added META-INF/APKFORGE.SF [signature_replaced, control different_content]",
+          "original->transformed: file added META-INF/MANIFEST.MF [signature_replaced, control different_content]",
+          "control->transformed: file modified META-INF/APKFORGE.RSA [signature_replaced, control absent]",
+          "control->transformed: file modified META-INF/APKFORGE.SF [signature_replaced, control absent]",
+          "control->transformed: file modified META-INF/MANIFEST.MF [signature_replaced, control absent]"
+        ],
+        "invariants": [
+          {
+            "name": "plan_integrity",
+            "expected": "plan for this original, id recomputes, supported transformation",
+            "actual": "plan-31a7a159ca83fe4e9e67 (H-TRANS-001)",
+            "status": "passed"
+          },
+          {
+            "name": "control_rebuild_equivalent",
+            "expected": "the unmodified rebuild differs from the original only by classifiable noise (EQUIVALENT / EQUIVALENT_WITH_RESIDUE), usable as noise floor",
+            "actual": "EQUIVALENT; baseline COMPATIBLE",
+            "status": "passed"
+          },
+          {
+            "name": "target_defined_before",
+            "expected": "com.example.h1.B defined in the original and the control",
+            "actual": "original yes, control yes",
+            "status": "passed"
+          },
+          {
+            "name": "target_absent_after",
+            "expected": "absent",
+            "actual": "DEX inventory: absent; H.1: absent",
+            "status": "passed"
+          },
+          {
+            "name": "exactly_one_class_removed[original->transformed]",
+            "expected": "[com.example.h1.B]",
+            "actual": "['com.example.h1.B']",
+            "status": "passed"
+          },
+          {
+            "name": "no_other_class_changed[original->transformed]",
+            "expected": "no other class removed/added/modified, no DEX file added/removed",
+            "actual": "none",
+            "status": "passed"
+          },
+          {
+            "name": "exactly_one_class_removed[control->transformed]",
+            "expected": "[com.example.h1.B]",
+            "actual": "['com.example.h1.B']",
+            "status": "passed"
+          },
+          {
+            "name": "no_other_class_changed[control->transformed]",
+            "expected": "no other class removed/added/modified, no DEX file added/removed",
+            "actual": "none",
+            "status": "passed"
+          },
+          {
+            "name": "class_count",
+            "expected": "3 - 1",
+            "actual": "2",
+            "status": "passed"
+          },
+          {
+            "name": "h1_reference_state",
+            "expected": "target absent, no reference, DEX COMPLETE, no component weakened",
+            "actual": "NO_REFERENCES_WITHIN_SCOPE; 3 -> 2 classes",
+            "status": "passed"
+          },
+          {
+            "name": "declared_changes_observed",
+            "expected": "all 9 declared change(s) on both transformation legs",
+            "actual": "all observed",
+            "status": "passed"
+          },
+          {
+            "name": "no_unexpected_change",
+            "expected": "0",
+            "actual": "0",
+            "status": "passed"
+          },
+          {
+            "name": "no_unclassified_difference",
+            "expected": "0",
+            "actual": "0",
+            "status": "passed"
+          },
+          {
+            "name": "signature_verified",
+            "expected": "apksigner verifies the transformed rebuild with the control rebuild's signer",
+            "actual": "signature verifies with the expected signer",
+            "status": "passed"
+          },
+          {
+            "name": "original_unchanged",
+            "expected": "SHA-256 of the original identical before and after",
+            "actual": "2d6816c133f618e1d3574b96a38ad04cc1403f84ce1b4bf0f9efb1b90030161d",
+            "status": "passed"
+          }
+        ],
+        "legs": {
+          "original->control": {
+            "observations": 4,
+            "phase_e": {
+              "rebuild_noise": 4,
+              "unexpected": 0,
+              "unknown": 0
+            },
+            "raw": {
+              "added": 3,
+              "removed": 0,
+              "modified": 0,
+              "unchanged": 3
+            },
+            "metadata_only": 3,
+            "order_changed": true
+          },
+          "original->transformed": {
+            "observations": 14,
+            "phase_e": {
+              "expected_modification": 9,
+              "planned_entry": 1,
+              "rebuild_noise": 4,
+              "unexpected": 0,
+              "unknown": 0
+            },
+            "raw": {
+              "added": 3,
+              "removed": 0,
+              "modified": 1,
+              "unchanged": 2
+            },
+            "metadata_only": 2,
+            "order_changed": true
+          },
+          "control->transformed": {
+            "observations": 13,
+            "phase_e": {
+              "expected_modification": 9,
+              "planned_entry": 1,
+              "rebuild_noise": 3,
+              "unexpected": 0,
+              "unknown": 0
+            },
+            "raw": {
+              "added": 0,
+              "removed": 0,
+              "modified": 4,
+              "unchanged": 2
+            },
+            "metadata_only": 2,
+            "order_changed": false
+          }
+        }
+      },
+      {
+        "case": "2_repeat",
+        "description": "same source and plan again",
+        "h2": "ELIGIBLE",
+        "h3": "VERIFIED",
+        "expected": "VERIFIED",
+        "status": "VERIFIED",
+        "verification": {
+          "status": "VERIFIED",
+          "status_reason": "every mandatory domain COMPLETE, every invariant passed, every difference is the declared transformation or noise reproduced by the control rebuild",
+          "completeness": "COMPLETE",
+          "domains": {
+            "dex": "COMPLETE/passed",
+            "manifest": "COMPLETE/passed",
+            "resources": "COMPLETE/passed",
+            "assets": "COMPLETE/passed",
+            "native": "COMPLETE/passed",
+            "archive": "COMPLETE/passed",
+            "signing": "COMPLETE/passed",
+            "endpoints": "COMPLETE/passed"
+          },
+          "counts": {
+            "expected": 10,
+            "noise": 7,
+            "unexpected": 0,
+            "unknown": 0
+          },
+          "noise_rules": {
+            "certificate_replaced": 1,
+            "signature_replaced": 3
+          },
+          "control_noop": "EQUIVALENT",
+          "baseline_status": "COMPATIBLE",
+          "unexpected": [],
+          "unknown": [],
+          "invariants_failed": [],
+          "invariants_open": [],
+          "limitations": [],
+          "original_unchanged": true,
+          "timings": {
+            "expectations": 0.933,
+            "signature": 0.26,
+            "dex_state": 1.92,
+            "total": 3.407
+          }
+        },
+        "seconds": 9.876,
+        "result": "PASS",
+        "failures": [],
+        "plan_id_equal": true,
+        "verification_equal": true,
+        "transformed_content_equal": true,
+        "transformed_bytes_equal": false
+      },
+      {
+        "case": "3_noise",
+        "description": "two unmodified rebuilds; B2 verified against A with B1 as control",
+        "h2": null,
+        "h3": null,
+        "expected": "VERIFIED",
+        "status": "VERIFIED",
+        "verification": {
+          "status": "VERIFIED",
+          "status_reason": "the candidate differs from the original only by noise the control rebuild reproduces",
+          "completeness": "COMPLETE",
+          "domains": {
+            "dex": "COMPLETE/passed",
+            "manifest": "COMPLETE/passed",
+            "resources": "COMPLETE/passed",
+            "assets": "COMPLETE/passed",
+            "native": "COMPLETE/passed",
+            "archive": "COMPLETE/passed",
+            "signing": "COMPLETE/passed",
+            "endpoints": "COMPLETE/passed"
+          },
+          "counts": {
+            "expected": 0,
+            "noise": 4,
+            "unexpected": 0,
+            "unknown": 0
+          },
+          "noise_rules": {
+            "certificate_replaced": 1,
+            "signature_replaced": 3
+          },
+          "control_noop": "EQUIVALENT",
+          "baseline_status": "COMPATIBLE",
+          "unexpected": [],
+          "unknown": [],
+          "invariants_failed": [],
+          "invariants_open": [],
+          "limitations": [],
+          "original_unchanged": true,
+          "timings": {
+            "signature": 0.218,
+            "total": 0.549
+          }
+        },
+        "seconds": 5.2,
+        "result": "PASS",
+        "failures": [],
+        "apk_bytes_identical": false,
+        "entry_content_identical": true,
+        "fingerprints_identical": true,
+        "noop_results": [
+          "EQUIVALENT",
+          "EQUIVALENT"
+        ],
+        "rebuild_sha256": [
+          "2d40a8da4c737a54cb06b910b5973cefad63b0d94ebb0813870bc26c5c4b35b7",
+          "1be80657b7c000944cd458d7eefed747cb14285f0167fbfa27800d16d23f9f5a"
+        ],
+        "rebuild_content_sha256": [
+          "80b807bcfa822ab37819c4b72a95dd39423b429fb9cb3a04ea81cc761640a89d",
+          "80b807bcfa822ab37819c4b72a95dd39423b429fb9cb3a04ea81cc761640a89d"
+        ],
+        "control_to_candidate_observations": 0,
+        "metadata_only_entries": 6
+      },
+      {
+        "case": "4a_h3_faulty_mutation",
+        "description": "H.3 removes B and C: detected before building; no C exists for H.4",
+        "h2": null,
+        "h3": "FAILED/UNEXPECTED_MUTATION",
+        "expected": "UNVERIFIED",
+        "status": "UNVERIFIED",
+        "verification": {
+          "status": "UNVERIFIED",
+          "status_reason": "not verifiable: no transformed rebuild to verify",
+          "completeness": "NOT_ANALYZED",
+          "domains": {
+            "dex": "NOT_ANALYZED/undetermined",
+            "manifest": "NOT_ANALYZED/undetermined",
+            "resources": "NOT_ANALYZED/undetermined",
+            "assets": "NOT_ANALYZED/undetermined",
+            "native": "NOT_ANALYZED/undetermined",
+            "archive": "NOT_ANALYZED/undetermined",
+            "signing": "NOT_ANALYZED/undetermined",
+            "endpoints": "NOT_ANALYZED/undetermined"
+          },
+          "counts": {
+            "expected": 0,
+            "noise": 0,
+            "unexpected": 0,
+            "unknown": 0
+          },
+          "noise_rules": {
+            "certificate_replaced": 1,
+            "signature_replaced": 3
+          },
+          "control_noop": "EQUIVALENT",
+          "baseline_status": "COMPATIBLE",
+          "unexpected": [],
+          "unknown": [],
+          "invariants_failed": [],
+          "invariants_open": [],
+          "limitations": [],
+          "original_unchanged": true,
+          "timings": {
+            "expectations": 0.947,
+            "total": 1.209
+          }
+        },
+        "seconds": 5.504,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "case": "fault_asset_added",
+        "description": "build succeeds, asset added in the output",
+        "h2": null,
+        "h3": "FAILED/UNEXPECTED_DIFF",
+        "expected": "FAILED",
+        "status": "FAILED",
+        "verification": {
+          "status": "FAILED",
+          "status_reason": "failed: no_unexpected_change, domain assets, 1 unexpected change(s)",
+          "completeness": "COMPLETE",
+          "domains": {
+            "dex": "COMPLETE/passed",
+            "manifest": "COMPLETE/passed",
+            "resources": "COMPLETE/passed",
+            "assets": "COMPLETE/failed",
+            "native": "COMPLETE/passed",
+            "archive": "COMPLETE/passed",
+            "signing": "COMPLETE/passed",
+            "endpoints": "COMPLETE/passed"
+          },
+          "counts": {
+            "expected": 10,
+            "noise": 7,
+            "unexpected": 1,
+            "unknown": 0
+          },
+          "noise_rules": {
+            "certificate_replaced": 1,
+            "signature_replaced": 3
+          },
+          "control_noop": "EQUIVALENT",
+          "baseline_status": "COMPATIBLE",
+          "unexpected": [
+            "[assets] file added assets/injected.txt (control: absent)"
+          ],
+          "unknown": [],
+          "invariants_failed": [
+            "no_unexpected_change"
+          ],
+          "invariants_open": [],
+          "limitations": [],
+          "original_unchanged": true,
+          "timings": {
+            "expectations": 0.793,
+            "signature": 0.254,
+            "dex_state": 2.025,
+            "total": 3.395
+          }
+        },
+        "seconds": 9.002,
+        "result": "PASS",
+        "failures": [],
+        "domain": "assets"
+      },
+      {
+        "case": "fault_manifest_modified",
+        "description": "build succeeds, manifest modified in the output",
+        "h2": null,
+        "h3": "FAILED/UNEXPECTED_DIFF",
+        "expected": "FAILED",
+        "status": "FAILED",
+        "verification": {
+          "status": "FAILED",
+          "status_reason": "failed: no_unexpected_change, domain manifest, 2 unexpected change(s)",
+          "completeness": "COMPLETE",
+          "domains": {
+            "dex": "COMPLETE/passed",
+            "manifest": "COMPLETE/failed",
+            "resources": "COMPLETE/passed",
+            "assets": "COMPLETE/passed",
+            "native": "COMPLETE/passed",
+            "archive": "COMPLETE/passed",
+            "signing": "COMPLETE/passed",
+            "endpoints": "COMPLETE/passed"
+          },
+          "counts": {
+            "expected": 10,
+            "noise": 7,
+            "unexpected": 2,
+            "unknown": 0
+          },
+          "noise_rules": {
+            "certificate_replaced": 1,
+            "signature_replaced": 3
+          },
+          "control_noop": "EQUIVALENT",
+          "baseline_status": "COMPATIBLE",
+          "unexpected": [
+            "[manifest] uses_permission added android.permission.INTERNET (control: absent)",
+            "[manifest] file modified AndroidManifest.xml (control: absent)"
+          ],
+          "unknown": [],
+          "invariants_failed": [
+            "no_unexpected_change"
+          ],
+          "invariants_open": [],
+          "limitations": [],
+          "original_unchanged": true,
+          "timings": {
+            "expectations": 0.95,
+            "signature": 0.229,
+            "dex_state": 1.763,
+            "total": 3.289
+          }
+        },
+        "seconds": 8.735,
+        "result": "PASS",
+        "failures": [],
+        "domain": "manifest"
+      },
+      {
+        "case": "fault_native_added",
+        "description": "build succeeds, native added in the output",
+        "h2": null,
+        "h3": "FAILED/UNEXPECTED_DIFF",
+        "expected": "FAILED",
+        "status": "FAILED",
+        "verification": {
+          "status": "FAILED",
+          "status_reason": "failed: no_unexpected_change, domain native, 3 unexpected change(s)",
+          "completeness": "UNKNOWN",
+          "domains": {
+            "dex": "UNKNOWN/undetermined",
+            "manifest": "COMPLETE/passed",
+            "resources": "COMPLETE/passed",
+            "assets": "COMPLETE/passed",
+            "native": "COMPLETE/failed",
+            "archive": "COMPLETE/passed",
+            "signing": "COMPLETE/passed",
+            "endpoints": "COMPLETE/passed"
+          },
+          "counts": {
+            "expected": 10,
+            "noise": 7,
+            "unexpected": 3,
+            "unknown": 0
+          },
+          "noise_rules": {
+            "certificate_replaced": 1,
+            "signature_replaced": 3
+          },
+          "control_noop": "EQUIVALENT",
+          "baseline_status": "COMPATIBLE",
+          "unexpected": [
+            "[native] native_library added lib/arm64-v8a/libinjected.so (control: absent)",
+            "[native] native_abi added arm64-v8a (control: absent)",
+            "[native] file added lib/arm64-v8a/libinjected.so (control: absent)"
+          ],
+          "unknown": [],
+          "invariants_failed": [
+            "no_unexpected_change"
+          ],
+          "invariants_open": [
+            "h1_reference_state"
+          ],
+          "limitations": [],
+          "original_unchanged": true,
+          "timings": {
+            "expectations": 0.807,
+            "signature": 0.195,
+            "dex_state": 1.896,
+            "total": 3.217
+          }
+        },
+        "seconds": 8.813,
+        "result": "PASS",
+        "failures": [],
+        "domain": "native"
+      },
+      {
+        "case": "fault_other_class_modified",
+        "description": "build succeeds, other class modified in the output",
+        "h2": null,
+        "h3": "FAILED/UNEXPECTED_DIFF",
+        "expected": "FAILED",
+        "status": "FAILED",
+        "verification": {
+          "status": "FAILED",
+          "status_reason": "failed: no_other_class_changed[original->transformed], no_other_class_changed[control->transformed], no_unexpected_change, domain dex, 1 unexpected change(s)",
+          "completeness": "COMPLETE",
+          "domains": {
+            "dex": "COMPLETE/failed",
+            "manifest": "COMPLETE/passed",
+            "resources": "COMPLETE/passed",
+            "assets": "COMPLETE/passed",
+            "native": "COMPLETE/passed",
+            "archive": "COMPLETE/passed",
+            "signing": "COMPLETE/passed",
+            "endpoints": "COMPLETE/passed"
+          },
+          "counts": {
+            "expected": 10,
+            "noise": 7,
+            "unexpected": 1,
+            "unknown": 0
+          },
+          "noise_rules": {
+            "certificate_replaced": 1,
+            "signature_replaced": 3
+          },
+          "control_noop": "EQUIVALENT",
+          "baseline_status": "COMPATIBLE",
+          "unexpected": [
+            "[dex] dex_class modified com.example.h1.C (control: absent)"
+          ],
+          "unknown": [],
+          "invariants_failed": [
+            "no_other_class_changed[original->transformed]",
+            "no_other_class_changed[control->transformed]",
+            "no_unexpected_change"
+          ],
+          "invariants_open": [],
+          "limitations": [],
+          "original_unchanged": true,
+          "timings": {
+            "expectations": 0.874,
+            "signature": 0.205,
+            "dex_state": 1.932,
+            "total": 3.346
+          }
+        },
+        "seconds": 8.913,
+        "result": "PASS",
+        "failures": [],
+        "domain": "dex"
+      },
+      {
+        "case": "fault_other_class_removed",
+        "description": "build succeeds, other class removed in the output",
+        "h2": null,
+        "h3": "FAILED/UNEXPECTED_DIFF",
+        "expected": "FAILED",
+        "status": "FAILED",
+        "verification": {
+          "status": "FAILED",
+          "status_reason": "failed: exactly_one_class_removed[original->transformed], no_other_class_changed[original->transformed], exactly_one_class_removed[control->transformed], no_other_class_changed[control->transformed], class_count, h1_reference_state, no_unexpected_change, domain dex, 4 unexpected change(s)",
+          "completeness": "COMPLETE",
+          "domains": {
+            "dex": "COMPLETE/failed",
+            "manifest": "COMPLETE/passed",
+            "resources": "COMPLETE/passed",
+            "assets": "COMPLETE/passed",
+            "native": "COMPLETE/passed",
+            "archive": "COMPLETE/passed",
+            "signing": "COMPLETE/passed",
+            "endpoints": "COMPLETE/passed"
+          },
+          "counts": {
+            "expected": 10,
+            "noise": 7,
+            "unexpected": 4,
+            "unknown": 0
+          },
+          "noise_rules": {
+            "certificate_replaced": 1,
+            "signature_replaced": 3
+          },
+          "control_noop": "EQUIVALENT",
+          "baseline_status": "COMPATIBLE",
+          "unexpected": [
+            "[dex] dex_class removed com.example.h1.C (control: absent)",
+            "[dex] dex_string removed C.java (control: absent)",
+            "[dex] dex_string removed Lcom/example/h1/C; (control: absent)",
+            "[dex] dex_string removed ping (control: absent)"
+          ],
+          "unknown": [],
+          "invariants_failed": [
+            "exactly_one_class_removed[original->transformed]",
+            "no_other_class_changed[original->transformed]",
+            "exactly_one_class_removed[control->transformed]",
+            "no_other_class_changed[control->transformed]",
+            "class_count",
+            "h1_reference_state",
+            "no_unexpected_change"
+          ],
+          "invariants_open": [],
+          "limitations": [],
+          "original_unchanged": true,
+          "timings": {
+            "expectations": 1.015,
+            "signature": 0.237,
+            "dex_state": 2.156,
+            "total": 3.778
+          }
+        },
+        "seconds": 9.634,
+        "result": "PASS",
+        "failures": [],
+        "domain": "dex"
+      },
+      {
+        "case": "fault_resource_modified",
+        "description": "build succeeds, resource modified in the output",
+        "h2": null,
+        "h3": "FAILED/UNEXPECTED_DIFF",
+        "expected": "FAILED",
+        "status": "FAILED",
+        "verification": {
+          "status": "FAILED",
+          "status_reason": "failed: no_unexpected_change, domain resources, 1 unexpected change(s)",
+          "completeness": "PARTIAL",
+          "domains": {
+            "dex": "COMPLETE/passed",
+            "manifest": "COMPLETE/passed",
+            "resources": "PARTIAL/failed",
+            "assets": "COMPLETE/passed",
+            "native": "COMPLETE/passed",
+            "archive": "COMPLETE/passed",
+            "signing": "COMPLETE/passed",
+            "endpoints": "COMPLETE/passed"
+          },
+          "counts": {
+            "expected": 10,
+            "noise": 7,
+            "unexpected": 1,
+            "unknown": 0
+          },
+          "noise_rules": {
+            "certificate_replaced": 1,
+            "signature_replaced": 3
+          },
+          "control_noop": "EQUIVALENT",
+          "baseline_status": "COMPATIBLE",
+          "unexpected": [
+            "[resources] file modified resources.arsc (control: absent)"
+          ],
+          "unknown": [],
+          "invariants_failed": [
+            "no_unexpected_change"
+          ],
+          "invariants_open": [],
+          "limitations": [
+            "[resources] PARTIAL: original->transformed: resource_table not_comparable (resources.arsc differs; its entries are not compared semantically (only byte identity is established)); control->transformed: resource_table not_comparable (resources.arsc differs; its entries are not compared semantically (only byte identity is established)); UNEXPECTED_CHANGE: file modified resources.arsc"
+          ],
+          "original_unchanged": true,
+          "timings": {
+            "expectations": 0.926,
+            "signature": 0.226,
+            "dex_state": 2.138,
+            "total": 3.668
+          }
+        },
+        "seconds": 9.79,
+        "result": "PASS",
+        "failures": [],
+        "domain": "resources"
+      },
+      {
+        "case": "7b_native_modified",
+        "description": "existing .so modified (no eligible plan exists for native APKs: plan-less control experiment)",
+        "h2": "UNSUPPORTED",
+        "h3": null,
+        "expected": "FAILED",
+        "status": "FAILED",
+        "verification": {
+          "status": "FAILED",
+          "status_reason": "failed: no_unexpected_change, domain native, 2 unexpected change(s)",
+          "completeness": "COMPLETE",
+          "domains": {
+            "dex": "COMPLETE/passed",
+            "manifest": "COMPLETE/passed",
+            "resources": "COMPLETE/passed",
+            "assets": "COMPLETE/passed",
+            "native": "COMPLETE/failed",
+            "archive": "COMPLETE/passed",
+            "signing": "COMPLETE/passed",
+            "endpoints": "COMPLETE/passed"
+          },
+          "counts": {
+            "expected": 0,
+            "noise": 7,
+            "unexpected": 2,
+            "unknown": 0
+          },
+          "noise_rules": {
+            "certificate_replaced": 1,
+            "signature_replaced": 3
+          },
+          "control_noop": "EQUIVALENT",
+          "baseline_status": "COMPATIBLE",
+          "unexpected": [
+            "[native] native_library modified lib/arm64-v8a/libh3native.so (control: absent)",
+            "[native] file modified lib/arm64-v8a/libh3native.so (control: absent)"
+          ],
+          "unknown": [],
+          "invariants_failed": [
+            "no_unexpected_change"
+          ],
+          "invariants_open": [],
+          "limitations": [],
+          "original_unchanged": true,
+          "timings": {
+            "signature": 0.212,
+            "total": 0.561
+          }
+        },
+        "seconds": 0.6,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "case": "8a_strings_truncated",
+        "description": "string enumeration truncated",
+        "h2": null,
+        "h3": null,
+        "expected": "UNKNOWN",
+        "status": "UNKNOWN",
+        "verification": {
+          "status": "UNKNOWN",
+          "status_reason": "not established: declared_changes_observed, no_unclassified_difference, domain dex (PARTIAL), 2 unclassified difference(s)",
+          "completeness": "PARTIAL",
+          "domains": {
+            "dex": "PARTIAL/undetermined",
+            "manifest": "COMPLETE/passed",
+            "resources": "COMPLETE/passed",
+            "assets": "COMPLETE/passed",
+            "native": "COMPLETE/passed",
+            "archive": "COMPLETE/passed",
+            "signing": "COMPLETE/passed",
+            "endpoints": "COMPLETE/passed"
+          },
+          "counts": {
+            "expected": 4,
+            "noise": 7,
+            "unexpected": 0,
+            "unknown": 2
+          },
+          "noise_rules": {
+            "certificate_replaced": 1,
+            "signature_replaced": 3
+          },
+          "control_noop": "EQUIVALENT",
+          "baseline_status": "COMPATIBLE",
+          "unexpected": [],
+          "unknown": [
+            "[dex] dex_string incomplete removed: DiffEngine output was truncated; not every change could be classified",
+            "[dex] file modified classes.dex: planned entry, but its semantic comparison is incomplete (strings)"
+          ],
+          "invariants_failed": [],
+          "invariants_open": [
+            "declared_changes_observed",
+            "no_unclassified_difference"
+          ],
+          "limitations": [
+            "[dex] PARTIAL: original->transformed: strings partial (string enumeration truncated (0/0 added, 2/7 removed listed)); control->transformed: strings partial (string enumeration truncated (0/0 added, 2/7 removed listed)); UNKNOWN: dex_string incomplete removed; UNKNOWN: file modified classes.dex; invariant declared_changes_observed undetermined: missing: ['original->transformed: dex_string removed Lcom/example/h1/B;', 'original->transformed: dex_string removed Ljava/lang/String;', 'original->transformed: dex_string removed getMainLooper', 'original->transformed: dex_string removed h3-only-in-b', 'original->transformed: dex_string removed stamp']"
+          ],
+          "original_unchanged": true,
+          "timings": {
+            "expectations": 0.946,
+            "signature": 0.247,
+            "dex_state": 1.918,
+            "total": 3.513
+          }
+        },
+        "seconds": 0.0,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "case": "8b_native_comparator_failed",
+        "description": "native comparator undetermined",
+        "h2": null,
+        "h3": null,
+        "expected": "UNKNOWN",
+        "status": "UNKNOWN",
+        "verification": {
+          "status": "UNKNOWN",
+          "status_reason": "not established: control_rebuild_equivalent, domain native (UNKNOWN)",
+          "completeness": "UNKNOWN",
+          "domains": {
+            "dex": "COMPLETE/passed",
+            "manifest": "COMPLETE/passed",
+            "resources": "COMPLETE/passed",
+            "assets": "COMPLETE/passed",
+            "native": "UNKNOWN/undetermined",
+            "archive": "COMPLETE/passed",
+            "signing": "COMPLETE/passed",
+            "endpoints": "COMPLETE/passed"
+          },
+          "counts": {
+            "expected": 10,
+            "noise": 7,
+            "unexpected": 0,
+            "unknown": 0
+          },
+          "noise_rules": {
+            "certificate_replaced": 1,
+            "signature_replaced": 3
+          },
+          "control_noop": "UNDETERMINED",
+          "baseline_status": "BASELINE_PARTIAL",
+          "unexpected": [],
+          "unknown": [],
+          "invariants_failed": [],
+          "invariants_open": [
+            "control_rebuild_equivalent"
+          ],
+          "limitations": [],
+          "original_unchanged": true,
+          "timings": {
+            "expectations": 1.165,
+            "signature": 0.266,
+            "dex_state": 2.02,
+            "total": 3.808
+          }
+        },
+        "seconds": 0.0,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "case": "8c_h1_insufficient",
+        "description": "H.1 re-analysis of the output incomplete",
+        "h2": null,
+        "h3": null,
+        "expected": "UNKNOWN",
+        "status": "UNKNOWN",
+        "verification": {
+          "status": "UNKNOWN",
+          "status_reason": "not established: h1_reference_state, domain dex (UNKNOWN)",
+          "completeness": "UNKNOWN",
+          "domains": {
+            "dex": "UNKNOWN/undetermined",
+            "manifest": "COMPLETE/passed",
+            "resources": "COMPLETE/passed",
+            "assets": "COMPLETE/passed",
+            "native": "COMPLETE/passed",
+            "archive": "COMPLETE/passed",
+            "signing": "COMPLETE/passed",
+            "endpoints": "COMPLETE/passed"
+          },
+          "counts": {
+            "expected": 10,
+            "noise": 7,
+            "unexpected": 0,
+            "unknown": 0
+          },
+          "noise_rules": {
+            "certificate_replaced": 1,
+            "signature_replaced": 3
+          },
+          "control_noop": "EQUIVALENT",
+          "baseline_status": "COMPATIBLE",
+          "unexpected": [],
+          "unknown": [],
+          "invariants_failed": [],
+          "invariants_open": [
+            "h1_reference_state"
+          ],
+          "limitations": [],
+          "original_unchanged": true,
+          "timings": {
+            "expectations": 0.908,
+            "signature": 0.218,
+            "dex_state": 1.874,
+            "total": 3.364
+          }
+        },
+        "seconds": 0.0,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "case": "negative_target_not_removed",
+        "description": "build succeeds, nothing removed",
+        "h2": null,
+        "h3": null,
+        "expected": "FAILED",
+        "status": "FAILED",
+        "verification": {
+          "status": "FAILED",
+          "status_reason": "failed: target_absent_after, exactly_one_class_removed[original->transformed], exactly_one_class_removed[control->transformed], class_count, declared_changes_observed, domain dex",
+          "completeness": "COMPLETE",
+          "domains": {
+            "dex": "COMPLETE/failed",
+            "manifest": "COMPLETE/passed",
+            "resources": "COMPLETE/passed",
+            "assets": "COMPLETE/passed",
+            "native": "COMPLETE/passed",
+            "archive": "COMPLETE/passed",
+            "signing": "COMPLETE/passed",
+            "endpoints": "COMPLETE/passed"
+          },
+          "counts": {
+            "expected": 0,
+            "noise": 4,
+            "unexpected": 0,
+            "unknown": 0
+          },
+          "noise_rules": {
+            "certificate_replaced": 1,
+            "signature_replaced": 3
+          },
+          "control_noop": "EQUIVALENT",
+          "baseline_status": "COMPATIBLE",
+          "unexpected": [],
+          "unknown": [],
+          "invariants_failed": [
+            "target_absent_after",
+            "exactly_one_class_removed[original->transformed]",
+            "exactly_one_class_removed[control->transformed]",
+            "class_count",
+            "declared_changes_observed"
+          ],
+          "invariants_open": [],
+          "limitations": [],
+          "original_unchanged": true,
+          "timings": {
+            "expectations": 0.936,
+            "signature": 0.233,
+            "dex_state": 1.733,
+            "total": 3.296
+          }
+        },
+        "seconds": 0.0,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "case": "limitations_resource_table",
+        "description": "fixture whose rebuild re-encodes resources.arsc",
+        "h2": "ELIGIBLE",
+        "h3": "VERIFIED",
+        "expected": "VERIFIED_WITH_LIMITATIONS",
+        "status": "VERIFIED_WITH_LIMITATIONS",
+        "verification": {
+          "status": "VERIFIED_WITH_LIMITATIONS",
+          "status_reason": "every invariant passed and every difference is noise or the declared transformation, but these domains are only partially established: resources (see limitations)",
+          "completeness": "PARTIAL",
+          "domains": {
+            "dex": "COMPLETE/passed",
+            "manifest": "COMPLETE/passed",
+            "resources": "PARTIAL/partial",
+            "assets": "COMPLETE/passed",
+            "native": "COMPLETE/passed",
+            "archive": "COMPLETE/passed",
+            "signing": "COMPLETE/passed",
+            "endpoints": "COMPLETE/passed"
+          },
+          "counts": {
+            "expected": 10,
+            "noise": 8,
+            "unexpected": 0,
+            "unknown": 0
+          },
+          "noise_rules": {
+            "certificate_replaced": 1,
+            "resource_table_reencoded": 1,
+            "signature_replaced": 3
+          },
+          "control_noop": "EQUIVALENT",
+          "baseline_status": "COMPATIBLE",
+          "unexpected": [],
+          "unknown": [],
+          "invariants_failed": [],
+          "invariants_open": [],
+          "limitations": [
+            "[resources] PARTIAL: original->control: resource_table not_comparable (resources.arsc differs; its entries are not compared semantically (only byte identity is established)); original->transformed: resource_table not_comparable (resources.arsc differs; its entries are not compared semantically (only byte identity is established))"
+          ],
+          "original_unchanged": true,
+          "timings": {
+            "expectations": 1.0,
+            "signature": 0.213,
+            "dex_state": 1.885,
+            "total": 3.442
+          }
+        },
+        "seconds": 10.114,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "case": "negative_h_trans_002",
+        "description": "an H-TRANS-002 plan is refused by H.4",
+        "h2": null,
+        "h3": null,
+        "expected": "UNVERIFIED",
+        "status": "UNVERIFIED",
+        "verification": {
+          "status": "UNVERIFIED",
+          "status_reason": "not verifiable: the plan is for SHA-256 0000000000000000000000000000000000000000000000000000000000000000, not this original; H-TRANS-002 is planning-only; H.4 verifies H-TRANS-001 only",
+          "completeness": "NOT_ANALYZED",
+          "domains": {
+            "dex": "NOT_ANALYZED/undetermined",
+            "manifest": "NOT_ANALYZED/undetermined",
+            "resources": "NOT_ANALYZED/undetermined",
+            "assets": "NOT_ANALYZED/undetermined",
+            "native": "NOT_ANALYZED/undetermined",
+            "archive": "NOT_ANALYZED/undetermined",
+            "signing": "NOT_ANALYZED/undetermined",
+            "endpoints": "NOT_ANALYZED/undetermined"
+          },
+          "counts": {
+            "expected": 0,
+            "noise": 0,
+            "unexpected": 0,
+            "unknown": 0
+          },
+          "noise_rules": {},
+          "control_noop": null,
+          "baseline_status": null,
+          "unexpected": [],
+          "unknown": [],
+          "invariants_failed": [
+            "plan_integrity"
+          ],
+          "invariants_open": [],
+          "limitations": [],
+          "original_unchanged": true,
+          "timings": {
+            "total": 0.002
+          }
+        },
+        "seconds": 0.0,
+        "result": "PASS",
+        "failures": []
+      }
+    ],
+    "workspaces_left_behind": [],
+    "status": "PASS"
+  }
+}

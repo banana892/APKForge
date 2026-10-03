@@ -9,9 +9,14 @@ of ``H-TRANS-001`` (remove isolated class) to a copy of the APK and verifies the
 (BuildService, H.1 re-analysis, Phase E diff). No decision or result establishes that a
 target is malicious or that an app is safe.
 
+H.4 (:class:`TransformationVerifier`) verifies a transformed rebuild against its original
+*and* an unmodified control rebuild of it (the measured noise floor), per verification
+domain, with explicit completeness; :class:`ControlExperiment` produces the three APKs.
+
 ::
 
     H.1 reference analysis -> H.2 eligibility -> plan -> H.3 apply + verify
+      -> H.4 control experiment (original, control rebuild, transformed rebuild)
 """
 
 from __future__ import annotations
@@ -32,6 +37,11 @@ from apkforge.transformation.application import (
 from apkforge.transformation.catalog import CATALOG, H_TRANS_001, H_TRANS_002, get_spec, list_specs
 from apkforge.transformation.eligibility import EligibilityEvaluator
 from apkforge.transformation.executor import H3_LIMITATIONS, TransformationExecutor, load_plan
+from apkforge.transformation.experiment import (
+    ControlExperiment,
+    ExperimentResult,
+    NoiseFloorExperiment,
+)
 from apkforge.transformation.models import (
     PLANNING_SCHEMA_VERSION,
     REASON_STATES,
@@ -60,8 +70,30 @@ from apkforge.transformation.planner import (
     TransformationPlanner,
     TransformationPlanningService,
 )
-from apkforge.transformation.report import format_application_report, format_planning_report
+from apkforge.transformation.report import (
+    format_application_report,
+    format_planning_report,
+    format_verification_report,
+)
 from apkforge.transformation.selector import TargetEvidenceSelector, TargetEvidenceSet
+from apkforge.transformation.verification import (
+    H4_LIMITATIONS,
+    H4_STATEMENT,
+    MANDATORY_DOMAINS,
+    VERIFICATION_RESULT_SCHEMA_VERSION,
+    ClassifiedDifference,
+    Completeness,
+    ControlPresence,
+    DifferenceClass,
+    DomainReport,
+    InvariantCheck,
+    LegSummary,
+    RebuildRecord,
+    TransformationVerificationResult,
+    TransformationVerificationStatus,
+    VerificationDomain,
+)
+from apkforge.transformation.verifier import TransformationVerifier
 
 __all__ = [
     "APPLICATION_SCHEMA_VERSION",
@@ -69,11 +101,15 @@ __all__ = [
     "H2_STATEMENT",
     "H3_LIMITATIONS",
     "H3_MODIFIER_ID",
+    "H4_LIMITATIONS",
+    "H4_STATEMENT",
     "H_TRANS_001",
     "H_TRANS_002",
+    "MANDATORY_DOMAINS",
     "PLANNING_SCHEMA_VERSION",
     "REASON_STATES",
     "SUPPORTED_TRANSFORMATIONS",
+    "VERIFICATION_RESULT_SCHEMA_VERSION",
     "AbsenceStatus",
     "ApplicationFailure",
     "ApplicationReason",
@@ -81,17 +117,28 @@ __all__ = [
     "ApplicationStatus",
     "CategorySummary",
     "CheckOutcome",
+    "ClassifiedDifference",
+    "Completeness",
     "ConflictRecord",
+    "ControlExperiment",
+    "ControlPresence",
     "DecisionReason",
+    "DifferenceClass",
+    "DomainReport",
     "EligibilityEvaluator",
     "EligibilityState",
+    "ExperimentResult",
+    "InvariantCheck",
+    "LegSummary",
     "MatrixRow",
     "MutationRecord",
+    "NoiseFloorExperiment",
     "PlanCondition",
     "PlannedTransformChange",
     "PlanningResult",
     "PostAnalysis",
     "ReasonDetail",
+    "RebuildRecord",
     "RemoveIsolatedClassModifier",
     "RequirementCheck",
     "RequirementStatus",
@@ -108,8 +155,13 @@ __all__ = [
     "TransformationRequest",
     "TransformationSpec",
     "TransformationTarget",
+    "TransformationVerificationResult",
+    "TransformationVerificationStatus",
+    "TransformationVerifier",
+    "VerificationDomain",
     "format_application_report",
     "format_planning_report",
+    "format_verification_report",
     "get_spec",
     "list_specs",
     "load_plan",

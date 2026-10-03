@@ -41,7 +41,12 @@ if TYPE_CHECKING:
     from apkforge.modification.contract import ModifierPlan, ProjectContext, VerificationEvidence
     from apkforge.transformation.models import TransformationPlan
 
-__all__ = ["H3_MODIFIER_ID", "RemoveIsolatedClassModifier"]
+__all__ = [
+    "H3_MODIFIER_ID",
+    "RemoveIsolatedClassModifier",
+    "removal_expectations",
+    "strings_removed",
+]
 
 H3_MODIFIER_ID = "h3.remove_isolated_class"
 _R = ApplicationReason
@@ -49,6 +54,55 @@ _R = ApplicationReason
 
 def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def strings_removed(
+    root: Path, census: ClassCensus, target_file: str, string_pool: set[str]
+) -> set[str]:
+    """Pool strings the target file contributes that no remaining class contributes.
+
+    Shared by the H.3 modifier (declaration before mutation) and the H.4 verifier
+    (independent re-derivation from the original APK).
+    """
+    target_tokens = pool_tokens((root / target_file).read_text(encoding="utf-8"))
+    others: set[str] = set()
+    for paths in census.classes.values():
+        for rel in paths:
+            if rel != target_file:
+                others |= pool_tokens((root / rel).read_text(encoding="utf-8"), generous=True)
+    return (target_tokens & string_pool) - others
+
+
+def removal_expectations(
+    target: str, strings: set[str], api_removed: set[str]
+) -> list[ExpectedChange]:
+    """Every Phase E observation removing *target* must produce (and nothing else)."""
+    return [
+        ExpectedChange(
+            category="dex_class",
+            kind="removed",
+            identifier=target,
+            description=f"{target} is no longer defined (the planned change)",
+        ),
+        *(
+            ExpectedChange(
+                category="dex_string",
+                kind="removed",
+                identifier=s,
+                description=f"string-pool entry used only by {target}",
+            )
+            for s in sorted(strings)
+        ),
+        *(
+            ExpectedChange(
+                category="dex_api_reference",
+                kind="removed",
+                identifier=a,
+                description=f"framework API referenced only by {target}",
+            )
+            for a in sorted(api_removed)
+        ),
+    ]
 
 
 class RemoveIsolatedClassModifier(APKModifier):
@@ -154,7 +208,7 @@ class RemoveIsolatedClassModifier(APKModifier):
         ):
             return self._refuse(plan, _R.TRANSFORMATION_PRECONDITION_FAILED)
 
-        strings = self._strings_removed(project.decoded_dir, census)
+        strings = strings_removed(project.decoded_dir, census, self.target_file, self.string_pool)
         if not plan.require(
             "string_changes_enumerable",
             len(strings) <= _SAMPLE_LIMIT,
@@ -171,32 +225,7 @@ class RemoveIsolatedClassModifier(APKModifier):
         ]
         plan.changes = [f"remove class {self.target} ({self.target_file})"]
         plan.file_changes = [PlannedFileChange(path=self.target_file, action=FileAction.REMOVE)]
-        plan.expected_changes = [
-            ExpectedChange(
-                category="dex_class",
-                kind="removed",
-                identifier=self.target,
-                description=f"{self.target} is no longer defined (the planned change)",
-            ),
-            *(
-                ExpectedChange(
-                    category="dex_string",
-                    kind="removed",
-                    identifier=s,
-                    description=f"string-pool entry used only by {self.target}",
-                )
-                for s in sorted(strings)
-            ),
-            *(
-                ExpectedChange(
-                    category="dex_api_reference",
-                    kind="removed",
-                    identifier=a,
-                    description=f"framework API referenced only by {self.target}",
-                )
-                for a in sorted(self.api_removed)
-            ),
-        ]
+        plan.expected_changes = removal_expectations(self.target, strings, self.api_removed)
         plan.verification = [
             f"{self.target} absent from the rebuilt DEX; no class added, modified or removed "
             "besides it; no DEX file added or removed"
@@ -210,16 +239,6 @@ class RemoveIsolatedClassModifier(APKModifier):
             "classes": census.count,
         }
         return plan
-
-    def _strings_removed(self, root: Path, census: ClassCensus) -> set[str]:
-        """Pool strings the target contributes that no remaining class contributes."""
-        target_tokens = pool_tokens((root / self.target_file).read_text(encoding="utf-8"))
-        others: set[str] = set()
-        for paths in census.classes.values():
-            for rel in paths:
-                if rel != self.target_file:
-                    others |= pool_tokens((root / rel).read_text(encoding="utf-8"), generous=True)
-        return (target_tokens & self.string_pool) - others
 
     # -- apply ------------------------------------------------------------------
 

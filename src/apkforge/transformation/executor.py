@@ -82,7 +82,15 @@ if TYPE_CHECKING:
     from apkforge.reference.models import ReferenceAnalysisResult
     from apkforge.reference.service import ReferenceAnalysisService
 
-__all__ = ["H3_LIMITATIONS", "TransformationExecutor", "load_plan"]
+__all__ = [
+    "H3_LIMITATIONS",
+    "PlanRefusal",
+    "TransformationExecutor",
+    "assess_post_analysis",
+    "load_plan",
+    "plan_id_for",
+    "removal_consequences",
+]
 
 R = ApplicationReason
 S = ApplicationStatus
@@ -139,6 +147,10 @@ class _Refusal(Exception):
         self.failure = ApplicationFailure(
             code=code, stage=stage, message=message, details=details or {}
         )
+
+
+#: public name of the refusal raised by :func:`load_plan` / :func:`removal_consequences`
+PlanRefusal = _Refusal
 
 
 def load_plan(source: Path | str | TransformationPlan | PlanningResult) -> TransformationPlan:
@@ -616,38 +628,8 @@ class TransformationExecutor:
         target: str,
         facts: dict[str, tuple[str, bool | None]],
     ) -> PostAnalysis:
-        post = self.reference.analyze(built)
-        pre_states = pre.component_states
-        post_states = post.component_states
-        weakened = sorted(
-            k
-            for k, v in pre_states.items()
-            if v is AnalysisState.COMPLETE and post_states.get(k) is not AnalysisState.COMPLETE
-        )
-        before = {c.name for c in pre.defined_classes} - {target}
-        after = {c.name for c in post.defined_classes}
-        absence = post.index().assess_absence(target)
-        sufficient = (
-            not post.errors
-            and not weakened
-            and post.component_state(Component.DEX) is AnalysisState.COMPLETE
-        )
-        pa = PostAnalysis(
-            analysis_schema=post.schema_version,
-            analysis_state=post.analysis_state.value,
-            component_states={k: v.value for k, v in sorted(post_states.items())},
-            weakened_components=weakened,
-            defined_classes_before=len(pre.defined_classes),
-            defined_classes_after=len(post.defined_classes),
-            target_defined=target in after,
-            other_classes_removed=sorted(before - after),
-            classes_added=sorted(after - before - {target}),
-            absence_conclusion=absence.conclusion.value,
-            definitive_references=len(absence.definitive_references),
-            indirect_references=len(absence.indirect_evidence),
-            sufficient=sufficient,
-            errors=list(post.errors),
-        )
+        pa = assess_post_analysis(pre, self.reference.analyze(built), target)
+        weakened, sufficient = pa.weakened_components, pa.sufficient
         facts["analysis"] = (
             f"{pa.analysis_state}; weakened {weakened or 'none'}",
             sufficient,
@@ -668,7 +650,7 @@ class TransformationExecutor:
                 R.ANALYSIS_INCOMPLETE,
                 G.POST_ANALYSIS,
                 "the H.1 analysis of the transformed APK is not sufficient to establish the "
-                f"result ({pa.analysis_state}; weakened: {weakened}; errors: {post.errors})",
+                f"result ({pa.analysis_state}; weakened: {weakened}; errors: {pa.errors})",
             )
         problems = []
         if pa.target_defined:
@@ -719,6 +701,44 @@ def _final_status(current: ApplicationStatus, failure: ApplicationFailure) -> Ap
     if failure.code is R.ANALYSIS_INCOMPLETE and failure.stage is G.POST_ANALYSIS:
         return S.UNKNOWN
     return S.FAILED
+
+
+def assess_post_analysis(
+    pre: ReferenceAnalysisResult, post: ReferenceAnalysisResult, target: str
+) -> PostAnalysis:
+    """Compare the H.1 analysis of a transformed APK (*post*) with the original's (*pre*)
+    for the removal of *target*. Shared by H.3 (before publishing) and H.4."""
+    pre_states = pre.component_states
+    post_states = post.component_states
+    weakened = sorted(
+        k
+        for k, v in pre_states.items()
+        if v is AnalysisState.COMPLETE and post_states.get(k) is not AnalysisState.COMPLETE
+    )
+    before = {c.name for c in pre.defined_classes} - {target}
+    after = {c.name for c in post.defined_classes}
+    absence = post.index().assess_absence(target)
+    sufficient = (
+        not post.errors
+        and not weakened
+        and post.component_state(Component.DEX) is AnalysisState.COMPLETE
+    )
+    return PostAnalysis(
+        analysis_schema=post.schema_version,
+        analysis_state=post.analysis_state.value,
+        component_states={k: v.value for k, v in sorted(post_states.items())},
+        weakened_components=weakened,
+        defined_classes_before=len(pre.defined_classes),
+        defined_classes_after=len(post.defined_classes),
+        target_defined=target in after,
+        other_classes_removed=sorted(before - after),
+        classes_added=sorted(after - before - {target}),
+        absence_conclusion=absence.conclusion.value,
+        definitive_references=len(absence.definitive_references),
+        indirect_references=len(absence.indirect_evidence),
+        sufficient=sufficient,
+        errors=list(post.errors),
+    )
 
 
 def _plan_id(plan: TransformationPlan) -> str | None:
@@ -779,3 +799,8 @@ def _matrix(facts: dict[str, tuple[str, bool | None]]) -> list[MatrixRow]:
         )
         rows.append(MatrixRow(check=check, expected=expected, actual=actual, status=status))
     return rows
+
+
+#: public names for H.4 (same functions H.3 uses; no second implementation)
+plan_id_for = _plan_id
+removal_consequences = _consequences

@@ -1,4 +1,4 @@
-# Transformation — Evidence (H.1), Eligibility Planning (H.2), Controlled Application (H.3)
+# Transformation — Evidence (H.1), Eligibility Planning (H.2), Controlled Application (H.3), Verification Hardening (H.4)
 
 > **H.1 does not perform APK transformations. It only produces evidence that future
 > transformation stages may consume.**
@@ -767,3 +767,123 @@ metadata written by the build tools, as for every BuildService rebuild.
 - `build-tests/run_phase_h3_validation.py all --write` — synthetic scenarios plus an
   `--apply` attempt for every H.2 class target of the 9-APK corpus; evidence in
   `artifacts/phase-h/` (see `H3-CONTROLLED-TRANSFORMATION.md`).
+
+# Phase H.4 — Transformation Verification Hardening
+
+H.4 establishes exactly what APKForge can prove about an H-TRANS-001 output, what it
+cannot, how the toolchain noise floor is measured and how unexpected changes are detected.
+It adds no transformation: H-TRANS-001 stays the only applicable one and H-TRANS-002 stays
+planning-only (an H-TRANS-002 plan is `UNVERIFIED`).
+
+## Three APKs, three legs
+
+```text
+A original ─── unmodified rebuild ──► B control       A -> B  toolchain / build noise
+     └──────── H.3 transformation ──► C transformed   A -> C  complete observed change
+                                                      B -> C  transformation signal
+```
+
+`ControlExperiment(service).run(apk, plan, work_dir)` produces B (`run_semantic_noop`, kept)
+and C (H.3 with B as its noise floor) and verifies them;
+`TransformationVerifier(service).verify(A, B, C, plan)` verifies any three APKs; the CLI is
+`apkforge verify A C --plan PLAN.json --control B --built-locally` or `--build-control`.
+H.3 remains responsible for applying, building, signing and its own post-transform checks;
+H.4 is the hardened verification layer and shares H.3's functions (plan loading and id,
+declared-change derivation, H.1 post-analysis) rather than re-implementing them. H.3 does
+not call H.4: H.3 publishes only after its own checks, and H.4 needs a kept control APK,
+which H.3's internal noise measurement discards (documented boundary, no duplicated logic).
+
+APK bytes are compared but never used as evidence of change: independent rebuilds differ in
+ZIP metadata (recorded per leg as `metadata_only_changes` and `entry_order_changed`), while
+their entry contents are identical with one toolchain and key.
+
+## Classification
+
+Each A -> C difference is classified by Phase E against the noise fingerprint *measured* by
+A -> B (content policy: exact content, signer, or path-only for v1 signature files), then
+cross-checked:
+
+| H.4 class | Condition |
+|---|---|
+| `NOISE` | Phase E `REBUILD_NOISE` and the control shows the same difference with the same content (v1 signature files: same path and kind), and B and C agree on it |
+| `EXPECTED_TRANSFORMATION` | declared (Phase E `EXPECTED_MODIFICATION` / `PLANNED_ENTRY`) *and* present in the B -> C signal |
+| `UNEXPECTED_CHANGE` | Phase E `UNEXPECTED`: not declared, not reproduced by the control |
+| `UNKNOWN` | Phase E `UNKNOWN`, or the legs disagree (declared but not in the signal; noise the control does not reproduce; B and C differ where C equals A) |
+
+Every difference records the leg, `in_control` (`same_content`, `different_content`,
+`absent`), `in_signal`, the Phase E rule and the reason. An unexplained difference never
+becomes `NOISE`; there is no ignore list. A change every rebuild makes (a faulty toolchain)
+is not noise either: `classify_noop_diff` marks it unexpected, the control is
+`NOT_EQUIVALENT` and the verification is `UNVERIFIED`.
+
+The declared changes are re-derived from A and the plan with the H.3 functions (decode A,
+class census, string-pool and API-reference attribution): the class, every DEX string and
+framework API reference only the target contributes, and the planned `classesN.dex` entry.
+
+## Invariants (H-TRANS-001)
+
+`plan_integrity`, `control_rebuild_equivalent`, `target_defined_before` (A and B),
+`target_absent_after` (C's DEX inventory and the H.1 re-analysis),
+`exactly_one_class_removed` and `no_other_class_changed` on A -> C *and* B -> C,
+`class_count` (−1), `h1_reference_state` (no structural or indirect reference, DEX
+COMPLETE, nothing weakened), `declared_changes_observed` (both legs), `no_unexpected_change`,
+`no_unclassified_difference`, `signature_verified` (apksigner, signer of B),
+`original_unchanged`.
+
+## Domains and completeness
+
+| Domain | Phase E comparators | Extra | Level |
+|---|---|---|---|
+| dex | dex, strings | H.1 re-analysis | classes, methods (code hash), fields, string pool, API refs |
+| manifest | identity, manifest, manifest_tree, permissions, components, intent_filters | | decoded tree |
+| resources | resources, resource_table | | content hash (binary XML / arsc not decoded) |
+| assets | assets | | content hash |
+| native | native | | content hash + ELF metadata; code not analysed |
+| archive | files, embedded | | path + content hash; ZIP metadata recorded as packaging |
+| signing | certificate | apksigner verify of C | certificate identity with B |
+| endpoints | network | | extracted URLs / hosts |
+
+A domain's completeness is the weakest over its comparators on all three legs: complete →
+`COMPLETE`; `partial` / `not_comparable` → `PARTIAL`; `undetermined` / missing → `UNKNOWN`;
+leg not run → `NOT_ANALYZED`. DEX additionally needs a sufficient H.1 re-analysis, signing a
+conclusive apksigner result. A re-encoded `resources.arsc` stays `PARTIAL` even when it is
+byte-identical to the control's (H.4 is stricter than the Phase E matrix here: byte identity
+with B is established, semantic identity with A is not).
+
+## Status
+
+| Status | Meaning |
+|---|---|
+| `VERIFIED` | every mandatory domain `COMPLETE`, every invariant passed, every difference `NOISE` or `EXPECTED_TRANSFORMATION` |
+| `VERIFIED_WITH_LIMITATIONS` | as VERIFIED, but a mandatory domain is `PARTIAL`; `limitations` enumerates each one (`[domain] PARTIAL: reason`) |
+| `UNVERIFIED` | not performed: invalid / foreign / planning-only plan, missing or invalid control or transformed APK, control not usable as noise floor, declared changes not derivable |
+| `FAILED` | an `UNEXPECTED_CHANGE`, a failed invariant, or a changed original |
+| `UNKNOWN` | performed, but a mandatory domain is `UNKNOWN` or a difference is unclassified |
+
+Precedence: FAILED > UNVERIFIED > UNKNOWN > VERIFIED_WITH_LIMITATIONS > VERIFIED. There is
+no numerical score. CLI exit codes: 0 VERIFIED, 4 VERIFIED_WITH_LIMITATIONS, 1 FAILED,
+3 UNKNOWN / UNVERIFIED, 2 usage or toolchain error.
+
+## Result schema
+
+`TransformationVerificationResult` (`schema_version` 1, `phase` "H.4"): plan and target,
+original SHA-256 before/after, `control_rebuild` / `transformed_rebuild` (SHA-256, entry-
+content SHA-256, no-op result, baseline status, signature), `legs` (per-leg Phase E counts,
+raw archive counts, packaging metadata), `noise_floor`, `declared_changes`,
+`expected_changes` / `noise_changes` / `unexpected_changes` / `unknown_changes`, `domains`,
+`invariants`, `post_analysis` (H.3 `PostAnalysis`), `completeness`, `status`,
+`limitations`, `statement`. `comparable()` drops paths, rebuild archive bytes, ZIP metadata
+and timings: two runs of the same plan give equal `comparable()` results.
+
+## Verification (H.4)
+
+- `tests/unit/test_phase_h4_verification.py` — attribution, completeness, status precedence,
+  plan handling and CLI usage with simulated legs.
+- `tests/integration/test_phase_h4_verification.py` — cases 1–8 on real APKs: clean,
+  repeated, natural build noise, the H.3 faulty mutation, faults injected into the
+  transformed build only (class, resource, manifest, native, asset), native modification
+  without a plan, incomplete analysis, re-encoded resource table, CLI.
+- `build-tests/run_phase_h4_validation.py all --write` — synthetic cases plus the corpus
+  (H.2 eligibility and the noise-floor experiment per APK); evidence in
+  `artifacts/phase-h/H4-TRANSFORMATION-VERIFICATION.md`.
+

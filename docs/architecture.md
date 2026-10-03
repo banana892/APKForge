@@ -210,6 +210,28 @@ ReferenceAnalysisService (H.1)      ─> post-transform analysis of the output
                                     ─> H.3 matrix -> publish OUT only when VERIFIED
 ```
 
+### Transformation Verification Hardening (Phase H.4)
+
+`apkforge.transformation.TransformationVerifier` verifies a transformed rebuild (C) against
+its original (A) and an unmodified control rebuild (B) (`apkforge verify A C --plan PLAN
+--control B | --build-control`); `ControlExperiment` produces B and C (C through H.3). It
+adds no comparison engine: DiffEngine compares, the Phase E classifiers classify, the H.3
+functions check the plan, derive the declared changes and assess the H.1 re-analysis. See
+[`transformation.md`](transformation.md#phase-h4--transformation-verification-hardening).
+
+```
+plan (load_plan, plan id, source SHA)          ─> UNVERIFIED on any mismatch
+declared changes (decode A, H.3 derivation)    ─> UNVERIFIED if not derivable
+A -> B  DiffEngine + classify_noop_diff        ─> measured noise fingerprint (UNVERIFIED
+                                                  when the control is not equivalent)
+A -> C  pair.classify (content fingerprint)    ─> expected / planned / noise / unexpected
+B -> C  verify_expectations                    ─> transformation signal
+cross-leg attribution                          ─> NOISE / EXPECTED_TRANSFORMATION /
+                                                  UNEXPECTED_CHANGE / UNKNOWN
+apksigner (C, signer of B), DEX inventories, H.1 re-analysis -> invariants
+per-domain completeness -> status (never stronger than the weakest mandatory domain)
+```
+
 
 The implemented pipeline is `apkforge.modification.pipeline.ModificationPipeline`; see
 `docs/modification-framework.md`. Modifiers plan and edit decoded files, BuildService
@@ -341,7 +363,7 @@ src/apkforge/
 │   ├── report.py       — format_reference_report (Markdown)
 │   └── service.py      — ReferenceAnalysisService.analyze / analyze_decoded
 │
-├── transformation/     — Phase H.2 planning; Phase H.3 controlled application (H-TRANS-001)
+├── transformation/     — Phase H.2 planning; H.3 controlled application (H-TRANS-001); H.4 verification
 │   ├── models.py       — EligibilityState, DecisionReason (+ REASON_STATES), plan/decision models
 │   ├── catalog.py      — H-TRANS-001 / H-TRANS-002 specifications (no executors)
 │   ├── targets.py      — target parsing and resolution (never guesses names)
@@ -353,7 +375,10 @@ src/apkforge/
 │   ├── executor.py     — H.3 TransformationExecutor, load_plan (integrity, pipeline, publish)
 │   ├── modifier.py     — H.3 RemoveIsolatedClassModifier (plan-bound Phase D modifier)
 │   ├── dexstate.py     — H.3 class census, DEX string-pool and API-reference attribution
-│   └── report.py       — format_planning_report / format_application_report (Markdown)
+│   ├── verification.py — H.4 result model: DifferenceClass, Completeness, domains, status
+│   ├── verifier.py     — H.4 TransformationVerifier (three legs, attribution, completeness)
+│   ├── experiment.py   — H.4 ControlExperiment harness (original, control, transformed)
+│   └── report.py       — format_planning / application / verification_report (Markdown)
 │
 ├── security/           — Phase 5: Security Analysis Engine
 │   ├── engine.py       — SecurityEngine coordinator, index builder, error isolation

@@ -5,6 +5,24 @@
 
 ---
 
+## Phase H.4 — Transformation Verification Hardening
+
+`apkforge verify ORIGINAL.apk TRANSFORMED.apk --plan PLAN.json --control CONTROL.apk
+--built-locally` (or `--build-control`) verifies an H-TRANS-001 output against its original
+*and* an unmodified control rebuild of it. original -> control measures the toolchain noise
+floor; original -> transformed is the complete observed change; control -> transformed is the
+transformation signal. Every difference is classified `NOISE` (reproduced by the control with
+the same content), `EXPECTED_TRANSFORMATION` (declared from the plan and present in the
+signal), `UNEXPECTED_CHANGE` or `UNKNOWN`, per domain (dex, manifest, resources, assets,
+native, archive, signing, endpoints) with an explicit completeness (`COMPLETE`, `PARTIAL`,
+`UNKNOWN`, `NOT_ANALYZED`). The result — `VERIFIED`, `VERIFIED_WITH_LIMITATIONS`,
+`UNVERIFIED`, `FAILED` or `UNKNOWN` — is never stronger than the weakest mandatory domain.
+APK byte differences between independent rebuilds are not treated as transformation
+differences. Static verification does not establish that the transformed application is
+safe, malware-free, spyware-free, or functionally correct when executed. Programmatic API:
+`TransformationVerifier(service).verify(original, control, transformed, plan)` and the
+`ControlExperiment` harness. See [docs/transformation.md](docs/transformation.md).
+
 ## Phase H.3 — Controlled Transformation (H-TRANS-001 only)
 
 `apkforge transform APP.apk --plan PLAN.json --apply -o OUT.apk` applies exactly one
@@ -243,6 +261,9 @@ apkforge transform path/to/app.apk -t H-TRANS-002 --target 'com.example.Foo->bar
 apkforge transform path/to/app.apk -t H-TRANS-001 --target com.example.Foo --report plan.json
 apkforge transform path/to/app.apk --plan plan.json
 apkforge transform path/to/app.apk --plan plan.json --apply -o transformed.apk --report h3.md
+
+# Transformation verification hardening (Phase H.4): original + control rebuild + output
+apkforge verify path/to/app.apk transformed.apk --plan plan.json --build-control --report h4.md
 
 # Controlled Remediation (Phase G)
 # List available remediation definitions
