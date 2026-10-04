@@ -527,11 +527,15 @@ def test_expected_change_also_in_control_is_not_attributed(
     assert any(d.observation.category == "dex_class" for d in res.unknown_changes)
 
 
-def test_planning_only_transformation_is_unverified(apks: dict[str, Path], tmp_path: Path) -> None:
+def test_unsupported_transformation_is_unverified(apks: dict[str, Path], tmp_path: Path) -> None:
+    # H-TRANS-002 is now verifiable (H.5); a transformation outside the supported set is not.
     sha = _sha(apks["orig"])
     planning, _ = _planning(tmp_path, "g01_methods", sha, "H-TRANS-002", f"{PKG}.D->helper()V")
+    decision = planning.decisions[0]
+    assert decision.plan is not None
+    forged = decision.plan.model_copy(update={"transformation_id": "H-TRANS-404"})
     plan = tmp_path / "p2.json"
-    plan.write_text(planning.to_json())
+    plan.write_text(forged.model_dump_json())
     v = TransformationVerifier(SigService(tmp_path), diff_engine=FakeEngine({}))  # type: ignore[arg-type]
     res = v.verify(apks["orig"], apks["ctrl"], apks["cand"], plan, toolchain=SIM_TOOLCHAIN)
     assert res.status is S.UNVERIFIED and "planning-only" in res.status_reason

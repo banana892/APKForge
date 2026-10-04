@@ -30,6 +30,7 @@ from apkforge.transformation.application import (
     ApplicationStatus,
     CheckOutcome,
     MatrixRow,
+    MethodPostAnalysis,
     MutationRecord,
     PostAnalysis,
     TransformationApplicationResult,
@@ -64,7 +65,12 @@ from apkforge.transformation.models import (
     TransformationSpec,
     TransformationTarget,
 )
-from apkforge.transformation.modifier import H3_MODIFIER_ID, RemoveIsolatedClassModifier
+from apkforge.transformation.modifier import (
+    H3_MODIFIER_ID,
+    H5_MODIFIER_ID,
+    RemoveIsolatedClassModifier,
+    RemoveIsolatedMethodModifier,
+)
 from apkforge.transformation.planner import (
     H2_STATEMENT,
     TransformationPlanner,
@@ -103,6 +109,7 @@ __all__ = [
     "H3_MODIFIER_ID",
     "H4_LIMITATIONS",
     "H4_STATEMENT",
+    "H5_MODIFIER_ID",
     "H_TRANS_001",
     "H_TRANS_002",
     "MANDATORY_DOMAINS",
@@ -131,6 +138,7 @@ __all__ = [
     "InvariantCheck",
     "LegSummary",
     "MatrixRow",
+    "MethodPostAnalysis",
     "MutationRecord",
     "NoiseFloorExperiment",
     "PlanCondition",
@@ -140,6 +148,7 @@ __all__ = [
     "ReasonDetail",
     "RebuildRecord",
     "RemoveIsolatedClassModifier",
+    "RemoveIsolatedMethodModifier",
     "RequirementCheck",
     "RequirementStatus",
     "TargetEvidenceSelector",

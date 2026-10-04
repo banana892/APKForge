@@ -2445,7 +2445,8 @@ def cmd_transform(
     apply: bool = typer.Option(
         False,
         "--apply",
-        help="H.3: apply the --plan (ELIGIBLE H-TRANS-001 plans only) and write --output.",
+        help="H.3/H.5: apply the --plan (ELIGIBLE H-TRANS-001 / H-TRANS-002 only) and write "
+        "--output.",
     ),
     output: Path | None = typer.Option(
         None,
@@ -2486,11 +2487,13 @@ def cmd_transform(
     H.1 static evidence (ELIGIBLE, CONDITIONALLY_ELIGIBLE, REFUSED, UNSUPPORTED,
     UNDETERMINED) and emits a deterministic plan for eligible requests. Planning only.
 
-    H.3 (--plan PLAN.json): validates a previously generated plan against APK (source
+    H.3/H.5 (--plan PLAN.json): validates a previously generated plan against APK (source
     SHA-256, plan id, eligibility, H.2 re-evaluation) and reports what would be applied.
-    With --apply, an ELIGIBLE H-TRANS-001 plan is applied to a copy: one class removed,
-    rebuilt, aligned, signed, verified, re-analysed and diffed; --output is written only
-    when every check passed. There is no override. APK itself is never modified.
+    With --apply, an ELIGIBLE plan is applied to a copy: H-TRANS-001 removes one class,
+    H-TRANS-002 removes one method; the result is rebuilt, aligned, signed, verified,
+    re-analysed and diffed; --output is written only when every check passed. The plan
+    determines the transformation and dispatches to the matching transformer. There is no
+    override. APK itself is never modified.
 
     Exit codes: 0 planned / validated / verified; 1 failed or input changed;
     2 invalid usage; 3 refused or not verifiable.

@@ -91,7 +91,8 @@ def eligible(tmp_path: Path) -> tuple[Path, TransformationPlan]:
 
 def test_schema_and_scope() -> None:
     assert APPLICATION_SCHEMA_VERSION == 1
-    assert SUPPORTED_TRANSFORMATIONS == ("H-TRANS-001",)  # H-TRANS-002 is not applied
+    # H.3 applies H-TRANS-001, H.5 adds H-TRANS-002 (both controlled, ELIGIBLE-only)
+    assert SUPPORTED_TRANSFORMATIONS == ("H-TRANS-001", "H-TRANS-002")
     assert {s.value for s in AS} >= {
         "PLANNED", "APPLYING", "BUILT", "VERIFIED", "REFUSED", "FAILED", "UNKNOWN"
     }  # fmt: skip
@@ -248,13 +249,29 @@ def test_integrity_eligibility(tmp_path: Path, eligible: tuple[Path, Transformat
         _refused(res, AR.PLAN_NOT_ELIGIBLE)
 
 
-def test_integrity_h_trans_002_is_not_applied(tmp_path: Path) -> None:
-    apk, sha = _apk(tmp_path, "g01_methods")
+def test_integrity_h_trans_002_is_now_supported(tmp_path: Path) -> None:
+    # H.5 added H-TRANS-002 (method removal); the planner produces an ELIGIBLE method plan.
+    _, sha = _apk(tmp_path, "g01_methods")
     planning = _planning(tmp_path, "g01_methods", sha, ("H-TRANS-002", f"{PKG}.D->helper()V"))
     plan = planning.decisions[0].plan
     assert plan is not None and plan.eligibility is EligibilityState.ELIGIBLE
-    res = _executor(tmp_path).run(apk, planning, apply=True, output_apk=tmp_path / "o.apk")
-    _refused(res, AR.UNSUPPORTED_TRANSFORMATION)
+    assert plan.transformation_id == "H-TRANS-002"
+    assert plan.planned_changes[0].type == "remove_method"
+    assert plan.transformation_id in SUPPORTED_TRANSFORMATIONS
+
+
+def test_integrity_cross_transformation_id_is_refused(tmp_path: Path) -> None:
+    """A method (H-TRANS-002) plan relabelled as H-TRANS-001 (class removal) is refused by
+    plan-id integrity before any analysis, decode or build: neither transformer accepts the
+    other's plan."""
+    apk, sha = _apk(tmp_path, "g01_methods")
+    planning = _planning(tmp_path, "g01_methods", sha, ("H-TRANS-002", f"{PKG}.D->helper()V"))
+    plan = planning.decisions[0].plan
+    assert plan is not None
+    forged = plan.model_copy(update={"transformation_id": "H-TRANS-001"})
+    res = _executor(tmp_path).run(apk, forged, apply=True, output_apk=tmp_path / "o.apk")
+    # the H-TRANS-001 transformer rejects a plan carrying a remove_method change
+    _refused(res, AR.PLAN_INVALID)
 
 
 # ---------------------------------------------------------------------------

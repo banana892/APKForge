@@ -35,6 +35,7 @@ __all__ = [
     "ApplicationStatus",
     "CheckOutcome",
     "MatrixRow",
+    "MethodPostAnalysis",
     "MutationRecord",
     "PostAnalysis",
     "TransformationApplicationResult",
@@ -43,8 +44,8 @@ __all__ = [
 #: version of the H.3 result format
 APPLICATION_SCHEMA_VERSION = 1
 
-#: transformations H.3 can apply (H-TRANS-002 stays planning-only)
-SUPPORTED_TRANSFORMATIONS = ("H-TRANS-001",)
+#: transformations the controlled executor can apply (H.3 remove class, H.5 remove method)
+SUPPORTED_TRANSFORMATIONS = ("H-TRANS-001", "H-TRANS-002")
 
 
 class ApplicationStatus(StrEnum):
@@ -83,9 +84,11 @@ class ApplicationReason(StrEnum):
     TARGET_NOT_FOUND = "TARGET_NOT_FOUND"
     TARGET_AMBIGUOUS = "TARGET_AMBIGUOUS"
     TARGET_STATE_MISMATCH = "TARGET_STATE_MISMATCH"
+    #: the plan targets a member shape the controlled executor does not remove
+    UNSUPPORTED_TARGET_TYPE = "UNSUPPORTED_TARGET_TYPE"
     ANALYSIS_INCOMPLETE = "ANALYSIS_INCOMPLETE"
     TRANSFORMATION_PRECONDITION_FAILED = "TRANSFORMATION_PRECONDITION_FAILED"
-    #: the mutation changed something other than exactly the planned class
+    #: the mutation changed something other than exactly the planned class / method
     UNEXPECTED_MUTATION = "UNEXPECTED_MUTATION"
     NOISE_BASELINE_UNAVAILABLE = "NOISE_BASELINE_UNAVAILABLE"
     POST_TRANSFORMATION_VERIFICATION_FAILED = "POST_TRANSFORMATION_VERIFICATION_FAILED"
@@ -126,7 +129,13 @@ class ApplicationFailure(BaseModel):
 
 
 class MutationRecord(BaseModel):
-    """What the mutation did to the decoded project (machine-readable)."""
+    """What the mutation did to the decoded project (machine-readable).
+
+    For ``REMOVE_CLASS`` (H-TRANS-001) the target smali file is deleted and the class
+    census shrinks by one. For ``REMOVE_METHOD`` (H-TRANS-002) the file is *modified*
+    (one ``.method`` block removed), the class census is unchanged and the method fields
+    describe the single removed declaration.
+    """
 
     transformation_id: str
     operation: str = "REMOVE_CLASS"
@@ -134,7 +143,8 @@ class MutationRecord(BaseModel):
     target_file: str
     target_dex: str
     count: int
-    #: SHA-256 of the target smali file before removal; after removal it does not exist
+    #: SHA-256 of the target smali file before the mutation; for REMOVE_CLASS it does not
+    #: exist afterwards (``post_transform_sha256`` None), for REMOVE_METHOD it is modified
     pre_transform_sha256: str
     post_transform_sha256: str | None = None
     classes_before: int
@@ -144,6 +154,19 @@ class MutationRecord(BaseModel):
     #: SHA-256 over the sorted defined-class list before / after the mutation
     census_before_sha256: str
     census_after_sha256: str
+    # -- REMOVE_METHOD only (the containing class survives) --
+    method_name: str | None = None
+    descriptor: str | None = None
+    #: ``name`` + smali proto, e.g. ``foo(I)V``
+    method_signature: str | None = None
+    #: the identity the Phase E DEX differ reports, e.g. ``foo(int)V``
+    method_key: str | None = None
+    methods_before: int | None = None
+    methods_after: int | None = None
+    #: method signatures removed / added / with a changed body in the target class
+    removed_methods: list[str] = Field(default_factory=list)
+    added_methods: list[str] = Field(default_factory=list)
+    changed_methods: list[str] = Field(default_factory=list)
 
 
 class CheckOutcome(StrEnum):
@@ -184,8 +207,33 @@ class PostAnalysis(BaseModel):
     errors: list[str] = Field(default_factory=list)
 
 
+class MethodPostAnalysis(BaseModel):
+    """H.1 re-analysis of a method removal: the class survives, the method is gone."""
+
+    analysis_schema: int
+    analysis_state: str
+    component_states: dict[str, str]
+    #: components whose state is weaker than in the original analysis
+    weakened_components: list[str] = Field(default_factory=list)
+    class_name: str
+    class_defined: bool
+    method_signature: str
+    target_method_present: bool
+    methods_before: int
+    methods_after: int
+    #: method signatures of the class removed besides the target / added
+    other_methods_removed: list[str] = Field(default_factory=list)
+    methods_added: list[str] = Field(default_factory=list)
+    #: remaining call sites / resolved reflection reaching the method (must be 0)
+    definitive_references: int = 0
+    #: remaining name-only / string / unresolved hints (indirect; must be 0 to verify)
+    indirect_references: int = 0
+    sufficient: bool
+    errors: list[str] = Field(default_factory=list)
+
+
 class TransformationApplicationResult(BaseModel):
-    """H.3 output for one plan application (or dry run)."""
+    """H.3 / H.5 output for one plan application (or dry run)."""
 
     schema_version: int = APPLICATION_SCHEMA_VERSION
     phase: str = "H.3"
@@ -214,6 +262,8 @@ class TransformationApplicationResult(BaseModel):
     build: dict[str, Any] = Field(default_factory=dict)
     diff: dict[str, Any] = Field(default_factory=dict)
     analysis: PostAnalysis | None = None
+    #: H.5 (REMOVE_METHOD): method-level re-analysis in place of ``analysis``
+    method_analysis: MethodPostAnalysis | None = None
     verification: list[MatrixRow] = Field(default_factory=list)
     output_apk: str | None = None
     output_apk_sha256: str | None = None

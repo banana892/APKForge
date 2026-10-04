@@ -62,16 +62,29 @@ from apkforge.diff.normalization import (
 )
 from apkforge.inspection.dex import DEXInspector
 from apkforge.transformation.application import SUPPORTED_TRANSFORMATIONS
-from apkforge.transformation.dexstate import take_census
+from apkforge.transformation.dexstate import (
+    method_census,
+    method_key,
+    split_method_block,
+    take_census,
+)
 from apkforge.transformation.executor import (
     PlanRefusal,
     assess_post_analysis,
+    assess_post_analysis_method,
     content_sha256,
     load_plan,
+    method_removal_consequences,
     plan_id_for,
     removal_consequences,
 )
-from apkforge.transformation.modifier import removal_expectations, strings_removed
+from apkforge.transformation.models import TargetKind
+from apkforge.transformation.modifier import (
+    method_removal_expectations,
+    removal_expectations,
+    strings_removed,
+    strings_removed_for_method,
+)
 from apkforge.transformation.verification import (
     DOMAIN_COMPARATORS,
     H4_LIMITATIONS,
@@ -100,6 +113,7 @@ if TYPE_CHECKING:
     from apkforge.diff.models import DiffResult
     from apkforge.diff.normalization import ToolchainIdentity
     from apkforge.reference.service import ReferenceAnalysisService
+    from apkforge.transformation.application import MethodPostAnalysis, PostAnalysis
     from apkforge.transformation.models import PlanningResult, TransformationPlan
 
 __all__ = ["LEGS", "TransformationVerifier", "domain_of"]
@@ -468,8 +482,15 @@ class TransformationVerifier:
             return None
         target = plan.target.class_name
         target_file = plan.planned_changes[0].artifact or ""
+        is_method = plan.target.kind is TargetKind.METHOD
         try:
-            api_removed, pool = removal_consequences(ctx.a, target)
+            if is_method:
+                assert plan.target.method_name is not None and plan.target.descriptor is not None
+                key, api_removed, pool = method_removal_consequences(
+                    ctx.a, target, plan.target.method_name, plan.target.descriptor
+                )
+            else:
+                api_removed, pool = removal_consequences(ctx.a, target)
         except PlanRefusal as exc:
             ctx.unverified.append(f"declared changes not derivable: {exc.failure.message}")
             return None
@@ -492,6 +513,21 @@ class TransformationVerifier:
                     f"(found {census.classes.get(target)}; unparsed {census.unparsed[:3]})"
                 )
                 return None
+            if is_method:
+                assert plan.target.method_name is not None and plan.target.descriptor is not None
+                signature = f"{plan.target.method_name}{plan.target.descriptor}"
+                text = (ws.decoded_dir / target_file).read_text(encoding="utf-8")
+                block = split_method_block(text, signature)
+                if method_census(text).count(signature) != 1 or block is None:
+                    ctx.unverified.append(
+                        f"{target}->{signature} is not declared exactly once in {target_file} "
+                        "of the original"
+                    )
+                    return None
+                strings = strings_removed_for_method(
+                    ws.decoded_dir, census, target_file, block, pool
+                )
+                return method_removal_expectations(target, key, strings, api_removed)
             strings = strings_removed(ws.decoded_dir, census, target_file, pool)
         finally:
             shutil.rmtree(tmp, ignore_errors=True)
@@ -625,7 +661,15 @@ class TransformationVerifier:
             try:
                 pre = ref.analyze(ctx.a)
                 post = ref.analyze(ctx.c)
-                r.post_analysis = assess_post_analysis(pre, post, target)
+                if ctx.plan.target.kind is TargetKind.METHOD:
+                    assert ctx.plan.target.method_name is not None
+                    assert ctx.plan.target.descriptor is not None
+                    r.method_post_analysis = assess_post_analysis_method(
+                        pre, post, target,
+                        ctx.plan.target.method_name, ctx.plan.target.descriptor,
+                    )  # fmt: skip
+                else:
+                    r.post_analysis = assess_post_analysis(pre, post, target)
             except Exception as exc:
                 r.errors.append(f"H.1 re-analysis failed: {type(exc).__name__}: {exc}")
         r.timings["dex_state"] = round(time.monotonic() - t, 3)
@@ -816,6 +860,103 @@ def _attribute(ctx: _Context) -> None:
     r.declared_missing = missing
 
 
+def _method_invariants(ctx: _Context, dex_ok: bool) -> None:
+    """Section 14 invariants for H-TRANS-002: the class survives and exactly one method of
+    it disappears, on both transformation legs, confirmed by the H.1 re-analysis."""
+    r = ctx.result
+    p, f, u = CheckStatus.PASSED, CheckStatus.FAILED, CheckStatus.UNDETERMINED
+    plan = ctx.plan
+    assert plan is not None and plan.target.method_name is not None
+    assert plan.target.descriptor is not None
+    target = plan.target.class_name
+    key = method_key(plan.target.method_name, plan.target.descriptor)
+    cls = ctx.classes
+    before, control, after = cls.get("original"), cls.get("control"), cls.get("transformed")
+    mpa = r.method_post_analysis
+
+    retained = (
+        None
+        if None in (before, control, after)
+        else target in before and target in control and target in after  # type: ignore[operator]
+    )
+    ctx.invariant(
+        "target_class_retained", D.DEX,
+        f"{target} defined in the original, the control and the transformed rebuild",
+        "unknown" if retained is None else
+        f"original {target in before}, control {target in control}, "  # type: ignore[operator]
+        f"transformed {target in after}",  # type: ignore[operator]
+        u if retained is None else p if retained else f,
+    )  # fmt: skip
+    if mpa is None:
+        ctx.invariant("target_method_absent_after", D.DEX, "class retained, method absent",
+                      "not analysed", u)  # fmt: skip
+    else:
+        problems = []
+        if not mpa.class_defined:
+            problems.append(f"{target} no longer defined")
+        if mpa.target_method_present:
+            problems.append(f"{mpa.method_signature} still declared")
+        st = f if (not mpa.class_defined or mpa.target_method_present) else p
+        ctx.invariant("target_method_absent_after", D.DEX, "class retained, method absent",
+                      "; ".join(problems) or f"{mpa.methods_before} -> {mpa.methods_after} methods",
+                      st)  # fmt: skip
+
+    for leg in (AC, BC):
+        d = ctx.diffs[leg].dex
+        modified = {c.class_name: c for c in d.classes_modified}
+        cd = modified.get(target)
+        this_removed = list(cd.methods_removed) if cd else []
+        ctx.invariant(
+            f"exactly_one_method_removed[{leg}]", D.DEX, f"[{key}]", str(this_removed),
+            p if this_removed == [key] else f if dex_ok else u,
+        )  # fmt: skip
+        this_other = (cd.methods_added + [m.method_name for m in cd.methods_modified]) if cd else []
+        other_classes = sorted(n for n in modified if n != target)
+        changes = {
+            "this-class other methods": this_other,
+            "other classes modified": other_classes,
+            "classes added": list(d.classes_added),
+            "classes removed": list(d.classes_removed),
+            "dex files": [*d.dex_files_added, *d.dex_files_removed],
+        }
+        clean = not any(changes.values())
+        ctx.invariant(
+            f"no_other_change[{leg}]", D.DEX,
+            "no other method of the class and no other class or DEX file changes",
+            "none" if clean else "; ".join(f"{k} {v}" for k, v in changes.items() if v),
+            p if clean else f,
+        )  # fmt: skip
+
+    if mpa is not None:
+        ctx.invariant(
+            "method_count", D.DEX, f"{mpa.methods_before} - 1", str(mpa.methods_after),
+            p if mpa.methods_after == mpa.methods_before - 1 else f,
+        )  # fmt: skip
+    expected_h1 = "method absent, no reference, class retained, DEX + reflection COMPLETE"
+    if mpa is None:
+        ctx.invariant("h1_reference_state", D.DEX, expected_h1, "not analysed", u)
+    else:
+        refs = mpa.definitive_references + mpa.indirect_references
+        problems = []
+        if not mpa.sufficient:
+            problems.append(f"analysis {mpa.analysis_state}, weakened {mpa.weakened_components}")
+        if refs:
+            problems.append(f"{refs} reference(s) to {target}->{mpa.method_signature}")
+        if mpa.other_methods_removed or mpa.methods_added:
+            problems.append(
+                f"other methods removed {mpa.other_methods_removed}, added {mpa.methods_added}"
+            )
+        st = (
+            f
+            if refs or mpa.other_methods_removed or mpa.methods_added
+            else (u if not mpa.sufficient else p)
+        )
+        ctx.invariant(
+            "h1_reference_state", D.DEX, expected_h1,
+            "; ".join(problems) or f"{mpa.methods_before} -> {mpa.methods_after} methods", st,
+        )  # fmt: skip
+
+
 def _invariants(ctx: _Context) -> None:
     r = ctx.result
     if ctx.ac is None or ctx.bc is None:
@@ -827,7 +968,9 @@ def _invariants(ctx: _Context) -> None:
         for leg in (AC, BC)
         for name in ("dex", "strings")
     )
-    if ctx.plan is not None:
+    if ctx.plan is not None and ctx.plan.target.kind is TargetKind.METHOD:
+        _method_invariants(ctx, dex_ok)
+    elif ctx.plan is not None:
         target = ctx.plan.target.class_name
         cls = ctx.classes
         before, control, after = cls.get("original"), cls.get("control"), cls.get("transformed")
@@ -953,7 +1096,11 @@ def _domains(ctx: _Context) -> None:
                 if level is not Completeness.COMPLETE:
                     reasons.append(f"{leg}: {name} {res.status} ({res.reason})")
         if dom is D.DEX and ctx.plan is not None and ctx.ac is not None:
-            pa = r.post_analysis
+            pa: PostAnalysis | MethodPostAnalysis | None = (
+                r.method_post_analysis
+                if ctx.plan.target.kind is TargetKind.METHOD
+                else r.post_analysis
+            )
             if pa is None:
                 levels.append(Completeness.UNKNOWN)
                 reasons.append("H.1 re-analysis of the transformed rebuild not available")
@@ -1049,6 +1196,9 @@ def _facts(ctx: _Context, dom: VerificationDomain) -> dict[str, Any]:
             strings_added=ac.strings.total_added,
             api_references_removed=list(ac.dex.api_references_removed),
             api_references_added=list(ac.dex.api_references_added),
+            methods_removed=[
+                f"{c.class_name}::{m}" for c in ac.dex.classes_modified for m in c.methods_removed
+            ],
         )
         if r.post_analysis is not None:
             pa = r.post_analysis
@@ -1058,6 +1208,16 @@ def _facts(ctx: _Context, dom: VerificationDomain) -> dict[str, Any]:
                 "target_defined": pa.target_defined,
                 "absence_conclusion": pa.absence_conclusion,
                 "references": pa.definitive_references + pa.indirect_references,
+            }
+        if r.method_post_analysis is not None:
+            mpa = r.method_post_analysis
+            facts["h1"] = {
+                "analysis_state": mpa.analysis_state,
+                "dex": mpa.component_states.get("dex"),
+                "class_defined": mpa.class_defined,
+                "target_method_present": mpa.target_method_present,
+                "methods": f"{mpa.methods_before} -> {mpa.methods_after}",
+                "references": mpa.definitive_references + mpa.indirect_references,
             }
     elif dom is D.MANIFEST and ac is not None:
         p = ac.permissions

@@ -36,7 +36,10 @@ from pydantic import BaseModel, Field
 
 from apkforge.diff.expectations import ExpectedChange, Observation  # noqa: TC001 - pydantic
 from apkforge.diff.normalization import ToolchainIdentity  # noqa: TC001 - pydantic field
-from apkforge.transformation.application import PostAnalysis  # noqa: TC001 - pydantic field
+from apkforge.transformation.application import (  # noqa: TC001 - pydantic field
+    MethodPostAnalysis,
+    PostAnalysis,
+)
 from apkforge.verification.models import CheckStatus, VerificationCheck  # noqa: TC001
 
 __all__ = [
@@ -311,6 +314,8 @@ class TransformationVerificationResult(BaseModel):
     invariants: list[InvariantCheck] = Field(default_factory=list)
     signature: VerificationCheck | None = None
     post_analysis: PostAnalysis | None = None
+    #: H-TRANS-002 (method removal): method-level re-analysis in place of ``post_analysis``
+    method_post_analysis: MethodPostAnalysis | None = None
     completeness: Completeness = Completeness.NOT_ANALYZED
     status: TransformationVerificationStatus = TransformationVerificationStatus.UNVERIFIED
     status_reason: str = ""

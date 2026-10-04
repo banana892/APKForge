@@ -1,0 +1,225 @@
+{
+  "run_id": "20261004T084741Z",
+  "toolchain": {
+    "python": "3.14.7",
+    "platform": "Linux-7.2.8-200.fc44.x86_64-x86_64-with-glibc2.43",
+    "apktool": "3.0.3",
+    "java": "openjdk version \"25.0.4.1\" 2026-08-18",
+    "git_head": "6e4ae37"
+  },
+  "synthetic": {
+    "positive": {
+      "h5_isolated": {
+        "target": "com.example.h1.B->isolatedStamp()Ljava/lang/String;",
+        "eligibility": "ELIGIBLE",
+        "h3_status": "VERIFIED",
+        "method_key": "isolatedStamp()java.lang.String",
+        "verification": {
+          "status": "VERIFIED",
+          "completeness": "COMPLETE",
+          "counts": {
+            "expected": 8,
+            "noise": 7,
+            "unexpected": 0,
+            "unknown": 0
+          },
+          "unexpected": [],
+          "invariants_failed": [],
+          "method_post_analysis": {
+            "class_defined": true,
+            "target_method_present": false,
+            "methods": "3 -> 2",
+            "references": 0
+          }
+        }
+      },
+      "h5_overloads": {
+        "target": "com.example.h1.B->foo(I)V",
+        "eligibility": "ELIGIBLE",
+        "h3_status": "VERIFIED",
+        "method_key": "foo(int)V",
+        "verification": {
+          "status": "VERIFIED",
+          "completeness": "COMPLETE",
+          "counts": {
+            "expected": 3,
+            "noise": 7,
+            "unexpected": 0,
+            "unknown": 0
+          },
+          "unexpected": [],
+          "invariants_failed": [],
+          "method_post_analysis": {
+            "class_defined": true,
+            "target_method_present": false,
+            "methods": "5 -> 4",
+            "references": 0
+          }
+        }
+      }
+    },
+    "negative": [
+      {
+        "apk": "h5_caller",
+        "target": "com.example.h1.B->callee()V",
+        "expected": "REFUSED",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "METHOD_CALLER_PRESENT"
+        ],
+        "plan": false
+      },
+      {
+        "apk": "h5_reflection",
+        "target": "com.example.h1.B->isolatedStamp()Ljava/lang/String;",
+        "expected": "UNDETERMINED",
+        "eligibility": "UNDETERMINED",
+        "reasons": [
+          "REFLECTION_TARGET_UNKNOWN"
+        ],
+        "plan": false
+      },
+      {
+        "apk": "h5_native",
+        "target": "com.example.h1.B->isolatedStamp()Ljava/lang/String;",
+        "expected": "UNDETERMINED",
+        "eligibility": "UNDETERMINED",
+        "reasons": [
+          "NATIVE_DEPENDENCY_UNKNOWN"
+        ],
+        "plan": false
+      },
+      {
+        "apk": "h5_override",
+        "target": "com.example.h1.B->run()V",
+        "expected": "UNSUPPORTED",
+        "eligibility": "UNSUPPORTED",
+        "reasons": [
+          "METHOD_OVERRIDES"
+        ],
+        "plan": false
+      },
+      {
+        "apk": "h5_override",
+        "target": "com.example.h1.A->run()V",
+        "expected": "UNSUPPORTED",
+        "eligibility": "UNSUPPORTED",
+        "reasons": [
+          "METHOD_OVERRIDDEN"
+        ],
+        "plan": false
+      },
+      {
+        "apk": "h5_interface",
+        "target": "com.example.h1.B->handle()V",
+        "expected": "UNSUPPORTED",
+        "eligibility": "UNSUPPORTED",
+        "reasons": [
+          "METHOD_OVERRIDES"
+        ],
+        "plan": false
+      },
+      {
+        "apk": "h5_interface",
+        "target": "com.example.h1.Iface->handle()V",
+        "expected": "UNSUPPORTED",
+        "eligibility": "UNSUPPORTED",
+        "reasons": [
+          "ABSTRACT_METHOD",
+          "INTERFACE_METHOD",
+          "METHOD_OVERRIDDEN"
+        ],
+        "plan": false
+      },
+      {
+        "apk": "h5_isolated",
+        "target": "com.example.h1.B-><init>()V",
+        "expected": "UNSUPPORTED",
+        "eligibility": "UNSUPPORTED",
+        "reasons": [
+          "CONSTRUCTOR_METHOD"
+        ],
+        "plan": false
+      },
+      {
+        "apk": "h5_isolated",
+        "target": "com.example.h1.B->doesNotExist()V",
+        "expected": "REFUSED",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "TARGET_NOT_FOUND"
+        ],
+        "plan": false
+      },
+      {
+        "apk": "h5_overloads",
+        "target": "com.example.h1.B->foo",
+        "expected": "REFUSED",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "TARGET_AMBIGUOUS"
+        ],
+        "plan": false
+      }
+    ],
+    "faults": [
+      {
+        "fault": "asset_added",
+        "domain": "assets",
+        "h3_status": "FAILED",
+        "h4_status": "FAILED",
+        "unexpected_domains": [
+          "assets"
+        ]
+      },
+      {
+        "fault": "manifest_modified",
+        "domain": "manifest",
+        "h3_status": "FAILED",
+        "h4_status": "FAILED",
+        "unexpected_domains": [
+          "manifest"
+        ]
+      },
+      {
+        "fault": "native_added",
+        "domain": "native",
+        "h3_status": "FAILED",
+        "h4_status": "FAILED",
+        "unexpected_domains": [
+          "native"
+        ]
+      },
+      {
+        "fault": "other_method_modified",
+        "domain": "dex",
+        "h3_status": "FAILED",
+        "h4_status": "FAILED",
+        "unexpected_domains": [
+          "dex"
+        ]
+      },
+      {
+        "fault": "reference_left",
+        "domain": "dex",
+        "h3_status": "FAILED",
+        "h4_status": "FAILED",
+        "unexpected_domains": [
+          "dex"
+        ]
+      },
+      {
+        "fault": "resource_modified",
+        "domain": "resources",
+        "h3_status": "FAILED",
+        "h4_status": "FAILED",
+        "unexpected_domains": [
+          "resources"
+        ]
+      }
+    ],
+    "inputs_unchanged": true,
+    "status": "PASS",
+    "failures": []
+  }
+}

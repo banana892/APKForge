@@ -350,7 +350,9 @@ def test_h_tampered_plans(service, reference, apks, tmp_path) -> None:
         (lambda p: p["expected_changes"].append("nothing else"), AR.PLAN_MISMATCH),
         (lambda p: p["planned_changes"][0].update(artifact="smali/com/example/h1/C.smali"),
          AR.PLAN_MISMATCH),
-        (lambda p: p.update(transformation_id="H-TRANS-002"), AR.PLAN_ID_MISMATCH),
+        # relabelling a remove_class plan as H-TRANS-002 (which removes methods) is rejected
+        # by the plan-shape check before the id is recomputed
+        (lambda p: p.update(transformation_id="H-TRANS-002"), AR.PLAN_INVALID),
         (lambda p: p.pop("apk"), AR.PLAN_INVALID),
         (lambda p: p.update(analysis_schema=1), AR.PLAN_INVALID),
     ]  # fmt: skip

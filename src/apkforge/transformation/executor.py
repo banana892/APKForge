@@ -47,7 +47,7 @@ from apkforge.modification.pipeline import (
     PipelineStatus,
     measure_noise_floor,
 )
-from apkforge.reference.models import SCHEMA_VERSION, AnalysisState, Component
+from apkforge.reference.models import SCHEMA_VERSION, AnalysisState, Component, DefinedMethod
 from apkforge.transformation.application import (
     SUPPORTED_TRANSFORMATIONS,
     ApplicationFailure,
@@ -56,21 +56,33 @@ from apkforge.transformation.application import (
     ApplicationStatus,
     CheckOutcome,
     MatrixRow,
+    MethodPostAnalysis,
     MutationRecord,
     PostAnalysis,
     TransformationApplicationResult,
 )
 from apkforge.transformation.catalog import get_spec
-from apkforge.transformation.dexstate import class_api_references
+from apkforge.transformation.dexstate import (
+    class_api_references,
+    method_api_references,
+    method_key,
+)
 from apkforge.transformation.models import (
     PLANNING_SCHEMA_VERSION,
     EligibilityState,
     PlanningResult,
+    TargetKind,
     TransformationPlan,
     TransformationRequest,
 )
-from apkforge.transformation.modifier import H3_MODIFIER_ID, RemoveIsolatedClassModifier
+from apkforge.transformation.modifier import (
+    H3_MODIFIER_ID,
+    H5_MODIFIER_ID,
+    RemoveIsolatedClassModifier,
+    RemoveIsolatedMethodModifier,
+)
 from apkforge.transformation.planner import TransformationPlanner, decision_id_for
+from apkforge.transformation.selector import TargetEvidenceSelector
 from apkforge.transformation.targets import ParseError, parse_target
 from apkforge.verification.pair import check_baseline
 
@@ -87,25 +99,32 @@ __all__ = [
     "PlanRefusal",
     "TransformationExecutor",
     "assess_post_analysis",
+    "assess_post_analysis_method",
     "load_plan",
+    "method_removal_consequences",
     "plan_id_for",
     "removal_consequences",
 ]
+
+#: plan change type per supported transformation
+_PLAN_CHANGE_TYPE = {"H-TRANS-001": "remove_class", "H-TRANS-002": "remove_method"}
 
 R = ApplicationReason
 S = ApplicationStatus
 G = ApplicationStage
 
 H3_LIMITATIONS = [
-    "H.3 applies only H-TRANS-001 (remove isolated class) to a plan H.2 marked ELIGIBLE; "
-    "it adds no eligibility rule of its own and has no override.",
+    "The controlled executor applies only H-TRANS-001 (remove isolated class) and "
+    "H-TRANS-002 (remove isolated method) to a plan H.2 marked ELIGIBLE; it adds no "
+    "eligibility rule of its own and has no override.",
     "Verification is static: the transformed APK is rebuilt, signed, re-analysed (H.1) and "
     "diffed (Phase E). It is not installed or executed, so runtime behaviour is not observed.",
     "The output is re-signed with the configured (development) key and cannot update an "
     "installation signed with the original key.",
-    "A VERIFIED result establishes that exactly the planned class was removed and nothing "
-    "else changed within the analysed scope; it does not establish that the application "
-    "is safe, benign or malware-free.",
+    "A VERIFIED result establishes that exactly the planned class or method was removed and "
+    "nothing else changed within the analysed scope; it does not establish that the "
+    "application is safe, benign or malware-free. H.5 removes no callers and repairs no "
+    "references: if the target is not genuinely isolated, H.2 refuses the transformation.",
 ]
 
 _STAGE_REASONS = {
@@ -209,10 +228,13 @@ def load_plan(source: Path | str | TransformationPlan | PlanningResult) -> Trans
             f"{SCHEMA_VERSION})",
         )
     changes = data.planned_changes
-    if data.transformation_id in SUPPORTED_TRANSFORMATIONS and (
-        len(changes) != 1 or changes[0].type != "remove_class" or not changes[0].artifact
+    expected_type = _PLAN_CHANGE_TYPE.get(data.transformation_id)
+    if expected_type is not None and (
+        len(changes) != 1 or changes[0].type != expected_type or not changes[0].artifact
     ):
-        raise _Refusal(R.PLAN_INVALID, G.PLAN_LOAD, "plan does not hold one remove_class change")
+        raise _Refusal(
+            R.PLAN_INVALID, G.PLAN_LOAD, f"plan does not hold one {expected_type} change"
+        )
     return data
 
 
@@ -290,7 +312,7 @@ class TransformationExecutor:
                 result.output_apk = result.output_apk_sha256 = None
                 result.advance(S.FAILED)
             if apply:
-                result.verification = _matrix(facts)
+                result.verification = _matrix(facts, result.transformation_id)
         return result
 
     # -- body -------------------------------------------------------------------
@@ -314,6 +336,10 @@ class TransformationExecutor:
         result.plan_id = plan.plan_id
         result.plan_source_sha256 = plan.apk.sha256
         result.target = {"class": plan.target.class_name}
+        if plan.target.kind is TargetKind.METHOD:
+            result.target.update(
+                method=plan.target.method_name or "", descriptor=plan.target.descriptor or ""
+            )
         if plan.planned_changes:
             ch = plan.planned_changes[0]
             result.target.update(file=ch.artifact or "", dex=ch.details.get("dex", ""))
@@ -342,8 +368,21 @@ class TransformationExecutor:
             raise _Refusal(
                 R.UNSUPPORTED_TRANSFORMATION,
                 G.ELIGIBILITY,
-                f"H.3 applies only {', '.join(SUPPORTED_TRANSFORMATIONS)}; "
+                f"the controlled executor applies only {', '.join(SUPPORTED_TRANSFORMATIONS)}; "
                 f"{plan.transformation_id} is planning-only",
+            )
+        # the plan's target kind must match the transformation it names (H-TRANS-001 class,
+        # H-TRANS-002 method): an H-TRANS-002 plan never reaches the class remover, nor the
+        # reverse
+        want_kind = (
+            TargetKind.CLASS if plan.transformation_id == "H-TRANS-001" else TargetKind.METHOD
+        )
+        if plan.target.kind is not want_kind:
+            raise _Refusal(
+                R.UNSUPPORTED_TARGET_TYPE,
+                G.ELIGIBILITY,
+                f"{plan.transformation_id} targets a {want_kind.value}, but the plan's target "
+                f"is a {plan.target.kind.value}",
             )
         facts["eligibility"] = (
             plan.eligibility.value,
@@ -363,7 +402,14 @@ class TransformationExecutor:
 
         # 5. output path, expected consequences, noise floor (nothing written yet)
         out = self._output(output_apk, src)
-        api_removed, pool = _consequences(src, plan.target.class_name)
+        is_method = plan.target.kind is TargetKind.METHOD
+        if is_method:
+            assert plan.target.method_name is not None and plan.target.descriptor is not None
+            _, api_removed, pool = method_removal_consequences(
+                src, plan.target.class_name, plan.target.method_name, plan.target.descriptor
+            )
+        else:
+            api_removed, pool = _consequences(src, plan.target.class_name)
         sha = result.source_apk_sha256
         if noop_baseline is None:
             tmp = Path(tempfile.mkdtemp(prefix="h3-noise-", dir=self._work(work_dir)))
@@ -383,18 +429,29 @@ class TransformationExecutor:
 
         # 6. mutation + build + Phase E (ModificationPipeline)
         result.advance(S.APPLYING)
-        modifier = RemoveIsolatedClassModifier(
-            plan,
-            defined_classes=len(pre.defined_classes),
-            string_pool=pool,
-            api_removed=api_removed,
-        )
+        modifier: RemoveIsolatedClassModifier | RemoveIsolatedMethodModifier
+        if is_method:
+            modifier = RemoveIsolatedMethodModifier(
+                plan,
+                defined_classes=len(pre.defined_classes),
+                string_pool=pool,
+                api_removed=api_removed,
+            )
+            modifier_id = H5_MODIFIER_ID
+        else:
+            modifier = RemoveIsolatedClassModifier(
+                plan,
+                defined_classes=len(pre.defined_classes),
+                string_pool=pool,
+                api_removed=api_removed,
+            )
+            modifier_id = H3_MODIFIER_ID
         pipeline = ModificationPipeline(
             self.service, ModifierCatalog([modifier]), diff_engine=self.diff_engine
         )
         pres = pipeline.run(
             src,
-            [ModifierRequest(modifier_id=H3_MODIFIER_ID)],
+            [ModifierRequest(modifier_id=modifier_id)],
             noop_baseline=noop_baseline,
             work_dir=work_dir,
             keep_workspace=True,
@@ -407,7 +464,14 @@ class TransformationExecutor:
             assert pres.output_apk is not None
             built = Path(pres.output_apk)
             # 7. H.1 re-analysis of the transformed APK
-            result.analysis = self._post_analysis(pre, built, plan.target.class_name, facts)
+            if is_method:
+                assert plan.target.method_name is not None and plan.target.descriptor is not None
+                result.method_analysis = self._post_analysis_method(
+                    pre, built, plan.target.class_name,
+                    plan.target.method_name, plan.target.descriptor, facts,
+                )  # fmt: skip
+            else:
+                result.analysis = self._post_analysis(pre, built, plan.target.class_name, facts)
             # 8. publish
             if _sha256(src) != sha:
                 raise _Refusal(R.ORIGINAL_CHANGED, G.PUBLISH, "the source APK changed")
@@ -465,11 +529,15 @@ class TransformationExecutor:
                 f"the plan differs from H.2's plan for this APK in: {', '.join(fields)}",
                 {"fields": fields},
             )
-        defined = {c.name for c in pre.defined_classes}
-        facts["before"] = (
-            "present" if plan.target.class_name in defined else "absent",
-            plan.target.class_name in defined,
-        )
+        by_name = {c.name: c for c in pre.defined_classes}
+        if plan.target.kind is TargetKind.METHOD:
+            dc = by_name.get(plan.target.class_name)
+            sig = f"{plan.target.method_name}{plan.target.descriptor}"
+            present = dc is not None and any(m.signature == sig for m in dc.methods)
+            facts["before"] = ("present" if present else "absent", present)
+        else:
+            present = plan.target.class_name in by_name
+            facts["before"] = ("present" if present else "absent", present)
         return pre
 
     def _work(self, work_dir: Path | None) -> Path:
@@ -493,7 +561,7 @@ class TransformationExecutor:
         result: TransformationApplicationResult,
         facts: dict[str, tuple[str, bool | None]],
         pres: PipelineResult,
-        modifier: RemoveIsolatedClassModifier,
+        modifier: RemoveIsolatedClassModifier | RemoveIsolatedMethodModifier,
     ) -> None:
         """Record the pipeline run; raise :class:`_Refusal` unless it fully verified."""
         run = pres.modifiers[0]
@@ -526,7 +594,25 @@ class TransformationExecutor:
             st = stages.get(name)
             facts[name] = (st.status if st else "not run", st.status == "PASS" if st else None)
         m = result.mutation
-        if m is not None:
+        if m is not None and m.operation == "REMOVE_METHOD":
+            sig = m.method_signature or ""
+            absent = m.removed_methods == [sig] and sig not in m.added_methods
+            facts["after"] = ("absent" if absent else "present/changed", absent)
+            facts["removed"] = (str(m.count), m.count == 1)
+            others = (
+                [s for s in m.removed_methods if s != sig]
+                + m.added_methods
+                + m.removed_classes
+                + m.added_classes
+            )
+            ok_others = (
+                not others
+                and m.classes_before == m.classes_after
+                and m.methods_before is not None
+                and m.methods_after == m.methods_before - 1
+            )
+            facts["others"] = (str(len(others)), ok_others)
+        elif m is not None:
             facts["after"] = (
                 "absent" if m.post_transform_sha256 is None else "present",
                 m.post_transform_sha256 is None,
@@ -675,6 +761,62 @@ class TransformationExecutor:
             )
         return pa
 
+    def _post_analysis_method(
+        self,
+        pre: ReferenceAnalysisResult,
+        built: Path,
+        class_name: str,
+        method_name: str,
+        descriptor: str,
+        facts: dict[str, tuple[str, bool | None]],
+    ) -> MethodPostAnalysis:
+        pa = assess_post_analysis_method(
+            pre, self.reference.analyze(built), class_name, method_name, descriptor
+        )
+        sufficient = pa.sufficient
+        facts["analysis"] = (f"{pa.analysis_state}; weakened {pa.weakened_components or 'none'}",
+                             sufficient)  # fmt: skip
+        mutated_ok = facts.get("after", ("", True))[1] is True
+        facts["after"] = (
+            "present" if pa.target_method_present else "absent (decoded project and H.1)",
+            mutated_ok and pa.class_defined and not pa.target_method_present,
+        )
+        others_ok = not pa.other_methods_removed and not pa.methods_added
+        facts["others"] = (
+            f"{len(pa.other_methods_removed)} removed, {len(pa.methods_added)} added",
+            others_ok and facts.get("others", ("", True))[1] is True,
+        )
+        if not sufficient:
+            raise _Refusal(
+                R.ANALYSIS_INCOMPLETE,
+                G.POST_ANALYSIS,
+                "the H.1 analysis of the transformed APK is not sufficient to establish the "
+                f"result ({pa.analysis_state}; weakened: {pa.weakened_components}; errors: "
+                f"{pa.errors})",
+            )
+        problems = []
+        if not pa.class_defined:
+            problems.append(f"{class_name} is no longer defined (the class must be retained)")
+        if pa.target_method_present:
+            problems.append(f"{class_name}->{pa.method_signature} is still declared")
+        if not others_ok:
+            problems.append(
+                f"other methods of the class changed (removed {pa.other_methods_removed}, "
+                f"added {pa.methods_added})"
+            )
+        if pa.methods_after != pa.methods_before - 1:
+            problems.append(f"method count {pa.methods_before} -> {pa.methods_after}")
+        if pa.definitive_references or pa.indirect_references:
+            problems.append(
+                f"{pa.definitive_references} structural / {pa.indirect_references} indirect "
+                f"reference(s) to {class_name}->{pa.method_signature} remain"
+            )
+        if problems:
+            raise _Refusal(
+                R.POST_TRANSFORMATION_VERIFICATION_FAILED, G.POST_ANALYSIS, "; ".join(problems)
+            )
+        return pa
+
     @staticmethod
     def _publish(result: TransformationApplicationResult, built: Path, out: Path) -> None:
         """Copy the verified APK to *out* atomically (temp file + rename)."""
@@ -741,6 +883,69 @@ def assess_post_analysis(
     )
 
 
+def assess_post_analysis_method(
+    pre: ReferenceAnalysisResult,
+    post: ReferenceAnalysisResult,
+    class_name: str,
+    method_name: str,
+    descriptor: str,
+) -> MethodPostAnalysis:
+    """Compare the H.1 analysis of a transformed APK (*post*) with the original's (*pre*)
+    for the removal of one method: the class survives, the method is gone, every other
+    method is unchanged and nothing references the method any more. Shared by H.5 (before
+    publishing) and H.4."""
+    signature = f"{method_name}{descriptor}"
+    pre_states = pre.component_states
+    post_states = post.component_states
+    weakened = sorted(
+        k
+        for k, v in pre_states.items()
+        if v is AnalysisState.COMPLETE and post_states.get(k) is not AnalysisState.COMPLETE
+    )
+    pre_by_name = {c.name: c for c in pre.defined_classes}
+    post_by_name = {c.name: c for c in post.defined_classes}
+    pre_cls = pre_by_name.get(class_name)
+    post_cls = post_by_name.get(class_name)
+    pre_sigs = [m.signature for m in pre_cls.methods] if pre_cls else []
+    post_sigs = [m.signature for m in post_cls.methods] if post_cls else []
+    other_removed = sorted((set(pre_sigs) - {signature}) - set(post_sigs))
+    added = sorted(set(post_sigs) - set(pre_sigs))
+
+    # remaining references to the (now absent) method, using the H.2 selector on *post*
+    definitive = indirect = 0
+    if post_cls is not None:
+        selector = TargetEvidenceSelector(post)
+        probe = DefinedMethod(name=method_name, descriptor=descriptor)
+        cats = selector._method_categories(class_name, probe)
+        definitive = len(cats.get("call_sites", [])) + len(cats.get("reflection_targeting", []))
+        indirect = (
+            len(cats.get("reflection_name_match", []))
+            + len(cats.get("reflection_unresolved", []))
+            + len(cats.get("string_mentions", []))
+        )
+    dex_ok = post.component_state(Component.DEX) is AnalysisState.COMPLETE
+    reflection_ok = post.component_state(Component.REFLECTION) is AnalysisState.COMPLETE
+    sufficient = not post.errors and not weakened and dex_ok and reflection_ok
+    return MethodPostAnalysis(
+        analysis_schema=post.schema_version,
+        analysis_state=post.analysis_state.value,
+        component_states={k: v.value for k, v in sorted(post_states.items())},
+        weakened_components=weakened,
+        class_name=class_name,
+        class_defined=class_name in post_by_name,
+        method_signature=signature,
+        target_method_present=signature in post_sigs,
+        methods_before=len(pre_sigs),
+        methods_after=len(post_sigs),
+        other_methods_removed=other_removed,
+        methods_added=added,
+        definitive_references=definitive,
+        indirect_references=indirect,
+        sufficient=sufficient,
+        errors=list(post.errors),
+    )
+
+
 def _plan_id(plan: TransformationPlan) -> str | None:
     spec = get_spec(plan.transformation_id)
     if spec is None:
@@ -772,6 +977,32 @@ def _consequences(src: Path, target: str) -> tuple[set[str], set[str]]:
     return by_class.get(target, set()) - others, pool
 
 
+def _method_consequences(
+    src: Path, class_name: str, method_name: str, descriptor: str
+) -> tuple[str, set[str], set[str]]:
+    """(Phase E method key, API references used only by this method, the DEX string pool).
+
+    Mirrors :func:`_consequences` at method granularity: the framework API references the
+    method removal makes disappear are the target method's references minus every other
+    method's. The per-method attribution must reproduce the Phase E DEX inventory."""
+    key = method_key(method_name, descriptor)
+    by_method = method_api_references(src)
+    inspection, _ = DEXInspector().inspect(src)
+    inventory = {a for df in inspection.dex_files for a in df.api_references}
+    attributed = set().union(*by_method.values()) if by_method else set()
+    if attributed != inventory:
+        raise _Refusal(
+            R.TRANSFORMATION_PRECONDITION_FAILED,
+            G.PRE_TRANSFORM,
+            "per-method API attribution does not reproduce the Phase E DEX inventory "
+            f"({len(attributed)} vs {len(inventory)}); the expected change cannot be declared",
+        )
+    target = (class_name, key)
+    others = set().union(*(v for k, v in by_method.items() if k != target))
+    pool = {s.value for s in inspection.strings if s.value}
+    return key, by_method.get(target, set()) - others, pool
+
+
 _ROWS = [
     ("source", "Source SHA", "matches the plan"),
     ("plan_id", "Plan ID", "exact match"),
@@ -789,10 +1020,30 @@ _ROWS = [
     ("original", "Original APK SHA", "unchanged"),
 ]
 
+_METHOD_ROWS = [
+    ("source", "Source SHA", "matches the plan"),
+    ("plan_id", "Plan ID", "exact match"),
+    ("eligibility", "Eligibility", "ELIGIBLE"),
+    ("before", "Target method before", "present"),
+    ("after", "Target method after", "absent"),
+    ("removed", "Methods removed", "1"),
+    ("others", "Other method/class changes", "0"),
+    ("build", "Build", "success"),
+    ("align", "Align", "success"),
+    ("sign", "Sign", "success"),
+    ("verify", "Signature verification", "success"),
+    ("analysis", "Post-transform analysis", "sufficient"),
+    ("semantic", "Unexpected semantic changes", "none"),
+    ("original", "Original APK SHA", "unchanged"),
+]
 
-def _matrix(facts: dict[str, tuple[str, bool | None]]) -> list[MatrixRow]:
+
+def _matrix(
+    facts: dict[str, tuple[str, bool | None]], transformation_id: str | None = None
+) -> list[MatrixRow]:
+    rows_spec = _METHOD_ROWS if transformation_id == "H-TRANS-002" else _ROWS
     rows = []
-    for key, check, expected in _ROWS:
+    for key, check, expected in rows_spec:
         actual, ok = facts.get(key, ("not reached", None))
         status = (
             CheckOutcome.NOT_RUN if ok is None else CheckOutcome.PASS if ok else CheckOutcome.FAIL
@@ -801,6 +1052,7 @@ def _matrix(facts: dict[str, tuple[str, bool | None]]) -> list[MatrixRow]:
     return rows
 
 
-#: public names for H.4 (same functions H.3 uses; no second implementation)
+#: public names for H.4 (same functions H.3/H.5 use; no second implementation)
 plan_id_for = _plan_id
 removal_consequences = _consequences
+method_removal_consequences = _method_consequences
