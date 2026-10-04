@@ -132,3 +132,22 @@ def test_corrupt_dex_error_isolation(tmp_path: Path) -> None:
     # Should not raise an exception; gracefully captures the failure
     assert len(result.dex_files) == 1
     assert result.dex_files[0].path == "classes.dex"
+
+
+def test_parse_params_ignores_androguard_separators() -> None:
+    """androguard's get_descriptor() separates parameter types with spaces; whitespace must
+    never become a parameter (it produced Phase E keys like ``f(int, ,long)V``)."""
+    from apkforge.inspection.dex import _parse_params
+    from apkforge.transformation.dexstate import method_key
+
+    compact = "IJLjava/lang/String;[[D[Lcom/x/A;Z"
+    spaced = "I J Ljava/lang/String; [[D [Lcom/x/A; Z"
+    want = ["int", "long", "Ljava/lang/String;", "[[D", "[Lcom/x/A;", "boolean"]
+    assert _parse_params(compact) == _parse_params(spaced) == want
+    assert _parse_params("") == _parse_params(" ") == []
+    # the H.5 key from the smali proto equals the key Phase E derives from androguard
+    assert (
+        method_key("f", "(ILjava/lang/String;J)Ljava/lang/String;")
+        == method_key("f", "(I Ljava/lang/String; J)Ljava/lang/String;")
+        == "f(int,java.lang.String,long)java.lang.String"
+    )

@@ -744,11 +744,19 @@ def _hash_method_code(code: Any) -> str | None:  # noqa: ANN401 - untyped Androg
 
 
 def _parse_params(param_str: str) -> list[str]:
-    """Parse a DEX parameter descriptor string into individual types."""
+    """Parse a DEX parameter descriptor string into individual types.
+
+    Accepts both the compact smali form (``IJLjava/lang/String;``) and androguard's
+    ``get_descriptor()`` form, which separates parameter types with spaces
+    (``I J Ljava/lang/String;``). Whitespace is never a type: treating it as one produced
+    keys like ``f(int, ,long)V`` for multi-parameter methods.
+    """
     params: list[str] = []
     i = 0
     while i < len(param_str):
-        if param_str[i] == "L":
+        if param_str[i].isspace():
+            i += 1
+        elif param_str[i] == "L":
             end = param_str.index(";", i)
             params.append(param_str[i : end + 1])
             i = end + 1

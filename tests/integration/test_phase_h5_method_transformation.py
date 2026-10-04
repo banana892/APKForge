@@ -56,6 +56,7 @@ from apkforge.transformation import (
 from apkforge.transformation.planner import decision_id_for
 from tests.fixtures.h5_apks import (
     FAULTS,
+    MULTIPARAM_TARGET,
     OVERLOAD_KEEP,
     OVERLOAD_TARGET,
     PKG,
@@ -333,6 +334,23 @@ def test_b_ambiguous_overload_name_is_refused(service, reference, apks, tmp_path
     assert d.plan is None
     res = _run(service, reference, apk, _write(planning, tmp_path / "p.json"), tmp_path)
     _assert_refused(res, AR.PLAN_NOT_ELIGIBLE)
+
+
+def test_b_multi_parameter_method_removal(service, reference, apks, tmp_path) -> None:
+    """A method with several parameters: the key H.5 declares must be the key Phase E
+    reports (androguard's spaced descriptors once made them differ, so the removal failed)."""
+    apk = apks["h5_multiparam"]
+    planning = _planning(reference, apk, MULTIPARAM_TARGET)
+    assert planning.decisions[0].eligibility is ES.ELIGIBLE
+    res = _run(service, reference, apk, planning, tmp_path)
+    assert res.status is AS.VERIFIED, (res.failure, res.diff)
+    key = "combine(int,java.lang.String,long)java.lang.String"
+    assert res.mutation is not None and res.mutation.method_key == key
+    assert not res.diff["unexpected"] and not res.diff["expected_missing"]
+    out = Path(res.output_apk or "")
+    methods = _methods(out, f"{PKG}.B")
+    assert key not in methods and {"bar()V", "<init>()V"} <= methods
+    assert key in _methods(apk, f"{PKG}.B")
 
 
 def test_b_keep_overloads_are_independently_eligible(reference, apks) -> None:

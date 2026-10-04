@@ -277,12 +277,14 @@ Synthetic: 4 eligible / 4 applied / 4 verified (H.6 and H.4). Corpus: 180 planne
   unanalysed native code; real apps typically fail these (corpus: 0 eligible).
 - The H.1 post-analysis compares the original's and the output's decoded smali exactly; an
   APK whose decode is not a rebuild fixed point would fail verification (conservative).
-- Pre-existing, observed during H.6 (not changed): androguard prints method descriptors
-  with spaces (`(I J Ljava/lang/String;)I`), so Phase E's method keys for multi-parameter
-  methods differ from `dexstate.method_key()`. H.5 removing a ≥2-parameter method would
-  therefore fail-safe (declared change not observed → not verified). H.6 compares
-  descriptors with spaces removed and declares only the caller method *name*, so it is not
-  affected.
+- Observed during H.6 and fixed in a follow-up commit: androguard prints method
+  descriptors with spaces (`(I J Ljava/lang/String;)I`) and the DEX inspector's
+  `_parse_params` turned each space into a parameter, so Phase E keyed multi-parameter
+  methods as `f(int, ,long)V` while `dexstate.method_key()` gave `f(int,long)V`. H.5 removal
+  of a >=2-parameter method therefore failed safe (declared change not observed). The parser
+  now skips whitespace; the H.5 fixture `h5_multiparam` removes
+  `combine(ILjava/lang/String;J)` and verifies. H.6 was never affected (it compares
+  descriptors with spaces removed and declares only the caller method name).
 
 ## 15. Security / safety boundaries
 

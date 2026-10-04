@@ -33,6 +33,7 @@ if TYPE_CHECKING:
 __all__ = [
     "FAULTS",
     "H5_FIXTURES",
+    "MULTIPARAM_TARGET",
     "OVERLOAD_KEEP",
     "OVERLOAD_TARGET",
     "PKG",
@@ -56,6 +57,8 @@ TARGET = f"{TARGET_CLASS}->isolatedStamp()Ljava/lang/String;"
 #: the eligible overload and the two overloads that must remain
 OVERLOAD_TARGET = f"{PKG}.B->foo(I)V"
 OVERLOAD_KEEP = (f"{PKG}.B->foo()V", f"{PKG}.B->foo(Ljava/lang/String;)V")
+#: an isolated static method with several (primitive, object, wide) parameters
+MULTIPARAM_TARGET = f"{PKG}.B->combine(ILjava/lang/String;J)Ljava/lang/String;"
 
 #: an isolated static method: one unique string + one unique framework API, no callers
 _ISOLATED_STAMP = (
@@ -72,6 +75,14 @@ _OVERLOADS = (
     "\n.method public static foo(I)V\n    .registers 2\n"
     '    const-string v0, "h5-only-in-foo-int"\n    return-void\n.end method\n'
     "\n.method public static foo(Ljava/lang/String;)V\n    .registers 1\n    return-void\n.end method\n"
+)
+#: B.combine(int, String, long): Phase E keys it as combine(int,java.lang.String,long)...
+_MULTIPARAM = (
+    "\n.method public static combine(ILjava/lang/String;J)Ljava/lang/String;\n"
+    "    .registers 5\n"
+    '    const-string v0, "h5-only-in-combine"\n'
+    "    return-object v0\n"
+    ".end method\n"
 )
 _CALLER = "\n.method public static callee()V\n    .registers 0\n    return-void\n.end method\n"
 _INSTANCE_RUN = "\n.method public run()V\n    .registers 1\n    return-void\n.end method\n"
@@ -125,6 +136,11 @@ H5_FIXTURES: list[Fixture] = [
         "B declares foo()V, foo(I)V and foo(Ljava/lang/String;)V (all isolated static); only "
         "foo(I)V is targeted",
         {"A": _cls("A"), "B": _cls("B", _OVERLOADS)},
+    ),
+    _fx(
+        "h5_multiparam",
+        "B.combine(ILjava/lang/String;J) is an isolated static method with several parameters",
+        {"A": _cls("A"), "B": _cls("B", _MULTIPARAM)},
     ),
     _fx(
         "h5_caller",
