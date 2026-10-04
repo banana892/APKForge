@@ -1,0 +1,2586 @@
+{
+  "run_id": "20261004T200031Z",
+  "toolchain": {
+    "python": "3.14.7",
+    "platform": "Linux-7.2.8-200.fc44.x86_64-x86_64-with-glibc2.43",
+    "apktool": "3.0.3",
+    "java": "openjdk version \"25.0.4.1\" 2026-08-18",
+    "git_head": "5d9eb9d"
+  },
+  "corpus": {
+    "apks": [
+      {
+        "apk": "com.emanuelef.remote_capture_95.apk",
+        "sha256": "e03f79082278b3754b4954c7537e7c9f7681e5995a44e70aa1589eca10190066",
+        "sha256_after": "e03f79082278b3754b4954c7537e7c9f7681e5995a44e70aa1589eca10190066",
+        "original_unchanged": true,
+        "component_states": {
+          "assets": "PARTIAL",
+          "dex": "COMPLETE",
+          "manifest": "COMPLETE",
+          "native_code": "NOT_ANALYZED",
+          "native_indicators": "COMPLETE",
+          "reflection": "PARTIAL",
+          "resources": "COMPLETE"
+        },
+        "targets": 20,
+        "eligibility": {
+          "ELIGIBLE": 0,
+          "CONDITIONALLY_ELIGIBLE": 0,
+          "REFUSED": 14,
+          "UNSUPPORTED": 2,
+          "UNDETERMINED": 4
+        },
+        "reasons": {
+          "CONSTRUCTOR_INVOCATION": 2,
+          "NATIVE_DEPENDENCY_UNKNOWN": 20,
+          "POLYMORPHIC_INVOCATION": 7,
+          "REFLECTION_TARGET_UNKNOWN": 20,
+          "REPLACEMENT_METHOD_NOT_FOUND": 13,
+          "REPLACEMENT_SIGNATURE_MISMATCH": 1,
+          "SYNTHETIC_METHOD": 2,
+          "TARGET_METHOD_NOT_FOUND": 4
+        },
+        "applied": 0,
+        "verification": "not applicable (no ELIGIBLE plan)",
+        "decisions": [
+          {
+            "family": "invoke-static",
+            "target": "android.support.v4.app.RemoteActionCompatParcelizer->read(Landroidx/versionedparcelable/VersionedParcel;)Landroidx/core/app/RemoteActionCompat;@androidx.core.app.RemoteActionCompatParcelizer->read(Landroidx/versionedparcelable/VersionedParcel;)Landroidx/core/app/RemoteActionCompat;",
+            "replacement": "androidx.core.app.RemoteActionCompatParcelizer->h6NoReplacement(Landroidx/versionedparcelable/VersionedParcel;)Landroidx/core/app/RemoteActionCompat;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "androidx.coordinatorlayout.widget.CoordinatorLayout$LayoutParams-><init>(Landroid/content/Context;Landroid/util/AttributeSet;)V@java.lang.Class->forName(Ljava/lang/String;ZLjava/lang/ClassLoader;)Ljava/lang/Class;",
+            "replacement": "java.lang.Class->h6NoReplacement(Ljava/lang/String;ZLjava/lang/ClassLoader;)Ljava/lang/Class;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND",
+              "TARGET_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "androidx.fragment.app.FragmentManager->saveAllStateInternal()Landroid/os/Bundle;@android.util.Log->v(Ljava/lang/String;Ljava/lang/String;)I#3",
+            "replacement": "android.util.Log->h6NoReplacement(Ljava/lang/String;Ljava/lang/String;)I",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND",
+              "TARGET_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "androidx.tracing.Trace->suppressLayout(Landroid/view/ViewGroup;Z)V@androidx.transition.ViewGroupUtils$Api29Impl->suppressLayout(Landroid/view/ViewGroup;Z)V#1",
+            "replacement": "androidx.transition.ViewGroupUtils$Api29Impl->h6NoReplacement(Landroid/view/ViewGroup;Z)V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "com.emanuelef.remote_capture.activities.MainActivity->onCreate(Landroid/os/Bundle;)V@com.emanuelef.remote_capture.model.Prefs->refreshAppVersion(Landroid/content/SharedPreferences;)V",
+            "replacement": "com.emanuelef.remote_capture.model.Prefs->setFirewallWhitelistInitialized(Landroid/content/SharedPreferences;)V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "com.github.appintro.AppIntroBase->performColorTransition(Landroidx/fragment/app/Fragment;Landroidx/fragment/app/Fragment;F)V@java.lang.Integer->valueOf(I)Ljava/lang/Integer;#1",
+            "replacement": "java.lang.Integer->h6NoReplacement(I)Ljava/lang/Integer;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND",
+              "TARGET_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "com.google.android.material.timepicker.ClockFaceView->onMeasure(II)V@android.view.View$MeasureSpec->getMode(I)I#2",
+            "replacement": "android.view.View$MeasureSpec->h6NoReplacement(I)I",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND",
+              "TARGET_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "j$.time.temporal.f->k(Lj$/time/temporal/n;)J@j$.time.temporal.h->p(Lj$/time/LocalDate;)I",
+            "replacement": "j$.time.temporal.h->s(Lj$/time/LocalDate;)I",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-direct",
+            "target": "androidx.appcompat.view.menu.ListMenuItemView->initialize(Landroidx/appcompat/view/menu/MenuItemImpl;)V@androidx.appcompat.view.menu.ListMenuItemView->setSubMenuArrowVisible(Z)V",
+            "replacement": "androidx.appcompat.view.menu.ListMenuItemView->setCheckable(Z)V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_SIGNATURE_MISMATCH"
+            ]
+          },
+          {
+            "family": "invoke-direct",
+            "target": "com.emanuelef.remote_capture.activities.HttpLogFilterActivity->onSupportNavigateUp()Z@com.emanuelef.remote_capture.activities.HttpLogFilterActivity->finishOk()V",
+            "replacement": "com.emanuelef.remote_capture.activities.HttpLogFilterActivity->model2view()V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-direct",
+            "target": "com.emanuelef.remote_capture.fragments.EditListFragment->importRulesData(Ljava/lang/String;Z)V@com.emanuelef.remote_capture.fragments.EditListFragment->confirmImport(Lcom/emanuelef/remote_capture/model/MatchList;)V",
+            "replacement": "com.emanuelef.remote_capture.fragments.EditListFragment->importRules(Lcom/emanuelef/remote_capture/model/MatchList;)V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "constructor",
+            "target": "android.app.AppComponentFactory-><clinit>()V@java.lang.NoClassDefFoundError-><init>()V",
+            "replacement": "java.lang.NoClassDefFoundError->h6NoReplacement()V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CONSTRUCTOR_INVOCATION",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND",
+              "SYNTHETIC_METHOD"
+            ]
+          },
+          {
+            "family": "constructor",
+            "target": "com.emanuelef.remote_capture.adapters.PayloadAdapter->onCreateViewHolder(Landroid/view/ViewGroup;I)Lcom/emanuelef/remote_capture/adapters/PayloadAdapter$PayloadViewHolder;@com.emanuelef.remote_capture.adapters.PayloadAdapter$$ExternalSyntheticLambda5-><init>(Lcom/emanuelef/remote_capture/adapters/PayloadAdapter;Lcom/emanuelef/remote_capture/adapters/PayloadAdapter$PayloadViewHolder;I)V#3",
+            "replacement": "com.emanuelef.remote_capture.adapters.PayloadAdapter$$ExternalSyntheticLambda5->h6NoReplacement(Lcom/emanuelef/remote_capture/adapters/PayloadAdapter;Lcom/emanuelef/remote_capture/adapters/PayloadAdapter$PayloadViewHolder;I)V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CONSTRUCTOR_INVOCATION",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "android.support.v4.app.INotificationSideChannel-><clinit>()V@java.lang.String->replace(CC)Ljava/lang/String;",
+            "replacement": "java.lang.String->h6NoReplacement(CC)Ljava/lang/String;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "androidx.core.view.insets.SystemBarStateMonitor$2->onPrepare(Landroidx/core/view/WindowInsetsAnimationCompat;)V@java.util.ArrayList->size()I",
+            "replacement": "java.util.ArrayList->h6NoReplacement()I",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "androidx.transition.Transition->getTransitionValues(Landroid/view/View;Z)Landroidx/transition/TransitionValues;@androidx.collection.SimpleArrayMap->get(Ljava/lang/Object;)Ljava/lang/Object;",
+            "replacement": "androidx.collection.SimpleArrayMap->remove(Ljava/lang/Object;)Ljava/lang/Object;",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNSUPPORTED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "com.google.android.material.checkbox.MaterialCheckBox->refreshButtonDrawable()V@android.graphics.drawable.AnimatedStateListDrawable->addTransition(IILandroid/graphics/drawable/Drawable;Z)V#1",
+            "replacement": "android.graphics.drawable.AnimatedStateListDrawable->h6NoReplacement(IILandroid/graphics/drawable/Drawable;Z)V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-interface",
+            "target": "androidx.activity.ComponentActivity$$ExternalSyntheticLambda1->invoke()Ljava/lang/Object;@androidx.lifecycle.LifecycleOwner->getLifecycle()Landroidx/lifecycle/Lifecycle;#1",
+            "replacement": "androidx.lifecycle.LifecycleOwner->h6NoReplacement()Landroidx/lifecycle/Lifecycle;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-interface",
+            "target": "com.emanuelef.remote_capture.model.CaptureList->relocate(Ljava/util/Map;Ljava/util/Collection;)V@java.util.Map$Entry->getValue()Ljava/lang/Object;",
+            "replacement": "java.util.Map$Entry->h6NoReplacement()Ljava/lang/Object;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-super",
+            "target": "androidx.activity.ComponentActivity->access$001(Landroidx/activity/ComponentActivity;)V@android.app.Activity->onBackPressed()V",
+            "replacement": "androidx.activity.ComponentActivity->ensureViewModelStore()V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNSUPPORTED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "SYNTHETIC_METHOD"
+            ]
+          }
+        ],
+        "h1_seconds": 20.3,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "apk": "com.oF2pks.applicationsinfo_19.apk",
+        "sha256": "c0188f5f1f566e12324bd6bf4bf4f1b9408d852c6cc6b113706503031f13eebd",
+        "sha256_after": "c0188f5f1f566e12324bd6bf4bf4f1b9408d852c6cc6b113706503031f13eebd",
+        "original_unchanged": true,
+        "component_states": {
+          "assets": "COMPLETE",
+          "dex": "COMPLETE",
+          "manifest": "COMPLETE",
+          "native_code": "COMPLETE",
+          "native_indicators": "COMPLETE",
+          "reflection": "PARTIAL",
+          "resources": "COMPLETE"
+        },
+        "targets": 20,
+        "eligibility": {
+          "ELIGIBLE": 0,
+          "CONDITIONALLY_ELIGIBLE": 0,
+          "REFUSED": 16,
+          "UNSUPPORTED": 3,
+          "UNDETERMINED": 1
+        },
+        "reasons": {
+          "CONSTRUCTOR_INVOCATION": 2,
+          "POLYMORPHIC_INVOCATION": 7,
+          "REFLECTION_ANALYSIS_INCOMPLETE": 20,
+          "REPLACEMENT_METHOD_NOT_FOUND": 15,
+          "REPLACEMENT_SIGNATURE_MISMATCH": 1,
+          "SYNTHETIC_METHOD": 2,
+          "TARGET_METHOD_NOT_FOUND": 4
+        },
+        "applied": 0,
+        "verification": "not applicable (no ELIGIBLE plan)",
+        "decisions": [
+          {
+            "family": "invoke-static",
+            "target": "android.content.pm.IPackageStatsObserver$Stub$Proxy->onGetStatsCompleted(Landroid/content/pm/PackageStats;Z)V@android.os.Parcel->obtain()Landroid/os/Parcel;",
+            "replacement": "android.os.Parcel->h6NoReplacement()Landroid/os/Parcel;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "REPLACEMENT_METHOD_NOT_FOUND",
+              "TARGET_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "com.oF2pks.applicationsinfo.DetailFragment$Adapter->getFeaturesView(Landroid/view/ViewGroup;Landroid/view/View;I)Landroid/view/View;@com.oF2pks.applicationsinfo.DetailFragment->access$1000(Lcom/oF2pks/applicationsinfo/DetailFragment;)I",
+            "replacement": "com.oF2pks.applicationsinfo.DetailFragment->access$900(Lcom/oF2pks/applicationsinfo/DetailFragment;)I",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNSUPPORTED",
+            "reasons": [
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "SYNTHETIC_METHOD"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "com.oF2pks.applicationsinfo.DetailFragment$Adapter->getReceiverView(Landroid/view/ViewGroup;Landroid/view/View;I)Landroid/view/View;@com.oF2pks.applicationsinfo.DetailFragment->access$400(Lcom/oF2pks/applicationsinfo/DetailFragment;)Landroid/content/pm/PackageInfo;",
+            "replacement": "com.oF2pks.applicationsinfo.DetailFragment->h6NoReplacement(Lcom/oF2pks/applicationsinfo/DetailFragment;)Landroid/content/pm/PackageInfo;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "com.oF2pks.applicationsinfo.DetailFragment$Adapter->getUsesPermissionsView(Landroid/view/View;I)Landroid/view/View;@com.oF2pks.applicationsinfo.DetailFragment->access$1000(Lcom/oF2pks/applicationsinfo/DetailFragment;)I#2",
+            "replacement": "com.oF2pks.applicationsinfo.DetailFragment->access$900(Lcom/oF2pks/applicationsinfo/DetailFragment;)I",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNSUPPORTED",
+            "reasons": [
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "SYNTHETIC_METHOD"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "com.oF2pks.applicationsinfo.DetailOverflowMenu->scan3(Ljava/lang/String;)V@android.widget.Toast->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;",
+            "replacement": "android.widget.Toast->h6NoReplacement(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "REPLACEMENT_METHOD_NOT_FOUND",
+              "TARGET_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "com.oF2pks.applicationsinfo.MainLoader->loadInBackground()Ljava/util/List;@com.oF2pks.applicationsinfo.utils.Utils->apkPro(Landroid/content/pm/PackageInfo;)Lcom/oF2pks/applicationsinfo/utils/Tuple;#2",
+            "replacement": "com.oF2pks.applicationsinfo.utils.Utils->h6NoReplacement(Landroid/content/pm/PackageInfo;)Lcom/oF2pks/applicationsinfo/utils/Tuple;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "com.oF2pks.applicationsinfo.utils.Utils->getProperXml(Ljava/lang/String;)Ljava/lang/String;@javax.xml.parsers.DocumentBuilderFactory->newInstance()Ljavax/xml/parsers/DocumentBuilderFactory;",
+            "replacement": "javax.xml.parsers.DocumentBuilderFactory->h6NoReplacement()Ljavax/xml/parsers/DocumentBuilderFactory;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "REPLACEMENT_METHOD_NOT_FOUND",
+              "TARGET_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "com.oF2pks.xmlapkparser.AXMLPrinter->getAttributeValue(Lcom/oF2pks/xmlapkparser/AXmlResourceParser;I)Ljava/lang/String;@java.lang.Integer->valueOf(I)Ljava/lang/Integer;#3",
+            "replacement": "java.lang.Integer->h6NoReplacement(I)Ljava/lang/Integer;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "REPLACEMENT_METHOD_NOT_FOUND",
+              "TARGET_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-direct",
+            "target": "com.oF2pks.applicationsinfo.DetailFragment$Adapter->getActivityView(Landroid/view/ViewGroup;Landroid/view/View;I)Landroid/view/View;@com.oF2pks.applicationsinfo.DetailFragment$Adapter->checkIfConvertViewMatch(Landroid/view/View;I)Z",
+            "replacement": "com.oF2pks.applicationsinfo.DetailFragment$Adapter->h6NoReplacement(Landroid/view/View;I)Z",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-direct",
+            "target": "com.oF2pks.applicationsinfo.DetailFragment->onPackageStatsLoaded(Landroid/view/View;)V@com.oF2pks.applicationsinfo.DetailFragment->getReadableSize(J)Ljava/lang/String;#4",
+            "replacement": "com.oF2pks.applicationsinfo.DetailFragment->getTime(J)Ljava/lang/String;",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "REPLACEMENT_SIGNATURE_MISMATCH"
+            ]
+          },
+          {
+            "family": "invoke-direct",
+            "target": "com.oF2pks.xmlapkparser.AXmlResourceParser$NamespaceStack->findPrefix(I)I@com.oF2pks.xmlapkparser.AXmlResourceParser$NamespaceStack->find(IZ)I",
+            "replacement": "com.oF2pks.xmlapkparser.AXmlResourceParser$NamespaceStack->get(IZ)I",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "REFLECTION_ANALYSIS_INCOMPLETE"
+            ]
+          },
+          {
+            "family": "constructor",
+            "target": "android.content.pm.IPackageStatsObserver$Default-><init>()V@java.lang.Object-><init>()V",
+            "replacement": "java.lang.Object->h6NoReplacement()V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CONSTRUCTOR_INVOCATION",
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "constructor",
+            "target": "com.oF2pks.applicationsinfo.MainListFragment->getItemSize(Lcom/oF2pks/applicationsinfo/ApplicationItem;)V@com.oF2pks.applicationsinfo.MainListFragment$3-><init>(Lcom/oF2pks/applicationsinfo/MainListFragment;Lcom/oF2pks/applicationsinfo/ApplicationItem;)V",
+            "replacement": "com.oF2pks.applicationsinfo.MainListFragment$3->h6NoReplacement(Lcom/oF2pks/applicationsinfo/MainListFragment;Lcom/oF2pks/applicationsinfo/ApplicationItem;)V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CONSTRUCTOR_INVOCATION",
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "android.content.pm.IPackageStatsObserver$Stub$Proxy->onGetStatsCompleted(Landroid/content/pm/PackageStats;Z)V@android.os.Parcel->writeInterfaceToken(Ljava/lang/String;)V",
+            "replacement": "android.os.Parcel->h6NoReplacement(Ljava/lang/String;)V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "com.oF2pks.applicationsinfo.DetailFragment$Adapter->getUsesPermissionsView(Landroid/view/View;I)Landroid/view/View;@android.app.Activity->getResources()Landroid/content/res/Resources;",
+            "replacement": "android.app.Activity->h6NoReplacement()Landroid/content/res/Resources;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "com.oF2pks.applicationsinfo.MainListFragment$Adapter->getView(ILandroid/view/View;Landroid/view/ViewGroup;)Landroid/view/View;@android.text.SpannableString->length()I",
+            "replacement": "com.oF2pks.applicationsinfo.MainListFragment$Adapter->getCount()I",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNSUPPORTED",
+            "reasons": [
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_ANALYSIS_INCOMPLETE"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "com.oF2pks.applicationsinfo.utils.Utils->getProperXml(Ljava/lang/String;)Ljava/lang/String;@javax.xml.parsers.DocumentBuilderFactory->newDocumentBuilder()Ljavax/xml/parsers/DocumentBuilder;",
+            "replacement": "javax.xml.parsers.DocumentBuilderFactory->h6NoReplacement()Ljavax/xml/parsers/DocumentBuilder;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-interface",
+            "target": "android.content.pm.IPackageStatsObserver$Stub$Proxy->onGetStatsCompleted(Landroid/content/pm/PackageStats;Z)V@android.os.IBinder->transact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z",
+            "replacement": "android.os.IBinder->h6NoReplacement(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-interface",
+            "target": "com.oF2pks.applicationsinfo.MainListFragment->onOptionsItemSelected(Landroid/view/MenuItem;)Z@android.view.MenuItem->setChecked(Z)Landroid/view/MenuItem;#6",
+            "replacement": "android.view.MenuItem->h6NoReplacement(Z)Landroid/view/MenuItem;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-super",
+            "target": "android.content.pm.IPackageStatsObserver$Stub->onTransact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z@android.os.Binder->onTransact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z",
+            "replacement": "android.os.Binder->h6NoReplacement(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_ANALYSIS_INCOMPLETE",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          }
+        ],
+        "h1_seconds": 1.5,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "apk": "de.audioattack.openlink_28.apk",
+        "sha256": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+        "sha256_after": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+        "original_unchanged": true,
+        "component_states": {
+          "assets": "PARTIAL",
+          "dex": "COMPLETE",
+          "manifest": "COMPLETE",
+          "native_code": "COMPLETE",
+          "native_indicators": "COMPLETE",
+          "reflection": "PARTIAL",
+          "resources": "COMPLETE"
+        },
+        "targets": 20,
+        "eligibility": {
+          "ELIGIBLE": 0,
+          "CONDITIONALLY_ELIGIBLE": 0,
+          "REFUSED": 14,
+          "UNSUPPORTED": 3,
+          "UNDETERMINED": 3
+        },
+        "reasons": {
+          "CONSTRUCTOR_INVOCATION": 2,
+          "POLYMORPHIC_INVOCATION": 7,
+          "REFLECTION_TARGET_UNKNOWN": 20,
+          "REPLACEMENT_METHOD_NOT_FOUND": 14,
+          "TARGET_METHOD_NOT_FOUND": 2
+        },
+        "applied": 0,
+        "verification": "not applicable (no ELIGIBLE plan)",
+        "decisions": [
+          {
+            "family": "invoke-static",
+            "target": "android.support.v4.app.RemoteActionCompatParcelizer->read(Landroidx/versionedparcelable/a;)Landroidx/core/app/RemoteActionCompat;@androidx.core.app.RemoteActionCompatParcelizer->read(Landroidx/versionedparcelable/a;)Landroidx/core/app/RemoteActionCompat;",
+            "replacement": "androidx.core.app.RemoteActionCompatParcelizer->h6NoReplacement(Landroidx/versionedparcelable/a;)Landroidx/core/app/RemoteActionCompat;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "androidx.profileinstaller.ProfileInstallReceiver->onReceive(Landroid/content/Context;Landroid/content/Intent;)V@androidx.profileinstaller.j->c(Landroid/content/Context;Ljava/util/concurrent/Executor;Landroidx/profileinstaller/j$c;)V",
+            "replacement": "androidx.profileinstaller.j->i(Landroid/content/Context;Ljava/util/concurrent/Executor;Landroidx/profileinstaller/j$c;)V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "androidx.profileinstaller.j->j(Landroid/content/Context;Ljava/util/concurrent/Executor;Landroidx/profileinstaller/j$c;Z)V@androidx.profileinstaller.q->c(Landroid/content/Context;Z)Landroidx/profileinstaller/q$c;#1",
+            "replacement": "androidx.profileinstaller.q->h6NoReplacement(Landroid/content/Context;Z)Landroidx/profileinstaller/q$c;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "androidx.profileinstaller.p->J(Ljava/io/OutputStream;[Landroidx/profileinstaller/e;)V@androidx.profileinstaller.f->p(Ljava/io/OutputStream;I)V#3",
+            "replacement": "androidx.profileinstaller.f->r(Ljava/io/OutputStream;I)V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "androidx.profileinstaller.p->e(Landroidx/profileinstaller/e;)[B@androidx.profileinstaller.p->H(Ljava/io/OutputStream;Landroidx/profileinstaller/e;)V",
+            "replacement": "androidx.profileinstaller.p->C(Ljava/io/OutputStream;Landroidx/profileinstaller/e;)V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "androidx.profileinstaller.p->u(Ljava/io/InputStream;[BI[Landroidx/profileinstaller/e;)[Landroidx/profileinstaller/e;@java.util.Arrays->equals([B[B)Z",
+            "replacement": "java.util.Arrays->h6NoReplacement([B[B)Z",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND",
+              "TARGET_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "androidx.versionedparcelable.a->d(Ljava/lang/String;)Ljava/lang/reflect/Method;@java.lang.System->currentTimeMillis()J",
+            "replacement": "java.lang.System->h6NoReplacement()J",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND",
+              "TARGET_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "de.audioattack.openlink.ui.MenuActivity->a(Landroid/content/Intent;)V@i.d->a(Landroid/content/Context;Landroid/net/Uri;Z)Landroid/content/Intent;",
+            "replacement": "i.d->h6NoReplacement(Landroid/content/Context;Landroid/net/Uri;Z)Landroid/content/Intent;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-direct",
+            "target": "androidx.concurrent.futures.a->a(Ljava/lang/StringBuilder;)V@androidx.concurrent.futures.a->n(Ljava/lang/Object;)Ljava/lang/String;",
+            "replacement": "androidx.concurrent.futures.a->h6NoReplacement(Ljava/lang/Object;)Ljava/lang/String;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-direct",
+            "target": "androidx.concurrent.futures.a->toString()Ljava/lang/String;@androidx.concurrent.futures.a->a(Ljava/lang/StringBuilder;)V#2",
+            "replacement": "androidx.concurrent.futures.a->h6NoReplacement(Ljava/lang/StringBuilder;)V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-direct",
+            "target": "androidx.startup.a->c(Ljava/lang/Class;Ljava/util/Set;)Ljava/lang/Object;@androidx.startup.a->c(Ljava/lang/Class;Ljava/util/Set;)Ljava/lang/Object;",
+            "replacement": "androidx.startup.a->h6NoReplacement(Ljava/lang/Class;Ljava/util/Set;)Ljava/lang/Object;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "constructor",
+            "target": "android.support.v4.app.RemoteActionCompatParcelizer-><init>()V@androidx.core.app.RemoteActionCompatParcelizer-><init>()V",
+            "replacement": "androidx.core.app.RemoteActionCompatParcelizer->h6NoReplacement()V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CONSTRUCTOR_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "constructor",
+            "target": "androidx.profileinstaller.q$b-><init>(IIJJ)V@java.lang.Object-><init>()V",
+            "replacement": "java.lang.Object->h6NoReplacement()V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CONSTRUCTOR_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "androidx.concurrent.futures.a$f->d(Landroidx/concurrent/futures/a$h;Landroidx/concurrent/futures/a$h;)V@java.util.concurrent.atomic.AtomicReferenceFieldUpdater->lazySet(Ljava/lang/Object;Ljava/lang/Object;)V",
+            "replacement": "java.util.concurrent.atomic.AtomicReferenceFieldUpdater->h6NoReplacement(Ljava/lang/Object;Ljava/lang/Object;)V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "androidx.profileinstaller.d->l()Landroidx/profileinstaller/d;@java.io.ByteArrayOutputStream->close()V#1",
+            "replacement": "androidx.profileinstaller.d->c()V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNSUPPORTED",
+            "reasons": [
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "androidx.profileinstaller.q->c(Landroid/content/Context;Z)Landroidx/profileinstaller/q$c;@java.io.File->length()J#1",
+            "replacement": "java.io.File->h6NoReplacement()J",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "b.c->equals(Ljava/lang/Object;)Z@b.c->containsKey(Ljava/lang/Object;)Z",
+            "replacement": "b.c->containsValue(Ljava/lang/Object;)Z",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNSUPPORTED",
+            "reasons": [
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-interface",
+            "target": "androidx.concurrent.futures.a->f(Ljava/lang/Runnable;Ljava/util/concurrent/Executor;)V@java.util.concurrent.Executor->execute(Ljava/lang/Runnable;)V",
+            "replacement": "java.util.concurrent.Executor->h6NoReplacement(Ljava/lang/Runnable;)V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-interface",
+            "target": "androidx.startup.a->c(Ljava/lang/Class;Ljava/util/Set;)Ljava/lang/Object;@java.util.Set->add(Ljava/lang/Object;)Z",
+            "replacement": "java.util.Set->h6NoReplacement(Ljava/lang/Object;)Z",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-super",
+            "target": "androidx.concurrent.futures.a->toString()Ljava/lang/String;@java.lang.Object->toString()Ljava/lang/String;",
+            "replacement": "androidx.concurrent.futures.a->j()Ljava/lang/String;",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNSUPPORTED",
+            "reasons": [
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          }
+        ],
+        "h1_seconds": 1.4,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "apk": "de.danoeh.antennapod_3120295.apk",
+        "sha256": "3f43a4337a693cdb49141afe06cb596e88c796009ed77bff51e9444ce2d1ebfc",
+        "sha256_after": "3f43a4337a693cdb49141afe06cb596e88c796009ed77bff51e9444ce2d1ebfc",
+        "original_unchanged": true,
+        "component_states": {
+          "assets": "PARTIAL",
+          "dex": "COMPLETE",
+          "manifest": "COMPLETE",
+          "native_code": "NOT_ANALYZED",
+          "native_indicators": "COMPLETE",
+          "reflection": "PARTIAL",
+          "resources": "COMPLETE"
+        },
+        "targets": 20,
+        "eligibility": {
+          "ELIGIBLE": 0,
+          "CONDITIONALLY_ELIGIBLE": 0,
+          "REFUSED": 16,
+          "UNSUPPORTED": 2,
+          "UNDETERMINED": 2
+        },
+        "reasons": {
+          "CONSTRUCTOR_INVOCATION": 2,
+          "NATIVE_DEPENDENCY_UNKNOWN": 20,
+          "POLYMORPHIC_INVOCATION": 7,
+          "REFLECTION_TARGET_UNKNOWN": 20,
+          "REPLACEMENT_METHOD_NOT_FOUND": 15,
+          "REPLACEMENT_SIGNATURE_MISMATCH": 1,
+          "SYNTHETIC_METHOD": 1,
+          "TARGET_METHOD_NOT_FOUND": 1
+        },
+        "applied": 0,
+        "verification": "not applicable (no ELIGIBLE plan)",
+        "decisions": [
+          {
+            "family": "invoke-static",
+            "target": "_COROUTINE.ArtificialStackFrames->coroutineBoundary()Ljava/lang/StackTraceElement;@_COROUTINE.CoroutineDebuggingKt->access$artificialFrame(Ljava/lang/Throwable;Ljava/lang/String;)Ljava/lang/StackTraceElement;",
+            "replacement": "_COROUTINE.CoroutineDebuggingKt->artificialFrame(Ljava/lang/Throwable;Ljava/lang/String;)Ljava/lang/StackTraceElement;",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "androidx.fragment.app.DefaultSpecialEffectsController->createTransitionEffect(Ljava/util/List;ZLandroidx/fragment/app/SpecialEffectsController$Operation;Landroidx/fragment/app/SpecialEffectsController$Operation;)V@androidx.fragment.app.FragmentManager->isLoggingEnabled(I)Z",
+            "replacement": "androidx.fragment.app.FragmentManager->h6NoReplacement(I)Z",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "androidx.media3.exoplayer.drm.DefaultDrmSessionManagerProvider->get(Landroidx/media3/common/MediaItem;)Landroidx/media3/exoplayer/drm/DrmSessionManager;@com.google.common.base.Preconditions->checkNotNull(Ljava/lang/Object;)Ljava/lang/Object;#2",
+            "replacement": "com.google.common.base.Preconditions->h6NoReplacement(Ljava/lang/Object;)Ljava/lang/Object;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "androidx.media3.session.MediaControllerImplLegacy->seekToInternal(IJ)V@androidx.media3.session.MediaControllerImplLegacy->createPositionInfo(ILandroidx/media3/common/MediaItem;JZ)Landroidx/media3/common/Player$PositionInfo;",
+            "replacement": "androidx.media3.session.MediaControllerImplLegacy->h6NoReplacement(ILandroidx/media3/common/MediaItem;JZ)Landroidx/media3/common/Player$PositionInfo;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "androidx.work.impl.constraints.trackers.BroadcastReceiverConstraintTracker->startTracking()V@androidx.work.Logger->get()Landroidx/work/Logger;",
+            "replacement": "androidx.work.Logger->h6NoReplacement()Landroidx/work/Logger;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "com.google.android.material.timepicker.ClockFaceView$2->performAccessibilityAction(Landroid/view/View;ILandroid/os/Bundle;)Z@android.view.MotionEvent->obtain(JJIFFI)Landroid/view/MotionEvent;#2",
+            "replacement": "android.view.MotionEvent->h6NoReplacement(JJIFFI)Landroid/view/MotionEvent;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND",
+              "TARGET_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "de.danoeh.antennapod.ui.echo.databinding.SimpleEchoScreenBinding->bind(Landroid/view/View;)Lde/danoeh/antennapod/ui/echo/databinding/SimpleEchoScreenBinding;@androidx.viewbinding.ViewBindings->findChildViewById(Landroid/view/View;I)Landroid/view/View;#3",
+            "replacement": "androidx.viewbinding.ViewBindings->h6NoReplacement(Landroid/view/View;I)Landroid/view/View;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "kotlinx.coroutines.internal.ConcurrentLinkedListKt->findSegmentInternal(Lkotlinx/coroutines/internal/Segment;JLkotlin/jvm/functions/Function2;)Ljava/lang/Object;@kotlinx.coroutines.internal.SegmentOrClosed->constructor-impl(Ljava/lang/Object;)Ljava/lang/Object;#2",
+            "replacement": "kotlinx.coroutines.internal.SegmentOrClosed->h6NoReplacement(Ljava/lang/Object;)Ljava/lang/Object;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-direct",
+            "target": "androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat->inflate(Landroid/content/Context;Landroid/content/res/Resources;Lorg/xmlpull/v1/XmlPullParser;Landroid/util/AttributeSet;Landroid/content/res/Resources$Theme;)V@androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat->init()V",
+            "replacement": "androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat->jumpToCurrentState()V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_SIGNATURE_MISMATCH"
+            ]
+          },
+          {
+            "family": "invoke-direct",
+            "target": "de.danoeh.antennapod.playback.service.PlaybackController->queryService()V@de.danoeh.antennapod.playback.service.PlaybackController->handleStatus()V",
+            "replacement": "de.danoeh.antennapod.playback.service.PlaybackController->bindToService()V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-direct",
+            "target": "de.danoeh.antennapod.ui.screen.playback.audio.CoverFragment->lambda$onCreateView$4(Landroid/view/View;)V@de.danoeh.antennapod.ui.screen.playback.audio.CoverFragment->seekToNextChapter()V",
+            "replacement": "de.danoeh.antennapod.ui.screen.playback.audio.CoverFragment->displayCoverImage()V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNSUPPORTED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "SYNTHETIC_METHOD"
+            ]
+          },
+          {
+            "family": "constructor",
+            "target": "_COROUTINE.ArtificialStackFrames-><init>()V@java.lang.Object-><init>()V",
+            "replacement": "java.lang.Object->h6NoReplacement()V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CONSTRUCTOR_INVOCATION",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "constructor",
+            "target": "com.bumptech.glide.load.engine.DecodeJob->onResourceDecoded(Lcom/bumptech/glide/load/DataSource;Lcom/bumptech/glide/load/engine/Resource;)Lcom/bumptech/glide/load/engine/Resource;@java.lang.IllegalArgumentException-><init>(Ljava/lang/String;)V",
+            "replacement": "java.lang.IllegalArgumentException->h6NoReplacement(Ljava/lang/String;)V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CONSTRUCTOR_INVOCATION",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "_COROUTINE.ArtificialStackFrames->coroutineBoundary()Ljava/lang/StackTraceElement;@java.lang.Class->getSimpleName()Ljava/lang/String;",
+            "replacement": "java.lang.Class->h6NoReplacement()Ljava/lang/String;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "androidx.media3.exoplayer.DefaultLoadControl->shouldContinueLoading(Landroidx/media3/exoplayer/LoadControl$Parameters;)Z@androidx.media3.exoplayer.DefaultLoadControl->getTargetBufferBytes(Landroidx/media3/exoplayer/analytics/PlayerId;)I",
+            "replacement": "androidx.media3.exoplayer.DefaultLoadControl->getTargetBufferBytesOverwrite(Landroidx/media3/exoplayer/analytics/PlayerId;)I",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNSUPPORTED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "androidx.transition.ChangeBounds->createAnimator(Landroid/view/ViewGroup;Landroidx/transition/TransitionValues;Landroidx/transition/TransitionValues;)Landroid/animation/Animator;@android.animation.Animator->addListener(Landroid/animation/Animator$AnimatorListener;)V#1",
+            "replacement": "android.animation.Animator->h6NoReplacement(Landroid/animation/Animator$AnimatorListener;)V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "de.danoeh.antennapod.storage.database.PodDBAdapter->getDownloadLog(IJJ)Landroid/database/Cursor;@java.lang.StringBuilder->append(Ljava/lang/String;)Ljava/lang/StringBuilder;#5",
+            "replacement": "java.lang.StringBuilder->h6NoReplacement(Ljava/lang/String;)Ljava/lang/StringBuilder;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-interface",
+            "target": "android.support.v4.app.INotificationSideChannel$Stub$Proxy->notify(Ljava/lang/String;ILjava/lang/String;Landroid/app/Notification;)V@android.os.IBinder->transact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z",
+            "replacement": "android.os.IBinder->h6NoReplacement(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-interface",
+            "target": "androidx.work.impl.foreground.SystemForegroundDispatcher->onTimeout(II)V@java.util.Iterator->next()Ljava/lang/Object;",
+            "replacement": "java.util.Iterator->h6NoReplacement()Ljava/lang/Object;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-super",
+            "target": "android.support.v4.media.session.IMediaControllerCallback$Stub->onTransact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z@android.os.Binder->onTransact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z",
+            "replacement": "android.os.Binder->h6NoReplacement(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          }
+        ],
+        "h1_seconds": 45.8,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "apk": "eu.siacs.conversations_4218104.apk",
+        "sha256": "3fae646e33b59b95f049ce9bd828022e2edbb374fa82e517bd782aced71ba980",
+        "sha256_after": "3fae646e33b59b95f049ce9bd828022e2edbb374fa82e517bd782aced71ba980",
+        "original_unchanged": true,
+        "component_states": {
+          "assets": "PARTIAL",
+          "dex": "COMPLETE",
+          "manifest": "COMPLETE",
+          "native_code": "NOT_ANALYZED",
+          "native_indicators": "PARTIAL",
+          "reflection": "PARTIAL",
+          "resources": "PARTIAL"
+        },
+        "targets": 20,
+        "eligibility": {
+          "ELIGIBLE": 0,
+          "CONDITIONALLY_ELIGIBLE": 0,
+          "REFUSED": 12,
+          "UNSUPPORTED": 3,
+          "UNDETERMINED": 5
+        },
+        "reasons": {
+          "CONSTRUCTOR_INVOCATION": 2,
+          "NATIVE_DEPENDENCY_UNKNOWN": 20,
+          "POLYMORPHIC_INVOCATION": 7,
+          "REFLECTION_TARGET_UNKNOWN": 20,
+          "REPLACEMENT_METHOD_NOT_FOUND": 11,
+          "REPLACEMENT_SIGNATURE_MISMATCH": 1,
+          "SYNTHETIC_METHOD": 3,
+          "TARGET_METHOD_NOT_FOUND": 2
+        },
+        "applied": 0,
+        "verification": "not applicable (no ELIGIBLE plan)",
+        "decisions": [
+          {
+            "family": "invoke-static",
+            "target": "android.support.v4.app.RemoteActionCompatParcelizer->read(Landroidx/versionedparcelable/VersionedParcel;)Landroidx/core/app/RemoteActionCompat;@androidx.core.app.RemoteActionCompatParcelizer->read(Landroidx/versionedparcelable/VersionedParcel;)Landroidx/core/app/RemoteActionCompat;",
+            "replacement": "androidx.core.app.RemoteActionCompatParcelizer->h6NoReplacement(Landroidx/versionedparcelable/VersionedParcel;)Landroidx/core/app/RemoteActionCompat;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "androidx.vectordrawable.graphics.drawable.VectorDrawableCompat$VGroup-><init>(Landroidx/vectordrawable/graphics/drawable/VectorDrawableCompat$VGroup;Landroidx/collection/ArrayMap;)V@okio.Buffer$$ExternalSyntheticBUOutline0->m$2(Ljava/lang/String;)V",
+            "replacement": "okio.Buffer$$ExternalSyntheticBUOutline0->m(Ljava/lang/String;)V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNSUPPORTED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "SYNTHETIC_METHOD"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "de.gultsch.common.MiniUri$$ExternalSyntheticLambda0->apply(Ljava/lang/Object;)Ljava/lang/Object;@java.lang.Long->valueOf(J)Ljava/lang/Long;#3",
+            "replacement": "java.lang.Long->h6NoReplacement(J)Ljava/lang/Long;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND",
+              "TARGET_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "eu.siacs.conversations.worker.ExportBackupWorker-><clinit>()V@eu.siacs.conversations.utils.Compatibility->s()Z",
+            "replacement": "eu.siacs.conversations.utils.Compatibility->twentySix()Z",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "net.fellbaum.jemoji.EmojiFamily-><clinit>()V@net.fellbaum.jemoji.EmojiManager->getEmoji(Ljava/lang/String;)Lj$/util/Optional;#408",
+            "replacement": "net.fellbaum.jemoji.EmojiManager->getByAlias(Ljava/lang/String;)Lj$/util/Optional;",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "okhttp3.internal.platform.android.Android10SocketAdapter->configureTlsExtensions(Ljavax/net/ssl/SSLSocket;Ljava/lang/String;Ljava/util/List;Lokio/ByteString;)V@okio.ByteString$Companion->alpnProtocolNames(Ljava/util/List;)Ljava/util/ArrayList;",
+            "replacement": "okio.ByteString$Companion->h6NoReplacement(Ljava/util/List;)Ljava/util/ArrayList;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "org.bouncycastle.math.ec.custom.sec.SecT233FieldElement->invert()Lorg/bouncycastle/math/ec/WNafUtil;@org.bouncycastle.math.ec.custom.sec.SecT131Field->square$2([J[J)V#2",
+            "replacement": "org.bouncycastle.math.ec.custom.sec.SecT131Field->implExpand([J[J)V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "org.webrtc.CameraCapturer-><init>(Ljava/lang/String;Lorg/webrtc/CameraVideoCapturer$CameraEventsHandler;Lorg/webrtc/CameraEnumerator;)V@android.os.Looper->getMainLooper()Landroid/os/Looper;",
+            "replacement": "android.os.Looper->h6NoReplacement()Landroid/os/Looper;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND",
+              "TARGET_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-direct",
+            "target": "androidx.appcompat.view.menu.ListMenuItemView->initialize(Landroidx/appcompat/view/menu/MenuItemImpl;)V@androidx.appcompat.view.menu.ListMenuItemView->setSubMenuArrowVisible(Z)V",
+            "replacement": "androidx.appcompat.view.menu.ListMenuItemView->setCheckable(Z)V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_SIGNATURE_MISMATCH"
+            ]
+          },
+          {
+            "family": "invoke-direct",
+            "target": "org.conscrypt.ConscryptEngine->closeInbound()V@org.conscrypt.ConscryptEngine->freeIfDone()V",
+            "replacement": "org.conscrypt.ConscryptEngine->beginHandshakeInternal()V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-direct",
+            "target": "org.webrtc.AndroidVideoDecoder->reinitDecode(II)Lorg/webrtc/VideoCodecStatus;@org.webrtc.AndroidVideoDecoder->initDecodeInternal(II)Lorg/webrtc/VideoCodecStatus;",
+            "replacement": "org.webrtc.AndroidVideoDecoder->reinitDecode(II)Lorg/webrtc/VideoCodecStatus;",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "constructor",
+            "target": "android.app.AppComponentFactory-><clinit>()V@java.lang.NoClassDefFoundError-><init>()V",
+            "replacement": "java.lang.NoClassDefFoundError->h6NoReplacement()V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CONSTRUCTOR_INVOCATION",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND",
+              "SYNTHETIC_METHOD"
+            ]
+          },
+          {
+            "family": "constructor",
+            "target": "kotlinx.coroutines.ExecutorCoroutineDispatcherImpl->scheduleResumeAfterDelay(JLkotlinx/coroutines/CancellableContinuationImpl;)V@kotlinx.coroutines.DisposeOnCancel-><init>(Ljava/lang/Object;I)V",
+            "replacement": "kotlinx.coroutines.DisposeOnCancel->h6NoReplacement(Ljava/lang/Object;I)V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CONSTRUCTOR_INVOCATION",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "androidx.activity.Api34Impl->progress(Landroid/window/BackEvent;)F@java.lang.Object->getClass()Ljava/lang/Class;",
+            "replacement": "java.lang.Object->h6NoReplacement()Ljava/lang/Class;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "androidx.work.impl.utils.EnqueueRunnable->processContinuation(Landroidx/work/impl/WorkContinuationImpl;)Z@java.util.UUID->toString()Ljava/lang/String;#1",
+            "replacement": "java.util.UUID->h6NoReplacement()Ljava/lang/String;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "eu.siacs.conversations.ui.ConversationFragment->attachFile(I)V@eu.siacs.conversations.ui.XmppActivity->showInstallPgpDialog()V",
+            "replacement": "eu.siacs.conversations.ui.XmppActivity->OnUpdateBlocklist()V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNSUPPORTED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "okhttp3.Cookie$Companion->appendElement(Ljava/lang/StringBuilder;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)V@java.lang.Character->charValue()C",
+            "replacement": "java.lang.Character->h6NoReplacement()C",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-interface",
+            "target": "androidx.activity.ComponentActivity$$ExternalSyntheticLambda4->onContextAvailable(Landroidx/activity/ComponentActivity;)V@java.util.Map->containsKey(Ljava/lang/Object;)Z",
+            "replacement": "java.util.Map->h6NoReplacement(Ljava/lang/Object;)Z",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-interface",
+            "target": "eu.siacs.conversations.utils.CryptoHelper->extractJidAndName(Ljava/security/cert/X509Certificate;)Landroid/util/Pair;@java.util.List->get(I)Ljava/lang/Object;#2",
+            "replacement": "java.util.List->h6NoReplacement(I)Ljava/lang/Object;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-super",
+            "target": "androidx.activity.ComponentActivity->access$onBackPressed$s1027565324(Landroidx/appcompat/app/AppCompatActivity;)V@android.app.Activity->onBackPressed()V",
+            "replacement": "androidx.activity.ComponentActivity->initializeViewTreeOwners()V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNSUPPORTED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "SYNTHETIC_METHOD"
+            ]
+          }
+        ],
+        "h1_seconds": 42.8,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "apk": "godau.fynn.usagedirect_10.apk",
+        "sha256": "c55079192a77fc6696a80c6d337c3f0c64fe4ebc27e5970aaf4baac0a60a3b31",
+        "sha256_after": "c55079192a77fc6696a80c6d337c3f0c64fe4ebc27e5970aaf4baac0a60a3b31",
+        "original_unchanged": true,
+        "component_states": {
+          "assets": "PARTIAL",
+          "dex": "COMPLETE",
+          "manifest": "COMPLETE",
+          "native_code": "COMPLETE",
+          "native_indicators": "COMPLETE",
+          "reflection": "PARTIAL",
+          "resources": "COMPLETE"
+        },
+        "targets": 20,
+        "eligibility": {
+          "ELIGIBLE": 0,
+          "CONDITIONALLY_ELIGIBLE": 0,
+          "REFUSED": 13,
+          "UNSUPPORTED": 1,
+          "UNDETERMINED": 6
+        },
+        "reasons": {
+          "CONSTRUCTOR_INVOCATION": 2,
+          "POLYMORPHIC_INVOCATION": 7,
+          "REFLECTION_TARGET_UNKNOWN": 20,
+          "REPLACEMENT_METHOD_NOT_FOUND": 13,
+          "TARGET_METHOD_NOT_FOUND": 1
+        },
+        "applied": 0,
+        "verification": "not applicable (no ELIGIBLE plan)",
+        "decisions": [
+          {
+            "family": "invoke-static",
+            "target": "android.support.v4.app.INotificationSideChannel$Stub$Proxy->cancel(Ljava/lang/String;ILjava/lang/String;)V@android.os.Parcel->obtain()Landroid/os/Parcel;",
+            "replacement": "android.os.Parcel->h6NoReplacement()Landroid/os/Parcel;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND",
+              "TARGET_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "androidx.core.util.SparseArrayKt->getOrElse(Landroid/util/SparseArray;ILkotlin/jvm/functions/Function0;)Ljava/lang/Object;@kotlin.jvm.internal.Intrinsics->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V#2",
+            "replacement": "kotlin.jvm.internal.Intrinsics->checkExpressionValueIsNotNull(Ljava/lang/Object;Ljava/lang/String;)V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "androidx.slidingpanelayout.widget.SlidingPaneLayout->setShadowResourceLeft(I)V@androidx.core.content.ContextCompat->getDrawable(Landroid/content/Context;I)Landroid/graphics/drawable/Drawable;",
+            "replacement": "androidx.core.content.ContextCompat->h6NoReplacement(Landroid/content/Context;I)Landroid/graphics/drawable/Drawable;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "kotlin.collections.ArraysKt___ArraysKt->flatMapIndexedIterable([ZLkotlin/jvm/functions/Function2;)Ljava/util/List;@kotlin.jvm.internal.Intrinsics->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V#1",
+            "replacement": "kotlin.jvm.internal.Intrinsics->checkExpressionValueIsNotNull(Ljava/lang/Object;Ljava/lang/String;)V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "kotlin.collections.ArraysKt___ArraysKt->zip([JLjava/lang/Iterable;)Ljava/util/List;@kotlin.TuplesKt->to(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;",
+            "replacement": "kotlin.TuplesKt->h6NoReplacement(Ljava/lang/Object;Ljava/lang/Object;)Lkotlin/Pair;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "kotlin.collections.unsigned.UArraysKt___UArraysKt->runningFold-zi1B2BA([ILjava/lang/Object;Lkotlin/jvm/functions/Function2;)Ljava/util/List;@kotlin.jvm.internal.Intrinsics->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V#1",
+            "replacement": "kotlin.jvm.internal.Intrinsics->checkExpressionValueIsNotNull(Ljava/lang/Object;Ljava/lang/String;)V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "kotlin.streams.jdk8.StreamsKt->toList(Lj$/util/stream/Stream;)Ljava/util/List;@kotlin.jvm.internal.Intrinsics->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V",
+            "replacement": "kotlin.jvm.internal.Intrinsics->checkExpressionValueIsNotNull(Ljava/lang/Object;Ljava/lang/String;)V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "kotlinx.coroutines.flow.FlowKt__ReduceKt$fold$2->emit$$forInline(Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;@kotlin.jvm.internal.InlineMarker->mark(I)V#1",
+            "replacement": "kotlin.jvm.internal.InlineMarker->finallyEnd(I)V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-direct",
+            "target": "androidx.activity.ComponentActivity$ReportFullyDrawnExecutorApi1-><init>()V@androidx.activity.ComponentActivity$ReportFullyDrawnExecutorApi1->createHandler()Landroid/os/Handler;",
+            "replacement": "androidx.activity.ComponentActivity$ReportFullyDrawnExecutorApi1->h6NoReplacement()Landroid/os/Handler;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-direct",
+            "target": "androidx.fragment.app.FragmentManager->dispatchPictureInPictureModeChanged(ZZ)V@androidx.fragment.app.FragmentManager->throwException(Ljava/lang/RuntimeException;)V",
+            "replacement": "androidx.fragment.app.FragmentManager->h6NoReplacement(Ljava/lang/RuntimeException;)V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-direct",
+            "target": "kotlin.collections.ArrayDeque->addAll(ILjava/util/Collection;)Z@kotlin.collections.ArrayDeque->negativeMod(I)I",
+            "replacement": "kotlin.collections.ArrayDeque->decremented(I)I",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "constructor",
+            "target": "android.support.v4.app.INotificationSideChannel$Default-><init>()V@java.lang.Object-><init>()V",
+            "replacement": "java.lang.Object->h6NoReplacement()V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CONSTRUCTOR_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "constructor",
+            "target": "kotlin.UShortArray->addAll(Ljava/util/Collection;)Z@java.lang.UnsupportedOperationException-><init>(Ljava/lang/String;)V",
+            "replacement": "java.lang.UnsupportedOperationException->h6NoReplacement(Ljava/lang/String;)V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CONSTRUCTOR_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "android.support.v4.app.INotificationSideChannel$Stub$Proxy->cancel(Ljava/lang/String;ILjava/lang/String;)V@android.os.Parcel->writeInterfaceToken(Ljava/lang/String;)V",
+            "replacement": "android.support.v4.app.INotificationSideChannel$Stub$Proxy->cancelAll(Ljava/lang/String;)V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNSUPPORTED",
+            "reasons": [
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "androidx.core.os.PersistableBundleKt->persistableBundleOf([Lkotlin/Pair;)Landroid/os/PersistableBundle;@java.lang.Class->getCanonicalName()Ljava/lang/String;#1",
+            "replacement": "java.lang.Class->h6NoReplacement()Ljava/lang/String;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "androidx.recyclerview.widget.RecyclerView$Recycler->viewRangeUpdate(II)V@java.util.ArrayList->get(I)Ljava/lang/Object;",
+            "replacement": "java.util.ArrayList->h6NoReplacement(I)Ljava/lang/Object;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "kotlin.collections.unsigned.UArraysKt___UArraysKt->maxWithOrNull-YmdZ_VM([ILjava/util/Comparator;)Lkotlin/UInt;@kotlin.ranges.IntRange->iterator()Lkotlin/collections/IntIterator;",
+            "replacement": "kotlin.ranges.IntRange->h6NoReplacement()Lkotlin/collections/IntIterator;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-interface",
+            "target": "android.support.v4.app.INotificationSideChannel$Stub$Proxy->cancel(Ljava/lang/String;ILjava/lang/String;)V@android.os.IBinder->transact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z",
+            "replacement": "android.os.IBinder->h6NoReplacement(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-interface",
+            "target": "kotlin.collections.CollectionsKt___CollectionsKt->minOrThrow(Ljava/lang/Iterable;)F@java.util.Iterator->next()Ljava/lang/Object;#2",
+            "replacement": "java.util.Iterator->h6NoReplacement()Ljava/lang/Object;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-super",
+            "target": "android.support.v4.app.INotificationSideChannel$Stub->onTransact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z@android.os.Binder->onTransact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z",
+            "replacement": "android.os.Binder->h6NoReplacement(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          }
+        ],
+        "h1_seconds": 31.3,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "apk": "io.github.muntashirakon.AppManager_451.apk",
+        "sha256": "e1f6ba10812c74016ad626e11e27a1ae450aec2c0964a11466abb9e7a9c8ef84",
+        "sha256_after": "e1f6ba10812c74016ad626e11e27a1ae450aec2c0964a11466abb9e7a9c8ef84",
+        "original_unchanged": true,
+        "component_states": {
+          "assets": "PARTIAL",
+          "dex": "COMPLETE",
+          "manifest": "COMPLETE",
+          "native_code": "NOT_ANALYZED",
+          "native_indicators": "PARTIAL",
+          "reflection": "PARTIAL",
+          "resources": "COMPLETE"
+        },
+        "targets": 20,
+        "eligibility": {
+          "ELIGIBLE": 0,
+          "CONDITIONALLY_ELIGIBLE": 0,
+          "REFUSED": 11,
+          "UNSUPPORTED": 4,
+          "UNDETERMINED": 5
+        },
+        "reasons": {
+          "ABSTRACT_METHOD": 1,
+          "CONSTRUCTOR_INVOCATION": 2,
+          "DYNAMIC_CODE_LOADING_PRESENT": 20,
+          "INTERFACE_METHOD": 1,
+          "NATIVE_DEPENDENCY_UNKNOWN": 20,
+          "POLYMORPHIC_INVOCATION": 7,
+          "REFLECTION_TARGET_PRESENT": 1,
+          "REFLECTION_TARGET_UNKNOWN": 20,
+          "REPLACEMENT_INACCESSIBLE": 2,
+          "REPLACEMENT_METHOD_NOT_FOUND": 9,
+          "SYNTHETIC_METHOD": 1,
+          "TARGET_METHOD_NOT_FOUND": 3,
+          "TARGET_RELATIONSHIP_UNRESOLVED": 1
+        },
+        "applied": 0,
+        "verification": "not applicable (no ELIGIBLE plan)",
+        "decisions": [
+          {
+            "family": "invoke-static",
+            "target": "_COROUTINE.ArtificialStackFrames->coroutineBoundary()Ljava/lang/StackTraceElement;@_COROUTINE.CoroutineDebuggingKt->access$artificialFrame(Ljava/lang/Throwable;Ljava/lang/String;)Ljava/lang/StackTraceElement;",
+            "replacement": "_COROUTINE.CoroutineDebuggingKt->artificialFrame(Ljava/lang/Throwable;Ljava/lang/String;)Ljava/lang/StackTraceElement;",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_INACCESSIBLE"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "androidx.room.MultiInstanceInvalidationClient$invalidationCallback$1$onInvalidation$1->invokeSuspend(Ljava/lang/Object;)Ljava/lang/Object;@java.util.Arrays->copyOf([Ljava/lang/Object;I)[Ljava/lang/Object;",
+            "replacement": "java.util.Arrays->h6NoReplacement([Ljava/lang/Object;I)[Ljava/lang/Object;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND",
+              "TARGET_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "com.google.android.material.color.MaterialColorUtilitiesHelper-><clinit>()V@java.lang.Integer->valueOf(I)Ljava/lang/Integer;#7",
+            "replacement": "java.lang.Integer->h6NoReplacement(I)Ljava/lang/Integer;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND",
+              "TARGET_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "com.google.protobuf.GeneratedMessage$ExtendableMessage->hasExtension(Lcom/google/protobuf/ExtensionLite;)Z@com.google.protobuf.GeneratedMessage->access$500(Lcom/google/protobuf/ExtensionLite;)Lcom/google/protobuf/Extension;",
+            "replacement": "com.google.protobuf.GeneratedMessage->checkNotLite(Lcom/google/protobuf/ExtensionLite;)Lcom/google/protobuf/Extension;",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_INACCESSIBLE"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "io.github.muntashirakon.AppManager.runningapps.RunningAppsViewModel->lambda$filterAndSort$7(Lio/github/muntashirakon/AppManager/runningapps/ProcessItem;)Ljava/util/List;@java.util.Locale->getDefault()Ljava/util/Locale;#1",
+            "replacement": "java.util.Locale->h6NoReplacement()Ljava/util/Locale;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND",
+              "SYNTHETIC_METHOD",
+              "TARGET_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "kotlin.collections.ArraysKt___ArraysKt->minOfWith([FLjava/util/Comparator;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;@kotlin.jvm.internal.Intrinsics->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V#1",
+            "replacement": "kotlin.jvm.internal.Intrinsics->checkExpressionValueIsNotNull(Ljava/lang/Object;Ljava/lang/String;)V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "kotlinx.coroutines.flow.FlowKt__ZipKt$combine$$inlined$combineUnsafe$FlowKt__ZipKt$1$2->invokeSuspend(Ljava/lang/Object;)Ljava/lang/Object;@kotlin.coroutines.intrinsics.IntrinsicsKt->getCOROUTINE_SUSPENDED()Ljava/lang/Object;",
+            "replacement": "kotlin.coroutines.intrinsics.IntrinsicsKt->h6NoReplacement()Ljava/lang/Object;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND",
+              "TARGET_RELATIONSHIP_UNRESOLVED"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "org.bouncycastle.math.ec.custom.sec.SecP160R2FieldElement->sqrt()Lorg/bouncycastle/math/ec/ECFieldElement;@org.bouncycastle.math.ec.custom.sec.SecP160R2Field->multiply([I[I[I)V#4",
+            "replacement": "org.bouncycastle.math.ec.custom.sec.SecP160R2Field->add([I[I[I)V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-direct",
+            "target": "android.aapt.pb.internal.ResourcesInternal$CompiledFile$Builder-><init>()V@android.aapt.pb.internal.ResourcesInternal$CompiledFile$Builder->maybeForceBuilderInitialization()V",
+            "replacement": "android.aapt.pb.internal.ResourcesInternal$CompiledFile$Builder->ensureExportedSymbolIsMutable()V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-direct",
+            "target": "com.google.android.material.textfield.TextInputLayout->updateTextInputBoxState()V@com.google.android.material.textfield.TextInputLayout->updateStrokeErrorColor(ZZ)V#2",
+            "replacement": "com.google.android.material.textfield.TextInputLayout->updateLabelState(ZZ)V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-direct",
+            "target": "jadx.core.xmlgen.BinaryXMLParser->parseAttribute(IZ)V@jadx.core.xmlgen.BinaryXMLParser->getAttributeName(I)Ljava/lang/String;",
+            "replacement": "jadx.core.xmlgen.BinaryXMLParser->getAttributeNS(I)Ljava/lang/String;",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "constructor",
+            "target": "_COROUTINE.ArtificialStackFrames-><init>()V@java.lang.Object-><init>()V",
+            "replacement": "java.lang.Object->h6NoReplacement()V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CONSTRUCTOR_INVOCATION",
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "constructor",
+            "target": "io.github.muntashirakon.AppManager.usage.BarChartView->initializePaints()V@android.graphics.Paint-><init>(I)V#3",
+            "replacement": "io.github.muntashirakon.AppManager.usage.BarChartView->selectBarForAccessibility(I)V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNSUPPORTED",
+            "reasons": [
+              "CONSTRUCTOR_INVOCATION",
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "_COROUTINE.CoroutineDebuggingKt->artificialFrame(Ljava/lang/Throwable;Ljava/lang/String;)Ljava/lang/StackTraceElement;@java.lang.Throwable->getStackTrace()[Ljava/lang/StackTraceElement;",
+            "replacement": "java.lang.Throwable->h6NoReplacement()[Ljava/lang/StackTraceElement;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_PRESENT",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "com.android.aapt.Resources$Styleable$Entry$Builder->mergeAttr(Lcom/android/aapt/Resources$Reference;)Lcom/android/aapt/Resources$Styleable$Entry$Builder;@com.google.protobuf.SingleFieldBuilderV3->mergeFrom(Lcom/google/protobuf/AbstractMessage;)Lcom/google/protobuf/SingleFieldBuilderV3;",
+            "replacement": "com.google.protobuf.SingleFieldBuilderV3->setMessage(Lcom/google/protobuf/AbstractMessage;)Lcom/google/protobuf/SingleFieldBuilderV3;",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNSUPPORTED",
+            "reasons": [
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "com.reandroid.dex.header.DexHeader->readBytes(Ljava/io/InputStream;)I@com.reandroid.dex.header.DexHeader->getChildBlockAt(I)Lcom/reandroid/arsc/base/Block;",
+            "replacement": "com.reandroid.dex.header.DexHeader->h6NoReplacement(I)Lcom/reandroid/arsc/base/Block;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "org.antlr.grammar.v3.ANTLRv3Parser->treeSpec()Lorg/antlr/grammar/v3/ANTLRv3Parser$treeSpec_return;@org.antlr.grammar.v3.ANTLRv3Parser->match(Lorg/antlr/runtime/IntStream;ILorg/antlr/runtime/BitSet;)Ljava/lang/Object;#2",
+            "replacement": "org.antlr.grammar.v3.ANTLRv3Parser->h6NoReplacement(Lorg/antlr/runtime/IntStream;ILorg/antlr/runtime/BitSet;)Ljava/lang/Object;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-interface",
+            "target": "android.aapt.pb.internal.ResourcesInternal$CompiledFile$Builder->addExportedSymbol(ILandroid/aapt/pb/internal/ResourcesInternal$CompiledFile$Symbol$Builder;)Landroid/aapt/pb/internal/ResourcesInternal$CompiledFile$Builder;@java.util.List->add(ILjava/lang/Object;)V",
+            "replacement": "java.util.List->h6NoReplacement(ILjava/lang/Object;)V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-interface",
+            "target": "io.github.muntashirakon.compat.xml.XmlPullParserWrapper->getAttributeName(I)Ljava/lang/String;@org.xmlpull.v1.XmlPullParser->getAttributeName(I)Ljava/lang/String;",
+            "replacement": "org.xmlpull.v1.XmlPullParser->getAttributeNamespace(I)Ljava/lang/String;",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNSUPPORTED",
+            "reasons": [
+              "ABSTRACT_METHOD",
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "INTERFACE_METHOD",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-super",
+            "target": "android.aapt.pb.internal.ResourcesInternal$CompiledFile$Builder->addRepeatedField(Lcom/google/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Landroid/aapt/pb/internal/ResourcesInternal$CompiledFile$Builder;@com.google.protobuf.GeneratedMessageV3$Builder->addRepeatedField(Lcom/google/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/protobuf/GeneratedMessageV3$Builder;",
+            "replacement": "com.google.protobuf.GeneratedMessageV3$Builder->setField(Lcom/google/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/protobuf/GeneratedMessageV3$Builder;",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNSUPPORTED",
+            "reasons": [
+              "DYNAMIC_CODE_LOADING_PRESENT",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          }
+        ],
+        "h1_seconds": 143.8,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "apk": "org.mozilla.fennec_fdroid_1560020.apk",
+        "sha256": "27f2951376ca1085e0933066c902fdfe4d260916d381e233475c5fd6964f5745",
+        "sha256_after": "27f2951376ca1085e0933066c902fdfe4d260916d381e233475c5fd6964f5745",
+        "original_unchanged": true,
+        "component_states": {
+          "assets": "PARTIAL",
+          "dex": "COMPLETE",
+          "manifest": "COMPLETE",
+          "native_code": "NOT_ANALYZED",
+          "native_indicators": "PARTIAL",
+          "reflection": "PARTIAL",
+          "resources": "COMPLETE"
+        },
+        "targets": 20,
+        "eligibility": {
+          "ELIGIBLE": 0,
+          "CONDITIONALLY_ELIGIBLE": 0,
+          "REFUSED": 15,
+          "UNSUPPORTED": 1,
+          "UNDETERMINED": 4
+        },
+        "reasons": {
+          "ABSTRACT_METHOD": 1,
+          "CONSTRUCTOR_INVOCATION": 2,
+          "INTERFACE_METHOD": 1,
+          "NATIVE_DEPENDENCY_UNKNOWN": 20,
+          "POLYMORPHIC_INVOCATION": 7,
+          "REFLECTION_TARGET_UNKNOWN": 20,
+          "REPLACEMENT_METHOD_NOT_FOUND": 13,
+          "REPLACEMENT_SIGNATURE_MISMATCH": 2,
+          "SYNTHETIC_METHOD": 1,
+          "TARGET_METHOD_NOT_FOUND": 1
+        },
+        "applied": 0,
+        "verification": "not applicable (no ELIGIBLE plan)",
+        "decisions": [
+          {
+            "family": "invoke-static",
+            "target": "android.support.customtabs.ICustomTabsCallback$Stub$Proxy->onRelationshipValidationResult(ILandroid/net/Uri;ZLandroid/os/Bundle;)V@android.os.Parcel->obtain()Landroid/os/Parcel;",
+            "replacement": "android.os.Parcel->h6NoReplacement()Landroid/os/Parcel;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND",
+              "TARGET_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "androidx.compose.runtime.snapshots.SnapshotKt->current(Landroidx/compose/runtime/snapshots/StateRecord;)Landroidx/compose/runtime/snapshots/StateRecord;@androidx.compose.runtime.snapshots.SnapshotKt->readError()V",
+            "replacement": "androidx.compose.runtime.snapshots.SnapshotKt->access$advanceGlobalSnapshot()V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "androidx.media3.exoplayer.trackselection.DefaultTrackSelector$TextTrackInfo-><init>(ILandroidx/media3/common/TrackGroup;ILandroidx/media3/exoplayer/trackselection/DefaultTrackSelector$Parameters;ILjava/lang/String;Ljava/lang/String;)V@androidx.media3.exoplayer.trackselection.DefaultTrackSelector->access$4300(Landroidx/media3/common/Format;Lcom/google/common/collect/ImmutableList;)I",
+            "replacement": "androidx.media3.exoplayer.trackselection.DefaultTrackSelector->h6NoReplacement(Landroidx/media3/common/Format;Lcom/google/common/collect/ImmutableList;)I",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "com.google.zxing.oned.rss.expanded.decoders.FieldParser->parseFieldsInGeneralPurpose(Ljava/lang/String;)Ljava/lang/String;@com.google.zxing.oned.rss.expanded.decoders.FieldParser->processFixedAI(IILjava/lang/String;)Ljava/lang/String;#3",
+            "replacement": "com.google.zxing.oned.rss.expanded.decoders.FieldParser->processVariableAI(IILjava/lang/String;)Ljava/lang/String;",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "mozilla.components.browser.state.reducer.TranslationsStateReducer->reduce(Lmozilla/components/browser/state/state/BrowserState;Lmozilla/components/browser/state/action/TranslationsAction;)Lmozilla/components/browser/state/state/BrowserState;@mozilla.components.browser.state.reducer.BrowserStateReducerKt->updateTabOrCustomTabState(Lmozilla/components/browser/state/state/BrowserState;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lmozilla/components/browser/state/state/BrowserState;#28",
+            "replacement": "mozilla.components.browser.state.reducer.BrowserStateReducerKt->updateTabState(Lmozilla/components/browser/state/state/BrowserState;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lmozilla/components/browser/state/state/BrowserState;",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "mozilla.telemetry.glean.internal.GleanKt->uniffiCheckApiChecksums(Lmozilla/telemetry/glean/internal/IntegrityCheckingUniffiLib;)V@org.webrtc.GlShader$$ExternalSyntheticBUOutline0->m(Ljava/lang/String;)V#84",
+            "replacement": "mozilla.telemetry.glean.internal.GleanKt->gleanApplyServerKnobsConfig(Ljava/lang/String;)V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "org.mozilla.fenix.components.toolbar.CustomTabBrowserToolbarMiddleware->invoke(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;@kotlinx.coroutines.BuildersKt->launch$default(Lkotlinx/coroutines/CoroutineScope;Lkotlin/coroutines/CoroutineContext;Lkotlinx/coroutines/CoroutineStart;Lkotlin/jvm/functions/Function2;I)Lkotlinx/coroutines/StandaloneCoroutine;#1",
+            "replacement": "kotlinx.coroutines.BuildersKt->h6NoReplacement(Lkotlinx/coroutines/CoroutineScope;Lkotlin/coroutines/CoroutineContext;Lkotlinx/coroutines/CoroutineStart;Lkotlin/jvm/functions/Function2;I)Lkotlinx/coroutines/StandaloneCoroutine;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "org.mozilla.fenix.settings.autofill.AutofillSettingFragment->onResume()V@androidx.lifecycle.LifecycleKt->getCoroutineScope(Landroidx/lifecycle/Lifecycle;)Landroidx/lifecycle/LifecycleCoroutineScopeImpl;#1",
+            "replacement": "androidx.lifecycle.LifecycleKt->h6NoReplacement(Landroidx/lifecycle/Lifecycle;)Landroidx/lifecycle/LifecycleCoroutineScopeImpl;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-direct",
+            "target": "androidx.appcompat.view.menu.ListMenuItemView->initialize(Landroidx/appcompat/view/menu/MenuItemImpl;)V@androidx.appcompat.view.menu.ListMenuItemView->setSubMenuArrowVisible(Z)V",
+            "replacement": "androidx.appcompat.view.menu.ListMenuItemView->setCheckable(Z)V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_SIGNATURE_MISMATCH"
+            ]
+          },
+          {
+            "family": "invoke-direct",
+            "target": "com.google.android.material.slider.BaseSlider->onRestoreInstanceState(Landroid/os/Parcelable;)V@com.google.android.material.slider.BaseSlider->setValuesInternal(Ljava/util/ArrayList;)V",
+            "replacement": "com.google.android.material.slider.BaseSlider->h6NoReplacement(Ljava/util/ArrayList;)V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-direct",
+            "target": "org.mozilla.geckoview.Autofill$Support->addValues(Lorg/mozilla/gecko/util/GeckoBundle;)V@org.mozilla.geckoview.Autofill$Support->addValues(Lorg/mozilla/gecko/util/GeckoBundle;)V",
+            "replacement": "org.mozilla.geckoview.Autofill$Support->commit(Lorg/mozilla/gecko/util/GeckoBundle;)V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_SIGNATURE_MISMATCH"
+            ]
+          },
+          {
+            "family": "constructor",
+            "target": "android.app.AppComponentFactory-><clinit>()V@java.lang.NoClassDefFoundError-><init>()V",
+            "replacement": "java.lang.NoClassDefFoundError->h6NoReplacement()V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CONSTRUCTOR_INVOCATION",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND",
+              "SYNTHETIC_METHOD"
+            ]
+          },
+          {
+            "family": "constructor",
+            "target": "mozilla.components.feature.addons.ui.AddonsManagerAdapter$Style->toString()Ljava/lang/String;@java.lang.StringBuilder-><init>(Ljava/lang/String;)V",
+            "replacement": "java.lang.StringBuilder->h6NoReplacement(Ljava/lang/String;)V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CONSTRUCTOR_INVOCATION",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "android.support.customtabs.IAuthTabCallback$Stub-><init>()V@android.os.Binder->attachInterface(Landroid/os/IInterface;Ljava/lang/String;)V",
+            "replacement": "android.os.Binder->h6NoReplacement(Landroid/os/IInterface;Ljava/lang/String;)V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "androidx.media3.extractor.text.cea.Cea708Decoder->finalizeCurrentPacket()V@androidx.media3.extractor.text.cea.Cea708Decoder$CueInfoBuilder->append(C)V#1",
+            "replacement": "androidx.media3.extractor.text.cea.Cea708Decoder$CueInfoBuilder->h6NoReplacement(C)V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "mozilla.appservices.logins.KeyManagerImpl->getKey()[B@java.util.concurrent.atomic.AtomicLong->compareAndSet(JJ)Z",
+            "replacement": "java.util.concurrent.atomic.AtomicLong->h6NoReplacement(JJ)Z",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "org.mozilla.fenix.HomeActivity->onCreate(Landroid/os/Bundle;)V@mozilla.components.lib.state.Store->dispatch(Lmozilla/components/lib/state/Action;)V#1",
+            "replacement": "mozilla.components.lib.state.Store->h6NoReplacement(Lmozilla/components/lib/state/Action;)V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-interface",
+            "target": "android.support.customtabs.IAuthTabCallback$Stub->asInterface(Landroid/os/IBinder;)Landroid/support/customtabs/IAuthTabCallback;@android.os.IBinder->queryLocalInterface(Ljava/lang/String;)Landroid/os/IInterface;",
+            "replacement": "android.os.IBinder->h6NoReplacement(Ljava/lang/String;)Landroid/os/IInterface;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-interface",
+            "target": "mozilla.components.compose.browser.toolbar.ui.HighlightedDomainUrlKt$$ExternalSyntheticLambda2->invoke(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;@androidx.compose.runtime.Composer->updateRememberedValue(Ljava/lang/Object;)V#5",
+            "replacement": "androidx.compose.runtime.Composer->startReusableGroup(Ljava/lang/Object;)V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNSUPPORTED",
+            "reasons": [
+              "ABSTRACT_METHOD",
+              "INTERFACE_METHOD",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-super",
+            "target": "android.support.customtabs.IAuthTabCallback$Stub->onTransact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z@android.os.Binder->onTransact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z",
+            "replacement": "android.os.Binder->h6NoReplacement(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          }
+        ],
+        "h1_seconds": 147.0,
+        "result": "PASS",
+        "failures": []
+      },
+      {
+        "apk": "org.schabi.newpipe_1015_cb84069.apk",
+        "sha256": "18447bfb1e06d113edc88df93f471827280de06f6f3d4dc42f56f28b9c1bab79",
+        "sha256_after": "18447bfb1e06d113edc88df93f471827280de06f6f3d4dc42f56f28b9c1bab79",
+        "original_unchanged": true,
+        "component_states": {
+          "assets": "PARTIAL",
+          "dex": "COMPLETE",
+          "manifest": "COMPLETE",
+          "native_code": "NOT_ANALYZED",
+          "native_indicators": "COMPLETE",
+          "reflection": "PARTIAL",
+          "resources": "COMPLETE"
+        },
+        "targets": 20,
+        "eligibility": {
+          "ELIGIBLE": 0,
+          "CONDITIONALLY_ELIGIBLE": 0,
+          "REFUSED": 15,
+          "UNSUPPORTED": 3,
+          "UNDETERMINED": 2
+        },
+        "reasons": {
+          "CONSTRUCTOR_INVOCATION": 2,
+          "NATIVE_DEPENDENCY_UNKNOWN": 20,
+          "POLYMORPHIC_INVOCATION": 7,
+          "REFLECTION_TARGET_UNKNOWN": 20,
+          "REPLACEMENT_METHOD_NOT_FOUND": 14,
+          "REPLACEMENT_SIGNATURE_MISMATCH": 1,
+          "SYNTHETIC_METHOD": 3
+        },
+        "applied": 0,
+        "verification": "not applicable (no ELIGIBLE plan)",
+        "decisions": [
+          {
+            "family": "invoke-static",
+            "target": "android.support.v4.app.RemoteActionCompatParcelizer->read(Landroidx/versionedparcelable/VersionedParcel;)Landroidx/core/app/RemoteActionCompat;@androidx.core.app.RemoteActionCompatParcelizer->read(Landroidx/versionedparcelable/VersionedParcel;)Landroidx/core/app/RemoteActionCompat;",
+            "replacement": "androidx.core.app.RemoteActionCompatParcelizer->h6NoReplacement(Landroidx/versionedparcelable/VersionedParcel;)Landroidx/core/app/RemoteActionCompat;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "androidx.compose.runtime.snapshots.SnapshotKt->newOverwritableRecordLocked(Landroidx/compose/runtime/snapshots/StateRecord;Landroidx/compose/runtime/snapshots/StateObject;)Landroidx/compose/runtime/snapshots/StateRecord;@kotlin.jvm.internal.Intrinsics->compare(JJ)I#2",
+            "replacement": "kotlin.jvm.internal.Intrinsics->h6NoReplacement(JJ)I",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "androidx.fragment.app.SpecialEffectsController$FragmentStateManagerOperation->mergeWith(II)V@androidx.compose.ui.node.Owner$-CC->stringValueOf$2(I)Ljava/lang/String;#3",
+            "replacement": "androidx.compose.ui.node.Owner$-CC->name(I)Ljava/lang/String;",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNSUPPORTED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "SYNTHETIC_METHOD"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "com.google.android.exoplayer2.audio.DefaultAudioSink->initializeAudioTrack()Z@com.google.android.exoplayer2.audio.DefaultAudioSink->isOffloadedPlayback(Landroid/media/AudioTrack;)Z",
+            "replacement": "com.google.android.exoplayer2.audio.DefaultAudioSink->h6NoReplacement(Landroid/media/AudioTrack;)Z",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "com.google.android.exoplayer2.util.ColorParser-><clinit>()V@com.android.tools.r8.RecordTag->m(ILjava/util/HashMap;Ljava/lang/String;ILjava/lang/String;)V#22",
+            "replacement": "com.android.tools.r8.RecordTag->m$1(ILjava/util/HashMap;Ljava/lang/String;ILjava/lang/String;)V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "net.newpipe.app.AppKt->fitPrioritizingWidth-Zbe2FdA(IIII)J@androidx.compose.ui.node.LayoutNode$$ExternalSyntheticBUOutline0->m()V",
+            "replacement": "androidx.compose.ui.node.LayoutNode$$ExternalSyntheticBUOutline0->h6NoReplacement()V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "org.mozilla.javascript.NativeGlobal->execIdCall(Lorg/mozilla/javascript/IdFunctionObject;Lorg/mozilla/javascript/Context;Lorg/mozilla/javascript/Scriptable;Lorg/mozilla/javascript/Scriptable;[Ljava/lang/Object;)Ljava/lang/Object;@org.mozilla.javascript.NativeGlobal->js_parseFloat([Ljava/lang/Object;)Ljava/lang/Object;",
+            "replacement": "org.mozilla.javascript.NativeGlobal->js_escape([Ljava/lang/Object;)Ljava/lang/Object;",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNDETERMINED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-static",
+            "target": "org.schabi.newpipe.fragments.detail.VideoDetailFragment->onCreateView(Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Landroid/os/Bundle;)Landroid/view/View;@okio.Options$Companion->findChildViewById(ILandroid/view/View;)Landroid/view/View;#3",
+            "replacement": "okio.Options$Companion->h6NoReplacement(ILandroid/view/View;)Landroid/view/View;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-direct",
+            "target": "androidx.appcompat.view.menu.ListMenuItemView->initialize(Landroidx/appcompat/view/menu/MenuItemImpl;)V@androidx.appcompat.view.menu.ListMenuItemView->setSubMenuArrowVisible(Z)V",
+            "replacement": "androidx.appcompat.view.menu.ListMenuItemView->setCheckable(Z)V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_SIGNATURE_MISMATCH"
+            ]
+          },
+          {
+            "family": "invoke-direct",
+            "target": "com.google.android.exoplayer2.offline.DownloadManager$InternalHandler->handleMessage(Landroid/os/Message;)V@com.google.android.exoplayer2.offline.DownloadManager$InternalHandler->setStopReason(Ljava/lang/String;I)V",
+            "replacement": "com.google.android.exoplayer2.offline.DownloadManager$InternalHandler->h6NoReplacement(Ljava/lang/String;I)V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-direct",
+            "target": "org.mozilla.javascript.IRFactory->transform(Lorg/mozilla/javascript/ast/AstNode;)Lorg/mozilla/javascript/Node;@org.mozilla.javascript.IRFactory->transformWith(Lorg/mozilla/javascript/ast/WithStatement;)Lorg/mozilla/javascript/Node;",
+            "replacement": "org.mozilla.javascript.IRFactory->h6NoReplacement(Lorg/mozilla/javascript/ast/WithStatement;)Lorg/mozilla/javascript/Node;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "constructor",
+            "target": "android.app.AppComponentFactory-><clinit>()V@java.lang.NoClassDefFoundError-><init>()V",
+            "replacement": "java.lang.NoClassDefFoundError->h6NoReplacement()V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "CONSTRUCTOR_INVOCATION",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND",
+              "SYNTHETIC_METHOD"
+            ]
+          },
+          {
+            "family": "constructor",
+            "target": "com.google.android.material.shape.MaterialShapeDrawable-><init>(Lcom/google/android/material/shape/MaterialShapeDrawable$MaterialShapeDrawableState;)V@com.google.android.material.shape.ShapeAppearancePathProvider-><init>()V",
+            "replacement": "com.google.android.material.shape.MaterialShapeDrawable->invalidateSelf()V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNSUPPORTED",
+            "reasons": [
+              "CONSTRUCTOR_INVOCATION",
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "android.support.v4.app.INotificationSideChannel-><clinit>()V@java.lang.String->replace(CC)Ljava/lang/String;",
+            "replacement": "java.lang.String->h6NoReplacement(CC)Ljava/lang/String;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "androidx.fragment.app.FragmentManager->removeFragment(Landroidx/fragment/app/Fragment;)V@java.lang.StringBuilder->toString()Ljava/lang/String;",
+            "replacement": "java.lang.StringBuilder->h6NoReplacement()Ljava/lang/String;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "com.google.android.exoplayer2.util.AtomicFile->startWrite()Ljava/io/OutputStream;@java.lang.StringBuilder->toString()Ljava/lang/String;#3",
+            "replacement": "java.lang.StringBuilder->h6NoReplacement()Ljava/lang/String;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-virtual",
+            "target": "org.mozilla.javascript.Interpreter$CallFrame->equals(Ljava/lang/Object;)Z@org.mozilla.javascript.Context->close()V#1",
+            "replacement": "org.mozilla.javascript.Context->processMicrotasks()V",
+            "replacement_kind": "same-descriptor method",
+            "eligibility": "UNSUPPORTED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN"
+            ]
+          },
+          {
+            "family": "invoke-interface",
+            "target": "android.support.v4.media.MediaBrowserCompat$ConnectionCallback$ConnectionCallbackApi21->onConnected()V@android.os.IBinder->queryLocalInterface(Ljava/lang/String;)Landroid/os/IInterface;",
+            "replacement": "android.os.IBinder->h6NoReplacement(Ljava/lang/String;)Landroid/os/IInterface;",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          },
+          {
+            "family": "invoke-interface",
+            "target": "com.google.android.exoplayer2.video.VideoRendererEventListener$EventDispatcher->lambda$inputFormatChanged$2(Lcom/google/android/exoplayer2/Format;Lcom/google/android/exoplayer2/decoder/DecoderReuseEvaluation;)V@com.google.android.exoplayer2.video.VideoRendererEventListener->onVideoInputFormatChanged(Lcom/google/android/exoplayer2/Format;)V",
+            "replacement": "com.google.android.exoplayer2.video.VideoRendererEventListener->h6NoReplacement(Lcom/google/android/exoplayer2/Format;)V",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND",
+              "SYNTHETIC_METHOD"
+            ]
+          },
+          {
+            "family": "invoke-super",
+            "target": "android.support.v4.media.session.MediaControllerCompat$MediaControllerImplApi21$ExtraCallback->onTransact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z@android.os.Binder->onTransact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z",
+            "replacement": "android.os.Binder->h6NoReplacement(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z",
+            "replacement_kind": "placeholder",
+            "eligibility": "REFUSED",
+            "reasons": [
+              "NATIVE_DEPENDENCY_UNKNOWN",
+              "POLYMORPHIC_INVOCATION",
+              "REFLECTION_TARGET_UNKNOWN",
+              "REPLACEMENT_METHOD_NOT_FOUND"
+            ]
+          }
+        ],
+        "h1_seconds": 58.5,
+        "result": "PASS",
+        "failures": []
+      }
+    ],
+    "corpus_sha256_unchanged": true,
+    "totals": {
+      "targets": 180,
+      "ELIGIBLE": 0,
+      "CONDITIONALLY_ELIGIBLE": 0,
+      "REFUSED": 126,
+      "UNSUPPORTED": 22,
+      "UNDETERMINED": 32,
+      "applied": 0,
+      "reasons": {
+        "ABSTRACT_METHOD": 2,
+        "CONSTRUCTOR_INVOCATION": 18,
+        "DYNAMIC_CODE_LOADING_PRESENT": 20,
+        "INTERFACE_METHOD": 2,
+        "NATIVE_DEPENDENCY_UNKNOWN": 120,
+        "POLYMORPHIC_INVOCATION": 63,
+        "REFLECTION_ANALYSIS_INCOMPLETE": 20,
+        "REFLECTION_TARGET_PRESENT": 1,
+        "REFLECTION_TARGET_UNKNOWN": 160,
+        "REPLACEMENT_INACCESSIBLE": 2,
+        "REPLACEMENT_METHOD_NOT_FOUND": 117,
+        "REPLACEMENT_SIGNATURE_MISMATCH": 7,
+        "SYNTHETIC_METHOD": 13,
+        "TARGET_METHOD_NOT_FOUND": 18,
+        "TARGET_RELATIONSHIP_UNRESOLVED": 1
+      }
+    },
+    "max_rss_mb": 2595,
+    "status": "PASS"
+  }
+}

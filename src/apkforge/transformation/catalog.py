@@ -5,7 +5,7 @@ from __future__ import annotations
 from apkforge.modification.models import ModificationRisk, Reversibility
 from apkforge.transformation.models import TargetKind, TransformationSpec
 
-__all__ = ["CATALOG", "H_TRANS_001", "H_TRANS_002", "get_spec", "list_specs"]
+__all__ = ["CATALOG", "H_TRANS_001", "H_TRANS_002", "H_TRANS_003", "get_spec", "list_specs"]
 
 _COMMON_VERIFICATION = [
     "input APK SHA-256 unchanged (the transformation writes a new APK only)",
@@ -169,7 +169,111 @@ H_TRANS_002 = TransformationSpec(
     ],
 )
 
-CATALOG: dict[str, TransformationSpec] = {s.id: s for s in (H_TRANS_001, H_TRANS_002)}
+H_TRANS_003 = TransformationSpec(
+    id="H-TRANS-003",
+    name="Controlled call-site replacement",
+    description=(
+        "Replace the method reference of exactly one direct invocation (invoke-static, or "
+        "invoke-direct of a private instance method) with a predetermined replacement "
+        "method declared in the APK with the identical descriptor. The opcode, the "
+        "operand registers and the consumption of the result are unchanged; no other "
+        "instruction is touched."
+    ),
+    category="dex_call_site_replacement",
+    target_type=TargetKind.CALL_SITE,
+    required_evidence=[
+        "invocation records of the caller method with opcode, operand registers and the "
+        "consuming move-result (H.1 schema 3)",
+        "declarations and access flags of the caller, invoked and replacement methods and "
+        "their classes (H.1 defined_classes)",
+        "reflection indicators naming the caller, invoked or replacement method",
+        "dynamic-code-loading indicators",
+        "native_indicators / native_code state",
+        "component analysis states (dex, reflection, native) and the caller file's state",
+    ],
+    preconditions=[
+        "call_site_exists",
+        "dex_analysis_complete",
+        "caller_analysis_complete",
+        "caller_modifiable",
+        "supported_invoke_opcode",
+        "target_method_resolved",
+        "replacement_method_resolved",
+        "replacement_differs",
+        "invocation_kind_compatible",
+        "argument_types_compatible",
+        "return_type_compatible",
+        "register_mapping_consistent",
+        "result_mapping_consistent",
+        "replacement_accessible",
+        "no_reflection_target",
+        "no_dynamic_invocation",
+        "no_native_boundary",
+        "no_conflicting_transformation",
+    ],
+    eligibility_rules=[
+        "caller class/method not defined -> REFUSED (TARGET_NOT_FOUND); caller method "
+        "overloads without a proto -> REFUSED (CALL_SITE_AMBIGUOUS)",
+        "no invocation of the invoked method in the caller -> REFUSED (CALL_SITE_NOT_FOUND), "
+        "or CALL_SITE_ALREADY_REPLACED when the caller already invokes the replacement; "
+        "caller file not COMPLETE -> UNDETERMINED (CALLER_ANALYSIS_INCOMPLETE); a "
+        "compiler-generated (bridge / synthetic) caller -> UNSUPPORTED (SYNTHETIC_METHOD)",
+        "several invocations and no #N -> REFUSED (CALL_SITE_MULTIPLE_MATCHES); invoked "
+        "method without a proto matching several overloads -> REFUSED (CALL_SITE_AMBIGUOUS)",
+        "invoke-virtual / -super / -interface -> UNSUPPORTED (POLYMORPHIC_INVOCATION); "
+        "constructor -> UNSUPPORTED (CONSTRUCTOR_INVOCATION); invoke-polymorphic / "
+        "invoke-custom -> UNSUPPORTED",
+        "invoked method's class not defined in the APK -> REFUSED (TARGET_METHOD_NOT_FOUND); "
+        "defined but the method not declared by it, or its flags disagree with the opcode "
+        "-> UNDETERMINED (TARGET_RELATIONSHIP_UNRESOLVED)",
+        "replacement missing / malformed -> REFUSED (REPLACEMENT_METHOD_NOT_FOUND, "
+        "PARAMETER_INVALID); constructor, abstract, interface, native, synthetic "
+        "replacement -> REFUSED / UNSUPPORTED",
+        "static-ness / receiver class differ -> REFUSED (REPLACEMENT_SIGNATURE_MISMATCH); "
+        "parameter types differ -> REFUSED (REGISTER_TYPE_MISMATCH); return type differs "
+        "-> REFUSED (RESULT_TYPE_MISMATCH)",
+        "operand registers inconsistent with the descriptor, or the move-result opcode "
+        "inconsistent with the return type -> REFUSED (REGISTER_TYPE_MISMATCH / "
+        "RESULT_TYPE_MISMATCH)",
+        "replacement not accessible from the caller -> REFUSED (REPLACEMENT_INACCESSIBLE)",
+        "reflection resolved to the caller / invoked / replacement method -> REFUSED; "
+        "unresolved reflection or dynamic code loading -> UNDETERMINED",
+        "native code present but not analysed -> UNDETERMINED (NATIVE_DEPENDENCY_UNKNOWN)",
+        "overlapping request in the same set (same caller method, or a class/method removal "
+        "of the caller, invoked or replacement) -> REFUSED (CONFLICTING_TRANSFORMATION)",
+    ],
+    planned_changes=[
+        "replace_call_site: rewrite the method reference of one invocation in the caller's "
+        "smali (opcode, registers and result handling unchanged)"
+    ],
+    verification_requirements=[
+        "the original invocation is gone from the planned location and the replacement "
+        "invocation is there, with the same opcode, registers and result handling",
+        "every other invocation and reference of the APK is unchanged (H.1 re-analysis)",
+        "every class and method declaration is unchanged; only the caller method's code "
+        "differs (Phase E DEX diff)",
+        *_COMMON_VERIFICATION,
+    ],
+    risk=ModificationRisk.HIGH,
+    reversibility=Reversibility.REVERSIBLE,
+    compatibility_constraints=[
+        "the caller method's code changes; behaviour at that call site becomes the "
+        "replacement method's behaviour",
+        *_COMMON_COMPATIBILITY,
+    ],
+    limitations=[
+        "Compatibility is the identical descriptor and invocation kind only: the replacement "
+        "is not shown to be semantically equivalent to the original method, and no claim is "
+        "made that behaviour or functionality is preserved.",
+        "Only invoke-static and invoke-direct of private instance methods are supported; "
+        "virtual, interface, super, constructor, polymorphic and custom invocations are not.",
+        "Both the invoked and the replacement method must be declared in the APK; framework "
+        "and library methods are not resolved.",
+        *_COMMON_LIMITATIONS,
+    ],
+)
+
+CATALOG: dict[str, TransformationSpec] = {s.id: s for s in (H_TRANS_001, H_TRANS_002, H_TRANS_003)}
 
 
 def get_spec(transformation_id: str) -> TransformationSpec | None:

@@ -1,4 +1,4 @@
-"""Eligibility evaluation for H-TRANS-001 / H-TRANS-002 (Phase H.2).
+"""Eligibility evaluation for H-TRANS-001 / -002 / -003 (Phase H.2, H.6).
 
 Every requirement of a :class:`TransformationSpec` is answered from a
 :class:`TargetEvidenceSet`. A requirement is SATISFIED only by an established absence
@@ -12,7 +12,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, ClassVar
 
-from apkforge.reference.models import AnalysisState, Component, MatchBasis
+from apkforge.reference.models import AnalysisState, Component, MatchBasis, ReferenceKind
+from apkforge.reference.smali import split_proto
 from apkforge.transformation.models import (
     REASON_STATES,
     STATE_PRECEDENCE,
@@ -28,13 +29,16 @@ if TYPE_CHECKING:
 
     from apkforge.reference.models import DefinedClass, Evidence, ReferenceAnalysisResult
     from apkforge.transformation.models import TransformationSpec
-    from apkforge.transformation.selector import TargetEvidenceSet
+    from apkforge.transformation.selector import CallSiteSelection, TargetEvidenceSet
 
 __all__ = [
     "METADATA_ANNOTATIONS",
+    "SUPPORTED_INVOKE_OPCODES",
     "EligibilityEvaluator",
     "Evaluation",
     "definitions_complete",
+    "expected_result_instruction",
+    "register_words",
 ]
 
 R = DecisionReason
@@ -65,6 +69,37 @@ SERIALIZATION_HOOKS = {
     ("readResolve", "()Ljava/lang/Object;"),
 }
 VIEW_HANDLER = "(Landroid/view/View;)V"
+#: H-TRANS-003: the only opcodes whose target is fixed at the call site (no dispatch)
+SUPPORTED_INVOKE_OPCODES = ("invoke-static", "invoke-direct")
+_POLYMORPHIC_OPCODES = ("invoke-virtual", "invoke-super", "invoke-interface")
+
+
+def register_words(descriptor: str, *, static: bool) -> int | None:
+    """Operand registers an invocation of *descriptor* takes (wide J/D take two, an
+    instance call one more for the receiver); None for an invalid descriptor."""
+    close = descriptor.find(")")
+    params = split_proto(descriptor[1:close]) if descriptor.startswith("(") and close > 0 else None
+    if params is None:
+        return None
+    return sum(2 if p in ("J", "D") else 1 for p in params) + (0 if static else 1)
+
+
+def expected_result_instruction(descriptor: str) -> str | None:
+    """The ``move-result*`` opcode that may consume the value of *descriptor*'s return
+    (None for ``V``: nothing may consume it)."""
+    ret = descriptor[descriptor.find(")") + 1 :]
+    if ret == "V":
+        return None
+    if ret in ("J", "D"):
+        return "move-result-wide"
+    if ret.startswith(("L", "[")):
+        return "move-result-object"
+    return "move-result"
+
+
+def _package(cls: str) -> str:
+    return cls.rpartition(".")[0]
+
 
 _STATUS_ORDER = (
     RequirementStatus.VIOLATED,
@@ -190,6 +225,26 @@ class EligibilityEvaluator:
         "no_annotation_driven_access": "no runtime annotation that frameworks dispatch on",
         "no_resource_method_reference": "not an android:onClick-shaped handler",
         "metadata_consistency": "no compiler metadata that would describe the removed member",
+        "call_site_exists": "the call site resolves to exactly one invocation in the caller",
+        "caller_analysis_complete": "the caller's file is COMPLETE and its invocation records "
+        "carry operand registers (H.1 schema 3)",
+        "caller_modifiable": "the caller is an ordinary method written in the app (not a "
+        "compiler-generated bridge / synthetic method)",
+        "supported_invoke_opcode": "invoke-static, or invoke-direct of a private instance "
+        "method (no dispatch, constructor, polymorphic or custom invocation)",
+        "target_method_resolved": "the invoked method is declared by its class in the APK, "
+        "with flags matching the opcode",
+        "replacement_method_resolved": "the replacement is an ordinary concrete method "
+        "declared in the APK",
+        "replacement_differs": "the replacement is not the method already invoked",
+        "invocation_kind_compatible": "same invocation kind (static / private instance of "
+        "the same class)",
+        "argument_types_compatible": "identical parameter types",
+        "return_type_compatible": "identical return type",
+        "register_mapping_consistent": "operand registers match the descriptor (receiver, "
+        "wide pairs, count)",
+        "result_mapping_consistent": "the consuming move-result matches the return type",
+        "replacement_accessible": "the replacement is accessible from the caller class",
     }
 
     def __init__(self, result: ReferenceAnalysisResult) -> None:
@@ -606,3 +661,367 @@ class EligibilityEvaluator:
                 + "; whether the method overrides one of their methods cannot be resolved",
             )
         ev.ok(req)
+
+    # -- H-TRANS-003 -------------------------------------------------------------
+
+    def evaluate_call_site(
+        self, ev: Evaluation, ts: TargetEvidenceSet, classes: dict[str, DefinedClass]
+    ) -> None:
+        """H.6 rules for one resolved call site (the caller is resolved; the call site may
+        not be). Nothing here infers semantic equivalence: compatibility is the identical
+        descriptor and invocation kind, plus registers / result consistent with it."""
+        call = ts.call
+        dc, caller = ts.defined, ts.method
+        assert call is not None and dc is not None and caller is not None
+        label = f"{dc.name}->{caller.signature}"
+
+        # completeness: the DEX, the caller's own file
+        dex = ts.component_states[Component.DEX.value]
+        if dex is not AnalysisState.COMPLETE:
+            ev.fail(
+                "dex_analysis_complete", R.DEX_ANALYSIS_INCOMPLETE, f"DEX analysis is {dex.value}"
+            )
+        ev.ok("dex_analysis_complete")
+        caller_complete = dc.analysis_state is AnalysisState.COMPLETE
+        if not caller_complete:
+            ev.fail(
+                "caller_analysis_complete",
+                R.CALLER_ANALYSIS_INCOMPLETE,
+                f"{dc.source_file} (defining the caller {dc.name}) is {dc.analysis_state.value}; "
+                "its invocations are not completely known",
+            )
+
+        # resolution of the call site itself
+        sel = call.selected
+        if sel is None:
+            assert call.problem is not None
+            code, message = call.problem
+            if code is R.CALL_SITE_NOT_FOUND and not caller_complete:
+                pass  # absence in a PARTIAL file is not established (reported above)
+            else:
+                ev.fail("call_site_exists", code, message, call.matches)
+        else:
+            ev.ok("call_site_exists")
+            if sel.registers is None:
+                ev.fail(
+                    "caller_analysis_complete",
+                    R.CALLER_ANALYSIS_INCOMPLETE,
+                    "the invocation record carries no operand registers (H.1 analysis older "
+                    "than schema 3); register compatibility cannot be established",
+                )
+        ev.ok("caller_analysis_complete")
+        generated = sorted(set(caller.access_flags) & {"bridge", "synthetic"})
+        if generated:
+            ev.fail(
+                "caller_modifiable",
+                R.SYNTHETIC_METHOD,
+                f"the caller {label} is compiler-generated ({', '.join(generated)}); "
+                "generated code is not rewritten",
+            )
+        ev.ok("caller_modifiable")
+
+        self._replacement_definition(ev, call, classes)
+        if sel is not None:
+            supported = self._opcode(ev, sel)
+            if supported:
+                self._invoked_definition(ev, call, classes)
+                self._compatibility(ev, ts, call, sel)
+
+        self._reflection(ev, ts, f"the caller, invoked or replacement method of {label}")
+        self._dynamic_loading(ev, ts, "no_dynamic_invocation")
+        self._native_state(ev, ts, "no_native_boundary")
+
+    def _opcode(self, ev: Evaluation, sel: Evidence) -> bool:
+        req = "supported_invoke_opcode"
+        op = (sel.instruction or "").split("/", 1)[0]
+        where = f"{sel.source_file}:{sel.source_line}"
+        if sel.kind is ReferenceKind.CONSTRUCTOR_REFERENCE or sel.member_name == "<init>":
+            ev.fail(
+                req,
+                R.CONSTRUCTOR_INVOCATION,
+                f"{op} {sel.target} at {where} invokes a constructor; object "
+                "initialisation is not replaced",
+                [sel],
+            )
+        elif op == "invoke-polymorphic":
+            ev.fail(
+                req,
+                R.INVOKE_POLYMORPHIC_UNSUPPORTED,
+                f"{op} at {where} (signature-polymorphic MethodHandle call)",
+                [sel],
+            )
+        elif op == "invoke-custom":
+            ev.fail(
+                req,
+                R.INVOKE_CUSTOM_UNSUPPORTED,
+                f"{op} at {where}: the target is linked at run time by the bootstrap "
+                f"method {sel.target}",
+                [sel],
+            )
+        elif op in _POLYMORPHIC_OPCODES:
+            ev.fail(
+                req,
+                R.POLYMORPHIC_INVOCATION,
+                f"{op} {sel.target} at {where} dispatches on the receiver's run-time "
+                "type; replacing it would need the override set, which is not "
+                "supported",
+                [sel],
+            )
+        elif op not in SUPPORTED_INVOKE_OPCODES:
+            ev.fail(req, R.UNSUPPORTED_INVOKE_OPCODE, f"{op} at {where} is not supported", [sel])
+        else:
+            ev.ok(req)
+            return True
+        return False
+
+    def _invoked_definition(
+        self, ev: Evaluation, call: CallSiteSelection, classes: dict[str, DefinedClass]
+    ) -> None:
+        req = "target_method_resolved"
+        sel = call.selected
+        assert sel is not None
+        owner_name = sel.target_class or "?"
+        owner = call.invoked_class
+        static = (sel.instruction or "").startswith("invoke-static")
+        if owner is None:
+            ev.fail(
+                req,
+                R.TARGET_METHOD_NOT_FOUND,
+                f"{owner_name} is not defined in the APK; the declaration of {sel.target} "
+                "(static/private flags, return type) cannot be established",
+                [sel],
+            )
+            return
+        if owner.duplicate_sources:
+            ev.fail(
+                req,
+                R.TARGET_RELATIONSHIP_UNRESOLVED,
+                f"{owner.name} is defined {1 + len(owner.duplicate_sources)} times; which "
+                "definition the runtime resolves is not established",
+            )
+        if owner.analysis_state is not AnalysisState.COMPLETE:
+            ev.fail(
+                req,
+                R.TARGET_DEFINITION_INCOMPLETE,
+                f"{owner.source_file} (defining {owner.name}) is {owner.analysis_state.value}",
+            )
+        m = call.invoked_method
+        if m is None:
+            ev.fail(
+                req,
+                R.TARGET_RELATIONSHIP_UNRESOLVED,
+                f"{owner.name} does not declare {sel.member_name}{sel.descriptor}; resolution "
+                "through its supertypes is not followed",
+            )
+            ev.ok(req)
+            return
+        flags = set(m.access_flags)
+        if static and "static" not in flags:
+            ev.fail(
+                req,
+                R.TARGET_RELATIONSHIP_UNRESOLVED,
+                f"invoke-static of {owner.name}->{m.signature}, which is not static",
+            )
+        if not static and ("static" in flags or "private" not in flags):
+            ev.fail(
+                req,
+                R.TARGET_RELATIONSHIP_UNRESOLVED,
+                f"invoke-direct of {owner.name}->{m.signature}, which is not a private "
+                "instance method",
+            )
+        ev.ok(req)
+
+    def _replacement_definition(
+        self, ev: Evaluation, call: CallSiteSelection, classes: dict[str, DefinedClass]
+    ) -> None:
+        req = "replacement_method_resolved"
+        repl = call.replacement
+        if repl is None:
+            return  # parameter problem reported by the planner (PARAMETER_INVALID)
+        rc = call.replacement_class
+        if rc is None:
+            ev.fail(
+                req, R.REPLACEMENT_METHOD_NOT_FOUND, f"{repl.class_name} is not defined in the APK"
+            )
+            return
+        if rc.duplicate_sources:
+            ev.fail(
+                req,
+                R.TARGET_AMBIGUOUS,
+                f"{rc.name} is defined {1 + len(rc.duplicate_sources)} times",
+            )
+        if rc.analysis_state is not AnalysisState.COMPLETE:
+            ev.fail(
+                req,
+                R.TARGET_DEFINITION_INCOMPLETE,
+                f"{rc.source_file} (defining {rc.name}) is {rc.analysis_state.value}",
+            )
+        m = call.replacement_method
+        if m is None:
+            ev.fail(
+                req,
+                R.REPLACEMENT_METHOD_NOT_FOUND,
+                f"{rc.name} does not declare {repl.method_name}{repl.descriptor}",
+            )
+            return
+        flags = set(m.access_flags)
+        lbl = f"replacement {rc.name}->{m.signature}"
+        if m.name in ("<init>", "<clinit>"):
+            ev.fail(
+                req,
+                R.REPLACEMENT_SIGNATURE_MISMATCH,
+                f"{lbl} is a constructor/initialiser; it cannot replace a method call",
+            )
+        if "abstract" in flags:
+            ev.fail(req, R.ABSTRACT_METHOD, f"{lbl} is abstract")
+        if "interface" in rc.access_flags:
+            ev.fail(req, R.INTERFACE_METHOD, f"{rc.name} is an interface")
+        if "native" in flags:
+            ev.fail(req, R.NATIVE_METHOD, f"{lbl} is native (JNI-bound)")
+        generated = sorted(flags & {"bridge", "synthetic"})
+        if generated:
+            ev.fail(
+                req, R.SYNTHETIC_METHOD, f"{lbl} is compiler-generated ({', '.join(generated)})"
+            )
+        ev.ok(req)
+
+    def _compatibility(
+        self, ev: Evaluation, ts: TargetEvidenceSet, call: CallSiteSelection, sel: Evidence
+    ) -> None:
+        dc = ts.defined
+        assert dc is not None
+        static = (sel.instruction or "").startswith("invoke-static")
+        desc = sel.descriptor or ""
+        repl, rc, rm = call.replacement, call.replacement_class, call.replacement_method
+
+        # registers / result against the original descriptor (H.1 schema 3 evidence)
+        if sel.registers is not None:
+            words = register_words(desc, static=static)
+            regs = list(sel.registers)
+            problems = []
+            if words is None:
+                problems.append(f"invalid descriptor {desc!r}")
+            elif len(regs) != words:
+                problems.append(
+                    f"{len(regs)} operand register(s) for {desc} "
+                    f"({'static' if static else 'instance'}: {words} expected)"
+                )
+            elif not (sel.instruction or "").endswith("/range"):
+                problems += _wide_pair_problems(desc, regs, static=static)
+            if problems:
+                ev.fail(
+                    "register_mapping_consistent",
+                    R.REGISTER_TYPE_MISMATCH,
+                    f"{sel.instruction} {{{', '.join(regs)}}} at {sel.source_file}:"
+                    f"{sel.source_line}: " + "; ".join(problems),
+                    [sel],
+                )
+            ev.ok("register_mapping_consistent")
+            want = expected_result_instruction(desc)
+            got = sel.result_instruction
+            if got is not None and got != want:
+                ev.fail(
+                    "result_mapping_consistent",
+                    R.RESULT_TYPE_MISMATCH,
+                    f"{got} {sel.result_register} consumes the result of {desc} "
+                    f"(expected {want or 'nothing: void'})",
+                    [sel],
+                )
+            ev.ok("result_mapping_consistent")
+
+        if repl is None or rc is None or rm is None:
+            return  # reported as REPLACEMENT_METHOD_NOT_FOUND / PARAMETER_INVALID
+        if (repl.class_name, repl.method_name, repl.descriptor) == (
+            sel.target_class,
+            sel.member_name,
+            sel.descriptor,
+        ):
+            ev.fail(
+                "replacement_differs",
+                R.CALL_SITE_ALREADY_REPLACED,
+                f"the replacement {repl.canonical} is the method already invoked; there "
+                "is nothing to replace",
+            )
+        ev.ok("replacement_differs")
+
+        flags = set(rm.access_flags)
+        kind_problems = []
+        if static and "static" not in flags:
+            kind_problems.append(
+                "the call site is invoke-static but the replacement is an instance method"
+            )
+        if not static:
+            if "static" in flags or "private" not in flags:
+                kind_problems.append(
+                    "the call site is invoke-direct (private instance) but the "
+                    "replacement is not a private instance method"
+                )
+            if repl.class_name != sel.target_class:
+                kind_problems.append(
+                    f"the receiver is a {sel.target_class}; the replacement "
+                    f"belongs to {repl.class_name}"
+                )
+        if kind_problems:
+            ev.fail(
+                "invocation_kind_compatible",
+                R.REPLACEMENT_SIGNATURE_MISMATCH,
+                "; ".join(kind_problems),
+            )
+        ev.ok("invocation_kind_compatible")
+
+        rdesc = rm.descriptor
+        close_o, close_r = desc.find(")"), rdesc.find(")")
+        if desc[: close_o + 1] != rdesc[: close_r + 1]:
+            ev.fail(
+                "argument_types_compatible",
+                R.REGISTER_TYPE_MISMATCH,
+                f"parameters {desc[: close_o + 1]} (registers of the call site) vs the "
+                f"replacement's {rdesc[: close_r + 1]}; only identical parameter types "
+                "are compatible",
+            )
+        ev.ok("argument_types_compatible")
+        if desc[close_o + 1 :] != rdesc[close_r + 1 :]:
+            ev.fail(
+                "return_type_compatible",
+                R.RESULT_TYPE_MISMATCH,
+                f"return {desc[close_o + 1 :]} vs the replacement's {rdesc[close_r + 1 :]}; "
+                "only an identical return type is compatible",
+            )
+        ev.ok("return_type_compatible")
+
+        # access from the caller class
+        caller = dc.name
+        same_pkg = _package(caller) == _package(rc.name)
+        class_ok = "public" in rc.access_flags or same_pkg
+        if "public" in flags:
+            member_ok = True
+        elif "private" in flags:
+            member_ok = rc.name == caller
+        else:  # protected / package-private: only the same package is accepted
+            member_ok = same_pkg
+        if not (class_ok and member_ok):
+            ev.fail(
+                "replacement_accessible",
+                R.REPLACEMENT_INACCESSIBLE,
+                f"{rc.name}->{rm.signature} ({' '.join(rm.access_flags) or 'package-private'}"
+                f"; class {' '.join(rc.access_flags) or 'package-private'}) is not "
+                f"accessible from {caller}",
+            )
+        ev.ok("replacement_accessible")
+
+
+def _wide_pair_problems(desc: str, regs: list[str], *, static: bool) -> list[str]:
+    """Non-range invocations name both halves of a wide argument: they must be adjacent."""
+    close = desc.find(")")
+    params = split_proto(desc[1:close]) or []
+    pos = 0 if static else 1
+    out = []
+    for p in params:
+        if p in ("J", "D"):
+            a, b = regs[pos], regs[pos + 1]
+            if a[0] != b[0] or int(b[1:]) != int(a[1:]) + 1:
+                out.append(f"wide argument {p} in {a}, {b} (not a register pair)")
+            pos += 2
+        else:
+            pos += 1
+    return out

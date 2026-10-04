@@ -60,6 +60,7 @@ class ReferenceIndex:
             if ev.kind is ReferenceKind.STRING_REFERENCE and ev.string_value is not None:
                 self._strings[ev.string_value].append(ev)
         self.defined_classes = {c.name for c in result.defined_classes}
+        self._invocations: dict[tuple[str, str], list[Evidence]] | None = None
 
     # -- helpers ---------------------------------------------------------------
 
@@ -94,6 +95,24 @@ class ReferenceIndex:
         """Indexed records of *kind* whose ``target_class`` is *class_name* (unsorted,
         self-references included). O(matches); never traverses the whole index."""
         return list(self._by_target.get((kind, normalize_class_name(class_name)), ()))
+
+    def invocations_in(self, source_class: str, source_method: str) -> list[Evidence]:
+        """Invocation records (method and constructor references) inside one method, in
+        source order. *source_method* is ``name`` + smali proto (``run(I)V``). The table is
+        built once, lazily (schema 3; used by Phase H.6 call-site planning)."""
+        if self._invocations is None:
+            table: dict[tuple[str, str], list[Evidence]] = defaultdict(list)
+            for ev in self.result.references:
+                if (
+                    ev.kind in (ReferenceKind.METHOD_REFERENCE, ReferenceKind.CONSTRUCTOR_REFERENCE)
+                    and ev.source_class is not None
+                    and ev.source_method is not None
+                ):
+                    table[(ev.source_class, ev.source_method)].append(ev)
+            for evs in table.values():
+                evs.sort(key=lambda e: (e.source_file, e.source_line or 0))
+            self._invocations = dict(table)
+        return list(self._invocations.get((normalize_class_name(source_class), source_method), ()))
 
     def string_values(self) -> Iterable[tuple[str, list[Evidence]]]:
         """Distinct string constants with the records that load them."""

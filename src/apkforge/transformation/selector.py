@@ -29,6 +29,7 @@ from apkforge.reference.models import (
 from apkforge.transformation.models import (
     AbsenceStatus,
     CategorySummary,
+    DecisionReason,
     TargetEvidenceSummary,
     TargetKind,
 )
@@ -41,6 +42,7 @@ if TYPE_CHECKING:
 
 __all__ = [
     "OBJECT",
+    "CallSiteSelection",
     "TargetEvidenceSelector",
     "TargetEvidenceSet",
 ]
@@ -70,6 +72,10 @@ CATEGORY_COMPONENTS: dict[str, tuple[Component, ...]] = {
     "native_code": (Component.DEX, Component.NATIVE_INDICATORS, Component.NATIVE_CODE),
     "manifest_references": (Component.MANIFEST,),
     "resource_references": (Component.RESOURCES, Component.ASSETS),
+    # H-TRANS-003 (call sites inside the caller method)
+    "selected_call_site": (Component.DEX,),
+    "matching_call_sites": (Component.DEX,),
+    "replacement_call_sites": (Component.DEX,),
 }
 #: categories whose records are never direct references (strings, unresolved hints)
 INDIRECT_CATEGORIES = {"string_mentions", "reflection_name_match", "reflection_unresolved"}
@@ -77,6 +83,27 @@ INDIRECT_CATEGORIES = {"string_mentions", "reflection_name_match", "reflection_u
 
 def _sorted(evs: Iterable[Evidence]) -> list[Evidence]:
     return sorted({id(e): e for e in evs}.values(), key=Evidence.sort_key)
+
+
+@dataclass
+class CallSiteSelection:
+    """H-TRANS-003: the invocation a call-site target selects and the definitions the
+    eligibility rules need. ``selected`` is None when the call site does not resolve to
+    exactly one invocation (``problem`` then holds the reason code and message)."""
+
+    #: invocations of the requested invoked method inside the caller, in source order
+    matches: list[Evidence]
+    selected: Evidence | None = None
+    #: 1-based position of ``selected`` among ``matches``
+    occurrence: int | None = None
+    #: invocations of the replacement method already inside the caller
+    replacement_calls: list[Evidence] = field(default_factory=list)
+    invoked_class: DefinedClass | None = None
+    invoked_method: DefinedMethod | None = None
+    replacement: TransformationTarget | None = None
+    replacement_class: DefinedClass | None = None
+    replacement_method: DefinedMethod | None = None
+    problem: tuple[DecisionReason, str] | None = None
 
 
 @dataclass
@@ -92,6 +119,8 @@ class TargetEvidenceSet:
     supertypes: list[str] = field(default_factory=list)
     subtypes: list[str] = field(default_factory=list)
     unresolved_supertypes: list[str] = field(default_factory=list)
+    #: H-TRANS-003 only
+    call: CallSiteSelection | None = None
 
     def state(self, category: str) -> AnalysisState:
         comps = CATEGORY_COMPONENTS[category]
@@ -256,6 +285,143 @@ class TargetEvidenceSelector:
             supertypes=supers,
             subtypes=self.subtypes(target.class_name),
             unresolved_supertypes=missing,
+        )
+
+    def select_call_site(
+        self,
+        target: TransformationTarget,
+        defined: DefinedClass,
+        method: DefinedMethod,
+        replacement: TransformationTarget | None,
+    ) -> TargetEvidenceSet:
+        """H-TRANS-003: the invocation *target* selects inside *method* of *defined* (the
+        caller), the invoked and replacement definitions, and the reflection / dynamic
+        loading evidence that could reach any of the three methods."""
+        cls, sig = defined.name, method.signature
+        calls = self.index.invocations_in(cls, sig)
+        matches = [
+            e
+            for e in calls
+            if e.target_class == target.invoked_class
+            and e.member_name == target.invoked_name
+            and (target.invoked_descriptor is None or e.descriptor == target.invoked_descriptor)
+        ]
+        repl_calls = (
+            [
+                e
+                for e in calls
+                if e.target_class == replacement.class_name
+                and e.member_name == replacement.method_name
+                and e.descriptor == replacement.descriptor
+            ]
+            if replacement is not None
+            else []
+        )
+        sel = CallSiteSelection(matches=matches, replacement_calls=repl_calls)
+        label = f"{target.invoked} in {cls}->{sig}"
+        descriptors = sorted({e.descriptor or "" for e in matches})
+        if len(descriptors) > 1:
+            sel.problem = (
+                DecisionReason.CALL_SITE_AMBIGUOUS,
+                f"{label} matches {len(descriptors)} overloads ({', '.join(descriptors)}); "
+                "give the invoked method's descriptor",
+            )
+        elif not matches:
+            if repl_calls:
+                sel.problem = (
+                    DecisionReason.CALL_SITE_ALREADY_REPLACED,
+                    f"{cls}->{sig} does not invoke {target.invoked} but already invokes the "
+                    f"replacement {replacement.canonical if replacement else ''} "
+                    f"({len(repl_calls)} time(s)); the transformation appears applied",
+                )
+            else:
+                sel.problem = (
+                    DecisionReason.CALL_SITE_NOT_FOUND,
+                    f"{cls}->{sig} does not invoke {target.invoked}",
+                )
+        elif target.occurrence is None and len(matches) > 1:
+            lines = ", ".join(str(e.source_line) for e in matches)
+            sel.problem = (
+                DecisionReason.CALL_SITE_MULTIPLE_MATCHES,
+                f"{cls}->{sig} invokes {target.invoked} {len(matches)} times (smali lines "
+                f"{lines}); select one with #N (1..{len(matches)})",
+            )
+        elif target.occurrence is not None and target.occurrence > len(matches):
+            sel.problem = (
+                DecisionReason.CALL_SITE_NOT_FOUND,
+                f"{label}: occurrence #{target.occurrence} requested, {len(matches)} found",
+            )
+        else:
+            sel.occurrence = target.occurrence or 1
+            sel.selected = matches[sel.occurrence - 1]
+            owner = self.classes.get(sel.selected.target_class or "")
+            if owner is not None:
+                sel.invoked_class = owner
+                sel.invoked_method = next(
+                    (
+                        m
+                        for m in owner.methods
+                        if m.name == sel.selected.member_name
+                        and m.descriptor == sel.selected.descriptor
+                    ),
+                    None,
+                )
+        if replacement is not None:
+            sel.replacement = replacement
+            rc = self.classes.get(replacement.class_name)
+            if rc is not None:
+                sel.replacement_class = rc
+                sel.replacement_method = next(
+                    (
+                        m
+                        for m in rc.methods
+                        if m.name == replacement.method_name
+                        and m.descriptor == replacement.descriptor
+                    ),
+                    None,
+                )
+
+        # reflection that could reach the caller, the invoked or the replacement method
+        names = {method.name}
+        owners = {cls}
+        if sel.selected is not None and sel.selected.target_class and sel.selected.member_name:
+            names.add(sel.selected.member_name)
+            owners.add(sel.selected.target_class)
+        if replacement is not None and replacement.method_name:
+            names.add(replacement.method_name)
+            owners.add(replacement.class_name)
+        targeting = [
+            e
+            for owner in sorted(owners)
+            for e in self._reflection_by_class.get(owner, ())
+            if e.member_name in names or e.reflection_api in _METHOD_ENUMERATION
+        ]
+        name_match = [
+            e
+            for n in sorted(names)
+            for e in self._reflection_by_member.get(n, ())
+            if e.target_class is None
+        ]
+        cats = {
+            "selected_call_site": [sel.selected] if sel.selected is not None else [],
+            "matching_call_sites": list(matches),
+            "replacement_call_sites": list(repl_calls),
+            "reflection_targeting": targeting,
+            "reflection_name_match": name_match,
+            "reflection_unresolved": list(self.reflection_unresolved),
+            "dynamic_code_loading": list(self.dynamic_loading),
+        }
+        supers, missing = self.supertypes(cls)
+        return TargetEvidenceSet(
+            target=target,
+            defined=defined,
+            method=method,
+            categories={k: _sorted(v) for k, v in cats.items()},
+            component_states=dict(self.component_states),
+            supertypes=supers,
+            subtypes=self.subtypes(cls),
+            unresolved_supertypes=missing,
+            call=sel,
         )
 
     def _code(self, kind: ReferenceKind, cls: str) -> list[Evidence]:

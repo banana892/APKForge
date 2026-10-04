@@ -41,20 +41,58 @@ from apkforge.transformation.models import (
     TransformationTarget,
 )
 from apkforge.transformation.selector import TargetEvidenceSelector
-from apkforge.transformation.targets import ParseError, parse_target, resolve_class, resolve_method
+from apkforge.transformation.targets import (
+    ParseError,
+    parse_method_ref,
+    parse_target,
+    resolve_class,
+    resolve_method,
+)
 
 if TYPE_CHECKING:
-    from apkforge.reference.models import ReferenceAnalysisResult
+    from apkforge.reference.models import DefinedClass, ReferenceAnalysisResult
     from apkforge.reference.service import ReferenceAnalysisService
     from apkforge.transformation.models import TransformationSpec
     from apkforge.transformation.selector import TargetEvidenceSet
 
 __all__ = [
     "H2_STATEMENT",
+    "REPLACEMENT_PARAMETER",
     "TransformationPlanner",
     "TransformationPlanningService",
     "decision_id_for",
+    "smali_method_ref",
 ]
+
+#: H-TRANS-003: the (only) parameter, the replacement method ``com.x.R->name(proto)``
+REPLACEMENT_PARAMETER = "replacement"
+
+
+def smali_method_ref(class_name: str, name: str, descriptor: str) -> str:
+    """``com.x.A`` + ``get`` + ``()I`` -> ``Lcom/x/A;->get()I`` (the smali operand form)."""
+    return f"L{class_name.replace('.', '/')};->{name}{descriptor}"
+
+
+def _replacement(
+    parameters: dict[str, str],
+) -> tuple[TransformationTarget | None, str | None]:
+    """(normalised replacement target, problem) for an H-TRANS-003 request."""
+    unknown = sorted(set(parameters) - {REPLACEMENT_PARAMETER})
+    if unknown:
+        return None, f"unknown parameter(s) {unknown}; H-TRANS-003 takes only 'replacement'"
+    raw = parameters.get(REPLACEMENT_PARAMETER)
+    if not raw:
+        return None, (
+            "the 'replacement' parameter is required (the replacement method, e.g. "
+            "com.example.Replacement->get()Ljava/lang/String;)"
+        )
+    parsed = parse_method_ref(raw)
+    if isinstance(parsed, ParseError):
+        return None, f"replacement {raw!r}: {parsed.message}"
+    if parsed.descriptor is None:
+        return None, f"replacement {raw!r} must carry its full descriptor (name(params)return)"
+    return parsed, None
+
 
 H2_STATEMENT = (
     "H.2 determines whether a proposed transformation is supported by the available static "
@@ -137,7 +175,13 @@ class TransformationPlanner:
                     None if isinstance(t, ParseError) else t,
                 )
                 for req, (spec, t) in zip(requests, parsed, strict=True)
-            ]
+            ],
+            replacements=[
+                _replacement(req.parameters)[0]
+                if spec is not None and spec.target_type is TargetKind.CALL_SITE
+                else None
+                for req, (spec, _t) in zip(requests, parsed, strict=True)
+            ],
         )
         decisions = [
             self._decide(req, spec, t, conflicts.get(i, []))
@@ -165,6 +209,15 @@ class TransformationPlanner:
         target: TransformationTarget | ParseError,
         conflicts: list[ConflictRecord],
     ) -> TransformationDecision:
+        replacement: TransformationTarget | None = None
+        replacement_problem: str | None = None
+        if spec is not None and spec.target_type is TargetKind.CALL_SITE:
+            replacement, replacement_problem = _replacement(req.parameters)
+            if replacement is not None:
+                # the plan (and its id) carry the normalised replacement
+                req = req.model_copy(
+                    update={"parameters": {REPLACEMENT_PARAMETER: replacement.canonical}}
+                )
         tid = spec.id if spec else req.transformation_id.strip()
         canonical = target.canonical if isinstance(target, TransformationTarget) else req.target
         did = decision_id_for(
@@ -183,17 +236,41 @@ class TransformationPlanner:
             return self._final(did, tid, None, req, EligibilityState.UNSUPPORTED, [reason], [])
 
         ev = self.evaluator.start(spec)
-        first = "class_exists" if spec.target_type is TargetKind.CLASS else "method_exists"
+        first = {
+            TargetKind.CLASS: "class_exists",
+            TargetKind.METHOD: "method_exists",
+            TargetKind.CALL_SITE: "call_site_exists",
+        }[spec.target_type]
+        if replacement_problem is not None:
+            ev.fail(
+                "replacement_method_resolved", DecisionReason.PARAMETER_INVALID, replacement_problem
+            )
         res = resolve_class(target, self.selector.classes, self.selector.simple_names)
         method = None
-        if res.code is None and target.kind is TargetKind.METHOD:
+        if res.code is None and target.kind in (TargetKind.METHOD, TargetKind.CALL_SITE):
             assert res.defined is not None
             res = resolve_method(target, res.defined)
             method = res.method
+            if res.code is DecisionReason.TARGET_AMBIGUOUS and target.kind is TargetKind.CALL_SITE:
+                res = type(res)(
+                    defined=res.defined,
+                    code=DecisionReason.CALL_SITE_AMBIGUOUS,
+                    message=f"caller {res.message}",
+                    candidates=res.candidates,
+                )
         if res.code is not None:
             self._unresolved(ev, first, res.code, res.message)
             self._conflicts(ev, conflicts)
             return self._final(did, tid, target, req, ev.state, ev.reasons, ev.requirements)
+
+        if target.kind is TargetKind.CALL_SITE:
+            assert res.defined is not None and method is not None
+            ts = self.selector.select_call_site(target, res.defined, method, replacement)
+            self.evaluator.evaluate_call_site(ev, ts, self.selector.classes)
+            self._conflicts(ev, conflicts)
+            return self._final(
+                did, tid, target, req, ev.state, ev.reasons, ev.requirements, ts=ts, spec=spec
+            )
         ev.ok(first)
 
         ts = self.selector.select(target, res.defined, method)
@@ -285,6 +362,8 @@ class TransformationPlanner:
                 "no other DEX, manifest, resource, asset or native-library entry changes "
                 "(signature files excepted)",
             ]
+        elif target.kind is TargetKind.CALL_SITE:
+            changes, expected = self._call_site_change(dc, dex, target, req, ts)
         else:
             m = ts.method
             assert m is not None
@@ -332,6 +411,75 @@ class TransformationPlanner:
             compatibility_constraints=list(spec.compatibility_constraints),
             limitations=list(spec.limitations),
         )
+
+    @staticmethod
+    def _call_site_change(
+        dc: DefinedClass,
+        dex: str,
+        target: TransformationTarget,
+        req: TransformationRequest,
+        ts: TargetEvidenceSet,
+    ) -> tuple[list[PlannedTransformChange], list[str]]:
+        """The single ``replace_call_site`` change: everything needed to locate, check and
+        rewrite the one invocation without rescanning the APK."""
+        call, caller = ts.call, ts.method
+        assert call is not None and call.selected is not None and caller is not None
+        assert call.replacement is not None and call.occurrence is not None
+        sel, repl = call.selected, call.replacement
+        assert repl.method_name is not None and repl.descriptor is not None
+        original = smali_method_ref(
+            sel.target_class or "", sel.member_name or "", sel.descriptor or ""
+        )
+        replacement = smali_method_ref(repl.class_name, repl.method_name, repl.descriptor)
+        registers = list(sel.registers or ())
+        details = {
+            "dex": dex,
+            "caller_class": dc.name,
+            "caller_method": caller.signature,
+            "source_line": str(sel.source_line or ""),
+            "evidence_id": sel.evidence_id,
+            "opcode": sel.instruction or "",
+            "registers": ", ".join(registers),
+            "register_count": str(len(registers)),
+            "result_register": sel.result_register or "",
+            "result_instruction": sel.result_instruction or "",
+            "original": original,
+            "replacement": replacement,
+            "occurrence": str(call.occurrence),
+            "occurrences_in_caller": str(len(call.matches)),
+            "invocations_in_caller": str(
+                len(ts.categories.get("matching_call_sites", []))
+                + len(ts.categories.get("replacement_call_sites", []))
+            ),
+            "expected_mutation_count": "1",
+        }
+        changes = [
+            PlannedTransformChange(
+                type="replace_call_site",
+                target=target.canonical,
+                artifact=dc.source_file,
+                details=details,
+            )
+        ]
+        regs = ", ".join(registers)
+        expected = [
+            f"{dex}: in {dc.name}->{caller.signature}, the invocation at smali line "
+            f"{sel.source_line} becomes `{sel.instruction} {{{regs}}}, {replacement}` "
+            f"(was `{sel.instruction} {{{regs}}}, {original}`)",
+            "exactly 1 call site changes; opcode, operand registers"
+            + (
+                f" and `{sel.result_instruction} {sel.result_register}`"
+                if sel.result_register
+                else " and result handling (discarded)"
+            )
+            + " are unchanged",
+            f"{dc.name}->{caller.signature} invokes {original} "
+            f"{len(call.matches)} -> {len(call.matches) - 1} time(s) and {replacement} "
+            f"{len(call.replacement_calls)} -> {len(call.replacement_calls) + 1} time(s)",
+            "no other instruction, method, class, manifest, resource, asset or native-library "
+            "entry changes (signature files excepted)",
+        ]
+        return changes, expected
 
 
 class TransformationPlanningService:

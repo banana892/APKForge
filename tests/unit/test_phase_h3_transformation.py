@@ -91,8 +91,9 @@ def eligible(tmp_path: Path) -> tuple[Path, TransformationPlan]:
 
 def test_schema_and_scope() -> None:
     assert APPLICATION_SCHEMA_VERSION == 1
-    # H.3 applies H-TRANS-001, H.5 adds H-TRANS-002 (both controlled, ELIGIBLE-only)
-    assert SUPPORTED_TRANSFORMATIONS == ("H-TRANS-001", "H-TRANS-002")
+    # H.3 applies H-TRANS-001, H.5 adds H-TRANS-002, H.6 adds H-TRANS-003 (all controlled,
+    # ELIGIBLE-only)
+    assert SUPPORTED_TRANSFORMATIONS == ("H-TRANS-001", "H-TRANS-002", "H-TRANS-003")
     assert {s.value for s in AS} >= {
         "PLANNED", "APPLYING", "BUILT", "VERIFIED", "REFUSED", "FAILED", "UNKNOWN"
     }  # fmt: skip

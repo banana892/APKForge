@@ -134,6 +134,25 @@ class DecisionReason(StrEnum):
     METHOD_OVERRIDES = "METHOD_OVERRIDES"
     METHOD_OVERRIDDEN = "METHOD_OVERRIDDEN"
     OVERRIDE_RELATIONSHIP_UNRESOLVED = "OVERRIDE_RELATIONSHIP_UNRESOLVED"
+    # call sites (H-TRANS-003)
+    CALL_SITE_NOT_FOUND = "CALL_SITE_NOT_FOUND"
+    CALL_SITE_AMBIGUOUS = "CALL_SITE_AMBIGUOUS"
+    CALL_SITE_MULTIPLE_MATCHES = "CALL_SITE_MULTIPLE_MATCHES"
+    CALL_SITE_ALREADY_REPLACED = "CALL_SITE_ALREADY_REPLACED"
+    CALLER_ANALYSIS_INCOMPLETE = "CALLER_ANALYSIS_INCOMPLETE"
+    UNSUPPORTED_INVOKE_OPCODE = "UNSUPPORTED_INVOKE_OPCODE"
+    CONSTRUCTOR_INVOCATION = "CONSTRUCTOR_INVOCATION"
+    POLYMORPHIC_INVOCATION = "POLYMORPHIC_INVOCATION"
+    INVOKE_CUSTOM_UNSUPPORTED = "INVOKE_CUSTOM_UNSUPPORTED"
+    INVOKE_POLYMORPHIC_UNSUPPORTED = "INVOKE_POLYMORPHIC_UNSUPPORTED"
+    TARGET_METHOD_NOT_FOUND = "TARGET_METHOD_NOT_FOUND"
+    TARGET_RELATIONSHIP_UNRESOLVED = "TARGET_RELATIONSHIP_UNRESOLVED"
+    PARAMETER_INVALID = "PARAMETER_INVALID"
+    REPLACEMENT_METHOD_NOT_FOUND = "REPLACEMENT_METHOD_NOT_FOUND"
+    REPLACEMENT_SIGNATURE_MISMATCH = "REPLACEMENT_SIGNATURE_MISMATCH"
+    REPLACEMENT_INACCESSIBLE = "REPLACEMENT_INACCESSIBLE"
+    REGISTER_TYPE_MISMATCH = "REGISTER_TYPE_MISMATCH"
+    RESULT_TYPE_MISMATCH = "RESULT_TYPE_MISMATCH"
     # request set
     CONFLICTING_TRANSFORMATION = "CONFLICTING_TRANSFORMATION"
     # conditions (CONDITIONALLY_ELIGIBLE)
@@ -186,6 +205,24 @@ REASON_STATES: dict[DecisionReason, EligibilityState] = {
     _R.METHOD_OVERRIDES: _E.UNSUPPORTED,
     _R.METHOD_OVERRIDDEN: _E.UNSUPPORTED,
     _R.OVERRIDE_RELATIONSHIP_UNRESOLVED: _E.UNDETERMINED,
+    _R.CALL_SITE_NOT_FOUND: _E.REFUSED,
+    _R.CALL_SITE_AMBIGUOUS: _E.REFUSED,
+    _R.CALL_SITE_MULTIPLE_MATCHES: _E.REFUSED,
+    _R.CALL_SITE_ALREADY_REPLACED: _E.REFUSED,
+    _R.CALLER_ANALYSIS_INCOMPLETE: _E.UNDETERMINED,
+    _R.UNSUPPORTED_INVOKE_OPCODE: _E.UNSUPPORTED,
+    _R.CONSTRUCTOR_INVOCATION: _E.UNSUPPORTED,
+    _R.POLYMORPHIC_INVOCATION: _E.UNSUPPORTED,
+    _R.INVOKE_CUSTOM_UNSUPPORTED: _E.UNSUPPORTED,
+    _R.INVOKE_POLYMORPHIC_UNSUPPORTED: _E.UNSUPPORTED,
+    _R.TARGET_METHOD_NOT_FOUND: _E.REFUSED,
+    _R.TARGET_RELATIONSHIP_UNRESOLVED: _E.UNDETERMINED,
+    _R.PARAMETER_INVALID: _E.REFUSED,
+    _R.REPLACEMENT_METHOD_NOT_FOUND: _E.REFUSED,
+    _R.REPLACEMENT_SIGNATURE_MISMATCH: _E.REFUSED,
+    _R.REPLACEMENT_INACCESSIBLE: _E.REFUSED,
+    _R.REGISTER_TYPE_MISMATCH: _E.REFUSED,
+    _R.RESULT_TYPE_MISMATCH: _E.REFUSED,
     _R.CONFLICTING_TRANSFORMATION: _E.REFUSED,
     _R.KOTLIN_METADATA_UPDATE_REQUIRED: _E.CONDITIONALLY_ELIGIBLE,
 }
@@ -195,6 +232,8 @@ assert set(REASON_STATES) == set(DecisionReason)
 class TargetKind(StrEnum):
     CLASS = "class"
     METHOD = "method"
+    #: H.6: one invocation inside one method (``CALLER@INVOKED[#N]``)
+    CALL_SITE = "call_site"
 
 
 class TransformationTarget(BaseModel):
@@ -202,19 +241,39 @@ class TransformationTarget(BaseModel):
 
     Classes are dotted (``com.example.Foo``). Methods carry the class, the name and the
     smali proto (``(I)V``); ``descriptor`` is None when the request omitted it.
+
+    A call site (H.6) is the *caller* method (``class_name`` / ``method_name`` /
+    ``descriptor``) plus the invoked method it calls (``invoked_*``) and, when the caller
+    invokes it more than once, the 1-based ``occurrence`` in source order. The ``invoked_*``
+    fields and ``occurrence`` are None for class and method targets (omitted from JSON).
     """
 
     kind: TargetKind
     class_name: str
     method_name: str | None = None
     descriptor: str | None = None
+    invoked_class: str | None = None
+    invoked_name: str | None = None
+    invoked_descriptor: str | None = None
+    occurrence: int | None = None
     #: the request as given (before normalisation)
     raw: str
+
+    @property
+    def caller(self) -> str:
+        return f"{self.class_name}->{self.method_name}{self.descriptor or ''}"
+
+    @property
+    def invoked(self) -> str:
+        return f"{self.invoked_class}->{self.invoked_name}{self.invoked_descriptor or ''}"
 
     @property
     def canonical(self) -> str:
         if self.kind is TargetKind.CLASS:
             return self.class_name
+        if self.kind is TargetKind.CALL_SITE:
+            nth = f"#{self.occurrence}" if self.occurrence is not None else ""
+            return f"{self.caller}@{self.invoked}{nth}"
         return f"{self.class_name}->{self.method_name}{self.descriptor or ''}"
 
 

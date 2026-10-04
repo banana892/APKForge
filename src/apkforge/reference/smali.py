@@ -71,6 +71,10 @@ _METHOD_REF = re.compile(
     r"(?P<proto>\((?P<params>[^)]*)\)(?P<ret>" + _RET + r"))"
 )
 _FIELD_REF = re.compile(r"(?P<owner>L[^;\s]+;)->(?P<name>[^\s:]+):(?P<type>" + _TYPE + r")")
+#: ``invoke-custom {regs}, call_site_N("name", (proto), ...)@Lowner;->bootstrap(...)R``
+_CALL_SITE = re.compile(
+    r"\{(?P<regs>[^}]*)\}\s*,\s*(?P<site>.*)@(?P<ref>L[^;\s@]+;->[^\s(@]+\([^)@]*\)" + _RET + r")$"
+)
 _INVOKE_OP = re.compile(
     r"invoke-(?P<kind>virtual|super|direct|static|interface|polymorphic|custom)(?P<range>/range)?"
 )
@@ -377,6 +381,8 @@ class _Parser:
         #: ``.field`` / ``.param`` whose annotations may follow (not class/method level)
         self.member_ctx: str | None = None
         self.current: DefinedMethod | None = None
+        #: the invocation a following ``move-result*`` consumes the value of
+        self.last_invoke: Evidence | None = None
 
     # -- recording -----------------------------------------------------------
 
@@ -548,6 +554,7 @@ class _Parser:
                 self.java_line = None
                 self.regs.clear()
                 self.pending = None
+                self.last_invoke = None
             elif rest.split(None, 1)[0] in ("field", "param", "local"):
                 self.member_ctx = None  # ".end local v2" carries a register operand
             else:
@@ -683,11 +690,17 @@ class _Parser:
         op = intern(parts[0])
         rest = parts[1].strip() if len(parts) > 1 else ""
         pending, self.pending = self.pending, None
+        last_invoke, self.last_invoke = self.last_invoke, None
+        if last_invoke is not None and op.startswith("move-result"):
+            last_invoke.result_register = rest.strip() or None
+            last_invoke.result_instruction = op
 
         if op in _UNSUPPORTED_OPS:
             self.issue("UNSUPPORTED_INSTRUCTION", f"{op} is not interpreted")
             self.generic_types(rest)
             self.write_reg(rest)
+            if op.startswith("invoke-custom"):
+                self.call_site(op, rest)
             return
         if op.startswith("invoke-"):
             self.invoke(op, rest)
@@ -816,7 +829,7 @@ class _Parser:
         owner_label = owner if owner is not None else readable_type(owner_desc)
         kind = InvokeKind(f"invoke-{m_op.group('kind')}")
         is_ctor = name == "<init>"
-        self.add(
+        self.last_invoke = self.add(
             ReferenceKind.CONSTRUCTOR_REFERENCE if is_ctor else ReferenceKind.METHOD_REFERENCE,
             intern(f"{owner_label}.{name}{proto}"),
             target_class=intern(owner) if owner is not None else None,
@@ -827,6 +840,7 @@ class _Parser:
             invoke_kind=kind,
             instruction=intern(op),
             confidence_basis=intern(f"{op} instruction names the method"),
+            registers=tuple(intern(r) for r in regs),
         )
         self.class_ref(owner_desc, op, "member-owner")
         self.type_ref(owner_desc, "member-owner", op)
@@ -835,6 +849,36 @@ class _Parser:
         self.type_ref(m.group("ret"), "member-descriptor", op)
         if owner is not None:
             self.dynamic_indicators(op, kind, owner, name, proto, regs)
+
+    def call_site(self, op: str, rest: str) -> None:
+        """Schema 3: record an ``invoke-custom`` call site as an invocation of its bootstrap
+        method. The instruction stays an UNSUPPORTED_INSTRUCTION issue (the file remains
+        PARTIAL: the dynamically linked target is not resolved); the record only makes the
+        call site, its opcode and its registers addressable."""
+        m = _CALL_SITE.match(rest)
+        regs = _registers(m.group("regs")) if m else None
+        ref = _METHOD_REF.fullmatch(m.group("ref")) if m else None
+        if ref is None or regs is None:
+            return
+        owner, _dims = class_name_from_descriptor(ref.group("owner"))
+        params = split_proto(ref.group("params")) or []
+        self.last_invoke = self.add(
+            ReferenceKind.METHOD_REFERENCE,
+            intern(f"{owner}.{ref.group('name')}{ref.group('proto')}"),
+            target_class=intern(owner) if owner is not None else None,
+            member_name=intern(ref.group("name")),
+            descriptor=intern(ref.group("proto")),
+            parameter_types=tuple(intern(readable_type(p)) for p in params),
+            return_type=intern(readable_type(ref.group("ret"))),
+            invoke_kind=InvokeKind.CUSTOM,
+            instruction=intern(op),
+            context="call-site-bootstrap",
+            confidence_basis=(
+                f"{op} links its call site through this bootstrap method at run time; the "
+                "invoked target is not resolved statically"
+            ),
+            registers=tuple(intern(r) for r in regs),
+        )
 
     # -- reflection / native -------------------------------------------------
 

@@ -54,6 +54,13 @@ def _decision(d: TransformationDecision, verbose: bool) -> list[str]:
         lines += ["Planned changes (not applied):", ""]
         for ch in d.plan.planned_changes:
             lines.append(f"- `{ch.type}` {ch.target} ({ch.artifact})")
+            if ch.type == "replace_call_site":
+                det = ch.details
+                lines.append(
+                    f"  - line {det.get('source_line')}: `{det.get('opcode')} "
+                    f"{{{det.get('registers')}}}, {det.get('original')}` -> "
+                    f"`{det.get('replacement')}`"
+                )
         for cond in d.plan.conditions:
             lines.append(f"- Condition `{cond.code.value}`: {cond.description}")
         lines.append("")
@@ -94,12 +101,15 @@ def format_application_report(result: TransformationApplicationResult) -> str:
     """Markdown report for an H.3 application (or plan validation)."""
     mode = "plan validation, nothing applied" if result.dry_run else "application"
     history = " -> ".join(s.value for s in result.status_history)
-    lines = [f"# APKForge controlled transformation (Phase H.3, {mode})", ""]
+    # H-TRANS-001/-002 reports keep their H.3 title; H-TRANS-003 is reported as H.6
+    phase = "H.6" if result.transformation_id == "H-TRANS-003" else "H.3"
+    lines = [f"# APKForge controlled transformation (Phase {phase}, {mode})", ""]
     lines += [
         f"- Status: **{result.status.value}** ({history})",
         f"- Transformation: {result.transformation_id or '?'}",
         f"- Plan id: `{result.plan_id or '?'}`",
-        f"- Target: `{result.target.get('class', '?')}` ({result.target.get('file', '?')})",
+        f"- Target: `{result.target.get('call_site') or result.target.get('class', '?')}` "
+        f"({result.target.get('file', '?')})",
         f"- Source SHA-256: `{result.source_apk_sha256}` (unchanged: {result.original_unchanged})",
     ]
     if result.output_apk:
@@ -115,7 +125,23 @@ def format_application_report(result: TransformationApplicationResult) -> str:
             f"- `{c['type']}` {c['target']} ({c.get('artifact')})" for c in result.planned_changes
         ]
         lines.append("")
-    if result.mutation is not None:
+    if result.mutation is not None and result.mutation.operation == "REPLACE_CALL_SITE":
+        m = result.mutation
+        lines += [
+            "| Mutation | Value |",
+            "|---|---|",
+            f"| operation | {m.operation} |",
+            f"| target file | {m.target_file} (line {m.source_line}) |",
+            f"| before | `{m.original_instruction}` |",
+            f"| after | `{m.replacement_instruction}` |",
+            f"| changed lines | {m.changed_lines} |",
+            f"| call sites changed | {m.count} |",
+            f"| other changes | {len(m.other_changes)} |",
+            f"| pre-transform SHA-256 | `{m.pre_transform_sha256}` |",
+            f"| post-transform SHA-256 | `{m.post_transform_sha256}` |",
+            "",
+        ]
+    elif result.mutation is not None:
         m = result.mutation
         lines += [
             "| Mutation | Value |",

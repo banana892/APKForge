@@ -98,7 +98,8 @@ def test_every_reason_maps_to_a_state() -> None:
 
 
 def test_catalog_entries_have_required_fields() -> None:
-    assert sorted(CATALOG) == ["H-TRANS-001", "H-TRANS-002"]
+    # H.6 adds H-TRANS-003 (controlled call-site replacement) to the catalog
+    assert sorted(CATALOG) == ["H-TRANS-001", "H-TRANS-002", "H-TRANS-003"]
     for spec in CATALOG.values():
         for field in (
             "required_evidence",
@@ -113,7 +114,8 @@ def test_catalog_entries_have_required_fields() -> None:
 
 
 def test_h1_schema_records_declarations() -> None:
-    assert SCHEMA_VERSION == 2
+    # schema 3 (H.6) adds invocation registers / move-result; the schema-2 declarations stay
+    assert SCHEMA_VERSION == 3
     text = (
         ".class public abstract Lcom/x/A;\n.super Landroid/app/Activity;\n"
         ".implements Ljava/lang/Runnable;\n"

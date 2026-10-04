@@ -2420,14 +2420,25 @@ def cmd_transform(
         [],
         "--transform",
         "-t",
-        help="Transformation id (H-TRANS-001, H-TRANS-002). Repeat to pair with --target.",
+        help="Transformation id (H-TRANS-001, H-TRANS-002, H-TRANS-003). Repeat to pair "
+        "with --target.",
     ),
     targets: list[str] = typer.Option(
         [],
         "--target",
         help=(
-            "Target: com.example.Foo (class) or 'com.example.Foo->bar(I)V' (method). "
-            "Repeatable; requests in one run are checked for conflicts."
+            "Target: com.example.Foo (class), 'com.example.Foo->bar(I)V' (method) or, for "
+            "H-TRANS-003, a call site 'CALLER@INVOKED\\[#N]' (e.g. "
+            "'com.x.A->run()V@com.x.Source->get()I#2'). Repeatable; requests in one run are "
+            "checked for conflicts."
+        ),
+    ),
+    replacements: list[str] = typer.Option(
+        [],
+        "--replacement",
+        help=(
+            "H-TRANS-003: the replacement method 'com.x.Replacement->get()I' (full "
+            "descriptor). One for all targets, or one per --target; only with H-TRANS-003."
         ),
     ),
     dry_run: bool = typer.Option(
@@ -2445,8 +2456,8 @@ def cmd_transform(
     apply: bool = typer.Option(
         False,
         "--apply",
-        help="H.3/H.5: apply the --plan (ELIGIBLE H-TRANS-001 / H-TRANS-002 only) and write "
-        "--output.",
+        help="H.3/H.5/H.6: apply the --plan (ELIGIBLE H-TRANS-001 / -002 / -003 only) and "
+        "write --output.",
     ),
     output: Path | None = typer.Option(
         None,
@@ -2481,7 +2492,7 @@ def cmd_transform(
         None, "--work-dir", help="Workspace parent directory for the H.1 decode.", file_okay=False
     ),
 ) -> None:
-    """[green]🧭 Phase H.2/H.3[/green] — Transformation planning and controlled application.
+    """[green]🧭 Phase H.2-H.6[/green] — Transformation planning and controlled application.
 
     H.2 (-t/--target): evaluates whether each requested transformation is supported by the
     H.1 static evidence (ELIGIBLE, CONDITIONALLY_ELIGIBLE, REFUSED, UNSUPPORTED,
@@ -2490,7 +2501,8 @@ def cmd_transform(
     H.3/H.5 (--plan PLAN.json): validates a previously generated plan against APK (source
     SHA-256, plan id, eligibility, H.2 re-evaluation) and reports what would be applied.
     With --apply, an ELIGIBLE plan is applied to a copy: H-TRANS-001 removes one class,
-    H-TRANS-002 removes one method; the result is rebuilt, aligned, signed, verified,
+    H-TRANS-002 removes one method, H-TRANS-003 replaces the method reference of one call
+    site (--replacement at planning time); the result is rebuilt, aligned, signed, verified,
     re-analysed and diffed; --output is written only when every check passed. The plan
     determines the transformation and dispatches to the matching transformer. There is no
     override. APK itself is never modified.
@@ -2507,8 +2519,8 @@ def cmd_transform(
                 err=True,
             )
             raise typer.Exit(code=2)
-        if transform_ids or targets:
-            typer.echo("error: --plan cannot be combined with -t/--target.", err=True)
+        if transform_ids or targets or replacements:
+            typer.echo("error: --plan cannot be combined with -t/--target/--replacement.", err=True)
             raise typer.Exit(code=2)
         if apply and dry_run:
             typer.echo("error: --apply and --dry-run are mutually exclusive.", err=True)
@@ -2540,6 +2552,12 @@ def cmd_transform(
             err=True,
         )
         raise typer.Exit(code=2)
+    if replacements and len(replacements) not in (1, len(targets)):
+        typer.echo(
+            "error: give one --replacement for all targets, or one --replacement per --target.",
+            err=True,
+        )
+        raise typer.Exit(code=2)
 
     from apkforge.reference import ReferenceAnalysisService
     from apkforge.transformation import (
@@ -2552,9 +2570,17 @@ def cmd_transform(
     setup_logging(cfg.log_level)
 
     ids = transform_ids * len(targets) if len(transform_ids) == 1 else transform_ids
+    if replacements and any(t.strip().upper() != "H-TRANS-003" for t in ids):
+        typer.echo("error: --replacement applies only to H-TRANS-003 requests.", err=True)
+        raise typer.Exit(code=2)
+    repl: list[str | None] = [None] * len(targets)
+    if replacements:
+        repl = list(replacements * len(targets) if len(replacements) == 1 else replacements)
     requests = [
-        TransformationRequest(transformation_id=t, target=x)
-        for t, x in zip(ids, targets, strict=True)
+        TransformationRequest(
+            transformation_id=t, target=x, parameters={"replacement": r} if r else {}
+        )
+        for t, x, r in zip(ids, targets, repl, strict=True)
     ]
     service = TransformationPlanningService(ReferenceAnalysisService(work_dir=work_dir))
     result = service.plan(apk, requests, include_resources=not skip_resources)
@@ -3454,8 +3480,8 @@ def cmd_verify(
     plan_file: Path | None = typer.Option(
         None,
         "--plan",
-        help="H.4: the H.2 plan MODIFIED was transformed with (H-TRANS-001). Verifies "
-        "ORIGINAL / --control / MODIFIED per domain with explicit completeness.",
+        help="H.4: the H.2 plan MODIFIED was transformed with (H-TRANS-001, -002 or -003). "
+        "Verifies ORIGINAL / --control / MODIFIED per domain with explicit completeness.",
         exists=True,
         dir_okay=False,
     ),

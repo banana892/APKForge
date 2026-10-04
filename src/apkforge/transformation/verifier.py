@@ -1,4 +1,4 @@
-"""Phase H.4: hardened verification of an applied ``H-TRANS-001`` transformation.
+"""Phase H.4: hardened verification of an applied H-TRANS-001/-002/-003 transformation.
 
 ::
 
@@ -65,13 +65,16 @@ from apkforge.transformation.application import SUPPORTED_TRANSFORMATIONS
 from apkforge.transformation.dexstate import (
     method_census,
     method_key,
+    replace_invocation,
     split_method_block,
     take_census,
 )
 from apkforge.transformation.executor import (
     PlanRefusal,
     assess_post_analysis,
+    assess_post_analysis_call_site,
     assess_post_analysis_method,
+    call_site_consequences,
     content_sha256,
     load_plan,
     method_removal_consequences,
@@ -80,6 +83,8 @@ from apkforge.transformation.executor import (
 )
 from apkforge.transformation.models import TargetKind
 from apkforge.transformation.modifier import (
+    call_site_expectations,
+    call_site_strings,
     method_removal_expectations,
     removal_expectations,
     strings_removed,
@@ -113,7 +118,11 @@ if TYPE_CHECKING:
     from apkforge.diff.models import DiffResult
     from apkforge.diff.normalization import ToolchainIdentity
     from apkforge.reference.service import ReferenceAnalysisService
-    from apkforge.transformation.application import MethodPostAnalysis, PostAnalysis
+    from apkforge.transformation.application import (
+        CallSitePostAnalysis,
+        MethodPostAnalysis,
+        PostAnalysis,
+    )
     from apkforge.transformation.models import PlanningResult, TransformationPlan
 
 __all__ = ["LEGS", "TransformationVerifier", "domain_of"]
@@ -429,6 +438,9 @@ class TransformationVerifier:
         if plan.planned_changes:
             ch = plan.planned_changes[0]
             r.target.update(file=ch.artifact or "", dex=ch.details.get("dex", ""))
+            if plan.target.kind is TargetKind.CALL_SITE:
+                r.target.update(call_site=plan.target.canonical,
+                                line=ch.details.get("source_line", ""))  # fmt: skip
         recomputed = plan_id_for(plan)
         problems = []
         if plan.apk.sha256 != ctx.sha_a:
@@ -483,8 +495,12 @@ class TransformationVerifier:
         target = plan.target.class_name
         target_file = plan.planned_changes[0].artifact or ""
         is_method = plan.target.kind is TargetKind.METHOD
+        is_call = plan.target.kind is TargetKind.CALL_SITE
+        api_added: set[str] = set()
         try:
-            if is_method:
+            if is_call:
+                api_removed, api_added, pool = call_site_consequences(ctx.a, plan)
+            elif is_method:
                 assert plan.target.method_name is not None and plan.target.descriptor is not None
                 key, api_removed, pool = method_removal_consequences(
                     ctx.a, target, plan.target.method_name, plan.target.descriptor
@@ -513,6 +529,25 @@ class TransformationVerifier:
                     f"(found {census.classes.get(target)}; unparsed {census.unparsed[:3]})"
                 )
                 return None
+            if is_call:
+                d = plan.planned_changes[0].details
+                text = (ws.decoded_dir / target_file).read_text(encoding="utf-8")
+                new_text = replace_invocation(
+                    text, int(d["source_line"]), d["original"], d["replacement"]
+                )
+                if new_text is None:
+                    ctx.unverified.append(
+                        f"the planned invocation {d['original']} is not at "
+                        f"{target_file}:{d['source_line']} of the original"
+                    )
+                    return None
+                changed_strings = call_site_strings(
+                    ws.decoded_dir, census, target_file, text, new_text, pool
+                )
+                return call_site_expectations(
+                    target, d["caller_method"].partition("(")[0], plan.target.canonical,
+                    changed_strings, (api_removed, api_added),
+                )  # fmt: skip
             if is_method:
                 assert plan.target.method_name is not None and plan.target.descriptor is not None
                 signature = f"{plan.target.method_name}{plan.target.descriptor}"
@@ -661,7 +696,9 @@ class TransformationVerifier:
             try:
                 pre = ref.analyze(ctx.a)
                 post = ref.analyze(ctx.c)
-                if ctx.plan.target.kind is TargetKind.METHOD:
+                if ctx.plan.target.kind is TargetKind.CALL_SITE:
+                    r.call_site_post_analysis = assess_post_analysis_call_site(pre, post, ctx.plan)
+                elif ctx.plan.target.kind is TargetKind.METHOD:
                     assert ctx.plan.target.method_name is not None
                     assert ctx.plan.target.descriptor is not None
                     r.method_post_analysis = assess_post_analysis_method(
@@ -957,6 +994,86 @@ def _method_invariants(ctx: _Context, dex_ok: bool) -> None:
         )  # fmt: skip
 
 
+def _call_site_invariants(ctx: _Context, dex_ok: bool) -> None:
+    """Invariants for H-TRANS-003: on both transformation legs exactly the caller method's
+    code changed (no declaration, no other class), and the H.1 re-analysis shows the
+    original invocation replaced at exactly the planned position and nothing else."""
+    r = ctx.result
+    p, f, u = CheckStatus.PASSED, CheckStatus.FAILED, CheckStatus.UNDETERMINED
+    plan = ctx.plan
+    assert plan is not None
+    d = plan.planned_changes[0].details
+    caller, method = d["caller_class"], d["caller_method"]
+    name = method.partition("(")[0]
+    cls = ctx.classes
+    sides = (cls.get("original"), cls.get("control"), cls.get("transformed"))
+    retained = None if None in sides else all(caller in s for s in sides)  # type: ignore[operator]
+    ctx.invariant(
+        "caller_class_retained", D.DEX,
+        f"{caller} defined in the original, the control and the transformed rebuild",
+        "unknown" if retained is None else str(retained),
+        u if retained is None else p if retained else f,
+    )  # fmt: skip
+    for leg in (AC, BC):
+        dd = ctx.diffs[leg].dex
+        modified = {c.class_name: c for c in dd.classes_modified}
+        cd = modified.get(caller)
+        changed = [m.method_name for m in cd.methods_modified] if cd else []
+        ctx.invariant(
+            f"exactly_one_method_body_changed[{leg}]", D.DEX, f"[{name}]", str(changed),
+            p if changed == [name] else f if dex_ok else u,
+        )  # fmt: skip
+        decl = (
+            cd.methods_added + cd.methods_removed + cd.fields_added + cd.fields_removed
+            + [m.field_name for m in cd.fields_modified]
+            if cd else []
+        )  # fmt: skip
+        other_classes = sorted(n for n in modified if n != caller)
+        changes = {
+            "declarations": decl,
+            "other classes modified": other_classes,
+            "classes added": list(dd.classes_added),
+            "classes removed": list(dd.classes_removed),
+            "dex files": [*dd.dex_files_added, *dd.dex_files_removed],
+        }
+        clean = not any(changes.values())
+        ctx.invariant(
+            f"no_other_change[{leg}]", D.DEX,
+            "no declaration, no other class and no DEX file changes",
+            "none" if clean else "; ".join(f"{k} {v}" for k, v in changes.items() if v),
+            p if clean else f,
+        )  # fmt: skip
+    pa = r.call_site_post_analysis
+    expected_h1 = (
+        "original invocation replaced at exactly the planned position; no other reference or "
+        "declaration differs; DEX COMPLETE, no component weakened"
+    )
+    if pa is None:
+        ctx.invariant("h1_call_site_state", D.DEX, expected_h1, "not analysed", u)
+        return
+    problems = []
+    hard = False
+    if not pa.caller_present:
+        problems.append(f"{caller}->{method} not declared")
+        hard = True
+    if not pa.replacement_at_planned_position or len(pa.changed_positions) != 1:
+        problems.append(f"changed positions {pa.changed_positions}; replacement at planned "
+                        f"position {pa.replacement_at_planned_position}")  # fmt: skip
+        hard = True
+    others = pa.other_reference_changes + pa.caller_reference_changes + pa.declaration_changes
+    if others:
+        problems.append(f"other changes {others[:5]}")
+        hard = True
+    if not pa.sufficient:
+        problems.append(f"analysis {pa.analysis_state}, weakened {pa.weakened_components}")
+    ctx.invariant(
+        "h1_call_site_state", D.DEX, expected_h1,
+        "; ".join(problems) or f"invocations {len(pa.invocations_before)} -> "
+        f"{len(pa.invocations_after)}, position {pa.changed_positions} replaced",
+        f if hard else u if not pa.sufficient else p,
+    )  # fmt: skip
+
+
 def _invariants(ctx: _Context) -> None:
     r = ctx.result
     if ctx.ac is None or ctx.bc is None:
@@ -968,7 +1085,9 @@ def _invariants(ctx: _Context) -> None:
         for leg in (AC, BC)
         for name in ("dex", "strings")
     )
-    if ctx.plan is not None and ctx.plan.target.kind is TargetKind.METHOD:
+    if ctx.plan is not None and ctx.plan.target.kind is TargetKind.CALL_SITE:
+        _call_site_invariants(ctx, dex_ok)
+    elif ctx.plan is not None and ctx.plan.target.kind is TargetKind.METHOD:
         _method_invariants(ctx, dex_ok)
     elif ctx.plan is not None:
         target = ctx.plan.target.class_name
@@ -1096,11 +1215,10 @@ def _domains(ctx: _Context) -> None:
                 if level is not Completeness.COMPLETE:
                     reasons.append(f"{leg}: {name} {res.status} ({res.reason})")
         if dom is D.DEX and ctx.plan is not None and ctx.ac is not None:
-            pa: PostAnalysis | MethodPostAnalysis | None = (
-                r.method_post_analysis
-                if ctx.plan.target.kind is TargetKind.METHOD
-                else r.post_analysis
-            )
+            pa: PostAnalysis | MethodPostAnalysis | CallSitePostAnalysis | None = {
+                TargetKind.METHOD: r.method_post_analysis,
+                TargetKind.CALL_SITE: r.call_site_post_analysis,
+            }.get(ctx.plan.target.kind, r.post_analysis)
             if pa is None:
                 levels.append(Completeness.UNKNOWN)
                 reasons.append("H.1 re-analysis of the transformed rebuild not available")
@@ -1199,6 +1317,12 @@ def _facts(ctx: _Context, dom: VerificationDomain) -> dict[str, Any]:
             methods_removed=[
                 f"{c.class_name}::{m}" for c in ac.dex.classes_modified for m in c.methods_removed
             ],
+            methods_code_changed=[
+                f"{c.class_name}::{m.method_name}"
+                for c in ac.dex.classes_modified
+                for m in c.methods_modified
+                if m.code_changed
+            ],
         )
         if r.post_analysis is not None:
             pa = r.post_analysis
@@ -1208,6 +1332,19 @@ def _facts(ctx: _Context, dom: VerificationDomain) -> dict[str, Any]:
                 "target_defined": pa.target_defined,
                 "absence_conclusion": pa.absence_conclusion,
                 "references": pa.definitive_references + pa.indirect_references,
+            }
+        if r.call_site_post_analysis is not None:
+            cpa = r.call_site_post_analysis
+            facts["h1"] = {
+                "analysis_state": cpa.analysis_state,
+                "dex": cpa.component_states.get("dex"),
+                "caller_present": cpa.caller_present,
+                "invocations_before": cpa.invocations_before,
+                "invocations_after": cpa.invocations_after,
+                "changed_positions": cpa.changed_positions,
+                "other_changes": len(cpa.other_reference_changes)
+                + len(cpa.caller_reference_changes)
+                + len(cpa.declaration_changes),
             }
         if r.method_post_analysis is not None:
             mpa = r.method_post_analysis

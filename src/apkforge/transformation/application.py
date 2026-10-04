@@ -33,6 +33,7 @@ __all__ = [
     "ApplicationReason",
     "ApplicationStage",
     "ApplicationStatus",
+    "CallSitePostAnalysis",
     "CheckOutcome",
     "MatrixRow",
     "MethodPostAnalysis",
@@ -44,8 +45,9 @@ __all__ = [
 #: version of the H.3 result format
 APPLICATION_SCHEMA_VERSION = 1
 
-#: transformations the controlled executor can apply (H.3 remove class, H.5 remove method)
-SUPPORTED_TRANSFORMATIONS = ("H-TRANS-001", "H-TRANS-002")
+#: transformations the controlled executor can apply (H.3 remove class, H.5 remove method,
+#: H.6 replace one call site)
+SUPPORTED_TRANSFORMATIONS = ("H-TRANS-001", "H-TRANS-002", "H-TRANS-003")
 
 
 class ApplicationStatus(StrEnum):
@@ -134,7 +136,9 @@ class MutationRecord(BaseModel):
     For ``REMOVE_CLASS`` (H-TRANS-001) the target smali file is deleted and the class
     census shrinks by one. For ``REMOVE_METHOD`` (H-TRANS-002) the file is *modified*
     (one ``.method`` block removed), the class census is unchanged and the method fields
-    describe the single removed declaration.
+    describe the single removed declaration. For ``REPLACE_CALL_SITE`` (H-TRANS-003) the
+    caller's file is modified on exactly one line; ``count`` is the number of changed
+    call sites and the call-site fields describe it.
     """
 
     transformation_id: str
@@ -167,6 +171,21 @@ class MutationRecord(BaseModel):
     removed_methods: list[str] = Field(default_factory=list)
     added_methods: list[str] = Field(default_factory=list)
     changed_methods: list[str] = Field(default_factory=list)
+    # -- REPLACE_CALL_SITE only (H.6) --
+    #: the call-site target (``CALLER@INVOKED[#N]``) and its 1-based smali line
+    call_site: str | None = None
+    source_line: int | None = None
+    #: the smali instruction at that line before / after the mutation
+    original_instruction: str | None = None
+    replacement_instruction: str | None = None
+    #: 1-based lines of the caller file whose text differs after the mutation
+    changed_lines: list[int] = Field(default_factory=list)
+    #: invocation records (H.1 parser) removed / added by the mutation, as
+    #: ``line: opcode {regs} target``
+    removed_invocations: list[str] = Field(default_factory=list)
+    added_invocations: list[str] = Field(default_factory=list)
+    #: any other difference (other evidence, other files) the mutation produced
+    other_changes: list[str] = Field(default_factory=list)
 
 
 class CheckOutcome(StrEnum):
@@ -232,6 +251,40 @@ class MethodPostAnalysis(BaseModel):
     errors: list[str] = Field(default_factory=list)
 
 
+class CallSitePostAnalysis(BaseModel):
+    """H.1 re-analysis of a call-site replacement (H.6): the caller's invocation sequence
+    differs at exactly the planned position, nothing else in the APK does."""
+
+    analysis_schema: int
+    analysis_state: str
+    component_states: dict[str, str]
+    weakened_components: list[str] = Field(default_factory=list)
+    caller_class: str
+    caller_method: str
+    caller_present: bool
+    #: invocations of the caller method before / after, as ``opcode {regs} target -> result``
+    invocations_before: list[str] = Field(default_factory=list)
+    invocations_after: list[str] = Field(default_factory=list)
+    #: 0-based positions in the caller's invocation sequence that differ
+    changed_positions: list[int] = Field(default_factory=list)
+    #: the planned position holds the replacement (same opcode, registers, result)
+    replacement_at_planned_position: bool = False
+    #: invocations of the original method in the caller before / after
+    original_calls_before: int = 0
+    original_calls_after: int = 0
+    replacement_calls_before: int = 0
+    replacement_calls_after: int = 0
+    #: references outside the caller method that differ (must be empty)
+    other_reference_changes: list[str] = Field(default_factory=list)
+    #: references inside the caller method that differ beyond the planned invocation
+    #: and its owner-class references (must be empty)
+    caller_reference_changes: list[str] = Field(default_factory=list)
+    #: class / method declarations that differ (must be empty)
+    declaration_changes: list[str] = Field(default_factory=list)
+    sufficient: bool
+    errors: list[str] = Field(default_factory=list)
+
+
 class TransformationApplicationResult(BaseModel):
     """H.3 / H.5 output for one plan application (or dry run)."""
 
@@ -264,6 +317,8 @@ class TransformationApplicationResult(BaseModel):
     analysis: PostAnalysis | None = None
     #: H.5 (REMOVE_METHOD): method-level re-analysis in place of ``analysis``
     method_analysis: MethodPostAnalysis | None = None
+    #: H.6 (REPLACE_CALL_SITE): call-site re-analysis in place of ``analysis``
+    call_site_analysis: CallSitePostAnalysis | None = None
     verification: list[MatrixRow] = Field(default_factory=list)
     output_apk: str | None = None
     output_apk_sha256: str | None = None

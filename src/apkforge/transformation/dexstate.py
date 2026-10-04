@@ -38,8 +38,10 @@ if TYPE_CHECKING:
     from pathlib import Path
 
 __all__ = [
+    "CallSiteApiState",
     "ClassCensus",
     "MethodBlock",
+    "call_site_api_state",
     "class_api_references",
     "method_api_references",
     "method_census",
@@ -290,6 +292,18 @@ def class_api_references(apk: Path) -> dict[str, set[str]]:
     return out
 
 
+def _output_api_references(output: str) -> set[str]:
+    """Framework API references of one instruction's output, exactly as
+    :class:`~apkforge.inspection.dex.DEXInspector` extracts them."""
+    refs: set[str] = set()
+    for prefix in _FRAMEWORK_PREFIXES:
+        if prefix in output:
+            for part in output.split():
+                if part.startswith("L") and part.endswith(";"):
+                    refs.add(_dalvik_to_java(part))
+    return refs
+
+
 def _instruction_api_references(method: object) -> set[str]:
     refs: set[str] = set()
     with contextlib.suppress(Exception):
@@ -299,13 +313,8 @@ def _instruction_api_references(method: object) -> set[str]:
             return refs
         for inst in bc.get_instructions():
             output = inst.get_output()
-            if not output:
-                continue
-            for prefix in _FRAMEWORK_PREFIXES:
-                if prefix in output:
-                    for part in output.split():
-                        if part.startswith("L") and part.endswith(";"):
-                            refs.add(_dalvik_to_java(part))
+            if output:
+                refs |= _output_api_references(output)
     return refs
 
 
@@ -331,3 +340,118 @@ def method_api_references(apk: Path) -> dict[tuple[str, str], set[str]]:
                     bucket = out.setdefault((cname, key), set())
                     bucket |= _instruction_api_references(method)
     return out
+
+
+def _androguard_ref(smali_ref: str) -> str:
+    """``Lx/A;->f(IJLy;)V`` as androguard prints it in an instruction's output
+    (``Lx/A;->f(I J Ly;)V``: parameter types separated by spaces)."""
+    head, _, rest = smali_ref.partition("(")
+    params, _, ret = rest.partition(")")
+    return f"{head}({' '.join(split_proto(params) or [])}){ret}"
+
+
+@dataclass
+class CallSiteApiState:
+    """Framework API references of an APK before and after one call-site replacement.
+
+    ``after`` is derived from the original DEX: every instruction's references, with the
+    one located invocation's output rewritten from the original to the replacement method
+    reference (the same extraction Phase E applies to the rebuilt DEX)."""
+
+    inventory: set[str]
+    after: set[str]
+    #: the instruction output of the located invocation, before / after
+    output_before: str = ""
+    output_after: str = ""
+
+    @property
+    def removed(self) -> set[str]:
+        return self.inventory - self.after
+
+    @property
+    def added(self) -> set[str]:
+        return self.after - self.inventory
+
+
+def call_site_api_state(
+    apk: Path,
+    caller_class: str,
+    caller_method: str,
+    original: str,
+    replacement: str,
+    occurrence: int,
+) -> CallSiteApiState | None:
+    """Locate the *occurrence*-th invocation of *original* (smali ``Lx/A;->f(I)V``) in
+    *caller_method* (``name`` + smali proto) of *caller_class* and predict the API
+    reference inventory after it invokes *replacement* instead. None when the invocation
+    cannot be located exactly (the expected change then cannot be declared)."""
+    from androguard.core.dex import DEX
+
+    name, _, proto = caller_method.partition("(")
+    proto = "(" + proto
+    want_orig = _androguard_ref(original)
+    want_repl = _androguard_ref(replacement)
+    inventory: set[str] = set()
+    after: set[str] = set()
+    located: list[tuple[str, str]] = []
+    with zipfile.ZipFile(apk) as z:
+        names = sorted(
+            i.filename for i in z.infolist() if not i.is_dir() and _DEX_PATTERN.search(i.filename)
+        )
+        for dex_name in names:
+            dex = DEX(z.read(dex_name))
+            for cls in dex.get_classes():
+                is_caller_class = _dalvik_to_java(cls.get_name()) == caller_class
+                for method in cls.get_methods():
+                    is_caller = (
+                        is_caller_class
+                        and method.get_name() == name
+                        and method.get_descriptor().replace(" ", "") == proto
+                    )
+                    seen = 0
+                    with contextlib.suppress(Exception):
+                        code = method.get_code()
+                        bc = code.get_bc() if code else None
+                        if not bc:
+                            continue
+                        for inst in bc.get_instructions():
+                            output = inst.get_output()
+                            if not output:
+                                continue
+                            refs = _output_api_references(output)
+                            inventory |= refs
+                            if (
+                                is_caller
+                                and inst.get_name().startswith("invoke-")
+                                and output.endswith(want_orig)
+                            ):
+                                seen += 1
+                                if seen == occurrence:
+                                    rewritten = output[: -len(want_orig)] + want_repl
+                                    located.append((output, rewritten))
+                                    after |= _output_api_references(rewritten)
+                                    continue
+                            after |= refs
+    if len(located) != 1:
+        return None
+    return CallSiteApiState(
+        inventory=inventory, after=after, output_before=located[0][0], output_after=located[0][1]
+    )
+
+
+def replace_invocation(text: str, line: int, original: str, replacement: str) -> str | None:
+    """*text* with the method reference *original* on the 1-based smali *line* replaced by
+    *replacement*. The reference must end the instruction exactly once on that line and be
+    preceded by the register list (``invoke-x {..}, <ref>``); None otherwise. Nothing else
+    of the file (indentation, other lines, line endings) changes."""
+    lines = text.splitlines(keepends=True)
+    if not 1 <= line <= len(lines):
+        return None
+    raw = lines[line - 1]
+    body = raw.rstrip("\r\n")
+    ending = raw[len(body) :]
+    code = _strip_comment(body)
+    if code != body or code.count(original) != 1 or not code.endswith("}, " + original):
+        return None
+    lines[line - 1] = code[: -len(original)] + replacement + ending
+    return "".join(lines)

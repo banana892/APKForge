@@ -299,7 +299,9 @@ def run_synthetic(work: Path) -> dict[str, Any]:
         ("H_expectation_edited", lambda p: p["expected_changes"].append("nothing else"),
          AR.PLAN_MISMATCH),
         ("H_schema_edited", lambda p: p.update(analysis_schema=1), AR.PLAN_INVALID),
-        ("H_trans_002", lambda p: p.update(transformation_id="H-TRANS-002"), AR.PLAN_ID_MISMATCH),
+        # since H.5 (5d9eb9d) a class plan relabelled H-TRANS-002 is rejected at plan load
+        # (it holds no remove_method change) before the id check: PLAN_INVALID, still refused
+        ("H_trans_002", lambda p: p.update(transformation_id="H-TRANS-002"), AR.PLAN_INVALID),
     ]  # fmt: skip
     for name, mutate, code in tampered:
         p = json.loads(json.dumps(good_plan))

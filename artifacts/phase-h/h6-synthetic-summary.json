@@ -1,0 +1,695 @@
+{
+  "run_id": "20261004T200031Z",
+  "toolchain": {
+    "python": "3.14.7",
+    "platform": "Linux-7.2.8-200.fc44.x86_64-x86_64-with-glibc2.43",
+    "apktool": "3.0.3",
+    "java": "openjdk version \"25.0.4.1\" 2026-08-18",
+    "git_head": "5d9eb9d"
+  },
+  "synthetic": {
+    "positive": {
+      "static": {
+        "target": "com.example.h1.A->run()Ljava/lang/String;@com.example.h1.Source->getValue()Ljava/lang/String;",
+        "replacement": "com.example.h1.Replacement->getValue()Ljava/lang/String;",
+        "eligibility": "ELIGIBLE",
+        "plan_id": "plan-c570a0cb478b730af56e",
+        "h6_status": "VERIFIED",
+        "mutation": {
+          "line": 64,
+          "before": "invoke-static {}, Lcom/example/h1/Source;->getValue()Ljava/lang/String;",
+          "after": "invoke-static {}, Lcom/example/h1/Replacement;->getValue()Ljava/lang/String;",
+          "call_sites_changed": 1,
+          "changed_lines": [
+            64
+          ],
+          "other_changes": 0
+        },
+        "verification": {
+          "status": "VERIFIED",
+          "completeness": "COMPLETE",
+          "counts": {
+            "expected": 3,
+            "noise": 7,
+            "unexpected": 0,
+            "unknown": 0
+          },
+          "expected": [
+            "[dex] dex_api_reference added com.example.h1.Replacement;->getValue()Ljava.lang.String",
+            "[dex] dex_class modified com.example.h1.A",
+            "[dex] file modified classes.dex"
+          ],
+          "unexpected": [],
+          "invariants_failed": [],
+          "call_site_post_analysis": {
+            "changed_positions": [
+              0
+            ],
+            "replacement_at_planned_position": true,
+            "original_calls": "1 -> 0",
+            "replacement_calls": "0 -> 1",
+            "other_changes": 0
+          }
+        }
+      },
+      "args_and_result": {
+        "target": "com.example.h1.A->calc(IJLjava/lang/String;)I@com.example.h1.Source->compute(IJLjava/lang/String;)I",
+        "replacement": "com.example.h1.Replacement->compute(IJLjava/lang/String;)I",
+        "eligibility": "ELIGIBLE",
+        "plan_id": "plan-b617a0c3da083308b172",
+        "h6_status": "VERIFIED",
+        "mutation": {
+          "line": 28,
+          "before": "invoke-static {p0, p1, p2, p3}, Lcom/example/h1/Source;->compute(IJLjava/lang/String;)I",
+          "after": "invoke-static {p0, p1, p2, p3}, Lcom/example/h1/Replacement;->compute(IJLjava/lang/String;)I",
+          "call_sites_changed": 1,
+          "changed_lines": [
+            28
+          ],
+          "other_changes": 0
+        },
+        "verification": {
+          "status": "VERIFIED",
+          "completeness": "COMPLETE",
+          "counts": {
+            "expected": 2,
+            "noise": 7,
+            "unexpected": 0,
+            "unknown": 0
+          },
+          "expected": [
+            "[dex] dex_class modified com.example.h1.A",
+            "[dex] file modified classes.dex"
+          ],
+          "unexpected": [],
+          "invariants_failed": [],
+          "call_site_post_analysis": {
+            "changed_positions": [
+              0
+            ],
+            "replacement_at_planned_position": true,
+            "original_calls": "1 -> 0",
+            "replacement_calls": "0 -> 1",
+            "other_changes": 0
+          }
+        }
+      },
+      "private_instance": {
+        "target": "com.example.h1.A->instanceCall()Ljava/lang/String;@com.example.h1.A->secret()Ljava/lang/String;",
+        "replacement": "com.example.h1.A->secretAlt()Ljava/lang/String;",
+        "eligibility": "ELIGIBLE",
+        "plan_id": "plan-c1f03b22912020c8ba75",
+        "h6_status": "VERIFIED",
+        "mutation": {
+          "line": 116,
+          "before": "invoke-direct {p0}, Lcom/example/h1/A;->secret()Ljava/lang/String;",
+          "after": "invoke-direct {p0}, Lcom/example/h1/A;->secretAlt()Ljava/lang/String;",
+          "call_sites_changed": 1,
+          "changed_lines": [
+            116
+          ],
+          "other_changes": 0
+        },
+        "verification": {
+          "status": "VERIFIED",
+          "completeness": "COMPLETE",
+          "counts": {
+            "expected": 4,
+            "noise": 7,
+            "unexpected": 0,
+            "unknown": 0
+          },
+          "expected": [
+            "[dex] dex_api_reference added com.example.h1.A;->secretAlt()Ljava.lang.String",
+            "[dex] dex_api_reference removed com.example.h1.A;->secret()Ljava.lang.String",
+            "[dex] dex_class modified com.example.h1.A",
+            "[dex] file modified classes.dex"
+          ],
+          "unexpected": [],
+          "invariants_failed": [],
+          "call_site_post_analysis": {
+            "changed_positions": [
+              0
+            ],
+            "replacement_at_planned_position": true,
+            "original_calls": "1 -> 0",
+            "replacement_calls": "0 -> 1",
+            "other_changes": 0
+          }
+        }
+      },
+      "repeated_second_call": {
+        "target": "com.example.h1.A->twice()Ljava/lang/String;@com.example.h1.Source->getValue()Ljava/lang/String;#2",
+        "replacement": "com.example.h1.Replacement->getValue()Ljava/lang/String;",
+        "eligibility": "ELIGIBLE",
+        "plan_id": "plan-b5e91d2b7d474a20303f",
+        "h6_status": "VERIFIED",
+        "mutation": {
+          "line": 94,
+          "before": "invoke-static {}, Lcom/example/h1/Source;->getValue()Ljava/lang/String;",
+          "after": "invoke-static {}, Lcom/example/h1/Replacement;->getValue()Ljava/lang/String;",
+          "call_sites_changed": 1,
+          "changed_lines": [
+            94
+          ],
+          "other_changes": 0
+        },
+        "verification": {
+          "status": "VERIFIED",
+          "completeness": "COMPLETE",
+          "counts": {
+            "expected": 3,
+            "noise": 7,
+            "unexpected": 0,
+            "unknown": 0
+          },
+          "expected": [
+            "[dex] dex_api_reference added com.example.h1.Replacement;->getValue()Ljava.lang.String",
+            "[dex] dex_class modified com.example.h1.A",
+            "[dex] file modified classes.dex"
+          ],
+          "unexpected": [],
+          "invariants_failed": [],
+          "call_site_post_analysis": {
+            "changed_positions": [
+              1
+            ],
+            "replacement_at_planned_position": true,
+            "original_calls": "2 -> 1",
+            "replacement_calls": "0 -> 1",
+            "other_changes": 0
+          }
+        }
+      }
+    },
+    "negative": [
+      {
+        "case": "target missing",
+        "apk": "h6_callsite",
+        "target": "com.example.h1.A->run()Ljava/lang/String;@com.example.h1.Source->missing()V",
+        "replacement": "com.example.h1.Replacement->getValue()Ljava/lang/String;",
+        "expected": "REFUSED",
+        "expected_reason": "CALL_SITE_NOT_FOUND",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "CALL_SITE_NOT_FOUND"
+        ],
+        "plan": false,
+        "executor": "REFUSED"
+      },
+      {
+        "case": "caller missing",
+        "apk": "h6_callsite",
+        "target": "com.example.h1.A->nope()V@com.example.h1.Source->getValue()Ljava/lang/String;",
+        "replacement": "com.example.h1.Replacement->getValue()Ljava/lang/String;",
+        "expected": "REFUSED",
+        "expected_reason": "TARGET_NOT_FOUND",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "TARGET_NOT_FOUND"
+        ],
+        "plan": false,
+        "executor": "REFUSED"
+      },
+      {
+        "case": "target ambiguous",
+        "apk": "h6_callsite",
+        "target": "com.example.h1.A->over@com.example.h1.Source->getValue()Ljava/lang/String;",
+        "replacement": "com.example.h1.Replacement->getValue()Ljava/lang/String;",
+        "expected": "REFUSED",
+        "expected_reason": "CALL_SITE_AMBIGUOUS",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "CALL_SITE_AMBIGUOUS"
+        ],
+        "plan": false,
+        "executor": "REFUSED"
+      },
+      {
+        "case": "multiple matching call sites",
+        "apk": "h6_callsite",
+        "target": "com.example.h1.A->twice()Ljava/lang/String;@com.example.h1.Source->getValue()Ljava/lang/String;",
+        "replacement": "com.example.h1.Replacement->getValue()Ljava/lang/String;",
+        "expected": "REFUSED",
+        "expected_reason": "CALL_SITE_MULTIPLE_MATCHES",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "CALL_SITE_MULTIPLE_MATCHES"
+        ],
+        "plan": false,
+        "executor": "REFUSED"
+      },
+      {
+        "case": "signature mismatch",
+        "apk": "h6_callsite",
+        "target": "com.example.h1.A->run()Ljava/lang/String;@com.example.h1.Source->getValue()Ljava/lang/String;",
+        "replacement": "com.example.h1.Replacement->getValueInstance()Ljava/lang/String;",
+        "expected": "REFUSED",
+        "expected_reason": "REPLACEMENT_SIGNATURE_MISMATCH",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "REPLACEMENT_SIGNATURE_MISMATCH"
+        ],
+        "plan": false,
+        "executor": "REFUSED"
+      },
+      {
+        "case": "argument mismatch",
+        "apk": "h6_callsite",
+        "target": "com.example.h1.A->run()Ljava/lang/String;@com.example.h1.Source->getValue()Ljava/lang/String;",
+        "replacement": "com.example.h1.Replacement->getValueArg(I)Ljava/lang/String;",
+        "expected": "REFUSED",
+        "expected_reason": "REGISTER_TYPE_MISMATCH",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "REGISTER_TYPE_MISMATCH"
+        ],
+        "plan": false,
+        "executor": "REFUSED"
+      },
+      {
+        "case": "return-type mismatch",
+        "apk": "h6_callsite",
+        "target": "com.example.h1.A->run()Ljava/lang/String;@com.example.h1.Source->getValue()Ljava/lang/String;",
+        "replacement": "com.example.h1.Replacement->getValueInt()I",
+        "expected": "REFUSED",
+        "expected_reason": "RESULT_TYPE_MISMATCH",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "RESULT_TYPE_MISMATCH"
+        ],
+        "plan": false,
+        "executor": "REFUSED"
+      },
+      {
+        "case": "inaccessible replacement",
+        "apk": "h6_callsite",
+        "target": "com.example.h1.A->run()Ljava/lang/String;@com.example.h1.Source->getValue()Ljava/lang/String;",
+        "replacement": "com.example.h1.Replacement->hidden()Ljava/lang/String;",
+        "expected": "REFUSED",
+        "expected_reason": "REPLACEMENT_INACCESSIBLE",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "REPLACEMENT_INACCESSIBLE"
+        ],
+        "plan": false,
+        "executor": "REFUSED"
+      },
+      {
+        "case": "replacement missing",
+        "apk": "h6_callsite",
+        "target": "com.example.h1.A->run()Ljava/lang/String;@com.example.h1.Source->getValue()Ljava/lang/String;",
+        "replacement": "com.example.h1.Replacement->nothere()Ljava/lang/String;",
+        "expected": "REFUSED",
+        "expected_reason": "REPLACEMENT_METHOD_NOT_FOUND",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "REPLACEMENT_METHOD_NOT_FOUND"
+        ],
+        "plan": false,
+        "executor": "REFUSED"
+      },
+      {
+        "case": "replacement parameter missing",
+        "apk": "h6_callsite",
+        "target": "com.example.h1.A->run()Ljava/lang/String;@com.example.h1.Source->getValue()Ljava/lang/String;",
+        "replacement": null,
+        "expected": "REFUSED",
+        "expected_reason": "PARAMETER_INVALID",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "PARAMETER_INVALID"
+        ],
+        "plan": false,
+        "executor": "REFUSED"
+      },
+      {
+        "case": "constructor call",
+        "apk": "h6_callsite",
+        "target": "com.example.h1.A->make()Ljava/lang/Object;@com.example.h1.Source-><init>()V",
+        "replacement": "com.example.h1.Replacement->getValue()Ljava/lang/String;",
+        "expected": "UNSUPPORTED",
+        "expected_reason": "CONSTRUCTOR_INVOCATION",
+        "eligibility": "UNSUPPORTED",
+        "reasons": [
+          "CONSTRUCTOR_INVOCATION"
+        ],
+        "plan": false,
+        "executor": "REFUSED"
+      },
+      {
+        "case": "polymorphic (virtual) call",
+        "apk": "h6_callsite",
+        "target": "com.example.h1.A->virt(Lcom/example/h1/Source;)Ljava/lang/String;@com.example.h1.Source->instanceValue()Ljava/lang/String;",
+        "replacement": "com.example.h1.Replacement->getValueInstance()Ljava/lang/String;",
+        "expected": "UNSUPPORTED",
+        "expected_reason": "POLYMORPHIC_INVOCATION",
+        "eligibility": "UNSUPPORTED",
+        "reasons": [
+          "POLYMORPHIC_INVOCATION"
+        ],
+        "plan": false,
+        "executor": "REFUSED"
+      },
+      {
+        "case": "invoke-polymorphic",
+        "apk": "h6_dynamic",
+        "target": "com.example.h1.A->poly(Ljava/lang/invoke/MethodHandle;)Ljava/lang/Object;@java.lang.invoke.MethodHandle->invoke",
+        "replacement": "com.example.h1.Replacement->getValue()Ljava/lang/String;",
+        "expected": "UNSUPPORTED",
+        "expected_reason": "INVOKE_POLYMORPHIC_UNSUPPORTED",
+        "eligibility": "UNSUPPORTED",
+        "reasons": [
+          "DEX_ANALYSIS_INCOMPLETE",
+          "INVOKE_POLYMORPHIC_UNSUPPORTED",
+          "NATIVE_DEPENDENCY_UNKNOWN",
+          "REFLECTION_ANALYSIS_INCOMPLETE"
+        ],
+        "plan": false,
+        "executor": "REFUSED"
+      },
+      {
+        "case": "invoke-custom",
+        "apk": "h6_dynamic",
+        "target": "com.example.h1.D->custom()Ljava/lang/Runnable;@com.example.h1.Source->bsm",
+        "replacement": "com.example.h1.Replacement->getValue()Ljava/lang/String;",
+        "expected": "UNSUPPORTED",
+        "expected_reason": "INVOKE_CUSTOM_UNSUPPORTED",
+        "eligibility": "UNSUPPORTED",
+        "reasons": [
+          "CALLER_ANALYSIS_INCOMPLETE",
+          "DEX_ANALYSIS_INCOMPLETE",
+          "INVOKE_CUSTOM_UNSUPPORTED",
+          "NATIVE_DEPENDENCY_UNKNOWN",
+          "REFLECTION_ANALYSIS_INCOMPLETE"
+        ],
+        "plan": false,
+        "executor": "REFUSED"
+      },
+      {
+        "case": "incomplete reference analysis",
+        "apk": "h6_dynamic",
+        "target": "com.example.h1.A->run()Ljava/lang/String;@com.example.h1.Source->getValue()Ljava/lang/String;",
+        "replacement": "com.example.h1.Replacement->getValue()Ljava/lang/String;",
+        "expected": "UNDETERMINED",
+        "expected_reason": "DEX_ANALYSIS_INCOMPLETE",
+        "eligibility": "UNDETERMINED",
+        "reasons": [
+          "DEX_ANALYSIS_INCOMPLETE",
+          "NATIVE_DEPENDENCY_UNKNOWN",
+          "REFLECTION_ANALYSIS_INCOMPLETE"
+        ],
+        "plan": false,
+        "executor": "REFUSED"
+      },
+      {
+        "case": "unsupported instruction in the caller",
+        "apk": "h6_dynamic",
+        "target": "com.example.h1.D->mixed()Ljava/lang/String;@com.example.h1.Source->getValue()Ljava/lang/String;",
+        "replacement": "com.example.h1.Replacement->getValue()Ljava/lang/String;",
+        "expected": "UNDETERMINED",
+        "expected_reason": "CALLER_ANALYSIS_INCOMPLETE",
+        "eligibility": "UNDETERMINED",
+        "reasons": [
+          "CALLER_ANALYSIS_INCOMPLETE",
+          "DEX_ANALYSIS_INCOMPLETE",
+          "NATIVE_DEPENDENCY_UNKNOWN",
+          "REFLECTION_ANALYSIS_INCOMPLETE"
+        ],
+        "plan": false,
+        "executor": "REFUSED"
+      },
+      {
+        "case": "reflection dependency",
+        "apk": "h6_reflection",
+        "target": "com.example.h1.A->run()Ljava/lang/String;@com.example.h1.Source->getValue()Ljava/lang/String;",
+        "replacement": "com.example.h1.Replacement->getValue()Ljava/lang/String;",
+        "expected": "UNDETERMINED",
+        "expected_reason": "REFLECTION_TARGET_UNKNOWN",
+        "eligibility": "UNDETERMINED",
+        "reasons": [
+          "REFLECTION_TARGET_UNKNOWN"
+        ],
+        "plan": false,
+        "executor": "REFUSED"
+      },
+      {
+        "case": "native dependency",
+        "apk": "h6_native",
+        "target": "com.example.h1.A->run()Ljava/lang/String;@com.example.h1.Source->getValue()Ljava/lang/String;",
+        "replacement": "com.example.h1.Replacement->getValue()Ljava/lang/String;",
+        "expected": "UNDETERMINED",
+        "expected_reason": "NATIVE_DEPENDENCY_UNKNOWN",
+        "eligibility": "UNDETERMINED",
+        "reasons": [
+          "NATIVE_DEPENDENCY_UNKNOWN"
+        ],
+        "plan": false,
+        "executor": "REFUSED"
+      },
+      {
+        "case": "native replacement",
+        "apk": "h6_native",
+        "target": "com.example.h1.A->run()Ljava/lang/String;@com.example.h1.Source->getValue()Ljava/lang/String;",
+        "replacement": "com.example.h1.Replacement->nativeValue()Ljava/lang/String;",
+        "expected": "UNSUPPORTED",
+        "expected_reason": "NATIVE_METHOD",
+        "eligibility": "UNSUPPORTED",
+        "reasons": [
+          "NATIVE_DEPENDENCY_UNKNOWN",
+          "NATIVE_METHOD"
+        ],
+        "plan": false,
+        "executor": "REFUSED"
+      },
+      {
+        "case": "replacement is the invoked method",
+        "apk": "h6_callsite",
+        "target": "com.example.h1.A->run()Ljava/lang/String;@com.example.h1.Source->getValue()Ljava/lang/String;",
+        "replacement": "com.example.h1.Source->getValue()Ljava/lang/String;",
+        "expected": "REFUSED",
+        "expected_reason": "CALL_SITE_ALREADY_REPLACED",
+        "eligibility": "REFUSED",
+        "reasons": [
+          "CALL_SITE_ALREADY_REPLACED"
+        ],
+        "plan": false,
+        "executor": "REFUSED"
+      }
+    ],
+    "faults": {
+      "mutation": [
+        {
+          "fault": "wrong_call_site",
+          "status": "FAILED",
+          "failure": "UNEXPECTED_MUTATION",
+          "built": false,
+          "call_sites_changed": 1,
+          "published": false
+        },
+        {
+          "fault": "two_call_sites",
+          "status": "FAILED",
+          "failure": "UNEXPECTED_MUTATION",
+          "built": false,
+          "call_sites_changed": 2,
+          "published": false
+        },
+        {
+          "fault": "wrong_replacement",
+          "status": "FAILED",
+          "failure": "UNEXPECTED_MUTATION",
+          "built": false,
+          "call_sites_changed": 1,
+          "published": false
+        },
+        {
+          "fault": "wrong_descriptor",
+          "status": "FAILED",
+          "failure": "UNEXPECTED_MUTATION",
+          "built": false,
+          "call_sites_changed": 1,
+          "published": false
+        },
+        {
+          "fault": "unrelated_method",
+          "status": "FAILED",
+          "failure": "UNEXPECTED_MUTATION",
+          "built": false,
+          "call_sites_changed": 8,
+          "published": false
+        },
+        {
+          "fault": "unrelated_class",
+          "status": "FAILED",
+          "failure": "UNEXPECTED_MUTATION",
+          "built": false,
+          "call_sites_changed": 1,
+          "published": false
+        }
+      ],
+      "build": [
+        {
+          "fault": "asset_added",
+          "domain": "assets",
+          "h6_status": "FAILED",
+          "h6_failure": "UNEXPECTED_DIFF",
+          "h4_status": "FAILED",
+          "unexpected_domains": [
+            "assets"
+          ]
+        },
+        {
+          "fault": "manifest_modified",
+          "domain": "manifest",
+          "h6_status": "FAILED",
+          "h6_failure": "UNEXPECTED_DIFF",
+          "h4_status": "FAILED",
+          "unexpected_domains": [
+            "manifest"
+          ]
+        },
+        {
+          "fault": "native_added",
+          "domain": "native",
+          "h6_status": "FAILED",
+          "h6_failure": "UNEXPECTED_DIFF",
+          "h4_status": "FAILED",
+          "unexpected_domains": [
+            "native"
+          ]
+        },
+        {
+          "fault": "other_class_modified",
+          "domain": "dex",
+          "h6_status": "FAILED",
+          "h6_failure": "UNEXPECTED_DIFF",
+          "h4_status": "FAILED",
+          "unexpected_domains": [
+            "dex"
+          ]
+        },
+        {
+          "fault": "other_method_modified",
+          "domain": "dex",
+          "h6_status": "FAILED",
+          "h6_failure": "UNEXPECTED_DIFF",
+          "h4_status": "FAILED",
+          "unexpected_domains": [
+            "dex"
+          ]
+        },
+        {
+          "fault": "resource_modified",
+          "domain": "resources",
+          "h6_status": "FAILED",
+          "h6_failure": "UNEXPECTED_DIFF",
+          "h4_status": "FAILED",
+          "unexpected_domains": [
+            "resources"
+          ]
+        },
+        {
+          "fault": "second_call_site",
+          "domain": "dex",
+          "h6_status": "FAILED",
+          "h6_failure": "UNEXPECTED_DIFF",
+          "h4_status": "FAILED",
+          "unexpected_domains": [
+            "dex"
+          ]
+        }
+      ]
+    },
+    "integrity": [
+      {
+        "case": "source SHA mismatch",
+        "expected": "SOURCE_SHA_MISMATCH",
+        "status": "REFUSED",
+        "failure": "SOURCE_SHA_MISMATCH"
+      },
+      {
+        "case": "invalid plan id",
+        "expected": "PLAN_ID_MISMATCH",
+        "status": "REFUSED",
+        "failure": "PLAN_ID_MISMATCH"
+      },
+      {
+        "case": "forged plan (edited replacement)",
+        "expected": "PLAN_MISMATCH",
+        "status": "REFUSED",
+        "failure": "PLAN_MISMATCH"
+      },
+      {
+        "case": "forged plan (rebound, id recomputed)",
+        "expected": "PLAN_NOT_ELIGIBLE",
+        "status": "REFUSED",
+        "failure": "PLAN_NOT_ELIGIBLE"
+      },
+      {
+        "case": "target disappearing after planning",
+        "expected": "TARGET_NOT_FOUND",
+        "status": "REFUSED",
+        "failure": "TARGET_NOT_FOUND"
+      }
+    ],
+    "already_transformed": {
+      "eligibility": "REFUSED",
+      "reasons": [
+        "CALL_SITE_ALREADY_REPLACED"
+      ]
+    },
+    "conflicting_transformation": {
+      "requests": [
+        "H-TRANS-003 com.example.h1.A->run()Ljava/lang/String;@com.example.h1.Source->getValue()Ljava/lang/String;",
+        "H-TRANS-002 com.example.h1.Replacement->getValue()Ljava/lang/String;"
+      ],
+      "eligibility": [
+        "REFUSED",
+        "REFUSED"
+      ],
+      "conflicts": [
+        "call_site_overlap"
+      ]
+    },
+    "reproducibility": {
+      "plan_json_identical": true,
+      "plan_id": "plan-b5e91d2b7d474a20303f",
+      "eligibility_identical": true,
+      "status": [
+        "VERIFIED",
+        "VERIFIED"
+      ],
+      "mutation_record_identical": true,
+      "post_analysis_identical": true,
+      "result_comparable_identical": true,
+      "entry_contents_identical": true,
+      "outer_apk_bytes_identical": false
+    },
+    "inputs": {
+      "h6_callsite": {
+        "sha256": "1699e884967d79914d68f8641fc1e5245e736b28350c4a9644e89eb5abe71bf9",
+        "unchanged": true
+      },
+      "h6_callsite_alt": {
+        "sha256": "535ce5d53603c11a552509fc485995153b24eeaee15a45475d044e7dcd41ec30",
+        "unchanged": true
+      },
+      "h6_reflection": {
+        "sha256": "44b30d33aa93691f96ce24e3aabc7e0ebee3d2efcbe2246035cb4cfff77f4d6b",
+        "unchanged": true
+      },
+      "h6_native": {
+        "sha256": "0c54fb398d9fa0486907871531c50f22dd0763e1f6f8d5522e21a6cc91b2fbdf",
+        "unchanged": true
+      },
+      "h6_dynamic": {
+        "sha256": "1b358ddcadcfb23b4dad8ac9ffe3cda579e5509aa40e210a9fb4520023a61837",
+        "unchanged": true
+      }
+    },
+    "inputs_unchanged": true,
+    "status": "PASS",
+    "failures": []
+  }
+}

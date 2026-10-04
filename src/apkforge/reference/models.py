@@ -56,7 +56,9 @@ __all__ = [
 
 #: 2: DefinedClass carries access flags, interfaces, annotations, method declarations,
 #: its file's analysis state and duplicate definitions (additive; used by Phase H.2)
-SCHEMA_VERSION = 2
+#: 3: invocation records carry their operand registers and the ``move-result`` that
+#: consumes their value; ``invoke-custom`` call sites are recorded (additive; Phase H.6)
+SCHEMA_VERSION = 3
 
 
 class AnalysisState(StrEnum):
@@ -115,6 +117,8 @@ class InvokeKind(StrEnum):
     SUPER = "invoke-super"
     INTERFACE = "invoke-interface"
     POLYMORPHIC = "invoke-polymorphic"
+    #: schema 3: the target is the call site's bootstrap method (the file stays PARTIAL)
+    CUSTOM = "invoke-custom"
 
 
 class FieldAccess(StrEnum):
@@ -265,6 +269,13 @@ class Evidence:
     associated_evidence: tuple[str, ...] = ()
     analysis_state: AnalysisState = AnalysisState.COMPLETE
     confidence_basis: str = ""
+    #: schema 3, invocations only: operand registers in order (``/range`` expanded);
+    #: None when not recorded (schema <= 2 results)
+    registers: tuple[str, ...] | None = None
+    #: schema 3, invocations only: the register and opcode of the ``move-result*`` that
+    #: consumes the invocation's value (None: the value is discarded / not recorded)
+    result_register: str | None = None
+    result_instruction: str | None = None
 
     def finalize_id(self) -> Evidence:
         self.evidence_id = evidence_id_for(self)

@@ -35,7 +35,7 @@ usesFramework:
   ids:
   - 1
 sdkInfo:
-  minSdkVersion: 21
+  minSdkVersion: {min_sdk}
   targetSdkVersion: 34
 packageInfo:
   forcedPackageId: 127
@@ -92,6 +92,8 @@ class Fixture:
     classes2: dict[str, str] = field(default_factory=dict)  # -> classes2.dex
     manifest_components: str = ""
     files: dict[str, bytes] = field(default_factory=dict)  # project-relative -> content
+    #: apktool.yml minSdkVersion (smali assembles invoke-custom/-polymorphic only at >= 26)
+    min_sdk: int = 21
 
 
 def _ab(a_body: str = "", b_body: str = "", **kw: object) -> dict[str, str]:
@@ -312,7 +314,7 @@ FIXTURES: list[Fixture] = [
 
 def write_project(fx: Fixture, root: Path) -> Path:
     root.mkdir(parents=True)
-    (root / "apktool.yml").write_text(_APKTOOL_YML.format(name=fx.name))
+    (root / "apktool.yml").write_text(_APKTOOL_YML.format(name=fx.name, min_sdk=fx.min_sdk))
     (root / "AndroidManifest.xml").write_text(_manifest(fx.manifest_components))
     for smali_dir, classes in (("smali", fx.classes), ("smali_classes2", fx.classes2)):
         for name, text in classes.items():

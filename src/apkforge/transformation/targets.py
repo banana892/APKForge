@@ -2,11 +2,18 @@
 
 Accepted forms::
 
-    class   com.example.Foo | com/example/Foo | Lcom/example/Foo;
-    method  com.example.Foo->bar(I)V | Lcom/example/Foo;->bar(I)V | com.example.Foo->bar
+    class      com.example.Foo | com/example/Foo | Lcom/example/Foo;
+    method     com.example.Foo->bar(I)V | Lcom/example/Foo;->bar(I)V | com.example.Foo->bar
+    call site  CALLER@INVOKED[#N], e.g.
+               com.example.A->run()V@com.example.Source->get()Ljava/lang/String;#2
 
 A method without a proto matches every overload; more than one is ``TARGET_AMBIGUOUS``.
 Names are never guessed: an unqualified class name is ``TARGET_NOT_FULLY_QUALIFIED``.
+For a call site, CALLER is the method containing the invocation and INVOKED the method it
+invokes (either may omit its proto; an omission matching more than one overload is
+``CALL_SITE_AMBIGUOUS``); ``#N`` selects the N-th invocation of INVOKED inside CALLER in
+source order (required when CALLER invokes it more than once). ``@`` and ``#`` cannot
+occur in DEX member or class names.
 """
 
 from __future__ import annotations
@@ -25,7 +32,14 @@ from apkforge.transformation.models import (
 if TYPE_CHECKING:
     from apkforge.reference.models import DefinedClass, DefinedMethod
 
-__all__ = ["ParseError", "Resolution", "parse_target", "resolve_class", "resolve_method"]
+__all__ = [
+    "ParseError",
+    "Resolution",
+    "parse_method_ref",
+    "parse_target",
+    "resolve_class",
+    "resolve_method",
+]
 
 _IDENT = r"[A-Za-z_$][\w$-]*"
 _CLASS_RE = re.compile(rf"{_IDENT}(?:\.{_IDENT})*")
@@ -50,6 +64,8 @@ def _class(raw: str) -> str | None:
 def parse_target(kind: TargetKind, raw: str) -> TransformationTarget | ParseError:
     """Normalise *raw* for a transformation whose target type is *kind*."""
     text = raw.strip()
+    if kind is TargetKind.CALL_SITE:
+        return _parse_call_site(raw)
     if "->" in text:
         owner, _, member = text.partition("->")
         if kind is not TargetKind.METHOD:
@@ -89,6 +105,48 @@ def parse_target(kind: TargetKind, raw: str) -> TransformationTarget | ParseErro
             "not class targets)",
         )
     return TransformationTarget(kind=TargetKind.CLASS, class_name=cls, raw=raw)
+
+
+def parse_method_ref(raw: str) -> TransformationTarget | ParseError:
+    """``com.example.Foo->bar(I)V`` (or the smali form) as a method target."""
+    return parse_target(TargetKind.METHOD, raw)
+
+
+def _parse_call_site(raw: str) -> TransformationTarget | ParseError:
+    text = raw.strip()
+    head, sep, tail = text.partition("@")
+    if not sep or "@" in tail:
+        return ParseError(
+            DecisionReason.UNSUPPORTED_TARGET_TYPE,
+            f"{raw!r} is not a call-site target (expected "
+            "com.example.Caller->run()V@com.example.Callee->get()I[#N])",
+        )
+    occurrence: int | None = None
+    if "#" in tail:
+        tail, _, nth = tail.rpartition("#")
+        if not nth.isdigit() or int(nth) < 1:
+            return ParseError(
+                DecisionReason.UNSUPPORTED_TARGET_TYPE,
+                f"{raw!r}: the occurrence after '#' must be a positive integer",
+            )
+        occurrence = int(nth)
+    caller = parse_target(TargetKind.METHOD, head)
+    invoked = parse_target(TargetKind.METHOD, tail)
+    for part, label in ((caller, "caller"), (invoked, "invoked method")):
+        if isinstance(part, ParseError):
+            return ParseError(part.code, f"{label}: {part.message}")
+    assert isinstance(caller, TransformationTarget) and isinstance(invoked, TransformationTarget)
+    return TransformationTarget(
+        kind=TargetKind.CALL_SITE,
+        class_name=caller.class_name,
+        method_name=caller.method_name,
+        descriptor=caller.descriptor,
+        invoked_class=invoked.class_name,
+        invoked_name=invoked.method_name,
+        invoked_descriptor=invoked.descriptor,
+        occurrence=occurrence,
+        raw=raw,
+    )
 
 
 @dataclass(frozen=True)

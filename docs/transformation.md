@@ -17,9 +17,10 @@ next one begins:
 ```text
 H.1  Evidence + reference analysis          (implemented, read-only)
 H.2  Transformation eligibility / planning  (implemented, planning only — see below)
-H.3  First narrow transformation            (implemented: H-TRANS-001 only — see below)
-H.4  Verification of transformed APK        (not started)
-H.5  Additional controlled transformations  (not started)
+H.3  First narrow transformation            (implemented: H-TRANS-001 — see below)
+H.4  Verification of transformed APK        (implemented — see below)
+H.5  Controlled isolated-method removal     (implemented: H-TRANS-002)
+H.6  Controlled call-site replacement       (implemented: H-TRANS-003 — see the end)
 ```
 
 The intended flow for a future deep transformation (for example removing an SDK class) is:
@@ -274,6 +275,22 @@ descriptor, access flags, method-level annotations, declaration line). Field and
 annotations are not recorded as class/method annotations. The change is additive; existing
 evidence is unchanged. Compact JSON (`include_code_references=False`, the CLI default)
 omits the per-class `methods`.
+
+### Invocation operands (H.1 schema 3, added for H.6)
+
+Every invocation record (`METHOD_REFERENCE` / `CONSTRUCTOR_REFERENCE`) additionally carries
+`registers` (its operand registers in order, `/range` expanded) and, when the next
+instruction is a `move-result*`, `result_instruction` / `result_register` (directives,
+blank lines and labels between the two do not break the association). `invoke-custom`
+call sites, previously visible only as an `UNSUPPORTED_INSTRUCTION` issue, are also
+recorded as an invocation of their bootstrap method (`invoke_kind` `invoke-custom`,
+`context` `call-site-bootstrap`); the issue stays, so the file stays `PARTIAL`.
+`ReferenceIndex.invocations_in(class, method)` lists one method's invocations in source
+order. The new fields are not part of the evidence id (schema-2 ids are unchanged) and are
+`None` in results produced before schema 3; H.6 treats such records as
+`CALLER_ANALYSIS_INCOMPLETE`, never as compatible. Because `analysis_schema` is part of
+every plan id, plans written against schema 2 are refused as `PLAN_INVALID` (schema
+mismatch) by the executor and must be re-planned.
 
 ---
 
@@ -887,3 +904,139 @@ and timings: two runs of the same plan give equal `comparable()` results.
   (H.2 eligibility and the noise-floor experiment per APK); evidence in
   `artifacts/phase-h/H4-TRANSFORMATION-VERIFICATION.md`.
 
+---
+
+# Phase H.6 — Controlled Call-Site Replacement (H-TRANS-003)
+
+H.6 is the first transformation that edits live code instead of deleting a definition.
+It rewrites the **method reference of exactly one invocation** and nothing else.
+
+> **The contract.** One `invoke-static`, or one `invoke-direct` of a private instance
+> method, is redirected to a predetermined replacement method declared in the same APK
+> with the *identical* descriptor (and, for `invoke-direct`, in the same class, private and
+> non-static). Opcode, operand registers and the consuming `move-result` are unchanged.
+> There is no other edit operation: no instruction insertion, register rewriting,
+> control-flow change, hook or generic smali patch.
+
+A VERIFIED result means that this one static rewrite was performed and passed the
+defined checks. It does not mean that behaviour or functionality is preserved, that the
+replacement is semantically equivalent, or that the application is safer.
+
+## Using it
+
+```bash
+# 1. plan (H.2): CALLER@INVOKED[#N] plus the replacement
+apkforge transform app.apk -t H-TRANS-003 \
+    --target 'com.x.A->run()Ljava/lang/String;@com.x.Source->getValue()Ljava/lang/String;' \
+    --replacement 'com.x.Replacement->getValue()Ljava/lang/String;' --report plan.json
+# 2. validate, then apply (explicit; no implicit plan+apply, no override flag)
+apkforge transform app.apk --plan plan.json
+apkforge transform app.apk --plan plan.json --apply -o out.apk
+# 3. optional H.4 three-APK verification
+apkforge verify app.apk out.apk --plan plan.json --build-control
+```
+
+`#N` selects the N-th invocation of INVOKED inside CALLER in source order; it is required
+when CALLER invokes it more than once. `--replacement` is given once for all H-TRANS-003
+targets or once per `--target`, and only with H-TRANS-003. The replacement is stored as
+the plan parameter `replacement` (normalised to `com.x.R->name(proto)`), so it is part of
+the plan id.
+
+## Eligibility
+
+| Requirement | Reason codes (state) |
+|---|---|
+| call site resolves to one invocation | `TARGET_NOT_FOUND` (caller), `CALL_SITE_NOT_FOUND`, `CALL_SITE_AMBIGUOUS`, `CALL_SITE_MULTIPLE_MATCHES`, `CALL_SITE_ALREADY_REPLACED` (REFUSED) |
+| DEX and the caller's own file COMPLETE, registers recorded | `DEX_ANALYSIS_INCOMPLETE`, `CALLER_ANALYSIS_INCOMPLETE` (UNDETERMINED) |
+| caller is not compiler-generated (bridge / synthetic) | `SYNTHETIC_METHOD` (UNSUPPORTED) |
+| supported opcode | `POLYMORPHIC_INVOCATION` (virtual/super/interface), `CONSTRUCTOR_INVOCATION`, `INVOKE_POLYMORPHIC_UNSUPPORTED`, `INVOKE_CUSTOM_UNSUPPORTED`, `UNSUPPORTED_INVOKE_OPCODE` (UNSUPPORTED) |
+| invoked method declared in the APK, flags match the opcode | `TARGET_METHOD_NOT_FOUND` (REFUSED), `TARGET_RELATIONSHIP_UNRESOLVED`, `TARGET_DEFINITION_INCOMPLETE` (UNDETERMINED) |
+| replacement exists, ordinary concrete method | `PARAMETER_INVALID`, `REPLACEMENT_METHOD_NOT_FOUND`, `TARGET_AMBIGUOUS` (REFUSED); `ABSTRACT_METHOD`, `INTERFACE_METHOD`, `NATIVE_METHOD`, `SYNTHETIC_METHOD` (UNSUPPORTED) |
+| replacement differs from the invoked method | `CALL_SITE_ALREADY_REPLACED` (REFUSED) |
+| same invocation kind / receiver class | `REPLACEMENT_SIGNATURE_MISMATCH` (REFUSED) |
+| identical parameter types; operand registers consistent with them (count, receiver, wide pairs) | `REGISTER_TYPE_MISMATCH` (REFUSED) |
+| identical return type; `move-result*` consistent with it | `RESULT_TYPE_MISMATCH` (REFUSED) |
+| replacement accessible from the caller | `REPLACEMENT_INACCESSIBLE` (REFUSED) |
+| no reflection / dynamic loading / unanalysed native code | `REFLECTION_TARGET_PRESENT` (REFUSED); `REFLECTION_TARGET_UNKNOWN`, `REFLECTION_ANALYSIS_INCOMPLETE`, `DYNAMIC_CODE_LOADING_PRESENT`, `NATIVE_DEPENDENCY_UNKNOWN` (UNDETERMINED) |
+| no overlapping request | `CONFLICTING_TRANSFORMATION` (REFUSED): another call site in the same caller method, or a class / method removal of the caller, invoked or replacement |
+
+Existing codes are reused where the concept already existed: the requested
+`NATIVE_ANALYSIS_INCOMPLETE` is `NATIVE_DEPENDENCY_UNKNOWN`, `REFLECTION_ANALYSIS_INCOMPLETE`
+and `ANALYSIS_INCOMPLETE` keep their H.2 meaning. Compatibility is never inferred from a
+method name; subtyping is not considered (only identical types are compatible).
+
+## Plan
+
+`planned_changes` holds one `replace_call_site` change (artifact: the caller's smali file)
+whose `details` carry everything needed to apply and check it without rescanning the APK:
+`dex`, `caller_class`, `caller_method`, `source_line`, `evidence_id` (the H.1 record),
+`opcode`, `registers`, `register_count`, `result_instruction`, `result_register`,
+`original` and `replacement` (smali references), `occurrence`, `occurrences_in_caller`,
+`invocations_in_caller` and `expected_mutation_count` (`1`). The plan id is the usual
+hash of APK SHA-256, transformation id, normalised target, parameters (the normalised
+replacement) and schema versions.
+
+## Application
+
+The executor (shared with H.3/H.5, dispatching on the plan's target kind) loads the plan,
+checks the source SHA-256, the recomputed plan id, eligibility, re-runs H.1 + H.2 and
+requires an identical plan. It then declares the expected Phase E changes from the
+original APK — the caller class `modified` with exactly the caller method's code changed,
+plus the framework-API-reference and string-pool consequences of swapping one reference
+(predicted per instruction from the original DEX, exactly as Phase E extracts them) —
+and runs the Phase D pipeline with `ReplaceCallSiteModifier`:
+
+- `plan`: the caller is defined once, where planned; the invocation at the planned line
+  re-parsed with the H.1 parser has the planned opcode, registers, result and occurrence;
+  the line has the single-reference form.
+- `apply`: rewrites that one line, then proves before any build that exactly that line
+  changed, exactly one invocation record changed (original -> replacement, same opcode,
+  registers and result), no other evidence of the file changed, no other smali file
+  changed and the class census is unchanged; otherwise `UNEXPECTED_MUTATION` (FAILED,
+  nothing built or published). The `MutationRecord` (`REPLACE_CALL_SITE`) records the
+  line, the instruction before/after, changed lines and the invocation diff.
+- after the build: Phase E must show exactly the declared changes; the H.1 re-analysis of
+  the output (`CallSitePostAnalysis`) must show the caller's invocation sequence changed at
+  exactly the planned position, no other reference in the APK changed and no declaration
+  changed. Only then is the output published (atomically).
+
+The 15-row verification matrix adds *Original invocation before/after*, *Replacement
+invocation after* and *Call sites changed* to the H.3 rows.
+
+## H.4 verification
+
+`TransformationVerifier` accepts H-TRANS-003 plans with the same A / B / C experiment. It
+re-derives the declared changes from the original APK, and adds the invariants
+`caller_class_retained`, `exactly_one_method_body_changed[leg]` and `no_other_change[leg]`
+(no declaration, other class or DEX file change on either transformation leg) and
+`h1_call_site_state` (from `CallSitePostAnalysis`). Everything else — noise floor from the
+control rebuild, cross-leg attribution, domains, completeness, status — is H.4 unchanged.
+
+## Determinism and reproducibility
+
+The same APK, target, replacement and schema produce the same plan (byte-identical JSON)
+and plan id. Two applications of one plan produce identical mutation records, identical
+post-analyses, identical `comparable()` results and identical APK *entry contents*
+(`output_content_sha256`). Outer APK bytes may differ between runs (ZIP metadata /
+signing); that is packaging, not content, and is not required to match.
+
+## Limitations
+
+- Type-level compatibility only; no semantic equivalence or behaviour preservation claim.
+- Only `invoke-static` and `invoke-direct` of private instance methods; both methods must be
+  declared in the APK. Framework/library targets and replacements are not resolved.
+- Requires COMPLETE DEX analysis, no unresolved reflection, no dynamic code loading and no
+  unanalysed native code — real apps typically fail one of these (see the corpus results).
+- The post-analysis compares the original's and the output's decoded smali; an APK whose
+  decode is not a rebuild fixed point would fail verification (conservatively).
+
+## Verification (H.6)
+
+- `tests/unit/test_phase_h6_call_site.py` — schema 3, target parsing, every decision class,
+  tampered register/result evidence, conflicts, the single-line rewrite and mutation
+  comparison, plan loading, integrity, CLI usage, reports.
+- `tests/integration/test_phase_h6_call_site_transformation.py` — real APKs: four positive
+  shapes (H.6 VERIFIED, H.4 VERIFIED/COMPLETE), refusals, an already transformed APK, a
+  conflicting set, mutation faults, build-time faults, integrity, reproducibility, CLI.
+- `build-tests/run_phase_h6_validation.py all --write` — synthetic matrix plus the read-only
+  corpus run; evidence in `artifacts/phase-h/H6-CONTROLLED-CALL-SITE-TRANSFORMATION.md`.

@@ -5,7 +5,8 @@ by the available static evidence?"; eligible requests get a deterministic plan. 
 never modifies, rebuilds, aligns, signs or installs an APK.
 
 H.3 (:class:`TransformationExecutor`) applies exactly one validated, ``ELIGIBLE`` H.2 plan
-of ``H-TRANS-001`` (remove isolated class) to a copy of the APK and verifies the result
+of ``H-TRANS-001`` (remove isolated class; H.5 adds ``H-TRANS-002`` remove isolated method,
+H.6 ``H-TRANS-003`` replace one call site) to a copy of the APK and verifies the result
 (BuildService, H.1 re-analysis, Phase E diff). No decision or result establishes that a
 target is malicious or that an app is safe.
 
@@ -28,6 +29,7 @@ from apkforge.transformation.application import (
     ApplicationReason,
     ApplicationStage,
     ApplicationStatus,
+    CallSitePostAnalysis,
     CheckOutcome,
     MatrixRow,
     MethodPostAnalysis,
@@ -35,7 +37,14 @@ from apkforge.transformation.application import (
     PostAnalysis,
     TransformationApplicationResult,
 )
-from apkforge.transformation.catalog import CATALOG, H_TRANS_001, H_TRANS_002, get_spec, list_specs
+from apkforge.transformation.catalog import (
+    CATALOG,
+    H_TRANS_001,
+    H_TRANS_002,
+    H_TRANS_003,
+    get_spec,
+    list_specs,
+)
 from apkforge.transformation.eligibility import EligibilityEvaluator
 from apkforge.transformation.executor import H3_LIMITATIONS, TransformationExecutor, load_plan
 from apkforge.transformation.experiment import (
@@ -68,8 +77,10 @@ from apkforge.transformation.models import (
 from apkforge.transformation.modifier import (
     H3_MODIFIER_ID,
     H5_MODIFIER_ID,
+    H6_MODIFIER_ID,
     RemoveIsolatedClassModifier,
     RemoveIsolatedMethodModifier,
+    ReplaceCallSiteModifier,
 )
 from apkforge.transformation.planner import (
     H2_STATEMENT,
@@ -110,8 +121,10 @@ __all__ = [
     "H4_LIMITATIONS",
     "H4_STATEMENT",
     "H5_MODIFIER_ID",
+    "H6_MODIFIER_ID",
     "H_TRANS_001",
     "H_TRANS_002",
+    "H_TRANS_003",
     "MANDATORY_DOMAINS",
     "PLANNING_SCHEMA_VERSION",
     "REASON_STATES",
@@ -122,6 +135,7 @@ __all__ = [
     "ApplicationReason",
     "ApplicationStage",
     "ApplicationStatus",
+    "CallSitePostAnalysis",
     "CategorySummary",
     "CheckOutcome",
     "ClassifiedDifference",
@@ -149,6 +163,7 @@ __all__ = [
     "RebuildRecord",
     "RemoveIsolatedClassModifier",
     "RemoveIsolatedMethodModifier",
+    "ReplaceCallSiteModifier",
     "RequirementCheck",
     "RequirementStatus",
     "TargetEvidenceSelector",
