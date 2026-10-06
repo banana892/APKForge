@@ -289,7 +289,7 @@ class TransformationVerificationResult(BaseModel):
 
     schema_version: int = VERIFICATION_RESULT_SCHEMA_VERSION
     phase: str = "H.4"
-    mode: str = "transformation"  # transformation | noop (control experiment, no plan)
+    mode: str = "transformation"  # transformation | noop (control, no plan) | external (H.7)
     transformation_id: str | None = None
     plan_id: str | None = None
     target: dict[str, str] = Field(default_factory=dict)

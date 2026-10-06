@@ -1,0 +1,191 @@
+{
+  "run_id": "20261006T185420Z",
+  "corpus": {
+    "status": "PASS",
+    "failures": [],
+    "corpus_sha256_unchanged": true,
+    "apks": [
+      {
+        "apk": "com.emanuelef.remote_capture_95.apk",
+        "status": "SUCCESS",
+        "failure": null,
+        "input_sha256": "e03f79082278b3754b4954c7537e7c9f7681e5995a44e70aa1589eca10190066",
+        "output_sha256": "0d509c6e901b5e3c7964bf25fc9b32cb566325c007d3bee0929c0ddf0ca2c191",
+        "marker_present": true,
+        "checks": [
+          "output_dir_intact",
+          "no_writes_outside_output",
+          "declared_names_safe",
+          "output_entries_regular",
+          "no_unexpected_artifacts",
+          "primary_output_present",
+          "apk_archive_valid",
+          "output_changed",
+          "published_sha256_verified"
+        ],
+        "seconds": 1.6
+      },
+      {
+        "apk": "com.oF2pks.applicationsinfo_19.apk",
+        "status": "SUCCESS",
+        "failure": null,
+        "input_sha256": "c0188f5f1f566e12324bd6bf4bf4f1b9408d852c6cc6b113706503031f13eebd",
+        "output_sha256": "0845af80dd1b643a74c7cf92c68868709def1294db9f5c0b1a2dbdc62a7bdcae",
+        "marker_present": true,
+        "checks": [
+          "output_dir_intact",
+          "no_writes_outside_output",
+          "declared_names_safe",
+          "output_entries_regular",
+          "no_unexpected_artifacts",
+          "primary_output_present",
+          "apk_archive_valid",
+          "output_changed",
+          "published_sha256_verified"
+        ],
+        "seconds": 0.1
+      },
+      {
+        "apk": "de.audioattack.openlink_28.apk",
+        "status": "SUCCESS",
+        "failure": null,
+        "input_sha256": "3d28923f08bd7173880a71ed2c995055349eaa43be4fac29b53a0068035eceed",
+        "output_sha256": "050c3cf2b80dbd905ca5876bea6ad0c097d3920bf9c46cda4b5e7a2e85d52d9e",
+        "marker_present": true,
+        "checks": [
+          "output_dir_intact",
+          "no_writes_outside_output",
+          "declared_names_safe",
+          "output_entries_regular",
+          "no_unexpected_artifacts",
+          "primary_output_present",
+          "apk_archive_valid",
+          "output_changed",
+          "published_sha256_verified"
+        ],
+        "seconds": 0.1
+      },
+      {
+        "apk": "de.danoeh.antennapod_3120295.apk",
+        "status": "SUCCESS",
+        "failure": null,
+        "input_sha256": "3f43a4337a693cdb49141afe06cb596e88c796009ed77bff51e9444ce2d1ebfc",
+        "output_sha256": "84b06a489c9e079e71b815fa2c0fbad8c060ed5ef3a020470276303552a47d31",
+        "marker_present": true,
+        "checks": [
+          "output_dir_intact",
+          "no_writes_outside_output",
+          "declared_names_safe",
+          "output_entries_regular",
+          "no_unexpected_artifacts",
+          "primary_output_present",
+          "apk_archive_valid",
+          "output_changed",
+          "published_sha256_verified"
+        ],
+        "seconds": 1.0
+      },
+      {
+        "apk": "eu.siacs.conversations_4218104.apk",
+        "status": "SUCCESS",
+        "failure": null,
+        "input_sha256": "3fae646e33b59b95f049ce9bd828022e2edbb374fa82e517bd782aced71ba980",
+        "output_sha256": "5607af927cb013e4bf635d636a7ecb0e0ad855947d23fb4e3bdd5fc4e89c5756",
+        "marker_present": true,
+        "checks": [
+          "output_dir_intact",
+          "no_writes_outside_output",
+          "declared_names_safe",
+          "output_entries_regular",
+          "no_unexpected_artifacts",
+          "primary_output_present",
+          "apk_archive_valid",
+          "output_changed",
+          "published_sha256_verified"
+        ],
+        "seconds": 1.4
+      },
+      {
+        "apk": "godau.fynn.usagedirect_10.apk",
+        "status": "SUCCESS",
+        "failure": null,
+        "input_sha256": "c55079192a77fc6696a80c6d337c3f0c64fe4ebc27e5970aaf4baac0a60a3b31",
+        "output_sha256": "d11bf11f720c56695e32f73dd97b775e758105c4ae5a673500e4b5305fc05f73",
+        "marker_present": true,
+        "checks": [
+          "output_dir_intact",
+          "no_writes_outside_output",
+          "declared_names_safe",
+          "output_entries_regular",
+          "no_unexpected_artifacts",
+          "primary_output_present",
+          "apk_archive_valid",
+          "output_changed",
+          "published_sha256_verified"
+        ],
+        "seconds": 0.4
+      },
+      {
+        "apk": "io.github.muntashirakon.AppManager_451.apk",
+        "status": "SUCCESS",
+        "failure": null,
+        "input_sha256": "e1f6ba10812c74016ad626e11e27a1ae450aec2c0964a11466abb9e7a9c8ef84",
+        "output_sha256": "67572b720cb9cf85d7d136e21eb4252b03532a8f84614437ea79d22b99d8a235",
+        "marker_present": true,
+        "checks": [
+          "output_dir_intact",
+          "no_writes_outside_output",
+          "declared_names_safe",
+          "output_entries_regular",
+          "no_unexpected_artifacts",
+          "primary_output_present",
+          "apk_archive_valid",
+          "output_changed",
+          "published_sha256_verified"
+        ],
+        "seconds": 2.3
+      },
+      {
+        "apk": "org.mozilla.fennec_fdroid_1560020.apk",
+        "status": "SUCCESS",
+        "failure": null,
+        "input_sha256": "27f2951376ca1085e0933066c902fdfe4d260916d381e233475c5fd6964f5745",
+        "output_sha256": "14c7216a8cbb0706b879de7cae23286d7152cf9795f3e74af5185566523815eb",
+        "marker_present": true,
+        "checks": [
+          "output_dir_intact",
+          "no_writes_outside_output",
+          "declared_names_safe",
+          "output_entries_regular",
+          "no_unexpected_artifacts",
+          "primary_output_present",
+          "apk_archive_valid",
+          "output_changed",
+          "published_sha256_verified"
+        ],
+        "seconds": 8.0
+      },
+      {
+        "apk": "org.schabi.newpipe_1015_cb84069.apk",
+        "status": "SUCCESS",
+        "failure": null,
+        "input_sha256": "18447bfb1e06d113edc88df93f471827280de06f6f3d4dc42f56f28b9c1bab79",
+        "output_sha256": "def78989b15c0017f63bf74022193996e6003429b052a1cb1755fd25ff131b80",
+        "marker_present": true,
+        "checks": [
+          "output_dir_intact",
+          "no_writes_outside_output",
+          "declared_names_safe",
+          "output_entries_regular",
+          "no_unexpected_artifacts",
+          "primary_output_present",
+          "apk_archive_valid",
+          "output_changed",
+          "published_sha256_verified"
+        ],
+        "seconds": 0.8
+      }
+    ],
+    "seconds": 16.7
+  }
+}

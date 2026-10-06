@@ -23,6 +23,8 @@ Command structure (Phase 0 — stubs)::
     ├── modifiers        — list Phase D modifiers
     ├── references <apk> — read-only reference/evidence analysis (Phase H.1)
     ├── transform  <apk> — transformation eligibility & planning, never applied (H.2)
+    ├── modkits          — list third-party ModKits and their status (H.7)
+    ├── modkit info|run  — inspect / run one ModKit in an isolated workspace (H.7)
     └── verify   <apk> [<modified>] — verification matrix (Phase E)
 """
 
@@ -3734,6 +3736,283 @@ def _render_matrix(matrix: VerificationMatrix) -> None:
 # ---------------------------------------------------------------------------
 # Internal helper
 # ---------------------------------------------------------------------------
+
+
+# ---------------------------------------------------------------------------
+# modkits / modkit (Phase H.7 — third-party ModKit integration framework)
+# ---------------------------------------------------------------------------
+
+modkit_app = typer.Typer(
+    help="[green]⚡ Phase H.7[/green] — Inspect and run third-party ModKits (unverified).",
+    no_args_is_help=True,
+)
+app.add_typer(modkit_app, name="modkit")
+
+_MODKIT_CONFIG_HELP = (
+    "ModKit configuration TOML (default: $APKFORGE_MODKIT_CONFIG, then "
+    "~/.config/apkforge/modkits.toml)."
+)
+_MODKIT_STATUS_STYLE = {"AVAILABLE": "green", "NOT_INSTALLED": "dim"}
+_CHECK_MARK = {True: "[green]ok[/green]", False: "[red]missing[/red]", None: "[yellow]?[/yellow]"}
+_MODKIT_EXIT = {
+    "SUCCESS": 0,
+    "NO_OP": 0,
+    "NOT_AVAILABLE": 2,
+    "INVALID_INPUT": 2,
+    "CONFIGURATION_ERROR": 2,
+    "DEPENDENCY_ERROR": 2,
+    "OUTPUT_INVALID": 3,
+    "OUTPUT_MISSING": 3,
+    "EXECUTION_FAILED": 1,
+    "TIMEOUT": 1,
+    "CANCELLED": 1,
+    "UNKNOWN": 1,
+}
+
+
+def _trust_label(trust: str) -> str:
+    return "TEST ONLY" if trust == "TEST_ONLY" else "EXTERNAL / UNVERIFIED"
+
+
+@app.command("modkits")
+def cmd_modkits(
+    json_output: bool = typer.Option(False, "--json", help="Print the list as JSON."),
+    verbose: bool = typer.Option(False, "--verbose", "-v", help="Show reasons and executables."),
+    config: Path | None = typer.Option(None, "--config", help=_MODKIT_CONFIG_HELP),
+) -> None:
+    """[green]⚡ Phase H.7[/green] — List discovered/configured ModKits and their status."""
+    import json
+
+    from apkforge.modkit import default_manager
+
+    infos = default_manager(config).discover()
+    if json_output:
+        typer.echo(json.dumps([i.to_json_dict() for i in infos], indent=2))
+        return
+    if not infos:
+        _console.print(
+            "No ModKits registered or configured. APKForge bundles no third-party ModKit; "
+            "see docs/modkits.md to configure a user-managed one."
+        )
+        return
+    table = Table(title="APKForge ModKits", border_style="dim")
+    table.add_column("ID", style="bold", no_wrap=True)
+    table.add_column("NAME")
+    table.add_column("VERSION")
+    table.add_column("STATUS")
+    table.add_column("TRUST")
+    if verbose:
+        table.add_column("ADAPTER")
+        table.add_column("DETAIL", overflow="fold")
+    for i in infos:
+        status = str(i.availability.status)
+        style = _MODKIT_STATUS_STYLE.get(status, "yellow")
+        row = [
+            i.identity.modkit_id,
+            i.identity.display_name,
+            i.identity.installed_version or "--",
+            f"[{style}]{status}[/{style}]",
+            _trust_label(str(i.identity.trust)),
+        ]
+        if verbose:
+            row += [
+                i.identity.adapter_version,
+                i.availability.reason or (i.availability.executable or ""),
+            ]
+        table.add_row(*row)
+    _console.print(table)
+    _console.print(
+        "[dim]AVAILABLE means installed and runnable, not trusted: every ModKit output is "
+        "validated by APKForge, but a third-party transformation's semantics are not "
+        "guaranteed.[/dim]"
+    )
+
+
+@modkit_app.command("info")
+def cmd_modkit_info(
+    modkit_id: str = typer.Argument(..., metavar="MODKIT_ID", help="ModKit identifier."),
+    json_output: bool = typer.Option(False, "--json", help="Print the record as JSON."),
+    verbose: bool = typer.Option(False, "--verbose", "-v", help="Show requirement checks."),
+    config: Path | None = typer.Option(None, "--config", help=_MODKIT_CONFIG_HELP),
+) -> None:
+    """Show identity, status, capabilities and requirements of one ModKit."""
+    import json
+
+    from apkforge.modkit import default_manager
+
+    info = default_manager(config).info(modkit_id)
+    if info is None:
+        if json_output:
+            typer.echo(json.dumps({"modkit_id": modkit_id, "error": "unknown ModKit"}, indent=2))
+        else:
+            _console.print(f"[red]Unknown ModKit {modkit_id!r}.[/red] Run 'apkforge modkits'.")
+        raise typer.Exit(code=2)
+    if json_output:
+        typer.echo(json.dumps(info.to_json_dict(), indent=2))
+        return
+    ident, avail = info.identity, info.availability
+    status = str(avail.status)
+    style = _MODKIT_STATUS_STYLE.get(status, "yellow")
+    configuration = (
+        f"{info.config_source} ({'enabled' if info.enabled else 'disabled'})"
+        if info.configured
+        else "not configured"
+    )
+    lines = [
+        f"[bold]ID:[/bold]               {ident.modkit_id}",
+        f"[bold]Name:[/bold]             {ident.display_name}",
+        f"[bold]Version:[/bold]          {ident.installed_version or '--'}",
+        f"[bold]Adapter version:[/bold]  {ident.adapter_version}",
+        f"[bold]Status:[/bold]           [{style}]{status}[/{style}]"
+        + (f" — {avail.reason}" if avail.reason else ""),
+        f"[bold]Trust:[/bold]            {_trust_label(str(ident.trust))}",
+        f"[bold]Installation:[/bold]     {ident.installation}",
+        f"[bold]Executable:[/bold]       {avail.executable or '--'}",
+        "[bold]Configuration:[/bold]    " + configuration,
+        f"[bold]Capabilities:[/bold]     {', '.join(info.capabilities) or '--'}",
+    ]  # fmt: skip
+    if not info.adapter_registered:
+        lines.append("[yellow]No adapter is registered for this ModKit id.[/yellow]")
+    for err in info.config_errors:
+        lines.append(f"[red]Config error:[/red] {err}")
+    if ident.description:
+        lines.append(f"\n{ident.description}")
+    if ident.license_note:
+        lines.append(f"[dim]{ident.license_note}[/dim]")
+    _console.print(Panel("\n".join(lines), title=f"ModKit {ident.modkit_id}", border_style=style))
+
+    if info.requirements:
+        req = Table(title="Requirements", border_style="dim")
+        req.add_column("Kind")
+        req.add_column("Name")
+        req.add_column("Constraint")
+        req.add_column("Check")
+        checks = {(c.requirement.kind, c.requirement.name): c for c in avail.checks}
+        for r in info.requirements:
+            c = checks.get((r.kind, r.name))
+            mark = "--" if c is None else _CHECK_MARK[c.satisfied]
+            if verbose and c is not None and (c.observed or c.detail):
+                mark += f" [dim]{c.observed or ''} {c.detail}[/dim]"
+            req.add_row(str(r.kind), r.name, r.constraint or "", mark)
+        _console.print(req)
+    if info.operations:
+        ops = Table(title="Operations", border_style="dim")
+        ops.add_column("ID", style="bold")
+        ops.add_column("Input → Output")
+        ops.add_column("Capabilities")
+        ops.add_column("Parameters", overflow="fold")
+        for op in info.operations:
+            params = ", ".join(
+                p.name + ("*" if p.required else "") + (" (secret)" if p.sensitive else "")
+                for p in op.parameters
+            )
+            ops.add_row(
+                op.id,
+                f"{', '.join(op.input_types)} → {', '.join(op.output_types)}",
+                ", ".join(op.capabilities),
+                params or "-",
+            )
+        _console.print(ops)
+
+
+@modkit_app.command("run")
+def cmd_modkit_run(
+    modkit_id: str = typer.Argument(..., metavar="MODKIT_ID", help="ModKit identifier."),
+    apk: Path = typer.Argument(
+        ...,
+        metavar="APK",
+        exists=True,
+        file_okay=True,
+        dir_okay=False,
+        resolve_path=True,
+        help="Input APK (never modified).",
+    ),
+    output_dir: Path = typer.Option(
+        ..., "--output-dir", "-o", resolve_path=True, help="Directory for the validated output."
+    ),
+    operation: str = typer.Option("transform", "--operation", help="Adapter operation id."),
+    params: list[str] = typer.Option(
+        [], "--param", "-p", help="Operation parameter NAME=VALUE (repeatable)."
+    ),
+    timeout: int | None = typer.Option(None, "--timeout", min=1, help="Timeout in seconds."),
+    allow_noop: bool = typer.Option(
+        False, "--allow-noop", help="Accept an unchanged output as NO_OP instead of invalid."
+    ),
+    work_dir: Path | None = typer.Option(None, "--work-dir", help="Workspace base directory."),
+    keep_workspace: bool = typer.Option(False, "--keep-workspace", help="Keep the workspace."),
+    analyze: bool = typer.Option(
+        False, "--analyze", help="Run diff + privacy + security analysis on the output."
+    ),
+    json_output: bool = typer.Option(False, "--json", help="Print the result as JSON."),
+    report_file: Path | None = typer.Option(None, "--report", help="Write the JSON result here."),
+    config: Path | None = typer.Option(None, "--config", help=_MODKIT_CONFIG_HELP),
+) -> None:
+    """Run one ModKit operation in an isolated workspace and validate its output."""
+    import json
+
+    from apkforge.modkit import ExecutionRequest, ModKitPostAnalysis, default_manager
+
+    parameters: dict[str, str] = {}
+    for item in params:
+        name, sep, value = item.partition("=")
+        if not sep or not name:
+            _console.print(f"[red]--param must be NAME=VALUE, got {item!r}[/red]")
+            raise typer.Exit(code=2)
+        parameters[name] = value
+    request = ExecutionRequest(
+        input_apk=apk,
+        output_dir=output_dir,
+        operation=operation,
+        parameters=parameters,
+        timeout_seconds=timeout,
+        expect_change=not allow_noop,
+        workspace_base=work_dir,
+        keep_workspace=keep_workspace,
+    )
+    result = default_manager(config).execute(modkit_id, request)
+    payload: dict[str, object] = {"result": json.loads(result.to_json())}
+    if analyze and result.published is not None:
+        payload["analysis"] = ModKitPostAnalysis().run(result).model_dump(mode="json")
+    text = json.dumps(payload, indent=2)
+    if report_file is not None:
+        report_file.parent.mkdir(parents=True, exist_ok=True)
+        report_file.write_text(text + "\n", encoding="utf-8")
+    if json_output:
+        typer.echo(text)
+    else:
+        status = str(result.status)
+        ident = result.identity
+        color = "green" if result.succeeded else "red"
+        lines = [
+            f"[bold]ModKit:[/bold]     {ident.modkit_id} {ident.installed_version or '--'} "
+            f"(adapter {ident.adapter_version}, {_trust_label(str(ident.trust))})",
+            f"[bold]Status:[/bold]     [{color}]{status}[/{color}]"
+            + (f" ({result.failure})" if result.failure else ""),
+            f"[bold]Reason:[/bold]     {result.reason}",
+            f"[bold]Execution:[/bold]  {result.execution_id}",
+        ]
+        if result.original is not None:
+            lines.append(f"[bold]Input:[/bold]      {result.original.sha256}")
+        if result.published is not None:
+            lines.append(f"[bold]Output:[/bold]     {result.published.path}")
+            lines.append(f"[bold]Output SHA:[/bold] {result.published.sha256}")
+        if result.workspace_path:
+            kept = "kept" if result.workspace_retained else "logs/metadata kept"
+            lines.append(f"[bold]Workspace:[/bold]  {result.workspace_path} ({kept})")
+        _console.print(
+            Panel("\n".join(lines), title="ModKit execution", border_style=color), highlight=False
+        )
+        if "analysis" in payload:
+            a = payload["analysis"]
+            assert isinstance(a, dict)
+            for key in ("privacy", "security"):
+                d = a.get(key) or {}
+                _console.print(
+                    f"{key}: +{len(d.get('introduced', []))} introduced, "
+                    f"-{len(d.get('removed', []))} removed, {len(d.get('retained', []))} retained"
+                    + ("" if d.get("complete", True) else " (partial)")
+                )
+    raise typer.Exit(code=_MODKIT_EXIT.get(str(result.status), 1))
 
 
 def _not_implemented(command: str, **kwargs: str) -> None:

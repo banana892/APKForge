@@ -326,6 +326,27 @@ class TransformationVerifier:
         rebuild) may differ from *original* only by the noise *control* measured."""
         return self._verify(original, control, candidate, None, toolchain, [], None)
 
+    def verify_external(
+        self,
+        original: Path | str,
+        control: Path | str | None,
+        candidate: Path | str | None,
+        *,
+        expected: list[ExpectedChange] | None = None,
+        toolchain: ToolchainIdentity | None = None,
+    ) -> TransformationVerificationResult:
+        """H.7 hook: verify an APK produced by an *external* transformation (a ModKit).
+
+        There is no H.2 plan, so *expected* lists the declared changes (default: none,
+        i.e. every difference beyond the control's noise is UNEXPECTED_CHANGE).
+        *toolchain* defaults to ``None`` (unknown): a third-party tool did not build
+        *candidate* with this machine's toolchain.
+        """
+        return self._verify(
+            original, control, candidate, None, toolchain, list(expected or []), None,
+            mode="external",
+        )  # fmt: skip
+
     # -- body ---------------------------------------------------------------------
 
     def _verify(
@@ -337,12 +358,14 @@ class TransformationVerifier:
         toolchain: ToolchainIdentity | None,
         expected: list[ExpectedChange] | None,
         work_dir: Path | None,
+        *,
+        mode: str | None = None,
     ) -> TransformationVerificationResult:
         t_start = time.monotonic()
         a = Path(original).expanduser().resolve()
         sha_a = _sha256(a)
         result = TransformationVerificationResult(
-            mode="transformation" if plan_source is not None else "noop",
+            mode=mode or ("transformation" if plan_source is not None else "noop"),
             source_apk=str(a),
             source_apk_sha256=sha_a,
             control_rebuild=RebuildRecord(role="control"),
@@ -1516,6 +1539,9 @@ def _finalize(ctx: _Context) -> None:
             "every mandatory domain COMPLETE, every invariant passed, every difference is "
             "the declared transformation or noise reproduced by the control rebuild"
             if r.mode == "transformation"
+            else "every difference is a declared external change or noise the control "
+            "rebuild reproduces"
+            if r.mode == "external"
             else "the candidate differs from the original only by noise the control "
             "rebuild reproduces"
         )

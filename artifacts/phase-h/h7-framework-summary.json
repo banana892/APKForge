@@ -1,0 +1,350 @@
+{
+  "run_id": "20261006T185420Z",
+  "framework": {
+    "status": "PASS",
+    "failures": [],
+    "input_sha256": "f49523a783578d4075dceb02894fb4dac2bff9670cf263bd5d4a5b1481e0dd80",
+    "scenarios": [
+      {
+        "scenario": "success",
+        "status": "SUCCESS",
+        "failure": null,
+        "expected": [
+          "SUCCESS",
+          null
+        ],
+        "published": true,
+        "original_unchanged": true,
+        "seconds": 0.17,
+        "reason": "validated output published to /home/naishring/APKForge/work/phase-h7/20261006T185420Z/framework/out/success/app.test-modkit.apk"
+      },
+      {
+        "scenario": "noop",
+        "status": "NO_OP",
+        "failure": null,
+        "expected": [
+          "NO_OP",
+          null
+        ],
+        "published": false,
+        "original_unchanged": true,
+        "seconds": 0.1,
+        "reason": "the output is byte-identical to the input"
+      },
+      {
+        "scenario": "noop-undeclared",
+        "status": "OUTPUT_INVALID",
+        "failure": "OUTPUT_UNCHANGED",
+        "expected": [
+          "OUTPUT_INVALID",
+          "OUTPUT_UNCHANGED"
+        ],
+        "published": false,
+        "original_unchanged": true,
+        "seconds": 0.1,
+        "reason": "output is byte-identical to the input but a transformation was expected"
+      },
+      {
+        "scenario": "noop-empty",
+        "status": "NO_OP",
+        "failure": null,
+        "expected": [
+          "NO_OP",
+          null
+        ],
+        "published": false,
+        "original_unchanged": true,
+        "seconds": 0.1,
+        "reason": "the ModKit declared a no-op and produced no output"
+      },
+      {
+        "scenario": "missing-output",
+        "status": "OUTPUT_MISSING",
+        "failure": "OUTPUT_MISSING",
+        "expected": [
+          "OUTPUT_MISSING",
+          "OUTPUT_MISSING"
+        ],
+        "published": false,
+        "original_unchanged": true,
+        "seconds": 0.1,
+        "reason": "declared output 'patched.apk' does not exist"
+      },
+      {
+        "scenario": "no-declaration",
+        "status": "OUTPUT_INVALID",
+        "failure": "UNEXPECTED_ARTIFACT",
+        "expected": [
+          "OUTPUT_INVALID",
+          "UNEXPECTED_ARTIFACT"
+        ],
+        "published": false,
+        "original_unchanged": true,
+        "seconds": 0.1,
+        "reason": "undeclared files in output/: patched.apk"
+      },
+      {
+        "scenario": "invalid-apk",
+        "status": "OUTPUT_INVALID",
+        "failure": "OUTPUT_MALFORMED",
+        "expected": [
+          "OUTPUT_INVALID",
+          "OUTPUT_MALFORMED"
+        ],
+        "published": false,
+        "original_unchanged": true,
+        "seconds": 0.05,
+        "reason": "not a ZIP archive"
+      },
+      {
+        "scenario": "truncated-apk",
+        "status": "OUTPUT_INVALID",
+        "failure": "OUTPUT_MALFORMED",
+        "expected": [
+          "OUTPUT_INVALID",
+          "OUTPUT_MALFORMED"
+        ],
+        "published": false,
+        "original_unchanged": true,
+        "seconds": 0.1,
+        "reason": "not a ZIP archive"
+      },
+      {
+        "scenario": "nonzero-exit",
+        "status": "EXECUTION_FAILED",
+        "failure": "NON_ZERO_EXIT",
+        "expected": [
+          "EXECUTION_FAILED",
+          "NON_ZERO_EXIT"
+        ],
+        "published": false,
+        "original_unchanged": true,
+        "seconds": 0.05,
+        "reason": "exit code 3"
+      },
+      {
+        "scenario": "timeout",
+        "status": "TIMEOUT",
+        "failure": "TIMEOUT",
+        "expected": [
+          "TIMEOUT",
+          "TIMEOUT"
+        ],
+        "published": false,
+        "original_unchanged": true,
+        "seconds": 2.01,
+        "reason": "timed out after 2 s; process group killed"
+      },
+      {
+        "scenario": "crash",
+        "status": "EXECUTION_FAILED",
+        "failure": "PROCESS_CRASH",
+        "expected": [
+          "EXECUTION_FAILED",
+          "PROCESS_CRASH"
+        ],
+        "published": false,
+        "original_unchanged": true,
+        "seconds": 0.2,
+        "reason": "terminated by signal 11"
+      },
+      {
+        "scenario": "multiple-outputs",
+        "status": "OUTPUT_INVALID",
+        "failure": "OUTPUT_AMBIGUOUS",
+        "expected": [
+          "OUTPUT_INVALID",
+          "OUTPUT_AMBIGUOUS"
+        ],
+        "published": false,
+        "original_unchanged": true,
+        "seconds": 0.1,
+        "reason": "2 primary outputs declared: patched.apk, patched-2.apk"
+      },
+      {
+        "scenario": "extra-artifact",
+        "status": "OUTPUT_INVALID",
+        "failure": "UNEXPECTED_ARTIFACT",
+        "expected": [
+          "OUTPUT_INVALID",
+          "UNEXPECTED_ARTIFACT"
+        ],
+        "published": false,
+        "original_unchanged": true,
+        "seconds": 0.1,
+        "reason": "undeclared files in output/: debug.txt"
+      },
+      {
+        "scenario": "outside-workspace",
+        "status": "OUTPUT_INVALID",
+        "failure": "OUTPUT_OUTSIDE_WORKSPACE",
+        "expected": [
+          "OUTPUT_INVALID",
+          "OUTPUT_OUTSIDE_WORKSPACE"
+        ],
+        "published": false,
+        "original_unchanged": true,
+        "seconds": 0.1,
+        "reason": "files written outside output/: escaped.apk"
+      },
+      {
+        "scenario": "outside-undeclared",
+        "status": "OUTPUT_INVALID",
+        "failure": "OUTPUT_OUTSIDE_WORKSPACE",
+        "expected": [
+          "OUTPUT_INVALID",
+          "OUTPUT_OUTSIDE_WORKSPACE"
+        ],
+        "published": false,
+        "original_unchanged": true,
+        "seconds": 0.1,
+        "reason": "files written outside output/: escaped.apk"
+      },
+      {
+        "scenario": "symlink-escape",
+        "status": "OUTPUT_INVALID",
+        "failure": "OUTPUT_OUTSIDE_WORKSPACE",
+        "expected": [
+          "OUTPUT_INVALID",
+          "OUTPUT_OUTSIDE_WORKSPACE"
+        ],
+        "published": false,
+        "original_unchanged": true,
+        "seconds": 0.1,
+        "reason": "'patched.apk' is a symlink pointing outside output/"
+      },
+      {
+        "scenario": "malicious-filename",
+        "status": "OUTPUT_INVALID",
+        "failure": "UNSAFE_FILENAME",
+        "expected": [
+          "OUTPUT_INVALID",
+          "UNSAFE_FILENAME"
+        ],
+        "published": false,
+        "original_unchanged": true,
+        "seconds": 0.1,
+        "reason": "unsafe declared name 'evil;$(touch pwned)\\n.apk'"
+      },
+      {
+        "scenario": "traversal-entry",
+        "status": "OUTPUT_INVALID",
+        "failure": "OUTPUT_MALFORMED",
+        "expected": [
+          "OUTPUT_INVALID",
+          "OUTPUT_MALFORMED"
+        ],
+        "published": false,
+        "original_unchanged": true,
+        "seconds": 0.1,
+        "reason": "unsafe entry name '../../evil.txt'"
+      },
+      {
+        "scenario": "directory-output",
+        "status": "OUTPUT_INVALID",
+        "failure": "OUTPUT_NOT_REGULAR_FILE",
+        "expected": [
+          "OUTPUT_INVALID",
+          "OUTPUT_NOT_REGULAR_FILE"
+        ],
+        "published": false,
+        "original_unchanged": true,
+        "seconds": 0.1,
+        "reason": "'patched.apk' is a directory"
+      },
+      {
+        "scenario": "mutate-input",
+        "status": "EXECUTION_FAILED",
+        "failure": "INPUT_MUTATED",
+        "expected": [
+          "EXECUTION_FAILED",
+          "INPUT_MUTATED"
+        ],
+        "published": false,
+        "original_unchanged": true,
+        "seconds": 0.1,
+        "reason": "the ModKit modified its staged input in place"
+      },
+      {
+        "scenario": "noisy",
+        "status": "SUCCESS",
+        "failure": null,
+        "expected": [
+          "SUCCESS",
+          null
+        ],
+        "published": true,
+        "original_unchanged": true,
+        "seconds": 0.1,
+        "reason": "validated output published to /home/naishring/APKForge/work/phase-h7/20261006T185420Z/framework/out/noisy/app.test-modkit.apk"
+      },
+      {
+        "scenario": "echo-env",
+        "status": "SUCCESS",
+        "failure": null,
+        "expected": [
+          "SUCCESS",
+          null
+        ],
+        "published": true,
+        "original_unchanged": true,
+        "seconds": 0.1,
+        "reason": "validated output published to /home/naishring/APKForge/work/phase-h7/20261006T185420Z/framework/out/echo-env/app.test-modkit.apk"
+      },
+      {
+        "scenario": "echo-args",
+        "status": "SUCCESS",
+        "failure": null,
+        "expected": [
+          "SUCCESS",
+          null
+        ],
+        "published": true,
+        "original_unchanged": true,
+        "seconds": 0.1,
+        "reason": "validated output published to /home/naishring/APKForge/work/phase-h7/20261006T185420Z/framework/out/echo-args/app.test-modkit.apk"
+      },
+      {
+        "scenario": "replace-output-dir",
+        "status": "OUTPUT_INVALID",
+        "failure": "OUTPUT_OUTSIDE_WORKSPACE",
+        "expected": [
+          "OUTPUT_INVALID",
+          "OUTPUT_OUTSIDE_WORKSPACE"
+        ],
+        "published": false,
+        "original_unchanged": true,
+        "seconds": 0.1,
+        "reason": "output/ was replaced"
+      }
+    ],
+    "security": {
+      "parent_env_leaked": false,
+      "child_env_keys": [
+        "HOME",
+        "LANG",
+        "PATH",
+        "TMPDIR"
+      ],
+      "secret_occurrences": 0,
+      "shell_interpretation": [],
+      "masked_arguments": 1
+    },
+    "reproducibility": {
+      "output_sha256": [
+        "f855557df331b7e9771d225ad2b874a016e429806d25d1f0050e8ea7a7e74359",
+        "f855557df331b7e9771d225ad2b874a016e429806d25d1f0050e8ea7a7e74359"
+      ],
+      "identical_output_bytes": true,
+      "identical_provenance_modulo_ids": true
+    },
+    "availability": {
+      "default": "AVAILABLE",
+      "not_installed": "NOT_INSTALLED",
+      "dependency_missing": "DEPENDENCY_MISSING",
+      "version_unsupported": "VERSION_UNSUPPORTED",
+      "disabled": "EXECUTION_UNAVAILABLE"
+    },
+    "seconds": 5.0
+  }
+}

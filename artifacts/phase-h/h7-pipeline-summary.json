@@ -1,0 +1,97 @@
+{
+  "run_id": "20261006T185420Z",
+  "pipeline": {
+    "status": "PASS",
+    "failures": [],
+    "original_sha256": "fdfbc4f16c09ca1009eeac9043fb74eaf5b17b4d19f54d21ad4e254143ca3f61",
+    "modkit_output_sha256": "0c6f983f2a389c57f6d91253f72d7f984b9f2adf36f33e1220edca010fd3a45f",
+    "analysis": {
+      "execution_id": "mk-20261006T185430Z-43bec8c33802",
+      "modkit_id": "test-modkit",
+      "original_sha256": "fdfbc4f16c09ca1009eeac9043fb74eaf5b17b4d19f54d21ad4e254143ca3f61",
+      "output_sha256": "0c6f983f2a389c57f6d91253f72d7f984b9f2adf36f33e1220edca010fd3a45f",
+      "diff_status": "partial",
+      "diff_summary": {
+        "permissions_added": 0,
+        "permissions_removed": 0,
+        "components_added": 0,
+        "components_removed": 0,
+        "components_modified": 0,
+        "dex_files_added": 0,
+        "dex_files_removed": 0,
+        "dex_files_modified": 0,
+        "classes_added": 0,
+        "classes_removed": 0,
+        "classes_modified": 0,
+        "native_libraries_added": 0,
+        "native_libraries_removed": 0,
+        "native_libraries_modified": 0,
+        "domains_added": 0,
+        "domains_removed": 0,
+        "urls_added": 0,
+        "urls_removed": 0,
+        "files_added": 1,
+        "files_removed": 0,
+        "files_modified": 0,
+        "files_renamed": 0,
+        "certificate_status": "REMOVED"
+      },
+      "privacy": {
+        "source": "privacy",
+        "status_before": "complete",
+        "status_after": "partial",
+        "findings_before": [],
+        "findings_after": [],
+        "introduced": [],
+        "removed": [],
+        "retained": [],
+        "changed": [],
+        "complete": false,
+        "limitations": [
+          "privacy analysis was complete before and partial after: introduced/removed findings may be incomplete (partial/unknown change)"
+        ]
+      },
+      "security": {
+        "source": "security",
+        "status_before": "complete",
+        "status_after": "partial",
+        "findings_before": [],
+        "findings_after": [],
+        "introduced": [],
+        "removed": [],
+        "retained": [],
+        "changed": [],
+        "complete": false,
+        "limitations": [
+          "security analysis was complete before and partial after: introduced/removed findings may be incomplete (partial/unknown change)"
+        ]
+      },
+      "verification_status": null,
+      "verification_reason": null,
+      "limitations": [
+        "Post-ModKit analysis is static: it reports what changed, not whether the ModKit's transformation is semantically safe."
+      ]
+    },
+    "buildservice": {
+      "control": true,
+      "modkit_output": true
+    },
+    "h4_undeclared": {
+      "status": "FAILED",
+      "reason": "failed: no_unexpected_change, domain assets, 1 unexpected change(s)",
+      "unexpected": [
+        "assets/test-modkit/marker.txt"
+      ]
+    },
+    "h4_declared": {
+      "status": "VERIFIED",
+      "reason": "every difference is a declared external change or noise the control rebuild reproduces",
+      "expected": [
+        "assets/test-modkit/marker.txt"
+      ],
+      "noise": 7
+    },
+    "original_unchanged": true,
+    "seconds": 11.4
+  }
+}

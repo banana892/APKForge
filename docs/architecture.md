@@ -238,6 +238,22 @@ The implemented pipeline is `apkforge.modification.pipeline.ModificationPipeline
 decodes/builds/aligns/signs/verifies, DiffEngine + `verify_expectations` compare the
 rebuilt APK with the combined plan. The diagram below is the original Phase 5 sketch.
 
+### Third-Party ModKit Integration Framework (Phase H.7)
+
+`apkforge.modkit` drives external APK modification engines ("ModKits") through a typed
+adapter contract (`ModKitAdapter`; `ExternalProcessAdapter` for CLI tools). APKForge owns
+the lifecycle; the ModKit only transforms. See [`modkits.md`](modkits.md).
+
+```
+ModKitManager (registry + deterministic discovery + TOML configuration)
+  -> ModKitExecutor: availability -> request/input validation -> SHA-256 of the original
+     -> fresh ModKitWorkspace (input/ working/ output/ logs/ metadata/) -> staged read-only copy
+     -> adapter.prepare/execute once (ModKitProcessRunner: argv only, scrubbed env, timeout)
+     -> integrity re-check -> adapter.collect_output (a claim) -> validate_output (the truth)
+     -> publish (copy + SHA verify) -> provenance -> adapter.cleanup -> retention
+  -> ModKitPostAnalysis: DiffEngine, Phase F/B before/after, H.4 verify_external
+```
+
 ### Modification Pipeline (Phase 5+, original sketch)
 
 ```
@@ -362,6 +378,8 @@ src/apkforge/
 │   ├── index.py        — ReferenceIndex: deterministic find_* queries, assess_absence
 │   ├── report.py       — format_reference_report (Markdown)
 │   └── service.py      — ReferenceAnalysisService.analyze / analyze_decoded
+│
+├── modkit/             — Phase H.7 third-party ModKit framework (contract, manager, executor, validation)
 │
 ├── transformation/     — Phase H.2 planning; H.3 controlled application (H-TRANS-001); H.4 verification
 │   ├── models.py       — EligibilityState, DecisionReason (+ REASON_STATES), plan/decision models

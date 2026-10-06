@@ -20,7 +20,9 @@ H.2  Transformation eligibility / planning  (implemented, planning only — see 
 H.3  First narrow transformation            (implemented: H-TRANS-001 — see below)
 H.4  Verification of transformed APK        (implemented — see below)
 H.5  Controlled isolated-method removal     (implemented: H-TRANS-002)
-H.6  Controlled call-site replacement       (implemented: H-TRANS-003 — see the end)
+H.6  Controlled call-site replacement       (implemented: H-TRANS-003 — see below)
+H.7  Third-party ModKit framework           (implemented: generic framework — see the end
+                                             and docs/modkits.md; no third-party ModKit)
 ```
 
 The intended flow for a future deep transformation (for example removing an SDK class) is:
@@ -1040,3 +1042,31 @@ signing); that is packaging, not content, and is not required to match.
   conflicting set, mutation faults, build-time faults, integrity, reproducibility, CLI.
 - `build-tests/run_phase_h6_validation.py all --write` — synthetic matrix plus the read-only
   corpus run; evidence in `artifacts/phase-h/H6-CONTROLLED-CALL-SITE-TRANSFORMATION.md`.
+
+# Phase H.7 — Third-Party ModKit Integration Framework
+
+H.7 adds a second kind of transformation provider next to the H-TRANS transformations: an
+**external ModKit** (a separately installed tool) driven through the generic adapter
+contract in `apkforge.modkit`. The full design is in [`modkits.md`](modkits.md). The parts
+that matter for this document are:
+
+- **No H.2 plan.** A ModKit transformation is not planned or eligibility-checked by H.2, and
+  H.1/H.2 evidence does not constrain it. APKForge therefore treats the ModKit's output as
+  untrusted. It validates the output independently (archive, boundaries, declared outputs,
+  input immutability) before publishing anything.
+- **Same verification machinery.** The published output goes into the existing engines:
+  DiffEngine (Phase E), Phase F/B before/after findings, BuildService for alignment and
+  signing, and H.4 through `TransformationVerifier.verify_external(original, control,
+  candidate, expected=..., toolchain=...)`. That additive entry point runs the unchanged
+  A / B / C experiment with `mode="external"`. The declared changes come from the caller
+  instead of a plan, so every undeclared ModKit change is `UNEXPECTED_CHANGE`, and the
+  status can never be VERIFIED while one remains. The toolchain defaults to unknown.
+- **No composition.** An H-TRANS transformation and a ModKit (or two ModKits) are separate
+  transformations with separate provenance. Nothing chains them or resolves conflicts
+  (H.9/H.10).
+- **No third-party code.** H.7 ships only the reference `test-modkit`. The first real
+  adapter (Morphe) is H.8.
+
+Verification: `tests/unit/test_modkit_framework.py`,
+`tests/integration/test_phase_h7_modkit.py` and `build-tests/run_phase_h7_validation.py`.
+Evidence is in `artifacts/phase-h/H7-MODKIT-FRAMEWORK.md`.
