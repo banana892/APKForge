@@ -125,6 +125,7 @@ class MorpheAdapter(ExternalProcessAdapter):
         # name (apkforge/modkit/morphe docs; the H.8.3 live test). Morphe patches
         # can touch dex/resources too, but only this much has been exercised.
         return (
+            ModKitCapability.MANIFEST_TRANSFORMATION,
             ModKitCapability.APK_TRANSFORMATION,
             ModKitCapability.PATCH_SELECTION,
             ModKitCapability.MULTI_PATCH,
@@ -136,6 +137,7 @@ class MorpheAdapter(ExternalProcessAdapter):
                 id=PATCH_OPERATION_ID,
                 description="Apply selected patches from a Morphe patch bundle.",
                 capabilities=(
+                    ModKitCapability.MANIFEST_TRANSFORMATION,
                     ModKitCapability.APK_TRANSFORMATION,
                     ModKitCapability.PATCH_SELECTION,
                     ModKitCapability.MULTI_PATCH,

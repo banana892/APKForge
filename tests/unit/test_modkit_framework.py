@@ -968,7 +968,12 @@ def test_cli_modkit_info(monkeypatch: pytest.MonkeyPatch) -> None:
     assert mdata["availability"]["status"] == "NOT_INSTALLED"
     # H.8.3: morphe declares a real "patch" operation now, unlike test-modkit's
     # "transform" - unavailability (no executable configured) is orthogonal to that.
-    assert mdata["capabilities"] == ["APK_TRANSFORMATION", "PATCH_SELECTION", "MULTI_PATCH"]
+    assert mdata["capabilities"] == [
+        "MANIFEST_TRANSFORMATION",
+        "APK_TRANSFORMATION",
+        "PATCH_SELECTION",
+        "MULTI_PATCH",
+    ]
     assert [o["id"] for o in mdata["operations"]] == ["patch"]
 
 

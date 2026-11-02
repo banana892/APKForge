@@ -504,8 +504,9 @@ bundle: the first `Index: 0` line of a run comes out as `INFO: Index: 0` because
 last startup log line never gets its own trailing newline.
 
 H.8.3 adds the `patch` operation itself, so `capabilities()` now declares
-`APK_TRANSFORMATION`, `PATCH_SELECTION` and `MULTI_PATCH` (verified: a live "Clone app" run
-changed the package name in the manifest) and `operations()` declares one `OperationSpec`
+`MANIFEST_TRANSFORMATION`, `APK_TRANSFORMATION`, `PATCH_SELECTION` and `MULTI_PATCH`
+(verified: a live "Clone app" run changed the package name in the manifest;
+`MANIFEST_TRANSFORMATION` was only declared later, from that same evidence) and `operations()` declares one `OperationSpec`
 (`id="patch"`) with parameters `patches` (required), `enable`/`disable` (comma-separated
 patch names), `exclusive`, `force`, `prerelease`, (H.8.4) `keystore`,
 `keystore_entry_alias`, `keystore_entry_password`, `keystore_password`, (H.8.5)

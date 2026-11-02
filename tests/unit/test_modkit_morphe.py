@@ -149,6 +149,7 @@ def test_identity_and_contract() -> None:
 def test_capabilities_and_operations_declared_in_h8_3() -> None:
     a = MorpheAdapter()
     assert set(a.capabilities()) == {
+        A_CAP.MANIFEST_TRANSFORMATION,
         A_CAP.APK_TRANSFORMATION,
         A_CAP.PATCH_SELECTION,
         A_CAP.MULTI_PATCH,
