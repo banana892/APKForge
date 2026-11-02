@@ -355,6 +355,9 @@ function renderApplied(r) {
   ];
 }
 
+// Project files a Modify apply edited, handed to the next Verify run (see "Verify output").
+let VERIFY_PLANNED_FILES = [];
+
 PREVIEW.apply = (job) => {
   const r = job.result;
   const out = el("div", {});
@@ -364,7 +367,23 @@ PREVIEW.apply = (job) => {
       el("button", { type: "button", class: "primary", onclick: (ev) =>
         runJob("/api/jobs/verify-transformation", { apply_job: job.id }, out, ev.target) }, "Verify transformation"), out)
     : null;
-  return [...renderApplied(r), h4];
+  // A Phase D apply knows what it meant to change: verify the output against exactly that.
+  const expected = (r.modifiers || []).flatMap((m) => m.plan?.expected_changes || []);
+  const plannedFiles = [...new Set((r.modifiers || []).flatMap((m) => (m.plan?.file_changes || []).map((f) => f.path)))];
+  const declared = job.summary.preview_kind === "modify-preview" && r.output_apk
+    ? el("div", { class: "panel" }, el("h2", {}, "Verify against the declared changes"),
+      el("p", { class: "hint" }, `Pair verification of the output with the ${expected.length} change(s) the modifiers declared, so only other changes count as unexpected.`),
+      el("button", { type: "button", class: "primary", onclick: () => {
+        selectTab("verify");
+        $("verify-original").value = job.summary.apk;
+        $("verify-modified").value = r.output_apk;
+        $("verify-expected").value = JSON.stringify(expected, null, 2);
+        $("verify-noise").checked = true;
+        VERIFY_PLANNED_FILES = plannedFiles;
+        $("form-verify").requestSubmit();
+      } }, "Verify output"))
+    : null;
+  return [...renderApplied(r), h4, declared];
 };
 
 PREVIEW["modify-preview"] = (job) => {
@@ -424,6 +443,9 @@ function renderVerify(r) {
     ...matrixTable(r.verification),
     kv([["Original", r.original?.path], ["Modified", r.modified?.path], ["Noise baseline", r.baseline ? "measured" : "none"]]),
     changesTable("Unexpected", r.unexpected), changesTable("Unknown", r.unknown),
+    (r.expected || []).length ? el("details", {}, el("summary", {}, `Declared changes (${r.expected.length})`),
+      table(["Category", "Kind", "Identifier"], r.expected.map((e) => el("tr", {},
+        el("td", {}, e.category), el("td", {}, e.kind), el("td", { class: "mono" }, e.identifier))))) : null,
     list("Limitations", r.limitations),
     el("p", { class: "notice" }, "Verification shows structural/signing validity and plan conformance within the comparators' coverage; it does not prove the app is safe."),
     rawJson(r),
@@ -841,8 +863,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     runJob("/api/jobs/modify-preview", { apk: $("modify-apk").value.trim(), modifiers,
       allow_partial: $("modify-partial").checked, measure_noise_floor: $("modify-noise").checked }, $("out-modify"), btn);
   });
-  onSubmit("form-verify", (btn) => runJob("/api/jobs/verify", { original: $("verify-original").value.trim(),
-    modified: $("verify-modified").value.trim() || null, measure_noise_floor: $("verify-noise").checked }, $("out-verify"), btn));
+  onSubmit("form-verify", (btn) => {
+    let expected = [];
+    try {
+      const text = $("verify-expected").value.trim();
+      expected = text ? JSON.parse(text) : [];
+      if (!Array.isArray(expected)) throw new Error("expected a JSON array");
+    } catch (e) {
+      $("out-verify").replaceChildren(el("div", { class: "panel error" }, `Expected changes are not valid JSON: ${e.message}`));
+      return;
+    }
+    const planned_files = VERIFY_PLANNED_FILES;
+    VERIFY_PLANNED_FILES = [];  // they belong to that one handoff, not to later manual runs
+    runJob("/api/jobs/verify", { original: $("verify-original").value.trim(), modified: $("verify-modified").value.trim() || null,
+      measure_noise_floor: $("verify-noise").checked, expected, planned_files }, $("out-verify"), btn);
+  });
   onSubmit("form-build", (btn) => runJob("/api/jobs/build-check", { apk: $("build-apk").value.trim() }, $("out-build"), btn));
   onSubmit("form-chain", (btn) => {
     let steps;

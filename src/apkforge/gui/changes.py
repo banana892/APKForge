@@ -34,6 +34,8 @@ from apkforge.builders.corpus import sha256_file
 from apkforge.builders.semantic_baseline import current_toolchain_identity, run_semantic_noop
 from apkforge.core.config import load_default_config
 from apkforge.core.exceptions import APKForgeError
+from apkforge.diff.expectations import ExpectedChange  # noqa: TC001 - pydantic field type
+from apkforge.diff.normalization import archive_entries_for
 from apkforge.gui.jobs import Job, JobManager, JobStatus
 from apkforge.modification.catalog import default_catalog
 from apkforge.modification.pipeline import (
@@ -119,6 +121,11 @@ class VerifyBody(BaseModel):
     original: str
     modified: str | None = None
     measure_noise_floor: bool = False
+    #: Declared changes (``verify --expected FILE``): matched ones are not "unexpected".
+    expected: list[ExpectedChange] = Field(default_factory=list)
+    #: Decoded-project paths the modifiers edited (their ``file_changes``), so the archive
+    #: entries rebuilt from them (AndroidManifest.xml, classesN.dex) are not unexpected.
+    planned_files: list[str] = Field(default_factory=list)
 
 
 class VerifyTransformationBody(BaseModel):
@@ -354,6 +361,11 @@ def add_change_routes(
         """``apkforge verify ORIGINAL [MODIFIED] [--measure-noise-floor]``."""
         original = apk_path(body.original, "original")
         modified = apk_path(body.modified, "modified") if body.modified else None
+        if (body.expected or body.planned_files) and modified is None:
+            raise HTTPException(422, "expected changes need a modified APK")
+        planned, unmapped = archive_entries_for(body.planned_files)
+        if unmapped:  # their effect on the archive is unknown: accept no entry as planned
+            raise HTTPException(422, f"no known archive mapping for: {', '.join(unmapped)}")
 
         def work() -> Any:  # noqa: ANN401
             built = default_build_service()
@@ -373,13 +385,15 @@ def add_change_routes(
                     baseline = measure_noise_floor(service, original, work_dir=Path(tmp))
             toolchain = current_toolchain_identity(service) if baseline and service else None
             report, _ = verify_pair(original, modified, baseline=baseline, service=service,
+                                    expected=body.expected, planned_entries=planned or None,
                                     build_toolchain=toolchain)  # fmt: skip
             # raw/normalized/semantic are whole diffs (hundreds of MB on large apps): the
             # page shows the matrix and the classified changes; `verify --json` has all.
             return report.model_dump(mode="json", exclude={"raw", "normalized", "semantic"})
 
         summary = {"original": str(original), "modified": str(modified or ""),
-                   "measure_noise_floor": body.measure_noise_floor}  # fmt: skip
+                   "measure_noise_floor": body.measure_noise_floor,
+                   "expected": len(body.expected)}  # fmt: skip
         return jobs.submit("verify", summary, work)
 
     @app.post("/api/jobs/verify-transformation", status_code=202)

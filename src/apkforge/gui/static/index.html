@@ -284,6 +284,12 @@
         <div><label for="verify-modified">Modified APK (optional)</label><input type="text" id="verify-modified" data-upload></div>
       </div>
       <label class="check"><input type="checkbox" id="verify-noise"> Measure the noise floor (rebuilds the original once)</label>
+      <details>
+        <summary>Declared changes (optional)</summary>
+        <label for="verify-expected">Expected changes, JSON array (<code>verify --expected FILE</code> format;
+          a Modify result fills this in). Declared changes are not reported as unexpected.</label>
+        <textarea id="verify-expected" spellcheck="false" placeholder='[{"category": "permission", "kind": "removed", "identifier": "android.permission.X"}]'></textarea>
+      </details>
       <button class="primary" type="submit">Verify</button>
     </form>
     <div id="out-verify"></div>

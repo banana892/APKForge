@@ -457,3 +457,42 @@ def test_reference_call_sites_endpoint_expires(client: TestClient) -> None:
     r = client.get("/api/references/nope/call-sites", headers=H,
                    params={"class_name": "a.B", "method": "m()V"})  # fmt: skip
     assert r.status_code == 410
+
+
+def test_verify_passes_declared_changes(
+    client: TestClient, apk: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """The GUI only forwards them; verify_pair's classification has its own tests."""
+    from apkforge.gui import changes
+
+    seen: list[Any] = []
+
+    class Report:
+        def model_dump(self, **kw: Any) -> dict[str, Any]:
+            assert kw["exclude"] == {"raw", "normalized", "semantic"}
+            return {"verification": {"overall": "VERIFIED"}}
+
+    def fake_verify_pair(original: Path, modified: Path, **kw: Any) -> tuple[Report, None]:
+        seen.append((kw["expected"], kw["planned_entries"]))
+        return Report(), None
+
+    monkeypatch.setattr(changes, "verify_pair", fake_verify_pair)
+    b = create_synthetic_apk(tmp_path / "b" / "app.apk", extra_files={"assets/new.txt": b"hi"})
+    declared = {"category": "file", "kind": "added", "identifier": "assets/new.txt"}
+    job = _wait(client, _post(client, "/api/jobs/verify", original=str(apk), modified=str(b),
+                              expected=[declared],
+                              planned_files=["AndroidManifest.xml", "smali_classes2/a/B.smali"],
+                              ).json())  # fmt: skip
+    assert job["status"] == "DONE", job["error"]
+    assert [e.identifier for e in seen[0][0]] == ["assets/new.txt"]
+    assert seen[0][1] == {"AndroidManifest.xml", "classes2.dex"}  # mapped to archive entries
+    assert job["summary"]["expected"] == 1
+    bad = _post(client, "/api/jobs/verify", original=str(apk), expected=[declared])
+    assert bad.status_code == 422  # declared changes need a modified APK
+    junk = _post(
+        client, "/api/jobs/verify", original=str(apk), modified=str(b), expected=[{"x": 1}]
+    )
+    assert junk.status_code == 422
+    unmapped = _post(client, "/api/jobs/verify", original=str(apk), modified=str(b),
+                     planned_files=["apktool.yml"])  # fmt: skip
+    assert unmapped.status_code == 422 and "apktool.yml" in unmapped.text
