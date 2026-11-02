@@ -3,10 +3,12 @@
 A **ModKit** is an external APK modification engine — a separately installed command-line
 tool or, in future, a library — that APKForge drives through a controlled adapter contract.
 H.7 is the generic framework; the only adapter it ships is APKForge's own deterministic
-reference `test-modkit`. H.8.1 adds the first real adapter, `morphe` (Morphe Desktop), but
-only its discovery and compatibility checking — no capabilities or operations yet, so
-`apkforge modkit run morphe ...` always fails with "unknown operation" until H.8.3.
-APKForge never bundles or downloads Morphe; see "Morphe (H.8)" below.
+reference `test-modkit`. H.8.1 adds the first real adapter, `morphe` (Morphe Desktop):
+discovery and compatibility checking. H.8.2 adds read-only patch bundle discovery
+(`apkforge modkit patches morphe --patches ...`). Neither stage adds capabilities or
+operations, so `apkforge modkit run morphe ...` still always fails with "unknown
+operation" until H.8.3. APKForge never bundles or downloads Morphe; see "Morphe (H.8)"
+below.
 
 The rule behind every design decision is that **APKForge owns the lifecycle**. A ModKit is a
 transformation provider: it gets a staged copy of the input, an empty output directory and
@@ -33,6 +35,8 @@ Third-party ModKit  ── reads input/input.apk, writes output/ ──┐
 ```bash
 apkforge modkits [--json] [--verbose] [--config FILE]       # discovery
 apkforge modkit info MODKIT_ID [--json] [--verbose]         # one ModKit in detail
+apkforge modkit patches MODKIT_ID --patches BUNDLE \         # H.8.2: list a bundle's patches
+    [--package PKG] [--prerelease] [--timeout S] [--json] [--config FILE]
 apkforge modkit run MODKIT_ID APP.apk -o OUT_DIR \
     [--operation OP] [-p NAME=VALUE ...] [--timeout S] [--allow-noop] \
     [--work-dir DIR] [--keep-workspace] [--analyze] [--json] [--report FILE]
@@ -461,7 +465,7 @@ as `java -jar <configured executable_path> ...`. APKForge never bundles, downloa
 redistributes it (Morphe Patcher/Desktop is GPL-3.0 with additional branding restrictions);
 the user configures `[modkits.morphe].executable_path` to point at their own copy.
 
-H.8.1 (current) implements discovery and compatibility only:
+H.8.1 implements discovery and compatibility only:
 
 - the Java runtime requirement (21+; override with `modkits.morphe.options.java_executable`,
   otherwise `java` is looked up on `PATH`) is reported as a `RequirementCheck` alongside the
@@ -474,16 +478,35 @@ H.8.1 (current) implements discovery and compatibility only:
 - `capabilities()` and `operations()` are both empty — nothing is verified yet, so the
   framework can never call `build_command`/`execute`/`collect_output` for it
 
-Patch bundle discovery, patch selection/options and execution are H.8.2/H.8.3; they add
-operations and capabilities to the same adapter. The H.7 framework needed no changes for
-this: `MorpheAdapter` is ordinary third-party-facing code behind the same contract.
+H.8.2 (current) adds `MorpheAdapter.list_patches(patches, *, package=None, prerelease=False,
+timeout=None)`, a read-only query of a patch bundle's contents via Morphe's own
+`list-patches --with-packages --with-versions`. It runs directly (own subprocess call,
+own timeout, scrubbed `HOME`/`TMPDIR`) rather than through the operation contract: it
+needs no input APK and produces no APK output, so it does not fit the
+`ExecutionRequest`/`ModKitExecutor` transformation pipeline. `capabilities()` and
+`operations()` stay empty — `apkforge modkit run morphe ...` still fails with "unknown
+operation". `patches` is a local `.mpp` file path or a GitHub/GitLab repo URL (e.g.
+`https://github.com/MorpheApp/morphe-patches`), which Morphe resolves, downloads and
+caches itself; the result is a `PatchBundleListing` (`apkforge.modkit.morphe.patches`) —
+one `PatchInfo` per patch (index, name, description, enabled-by-default, and the packages
+plus versions it's compatible with, or none for a "universal" patch). Exposed as
+`apkforge modkit patches MODKIT_ID --patches BUNDLE [--package PKG] [--json]`. Morphe has
+no JSON output for `list-patches` (checked: only `--out FILE`, still plain text), so the
+adapter parses the real text format — including one real quirk, verified against the live
+bundle: the first `Index: 0` line of a run comes out as `INFO: Index: 0` because Morphe's
+last startup log line never gets its own trailing newline.
+
+Patch selection/options and execution are H.8.3; it adds operations and capabilities to
+the same adapter. The H.7 framework needed no changes for H.8.1 or H.8.2: `MorpheAdapter`
+is ordinary third-party-facing code behind the same contract, plus (for H.8.2) one method
+the contract doesn't require.
 
 ## Non-goals (H.7)
 
 H.7 does not include:
 
 - ReVanced or Lucky Patcher integration
-- Morphe patch bundle discovery, selection or execution (H.8.2/H.8.3)
+- Morphe patch selection, options or execution (H.8.3)
 - arbitrary APK/smali patching
 - automatic patch selection
 - automatic malware or spyware removal

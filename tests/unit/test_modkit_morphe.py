@@ -1,8 +1,10 @@
-"""Phase H.8.1 - Morphe Desktop adapter: discovery and compatibility only.
+"""Phase H.8.1/H.8.2 - Morphe Desktop adapter: discovery, compatibility and patch
+bundle listing.
 
 No real Morphe Desktop JAR or JRE is used: a tiny fake ``java`` script stands in for
-both ``java -version`` and ``java -jar <jar> --version``, exactly like the reference
-``test-modkit`` stands in for a real third-party tool elsewhere in this test suite.
+``java -version``, ``java -jar <jar> --version`` and ``... list-patches``, exactly
+like the reference ``test-modkit`` stands in for a real third-party tool elsewhere
+in this test suite.
 """
 
 from __future__ import annotations
@@ -16,6 +18,24 @@ from apkforge.modkit import AvailabilityStatus as A
 from apkforge.modkit import ModKitConfig, contract_problems
 from apkforge.modkit.morphe import MIN_JAVA_MAJOR, MORPHE_MODKIT_ID, MorpheAdapter
 
+# The quirky "INFO: Index: 0" merge and the Compatible-packages block are the real
+# shape; see test_modkit_morphe_patches.py for the parser itself.
+_FAKE_PATCH_LIST = """\
+INFO: Index: 0
+Name: Clone app
+Description: Universal patch.
+Enabled: false
+
+Index: 1
+Name: Hide ads
+Description: Package-specific patch.
+Enabled: true
+Compatible packages:
+\tPackage name: com.example.app
+\tCompatible versions:
+\t\t1.0.0
+"""
+
 _FAKE_JAVA = """\
 #!/usr/bin/env python3
 import sys
@@ -24,6 +44,12 @@ if args == ["-version"]:
     print('openjdk version "{java_version}.0.1" 2024-01-01', file=sys.stderr)
 elif len(args) >= 3 and args[0] == "-jar" and args[2] == "--version":
     print("Morphe Desktop {morphe_version}")
+elif len(args) >= 3 and args[0] == "-jar" and args[2] == "list-patches":
+    bundle = args[args.index("--patches") + 1]
+    if "missing" in bundle:
+        print(f"{{bundle}} can not be found", file=sys.stderr)
+        sys.exit(2)
+    print({fake_patch_list!r}, end="")
 else:
     print(f"unexpected args: {{args}}", file=sys.stderr)
     sys.exit(2)
@@ -32,7 +58,13 @@ else:
 
 def _fake_java(tmp_path: Path, *, java_version: int = 21, morphe_version: str = "1.20.0") -> Path:
     p = tmp_path / "fake-java"
-    p.write_text(_FAKE_JAVA.format(java_version=java_version, morphe_version=morphe_version))
+    p.write_text(
+        _FAKE_JAVA.format(
+            java_version=java_version,
+            morphe_version=morphe_version,
+            fake_patch_list=_FAKE_PATCH_LIST,
+        )
+    )
     p.chmod(p.stat().st_mode | stat.S_IEXEC)
     return p
 
@@ -124,3 +156,41 @@ def test_build_command_and_collect_output_are_not_implemented_yet() -> None:
     with pytest.raises(NotImplementedError):
         a.build_command(None)  # type: ignore[arg-type]
     assert a.collect_output(None).primary == ()  # type: ignore[arg-type]
+
+
+# -- H.8.2: patch bundle discovery -----------------------------------------------
+
+
+def test_list_patches_parses_fake_cli_output(tmp_path: Path) -> None:
+    java = _fake_java(tmp_path)
+    cfg = _config(tmp_path, _jar(tmp_path), options={"java_executable": str(java)})
+    listing, err = MorpheAdapter(cfg).list_patches(str(tmp_path / "bundle.mpp"))
+    assert err == ""
+    assert listing is not None
+    assert [p.name for p in listing.patches] == ["Clone app", "Hide ads"]
+    assert listing.patches[0].compatible == ()
+    assert listing.patches[1].compatible[0].package == "com.example.app"
+
+
+def test_list_patches_without_executable_configured() -> None:
+    listing, err = MorpheAdapter().list_patches("bundle.mpp")
+    assert listing is None and "not configured" in err
+
+
+def test_list_patches_surfaces_tool_error(tmp_path: Path) -> None:
+    java = _fake_java(tmp_path)
+    cfg = _config(tmp_path, _jar(tmp_path), options={"java_executable": str(java)})
+    listing, err = MorpheAdapter(cfg).list_patches("missing.mpp")
+    assert listing is None
+    assert "can not be found" in err
+
+
+def test_list_patches_does_not_require_capabilities_or_operations(tmp_path: Path) -> None:
+    # H.8.2 discovery runs even though capabilities()/operations() are still empty
+    # (apkforge modkit run morphe still fails until H.8.3).
+    java = _fake_java(tmp_path)
+    cfg = _config(tmp_path, _jar(tmp_path), options={"java_executable": str(java)})
+    a = MorpheAdapter(cfg)
+    assert a.capabilities() == () and a.operations() == ()
+    listing, err = a.list_patches(str(tmp_path / "bundle.mpp"))
+    assert err == "" and listing is not None and listing.patches

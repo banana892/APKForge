@@ -3915,6 +3915,76 @@ def cmd_modkit_info(
         _console.print(ops)
 
 
+@modkit_app.command("patches")
+def cmd_modkit_patches(
+    modkit_id: str = typer.Argument(..., metavar="MODKIT_ID", help="ModKit identifier."),
+    patches: str = typer.Option(
+        ..., "--patches", help="Local .mpp file path or a GitHub/GitLab repo URL."
+    ),
+    package: str | None = typer.Option(None, "--package", "-f", help="Filter by package name."),
+    prerelease: bool = typer.Option(
+        False, "--prerelease", help="Fetch the latest dev pre-release instead of stable."
+    ),
+    timeout: int | None = typer.Option(None, "--timeout", min=1, help="Timeout in seconds."),
+    json_output: bool = typer.Option(False, "--json", help="Print the listing as JSON."),
+    config: Path | None = typer.Option(None, "--config", help=_MODKIT_CONFIG_HELP),
+) -> None:
+    """[green]⚡ Phase H.8.2[/green] — List the patches in a ModKit's patch bundle.
+
+    Read-only discovery, outside the operation contract: works even though
+    ``apkforge modkit run MODKIT_ID ...`` has no operations to run yet.
+    """
+    import json
+
+    from apkforge.modkit import default_manager
+
+    manager = default_manager(config)
+    adapter = manager.get(modkit_id)
+    if adapter is None:
+        info = manager.info(modkit_id)
+        reason = info.availability.reason if info else f"unknown ModKit {modkit_id!r}"
+        if json_output:
+            typer.echo(json.dumps({"modkit_id": modkit_id, "error": reason}, indent=2))
+        else:
+            _console.print(f"[red]{modkit_id}: {reason}[/red]")
+        raise typer.Exit(code=2)
+    if not hasattr(adapter, "list_patches"):
+        reason = f"{modkit_id} does not support patch bundle discovery"
+        if json_output:
+            typer.echo(json.dumps({"modkit_id": modkit_id, "error": reason}, indent=2))
+        else:
+            _console.print(f"[red]{reason}[/red]")
+        raise typer.Exit(code=2)
+    listing, err = adapter.list_patches(
+        patches, package=package, prerelease=prerelease, timeout=timeout
+    )
+    if listing is None:
+        if json_output:
+            typer.echo(json.dumps({"modkit_id": modkit_id, "error": err}, indent=2))
+        else:
+            _console.print(f"[red]{err}[/red]")
+        raise typer.Exit(code=1)
+    if json_output:
+        typer.echo(listing.model_dump_json(indent=2))
+        return
+    table = Table(
+        title=f"Patches in {listing.resolved_version or listing.source}", border_style="dim"
+    )
+    table.add_column("#", justify="right")
+    table.add_column("NAME", style="bold")
+    table.add_column("ENABLED")
+    table.add_column("COMPATIBLE WITH")
+    for p in listing.patches:
+        compat = (
+            ", ".join(c.package for c in p.compatible) if p.compatible else "[dim]any app[/dim]"
+        )
+        table.add_row(
+            str(p.index), p.name, "[green]yes[/green]" if p.enabled else "[dim]no[/dim]", compat
+        )
+    _console.print(table)
+    _console.print(f"[dim]{len(listing.patches)} patch(es) from {listing.source}[/dim]")
+
+
 @modkit_app.command("run")
 def cmd_modkit_run(
     modkit_id: str = typer.Argument(..., metavar="MODKIT_ID", help="ModKit identifier."),
