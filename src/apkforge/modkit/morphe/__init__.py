@@ -1,5 +1,6 @@
 """Morphe Desktop ModKit adapter (Phase H.8.1 discovery/compatibility; H.8.2 patch
-bundle discovery; H.8.3 patch selection and execution; H.8.4 keystore-based signing).
+bundle discovery; H.8.3 patch selection and execution; H.8.4 keystore-based signing;
+H.8.5 per-patch option pass-through).
 
 Morphe Desktop (https://github.com/MorpheApp/morphe-desktop) is a third-party Java
 CLI that drives the Morphe Patcher patching engine. H.8.1 adds discovery and
@@ -10,7 +11,8 @@ H.8.3 adds the ``patch`` operation: :class:`MorpheAdapter` now declares real
 capabilities and operations, so ``apkforge modkit run morphe ... --operation patch``
 drives the normal adapter contract (``build_command``/``execute``/``collect_output``).
 H.8.4 adds optional keystore-based signing to that operation; the default stays
-``--unsigned`` either way.
+``--unsigned`` either way. H.8.5 adds the ``options`` parameter: comma-separated
+``key=value`` pairs passed through to Morphe's own per-patch ``-O key=value``.
 """
 
 from __future__ import annotations

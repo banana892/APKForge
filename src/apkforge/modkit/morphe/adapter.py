@@ -1,5 +1,6 @@
 """Adapter for Morphe Desktop (H.8.1: discovery/compatibility; H.8.2: patch bundle
-discovery; H.8.3: patch selection and execution; H.8.4: keystore-based signing).
+discovery; H.8.3: patch selection and execution; H.8.4: keystore-based signing;
+H.8.5: per-patch option pass-through).
 
 Morphe Desktop (https://github.com/MorpheApp/morphe-desktop) ships as a JAR run with
 ``java -jar morphe-desktop.jar ...``; APKForge never bundles or downloads it, the user
@@ -13,7 +14,10 @@ through the normal :class:`~apkforge.modkit.executor.ModKitExecutor` lifecycle, 
 as any other adapter. H.8.4 adds the ``keystore``/``keystore_entry_alias``/
 ``keystore_entry_password``/``keystore_password`` parameters: when ``keystore`` is given,
 Morphe signs the output itself instead of ``--unsigned``; APKForge still never treats
-that signature as final (see :meth:`collect_output`).
+that signature as final (see :meth:`collect_output`). H.8.5 adds the ``options``
+parameter: comma-separated ``key=value`` pairs passed through to Morphe's own
+``-O key=value`` (one per pair; option keys are per-patch, discovered via Morphe's own
+``list-patches --with-options``).
 """
 
 from __future__ import annotations
@@ -71,6 +75,17 @@ _OUTPUT_NAME = "patched.apk"
 
 def _split_names(value: str) -> list[str]:
     return [n.strip() for n in value.split(",") if n.strip()]
+
+
+def _split_options(value: str) -> list[tuple[str, str]]:
+    """Parse ``"key1=value1,key2=value2"`` into pairs; entries without ``=`` are
+    dropped (malformed user input, not worth failing the whole run over)."""
+    pairs = []
+    for item in _split_names(value):
+        key, _, val = item.partition("=")
+        if key.strip() and "=" in item:
+            pairs.append((key.strip(), val.strip()))
+    return pairs
 
 
 class MorpheAdapter(ExternalProcessAdapter):
@@ -164,6 +179,14 @@ class MorpheAdapter(ExternalProcessAdapter):
                         name="keystore_password",
                         description="Keystore password. Only used with keystore.",
                         sensitive=True,
+                    ),
+                    ParameterSpec(
+                        name="options",
+                        description=(
+                            "Comma-separated key=value patch option overrides, e.g. "
+                            "packageName=com.example.clone. Option keys are per-patch; run "
+                            "Morphe's own 'list-patches --with-options' to see them."
+                        ),
                     ),
                 ),
                 may_be_noop=True,
@@ -285,6 +308,8 @@ class MorpheAdapter(ExternalProcessAdapter):
             argv += ["--enable", name]
         for name in _split_names(p.get("disable", "")):
             argv += ["--disable", name]
+        for key, value in _split_options(p.get("options", "")):
+            argv += ["-O", f"{key}={value}"]
         if p.get("exclusive") == "true":
             argv.append("--exclusive")
         if p.get("force") == "true":

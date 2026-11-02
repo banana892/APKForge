@@ -66,6 +66,7 @@ elif len(args) >= 3 and args[0] == "-jar" and args[2] == "patch":
     apk_path, patches = rest[0], rest[rest.index("--patches") + 1]
     out_path, result_path = rest[rest.index("-o") + 1], rest[rest.index("-r") + 1]
     enabled = [rest[i + 1] for i, a in enumerate(rest) if a == "--enable"]
+    options = [rest[i + 1] for i, a in enumerate(rest) if a == "-O"]
     if "missing" in patches:
         print(f"{{patches}} can not be found", file=sys.stderr)
         sys.exit(2)
@@ -80,7 +81,10 @@ elif len(args) >= 3 and args[0] == "-jar" and args[2] == "patch":
         dst.write(src.read())
     with zipfile.ZipFile(out_path, "a") as zf:
         zf.writestr("assets/morphe-marker.txt", "patched")
-    result = {{"success": True, "appliedPatches": enabled, "failedPatches": [], "signed": signed}}
+    result = {{
+        "success": True, "appliedPatches": enabled, "failedPatches": [],
+        "signed": signed, "options": options,
+    }}
     with open(result_path, "w") as f:
         json.dump(result, f)
 else:
@@ -276,6 +280,56 @@ def test_patch_operation_passes_enable_disable_exclusive_force(tmp_path: Path) -
     assert "--disable" in argv and "Spoof signature" in argv
     assert "--exclusive" in argv and "--force" in argv
     assert "--unsigned" in argv
+
+
+def test_patch_operation_passes_options(tmp_path: Path) -> None:
+    apk = create_synthetic_apk(tmp_path / "in" / "app.apk")
+    java = _fake_java(tmp_path)
+    cfg = _config(tmp_path, _jar(tmp_path), options={"java_executable": str(java)})
+    request = _patch_request(
+        apk, tmp_path,
+        parameters={"options": "packageName=com.example.clone, updatePermissions=false"},
+    )  # fmt: skip
+    result = ModKitExecutor().run(MorpheAdapter(cfg), request)
+    assert result.status is ModKitResultStatus.SUCCESS, result.reason
+    assert result.provenance is not None and result.provenance.command is not None
+    argv = result.provenance.command.argv
+    assert argv.count("-O") == 2
+    assert "packageName=com.example.clone" in argv
+    assert "updatePermissions=false" in argv
+
+
+def test_patch_operation_drops_malformed_option_entries(tmp_path: Path) -> None:
+    apk = create_synthetic_apk(tmp_path / "in" / "app.apk")
+    java = _fake_java(tmp_path)
+    cfg = _config(tmp_path, _jar(tmp_path), options={"java_executable": str(java)})
+    request = _patch_request(
+        apk, tmp_path, parameters={"options": "noEquals, packageName=com.example.clone"}
+    )
+    result = ModKitExecutor().run(MorpheAdapter(cfg), request)
+    assert result.status is ModKitResultStatus.SUCCESS, result.reason
+    assert result.provenance is not None and result.provenance.command is not None
+    argv = result.provenance.command.argv
+    assert argv.count("-O") == 1
+    assert "packageName=com.example.clone" in argv
+    assert "noEquals" not in argv
+
+
+def test_patch_operation_masks_option_values_that_look_like_secrets(tmp_path: Path) -> None:
+    # No sensitive=True on "options" itself - arbitrary per-patch option keys rely
+    # on the framework's generic "key=value" inline-form masking (masking.py).
+    apk = create_synthetic_apk(tmp_path / "in" / "app.apk")
+    java = _fake_java(tmp_path)
+    cfg = _config(tmp_path, _jar(tmp_path), options={"java_executable": str(java)})
+    request = _patch_request(
+        apk, tmp_path, parameters={"options": "proxyPassword=sekrit123,enabled=true"}
+    )
+    result = ModKitExecutor().run(MorpheAdapter(cfg), request)
+    assert result.status is ModKitResultStatus.SUCCESS, result.reason
+    assert result.provenance is not None and result.provenance.command is not None
+    argv = result.provenance.command.argv
+    assert "sekrit123" not in argv
+    assert "enabled=true" in argv
 
 
 def test_patch_operation_isolates_data_dir_inside_workspace(tmp_path: Path) -> None:
