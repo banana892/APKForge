@@ -1,5 +1,5 @@
 """Adapter for Morphe Desktop (H.8.1: discovery/compatibility; H.8.2: patch bundle
-discovery; H.8.3: patch selection and execution).
+discovery; H.8.3: patch selection and execution; H.8.4: keystore-based signing).
 
 Morphe Desktop (https://github.com/MorpheApp/morphe-desktop) ships as a JAR run with
 ``java -jar morphe-desktop.jar ...``; APKForge never bundles or downloads it, the user
@@ -10,7 +10,10 @@ bundle's contents (``list-patches``) run directly, outside the operation contrac
 adds the ``patch`` operation: :meth:`capabilities`/:meth:`operations` are no longer
 empty, so the framework now drives ``build_command``/``execute``/``collect_output``
 through the normal :class:`~apkforge.modkit.executor.ModKitExecutor` lifecycle, the same
-as any other adapter.
+as any other adapter. H.8.4 adds the ``keystore``/``keystore_entry_alias``/
+``keystore_entry_password``/``keystore_password`` parameters: when ``keystore`` is given,
+Morphe signs the output itself instead of ``--unsigned``; APKForge still never treats
+that signature as final (see :meth:`collect_output`).
 """
 
 from __future__ import annotations
@@ -140,6 +143,28 @@ class MorpheAdapter(ExternalProcessAdapter):
                         description="Fetch the latest dev pre-release bundle.",
                         choices=("true", "false"),
                     ),
+                    ParameterSpec(
+                        name="keystore",
+                        description=(
+                            "Path to a keystore to sign the output with. Omit to leave the "
+                            "output unsigned (the default; signing is APKForge's BuildService's "
+                            "job downstream)."
+                        ),
+                    ),
+                    ParameterSpec(
+                        name="keystore_entry_alias",
+                        description="Keystore entry alias. Only used with keystore.",
+                    ),
+                    ParameterSpec(
+                        name="keystore_entry_password",
+                        description="Keystore entry password. Only used with keystore.",
+                        sensitive=True,
+                    ),
+                    ParameterSpec(
+                        name="keystore_password",
+                        description="Keystore password. Only used with keystore.",
+                        sensitive=True,
+                    ),
                 ),
                 may_be_noop=True,
             ),
@@ -266,15 +291,29 @@ class MorpheAdapter(ExternalProcessAdapter):
             argv.append("--force")
         if p.get("prerelease") == "true":
             argv.append("--prerelease")
+        secrets: list[str] = []
+        if keystore := p.get("keystore"):
+            # Opting in to Morphe's own signature; still never trusted as final (see
+            # collect_output) - APKForge's BuildService can still re-sign downstream.
+            argv += ["--keystore", keystore]
+            if alias := p.get("keystore_entry_alias"):
+                argv += ["--keystore-entry-alias", alias]
+            if entry_password := p.get("keystore_entry_password"):
+                argv += ["--keystore-entry-password", entry_password]
+                secrets.append(entry_password)
+            if password := p.get("keystore_password"):
+                argv += ["--keystore-password", password]
+                secrets.append(password)
+        else:
+            argv.append("--unsigned")
         argv += [
-            # Signing is APKForge's own concern downstream (BuildService); Morphe's
-            # self-signed output is never trusted or treated as final.
-            "--unsigned",
             "-o", str(ctx.output_dir / _OUTPUT_NAME),
             "-r", str(ctx.working_dir / "result.json"),
         ]  # fmt: skip
         return CommandSpec(
-            argv=tuple(argv), environment={"MORPHE_DATA_DIR": str(self.data_dir(ctx))}
+            argv=tuple(argv),
+            environment={"MORPHE_DATA_DIR": str(self.data_dir(ctx))},
+            sensitive_values=tuple(secrets),
         )
 
     def _result_notes(self, ctx: ExecutionContext) -> tuple[str, ...]:

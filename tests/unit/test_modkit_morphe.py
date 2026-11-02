@@ -69,15 +69,20 @@ elif len(args) >= 3 and args[0] == "-jar" and args[2] == "patch":
     if "missing" in patches:
         print(f"{{patches}} can not be found", file=sys.stderr)
         sys.exit(2)
-    if "--unsigned" not in rest:
-        print("expected --unsigned", file=sys.stderr)
+    signed = "--keystore" in rest
+    if "--unsigned" not in rest and not signed:
+        print("expected --unsigned or --keystore", file=sys.stderr)
+        sys.exit(2)
+    if "--unsigned" in rest and signed:
+        print("--unsigned and --keystore are mutually exclusive", file=sys.stderr)
         sys.exit(2)
     with open(apk_path, "rb") as src, open(out_path, "wb") as dst:
         dst.write(src.read())
     with zipfile.ZipFile(out_path, "a") as zf:
         zf.writestr("assets/morphe-marker.txt", "patched")
+    result = {{"success": True, "appliedPatches": enabled, "failedPatches": [], "signed": signed}}
     with open(result_path, "w") as f:
-        json.dump({{"success": True, "appliedPatches": enabled, "failedPatches": []}}, f)
+        json.dump(result, f)
 else:
     print(f"unexpected args: {{args}}", file=sys.stderr)
     sys.exit(2)
@@ -273,14 +278,13 @@ def test_patch_operation_passes_enable_disable_exclusive_force(tmp_path: Path) -
     assert "--unsigned" in argv
 
 
-def test_patch_operation_always_unsigned_and_isolates_data_dir(tmp_path: Path) -> None:
+def test_patch_operation_isolates_data_dir_inside_workspace(tmp_path: Path) -> None:
     apk = create_synthetic_apk(tmp_path / "in" / "app.apk")
     java = _fake_java(tmp_path)
     cfg = _config(tmp_path, _jar(tmp_path), options={"java_executable": str(java)})
     result = ModKitExecutor().run(MorpheAdapter(cfg), _patch_request(apk, tmp_path))
     assert result.provenance is not None and result.provenance.command is not None
     command = result.provenance.command
-    assert "--unsigned" in command.argv
     # MORPHE_DATA_DIR defaults inside the workspace (never outside it) unless the
     # user opts into a persistent cache via modkits.morphe.options.data_dir.
     data_dir = command.environment["MORPHE_DATA_DIR"]
@@ -299,6 +303,42 @@ def test_patch_operation_honors_configured_data_dir(tmp_path: Path) -> None:
     assert result.status is ModKitResultStatus.SUCCESS, result.reason
     assert result.provenance is not None and result.provenance.command is not None
     assert result.provenance.command.environment["MORPHE_DATA_DIR"] == str(persistent)
+
+
+def test_patch_operation_signs_with_keystore_instead_of_unsigned(tmp_path: Path) -> None:
+    apk = create_synthetic_apk(tmp_path / "in" / "app.apk")
+    java = _fake_java(tmp_path)
+    cfg = _config(tmp_path, _jar(tmp_path), options={"java_executable": str(java)})
+    request = _patch_request(
+        apk, tmp_path,
+        parameters={
+            "keystore": str(tmp_path / "release.jks"),
+            "keystore_entry_alias": "release",
+            "keystore_entry_password": "entry-secret",
+            "keystore_password": "store-secret",
+        },
+    )  # fmt: skip
+    result = ModKitExecutor().run(MorpheAdapter(cfg), request)
+    assert result.status is ModKitResultStatus.SUCCESS, result.reason
+    assert result.provenance is not None and result.provenance.command is not None
+    argv = result.provenance.command.argv
+    assert "--unsigned" not in argv
+    assert "--keystore" in argv and "--keystore-entry-alias" in argv
+    # Every *keystore*/*password* flag's value is masked - not just the declared-
+    # sensitive passwords but the alias too, since the framework's name-based
+    # masking (any flag matching KEYSTORE/PASS...) fires regardless of declaration.
+    assert "release" not in argv and "entry-secret" not in argv and "store-secret" not in argv
+
+
+def test_patch_operation_unsigned_by_default_without_keystore(tmp_path: Path) -> None:
+    apk = create_synthetic_apk(tmp_path / "in" / "app.apk")
+    java = _fake_java(tmp_path)
+    cfg = _config(tmp_path, _jar(tmp_path), options={"java_executable": str(java)})
+    result = ModKitExecutor().run(MorpheAdapter(cfg), _patch_request(apk, tmp_path))
+    assert result.status is ModKitResultStatus.SUCCESS, result.reason
+    assert result.provenance is not None and result.provenance.command is not None
+    argv = result.provenance.command.argv
+    assert "--unsigned" in argv and "--keystore" not in argv
 
 
 def test_patch_operation_surfaces_tool_error(tmp_path: Path) -> None:

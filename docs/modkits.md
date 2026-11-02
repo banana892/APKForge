@@ -7,8 +7,9 @@ reference `test-modkit`. H.8.1 adds the first real adapter, `morphe` (Morphe Des
 discovery and compatibility checking. H.8.2 adds read-only patch bundle discovery
 (`apkforge modkit patches morphe --patches ...`). H.8.3 adds the `patch` operation itself
 (`apkforge modkit run morphe ... --operation patch -p patches=...`): patch selection and
-execution through the normal adapter contract. APKForge never bundles or downloads Morphe;
-see "Morphe (H.8)" below.
+execution through the normal adapter contract. H.8.4 adds optional keystore-based signing
+to that same operation. APKForge never bundles or downloads Morphe; see "Morphe (H.8)"
+below.
 
 The rule behind every design decision is that **APKForge owns the lifecycle**. A ModKit is a
 transformation provider: it gets a staged copy of the input, an empty output directory and
@@ -500,21 +501,28 @@ H.8.3 (current) adds the `patch` operation itself, so `capabilities()` now decla
 `APK_TRANSFORMATION`, `PATCH_SELECTION` and `MULTI_PATCH` (verified: a live "Clone app" run
 changed the package name in the manifest) and `operations()` declares one `OperationSpec`
 (`id="patch"`) with parameters `patches` (required), `enable`/`disable` (comma-separated
-patch names), `exclusive`, `force` and `prerelease`. `build_command` runs Morphe's own
-`patch <staged-apk> --patches ... [--enable NAME]... [--disable NAME]... [--exclusive]
-[--force] [--prerelease] --unsigned -o <output>/patched.apk -r <working>/result.json` —
-always `--unsigned`: signing is APKForge's own `BuildService`'s job downstream, Morphe's
-self-signed output is never trusted. `MORPHE_DATA_DIR` is set to a directory inside the
-workspace (`modkits.morphe.options.data_dir`, an absolute path, opts into a persistent
-cache across runs instead) so a patch bundle fetched by URL is cached inside the
-workspace rather than next to the configured JAR, honoring the "never write outside the
-workspace" rule. `collect_output` declares `patched.apk` as the sole output if Morphe
-produced it; `result.json`'s `appliedPatches`/`failedPatches` are read (size-limited,
-never trusted) only to add informational notes — pass/fail always comes from APKForge's
-own independent validation of the output file, exactly like `test-modkit`. The H.7
-framework needed no changes for H.8.1, H.8.2 or H.8.3: `MorpheAdapter` is ordinary
-third-party-facing code behind the same contract, plus (for H.8.2) one method the
-contract doesn't require.
+patch names), `exclusive`, `force`, `prerelease`, and (H.8.4) `keystore`,
+`keystore_entry_alias`, `keystore_entry_password` and `keystore_password`. `build_command`
+runs Morphe's own `patch <staged-apk> --patches ... [--enable NAME]... [--disable NAME]...
+[--exclusive] [--force] [--prerelease] (--unsigned | --keystore ... [--keystore-entry-alias
+...] [--keystore-entry-password ...] [--keystore-password ...]) -o <output>/patched.apk
+-r <working>/result.json`. Without `keystore`, `--unsigned` is always passed: signing is
+APKForge's own `BuildService`'s job downstream, and Morphe's self-signed output is never
+trusted regardless of which path is used. `keystore_entry_password`/`keystore_password`
+are declared `sensitive=True` (masked in command records/logs via `CommandSpec.
+sensitive_values`); the `--keystore*` flag names themselves also trip the framework's
+name-based masking (anything matching `KEYSTORE`/`PASS...`), so `keystore_entry_alias`'s
+value is masked too, as a side effect of that shared heuristic. `MORPHE_DATA_DIR` is set
+to a directory inside the workspace (`modkits.morphe.options.data_dir`, an absolute path,
+opts into a persistent cache across runs instead) so a patch bundle fetched by URL is
+cached inside the workspace rather than next to the configured JAR, honoring the "never
+write outside the workspace" rule. `collect_output` declares `patched.apk` as the sole
+output if Morphe produced it; `result.json`'s `appliedPatches`/`failedPatches` are read
+(size-limited, never trusted) only to add informational notes — pass/fail always comes
+from APKForge's own independent validation of the output file, exactly like `test-modkit`.
+The H.7 framework needed no changes for H.8.1, H.8.2, H.8.3 or H.8.4: `MorpheAdapter` is
+ordinary third-party-facing code behind the same contract, plus (for H.8.2) one method
+the contract doesn't require.
 
 ## Non-goals (H.7)
 
