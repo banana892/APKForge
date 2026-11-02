@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 import threading
+import time
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from typing import TYPE_CHECKING, Any
 
@@ -208,3 +209,46 @@ def test_cli_explain(fake: type[_Fake], tmp_path: Path, monkeypatch: pytest.Monk
     out = json.loads(res.stdout)
     assert out["text"] == "OPENAI ANSWER" and out["provider"] == "openai-compatible"
     assert KEY not in res.output
+
+
+def test_gui_explain(fake: type[_Fake], tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    pytest.importorskip("fastapi")
+    from fastapi.testclient import TestClient
+
+    from apkforge.gui.app import TOKEN_HEADER, create_app
+    from apkforge.gui.jobs import JobManager
+
+    headers = {TOKEN_HEADER: "t" * 20}
+    jobs = JobManager(store=tmp_path / "jobs")
+    client = TestClient(create_app("t" * 20, upload_dir=tmp_path / "up", jobs=jobs),
+                        base_url="http://127.0.0.1:8765")  # fmt: skip
+
+    def wait(job: dict[str, Any]) -> dict[str, Any]:
+        deadline = time.monotonic() + 30
+        while job["status"] in ("QUEUED", "RUNNING"):
+            assert time.monotonic() < deadline
+            time.sleep(0.05)
+            job = client.get(f"/api/jobs/{job['id']}", headers=headers).json()
+        return job
+
+    done = wait(jobs.submit("analyze", {"apk": "x.apk"}, lambda: ANALYZE).model_dump())
+    assert client.get("/api/ai", headers=headers).json() == {"configured": False}
+    assert client.post(f"/api/jobs/{done['id']}/explain", headers=headers).status_code == 422
+
+    monkeypatch.setenv("APKFORGE_AI_BASE_URL", fake.url + "/v1")  # type: ignore[attr-defined]
+    monkeypatch.setenv("APKFORGE_AI_MODEL", "llama3")
+    monkeypatch.setenv("APKFORGE_AI_API_KEY", KEY)
+    status = client.get("/api/ai", headers=headers).json()
+    assert status["configured"] and status["model"] == "llama3" and KEY not in json.dumps(status)
+
+    other = wait(jobs.submit("modkit-run", {}, lambda: {"ok": 1}).model_dump())
+    assert client.post(f"/api/jobs/{other['id']}/explain", headers=headers).status_code == 409
+
+    res = client.post(f"/api/jobs/{done['id']}/explain", headers=headers)
+    assert res.status_code == 202
+    job = wait(res.json())
+    assert job["status"] == "DONE" and job["result"]["text"] == "OPENAI ANSWER"
+    assert job["summary"]["job"] == done["id"]
+    # nothing kept for the job (memory or disk) carries the key
+    stored = "".join(p.read_text() for p in (tmp_path / "jobs").glob("*.json"))
+    assert KEY not in stored + json.dumps(job)

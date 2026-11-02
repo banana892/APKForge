@@ -141,6 +141,34 @@ function apkButton(job) {
   } }, "Download APK");
 }
 
+// "Explain" sends a finished analyze/diff/verify result (never the APK) to the AI model
+// configured in the server's environment; hidden when none is.
+const EXPLAINABLE = new Set(["analyze", "diff", "verify"]);
+let aiStatus = null;
+function explainBox(job) {
+  if (job.status !== "DONE" || !EXPLAINABLE.has(job.kind)) return null;
+  const box = el("div", {});
+  (aiStatus ||= api("/api/ai").catch(() => ({ configured: false }))).then((ai) => {
+    if (!ai.configured) return;
+    const out = el("div", {});
+    const button = el("button", { type: "button", class: "secondary",
+      onclick: () => runJob(`/api/jobs/${job.id}/explain`, {}, out, button) }, "Explain");
+    box.replaceChildren(el("div", { class: "toolbar" }, button,
+      el("span", { class: "muted" }, ` sends this result (not the APK) to ${ai.provider} · ${ai.model} at ${ai.host}`)), out);
+  });
+  return box;
+}
+
+function renderExplanation(r) {
+  return [
+    el("h2", {}, "Explanation ", el("span", { class: "muted mono" }, `${r.provider} · ${r.model}`)),
+    el("p", { class: "notice" }, "AI-generated from the result: check it against the findings before acting on it."),
+    el("div", { class: "explanation" }, r.text),
+    list("Not sent (size caps)", r.omitted),
+    rawJson(r),
+  ];
+}
+
 function showJob(job, out, render) {
   const head = el("div", { class: "toolbar" }, badge(job.status), el("span", { class: "muted mono" }, ` ${job.kind} · ${job.id}`),
     el("span", { class: "spacer" }), apkButton(job), downloadButton(job));
@@ -154,7 +182,7 @@ function showJob(job, out, render) {
   const body = job.result === null || job.result === undefined ? []
     : PREVIEW[job.kind] && !render ? PREVIEW[job.kind](job)
       : (render || RENDER[job.kind] || ((r) => [rawJson(r)]))(job.result);
-  out.replaceChildren(el("div", { class: "panel" }, head, notice, body));
+  out.replaceChildren(el("div", { class: "panel" }, head, notice, body, explainBox(job)));
 }
 
 // -- renderers -----------------------------------------------------------------------
@@ -259,7 +287,7 @@ function renderChain(r) {
   ];
 }
 
-const RENDER = { diff: renderDiff, "modkit-run": renderModKitResult,
+const RENDER = { diff: renderDiff, explain: renderExplanation, "modkit-run": renderModKitResult,
   "modkit-chain": renderChain, "modkit-patches": (r) => renderPatches(r, null),
   "remediation-findings": renderRemediationFindings, "modification-plan": renderModificationPlan,
   verify: renderVerify, "verify-transformation": renderH4, references: renderReferences };

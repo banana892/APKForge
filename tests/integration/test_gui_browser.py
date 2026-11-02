@@ -280,6 +280,32 @@ def test_analyze_findings_then_remediate_and_apply(
     assert apply_form.get_by_role("button", name="Download APK").is_visible()
 
 
+def test_explain_an_analyze_result(page: Any, apk: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    import importlib
+
+    ai = importlib.import_module("apkforge.ai.explain")  # the module, not the function
+
+    sent: list[str] = []
+
+    def backend(config: Any, user: str) -> tuple[str, None]:
+        sent.append(user)
+        return "Summary: <b>not markup</b>", None
+
+    monkeypatch.setattr(ai, "_openai_compatible", backend)
+    monkeypatch.setenv("APKFORGE_AI_BASE_URL", "http://127.0.0.1:9/v1")
+    monkeypatch.setenv("APKFORGE_AI_MODEL", "local-model")
+    page.fill("#analyze-apk", str(apk))
+    page.click("#form-analyze button[type=submit]")
+    page.wait_for_selector("#out-analyze h2")
+    hint = page.get_by_text("sends this result (not the APK) to openai-compatible")
+    assert "local-model at 127.0.0.1:9" in hint.inner_text()
+    page.get_by_role("button", name="Explain").click()
+    text = page.locator("#out-analyze .explanation")
+    text.wait_for()
+    assert text.inner_text() == "Summary: <b>not markup</b>"  # untrusted: shown as text
+    assert len(sent) == 1 and "<result>" in sent[0]
+
+
 def test_diff_lists_and_filters_observations(page: Any, tmp_path: Path) -> None:
     a = create_synthetic_apk(tmp_path / "a" / "app.apk")
     b = create_synthetic_apk(tmp_path / "b" / "app.apk", extra_files={"assets/new.txt": b"hi"})

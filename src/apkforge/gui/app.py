@@ -28,6 +28,7 @@ from pydantic import BaseModel, Field, ValidationError
 # Services are imported here, not in job threads: two threads importing the same
 # circular package at once raise _DeadlockError.
 import apkforge
+from apkforge.ai import AIConfig, ExplainError, explain
 from apkforge.analysis.full import run_full_analysis
 from apkforge.builders.corpus import sha256_file
 from apkforge.core.config import load_default_config
@@ -51,6 +52,8 @@ _LOCAL_HOSTS = frozenset({"127.0.0.1", "localhost"})
 #: Uploads are a convenience for APKs not already on disk; larger ones: type the path.
 MAX_UPLOAD_BYTES = 1024 * 1024 * 1024
 _UNSAFE_NAME = re.compile(r"[^A-Za-z0-9._-]+")
+#: Job kinds whose results "Explain" can send to an AI model.
+EXPLAINABLE = frozenset({"analyze", "diff", "verify"})
 
 
 # -- request bodies ------------------------------------------------------------------
@@ -197,6 +200,38 @@ def create_app(
         if job is None:
             raise HTTPException(404, "unknown job")
         return job
+
+    # -- AI explanations (opt-in: only configured from the server's environment) ----
+
+    @app.get("/api/ai")
+    def ai_status() -> dict[str, Any]:
+        """Which model "Explain" would send results to; never the key."""
+        try:
+            config = AIConfig.from_env()
+        except ExplainError as exc:
+            return {"configured": False, "error": str(exc)}
+        return {"configured": False} if config is None else {"configured": True,
+                                                             **config.describe()}  # fmt: skip
+
+    @app.post("/api/jobs/{job_id}/explain", status_code=202)
+    def explain_job(job_id: str) -> Job:
+        job = manager_jobs.get(job_id)
+        if job is None:
+            raise HTTPException(404, "unknown job")
+        if job.kind not in EXPLAINABLE or job.status != JobStatus.DONE or job.result is None:
+            raise HTTPException(409, f"only finished {', '.join(sorted(EXPLAINABLE))} jobs "
+                                     "can be explained")  # fmt: skip
+        try:
+            config = AIConfig.from_env()
+        except ExplainError as exc:
+            raise HTTPException(422, str(exc)) from exc
+        if config is None:
+            raise HTTPException(422, "no AI provider configured (see docs/ai.md)")
+        result, kind = job.result, job.kind
+        summary = {"job": job_id, "kind": kind, **config.describe()}
+        return manager_jobs.submit(
+            "explain", summary, lambda: explain(result, config, kind=kind).model_dump(mode="json")
+        )
 
     @app.post("/api/uploads", status_code=201)
     async def upload(request: Request, name: str = "upload.apk") -> dict[str, Any]:
