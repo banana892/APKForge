@@ -315,8 +315,12 @@ mypy src/
 | **Phase 5** | ✅ Complete | Security analysis engine: malware indicators, spyware/surveillance indicators, vulnerabilities, combinations, diff regressions, secret masking |
 | **Phase 6** | ✅ Complete | Modification planning engine: evidence-driven change proposals, risk assessment, impact analysis, dependencies, conflicts, serialization, staleness tracking |
 | **Phase 7** | ✅ Complete | Modification framework: workspace isolation, approval enforcement, 7 built-in modifiers (Manifest, Permission, Tracker, Component, Resource, DEX, Payload), preflight validation, dry-run, rollback |
-| **Phase 8** | ⏳ Planned | APK Rebuild & Signing: apktool integration, zipalign, apksigner, post-modification verification |
+| **Phase 8** | ✅ Complete | APK Rebuild & Signing: apktool integration, zipalign, apksigner, post-modification verification (`BuildService`, see [docs/build-service.md](docs/build-service.md); verification in Phases D/E/H.4) |
 | **Phase 9** | ⏳ Planned | GUI & Interactive Workbench (consuming Phase 1–8 core engines) |
+
+Later work continued as lettered phases (D–H, documented at the top of this README):
+modification, diff/verification, privacy, remediation, controlled transformations, and
+third-party ModKits including the Morphe adapter ([docs/modkits.md](docs/modkits.md)).
 
 ---
 
