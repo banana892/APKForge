@@ -392,3 +392,68 @@ def test_h4_needs_a_verified_transformation_apply(client: TestClient, apk: Path)
     job = _wait(client, _post(client, "/api/jobs/analyze", apk=str(apk)).json())
     r = _post(client, "/api/jobs/verify-transformation", apply_job=job["id"])
     assert r.status_code == 409 and "transformation apply" in r.text
+
+
+# -- 9.2c: references, declared expectations ---------------------------------------------
+
+
+@pytest.fixture()
+def h6_result(tmp_path: Path) -> Any:
+    from apkforge.reference import ApkIdentity, ReferenceAnalysisService
+    from tests.fixtures.h1_apks import write_project
+    from tests.fixtures.h6_apks import H6_FIXTURES
+
+    project = write_project(H6_FIXTURES[0], tmp_path / "h6")
+    return ReferenceAnalysisService.analyze_decoded(
+        project, identity=ApkIdentity(file_name="h6.apk", sha256="0" * 64)
+    )
+
+
+def test_reference_summary_counts_and_orders(h6_result: Any) -> None:
+    from apkforge.gui.references import summarize
+    from tests.fixtures.h6_apks import PKG
+
+    s = summarize(h6_result)
+    by_name = {c["name"]: c for c in s["classes"]}
+    # Source is called from A; A is not referenced by any other class
+    assert by_name[f"{PKG}.Source"]["references"] > 0
+    totals = [c["references"] + c["indirect"] for c in s["classes"]]
+    assert totals == sorted(totals)  # unreferenced first
+    calls = {m["name"] + m["descriptor"]: m["calls"] for m in by_name[f"{PKG}.Source"]["methods"]}
+    assert calls["getValue()Ljava/lang/String;"] >= 2  # twice() calls it twice
+    for c in s["classes"]:  # each count agrees with the authoritative per-class assessment
+        a = h6_result.index().assess_absence(c["name"])
+        assert (c["references"] > 0) == bool(a.definitive_references)
+
+
+def test_call_sites_use_the_h6_target_syntax(h6_result: Any) -> None:
+    from apkforge.gui.references import call_sites
+    from tests.fixtures.h6_apks import PKG, REPEATED_TARGET
+
+    rows = call_sites(h6_result, f"{PKG}.A", "twice()Ljava/lang/String;")
+    targets = [r["target"] for r in rows]
+    assert REPEATED_TARGET in targets and REPEATED_TARGET.replace("#2", "#1") in targets
+
+
+def test_references_job_and_call_sites(
+    client: TestClient, apk: Path, h6_result: Any, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from apkforge.gui import references
+    from tests.fixtures.h6_apks import PKG, REPEATED_TARGET
+
+    monkeypatch.setattr(references.ReferenceAnalysisService, "analyze", lambda self, a: h6_result)
+    r = _post(client, "/api/jobs/references", apk=str(apk))
+    assert r.status_code == 202, r.text
+    job = _wait(client, r.json())
+    assert job["status"] == "DONE", job["error"]
+    assert job["result"]["apk_path"] == str(apk) and job["result"]["classes"]
+    query = {"class_name": f"{PKG}.A", "method": "twice()Ljava/lang/String;"}
+    url = f"/api/references/{job['result']['ref_id']}/call-sites"
+    sites = client.get(url, headers=H, params=query)
+    assert REPEATED_TARGET in [s["target"] for s in sites.json()]
+
+
+def test_reference_call_sites_endpoint_expires(client: TestClient) -> None:
+    r = client.get("/api/references/nope/call-sites", headers=H,
+                   params={"class_name": "a.B", "method": "m()V"})  # fmt: skip
+    assert r.status_code == 410

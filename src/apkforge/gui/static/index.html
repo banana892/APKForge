@@ -97,6 +97,7 @@
   <button role="tab" data-tab="plan">Plan</button>
   <button role="tab" data-tab="modify">Modify</button>
   <button role="tab" data-tab="remediate">Remediate</button>
+  <button role="tab" data-tab="references">References</button>
   <button role="tab" data-tab="transform">Transform</button>
   <button role="tab" data-tab="build">Build</button>
   <button role="tab" data-tab="verify">Verify</button>
@@ -223,12 +224,24 @@
     <div id="out-remediate-plan"></div>
   </section>
 
+  <section id="tab-references" hidden>
+    <form class="panel" id="form-references">
+      <h2>References (H.1)</h2>
+      <p class="hint">Every defined class and method with what statically references it, to pick
+        transformation targets (same analysis as <code>apkforge references</code>). Read-only.</p>
+      <label for="ref-apk">APK</label>
+      <input type="text" id="ref-apk" data-upload required>
+      <button class="primary" type="submit">Analyze references</button>
+    </form>
+    <div id="out-references"></div>
+  </section>
+
   <section id="tab-transform" hidden>
     <form class="panel" id="form-transform">
       <h2>Plan a transformation</h2>
       <p class="hint">H.2 decides from static evidence whether the change is supported and produces a
         deterministic plan; applying it runs H.3/H.5/H.6 (same as <code>apkforge transform -t ID --target T</code>,
-        then <code>--plan FILE --apply</code>). Targets come from <code>apkforge references</code>.</p>
+        then <code>--plan FILE --apply</code>). Pick targets in the References tab.</p>
       <div class="row">
         <div><label for="tr-apk">APK</label><input type="text" id="tr-apk" data-upload required></div>
         <div><label for="tr-id">Transformation</label>

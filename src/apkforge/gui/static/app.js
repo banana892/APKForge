@@ -238,7 +238,7 @@ function renderChain(r) {
 const RENDER = { analyze: renderAnalyze, diff: renderDiff, "modkit-run": renderModKitResult,
   "modkit-chain": renderChain, "modkit-patches": (r) => renderPatches(r, null),
   "remediation-findings": renderRemediationFindings, "modification-plan": renderModificationPlan,
-  verify: renderVerify, "verify-transformation": renderH4 };
+  verify: renderVerify, "verify-transformation": renderH4, references: renderReferences };
 
 // -- 9.2: preview, then apply -----------------------------------------------------------
 
@@ -441,6 +441,77 @@ function renderH4(r) {
     list("Errors", r.errors, "error"), list("Limitations", r.limitations),
     el("p", { class: "notice" }, r.statement),
     rawJson(r),
+  ];
+}
+
+// -- References tab (H.1): pick transformation targets ---------------------------------------
+
+const MAX_CLASS_ROWS = 200;
+
+// Fill the Transform tab and plan (planning only reads). H-TRANS-003 needs a replacement
+// method first, so that one stops at the form.
+function planTransform(apk, id, target) {
+  selectTab("transform");
+  $("tr-apk").value = apk;
+  $("tr-id").value = id;
+  $("tr-id").dispatchEvent(new Event("change"));
+  $("tr-target").value = target;
+  if (id === "H-TRANS-003") $("tr-replacement").focus();
+  else $("form-transform").requestSubmit();
+}
+
+function renderReferences(r) {
+  const apk = r.apk_path;
+  const filter = el("input", { type: "text", class: "filter", placeholder: "Filter classes…" });
+  const onlyFree = el("input", { type: "checkbox", checked: true });
+  const body = el("div", {});
+  const callSites = async (cls, m, box, btn) => {
+    btn.disabled = true;
+    try {
+      const q = new URLSearchParams({ class_name: cls, method: m.name + m.descriptor });
+      const rows = await api(`/api/references/${r.ref_id}/call-sites?${q}`);
+      box.replaceChildren(rows.length ? table(["Invoked", "Line", ""], rows.map((c) => el("tr", {},
+        el("td", { class: "mono" }, c.invoked), el("td", {}, c.line ?? ""),
+        el("td", {}, el("button", { type: "button", class: "secondary", onclick: () => planTransform(apk, "H-TRANS-003", c.target) },
+          "Replace call (H-TRANS-003)…")))))
+        : el("p", { class: "muted" }, "No invocations in this method."));
+    } catch (e) {
+      box.replaceChildren(el("p", { class: "error" }, e.message));
+    } finally {
+      btn.disabled = false;
+    }
+  };
+  const draw = () => {
+    const q = filter.value.toLowerCase();
+    const rows = r.classes.filter((c) => (!onlyFree.checked || c.references + c.indirect === 0) && c.name.toLowerCase().includes(q));
+    body.replaceChildren(
+      el("p", { class: "muted" }, `${rows.length} of ${r.classes.length} classes`, rows.length > MAX_CLASS_ROWS ? ` (first ${MAX_CLASS_ROWS} shown; filter to narrow)` : ""),
+      table(["Class", "Incoming", ""], rows.slice(0, MAX_CLASS_ROWS).map((c) => el("tr", {},
+        el("td", {}, el("details", {}, el("summary", { class: "mono" }, c.name),
+          c.superclass ? el("div", { class: "muted mono" }, `extends ${c.superclass}`) : null,
+          c.methods.length ? table(["Method", "Calls", ""], c.methods.map((m) => {
+            const box = el("div", {});
+            const sites = el("button", { type: "button", class: "secondary", onclick: (ev) => callSites(c.name, m, box, ev.target) }, "Call sites…");
+            return el("tr", {}, el("td", { class: "mono" }, m.name + m.descriptor, box), el("td", {}, m.calls),
+              el("td", {}, el("div", { class: "toolbar" },
+                el("button", { type: "button", class: "secondary", onclick: () => planTransform(apk, "H-TRANS-002", `${c.name}->${m.name}${m.descriptor}`) }, "Plan removal (H-TRANS-002)"),
+                sites)));
+          })) : el("p", { class: "muted" }, "No methods."))),
+        el("td", {}, `${c.references}`, c.indirect ? el("span", { class: "muted" }, ` + ${c.indirect} indirect`) : null,
+          c.analysis_state !== "COMPLETE" ? el("div", {}, badge(c.analysis_state)) : null),
+        el("td", {}, el("button", { type: "button", class: "secondary", onclick: () => planTransform(apk, "H-TRANS-001", c.name) }, "Plan removal (H-TRANS-001)"))))));
+  };
+  filter.addEventListener("input", draw);
+  onlyFree.addEventListener("change", draw);
+  draw();
+  return [
+    el("h2", {}, `${r.apk.package_name || r.apk.file_name || ""} `, badge(r.analysis_state)),
+    kv([["Components", Object.entries(r.component_states).map(([k, v]) => `${k} ${v}`).join(" · ")],
+      ["Reflection / native evidence", `${r.reflection} / ${r.native}`]]),
+    el("p", { class: "notice" }, "Incoming counts are what H.1 observed statically, without string mentions. They suggest candidates; the H.2 plan re-checks every requirement and decides."),
+    el("div", { class: "toolbar" }, filter, el("label", { class: "check" }, onlyFree, " Unreferenced only")),
+    body,
+    list("Errors", r.errors, "error"), list("Limitations", r.limitations),
   ];
 }
 
@@ -761,6 +832,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     replacement: $("tr-replacement").value.trim() || null,
   }, $("out-transform"), btn));
   $("tr-id").addEventListener("change", () => { $("tr-replacement-row").hidden = $("tr-id").value !== "H-TRANS-003"; });
+  onSubmit("form-references", (btn) => runJob("/api/jobs/references", { apk: $("ref-apk").value.trim() }, $("out-references"), btn));
   onSubmit("form-plan", (btn) => runJob("/api/jobs/modification-plan",
     { apk: $("plan-apk").value.trim(), diff_apk: $("plan-diff").value.trim() || null }, $("out-plan"), btn));
   onSubmit("form-modify", (btn) => {

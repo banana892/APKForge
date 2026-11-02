@@ -32,6 +32,7 @@ from apkforge.diff.engine import DiffEngine
 from apkforge.diff.expectations import observe
 from apkforge.gui.changes import add_change_routes
 from apkforge.gui.jobs import Job, JobManager
+from apkforge.gui.references import add_reference_routes
 from apkforge.modkit import ChainSpec, ExecutionRequest, ModKitChainRunner, default_manager
 from apkforge.modkit.masking import MASK, is_sensitive_name
 from apkforge.modkit.validation import validate_apk_archive
@@ -313,4 +314,5 @@ def create_app(
         )  # fmt: skip
 
     add_change_routes(app, manager_jobs, upload_dir, _apk_path)
+    add_reference_routes(app, manager_jobs, _apk_path)
     return app
