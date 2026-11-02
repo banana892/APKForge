@@ -280,6 +280,97 @@ def test_analyze_findings_then_remediate_and_apply(
     assert apply_form.get_by_role("button", name="Download APK").is_visible()
 
 
+def test_diff_lists_and_filters_observations(page: Any, tmp_path: Path) -> None:
+    a = create_synthetic_apk(tmp_path / "a" / "app.apk")
+    b = create_synthetic_apk(tmp_path / "b" / "app.apk", extra_files={"assets/new.txt": b"hi"})
+    page.click("nav button[data-tab=diff]")
+    page.fill("#diff-original", str(a))
+    page.fill("#diff-modified", str(b))
+    page.click("#form-diff button[type=submit]")
+    page.wait_for_selector("#out-diff table")
+    rows = page.locator("#out-diff table tbody tr")
+    assert rows.filter(has_text="assets/new.txt").count() == 1
+    page.fill("#out-diff input.filter", "assets/new")
+    assert [r.inner_text() for r in rows.all() if r.is_visible()] == ["file\tadded\tassets/new.txt"]
+
+
+def test_modkit_run_form_and_output_download(page: Any, apk: Path, tmp_path: Path) -> None:
+    page.click("nav button[data-tab=modkits]")
+    page.wait_for_selector("#mk-id option", state="attached")
+    page.select_option("#mk-id", "test-modkit")
+    page.select_option("#mk-op", "transform")
+    page.fill("#mk-apk", str(apk))
+    page.fill("#mk-out", str(tmp_path / "out"))
+    _param(page, "#mk-params", "scenario").select_option("success")
+    _param(page, "#mk-params", "api_token").fill("s3cret-value")
+    assert _param(page, "#mk-params", "api_token").get_attribute("type") == "password"
+    page.click("#form-modkit button[type=submit]")
+    page.wait_for_selector("#out-modkit h2 .badge:text('SUCCESS')")
+    assert "s3cret-value" not in page.inner_text("#out-modkit")
+    with page.expect_download() as info:
+        page.locator("#out-modkit").get_by_role("button", name="Download APK").click()
+    assert Path(info.value.path()).stat().st_size > 0
+
+
+def test_chain_json_round_trip_and_run(page: Any, apk: Path, tmp_path: Path) -> None:
+    import json
+
+    steps = [{"modkit": "test-modkit", "operation": "transform",
+              "parameters": {"scenario": "success", "marker": m}} for m in ("a", "b")]  # fmt: skip
+    page.click("nav button[data-tab=chain]")
+    page.wait_for_selector(
+        "#chain-step-list fieldset, #chain-step-list .muted:not(:text('Loading'))"
+    )
+    page.click("#chain-json-toggle")
+    page.fill("#chain-steps", json.dumps(steps))
+    page.click("#chain-json-toggle")  # back to the step cards
+    assert page.locator("#chain-step-list fieldset").count() == 2
+    page.click("#chain-json-toggle")  # and the cards serialise to the same steps
+    assert json.loads(page.input_value("#chain-steps")) == [
+        {**st, "allow_noop": False} for st in steps
+    ]
+    page.click("#chain-json-toggle")
+    page.fill("#chain-apk", str(apk))
+    page.fill("#chain-out", str(tmp_path / "out"))
+    page.click("#form-chain button[type=submit]")
+    page.wait_for_selector("#out-chain h2 .badge:text('SUCCESS')")
+    assert page.locator("#out-chain table").first.locator("tbody tr").count() == 2
+
+
+def test_build_check_then_noop_rebuild(
+    page: Any, apk: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import shutil
+    from types import SimpleNamespace
+
+    from apkforge.gui import changes
+
+    def build_pipeline(src: Path, options: Any) -> Any:
+        shutil.copyfile(src, options.output_apk)
+        stage = {"stage": "build", "status": "PASS", "duration_seconds": 0.1}
+        result = {"success": True, "output_apk_path": str(options.output_apk), "stages": [stage]}
+        return SimpleNamespace(to_dict=lambda: result)
+
+    toolchain = {"valid": True, "tools": {"apktool": {"status": "ok", "version": "2.9"}},
+                 "errors": [], "warnings": []}  # fmt: skip
+    service = SimpleNamespace(check_toolchain=lambda: SimpleNamespace(to_dict=lambda: toolchain),
+                              signing=SimpleNamespace(describe=lambda: "dev key"),
+                              build_pipeline=build_pipeline)  # fmt: skip
+    monkeypatch.setattr(changes, "default_build_service", lambda: service)
+
+    page.click("nav button[data-tab=build]")
+    page.fill("#build-apk", str(apk))
+    page.click("#form-build button[type=submit]")
+    apply_form = page.locator("#out-build form.apply")
+    apply_form.wait_for()
+    assert "valid" in page.inner_text("#out-build h2")
+    out = tmp_path / "rebuilt.apk"
+    apply_form.locator("input").fill(str(out))
+    apply_form.get_by_role("button", name="Apply no-op rebuild").click()
+    page.wait_for_selector("#out-build form.apply h2 .badge:text('SUCCESS')")
+    assert out.is_file()
+
+
 def test_patch_options_form_fills_enable_and_options(page: Any) -> None:
     listing = {"patches": [
         {"index": 0, "name": "Clone", "enabled": False, "compatible": [], "options": [
