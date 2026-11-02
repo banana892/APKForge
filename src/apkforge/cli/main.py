@@ -4099,6 +4099,78 @@ def cmd_modkit_run(
     raise typer.Exit(code=_MODKIT_EXIT.get(str(result.status), 1))
 
 
+@modkit_app.command("chain")
+def cmd_modkit_chain(
+    apk: Path = typer.Argument(
+        ...,
+        metavar="APK",
+        exists=True,
+        file_okay=True,
+        dir_okay=False,
+        resolve_path=True,
+        help="Input APK (never modified).",
+    ),
+    pipeline: Path = typer.Option(
+        ..., "--pipeline", exists=True, dir_okay=False, help="Pipeline file (.toml or .json)."
+    ),
+    output_dir: Path = typer.Option(
+        ..., "--output-dir", "-o", resolve_path=True, help="Directory for the final output."
+    ),
+    work_dir: Path | None = typer.Option(None, "--work-dir", help="Workspace base directory."),
+    keep_workspace: bool = typer.Option(
+        False, "--keep-workspace", help="Keep every step's workspace and intermediate APK."
+    ),
+    json_output: bool = typer.Option(False, "--json", help="Print the result as JSON."),
+    report_file: Path | None = typer.Option(None, "--report", help="Write the JSON result here."),
+    config: Path | None = typer.Option(None, "--config", help=_MODKIT_CONFIG_HELP),
+) -> None:
+    """[green]⚡ Phase H.9[/green] — Run ModKit operations in sequence, each step's
+    validated output feeding the next."""
+    from apkforge.modkit import ModKitChainRunner, default_manager, load_chain_spec
+
+    try:
+        spec = load_chain_spec(pipeline)
+    except ValueError as exc:
+        _console.print(f"[red]{exc}[/red]")
+        raise typer.Exit(code=2) from exc
+    result = ModKitChainRunner(default_manager(config)).run(
+        spec, apk, output_dir, workspace_base=work_dir, keep_workspace=keep_workspace
+    )
+    text = result.to_json()
+    if report_file is not None:
+        report_file.parent.mkdir(parents=True, exist_ok=True)
+        report_file.write_text(text + "\n", encoding="utf-8")
+    if json_output:
+        typer.echo(text)
+    else:
+        color = "green" if result.succeeded else "red"
+        table = Table(title=f"ModKit chain {result.chain_id}", border_style="dim")
+        table.add_column("#", justify="right")
+        table.add_column("MODKIT")
+        table.add_column("OPERATION")
+        table.add_column("STATUS")
+        table.add_column("OUTPUT SHA-256")
+        for i, (step, res) in enumerate(zip(spec.steps, result.steps, strict=False)):
+            style = "green" if res.succeeded else "red"
+            sha = res.published.sha256 if res.published else "--"
+            table.add_row(str(i), step.modkit, step.operation,
+                          f"[{style}]{res.status}[/{style}]", sha)  # fmt: skip
+        _console.print(table)
+        lines = [
+            f"[bold]Status:[/bold]  [{color}]{result.status}[/{color}]"
+            + (f" ({result.failure})" if result.failure else ""),
+            f"[bold]Reason:[/bold]  {result.reason}",
+        ]
+        if result.published is not None:
+            lines.append(f"[bold]Output:[/bold]  {result.published.path}")
+        if result.chain_dir:
+            lines.append(f"[bold]Chain:[/bold]   {result.chain_dir}")
+        _console.print(
+            Panel("\n".join(lines), title="ModKit chain", border_style=color), highlight=False
+        )
+    raise typer.Exit(code=_MODKIT_EXIT.get(str(result.status), 1))
+
+
 def _not_implemented(command: str, **kwargs: str) -> None:
     """Display a consistent 'not implemented yet' message and exit cleanly."""
     detail = "  ".join(f"[dim]{k}=[/dim][cyan]{v}[/cyan]" for k, v in kwargs.items())

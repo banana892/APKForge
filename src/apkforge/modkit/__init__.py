@@ -8,7 +8,8 @@ validation, provenance, and the hand-off to the existing diff, privacy/security
 and H.4 verification infrastructure. The ModKit only transforms.
 
 No third-party ModKit is bundled; H.7 ships only the generic framework and the
-deterministic reference ``test-modkit``. See ``docs/modkits.md``.
+deterministic reference ``test-modkit``. H.9 adds sequential chains
+(:mod:`apkforge.modkit.chain`). See ``docs/modkits.md``.
 """
 
 from __future__ import annotations
@@ -18,6 +19,13 @@ from apkforge.modkit.analysis import (
     ModKitAnalysisReport,
     ModKitPostAnalysis,
     compare_findings,
+)
+from apkforge.modkit.chain import (
+    ChainSpec,
+    ChainStep,
+    ModKitChainResult,
+    ModKitChainRunner,
+    load_chain_spec,
 )
 from apkforge.modkit.config import (
     ConfigIssue,
@@ -59,6 +67,8 @@ __all__ = [
     "ArtifactRecord",
     "AvailabilityReport",
     "AvailabilityStatus",
+    "ChainSpec",
+    "ChainStep",
     "CommandRecord",
     "CommandSpec",
     "ConfigIssue",
@@ -72,6 +82,8 @@ __all__ = [
     "ModKitAdapter",
     "ModKitAnalysisReport",
     "ModKitCapability",
+    "ModKitChainResult",
+    "ModKitChainRunner",
     "ModKitConfig",
     "ModKitConfigSet",
     "ModKitExecutionResult",
@@ -94,6 +106,7 @@ __all__ = [
     "compare_findings",
     "contract_problems",
     "default_manager",
+    "load_chain_spec",
     "load_modkit_config",
     "parse_modkit_config",
 ]

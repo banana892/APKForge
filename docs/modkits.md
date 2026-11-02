@@ -402,13 +402,61 @@ the original:
 - undeclared marker asset → `FAILED` (one `UNEXPECTED_CHANGE`)
 - declared marker asset → `VERIFIED`
 
-## Composition and conflicts (foundation only)
+## Composition and conflicts
 
 Each ModKit execution is an independent transformation with its own provenance, input
-SHA-256 and workspace. The framework never runs two ModKits automatically, never chains one
-ModKit's output into another, and never resolves conflicts. Results are comparable
-side by side (tested: two ModKits on the same original). Composition, ordering and conflict
-handling are H.9/H.10.
+SHA-256 and workspace. A single `modkit run` never chains anything; results are comparable
+side by side (tested: two ModKits on the same original).
+
+### Chains (H.9)
+
+`apkforge modkit chain APK --pipeline chain.toml -o OUT [--work-dir DIR]
+[--keep-workspace] [--json] [--report FILE]` (`apkforge.modkit.chain`) runs ModKit
+operations in the order the pipeline declares. Each step is an ordinary, fully isolated
+`ModKitManager.execute` (own workspace, staging, validation, provenance), and its
+*validated, published* output is the next step's input. Nothing about a step's trust
+changes because it is in a chain.
+
+```toml
+[[steps]]
+modkit = "morphe"
+operation = "patch"
+timeout_seconds = 600   # optional
+allow_noop = false      # optional: accept an unchanged output as NO_OP
+[steps.parameters]
+patches = "/path/patches-2.0.0.mpp"
+enable = "Clone app"
+
+[[steps]]
+modkit = "test-modkit"
+operation = "transform"
+[steps.parameters]
+scenario = "success"
+```
+
+A `.json` file with the same shape works too. Unknown keys and non-string parameter values
+are rejected; a chain has 1–32 steps.
+
+- **Pre-flight.** Every step's ModKit and operation is resolved before anything runs, so a
+  typo in step 3 costs nothing. The final destination (`OUT/<input stem>.chain.apk`) is
+  checked for overwrite up front too.
+- **Stop on first failure.** A step that does not succeed stops the chain with that step's
+  status (`failed_step` names it) and nothing is published.
+- **No-op steps.** With `allow_noop`, an unchanged output is `NO_OP` and the step's input
+  passes through to the next step. A chain where every step was a no-op is `NO_OP`.
+- **Layout.** `<work-dir>/chain-<id>/` holds `step-N.apk` intermediates, `workspaces/`
+  (each step's normal workspace and retention) and `chain-result.json`
+  (`ModKitChainResult`: every step's full result, the original and the published final
+  artifact). Intermediates are deleted after a successful chain unless
+  `--keep-workspace`; a failed chain keeps them as evidence.
+- The original is re-hashed at the end; a change is `ORIGINAL_MUTATED`.
+
+Verified live: Morphe `Clone app` (`packageName=com.example.chained`) → Morphe
+`Disable Play Store updates` → `test-modkit` marker on OpenLink produced one APK with all
+three changes (package renamed, `versionCode` 2147483647, marker asset).
+
+Chains do not examine whether steps conflict (for example a later step undoing an earlier
+one); that is H.10.
 
 ## Security boundary
 
@@ -599,7 +647,7 @@ H.7 does not include:
 - automatic patch selection
 - automatic malware or spyware removal
 - ModKit-specific behaviour
-- patch composition or ModKit chaining
+- patch composition or ModKit chaining (chains arrived in H.9)
 - runtime instrumentation
 - automatic download, installation or bundling
 - automatic retry
