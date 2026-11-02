@@ -13,13 +13,15 @@ own beyond input validation and masking.
 
 from __future__ import annotations
 
+import importlib.util
+import os
 import re
 import secrets
 import tempfile
 import threading
 import time
 from pathlib import Path
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Literal
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse, JSONResponse, Response
@@ -52,6 +54,7 @@ _LOCAL_HOSTS = frozenset({"127.0.0.1", "localhost"})
 #: Uploads are a convenience for APKs not already on disk; larger ones: type the path.
 MAX_UPLOAD_BYTES = 1024 * 1024 * 1024
 _UNSAFE_NAME = re.compile(r"[^A-Za-z0-9._-]+")
+_HAS_ANTHROPIC = importlib.util.find_spec("anthropic") is not None
 #: Job kinds whose results "Explain" can send to an AI model.
 EXPLAINABLE = frozenset({"analyze", "diff", "verify"})
 
@@ -83,6 +86,14 @@ class PatchesBody(BaseModel):
     patches: str
     package: str | None = None
     with_options: bool = True
+
+
+class AIBody(BaseModel):
+    provider: Literal["anthropic", "openai-compatible"]
+    model: str = ""
+    base_url: str = ""
+    #: Empty keeps the key already entered for this provider (or the environment's).
+    api_key: str = Field(default="", repr=False)
 
 
 class ChainBody(BaseModel):
@@ -201,17 +212,56 @@ def create_app(
             raise HTTPException(404, "unknown job")
         return job
 
-    # -- AI explanations (opt-in: only configured from the server's environment) ----
+    # -- AI explanations (opt-in) ------------------------------------------------
+    # Settings entered in the AI tab live in this process only (never on disk, never in a
+    # job or a response) and take precedence over the server's environment.
+    ai_session: list[AIConfig] = []
+
+    def _ai_config() -> tuple[AIConfig | None, str | None]:
+        if ai_session:
+            return ai_session[0], "session"
+        config = AIConfig.from_env()
+        return config, "environment" if config else None
+
+    def _ai_status() -> dict[str, Any]:
+        try:
+            config, source = _ai_config()
+        except ExplainError as exc:
+            return {"configured": False, "error": str(exc), "anthropic_sdk": _HAS_ANTHROPIC}
+        if config is None:
+            return {"configured": False, "anthropic_sdk": _HAS_ANTHROPIC}
+        has_key = bool(config.api_key) or (config.provider == "anthropic" and bool(
+            os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_AUTH_TOKEN")))
+        return {"configured": True, "source": source, **config.describe(),
+                "base_url": config.base_url, "has_key": has_key,
+                "anthropic_sdk": _HAS_ANTHROPIC}  # fmt: skip
 
     @app.get("/api/ai")
     def ai_status() -> dict[str, Any]:
         """Which model "Explain" would send results to; never the key."""
+        return _ai_status()
+
+    @app.post("/api/ai")
+    def ai_settings(body: AIBody) -> dict[str, Any]:
+        api_key = body.api_key.strip()
+        if not api_key and ai_session and ai_session[0].provider == body.provider:
+            api_key = ai_session[0].api_key or ""  # changing the model keeps the entered key
+        if (body.provider == "anthropic" and not api_key
+                and not os.environ.get("ANTHROPIC_API_KEY")):  # fmt: skip
+            raise HTTPException(422, "enter an Anthropic API key")
         try:
-            config = AIConfig.from_env()
+            config = AIConfig.from_settings(body.provider, model=body.model.strip() or None,
+                                            base_url=body.base_url.strip() or None,
+                                            api_key=api_key or None)  # fmt: skip
         except ExplainError as exc:
-            return {"configured": False, "error": str(exc)}
-        return {"configured": False} if config is None else {"configured": True,
-                                                             **config.describe()}  # fmt: skip
+            raise HTTPException(422, str(exc)) from exc
+        ai_session[:] = [config]
+        return _ai_status()
+
+    @app.post("/api/ai/clear")
+    def ai_clear() -> dict[str, Any]:
+        ai_session.clear()
+        return _ai_status()
 
     @app.post("/api/jobs/{job_id}/explain", status_code=202)
     def explain_job(job_id: str) -> Job:
@@ -222,11 +272,11 @@ def create_app(
             raise HTTPException(409, f"only finished {', '.join(sorted(EXPLAINABLE))} jobs "
                                      "can be explained")  # fmt: skip
         try:
-            config = AIConfig.from_env()
+            config, _ = _ai_config()
         except ExplainError as exc:
             raise HTTPException(422, str(exc)) from exc
         if config is None:
-            raise HTTPException(422, "no AI provider configured (see docs/ai.md)")
+            raise HTTPException(422, "no AI provider configured (AI tab, or docs/ai.md)")
         result, kind = job.result, job.kind
         summary = {"job": job_id, "kind": kind, **config.describe()}
         return manager_jobs.submit(

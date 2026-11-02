@@ -306,6 +306,44 @@ def test_explain_an_analyze_result(page: Any, apk: Path, monkeypatch: pytest.Mon
     assert len(sent) == 1 and "<result>" in sent[0]
 
 
+def test_ai_tab_settings_enable_explain(
+    page: Any, apk: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import importlib
+
+    ai = importlib.import_module("apkforge.ai.explain")  # the module, not the function
+    keys: list[str | None] = []
+
+    def backend(config: Any, user: str) -> tuple[str, None]:
+        keys.append(config.api_key)
+        return "explained", None
+
+    monkeypatch.setattr(ai, "_openai_compatible", backend)
+    for var in ("APKFORGE_AI_BASE_URL", "APKFORGE_AI_PROVIDER", "ANTHROPIC_API_KEY"):
+        monkeypatch.delenv(var, raising=False)
+    page.click("nav button[data-tab=ai]")
+    page.wait_for_selector("#ai-current p")
+    assert "Not configured" in page.inner_text("#ai-current")
+    assert page.is_hidden("#ai-base-url-row")  # Claude needs no base URL
+    page.select_option("#ai-provider", "openai-compatible")
+    page.fill("#ai-base-url", "http://127.0.0.1:9/v1")
+    page.fill("#ai-model", "local-model")
+    page.fill("#ai-key", "sk-ui-SECRET")
+    page.click("#form-ai button[type=submit]")
+    page.wait_for_selector("#ai-current >> text=Saved.")
+    current = page.inner_text("#ai-current")
+    assert "local-model" in current and "set here" in current and "SECRET" not in current
+    assert page.input_value("#ai-key") == ""  # the key is not left in the page
+
+    page.click("nav button[data-tab=analyze]")
+    page.fill("#analyze-apk", str(apk))
+    page.click("#form-analyze button[type=submit]")
+    page.wait_for_selector("#out-analyze h2")
+    page.get_by_role("button", name="Explain").click()
+    page.locator("#out-analyze .explanation").wait_for()
+    assert keys == ["sk-ui-SECRET"]
+
+
 def test_diff_lists_and_filters_observations(page: Any, tmp_path: Path) -> None:
     a = create_synthetic_apk(tmp_path / "a" / "app.apk")
     b = create_synthetic_apk(tmp_path / "b" / "app.apk", extra_files={"assets/new.txt": b"hi"})

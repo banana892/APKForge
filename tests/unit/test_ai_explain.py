@@ -232,7 +232,7 @@ def test_gui_explain(fake: type[_Fake], tmp_path: Path, monkeypatch: pytest.Monk
         return job
 
     done = wait(jobs.submit("analyze", {"apk": "x.apk"}, lambda: ANALYZE).model_dump())
-    assert client.get("/api/ai", headers=headers).json() == {"configured": False}
+    assert client.get("/api/ai", headers=headers).json()["configured"] is False
     assert client.post(f"/api/jobs/{done['id']}/explain", headers=headers).status_code == 422
 
     monkeypatch.setenv("APKFORGE_AI_BASE_URL", fake.url + "/v1")  # type: ignore[attr-defined]
@@ -252,3 +252,58 @@ def test_gui_explain(fake: type[_Fake], tmp_path: Path, monkeypatch: pytest.Monk
     # nothing kept for the job (memory or disk) carries the key
     stored = "".join(p.read_text() for p in (tmp_path / "jobs").glob("*.json"))
     assert KEY not in stored + json.dumps(job)
+
+
+def test_gui_ai_settings_panel(fake: type[_Fake], tmp_path: Path) -> None:
+    """Settings from the AI tab: in memory only, key never returned or stored."""
+    pytest.importorskip("fastapi")
+    from fastapi.testclient import TestClient
+
+    from apkforge.gui.app import TOKEN_HEADER, create_app
+    from apkforge.gui.jobs import JobManager
+
+    headers = {TOKEN_HEADER: "t" * 20}
+    jobs = JobManager(store=tmp_path / "jobs")
+    client = TestClient(create_app("t" * 20, upload_dir=tmp_path / "up", jobs=jobs),
+                        base_url="http://127.0.0.1:8765")  # fmt: skip
+
+    def post(path: str, body: dict[str, Any]) -> Any:
+        return client.post(path, headers=headers, json=body)
+
+    assert client.get("/api/ai", headers=headers).json()["configured"] is False
+    assert post("/api/ai", {"provider": "anthropic"}).status_code == 422  # no key anywhere
+    bad = post("/api/ai", {"provider": "openai-compatible", "model": "m", "base_url": "file:///x"})
+    assert bad.status_code == 422 and "http(s)" in bad.json()["detail"]
+
+    url = fake.url + "/v1"  # type: ignore[attr-defined]
+    res = post("/api/ai", {"provider": "openai-compatible", "model": "m1", "base_url": url,
+                           "api_key": KEY})  # fmt: skip
+    status = res.json()
+    assert status["configured"] and status["source"] == "session" and status["has_key"]
+    assert status["model"] == "m1" and KEY not in res.text
+    # changing the model without re-entering the key keeps it
+    assert post("/api/ai", {"provider": "openai-compatible", "model": "m2",
+                            "base_url": url}).json()["has_key"]  # fmt: skip
+
+    done = jobs.submit("analyze", {"apk": "x.apk"}, lambda: ANALYZE)
+    while jobs.get(done.id).status != "DONE":  # type: ignore[union-attr]
+        time.sleep(0.05)
+    job = client.post(f"/api/jobs/{done.id}/explain", headers=headers).json()
+    while job["status"] in ("QUEUED", "RUNNING"):
+        time.sleep(0.05)
+        job = client.get(f"/api/jobs/{job['id']}", headers=headers).json()
+    assert job["status"] == "DONE" and job["summary"]["model"] == "m2"
+    (req,) = fake.requests
+    assert req["headers"]["authorization"] == f"Bearer {KEY}" and req["body"]["model"] == "m2"
+    stored = "".join(p.read_text() for p in (tmp_path / "jobs").glob("*.json"))
+    assert KEY not in stored + json.dumps(job)
+
+    assert client.post("/api/ai/clear", headers=headers).json()["configured"] is False
+
+
+def test_claude_key_from_settings(fake: type[_Fake]) -> None:
+    pytest.importorskip("anthropic")
+    config = AIConfig.from_settings("anthropic", api_key=KEY)
+    assert config.model == "claude-opus-5-5" and KEY not in config.model_dump_json()
+    explain(ANALYZE, config)
+    assert fake.requests[0]["headers"]["x-api-key"] == KEY

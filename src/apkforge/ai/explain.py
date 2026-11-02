@@ -75,8 +75,34 @@ class AIConfig(BaseModel):
     model: str
     #: openai-compatible only: e.g. https://api.openai.com/v1, http://localhost:11434/v1
     base_url: str | None = None
-    #: openai-compatible only; never serialised (see :meth:`describe`).
+    #: Never serialised (see :meth:`describe`). For anthropic, None lets the SDK use
+    #: ANTHROPIC_API_KEY or an ``ant auth login`` profile.
     api_key: str | None = Field(default=None, exclude=True, repr=False)
+
+    @classmethod
+    def from_settings(
+        cls,
+        provider: str,
+        *,
+        model: str | None = None,
+        base_url: str | None = None,
+        api_key: str | None = None,
+    ) -> AIConfig:
+        """Validated settings, from the environment or the workbench's AI panel."""
+        if provider == "anthropic":
+            return cls(provider="anthropic", model=model or DEFAULT_CLAUDE_MODEL,
+                       api_key=api_key or None)  # fmt: skip
+        if provider == "openai-compatible":
+            if not base_url:
+                raise ExplainError("openai-compatible needs a base URL (APKFORGE_AI_BASE_URL)")
+            if not model:
+                raise ExplainError("openai-compatible needs a model (APKFORGE_AI_MODEL)")
+            scheme = urllib.parse.urlparse(base_url).scheme
+            if scheme not in ("http", "https"):
+                raise ExplainError(f"the base URL must be http(s), not {scheme!r}")
+            return cls(provider="openai-compatible", model=model, base_url=base_url,
+                       api_key=api_key or None)  # fmt: skip
+        raise ExplainError(f"unknown AI provider {provider!r} (anthropic, openai-compatible)")
 
     @classmethod
     def from_env(
@@ -97,20 +123,13 @@ class AIConfig(BaseModel):
                 chosen = "openai-compatible"
             else:
                 return None
-        name = model or env.get("APKFORGE_AI_MODEL") or None
-        if chosen == "anthropic":
-            return cls(provider="anthropic", model=name or DEFAULT_CLAUDE_MODEL)
-        if chosen == "openai-compatible":
-            if not base_url:
-                raise ExplainError("openai-compatible needs APKFORGE_AI_BASE_URL")
-            if not name:
-                raise ExplainError("openai-compatible needs APKFORGE_AI_MODEL")
-            scheme = urllib.parse.urlparse(base_url).scheme
-            if scheme not in ("http", "https"):
-                raise ExplainError(f"APKFORGE_AI_BASE_URL must be http(s), not {scheme!r}")
-            return cls(provider="openai-compatible", model=name, base_url=base_url,
-                       api_key=env.get("APKFORGE_AI_API_KEY") or None)  # fmt: skip
-        raise ExplainError(f"unknown AI provider {chosen!r} (anthropic, openai-compatible)")
+        return cls.from_settings(
+            chosen,
+            model=model or env.get("APKFORGE_AI_MODEL") or None,
+            base_url=base_url,
+            # the anthropic SDK reads its own variables
+            api_key=env.get("APKFORGE_AI_API_KEY") if chosen == "openai-compatible" else None,
+        )
 
     def describe(self) -> dict[str, str]:
         """Where results go, for the user to see before sending (no secrets)."""
@@ -217,7 +236,7 @@ def _anthropic(config: AIConfig, user: str) -> tuple[str, str | None]:
     except ImportError as exc:
         raise ExplainError("the anthropic backend needs the 'ai' extra: "
                            "pip install 'apkforge[ai]'") from exc  # fmt: skip
-    client = anthropic.Anthropic(timeout=TIMEOUT_SECONDS)
+    client = anthropic.Anthropic(api_key=config.api_key, timeout=TIMEOUT_SECONDS)
     request: dict[str, Any] = {
         "model": config.model,
         "max_tokens": 16000,
@@ -235,7 +254,7 @@ def _anthropic(config: AIConfig, user: str) -> tuple[str, str | None]:
         else:
             response = client.messages.create(**request)
     except anthropic.AuthenticationError as exc:
-        raise ExplainError("Anthropic rejected the API key (ANTHROPIC_API_KEY)") from exc
+        raise ExplainError("Anthropic rejected the API key") from exc
     except anthropic.NotFoundError as exc:
         raise ExplainError(f"model {config.model!r} not found") from exc
     except anthropic.RateLimitError as exc:
@@ -244,6 +263,11 @@ def _anthropic(config: AIConfig, user: str) -> tuple[str, str | None]:
         raise ExplainError(f"Anthropic API error {exc.status_code}: {exc.message}") from exc
     except anthropic.APIConnectionError as exc:
         raise ExplainError(f"cannot reach the Anthropic API: {exc}") from exc
+    except TypeError as exc:  # how the SDK reports that no credential was found
+        if "authentication" not in str(exc):
+            raise
+        raise ExplainError("no Anthropic API key: enter one in the AI settings or set "
+                           "ANTHROPIC_API_KEY") from exc  # fmt: skip
     if response.stop_reason == "refusal":
         category = getattr(response.stop_details, "category", None)
         raise ExplainError(f"the model declined to explain this result ({category or 'refusal'})")

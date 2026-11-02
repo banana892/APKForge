@@ -918,8 +918,43 @@ function selectTab(name) {
   for (const b of document.querySelectorAll("nav button")) b.setAttribute("aria-selected", b.dataset.tab === name);
   for (const s of document.querySelectorAll("main section")) s.hidden = s.id !== `tab-${name}`;
   if (name === "jobs") loadJobs();
+  if (name === "ai") loadAI();
   if (name === "modkits" || name === "chain") loadModKits();
   if (name === "modify") loadModifiers();
+}
+
+// -- AI settings ------------------------------------------------------------------
+
+function showAI(ai) {
+  aiStatus = Promise.resolve(ai);  // Explain buttons rendered from now on follow it
+  const box = $("ai-current");
+  if (!ai.configured) {
+    box.replaceChildren(el("p", { class: ai.error ? "error" : "muted" },
+      ai.error || "Not configured: Explain is hidden."));
+  } else {
+    const from = ai.source === "session" ? "set here (until the workbench stops)" : "from the server's environment";
+    box.replaceChildren(kv([["Provider", ai.provider], ["Model", ai.model], ["Sends to", ai.host],
+      ["API key", ai.has_key ? "set" : "none"], ["Settings", from]]));
+    $("ai-provider").value = ai.provider;
+    $("ai-model").value = ai.model;
+    $("ai-base-url").value = ai.base_url || "";
+  }
+  if (!ai.anthropic_sdk) {
+    box.append(el("p", { class: "notice" }, "Claude needs the 'ai' extra on the server: pip install 'apkforge[ai]'."));
+  }
+  aiProviderChanged();
+}
+
+function aiProviderChanged() {
+  const claude = $("ai-provider").value === "anthropic";
+  $("ai-base-url-row").hidden = claude;
+  $("ai-base-url").required = !claude;
+  $("ai-model").required = !claude;
+  $("ai-model").placeholder = claude ? "claude-opus-5-5" : "e.g. gpt-4.1, llama3, qwen2.5-coder:7b";
+}
+
+async function loadAI() {
+  try { showAI(await api("/api/ai")); } catch (e) { $("ai-current").replaceChildren(el("p", { class: "error" }, e.message)); }
 }
 
 function onSubmit(formId, handler) {
@@ -1005,6 +1040,23 @@ document.addEventListener("DOMContentLoaded", async () => {
       measure_noise_floor: $("verify-noise").checked, expected, planned_files }, $("out-verify"), btn);
   });
   onSubmit("form-build", (btn) => runJob("/api/jobs/build-check", { apk: $("build-apk").value.trim() }, $("out-build"), btn));
+  $("ai-provider").addEventListener("change", aiProviderChanged);
+  onSubmit("form-ai", async (btn) => {
+    btn.disabled = true;
+    try {
+      showAI(await api("/api/ai", { provider: $("ai-provider").value, model: $("ai-model").value.trim(),
+        base_url: $("ai-base-url").value.trim(), api_key: $("ai-key").value }));
+      $("ai-current").prepend(el("p", { class: "ok" }, "Saved."));
+    } catch (e) {
+      $("ai-current").prepend(el("p", { class: "error" }, e.message));
+    } finally {
+      $("ai-key").value = "";  // never left in the page
+      btn.disabled = false;
+    }
+  });
+  $("ai-clear").addEventListener("click", async () => {
+    try { showAI(await api("/api/ai/clear", {})); } catch (e) { $("ai-current").prepend(el("p", { class: "error" }, e.message)); }
+  });
   onSubmit("form-chain", (btn) => {
     let steps;
     try {
