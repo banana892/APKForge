@@ -54,6 +54,7 @@ from apkforge.modkit.analysis import compare_findings
 from apkforge.modkit.config import CONFIG_ENV_VAR
 from apkforge.modkit.manager import TEST_MODKIT_ENV_VAR
 from apkforge.modkit.masking import MASK, SecretMasker, is_sensitive_name
+from apkforge.modkit.morphe import MORPHE_MODKIT_ID
 from apkforge.modkit.process import INHERITED_ENVIRONMENT
 from apkforge.modkit.testing import MARKER_ENTRY, SCENARIOS, TEST_MODKIT_ID, TestModKitAdapter
 from apkforge.modkit.validation import is_safe_name, validate_apk_archive
@@ -359,14 +360,19 @@ class TestDiscovery:
     def test_default_manager_registers_test_modkit_only_on_request(
         self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path
     ) -> None:
-        assert default_manager().discover() == []
-        assert default_manager().info("morphe") is None  # no adapter exists in H.7
+        # morphe (H.8.1) is always registered but unconfigured, so NOT_INSTALLED.
+        assert [i.identity.modkit_id for i in default_manager().discover()] == [MORPHE_MODKIT_ID]
+        morphe_info = default_manager().info(MORPHE_MODKIT_ID)
+        assert morphe_info is not None and morphe_info.availability.status is A.NOT_INSTALLED
         monkeypatch.setenv(TEST_MODKIT_ENV_VAR, "1")
-        assert [i.identity.modkit_id for i in default_manager().discover()] == [TEST_MODKIT_ID]
+        assert [i.identity.modkit_id for i in default_manager().discover()] == [
+            MORPHE_MODKIT_ID,
+            TEST_MODKIT_ID,
+        ]
         monkeypatch.delenv(TEST_MODKIT_ENV_VAR)
         cfg = tmp_path / "c.toml"
         cfg.write_text("[modkits.test-modkit]\nenabled = true\n")
-        assert default_manager(cfg).registered_ids() == [TEST_MODKIT_ID]
+        assert default_manager(cfg).registered_ids() == [MORPHE_MODKIT_ID, TEST_MODKIT_ID]
 
     def test_duplicate_and_invalid_registration(self) -> None:
         m = _manager()
@@ -910,10 +916,11 @@ runner = CliRunner()
 
 
 def test_cli_modkits_empty() -> None:
-    res = runner.invoke(app, ["modkits"])
-    assert res.exit_code == 0 and "No ModKits" in res.stdout
+    # morphe (H.8.1) is always registered, so the list is never empty, just NOT_INSTALLED.
     res = runner.invoke(app, ["modkits", "--json"])
-    assert json.loads(res.stdout) == []
+    data = json.loads(res.stdout)
+    assert [d["identity"]["modkit_id"] for d in data] == [MORPHE_MODKIT_ID]
+    assert data[0]["availability"]["status"] == "NOT_INSTALLED"
 
 
 def test_cli_modkits_lists_status_and_trust(
@@ -926,7 +933,7 @@ def test_cli_modkits_lists_status_and_trust(
     res = runner.invoke(app, ["modkits", "--json", "--config", str(cfg)])
     assert res.exit_code == 0 and "\x1b" not in res.stdout
     data = {d["identity"]["modkit_id"]: d for d in json.loads(res.stdout)}
-    assert list(data) == ["example-kit", TEST_MODKIT_ID]
+    assert list(data) == ["example-kit", MORPHE_MODKIT_ID, TEST_MODKIT_ID]
     assert data[TEST_MODKIT_ID]["availability"]["status"] == "AVAILABLE"
     assert data[TEST_MODKIT_ID]["identity"]["trust"] == "TEST_ONLY"
     assert data["example-kit"]["availability"]["status"] == "CONFIGURATION_INVALID"
@@ -952,8 +959,14 @@ def test_cli_modkit_info(monkeypatch: pytest.MonkeyPatch) -> None:
     assert text.exit_code == 0
     for s in ("Adapter version", "AVAILABLE", "Trust", "TEST ONLY", "Requirements", "Operations"):
         assert s in text.stdout
-    unknown = runner.invoke(app, ["modkit", "info", "morphe"])
+    unknown = runner.invoke(app, ["modkit", "info", "nope"])
     assert unknown.exit_code == 2 and "Unknown ModKit" in unknown.stdout
+
+    morphe = runner.invoke(app, ["modkit", "info", MORPHE_MODKIT_ID, "--json"])
+    assert morphe.exit_code == 0
+    mdata = json.loads(morphe.stdout)
+    assert mdata["availability"]["status"] == "NOT_INSTALLED"
+    assert mdata["capabilities"] == [] and mdata["operations"] == []
 
 
 def test_cli_modkit_run(apk: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:

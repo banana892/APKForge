@@ -8,9 +8,11 @@ reported a supported version. A configuration entry alone never makes a ModKit
 available, and an entry without a registered adapter is reported as
 CONFIGURATION_INVALID instead of being guessed at.
 
-Production APKForge registers no built-in third-party adapters in H.7. The
-reference ``test-modkit`` is registered only when explicitly enabled (environment
-``APKFORGE_ENABLE_TEST_MODKIT=1`` or a ``[modkits.test-modkit]`` entry).
+The reference ``test-modkit`` is registered only when explicitly enabled (environment
+``APKFORGE_ENABLE_TEST_MODKIT=1`` or a ``[modkits.test-modkit]`` entry); it never ships
+in production use. The Morphe adapter (H.8) is always registered: APKForge still never
+installs or downloads Morphe, so it reports NOT_INSTALLED until the user configures
+``[modkits.morphe].executable_path``.
 """
 
 from __future__ import annotations
@@ -222,8 +224,10 @@ def default_manager(
     """Manager with the configuration from disk and every built-in adapter."""
     config = load_modkit_config(config_path)
     manager = ModKitManager(config, executor=executor)
+    from apkforge.modkit.morphe import MORPHE_MODKIT_ID, MorpheAdapter
     from apkforge.modkit.testing import TEST_MODKIT_ID, TestModKitAdapter
 
+    manager.register(MORPHE_MODKIT_ID, MorpheAdapter)
     if os.environ.get(TEST_MODKIT_ENV_VAR) == "1" or TEST_MODKIT_ID in config.ids():
         manager.register(TEST_MODKIT_ID, TestModKitAdapter)
     return manager

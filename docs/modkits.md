@@ -1,10 +1,12 @@
-# Phase H.7 — Third-Party ModKit Integration Framework
+# Phase H.7/H.8 — Third-Party ModKit Integration Framework
 
 A **ModKit** is an external APK modification engine — a separately installed command-line
 tool or, in future, a library — that APKForge drives through a controlled adapter contract.
-H.7 is the generic framework only. It ships **no third-party ModKit**; the only adapter is
-APKForge's own deterministic reference `test-modkit`. The first real adapter (Morphe Patcher)
-is H.8.
+H.7 is the generic framework; the only adapter it ships is APKForge's own deterministic
+reference `test-modkit`. H.8.1 adds the first real adapter, `morphe` (Morphe Desktop), but
+only its discovery and compatibility checking — no capabilities or operations yet, so
+`apkforge modkit run morphe ...` always fails with "unknown operation" until H.8.3.
+APKForge never bundles or downloads Morphe; see "Morphe (H.8)" below.
 
 The rule behind every design decision is that **APKForge owns the lifecycle**. A ModKit is a
 transformation provider: it gets a staged copy of the input, an empty output directory and
@@ -213,9 +215,11 @@ A bad entry never aborts discovery of the others; it makes that ModKit
   `*PASSWORD*`, `*SECRET*`, `*KEY*` …) — H.7 has no credential model, and secrets are never
   stored in plain text
 
-Production APKForge registers no built-in third-party adapter in H.7. The reference
-`test-modkit` is registered only when `APKFORGE_ENABLE_TEST_MODKIT=1` is set or a
-`[modkits.test-modkit]` entry exists.
+`morphe` (H.8.1) is always registered, so `apkforge modkits` always lists it — as
+`NOT_INSTALLED` until `[modkits.morphe].executable_path` is configured; APKForge never
+installs or downloads it. The reference `test-modkit` is registered only when
+`APKFORGE_ENABLE_TEST_MODKIT=1` is set or a `[modkits.test-modkit]` entry exists, and never
+ships in production use.
 
 ## Execution lifecycle
 
@@ -449,19 +453,37 @@ outputs. The other scenarios each simulate one failure mode:
 The tool's own claim about its outputs (`working/result.json`) is read with size and type
 limits and is never trusted.
 
-## Future: Morphe (H.8)
+## Morphe (H.8)
 
-H.8 implements the first real adapter, an `ExternalProcessAdapter` for a user-installed
-Morphe CLI. It will declare its own requirements (Java runtime, supported versions),
-verified capabilities, operations and parameters, after a Morphe-specific license review.
-The H.7 framework needs no changes for this. H.7 itself contains no Morphe dependency,
-invocation, patch name, argument or class, and nothing in the tests runs Morphe.
+`apkforge.modkit.morphe.MorpheAdapter` drives Morphe Desktop
+(https://github.com/MorpheApp/morphe-desktop), a Java CLI for the Morphe Patcher engine,
+as `java -jar <configured executable_path> ...`. APKForge never bundles, downloads or
+redistributes it (Morphe Patcher/Desktop is GPL-3.0 with additional branding restrictions);
+the user configures `[modkits.morphe].executable_path` to point at their own copy.
+
+H.8.1 (current) implements discovery and compatibility only:
+
+- the Java runtime requirement (21+; override with `modkits.morphe.options.java_executable`,
+  otherwise `java` is looked up on `PATH`) is reported as a `RequirementCheck` alongside the
+  executable check
+- `--version` is probed the same way as any other `ExternalProcessAdapter`
+- the supported version range is pinned to 1.20.x (`min_version="1.20.0"`,
+  `max_version="1.21.0"` exclusive) — 1.20.0 is the only version verified so far (CLI,
+  `list-patches` against the real `MorpheApp/morphe-patches` bundle, and a live patch run);
+  anything outside that range comes back `VERSION_UNSUPPORTED`
+- `capabilities()` and `operations()` are both empty — nothing is verified yet, so the
+  framework can never call `build_command`/`execute`/`collect_output` for it
+
+Patch bundle discovery, patch selection/options and execution are H.8.2/H.8.3; they add
+operations and capabilities to the same adapter. The H.7 framework needed no changes for
+this: `MorpheAdapter` is ordinary third-party-facing code behind the same contract.
 
 ## Non-goals (H.7)
 
 H.7 does not include:
 
-- Morphe, ReVanced or Lucky Patcher integration
+- ReVanced or Lucky Patcher integration
+- Morphe patch bundle discovery, selection or execution (H.8.2/H.8.3)
 - arbitrary APK/smali patching
 - automatic patch selection
 - automatic malware or spyware removal
