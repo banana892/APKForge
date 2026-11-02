@@ -12,12 +12,15 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from typing import TYPE_CHECKING, Any
 
 import pytest
+from typer.testing import CliRunner
 
 from apkforge.ai import AIConfig, ExplainError, compact_result, detect_kind, explain
 from apkforge.ai.explain import MAX_EVIDENCE, MAX_RESULT_CHARS
+from apkforge.cli.main import app
 
 if TYPE_CHECKING:
     from collections.abc import Iterator
+    from pathlib import Path
 
 KEY = "sk-test-0123456789-SECRET"
 ANALYZE = {
@@ -185,3 +188,23 @@ def test_claude_refusal_is_an_error(fake: type[_Fake], monkeypatch: pytest.Monke
                   "usage": {"input_tokens": 1, "output_tokens": 0}}  # fmt: skip
     with pytest.raises(ExplainError, match=r"declined.*cyber"):
         explain(ANALYZE, AIConfig(provider="anthropic", model="claude-x"))
+
+
+# -- CLI and GUI -----------------------------------------------------------------------
+
+
+def test_cli_explain(fake: type[_Fake], tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    result_file = tmp_path / "analyze.json"
+    result_file.write_text(json.dumps(ANALYZE))
+    runner = CliRunner()
+    res = runner.invoke(app, ["explain", str(result_file)])
+    assert res.exit_code == 2 and "No AI provider configured" in res.output
+    assert not fake.requests
+    monkeypatch.setenv("APKFORGE_AI_BASE_URL", fake.url + "/v1")  # type: ignore[attr-defined]
+    monkeypatch.setenv("APKFORGE_AI_MODEL", "llama3")
+    monkeypatch.setenv("APKFORGE_AI_API_KEY", KEY)
+    res = runner.invoke(app, ["explain", str(result_file), "--json"])
+    assert res.exit_code == 0, res.output
+    out = json.loads(res.stdout)
+    assert out["text"] == "OPENAI ANSWER" and out["provider"] == "openai-compatible"
+    assert KEY not in res.output

@@ -4146,6 +4146,63 @@ def cmd_gui(
         shutil.rmtree(app_.state.upload_dir, ignore_errors=True)  # uploads are session-only
 
 
+@app.command("explain")
+def cmd_explain(
+    result_file: Path = typer.Argument(
+        ...,
+        metavar="RESULT.json",
+        help="JSON from analyze/diff/verify --json, or a job downloaded from the workbench.",
+        exists=True,
+        dir_okay=False,
+        readable=True,
+    ),
+    provider: str | None = typer.Option(
+        None, "--provider", help="anthropic | openai-compatible (default: from the environment)."
+    ),
+    model: str | None = typer.Option(None, "--model", help="Model name for the provider."),
+    json_output: bool = typer.Option(False, "--json", help="Machine-readable JSON output."),
+) -> None:
+    """Explain a result in plain language with an AI model (sends the result, not the APK)."""
+    import json
+
+    from apkforge.ai import AIConfig, ExplainError, explain
+
+    try:
+        result = json.loads(result_file.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        _console.print(f"[red]Cannot read {result_file}: {exc}[/red]")
+        raise typer.Exit(code=2) from exc
+    if not isinstance(result, dict):
+        _console.print(f"[red]{result_file} is not a JSON object.[/red]")
+        raise typer.Exit(code=2)
+    try:
+        config = AIConfig.from_env(provider=provider, model=model)
+        if config is None:
+            _console.print(
+                "[red]No AI provider configured.[/red] Set ANTHROPIC_API_KEY for Claude, or "
+                "APKFORGE_AI_BASE_URL and APKFORGE_AI_MODEL (and APKFORGE_AI_API_KEY) for an "
+                "OpenAI-compatible endpoint. See docs/ai.md."
+            )
+            raise typer.Exit(code=2)
+        where = config.describe()
+        # stderr, so --json output stays clean
+        typer.echo(f"Sending the result to {where['provider']} ({where['model']}, "
+                   f"{where['host']})...", err=True)  # fmt: skip
+        explanation = explain(result, config)
+    except ExplainError as exc:
+        _console.print(f"[red]Explain failed: {exc}[/red]")
+        raise typer.Exit(code=1) from exc
+    if json_output:
+        typer.echo(explanation.model_dump_json(indent=2))
+        return
+    typer.echo(explanation.text)
+    footer = (f"\n— {explanation.provider} / {explanation.model}; AI-generated, check it "
+              "against the result.")  # fmt: skip
+    for note in explanation.omitted:
+        footer += f"\n  not sent: {note}"
+    typer.echo(footer, err=True)
+
+
 def _not_implemented(command: str, **kwargs: str) -> None:
     """Display a consistent 'not implemented yet' message and exit cleanly."""
     detail = "  ".join(f"[dim]{k}=[/dim][cyan]{v}[/cyan]" for k, v in kwargs.items())
