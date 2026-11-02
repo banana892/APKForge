@@ -412,6 +412,91 @@ def test_patch_operation_omits_build_tuning_flags_by_default(tmp_path: Path) -> 
     argv = result.provenance.command.argv
     for flag in ("--striplibs", "--bytecode-mode", "--continue-on-error", "--validate"):
         assert flag not in argv
+    for flag in ("--disable-purge", "-t", "--signer"):
+        assert flag not in argv
+    assert not any(a.startswith("--verify-with-sdk") for a in argv)
+    assert argv.count("--patches") == 1
+
+
+def test_patch_operation_repeats_patches_per_bundle(tmp_path: Path) -> None:
+    apk = create_synthetic_apk(tmp_path / "in" / "app.apk")
+    java = _fake_java(tmp_path)
+    cfg = _config(tmp_path, _jar(tmp_path), options={"java_executable": str(java)})
+    bundles = f"{tmp_path / 'a.mpp'}, https://github.com/MorpheApp/morphe-patches"
+    request = _patch_request(apk, tmp_path, parameters={"patches": bundles})
+    result = ModKitExecutor().run(MorpheAdapter(cfg), request)
+    assert result.status is ModKitResultStatus.SUCCESS, result.reason
+    assert result.provenance is not None and result.provenance.command is not None
+    argv = list(result.provenance.command.argv)
+    assert argv.count("--patches") == 2
+    assert argv[argv.index("--patches") + 1] == str(tmp_path / "a.mpp")
+    assert "https://github.com/MorpheApp/morphe-patches" in argv
+
+
+@pytest.mark.parametrize(
+    ("value", "expected"),
+    [("true", "--verify-with-sdk"), ("/opt/sdk", "--verify-with-sdk=/opt/sdk"), ("false", None)],
+)
+def test_patch_operation_verify_with_sdk(tmp_path: Path, value: str, expected: str | None) -> None:
+    apk = create_synthetic_apk(tmp_path / "in" / "app.apk")
+    java = _fake_java(tmp_path)
+    cfg = _config(tmp_path, _jar(tmp_path), options={"java_executable": str(java)})
+    request = _patch_request(apk, tmp_path, parameters={"verify_with_sdk": value})
+    result = ModKitExecutor().run(MorpheAdapter(cfg), request)
+    assert result.status is ModKitResultStatus.SUCCESS, result.reason
+    assert result.provenance is not None and result.provenance.command is not None
+    found = [a for a in result.provenance.command.argv if a.startswith("--verify-with-sdk")]
+    assert found == ([expected] if expected else [])
+
+
+def test_patch_operation_disable_purge_and_configured_temporary_files_path(
+    tmp_path: Path,
+) -> None:
+    apk = create_synthetic_apk(tmp_path / "in" / "app.apk")
+    java = _fake_java(tmp_path)
+    scratch = tmp_path / "morphe-scratch"
+    cfg = _config(
+        tmp_path, _jar(tmp_path),
+        options={"java_executable": str(java), "temporary_files_path": str(scratch)},
+    )  # fmt: skip
+    request = _patch_request(apk, tmp_path, parameters={"disable_purge": "true"})
+    result = ModKitExecutor().run(MorpheAdapter(cfg), request)
+    assert result.status is ModKitResultStatus.SUCCESS, result.reason
+    assert result.provenance is not None and result.provenance.command is not None
+    argv = list(result.provenance.command.argv)
+    assert "--disable-purge" in argv
+    assert argv[argv.index("-t") + 1] == str(scratch)
+
+
+def test_patch_operation_ignores_relative_temporary_files_path(tmp_path: Path) -> None:
+    java = _fake_java(tmp_path)
+    cfg = _config(
+        tmp_path, _jar(tmp_path),
+        options={"java_executable": str(java), "temporary_files_path": "rel/scratch"},
+    )  # fmt: skip
+    assert MorpheAdapter(cfg).temporary_files_path() is None
+
+
+def test_patch_operation_signer_only_with_keystore(tmp_path: Path) -> None:
+    apk = create_synthetic_apk(tmp_path / "in" / "app.apk")
+    java = _fake_java(tmp_path)
+    cfg = _config(tmp_path, _jar(tmp_path), options={"java_executable": str(java)})
+    run = ModKitExecutor().run
+    signed = run(MorpheAdapter(cfg), _patch_request(
+        apk, tmp_path,
+        parameters={"keystore": str(tmp_path / "release.jks"), "signer": "APKForgeTest"},
+    ))  # fmt: skip
+    unsigned = run(MorpheAdapter(cfg), _patch_request(
+        apk, tmp_path / "unsigned", parameters={"signer": "APKForgeTest"}
+    ))  # fmt: skip
+    for result in (signed, unsigned):
+        assert result.status is ModKitResultStatus.SUCCESS, result.reason
+        assert result.provenance is not None and result.provenance.command is not None
+    assert signed.provenance and signed.provenance.command
+    assert unsigned.provenance and unsigned.provenance.command
+    signed_argv = list(signed.provenance.command.argv)
+    assert signed_argv[signed_argv.index("--signer") + 1] == "APKForgeTest"
+    assert "--signer" not in unsigned.provenance.command.argv
 
 
 def test_patch_operation_isolates_data_dir_inside_workspace(tmp_path: Path) -> None:

@@ -22,7 +22,9 @@ parameter: comma-separated ``key=value`` pairs passed through to Morphe's own
 per-patch option keys/types/defaults can actually be discovered through APKForge
 instead of only by running Morphe's own CLI directly. H.8.7 adds the ``striplibs``/
 ``bytecode_mode``/``continue_on_error``/``validate`` parameters, passed straight
-through to Morphe's own same-named flags.
+through to Morphe's own same-named flags. H.8.8 adds the remaining flags: multiple
+``--patches`` bundles (comma-separated), ``signer``, ``disable_purge``,
+``verify_with_sdk``, and the ``temporary_files_path`` config option (``-t``).
 """
 
 from __future__ import annotations
@@ -115,6 +117,8 @@ class MorpheAdapter(ExternalProcessAdapter):
     #: only after testing the new version the same way.
     min_version: ClassVar[str | None] = "1.20.0"
     max_version: ClassVar[str | None] = "1.21.0"
+    #: Bare ``--verify-with-sdk`` locates the SDK through these.
+    inherit_environment: ClassVar[tuple[str, ...]] = ("ANDROID_HOME", "ANDROID_SDK_ROOT")
 
     def capabilities(self) -> tuple[ModKitCapability, ...]:
         # Verified live: a "Clone app" run actually changed the manifest package
@@ -139,7 +143,10 @@ class MorpheAdapter(ExternalProcessAdapter):
                 parameters=(
                     ParameterSpec(
                         name="patches",
-                        description="Local .mpp path or a GitHub/GitLab repo URL.",
+                        description=(
+                            "Local .mpp path or a GitHub/GitLab repo URL; comma-separate "
+                            "several to combine bundles in one run."
+                        ),
                         required=True,
                     ),
                     ParameterSpec(
@@ -186,6 +193,13 @@ class MorpheAdapter(ExternalProcessAdapter):
                         sensitive=True,
                     ),
                     ParameterSpec(
+                        name="signer",
+                        description=(
+                            "Signer name (META-INF signature file name). Only used with "
+                            "keystore. Default: Morphe."
+                        ),
+                    ),
+                    ParameterSpec(
                         name="options",
                         description=(
                             "Comma-separated key=value patch option overrides, e.g. "
@@ -217,6 +231,22 @@ class MorpheAdapter(ExternalProcessAdapter):
                             "verification before release)."
                         ),
                         choices=("true", "false"),
+                    ),
+                    ParameterSpec(
+                        name="disable_purge",
+                        description=(
+                            "Keep this run's Morphe scratch files (inside the workspace "
+                            "unless temporary_files_path is configured) for debugging."
+                        ),
+                        choices=("true", "false"),
+                    ),
+                    ParameterSpec(
+                        name="verify_with_sdk",
+                        description=(
+                            "Verify the patched DEX/APK with the Android SDK: 'true' to use "
+                            "ANDROID_HOME/ANDROID_SDK_ROOT, or an SDK path. May give false "
+                            "positives; patch-developer use only."
+                        ),
                     ),
                 ),
                 may_be_noop=True,
@@ -324,6 +354,15 @@ class MorpheAdapter(ExternalProcessAdapter):
                 return p
         return ctx.working_dir / "morphe-data"
 
+    def temporary_files_path(self) -> Path | None:
+        """Morphe's ``-t``. Config-only (absolute path), like ``data_dir``: it is a write
+        location, so a request must not be able to point it outside the workspace.
+        Unset, Morphe uses ``<data_dir>/tmp``, which is inside the workspace."""
+        configured = self.config.options.get("temporary_files_path") if self.config else None
+        if configured and Path(configured).is_absolute():
+            return Path(configured)
+        return None
+
     def build_command(self, ctx: ExecutionContext) -> CommandSpec:
         exe = self.executable()
         assert exe is not None
@@ -332,8 +371,9 @@ class MorpheAdapter(ExternalProcessAdapter):
             *self.launcher(exe),
             PATCH_OPERATION_ID,
             str(ctx.staged_input),
-            "--patches", p["patches"],
         ]  # fmt: skip
+        for bundle in _split_names(p["patches"]):
+            argv += ["--patches", bundle]
         for name in _split_names(p.get("enable", "")):
             argv += ["--enable", name]
         for name in _split_names(p.get("disable", "")):
@@ -354,6 +394,16 @@ class MorpheAdapter(ExternalProcessAdapter):
             argv.append("--continue-on-error")
         if p.get("validate") == "true":
             argv.append("--validate")
+        if p.get("disable_purge") == "true":
+            argv.append("--disable-purge")
+        if tmp := self.temporary_files_path():
+            argv += ["-t", str(tmp)]
+        verify = p.get("verify_with_sdk", "")
+        if verify == "true":
+            argv.append("--verify-with-sdk")
+        elif verify and verify != "false":
+            # "=" form: the flag's value is optional, so a separate argv item is ambiguous.
+            argv.append(f"--verify-with-sdk={verify}")
         secrets: list[str] = []
         if keystore := p.get("keystore"):
             # Opting in to Morphe's own signature; still never trusted as final (see
@@ -367,6 +417,8 @@ class MorpheAdapter(ExternalProcessAdapter):
             if password := p.get("keystore_password"):
                 argv += ["--keystore-password", password]
                 secrets.append(password)
+            if signer := p.get("signer"):
+                argv += ["--signer", signer]
         else:
             argv.append("--unsigned")
         argv += [

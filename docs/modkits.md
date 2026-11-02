@@ -12,8 +12,10 @@ to that same operation. H.8.5 adds per-patch option pass-through (`-O key=value`
 H.8.6 adds `--with-options` to `apkforge modkit patches` so those per-patch option
 keys/types/defaults can be discovered without running Morphe's own CLI directly.
 H.8.7 adds the remaining build-tuning flags (`striplibs`/`bytecode_mode`/
-`continue_on_error`/`validate`) to the `patch` operation. APKForge never bundles or
-downloads Morphe; see "Morphe (H.8)" below.
+`continue_on_error`/`validate`) to the `patch` operation. H.8.8 adds the last ones:
+multiple `--patches` bundles, `signer`, `disable_purge`, `verify_with_sdk`, and the
+`temporary_files_path` config option (`-t`). APKForge never bundles or downloads Morphe;
+see "Morphe (H.8)" below.
 
 The rule behind every design decision is that **APKForge owns the lifecycle**. A ModKit is a
 transformation provider: it gets a staged copy of the input, an empty output directory and
@@ -507,13 +509,36 @@ changed the package name in the manifest) and `operations()` declares one `Opera
 (`id="patch"`) with parameters `patches` (required), `enable`/`disable` (comma-separated
 patch names), `exclusive`, `force`, `prerelease`, (H.8.4) `keystore`,
 `keystore_entry_alias`, `keystore_entry_password`, `keystore_password`, (H.8.5)
-`options` (comma-separated `key=value` pairs), and (H.8.7) `striplibs`,
-`bytecode_mode`, `continue_on_error`, `validate`. `build_command` runs Morphe's own
-`patch <staged-apk> --patches ... [--enable NAME]... [--disable NAME]... [-O key=value]...
-[--exclusive] [--force] [--prerelease] [--striplibs ...] [--bytecode-mode ...]
-[--continue-on-error] [--validate] (--unsigned | --keystore ... [--keystore-entry-alias
-...] [--keystore-entry-password ...] [--keystore-password ...]) -o <output>/patched.apk
--r <working>/result.json`. `striplibs`/`bytecode_mode`/`continue_on_error`/`validate`
+`options` (comma-separated `key=value` pairs), (H.8.7) `striplibs`,
+`bytecode_mode`, `continue_on_error`, `validate`, and (H.8.8) `signer`, `disable_purge`,
+`verify_with_sdk`. `build_command` runs Morphe's own
+`patch <staged-apk> --patches ... [--patches ...]... [--enable NAME]... [--disable NAME]...
+[-O key=value]... [--exclusive] [--force] [--prerelease] [--striplibs ...]
+[--bytecode-mode ...] [--continue-on-error] [--validate] [--disable-purge] [-t DIR]
+[--verify-with-sdk[=SDK]] (--unsigned | --keystore ... [--keystore-entry-alias ...]
+[--keystore-entry-password ...] [--keystore-password ...] [--signer NAME])
+-o <output>/patched.apk -r <working>/result.json`.
+
+H.8.8 details, all verified live against the real 1.20.0 jar through
+`apkforge modkit run`: `patches` is split on commas into one `--patches` per bundle
+(Morphe combines them; `--enable`/`-O` still matched "Clone app" across two bundles).
+`signer` names the META-INF signature files (`APKForgeTest` → `APKFORGE.SF`/`.RSA`) and
+is only passed with `keystore` — it means nothing to an unsigned output.
+`verify_with_sdk=true` passes a bare `--verify-with-sdk`, which finds the SDK through
+`ANDROID_HOME`/`ANDROID_SDK_ROOT` (so the adapter's `inherit_environment` passes those
+two through); any other value except `false` is an SDK path passed as
+`--verify-with-sdk=PATH` (the `=` form, since the flag's value is optional). With
+`--unsigned`, Morphe's apksigner step logs a `DOES NOT VERIFY` warning (the original
+signature block no longer matches) but still succeeds — one of the false positives
+Morphe's own help warns about. `disable_purge` keeps the run's `patching-<id>` scratch
+directory. Morphe's `-t` is **config-only** (`modkits.morphe.options.temporary_files_path`,
+an absolute path, like `data_dir`): it is a write location, so a request parameter must not
+be able to aim it outside the workspace. Unset, Morphe uses `<data_dir>/tmp`, which is
+already inside the workspace; when set, Morphe only clears its own `patching-<id>`
+subdirectory there, never the directory's other contents (checked with a sentinel file).
+`-i/--install` and `--mount` stay unsupported: APKForge never installs APKs.
+
+ `striplibs`/`bytecode_mode`/`continue_on_error`/`validate`
 are passed straight through to Morphe's own same-named flags with no adapter-side
 validation beyond `bytecode_mode`'s choice set (`FULL`/`STRIP_SAFE`/`STRIP_FAST`) —
 verified live: `--striplibs arm64-v8a,x86 --bytecode-mode STRIP_SAFE` actually changed
@@ -560,7 +585,7 @@ real `MorpheApp/morphe-patches` v2.0.0 bundle (e.g. `Clone app`'s `packageName`/
 description with its `possible_values` list) and that a trailing `Compatible packages:`
 section after `Options:` still parses correctly.
 
-The H.7 framework needed no changes for H.8.1 through H.8.7: `MorpheAdapter` is
+The H.7 framework needed no changes for H.8.1 through H.8.8: `MorpheAdapter` is
 ordinary third-party-facing code behind the same contract, plus (for H.8.2) one method
 the contract doesn't require.
 
