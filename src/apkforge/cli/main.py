@@ -1713,75 +1713,19 @@ def cmd_plan(
     cfg = load_default_config()
     setup_logging(cfg.log_level)
 
-    import logging
-
-    _log = logging.getLogger("apkforge.cli.plan")
-
-    from apkforge.inspection import InspectionEngine
+    from apkforge.analysis.plan import create_modification_plan
     from apkforge.modification import (
-        ModificationPlanner,
         ModificationRisk,
         plan_to_json,
         plan_to_yaml,
         save_plan,
     )
-    from apkforge.privacy.engine import PrivacyEngine
-    from apkforge.security.engine import SecurityEngine
 
-    # 1. Inspection Engine
-    insp_engine = InspectionEngine(config=cfg)
     try:
-        insp_result = insp_engine.inspect(apk, keep_workspace=keep_workspace)
+        plan = create_modification_plan(apk, cfg, diff_apk=diff_apk, keep_workspace=keep_workspace)
     except Exception as e:
         _console.print(f"[bold red]Core inspection failed:[/bold red] {e}")
         raise typer.Exit(code=1) from e
-
-    # 2. Privacy Engine
-    priv_result = None
-    try:
-        priv_engine = PrivacyEngine(config=cfg)
-        priv_result = priv_engine.analyze(insp_result, keep_workspace=keep_workspace)
-    except Exception as e:
-        _log.warning("Privacy engine failed during planning: %s", e)
-
-    # 3. Optional Diff Engine
-    diff_result = None
-    if diff_apk:
-        try:
-            from apkforge.diff.engine import DiffEngine
-
-            diff_engine = DiffEngine(config=cfg)
-            orig_insp = insp_engine.inspect(diff_apk, keep_workspace=keep_workspace)
-            diff_result = diff_engine.diff(
-                orig_insp,
-                insp_result,
-                keep_workspace=keep_workspace,
-            )
-        except Exception as e:
-            _log.warning("Diff engine failed during planning: %s", e)
-
-    # 4. Security Engine
-    sec_result = None
-    try:
-        sec_engine = SecurityEngine(config=cfg)
-        sec_result = sec_engine.analyze(
-            target=insp_result,
-            privacy=priv_result,
-            diff=diff_result,
-            keep_workspace=keep_workspace,
-        )
-    except Exception as e:
-        _log.warning("Security engine failed during planning: %s", e)
-
-    # 5. Create Plan
-    planner = ModificationPlanner()
-    plan = planner.create_plan(
-        apk_path=apk,
-        inspection=insp_result,
-        privacy=priv_result,
-        security=sec_result,
-        diff=diff_result,
-    )
 
     # 6. Apply filters
     if filter_type:
@@ -2802,8 +2746,6 @@ def cmd_modify(
     3 incomplete: one or more changes were skipped, nothing failed
     (--modifier: UNVERIFIED, PARTIAL, SKIPPED or REFUSED).
     """
-    import logging
-
     if modifier_ids:
         if plan_file is not None or approve_all:
             _console.print("[red]--modifier cannot be combined with --plan or --approve-all.[/red]")
@@ -2843,7 +2785,6 @@ def cmd_modify(
 
     cfg = load_default_config()
     setup_logging(cfg.log_level)
-    _log = logging.getLogger("apkforge.cli.modify")
 
     # 1. Load or generate plan
     if plan_file:
@@ -2858,37 +2799,9 @@ def cmd_modify(
     else:
         # Auto-generate plan from analysis
         _console.print("[cyan]No plan file provided; generating plan from analysis...[/cyan]")
-        from apkforge.inspection import InspectionEngine
-        from apkforge.modification import ModificationPlanner
-        from apkforge.privacy.engine import PrivacyEngine
-        from apkforge.security.engine import SecurityEngine
+        from apkforge.analysis.plan import create_modification_plan
 
-        insp_engine = InspectionEngine(config=cfg)
-        insp_result = insp_engine.inspect(apk, keep_workspace=keep_workspace)
-
-        priv_result = None
-        try:
-            priv_engine = PrivacyEngine(config=cfg)
-            priv_result = priv_engine.analyze(insp_result, keep_workspace=keep_workspace)
-        except Exception as e:
-            _log.warning("Privacy engine failed: %s", e)
-
-        sec_result = None
-        try:
-            sec_engine = SecurityEngine(config=cfg)
-            sec_result = sec_engine.analyze(
-                target=insp_result, privacy=priv_result, keep_workspace=keep_workspace
-            )
-        except Exception as e:
-            _log.warning("Security engine failed: %s", e)
-
-        planner = ModificationPlanner()
-        plan = planner.create_plan(
-            apk_path=apk,
-            inspection=insp_result,
-            privacy=priv_result,
-            security=sec_result,
-        )
+        plan = create_modification_plan(apk, cfg, keep_workspace=keep_workspace)
         _console.print(
             f"[green]Generated plan:[/green] {plan.plan_id} ({plan.change_count} changes)"
         )
