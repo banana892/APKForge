@@ -71,11 +71,13 @@ class TestStubCommands:
         assert result.exit_code == 0, result.output
 
     @pytest.mark.unit()
-    def test_scan_stub_exits_zero(self, tmp_path: Path) -> None:
+    def test_scan_on_unparseable_file_exits_two(self, tmp_path: Path) -> None:
+        """scan is implemented: an unanalysable file is an error (exit 2), never a pass."""
         fake_apk = tmp_path / "test.apk"
         fake_apk.write_bytes(b"PK")
         result = runner.invoke(app, ["scan", str(fake_apk)])
-        assert result.exit_code == 0, result.output
+        assert result.exit_code == 2, result.output
+        assert "ERROR" in result.stdout
 
     @pytest.mark.unit()
     def test_analyze_on_unparseable_file_exits_nonzero(self, tmp_path: Path) -> None:
