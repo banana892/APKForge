@@ -298,7 +298,8 @@
   </section>
 
   <section id="tab-ai" hidden>
-    <form class="panel" id="form-ai" autocomplete="off">
+    <!-- not a login form: the ignore attributes keep password managers and alias extensions out -->
+    <form class="panel" id="form-ai" autocomplete="off" data-1p-ignore data-lpignore="true" data-bwignore data-protonpass-ignore="true" data-form-type="other">
       <h2>AI explanations</h2>
       <p class="hint">Optional. With a provider set, finished Analyze, Diff and Verify results get an
         "Explain" button that sends the result (never the APK) to this model. The key stays in this
@@ -311,7 +312,7 @@
       </select>
       <div id="ai-base-url-row" hidden>
         <label for="ai-base-url">Base URL</label>
-        <input type="text" id="ai-base-url" list="ai-base-urls" placeholder="http://127.0.0.1:11434/v1">
+        <input type="text" id="ai-base-url" list="ai-base-urls" data-1p-ignore data-lpignore="true" data-bwignore data-protonpass-ignore="true" data-form-type="other" placeholder="http://127.0.0.1:11434/v1">
         <datalist id="ai-base-urls">
           <option value="https://api.openai.com/v1">OpenAI</option>
           <option value="https://generativelanguage.googleapis.com/v1beta/openai">Google Gemini</option>
@@ -323,9 +324,9 @@
         </datalist>
       </div>
       <label for="ai-model">Model</label>
-      <input type="text" id="ai-model" placeholder="claude-opus-5-5">
+      <input type="text" id="ai-model" placeholder="claude-opus-5-5" data-1p-ignore data-lpignore="true" data-bwignore data-protonpass-ignore="true" data-form-type="other">
       <label for="ai-key">API key</label>
-      <input type="password" id="ai-key" autocomplete="new-password" spellcheck="false"
+      <input type="password" id="ai-key" autocomplete="off" spellcheck="false" data-1p-ignore data-lpignore="true" data-bwignore data-protonpass-ignore="true" data-form-type="other"
         placeholder="leave empty to keep the current key, or for a local server">
       <div class="toolbar">
         <button class="primary" type="submit">Save</button>
