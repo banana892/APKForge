@@ -71,7 +71,19 @@ Exit codes:
 
 ## Workbench
 
-Start `apkforge gui` with the variables above set.
+Configure the provider in either of two ways:
+- Start `apkforge gui` with the variables above set.
+- Use the **AI** tab: choose Claude or an OpenAI-compatible provider, enter the model,
+  the base URL (with presets for OpenAI, Gemini, Mistral, Groq, OpenRouter, Ollama and LM
+  Studio) and the API key, then **Save**.
+
+Settings saved in the AI tab:
+- Take precedence over the environment until **Clear session settings** or until the
+  workbench stops.
+- Keep the key in the server's memory only. It is never written to disk or to a job,
+  never returned by the API, and the field is emptied after saving.
+- Can be changed without re-entering the key: saving the same provider with an empty
+  key field keeps the key already entered.
 
 A finished Analyze, Diff or Verify result then shows an **Explain** button, with the
 provider, model and host it will send to. The explanation runs as a job: it is kept with

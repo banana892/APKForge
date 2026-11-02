@@ -32,7 +32,8 @@ are the backlog for any later GUI work.
 | Build (9.2) | Toolchain + signing check, then a no-op rebuild | `apkforge build APK -o OUT` |
 | Verify (9.2) | One APK: structure + signature. Two: the original → modified matrix with unexpected/unknown changes, optional noise floor and declared changes (JSON). A Modify apply's "Verify output" fills in the changes its modifiers declared. After a transformation apply, "Verify transformation" runs H.4 with a control rebuild | `apkforge verify A [B] [--measure-noise-floor] [--expected FILE]`, `verify A T --plan P --build-control` |
 | Jobs | Every job of this session; click to reopen its result, cancel running ones | — |
-| Explain (optional) | On a finished Analyze, Diff or Verify result, when an AI provider is configured in the server's environment: a plain-language explanation, run as its own job | `apkforge explain RESULT.json` ([ai.md](ai.md)) |
+| AI | Provider, model, base URL and API key for Explain, held in memory for this session (overrides the environment) | `APKFORGE_AI_*` / `ANTHROPIC_API_KEY` ([ai.md](ai.md)) |
+| Explain (optional) | On a finished Analyze, Diff or Verify result, when an AI provider is configured (AI tab or the server's environment): a plain-language explanation, run as its own job | `apkforge explain RESULT.json` ([ai.md](ai.md)) |
 
 APKs are given as **absolute paths on the local machine**, or uploaded with the "Upload…"
 button next to each APK field (see below). Work runs as background jobs (two at a time)
@@ -123,8 +124,8 @@ one answers 410 and has to be analyzed again.
   `published` artifact, re-hashed against its recorded SHA-256). `GET /download/{ticket}`
   needs no token but still passes the Host check; a path from the request is never
   served.
-- **AI explanations.** Off unless the server was started with a provider in its
-  environment ([ai.md](ai.md)). "Explain" names the provider, model and host before
+- **AI explanations.** Off unless a provider is set in the AI tab or the server's
+  environment ([ai.md](ai.md)). A key entered in the AI tab is held in memory only. "Explain" names the provider, model and host before
   anything is sent, and sends the result only, never the APK. Keys stay in the server's
   environment: neither `GET /api/ai` nor any job carries them.
 - No interactive API docs (`/docs`, `/openapi.json`) are served.
