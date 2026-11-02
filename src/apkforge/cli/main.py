@@ -4105,7 +4105,7 @@ def cmd_gui(
         from apkforge.gui.jobs import JobManager
     except ImportError as exc:
         _console.print(
-            f"[red]The GUI needs the 'gui' extra: pip install 'apkforge[gui]' ({exc}).[/red]"
+            f"[red]The GUI needs the 'gui' extra: pip install 'apkforge\\[gui]' ({exc}).[/red]"
         )
         raise typer.Exit(code=2) from exc
 
@@ -4165,6 +4165,8 @@ def cmd_explain(
     """Explain a result in plain language with an AI model (sends the result, not the APK)."""
     import json
 
+    from rich.markup import escape
+
     from apkforge.ai import AIConfig, ExplainError, explain
 
     try:
@@ -4190,7 +4192,7 @@ def cmd_explain(
                    f"{where['host']})...", err=True)  # fmt: skip
         explanation = explain(result, config)
     except ExplainError as exc:
-        _console.print(f"[red]Explain failed: {exc}[/red]")
+        _console.print(f"[red]Explain failed: {escape(str(exc))}[/red]")
         raise typer.Exit(code=1) from exc
     if json_output:
         typer.echo(explanation.model_dump_json(indent=2))
