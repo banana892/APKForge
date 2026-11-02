@@ -11,7 +11,9 @@ execution through the normal adapter contract. H.8.4 adds optional keystore-base
 to that same operation. H.8.5 adds per-patch option pass-through (`-O key=value`).
 H.8.6 adds `--with-options` to `apkforge modkit patches` so those per-patch option
 keys/types/defaults can be discovered without running Morphe's own CLI directly.
-APKForge never bundles or downloads Morphe; see "Morphe (H.8)" below.
+H.8.7 adds the remaining build-tuning flags (`striplibs`/`bytecode_mode`/
+`continue_on_error`/`validate`) to the `patch` operation. APKForge never bundles or
+downloads Morphe; see "Morphe (H.8)" below.
 
 The rule behind every design decision is that **APKForge owns the lifecycle**. A ModKit is a
 transformation provider: it gets a staged copy of the input, an empty output directory and
@@ -504,12 +506,19 @@ H.8.3 adds the `patch` operation itself, so `capabilities()` now declares
 changed the package name in the manifest) and `operations()` declares one `OperationSpec`
 (`id="patch"`) with parameters `patches` (required), `enable`/`disable` (comma-separated
 patch names), `exclusive`, `force`, `prerelease`, (H.8.4) `keystore`,
-`keystore_entry_alias`, `keystore_entry_password`, `keystore_password`, and (H.8.5)
-`options` (comma-separated `key=value` pairs). `build_command` runs Morphe's own
+`keystore_entry_alias`, `keystore_entry_password`, `keystore_password`, (H.8.5)
+`options` (comma-separated `key=value` pairs), and (H.8.7) `striplibs`,
+`bytecode_mode`, `continue_on_error`, `validate`. `build_command` runs Morphe's own
 `patch <staged-apk> --patches ... [--enable NAME]... [--disable NAME]... [-O key=value]...
-[--exclusive] [--force] [--prerelease] (--unsigned | --keystore ... [--keystore-entry-alias
+[--exclusive] [--force] [--prerelease] [--striplibs ...] [--bytecode-mode ...]
+[--continue-on-error] [--validate] (--unsigned | --keystore ... [--keystore-entry-alias
 ...] [--keystore-entry-password ...] [--keystore-password ...]) -o <output>/patched.apk
--r <working>/result.json`. `-O`/`--options` is Morphe's own per-patch option mechanism
+-r <working>/result.json`. `striplibs`/`bytecode_mode`/`continue_on_error`/`validate`
+are passed straight through to Morphe's own same-named flags with no adapter-side
+validation beyond `bytecode_mode`'s choice set (`FULL`/`STRIP_SAFE`/`STRIP_FAST`) —
+verified live: `--striplibs arm64-v8a,x86 --bytecode-mode STRIP_SAFE` actually changed
+Morphe's own logged stripping/compilation behavior. `-O`/`--options` is Morphe's own
+per-patch option mechanism
 (verified live: `-O packageName=com.example.clone` with "Clone app" enabled actually
 changed the cloned package name) — option keys are specific to each patch, discovered via
 Morphe's own `list-patches --with-options`; entries without `=` are dropped rather than
@@ -551,7 +560,7 @@ real `MorpheApp/morphe-patches` v2.0.0 bundle (e.g. `Clone app`'s `packageName`/
 description with its `possible_values` list) and that a trailing `Compatible packages:`
 section after `Options:` still parses correctly.
 
-The H.7 framework needed no changes for H.8.1 through H.8.6: `MorpheAdapter` is
+The H.7 framework needed no changes for H.8.1 through H.8.7: `MorpheAdapter` is
 ordinary third-party-facing code behind the same contract, plus (for H.8.2) one method
 the contract doesn't require.
 

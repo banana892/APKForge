@@ -379,6 +379,41 @@ def test_patch_operation_masks_option_values_that_look_like_secrets(tmp_path: Pa
     assert "enabled=true" in argv
 
 
+def test_patch_operation_passes_build_tuning_flags(tmp_path: Path) -> None:
+    apk = create_synthetic_apk(tmp_path / "in" / "app.apk")
+    java = _fake_java(tmp_path)
+    cfg = _config(tmp_path, _jar(tmp_path), options={"java_executable": str(java)})
+    request = _patch_request(
+        apk, tmp_path,
+        parameters={
+            "striplibs": "arm64-v8a,x86",
+            "bytecode_mode": "STRIP_SAFE",
+            "continue_on_error": "true",
+            "validate": "true",
+        },
+    )  # fmt: skip
+    result = ModKitExecutor().run(MorpheAdapter(cfg), request)
+    assert result.status is ModKitResultStatus.SUCCESS, result.reason
+    assert result.provenance is not None and result.provenance.command is not None
+    argv = result.provenance.command.argv
+    assert "--striplibs" in argv and "arm64-v8a,x86" in argv
+    assert "--bytecode-mode" in argv and "STRIP_SAFE" in argv
+    assert "--continue-on-error" in argv
+    assert "--validate" in argv
+
+
+def test_patch_operation_omits_build_tuning_flags_by_default(tmp_path: Path) -> None:
+    apk = create_synthetic_apk(tmp_path / "in" / "app.apk")
+    java = _fake_java(tmp_path)
+    cfg = _config(tmp_path, _jar(tmp_path), options={"java_executable": str(java)})
+    result = ModKitExecutor().run(MorpheAdapter(cfg), _patch_request(apk, tmp_path))
+    assert result.status is ModKitResultStatus.SUCCESS, result.reason
+    assert result.provenance is not None and result.provenance.command is not None
+    argv = result.provenance.command.argv
+    for flag in ("--striplibs", "--bytecode-mode", "--continue-on-error", "--validate"):
+        assert flag not in argv
+
+
 def test_patch_operation_isolates_data_dir_inside_workspace(tmp_path: Path) -> None:
     apk = create_synthetic_apk(tmp_path / "in" / "app.apk")
     java = _fake_java(tmp_path)

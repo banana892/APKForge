@@ -1,7 +1,7 @@
 """Adapter for Morphe Desktop (H.8.1: discovery/compatibility; H.8.2: patch bundle
 discovery; H.8.3: patch selection and execution; H.8.4: keystore-based signing;
 H.8.5: per-patch option pass-through; H.8.6: surfacing per-patch option metadata
-in :meth:`MorpheAdapter.list_patches`).
+in :meth:`MorpheAdapter.list_patches`; H.8.7: build-tuning flags).
 
 Morphe Desktop (https://github.com/MorpheApp/morphe-desktop) ships as a JAR run with
 ``java -jar morphe-desktop.jar ...``; APKForge never bundles or downloads it, the user
@@ -20,7 +20,9 @@ parameter: comma-separated ``key=value`` pairs passed through to Morphe's own
 ``-O key=value`` (one per pair; option keys are per-patch). H.8.6 adds
 ``with_options`` to :meth:`list_patches` (``list-patches --with-options``) so those
 per-patch option keys/types/defaults can actually be discovered through APKForge
-instead of only by running Morphe's own CLI directly.
+instead of only by running Morphe's own CLI directly. H.8.7 adds the ``striplibs``/
+``bytecode_mode``/``continue_on_error``/``validate`` parameters, passed straight
+through to Morphe's own same-named flags.
 """
 
 from __future__ import annotations
@@ -191,6 +193,31 @@ class MorpheAdapter(ExternalProcessAdapter):
                             "Morphe's own 'list-patches --with-options' to see them."
                         ),
                     ),
+                    ParameterSpec(
+                        name="striplibs",
+                        description=(
+                            "Comma-separated native lib architectures to keep (e.g. "
+                            "arm64-v8a,x86); all others are stripped."
+                        ),
+                    ),
+                    ParameterSpec(
+                        name="bytecode_mode",
+                        description="DEX bytecode mode. Default: STRIP_FAST.",
+                        choices=("FULL", "STRIP_SAFE", "STRIP_FAST"),
+                    ),
+                    ParameterSpec(
+                        name="continue_on_error",
+                        description="Keep patching after a patch fails instead of stopping.",
+                        choices=("true", "false"),
+                    ),
+                    ParameterSpec(
+                        name="validate",
+                        description=(
+                            "Validate fingerprint matches are unique (slower; developer "
+                            "verification before release)."
+                        ),
+                        choices=("true", "false"),
+                    ),
                 ),
                 may_be_noop=True,
             ),
@@ -319,6 +346,14 @@ class MorpheAdapter(ExternalProcessAdapter):
             argv.append("--force")
         if p.get("prerelease") == "true":
             argv.append("--prerelease")
+        if striplibs := p.get("striplibs"):
+            argv += ["--striplibs", striplibs]
+        if bytecode_mode := p.get("bytecode_mode"):
+            argv += ["--bytecode-mode", bytecode_mode]
+        if p.get("continue_on_error") == "true":
+            argv.append("--continue-on-error")
+        if p.get("validate") == "true":
+            argv.append("--validate")
         secrets: list[str] = []
         if keystore := p.get("keystore"):
             # Opting in to Morphe's own signature; still never trusted as final (see
