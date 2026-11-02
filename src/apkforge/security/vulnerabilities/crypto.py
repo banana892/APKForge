@@ -115,7 +115,9 @@ class CryptoVulnerabilityAnalyzer:
         broken_ciphers = [
             s
             for s in index.strings
-            if s in ("DES", "DESede", "RC4", "ARCFOUR", "Blowfish")
+            # bare names and transformations ("DES/CBC/PKCS5Padding"); ECB is reported above
+            if s.split("/")[0] in ("DES", "DESede", "RC4", "ARCFOUR", "Blowfish")
+            and "/ECB/" not in s
             and index.is_string_attributed_to_app(s)
         ]
         if broken_ciphers:

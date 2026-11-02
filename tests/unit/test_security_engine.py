@@ -74,18 +74,17 @@ def test_rule_engine_loading_and_builtins() -> None:
     """Verify built-in security rules are properly discovered and loaded."""
     rule_engine = SecurityRuleEngine()
     rules = rule_engine.load_rules()
-    assert len(rules) >= 20
-
     rule_ids = {r.id for r in rules}
-    # Verify core rules from all 4 categories exist
-    assert "SEC-SPY-AUDIO-001" in rule_ids
-    assert "SEC-SPY-CAMERA-001" in rule_ids
-    assert "SEC-SPY-LOCATION-001" in rule_ids
-    assert "SEC-MAL-EXEC-001" in rule_ids
-    assert "SEC-MAL-DYNLOAD-001" in rule_ids
-    assert "SEC-VULN-DEBUGGABLE-001" in rule_ids
-    assert "SEC-VULN-CLEARTEXT-001" in rule_ids
+    assert "SEC-SPY-CALLS-001" in rule_ids
+    assert "SEC-MAL-EMBEDDED-DEX-001" in rule_ids
     assert "SEC-COMB-SURVEILLANCE-SUITE" in rule_ids
+    # PRC-04: facts the analyzers report are not repeated by a declarative rule
+    assert not rule_ids & {"SEC-MAL-EXEC-001", "SEC-MAL-DYNLOAD-001", "SEC-MAL-BOOT-001",
+                           "SEC-VULN-DEBUGGABLE-001", "SEC-VULN-CLEARTEXT-001",
+                           "SEC-VULN-BACKUP-001", "SEC-VULN-WEAK-CIPHER-001",
+                           "SEC-VULN-WEAK-HASH-001", "SEC-SPY-AUDIO-001", "SEC-SPY-CAMERA-001",
+                           "SEC-SPY-LOCATION-001", "SEC-SPY-SMS-001",
+                           "SEC-SPY-ACCESSIBILITY-001"}  # fmt: skip
 
 
 def test_rule_engine_logical_conditions() -> None:
@@ -175,8 +174,9 @@ def test_audio_surveillance_analysis() -> None:
     engine = SecurityEngine()
     result = engine.analyze(insp)
 
-    finding = next((f for f in result.findings if f.id == "SEC-SPY-AUDIO-001"), None)
-    assert finding is not None
+    audio = [f for f in result.findings if f.id.startswith("SEC-SPY-AUDIO")]
+    assert [f.id for f in audio] == ["SEC-SPY-AUDIO-SURVEILLANCE"]  # once (PRC-04)
+    finding = audio[0]
     assert finding.severity == Severity.HIGH
     assert finding.confidence in (Confidence.HIGH, Confidence.MEDIUM)
     assert any("RECORD_AUDIO" in ev.description for ev in finding.evidence)
@@ -258,10 +258,9 @@ def test_sms_interception_indicators() -> None:
     engine = SecurityEngine()
     result = engine.analyze(insp)
 
-    finding = next((f for f in result.findings if f.id == "SEC-SPY-SMS-001"), None)
-    assert finding is not None
-    assert finding.severity == Severity.HIGH
-    assert finding.category == SecurityCategory.SPYWARE_INDICATOR
+    sms = [f for f in result.findings if f.id.startswith("SEC-SPY-SMS")]
+    assert [f.id for f in sms] == ["SEC-SPY-SMS-HARVEST"]  # once (PRC-04)
+    assert sms[0].severity == Severity.HIGH
 
 
 def test_hardware_device_identifier_harvesting() -> None:
@@ -320,8 +319,8 @@ def test_accessibility_and_overlay_capabilities() -> None:
     engine = SecurityEngine()
     result = engine.analyze(insp)
 
-    acc_finding = next((f for f in result.findings if f.id == "SEC-SPY-ACCESSIBILITY-001"), None)
-    assert acc_finding is not None
+    acc = [f.id for f in result.findings if f.id.startswith("SEC-SPY-ACCESSIBILITY")]
+    assert acc == ["SEC-SPY-ACCESSIBILITY-ABUSE"]  # once (PRC-04)
 
     overlay_finding = next((f for f in result.findings if f.id == "SEC-SPY-OVERLAY-001"), None)
     assert overlay_finding is not None
@@ -349,10 +348,9 @@ def test_command_execution_detection() -> None:
     engine = SecurityEngine()
     result = engine.analyze(insp)
 
-    exec_finding = next((f for f in result.findings if f.id == "SEC-MAL-EXEC-001"), None)
-    assert exec_finding is not None
-    assert exec_finding.severity == Severity.HIGH
-    assert exec_finding.category == SecurityCategory.MALWARE_INDICATOR
+    exec_findings = [f for f in result.findings if f.category == SecurityCategory.CODE_EXECUTION]
+    assert [f.id for f in exec_findings] == ["SEC-MAL-CODE-EXEC"]  # once, not per rule source
+    assert exec_findings[0].severity == Severity.HIGH
 
 
 def test_dynamic_code_loading_and_embedded_payloads() -> None:
@@ -378,8 +376,8 @@ def test_dynamic_code_loading_and_embedded_payloads() -> None:
     engine = SecurityEngine()
     result = engine.analyze(insp)
 
-    dyn_finding = next((f for f in result.findings if f.id == "SEC-MAL-DYNLOAD-001"), None)
-    assert dyn_finding is not None
+    dyn_findings = [f for f in result.findings if f.category == SecurityCategory.DYNAMIC_CODE]
+    assert [f.id for f in dyn_findings] == ["SEC-MAL-DYN-LOAD"]
 
     comb_finding = next((f for f in result.findings if f.id == "SEC-COMB-DYNLOAD-PAYLOAD"), None)
     assert comb_finding is not None
@@ -407,9 +405,9 @@ def test_boot_persistence_indicators() -> None:
     engine = SecurityEngine()
     result = engine.analyze(insp)
 
-    boot_finding = next((f for f in result.findings if f.id == "SEC-MAL-BOOT-001"), None)
-    assert boot_finding is not None
-    assert boot_finding.category == SecurityCategory.MALWARE_INDICATOR
+    boot_findings = [f for f in result.findings if "boot" in f.tags]
+    assert [f.id for f in boot_findings] == ["SEC-MAL-PERSISTENCE-BOOT"]
+    assert boot_findings[0].category == SecurityCategory.PERSISTENCE
 
 
 # ===========================================================================
@@ -500,15 +498,15 @@ def test_vulnerability_manifest_flags() -> None:
     engine = SecurityEngine()
     result = engine.analyze(insp)
 
-    debug_finding = next((f for f in result.findings if f.id == "SEC-VULN-DEBUGGABLE-001"), None)
-    assert debug_finding is not None
-    assert debug_finding.severity == Severity.HIGH
+    def ids(tag: str) -> list[str]:
+        return [f.id for f in result.findings if tag in f.tags]
 
-    backup_finding = next((f for f in result.findings if f.id == "SEC-VULN-BACKUP-001"), None)
-    assert backup_finding is not None
-
-    cleartext_finding = next((f for f in result.findings if f.id == "SEC-VULN-CLEARTEXT-001"), None)
-    assert cleartext_finding is not None
+    # one finding per manifest flag (PRC-04)
+    assert ids("debuggable") == ["SEC-VULN-MANIFEST-DEBUGGABLE"]
+    assert ids("backup") == ["SEC-VULN-MANIFEST-BACKUP"]
+    assert ids("cleartext") == ["SEC-VULN-MANIFEST-CLEARTEXT"]
+    debug = next(f for f in result.findings if f.id == "SEC-VULN-MANIFEST-DEBUGGABLE")
+    assert debug.severity == Severity.HIGH
 
 
 def test_vulnerability_exported_components() -> None:
@@ -555,11 +553,12 @@ def test_vulnerability_weak_crypto_and_secret_detection() -> None:
     engine = SecurityEngine()
     result = engine.analyze(insp)
 
-    ecb_finding = next((f for f in result.findings if f.id == "SEC-VULN-WEAK-CIPHER-001"), None)
+    ecb_finding = next((f for f in result.findings if f.id == "SEC-VULN-CRYPTO-ECB"), None)
     assert ecb_finding is not None
 
-    md5_finding = next((f for f in result.findings if f.id == "SEC-VULN-WEAK-HASH-001"), None)
+    md5_finding = next((f for f in result.findings if f.id == "SEC-VULN-CRYPTO-WEAK-HASH"), None)
     assert md5_finding is not None
+    assert [f.id for f in result.findings if "hash" in f.tags] == ["SEC-VULN-CRYPTO-WEAK-HASH"]
 
     secret_finding = next((f for f in result.findings if "SECRET" in f.id), None)
     assert secret_finding is not None
@@ -677,9 +676,11 @@ def test_negative_legitimate_audio_recorder_app() -> None:
     engine = SecurityEngine()
     result = engine.analyze(insp)
 
-    # The background audio spyware rule SEC-SPY-AUDIO-001 requires background service
-    covert_finding = next((f for f in result.findings if f.id == "SEC-SPY-AUDIO-001"), None)
-    assert covert_finding is None
+    # Without a background service the capability is reported, but not as covert (HIGH)
+    audio = [f for f in result.findings if f.id.startswith("SEC-SPY-AUDIO")]
+    assert [(f.id, f.severity, f.confidence) for f in audio] == [
+        ("SEC-SPY-AUDIO-SURVEILLANCE", Severity.MEDIUM, Confidence.MEDIUM)
+    ]
 
     # And top-level security status remains neutral
     assert result.security_status in (
@@ -906,4 +907,3 @@ def test_security_engine_with_none_entropy_assets() -> None:
     assert result.status == AnalysisStatus.COMPLETE
     assert result.package_name == "com.example.entropytest"
     assert len(result.errors) == 0
-

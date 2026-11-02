@@ -50,10 +50,15 @@ src/apkforge/security/
 │   └── crypto.py            # CryptoVulnerabilityAnalyzer (ECB, DES, MD5, masked secret tokens)
 │
 └── rules_data/              # Built-in Declarative Rules (YAML)
-    ├── spyware.yaml         # Rules SEC-SPY-AUDIO-001 through SEC-SPY-OVERLAY-001
-    ├── malware.yaml         # Rules SEC-MAL-EXEC-001 through SEC-MAL-EMBEDDED-ELF-001
-    ├── vulnerabilities.yaml # Rules SEC-VULN-DEBUGGABLE-001 through SEC-VULN-WEAK-HASH-001
+    ├── spyware.yaml         # SEC-SPY-CALLS-001, -CONTACTS-001, -CLIPBOARD-001, -OVERLAY-001
+    ├── malware.yaml         # SEC-MAL-EMBEDDED-DEX-001, SEC-MAL-EMBEDDED-ELF-001
     └── combinations.yaml    # Rules SEC-COMB-SURVEILLANCE-SUITE through SEC-COMB-DYNLOAD-PAYLOAD
+
+A fact is reported by one rule only. The YAML rules that repeated an analyzer's finding
+(command execution, dynamic loading, boot persistence, debuggable/cleartext/allowBackup,
+weak cipher/hash, audio/camera/location/SMS/accessibility surveillance) were removed in
+favour of the analyzers, which attribute crypto strings to the app and grade severity by
+context (PRC-04, docs/known-limitations.md §6).
 ```
 
 ### Analysis Pipeline

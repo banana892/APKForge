@@ -373,11 +373,7 @@ class SecurityRuleEngine:
         findings: list[SecurityFinding] = []
 
         for rule in self._rules:
-            is_crypto = (
-                rule.id in ("SEC-VULN-WEAK-CIPHER-001", "SEC-VULN-WEAK-HASH-001")
-                or rule.category == "crypto"
-                or "crypto" in rule.tags
-            )
+            is_crypto = rule.category == "crypto" or "crypto" in rule.tags
             matched, evidence = self._evaluate_condition(
                 rule.conditions, index, is_crypto=is_crypto
             )

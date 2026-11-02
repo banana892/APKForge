@@ -213,6 +213,18 @@ class TestPRC07KeyDetection:
 # ===========================================================================
 
 
+def _custom_crypto_rules() -> SecurityRuleEngine:
+    """A user-supplied crypto rule: the rule engine applies the same attribution to it."""
+    engine = SecurityRuleEngine()
+    engine.load_from_dict({"rules": [{
+        "id": "CUSTOM-WEAK-CRYPTO", "title": "Weak crypto", "category": "crypto",
+        "severity": "low", "confidence": "medium", "description": "d", "assessment": "a",
+        "conditions": {"any": [{"string_any": ["DESede", "MD5", "SHA1", "SHA-1",
+                                               "DES/CBC/PKCS5Padding", "Blowfish"]}]},
+    }]})  # fmt: skip
+    return engine
+
+
 class TestPRC08CryptoStringAttribution:
     """PRC-08 regression tests for crypto-string library attribution."""
 
@@ -250,12 +262,8 @@ class TestPRC08CryptoStringAttribution:
         assert not any(f.id == "SEC-VULN-CRYPTO-WEAK-CIPHER" for f in vuln_findings)
         assert not any(f.id == "SEC-VULN-CRYPTO-WEAK-HASH" for f in vuln_findings)
 
-        # 2. SecurityRuleEngine (evaluating vulnerabilities.yaml)
-        rule_engine = SecurityRuleEngine()
-        rule_engine.load_builtins()
-        rule_findings = rule_engine.evaluate(index)
-        assert not any(f.id == "SEC-VULN-WEAK-CIPHER-001" for f in rule_findings)
-        assert not any(f.id == "SEC-VULN-WEAK-HASH-001" for f in rule_findings)
+        # 2. SecurityRuleEngine: a custom crypto rule gets the same attribution
+        assert _custom_crypto_rules().evaluate(index) == []
 
     def test_genuine_app_crypto_weakness_is_detected(self) -> None:
         """When the application itself references DESede and MD5, findings MUST be detected."""
@@ -267,10 +275,12 @@ class TestPRC08CryptoStringAttribution:
             },
             strings={
                 "DESede",
+                "DES/CBC/PKCS5Padding",
                 "MD5",
             },
             string_provenance={
                 "DESede": ["com.example.vulnerable.crypto.InsecureCryptoHelper"],
+                "DES/CBC/PKCS5Padding": ["com.example.vulnerable.crypto.InsecureCryptoHelper"],
                 "MD5": ["com.example.vulnerable.crypto.InsecureCryptoHelper"],
             },
         )
@@ -282,6 +292,8 @@ class TestPRC08CryptoStringAttribution:
             (f for f in vuln_findings if f.id == "SEC-VULN-CRYPTO-WEAK-CIPHER"), None
         )
         assert cipher_finding is not None
+        # transformation strings count too (they were only matched by SEC-VULN-WEAK-CIPHER-001)
+        assert "DES/CBC/PKCS5Padding" in cipher_finding.description
         assert "InsecureCryptoHelper" in cipher_finding.evidence[0].description
         loc = cipher_finding.evidence[0].location
         assert loc is not None and "class:com.example.vulnerable.crypto.InsecureCryptoHelper" in loc
@@ -290,12 +302,11 @@ class TestPRC08CryptoStringAttribution:
         assert hash_finding is not None
         assert "InsecureCryptoHelper" in hash_finding.evidence[0].description
 
-        # 2. SecurityRuleEngine
-        rule_engine = SecurityRuleEngine()
-        rule_engine.load_builtins()
-        rule_findings = rule_engine.evaluate(index)
-        assert any(f.id == "SEC-VULN-WEAK-CIPHER-001" for f in rule_findings)
-        assert any(f.id == "SEC-VULN-WEAK-HASH-001" for f in rule_findings)
+        # 2. SecurityRuleEngine: a custom crypto rule fires; no built-in rule repeats it
+        assert [f.id for f in _custom_crypto_rules().evaluate(index)] == ["CUSTOM-WEAK-CRYPTO"]
+        builtins = SecurityRuleEngine()
+        builtins.load_builtins()
+        assert not [f for f in builtins.evaluate(index) if "crypto" in f.tags]
 
     def test_unestablished_ownership_with_bundled_provider_suppresses(self) -> None:
         """When ownership cannot be established safely and bundled provider exists, suppress."""

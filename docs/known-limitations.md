@@ -189,8 +189,41 @@ Also unresolved: substring API matching flags apps that do not implement the mat
 capability (`PRC-01`; PCAPdroid flagged twice for an accessibility service it does not
 declare), evidence citing the rule's probe pattern instead of the matched artifact
 (`PRC-02`), XML namespace URIs treated as cleartext network endpoints (`PRC-03`),
-package names extracted as domains (`PRC-10`), and five rule pairs double-reporting one
-fact (`PRC-04`).
+and package names extracted as domains (`PRC-10`).
+
+**Fixed: rule pairs double-reporting one fact (`PRC-04`).** The review found five pairs;
+13 built-in YAML rules in all repeated a finding of the code analyzers. They were removed
+and the analyzer finding kept:
+
+| removed | kept |
+|---|---|
+| `SEC-MAL-EXEC-001` | `SEC-MAL-CODE-EXEC` |
+| `SEC-MAL-DYNLOAD-001` | `SEC-MAL-DYN-LOAD` |
+| `SEC-MAL-BOOT-001` | `SEC-MAL-PERSISTENCE-BOOT` |
+| `SEC-VULN-DEBUGGABLE-001`, `-CLEARTEXT-001`, `-BACKUP-001` | `SEC-VULN-MANIFEST-DEBUGGABLE`, `-CLEARTEXT`, `-BACKUP` |
+| `SEC-VULN-WEAK-CIPHER-001` | `SEC-VULN-CRYPTO-WEAK-CIPHER` (and `SEC-VULN-CRYPTO-ECB` for ECB) |
+| `SEC-VULN-WEAK-HASH-001` | `SEC-VULN-CRYPTO-WEAK-HASH` |
+| `SEC-SPY-AUDIO-001`, `-CAMERA-001`, `-LOCATION-001` | `SEC-SPY-AUDIO-SURVEILLANCE`, `-CAMERA-SURVEILLANCE`, `-LOCATION-TRACKING` |
+| `SEC-SPY-SMS-001`, `SEC-SPY-ACCESSIBILITY-001` | `SEC-SPY-SMS-HARVEST`, `SEC-SPY-ACCESSIBILITY-ABUSE` |
+
+Each kept finding matches what the removed rule matched, with two narrowings:
+
+- Crypto strings count only when attributed to the app (the PRC-07/08 attribution).
+  The removed YAML crypto rules applied the same attribution, so no app-owned match is
+  lost. Cipher transformations such as `DES/CBC/PKCS5Padding` now count for the weak-cipher
+  finding, as they did for the removed rule.
+- `SEC-SPY-SMS-001` also accepted the `Telephony.SMS_RECEIVED` action string as its API,
+  and `SEC-SPY-LOCATION-001` the background-location permission. Background location
+  cannot be granted without fine or coarse location, which the kept finding checks.
+
+Severity follows the kept finding. Two removed rules had reported higher:
+- `SEC-MAL-BOOT-001` was MEDIUM; the kept finding is LOW.
+- `SEC-VULN-WEAK-CIPHER-001` was HIGH; the kept finding is MEDIUM, with ECB at HIGH.
+
+Audio and camera findings are HIGH only with a background service; audio also needs a
+network endpoint. They are MEDIUM otherwise, which the removed rules expressed by not
+firing. On OpenLink the result changes from 5 findings to 4 (the duplicate
+`SEC-VULN-BACKUP-001` is gone).
 
 Full problem statements and proposals: `proposed_rule_changes` in
 `artifacts/security-validation/findings_review.json`.
@@ -608,9 +641,8 @@ Fennec. Capability verdicts are unchanged: 96 PASS / 3 PARTIAL before and after
 
 ### Limitations found while measuring (not fixed here)
 
-- `SEC-MAL-BOOT-001` duplicates `SEC-MAL-PERSISTENCE-BOOT` (the §6 PRC-04 pattern). Its
-  evidence location `manifest:receiver:BOOT_COMPLETED` does not name the receiver. It also
-  lists every declared service, not the one the receiver starts.
+- `SEC-MAL-BOOT-001` duplicated `SEC-MAL-PERSISTENCE-BOOT` (the §6 PRC-04 pattern). It has
+  since been removed (§6); its evidence did not name the receiver.
 - Deep-link hosts from intent-filter `<data android:host>` are now fed into the network
   inspector and counted as privacy endpoints (`network:extracted_domain`). NewPipe gains
   13 domains, AntennaPod 1 (`new_domains_vs_aapt2_hosts.json`). They are hosts the app
