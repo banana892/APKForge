@@ -297,7 +297,11 @@ def add_change_routes(
         job = jobs.get(body.preview_job)
         record = previews.get(body.preview_job)
         if job is None or record is None:
-            raise HTTPException(409, "unknown preview job, or it was already applied")
+            raise HTTPException(
+                409,
+                "this preview cannot be applied: it is unknown, was already "
+                "applied, or is from an earlier session (preview again)",
+            )
         if job.status is not JobStatus.DONE:
             raise HTTPException(409, f"the preview is {job.status}, not DONE")
         reason = _applicable(job.kind, job.result)
@@ -414,8 +418,9 @@ def add_change_routes(
         original = Path(job.summary["apk"])
         transformed = Path(job.summary["output"])
         plan_file = Path(job.summary["plan_file"])
-        if not transformed.is_file():
-            raise HTTPException(409, f"{transformed} no longer exists")
+        for f in (original, transformed, plan_file):  # the plan is session-only (upload_dir)
+            if not f.is_file():
+                raise HTTPException(409, f"{f} no longer exists; plan and apply again")
 
         def work() -> Any:  # noqa: ANN401
             service = _valid_build_service()

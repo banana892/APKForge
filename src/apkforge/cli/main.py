@@ -4082,6 +4082,16 @@ def cmd_gui(
     ),
     no_browser: bool = typer.Option(False, "--no-browser", help="Do not open a browser."),
     config: Path | None = typer.Option(None, "--config", help=_MODKIT_CONFIG_HELP),
+    jobs_dir: Path | None = typer.Option(
+        None,
+        "--jobs-dir",
+        help="Where jobs and their results are kept across restarts "
+        "(default: $XDG_DATA_HOME/apkforge/gui/jobs).",
+        file_okay=False,
+    ),
+    no_history: bool = typer.Option(
+        False, "--no-history", help="Keep jobs in memory only; nothing is written for them."
+    ),
 ) -> None:
     """[green]⚡ Phase 9[/green] — Open the local web workbench (127.0.0.1 only)."""
     import secrets
@@ -4092,6 +4102,7 @@ def cmd_gui(
         import uvicorn
 
         from apkforge.gui.app import create_app
+        from apkforge.gui.jobs import JobManager
     except ImportError as exc:
         _console.print(
             f"[red]The GUI needs the 'gui' extra: pip install 'apkforge[gui]' ({exc}).[/red]"
@@ -4099,7 +4110,10 @@ def cmd_gui(
         raise typer.Exit(code=2) from exc
 
     token = secrets.token_urlsafe(32)
-    app_ = create_app(token, modkit_config=config)
+    from apkforge.builders.toolchain import default_data_dir
+
+    store = None if no_history else (jobs_dir or default_data_dir() / "gui" / "jobs")
+    app_ = create_app(token, modkit_config=config, jobs=JobManager(store=store))
     # Bind ourselves (never 0.0.0.0) so the printed URL has the real port when --port 0.
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -4112,7 +4126,9 @@ def cmd_gui(
     _console.print(
         Panel(
             f"[bold]{url}[/bold]\n\n[dim]Local only. Anyone with this URL can use the "
-            "workbench as you until you stop it (Ctrl+C).[/dim]",
+            "workbench as you until you stop it (Ctrl+C).\n"
+            + (f"Jobs are kept in {store}" if store else "Jobs are not kept (--no-history)")
+            + "[/dim]",
             title="APKForge workbench",
             border_style="green",
         ),

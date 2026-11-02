@@ -1,7 +1,9 @@
 """Background jobs for the GUI: analysis, diff and ModKit runs can take minutes, so the
 HTTP request only queues work and the page polls for the result.
 
-In-memory only (a GUI session is one process): restarting ``apkforge gui`` forgets jobs.
+With a *store* directory each job is also kept as ``<id>.json`` (mode 0600, rewritten on
+every change) and reloaded on the next start, so results survive a restart; a job that was
+still queued or running then is reloaded as ERROR. Without one, jobs live in memory only.
 The work itself writes nothing new: each job calls the same service the CLI does.
 
 Cancelling: a queued job never starts. A running ModKit job has its process group killed
@@ -12,8 +14,10 @@ marked CANCELLED instead of DONE.
 
 from __future__ import annotations
 
+import contextlib
 import datetime
 import json
+import os
 import secrets
 import threading
 from collections import OrderedDict
@@ -21,17 +25,20 @@ from concurrent.futures import Future, ThreadPoolExecutor
 from enum import StrEnum
 from typing import TYPE_CHECKING, Any
 
-from pydantic import BaseModel, Field
+from loguru import logger
+from pydantic import BaseModel, Field, ValidationError
 
 from apkforge.modkit.process import CANCEL_EVENT
 
 if TYPE_CHECKING:
     from collections.abc import Callable
+    from pathlib import Path
 
 __all__ = ["Job", "JobManager", "JobStatus"]
 
 #: Finished jobs kept for the page; the oldest are dropped first.
 MAX_JOBS = 200
+INTERRUPTED = "interrupted: the workbench stopped before this job finished"
 
 
 class JobStatus(StrEnum):
@@ -61,17 +68,69 @@ def _now() -> str:
     return datetime.datetime.now(datetime.UTC).isoformat(timespec="seconds")
 
 
+_FINAL = (JobStatus.DONE, JobStatus.ERROR, JobStatus.CANCELLED)
+
+
+def _load(store: Path) -> list[Job]:
+    jobs = []
+    for f in store.glob("*.json"):
+        try:
+            job = Job.model_validate_json(f.read_bytes())
+        except (OSError, ValidationError) as exc:
+            logger.warning("skipping unreadable job file {}: {}", f, exc)
+            continue
+        if job.id != f.stem:
+            continue
+        if job.status not in _FINAL:
+            job = job.model_copy(update={"status": JobStatus.ERROR, "error": INTERRUPTED})
+        jobs.append(job)
+    return sorted(jobs, key=lambda j: (j.created, j.id))
+
+
 class JobManager:
-    def __init__(self, workers: int = 2) -> None:
+    def __init__(self, workers: int = 2, store: Path | None = None) -> None:
         self._pool = ThreadPoolExecutor(max_workers=workers, thread_name_prefix="apkforge-job")
         self._jobs: OrderedDict[str, Job] = OrderedDict()
         self._futures: dict[str, Future[None]] = {}
         self._cancel: dict[str, threading.Event] = {}
         self._lock = threading.Lock()
+        #: Serialises file writes; each write takes the job's state at that moment, so the
+        #: last write is never older than an earlier one.
+        self._io_lock = threading.Lock()
+        self._store = store
+        if store is not None:
+            store.mkdir(parents=True, exist_ok=True, mode=0o700)
+            jobs = _load(store)
+            self._forget([j.id for j in jobs[:-MAX_JOBS]])
+            for job in jobs[-MAX_JOBS:]:
+                self._jobs[job.id] = job
+
+    def _persist(self, job_id: str) -> None:
+        if self._store is None:
+            return
+        with self._io_lock:
+            with self._lock:
+                job = self._jobs.get(job_id)
+            if job is None:
+                return
+            tmp = self._store / f".{job_id}.tmp"
+            fd = os.open(tmp, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+            with os.fdopen(fd, "w", encoding="utf-8") as f:
+                f.write(job.model_dump_json())
+            os.replace(tmp, self._store / f"{job_id}.json")
+
+    def _forget(self, job_ids: list[str]) -> None:
+        if self._store is None:
+            return
+        with self._io_lock:
+            for old in job_ids:
+                with contextlib.suppress(FileNotFoundError):
+                    (self._store / f"{old}.json").unlink()
 
     def submit(self, kind: str, summary: dict[str, Any], work: Callable[[], Any]) -> Job:
         """Queue *work*; its return value must be JSON-serialisable (or a pydantic model)."""
         job = Job(id=secrets.token_hex(6), kind=kind, summary=summary, created=_now())
+        evicted = []
         with self._lock:
             self._jobs[job.id] = job
             self._cancel[job.id] = threading.Event()
@@ -79,7 +138,10 @@ class JobManager:
                 old, _ = self._jobs.popitem(last=False)
                 self._futures.pop(old, None)
                 self._cancel.pop(old, None)
+                evicted.append(old)
             self._futures[job.id] = self._pool.submit(self._run, job.id, work)
+        self._forget(evicted)
+        self._persist(job.id)  # writes the latest state, even if the job already moved on
         return job
 
     def cancel(self, job_id: str) -> Job | None:
@@ -97,12 +159,14 @@ class JobManager:
             else:
                 job = job.model_copy(update={"cancel_requested": True})
             self._jobs[job_id] = job
-            return job
+        self._persist(job_id)
+        return job
 
     def _update(self, job_id: str, **fields: Any) -> None:  # noqa: ANN401
         with self._lock:
             if job_id in self._jobs:
                 self._jobs[job_id] = self._jobs[job_id].model_copy(update=fields)
+        self._persist(job_id)
 
     def _run(self, job_id: str, work: Callable[[], Any]) -> None:
         with self._lock:

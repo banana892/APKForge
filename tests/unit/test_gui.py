@@ -496,3 +496,54 @@ def test_verify_passes_declared_changes(
     unmapped = _post(client, "/api/jobs/verify", original=str(apk), modified=str(b),
                      planned_files=["apktool.yml"])  # fmt: skip
     assert unmapped.status_code == 422 and "apktool.yml" in unmapped.text
+
+
+# -- 9.3: persistent jobs --------------------------------------------------------------
+
+
+def _done(jobs: Any, kind: str, summary: dict[str, Any], result: Any) -> Any:
+    job = jobs.submit(kind, summary, lambda: result)
+    deadline = time.monotonic() + 10
+    while jobs.get(job.id).status in ("QUEUED", "RUNNING"):
+        assert time.monotonic() < deadline
+        time.sleep(0.02)
+    return jobs.get(job.id)
+
+
+def test_jobs_survive_a_restart(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    from apkforge.gui import jobs as jobs_mod
+    from apkforge.gui.jobs import INTERRUPTED, JobManager, JobStatus
+
+    store = tmp_path / "jobs"
+    first = JobManager(store=store)
+    done = _done(first, "analyze", {"apk": "/x.apk"}, {"findings": [1, 2]})
+    first.shutdown()
+    assert store.stat().st_mode & 0o777 == 0o700
+    assert (store / f"{done.id}.json").stat().st_mode & 0o777 == 0o600
+
+    running = done.model_copy(update={"id": "0123456789ab", "status": JobStatus.RUNNING,
+                                      "created": "9999", "result": None})  # fmt: skip
+    (store / "0123456789ab.json").write_text(running.model_dump_json())
+    (store / "broken.json").write_text("{not json")
+    (store / "renamed.json").write_text(done.model_dump_json())  # id != file name
+
+    second = JobManager(store=store)
+    assert [j.id for j in second.list()] == ["0123456789ab", done.id]  # newest first
+    assert second.get(done.id).result == {"findings": [1, 2]}
+    interrupted = second.get("0123456789ab")
+    assert (interrupted.status, interrupted.error) == (JobStatus.ERROR, INTERRUPTED)
+
+    monkeypatch.setattr(jobs_mod, "MAX_JOBS", 2)
+    third = _done(second, "analyze", {}, None)
+    assert second.get(done.id) is None and not (store / f"{done.id}.json").exists()
+    assert (store / f"{third.id}.json").exists()
+    second.shutdown()
+
+
+def test_h4_after_a_restart_needs_a_new_plan(client: TestClient, apk: Path, tmp_path: Path) -> None:
+    jobs = client.app.state.jobs  # type: ignore[attr-defined]
+    summary = {"preview_kind": "transform-plan", "apk": str(apk), "output": str(apk),
+               "plan_file": str(tmp_path / "gone" / "plan.json")}  # fmt: skip
+    applied = _done(jobs, "apply", summary, {"status": "VERIFIED"})
+    r = _post(client, "/api/jobs/verify-transformation", apply_job=applied.id)
+    assert r.status_code == 409 and "plan.json no longer exists" in r.text
