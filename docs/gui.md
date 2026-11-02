@@ -79,10 +79,11 @@ verification of the original and the output, declaring the modifiers' `expected_
 and the archive entries rebuilt from the project files they edited
 (`archive_entries_for(file_changes)`, e.g. `AndroidManifest.xml`, `classesN.dex`), the same
 inputs the pipeline's own verification uses. Without those entries a re-encoded
-`AndroidManifest.xml` would count as unexpected. `verify --expected FILE` on the CLI takes
-only the changes, so it still reports that entry; the GUI request field `planned_files`
-(`verify_pair(planned_entries=...)`) has no CLI flag yet. A project file with no known
-archive mapping is refused (422) rather than guessed.
+`AndroidManifest.xml` would count as unexpected. The CLI equivalent is
+`apkforge verify ORIGINAL MODIFIED --expected FILE --planned-file AndroidManifest.xml`
+(repeatable; the GUI request field is `planned_files`, both end in
+`verify_pair(planned_entries=...)`). A project file with no known archive mapping is
+refused (GUI 422, CLI exit 2) rather than guessed.
 
 **Choosing transformation targets.** The References tab counts what H.1 observed:
 definitive and indirect references per class, invocations per method, call sites per
@@ -107,7 +108,15 @@ one answers 410 and has to be analyzed again.
   with `textContent` only (no `innerHTML`); the CSP is `default-src 'self'` with no inline
   scripts, `frame-ancestors 'none'`. No external CDN: the page works offline.
 - **Secrets.** ModKit parameters whose names look like credentials are masked in the job
-  list/summary; results carry the ModKit framework's own masking.
+  list/summary; results carry the ModKit framework's own masking. Stored jobs are written
+  as they are shown (masked), one `0600` file per job in a `0700` directory; they hold
+  analysis results of your APKs, so `--no-history` is the choice for sensitive work.
+- **Downloads.** A link cannot carry the token header, so "Download APK" first asks
+  (with the token) for a ticket: 32 random bytes, valid once and for 60 s, bound to the
+  output the server itself recorded for that job (an apply's new `.apk` path, or a ModKit
+  `published` artifact, re-hashed against its recorded SHA-256). `GET /download/{ticket}`
+  needs no token but still passes the Host check; a path from the request is never
+  served.
 - No interactive API docs (`/docs`, `/openapi.json`) are served.
 
 Anyone who has the URL (with its token) can use the workbench as you until it stops.
@@ -136,15 +145,22 @@ Anyone who has the URL (with its token) can use the workbench as you until it st
 
 - Uploads go through the browser (1 GiB cap) and are copied once; for large APKs already
   on this machine, typing the path is faster.
-- ModKit/chain output directories are typed; the final APK is published there and the
-  page shows its path, it does not offer an APK download.
+- Output paths and directories are typed. "Download APK" on a finished apply or ModKit
+  run/chain sends the APK through the browser as well; it is still written to the typed
+  path first.
 - The chain form checks steps only on submit (the server validates the whole chain).
 - The Diff tab returns the summary and the flat observation list, not the full
   `DiffResult` (use `apkforge diff --json`).
 
 **Jobs**
 
-- In memory only: restarting `apkforge gui` forgets every job and result.
+- Jobs are kept across restarts in `$XDG_DATA_HOME/apkforge/gui/jobs` (`--jobs-dir DIR`;
+  `--no-history` keeps them in memory only). What a job needed from its session is not:
+  a preview from an earlier session cannot be applied (preview again, 409), a reference
+  analysis has to be run again for call sites (410), and "Verify transformation" needs the
+  session's plan file (409; plan and apply again). Uploaded APKs are deleted on exit, so
+  their jobs show paths that no longer exist. A job that was queued or running when the
+  workbench stopped comes back as ERROR "interrupted".
 - At most two jobs run at once; more are queued. The last 200 jobs are kept.
 - Cancel stops ModKit processes immediately but cannot stop an analysis, diff, plan or
   build that is already running (see above); a cancelled apply may still write its output.
@@ -188,7 +204,11 @@ Anyone who has the URL (with its token) can use the workbench as you until it st
   targets, assets PARTIAL); on the H.3 `h3_isolated` fixture APK, References →
   `com.example.h1.B` → H-TRANS-001 ELIGIBLE → apply `VERIFIED` → H.4 `VERIFIED`; and
   Modify `c5.disable_boot_receiver` → apply → "Verify output" `VERIFIED` (2 of 2 declared
-  changes, nothing unexpected). The Diff tab was exercised through the API only.
+  changes, nothing unexpected). 9.3 with the real CLI (`--jobs-dir`): Build check →
+  no-op rebuild apply on OpenLink → ticket download (245 919 bytes, same SHA-256 as the
+  output) → restart → both jobs listed with results, "Download APK" shown and working,
+  re-applying the old preview refused (409). The Diff tab was exercised through the API
+  only.
 - Tested in Chrome only; other browsers are untested. No accessibility audit was done
   beyond semantic HTML, labelled inputs and tab roles.
 - The FastAPI test client logs a deprecation warning (Starlette is moving from `httpx` to
@@ -198,7 +218,8 @@ Anyone who has the URL (with its token) can use the workbench as you until it st
 
 - `src/apkforge/gui/app.py`: `create_app(token, modkit_config=...)`, the guard middleware
   and the API.
-- `src/apkforge/gui/jobs.py`: `JobManager` (thread pool, in-memory, last 200 jobs).
+- `src/apkforge/gui/jobs.py`: `JobManager` (thread pool, last 200 jobs; with `store=DIR`
+  each job is also a JSON file, reloaded at start).
 - `src/apkforge/gui/changes.py`: the 9.2 preview/apply routes and their checks.
 - `src/apkforge/gui/references.py`: the H.1 summary (one pass over the evidence) and the
   call-site lookup.

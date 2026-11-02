@@ -228,9 +228,15 @@ apkforge diff ORIGINAL MODIFIED [--raw] [--security] [--baseline BASELINE.json] 
 apkforge verify APK [--json]                              # structure + signature
 apkforge verify ORIGINAL MODIFIED [--baseline FILE | --measure-noise-floor]
                 [--built-locally] [--expected EXPECTED.json] [--expected-signer SHA256]
-                [--json] [--report REPORT.md]
+                [--planned-file PROJECT_PATH ...] [--json] [--report REPORT.md]
 apkforge modify APK -m MODIFIER --noop-baseline tests/corpus/results/phase-e-noise-baseline.json
 ```
+
+`--planned-file` (repeatable) names a decoded-project path the modification edited
+(`AndroidManifest.xml`, `smali_classes2/com/x/A.smali`, `res/values/strings.xml`, ...). The
+archive entries rebuilt from it (`archive_entries_for`) are accepted when their semantic
+changes are expected, as in the modification pipeline's own verification; a path with no
+known archive mapping is a usage error.
 
 `verify` exits 0 VERIFIED, 1 FAILED, 3 UNDETERMINED, 2 usage/toolchain error. JSON output
 is written with plain `typer.echo` and contains no ANSI escapes, whatever `FORCE_COLOR`
