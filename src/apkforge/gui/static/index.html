@@ -94,9 +94,12 @@
   <button role="tab" data-tab="diff">Diff</button>
   <button role="tab" data-tab="modkits">ModKits</button>
   <button role="tab" data-tab="chain">Chain</button>
+  <button role="tab" data-tab="plan">Plan</button>
+  <button role="tab" data-tab="modify">Modify</button>
   <button role="tab" data-tab="remediate">Remediate</button>
   <button role="tab" data-tab="transform">Transform</button>
   <button role="tab" data-tab="build">Build</button>
+  <button role="tab" data-tab="verify">Verify</button>
   <button role="tab" data-tab="jobs">Jobs</button>
 </nav>
 <main>
@@ -173,6 +176,39 @@
     <div id="out-chain"></div>
   </section>
 
+  <section id="tab-plan" hidden>
+    <form class="panel" id="form-plan">
+      <h2>Modification plan</h2>
+      <p class="hint">Evidence-based suggestions from inspection, privacy and security analysis
+        (same as <code>apkforge plan</code>). Read-only.</p>
+      <div class="row">
+        <div><label for="plan-apk">APK</label><input type="text" id="plan-apk" data-upload required></div>
+        <div><label for="plan-diff">Original it was derived from (optional, adds diff evidence)</label>
+          <input type="text" id="plan-diff" data-upload></div>
+      </div>
+      <button class="primary" type="submit">Plan</button>
+    </form>
+    <div id="out-plan"></div>
+  </section>
+
+  <section id="tab-modify" hidden>
+    <form class="panel" id="form-modify">
+      <h2>Phase D modifiers</h2>
+      <p class="hint">Select modifiers and their parameters. "Dry run" plans them and checks
+        preconditions and conflicts; applying then decodes, modifies, rebuilds, signs and verifies
+        (same as <code>apkforge modify APK --modifier ID --param ID:K=V --dry-run</code>, then without).</p>
+      <label for="modify-apk">APK</label>
+      <input type="text" id="modify-apk" data-upload required>
+      <div id="modifier-list"><span class="muted">Loading…</span></div>
+      <label class="check"><input type="checkbox" id="modify-partial"> Allow a partial result (some modifiers skipped)</label>
+      <label class="check"><input type="checkbox" id="modify-noise" checked> Measure the noise floor when applying (one extra rebuild)</label>
+      <p class="hint">Without a noise floor the pipeline cannot tell its changes from rebuild noise, and the
+        result is FAILED (the CLI's <code>--measure-noise-floor</code> / <code>--noop-baseline</code>).</p>
+      <button class="primary" type="submit">Dry run</button>
+    </form>
+    <div id="out-modify"></div>
+  </section>
+
   <section id="tab-remediate" hidden>
     <form class="panel" id="form-remediate">
       <h2>Remediate a privacy finding</h2>
@@ -223,6 +259,21 @@
       <button class="primary" type="submit">Check toolchain</button>
     </form>
     <div id="out-build"></div>
+  </section>
+
+  <section id="tab-verify" hidden>
+    <form class="panel" id="form-verify">
+      <h2>Verify</h2>
+      <p class="hint">One APK: structure and signature. Two: the full original → modified matrix
+        with unexpected and unknown changes (same as <code>apkforge verify</code>). Read-only.</p>
+      <div class="row">
+        <div><label for="verify-original">APK (or the original)</label><input type="text" id="verify-original" data-upload required></div>
+        <div><label for="verify-modified">Modified APK (optional)</label><input type="text" id="verify-modified" data-upload></div>
+      </div>
+      <label class="check"><input type="checkbox" id="verify-noise"> Measure the noise floor (rebuilds the original once)</label>
+      <button class="primary" type="submit">Verify</button>
+    </form>
+    <div id="out-verify"></div>
   </section>
 
   <section id="tab-jobs" hidden>

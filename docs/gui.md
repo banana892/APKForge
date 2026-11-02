@@ -19,9 +19,12 @@ The command prints a URL like `http://127.0.0.1:PORT/#token=…`. Stop it with C
 | Diff | Phase E semantic diff of two APKs: summary counters and the flat observation list, filterable | `apkforge diff` (`DiffEngine` + `observe()`) |
 | ModKits | Discovered ModKits with status/capabilities; run one operation with a form built from its `ParameterSpec`s (choices → dropdown, `sensitive` → password field). For Morphe, "List patches in this bundle" shows every patch (filterable, with compatibility and option keys); ticking patches fills `enable` | `apkforge modkits`, `apkforge modkit run`, `apkforge modkit patches` |
 | Chain | Build a ModKit chain step by step (add, remove, reorder; per-step parameter form), or edit the same steps as JSON; optional conflict check | `apkforge modkit chain` (H.9/H.10) |
+| Plan (9.2) | Analysis-driven modification suggestions (risk, target, reason), optionally with diff evidence from the original; read-only | `apkforge plan APK [--diff ORIGINAL]` |
+| Modify (9.2) | Phase D modifiers with their parameters: dry run (plan, preconditions, conflicts), then Apply (decode → modify → rebuild → sign → verify) | `apkforge modify APK --modifier ID --param ID:K=V --dry-run`, then without |
 | Remediate (9.2) | Phase F privacy findings with the Phase G remediations each maps to; "Plan" shows preconditions, planned changes, expected diff; then Apply | `apkforge remediate --finding ID [--remediation R]`, then `--apply -o OUT` |
 | Transform (9.2) | H.2 eligibility and plan for H-TRANS-001/002/003 and one target; then Apply (H.3/H.5/H.6) | `apkforge transform -t ID --target T --report plan.json`, then `--plan plan.json --apply -o OUT` |
 | Build (9.2) | Toolchain + signing check, then a no-op rebuild | `apkforge build APK -o OUT` |
+| Verify (9.2) | One APK: structure + signature. Two: the original → modified matrix with unexpected/unknown changes, optional noise floor. After a transformation apply, "Verify transformation" runs H.4 with a control rebuild | `apkforge verify A [B] [--measure-noise-floor]`, `verify A T --plan P --build-control` |
 | Jobs | Every job of this session; click to reopen its result, cancel running ones | — |
 
 APKs are given as **absolute paths on the local machine**, or uploaded with the "Upload…"
@@ -47,19 +50,25 @@ structure.
 
 ## Changing an APK: preview, then apply (9.2)
 
-Remediate, Transform and Build never write anything in one step. The first job is a
-*preview* (remediation plan, H.2 transformation plan, toolchain check) that only reads.
+Modify, Remediate, Transform and Build never write anything in one step. The first job is
+a *preview* (modifier dry run, remediation plan, H.2 transformation plan, toolchain check)
+that only reads.
 When it says the change is applicable, an **Apply** form appears under it; it takes only
 an output path. `POST /api/jobs/apply` names the preview job, and the server:
 
 - runs exactly the previewed inputs: the remediation plan object that was shown, the H.2
   plan file the preview wrote (`transform --plan FILE --apply`), the same APK;
-- refuses (409) unless the preview is `DONE` and applicable (remediation `planned`; a
-  transformation decision with a plan and no errors; a valid toolchain);
+- refuses (409) unless the preview is `DONE` and applicable (dry run `dry_run`;
+  remediation `planned`; a transformation decision with a plan and no errors; a valid
+  toolchain);
 - refuses if the APK's SHA-256 differs from the preview's (re-preview after any change);
 - applies a preview **once**; a second apply, or two racing ones, gets 409;
 - writes only a new `.apk` path (absolute, not existing, not the input). The input APK is
   never modified, as on the CLI.
+
+A modifier apply needs a noise floor to classify what changed: the Modify tab measures it
+by default (one extra rebuild, `--measure-noise-floor`); without it the result is
+`failed` with "noise floor not established", exactly as on the CLI.
 
 Signing is the same as the CLI: `APKFORGE_SIGNING_*` if set, otherwise the APKForge
 development key (shown in the Build check).
@@ -84,12 +93,14 @@ development key (shown in the Build check).
 
 Anyone who has the URL (with its token) can use the workbench as you until it stops.
 
-## Limits (9.1)
+## Limits
 
 **Scope: not in the GUI yet** (CLI only):
 
-- Phase D modification (`plan`, `modify`) and pair verification (`verify`, H.4): their logic
-  still lives in the CLI and moves into services first (9.2b)
+- `modify --plan FILE` (the pre-Phase D framework): it produces a decoded working copy, not
+  an APK; the GUI's Plan tab is read-only and changes go through Modify or Remediate
+- `--noop-baseline FILE`, `verify --expected FILE`, `--expected-signer`, `verify --control
+  APK`: the GUI measures the noise floor or builds the control itself
 - `references` (H.1): find transformation targets with the CLI and paste them in
 - remediation parameters: the GUI plans with the mapped defaults, like the CLI without
   `--param`; `--report` files (use Download JSON)
@@ -144,8 +155,12 @@ Anyone who has the URL (with its token) can use the workbench as you until it st
   build check → no-op rebuild (SUCCESS), PRIV-REC-BOOT → G-REM-001 plan → apply
   (`verified`; diff against the rebuild: 1 permission removed, 1 component modified), a
   second apply of the same preview refused (409), and a REFUSED H-TRANS-001 plan with its
-  reasons. A transformation *apply* was exercised through tests only (no eligible target
-  in OpenLink). The Diff tab was exercised through the API only.
+  reasons. 9.2b on OpenLink: Plan (1 suggestion), `c5.disable_boot_receiver` dry run →
+  apply with noise floor (`verified`, all build stages PASS), and pair verification of the
+  result (renders the matrix; FAILED because a pair verify without declared expectations
+  counts the intended changes as unexpected, as on the CLI). A transformation *apply* and the H.4 "Verify transformation" step were not run
+  live (no eligible target in OpenLink); the apply gate is tested, the H.4 route only for
+  its refusals. The Diff tab was exercised through the API only.
 - Tested in Chrome only; other browsers are untested. No accessibility audit was done
   beyond semantic HTML, labelled inputs and tab roles.
 - The FastAPI test client logs a deprecation warning (Starlette is moving from `httpx` to
@@ -162,4 +177,6 @@ Anyone who has the URL (with its token) can use the workbench as you until it st
   sets; the process runner polls it).
 - Tests: `tests/unit/test_gui.py` (token/Host guard, headers, path validation, analyze,
   diff, ModKit run with secret masking, chain, job errors, cancel, upload, patch listing,
-  apply gating: unchanged APK, applicable preview, once only, new output path).
+  apply gating: unchanged APK, applicable preview, once only, new output path; modifier
+  dry run → apply on the simulated Phase D toolchain; plan and verify read-only; H.4 needs
+  a verified transformation apply).

@@ -1,4 +1,6 @@
-"""Phase 9.2 - actions that write an APK: remediation, transformation, no-op build.
+"""Phase 9.2 - the modification workflow: remediation, transformation, Phase D modifiers
+and the no-op build (which write an APK), plus modification planning and verification
+(which only read).
 
 Every one is two steps. A *preview* job runs the read-only half (a remediation plan, an
 H.2 transformation plan, a toolchain check) and the server remembers exactly what it was
@@ -14,19 +16,31 @@ written; the output must be a new ``.apk`` path.
 from __future__ import annotations
 
 import secrets
+import shutil
+import tempfile
 import threading
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
 from fastapi import HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 # Services are imported here, not in job threads: two threads importing the same
 # circular package at once raise _DeadlockError.
+from apkforge.analysis.plan import create_modification_plan
 from apkforge.builders import BuildOptions
 from apkforge.builders.corpus import sha256_file
+from apkforge.builders.semantic_baseline import current_toolchain_identity, run_semantic_noop
+from apkforge.core.config import load_default_config
+from apkforge.core.exceptions import APKForgeError
 from apkforge.gui.jobs import Job, JobManager, JobStatus
+from apkforge.modification.catalog import default_catalog
+from apkforge.modification.pipeline import (
+    ModificationPipeline,
+    ModifierRequest,
+    measure_noise_floor,
+)
 from apkforge.privacy.service import PrivacyAnalysisService
 from apkforge.reference import ReferenceAnalysisService
 from apkforge.remediation import RemediationService
@@ -38,12 +52,21 @@ from apkforge.transformation import (
     TransformationExecutor,
     TransformationPlanningService,
     TransformationRequest,
+    TransformationVerifier,
+)
+from apkforge.verification import (
+    VerificationMatrix,
+    signature_check_with_service,
+    structural_check,
+    verify_pair,
 )
 
 if TYPE_CHECKING:
     from collections.abc import Callable
 
     from fastapi import FastAPI
+
+    from apkforge.builders import BuildService
 
 __all__ = ["add_change_routes"]
 
@@ -71,6 +94,35 @@ class BuildCheckBody(BaseModel):
 
 class ApkBody(BaseModel):
     apk: str
+
+
+class PlanBody(BaseModel):
+    apk: str
+    #: The original *apk* was derived from: adds Phase E diff evidence to the plan.
+    diff_apk: str | None = None
+
+
+class ModifierStep(BaseModel):
+    id: str
+    parameters: dict[str, str] = Field(default_factory=dict)
+
+
+class ModifyBody(BaseModel):
+    apk: str
+    modifiers: list[ModifierStep] = Field(min_length=1)
+    allow_partial: bool = False
+    #: One extra no-op rebuild at apply time, so unexpected changes can be told from noise.
+    measure_noise_floor: bool = False
+
+
+class VerifyBody(BaseModel):
+    original: str
+    modified: str | None = None
+    measure_noise_floor: bool = False
+
+
+class VerifyTransformationBody(BaseModel):
+    apply_job: str
 
 
 class ApplyBody(BaseModel):
@@ -122,7 +174,18 @@ def _applicable(kind: str, result: Any) -> str | None:  # noqa: ANN401
         return None
     if kind == "build-check":
         return None if result.get("toolchain", {}).get("valid") else "the toolchain is not valid"
+    if kind == "modify-preview":
+        status = result.get("status")
+        return None if status == "dry_run" else f"the dry run ended {status}"
     return f"{kind} jobs cannot be applied"
+
+
+def _valid_build_service() -> BuildService:
+    service = default_build_service()
+    check = service.check_toolchain()
+    if not check.valid:
+        raise RuntimeError("build toolchain not valid: " + "; ".join(check.errors))
+    return service
 
 
 def _new_apk_path(value: str, source: Path) -> Path:
@@ -162,7 +225,6 @@ def add_change_routes(
         apk = apk_path(body.apk, "apk")
 
         def work() -> list[dict[str, Any]]:
-
             analysis = PrivacyAnalysisService.analyze(apk)
             return [
                 {
@@ -178,7 +240,6 @@ def add_change_routes(
 
     @app.post("/api/jobs/remediation-plan", status_code=202)
     def remediation_plan(body: RemediationPlanBody) -> Job:
-
         apk = apk_path(body.apk, "apk")
         return preview(
             "remediation-plan", apk,
@@ -189,7 +250,6 @@ def add_change_routes(
 
     @app.post("/api/jobs/transform-plan", status_code=202)
     def transform_plan(body: TransformPlanBody) -> Job:
-
         apk = apk_path(body.apk, "apk")
         tid = body.transformation_id.strip().upper()
         if tid not in CATALOG:
@@ -217,7 +277,6 @@ def add_change_routes(
         apk = apk_path(body.apk, "apk")
 
         def work() -> dict[str, Any]:
-
             service = default_build_service()
             return {
                 "toolchain": service.check_toolchain().to_dict(),
@@ -243,17 +302,134 @@ def add_change_routes(
         if previews.take(job.id) is None:  # a concurrent apply won
             raise HTTPException(409, "this preview was already applied")
         output.parent.mkdir(parents=True, exist_ok=True)
-        work = _apply_work(job.kind, job.result, record, output)
+        work = _apply_work(job.kind, job.result, record, output, session_dir)
         summary = {"preview_job": job.id, "preview_kind": job.kind,
-                   "apk": str(record.apk), "output": str(output)}  # fmt: skip
+                   "apk": str(record.apk), "output": str(output),
+                   **({"plan_file": str(record.inputs["plan_file"])}
+                      if "plan_file" in record.inputs else {})}  # fmt: skip
         return jobs.submit("apply", summary, work)
 
+    # -- Phase D modifiers -------------------------------------------------------
 
-def _apply_work(kind: str, result: Any, record: _Preview, output: Path) -> Callable[[], Any]:  # noqa: ANN401
+    @app.get("/api/modifiers")
+    def modifiers() -> list[dict[str, Any]]:
+        return [i.model_dump(mode="json") for i in default_catalog().list()]
+
+    @app.post("/api/jobs/modify-preview", status_code=202)
+    def modify_preview(body: ModifyBody) -> Job:
+        """``modify --modifier ... --dry-run``: plans the modifiers and checks their
+        preconditions and conflicts; nothing is built."""
+        apk = apk_path(body.apk, "apk")
+        requests = [ModifierRequest(modifier_id=m.id, parameters=m.parameters)
+                    for m in body.modifiers]  # fmt: skip
+        try:
+            ModificationPipeline(default_build_service()).resolve(requests)
+        except APKForgeError as exc:
+            raise HTTPException(422, str(exc)) from exc
+
+        def work() -> Any:  # noqa: ANN401
+            pipeline = ModificationPipeline(default_build_service())
+            return pipeline.run(apk, requests, dry_run=True, allow_partial=body.allow_partial)
+
+        summary = {"modifiers": [m.id for m in body.modifiers], "allow_partial": body.allow_partial}
+        return preview("modify-preview", apk, summary, work, requests=requests,
+                       allow_partial=body.allow_partial,
+                       measure_noise_floor=body.measure_noise_floor)  # fmt: skip
+
+    # -- read-only: planning and verification -------------------------------------
+
+    @app.post("/api/jobs/modification-plan", status_code=202)
+    def modification_plan(body: PlanBody) -> Job:
+        """``apkforge plan``: analysis-driven suggestions. Read-only; apply a change through
+        the Phase D modifiers (Modify) or Remediate."""
+        apk = apk_path(body.apk, "apk")
+        diff_apk = apk_path(body.diff_apk, "diff_apk") if body.diff_apk else None
+        return jobs.submit(
+            "modification-plan", {"apk": str(apk), "diff_apk": str(diff_apk or "")},
+            lambda: create_modification_plan(apk, load_default_config(), diff_apk=diff_apk),
+        )  # fmt: skip
+
+    @app.post("/api/jobs/verify", status_code=202)
+    def verify(body: VerifyBody) -> Job:
+        """``apkforge verify ORIGINAL [MODIFIED] [--measure-noise-floor]``."""
+        original = apk_path(body.original, "original")
+        modified = apk_path(body.modified, "modified") if body.modified else None
+
+        def work() -> Any:  # noqa: ANN401
+            built = default_build_service()
+            # as the CLI: without a valid toolchain, verify with the checks that need none
+            service: BuildService | None = built if built.check_toolchain().valid else None
+            if modified is None:
+                matrix = VerificationMatrix()
+                matrix.checks["structural"] = structural_check(original)
+                matrix.checks["signature"] = signature_check_with_service(service, original)
+                matrix.finalize()
+                return matrix
+            baseline = None
+            if body.measure_noise_floor:
+                if service is None:
+                    raise RuntimeError("measuring the noise floor needs a valid build toolchain")
+                with tempfile.TemporaryDirectory(prefix="noise-floor-", dir=session_dir) as tmp:
+                    baseline = measure_noise_floor(service, original, work_dir=Path(tmp))
+            toolchain = current_toolchain_identity(service) if baseline and service else None
+            report, _ = verify_pair(original, modified, baseline=baseline, service=service,
+                                    build_toolchain=toolchain)  # fmt: skip
+            # raw/normalized/semantic are whole diffs (hundreds of MB on large apps): the
+            # page shows the matrix and the classified changes; `verify --json` has all.
+            return report.model_dump(mode="json", exclude={"raw", "normalized", "semantic"})
+
+        summary = {"original": str(original), "modified": str(modified or ""),
+                   "measure_noise_floor": body.measure_noise_floor}  # fmt: skip
+        return jobs.submit("verify", summary, work)
+
+    @app.post("/api/jobs/verify-transformation", status_code=202)
+    def verify_transformation(body: VerifyTransformationBody) -> Job:
+        """H.4 for a transformation applied in this session: ``apkforge verify ORIGINAL
+        TRANSFORMED --plan PLAN --build-control`` with that apply's own plan file."""
+        job = jobs.get(body.apply_job)
+        if (
+            job is None
+            or job.kind != "apply"
+            or job.summary.get("preview_kind") != "transform-plan"
+        ):
+            raise HTTPException(409, "not a transformation apply job of this session")
+        if job.status is not JobStatus.DONE or not isinstance(job.result, dict):
+            raise HTTPException(409, f"the apply job is {job.status}, not DONE")
+        if job.result.get("status") != "VERIFIED":
+            raise HTTPException(409, f"the transformation ended {job.result.get('status')}")
+        original = Path(job.summary["apk"])
+        transformed = Path(job.summary["output"])
+        plan_file = Path(job.summary["plan_file"])
+        if not transformed.is_file():
+            raise HTTPException(409, f"{transformed} no longer exists")
+
+        def work() -> Any:  # noqa: ANN401
+            service = _valid_build_service()
+            tmp = Path(tempfile.mkdtemp(prefix="h4-control-", dir=session_dir))
+            try:
+                run_semantic_noop(service, original, entry_id=original.name, work_dir=tmp)
+                control = tmp / f"{original.stem}.noop.apk"
+                return TransformationVerifier(service).verify(
+                    original, control if control.is_file() else None, transformed, plan_file,
+                    toolchain=current_toolchain_identity(service),
+                )  # fmt: skip
+            finally:
+                shutil.rmtree(tmp, ignore_errors=True)
+
+        summary = {"apply_job": job.id, "original": str(original), "transformed": str(transformed)}
+        return jobs.submit("verify-transformation", summary, work)
+
+
+def _apply_work(
+    kind: str,
+    result: Any,  # noqa: ANN401
+    record: _Preview,
+    output: Path,
+    session_dir: Path,
+) -> Callable[[], Any]:
     if kind == "remediation-plan":
 
         def remediate() -> Any:  # noqa: ANN401
-
             plan = RemediationPlan.model_validate(result)
             return RemediationService.apply(plan, approved=True, output_path=output)
 
@@ -261,19 +437,27 @@ def _apply_work(kind: str, result: Any, record: _Preview, output: Path) -> Calla
     if kind == "transform-plan":
 
         def transform() -> Any:  # noqa: ANN401
-
-            service = default_build_service()
-            check = service.check_toolchain()
-            if not check.valid:
-                raise RuntimeError("build toolchain not valid: " + "; ".join(check.errors))
-            return TransformationExecutor(service).run(
+            return TransformationExecutor(_valid_build_service()).run(
                 record.apk, record.inputs["plan_file"], apply=True, output_apk=output
             )
 
         return transform
+    if kind == "modify-preview":
+
+        def modify() -> Any:  # noqa: ANN401
+            service = _valid_build_service()
+            baseline = None
+            if record.inputs["measure_noise_floor"]:
+                with tempfile.TemporaryDirectory(prefix="noise-floor-", dir=session_dir) as tmp:
+                    baseline = measure_noise_floor(service, record.apk, work_dir=Path(tmp))
+            return ModificationPipeline(service).run(
+                record.apk, record.inputs["requests"], noop_baseline=baseline,
+                allow_partial=record.inputs["allow_partial"], output_apk=output,
+            )  # fmt: skip
+
+        return modify
 
     def build() -> Any:  # noqa: ANN401
-
         service = default_build_service()
         return service.build_pipeline(record.apk, BuildOptions(output_apk=output)).to_dict()
 

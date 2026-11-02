@@ -322,3 +322,73 @@ def test_transform_plan_validates_ids(client: TestClient, apk: Path) -> None:
     assert plan(transformation_id="H-TRANS-999").status_code == 422
     repl = plan(transformation_id="H-TRANS-001", replacement="x")
     assert repl.status_code == 422 and "H-TRANS-003" in repl.text
+
+
+# -- 9.2b: plan, Phase D modifiers, verify ----------------------------------------------
+
+
+@pytest.fixture()
+def phase_d(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> Path:
+    """The simulated toolchain the Phase D CLI tests use (no apktool/SDK); returns an APK
+    whose package matches what the simulated decoder reports."""
+    from apkforge.gui import changes
+    from apkforge.modification import pipeline as pipeline_mod
+    from tests.unit.phase_d_support import FakeDiff, ZipService, baseline_for, diff_adding
+    from tests.unit.test_c5_boot_receiver import PKG
+    from tests.unit.test_phase_d_cli import _marker
+
+    class Service(ZipService):  # the GUI, like the CLI without --workspace, passes none
+        def prepare_workspace(self, *, work_dir: Path | None = None, **kw: Any) -> Any:
+            return super().prepare_workspace(work_dir=work_dir or tmp_path / "ws", **kw)
+
+    service = Service()
+    monkeypatch.setattr(changes, "default_build_service", lambda: service)
+    monkeypatch.setattr(changes, "measure_noise_floor", lambda svc, a, work_dir: baseline_for(a))
+    monkeypatch.setattr(
+        pipeline_mod, "DiffEngine", lambda: FakeDiff(diff_adding(extra=[_marker()]))
+    )
+    return create_synthetic_apk(tmp_path / "pd" / "app.apk", package_name=PKG)
+
+
+def test_modifiers_dry_run_then_apply(client: TestClient, tmp_path: Path, phase_d: Path) -> None:
+    apk = phase_d
+    ids = [m["id"] for m in client.get("/api/modifiers", headers=H).json()]
+    assert "test.marker_asset" in ids
+    bad = _post(client, "/api/jobs/modify-preview", apk=str(apk), modifiers=[{"id": "nope"}])
+    assert bad.status_code == 422
+    preview = _wait(client, _post(client, "/api/jobs/modify-preview", apk=str(apk),
+                                  modifiers=[{"id": "test.marker_asset"}],
+                                  measure_noise_floor=True).json())  # fmt: skip
+    assert preview["status"] == "DONE", preview["error"]
+    assert preview["result"]["status"] == "dry_run" and preview["result"]["dry_run"]
+    out = tmp_path / "out" / "marked.apk"
+    job = _wait(client, _post(client, "/api/jobs/apply", preview_job=preview["id"],
+                              output=str(out)).json())  # fmt: skip
+    assert job["status"] == "DONE", job["error"]
+    assert job["result"]["status"] == "verified", job["result"]["failures"]
+    assert out.is_file()
+    assert job["result"]["dry_run"] is False
+
+
+def test_modification_plan_and_verify_are_read_only(client: TestClient, apk: Path) -> None:
+    before = apk.read_bytes()
+    plan = _wait(client, _post(client, "/api/jobs/modification-plan", apk=str(apk)).json())
+    assert plan["status"] == "DONE", plan["error"]
+    assert "changes" in plan["result"]
+    single = _wait(client, _post(client, "/api/jobs/verify", original=str(apk)).json())
+    assert single["status"] == "DONE", single["error"]
+    assert {"structural", "signature"} <= single["result"]["checks"].keys()
+    pair = _wait(
+        client, _post(client, "/api/jobs/verify", original=str(apk), modified=str(apk)).json()
+    )
+    assert pair["status"] == "DONE", pair["error"]
+    assert "verification" in pair["result"] and "raw" not in pair["result"]
+    assert apk.read_bytes() == before
+    r = _post(client, "/api/jobs/apply", preview_job=plan["id"], output="/tmp/x.apk")
+    assert r.status_code == 409  # a plan is not a preview
+
+
+def test_h4_needs_a_verified_transformation_apply(client: TestClient, apk: Path) -> None:
+    job = _wait(client, _post(client, "/api/jobs/analyze", apk=str(apk)).json())
+    r = _post(client, "/api/jobs/verify-transformation", apply_job=job["id"])
+    assert r.status_code == 409 and "transformation apply" in r.text

@@ -132,6 +132,7 @@ def create_app(
         base = load_default_config().workspace.base_directory
         base.mkdir(parents=True, exist_ok=True)
         upload_dir = Path(tempfile.mkdtemp(prefix="gui-uploads-", dir=base))
+    upload_dir.mkdir(parents=True, exist_ok=True)
     app.state.upload_dir = upload_dir
 
     @app.middleware("http")

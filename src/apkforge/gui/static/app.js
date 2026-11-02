@@ -237,7 +237,8 @@ function renderChain(r) {
 
 const RENDER = { analyze: renderAnalyze, diff: renderDiff, "modkit-run": renderModKitResult,
   "modkit-chain": renderChain, "modkit-patches": (r) => renderPatches(r, null),
-  "remediation-findings": renderRemediationFindings, apply: renderApplied };
+  "remediation-findings": renderRemediationFindings, "modification-plan": renderModificationPlan,
+  verify: renderVerify, "verify-transformation": renderH4 };
 
 // -- 9.2: preview, then apply -----------------------------------------------------------
 
@@ -347,10 +348,137 @@ function renderApplied(r) {
       el("td", {}, v.check, v.mandatory ? "" : el("span", { class: "muted" }, " (optional)")),
       el("td", { class: "mono" }, v.expected), el("td", { class: "mono" }, v.actual), el("td", {}, badge(v.status))))) : null,
     (r.stages || []).length ? table(["Stage", "Status", "Time"], r.stages.map((st) => el("tr", {},
-      el("td", {}, st.stage), el("td", {}, badge(st.status)), el("td", {}, `${(st.duration_seconds || 0).toFixed(2)}s`)))) : null,
-    list("Errors", r.errors, "error"), list("Warnings", r.warnings), list("Limitations", r.limitations),
+      el("td", {}, st.stage), el("td", {}, badge(st.status)), el("td", {}, st.duration_seconds != null ? `${st.duration_seconds.toFixed(2)}s` : "")))) : null,
+    list("Failures", r.failures, "error"), list("Errors", r.errors, "error"), list("Warnings", r.warnings),
+    list("Limitations", r.limitations),
     rawJson(r),
   ];
+}
+
+PREVIEW.apply = (job) => {
+  const r = job.result;
+  const out = el("div", {});
+  const h4 = job.summary.preview_kind === "transform-plan" && r.status === "VERIFIED"
+    ? el("div", { class: "panel" }, el("h2", {}, "Verify (H.4)"),
+      el("p", { class: "hint" }, "Rebuilds an unmodified control of the original and classifies every difference as noise, expected, unexpected or unknown (same as apkforge verify ORIGINAL TRANSFORMED --plan PLAN --build-control)."),
+      el("button", { type: "button", class: "primary", onclick: (ev) =>
+        runJob("/api/jobs/verify-transformation", { apply_job: job.id }, out, ev.target) }, "Verify transformation"), out)
+    : null;
+  return [...renderApplied(r), h4];
+};
+
+PREVIEW["modify-preview"] = (job) => {
+  const r = job.result;
+  return [
+    el("h2", {}, "Dry run ", badge(r.status)),
+    kv([["Order", (r.order || []).join(" → ")], ["APK", r.apk]]),
+    table(["Modifier", "Readiness", "Intended changes", "Preconditions"], (r.modifiers || []).map((m) => el("tr", {},
+      el("td", {}, m.info.id, el("div", { class: "muted" }, m.info.name)),
+      el("td", {}, badge(m.plan?.readiness ?? m.step.status), m.plan?.refusal_code ? el("div", { class: "muted" }, m.plan.refusal_code) : null),
+      el("td", {}, el("ul", {}, (m.plan?.changes || []).map((c) => el("li", {}, c))),
+        list("Problems", m.plan?.problems, "error"), list("Warnings", m.plan?.warnings)),
+      el("td", {}, (m.plan?.preconditions || []).map((c) => el("div", {}, badge(c.satisfied ? "satisfied" : "not satisfied"), ` ${c.name}`)))))),
+    (r.conflicts || []).length ? el("div", {}, el("h2", {}, "Conflicts"), table(["Kind", "Modifiers", "Subject", "Reason"],
+      r.conflicts.map((c) => el("tr", {}, el("td", {}, c.kind), el("td", {}, c.modifiers.join(", ")),
+        el("td", { class: "mono" }, c.subject), el("td", {}, c.reason))))) : null,
+    list("Failures", r.failures, "error"), list("Warnings", r.warnings),
+    r.status === "dry_run" ? applyPanel(job, "modifiers") : notApplicable(`the dry run ended ${r.status}`),
+    rawJson(r),
+  ];
+};
+
+function renderModificationPlan(p) {
+  return [
+    el("h2", {}, `${p.changes.length} suggested changes `, badge(p.status)),
+    p.changes.length ? table(["Risk", "Change", "Target", "Reason"], p.changes.map((c) => el("tr", {},
+      el("td", {}, badge(c.risk)), el("td", {}, c.change_type, el("div", { class: "muted" }, c.operation)),
+      el("td", { class: "mono" }, c.target),
+      el("td", {}, c.reason, c.risk_explanation ? el("div", { class: "muted" }, c.risk_explanation) : null))))
+      : el("p", { class: "muted" }, "No changes suggested."),
+    list("Conflicts", (p.conflicts || []).map((c) => JSON.stringify(c))), list("Warnings", p.warnings),
+    list("Limitations", p.limitations),
+    el("p", { class: "notice" }, "Read-only suggestions. Make a change with Modify (Phase D modifiers) or Remediate, which preview it first."),
+    rawJson(p),
+  ];
+}
+
+function matrixTable(m) {
+  return [
+    el("h2", {}, "Verification ", badge(m.overall)), el("p", {}, m.overall_reason),
+    table(["Check", "Status", "Summary"], Object.entries(m.checks || {}).map(([name, c]) => el("tr", {},
+      el("td", {}, name), el("td", {}, badge(c.status)), el("td", {}, c.summary)))),
+    list("Limitations", m.limitations),
+  ];
+}
+
+function changesTable(title, rows) {
+  if (!rows || !rows.length) return null;
+  return el("details", { open: true }, el("summary", {}, `${title} (${rows.length})`),
+    table(["Category", "Kind", "Identifier", "Reason"], rows.map((o) => el("tr", {},
+      el("td", {}, o.category), el("td", {}, o.kind), el("td", { class: "mono" }, o.identifier), el("td", {}, o.reason || "")))));
+}
+
+function renderVerify(r) {
+  if (r.checks) return [...matrixTable(r), rawJson(r)];  // single APK: structural + signature
+  return [
+    ...matrixTable(r.verification),
+    kv([["Original", r.original?.path], ["Modified", r.modified?.path], ["Noise baseline", r.baseline ? "measured" : "none"]]),
+    changesTable("Unexpected", r.unexpected), changesTable("Unknown", r.unknown),
+    list("Limitations", r.limitations),
+    el("p", { class: "notice" }, "Verification shows structural/signing validity and plan conformance within the comparators' coverage; it does not prove the app is safe."),
+    rawJson(r),
+  ];
+}
+
+function renderH4(r) {
+  const diffs = (rows) => rows.map((d) => ({ ...d.observation, reason: `${d.leg}: ${d.classification}` }));
+  return [
+    el("h2", {}, `H.4 ${r.transformation_id || ""} `, badge(r.status)), el("p", {}, r.status_reason),
+    table(["Domain", "Status", "Completeness", "Reasons"], Object.values(r.domains || {}).map((d) => el("tr", {},
+      el("td", {}, d.domain, d.mandatory ? "" : el("span", { class: "muted" }, " (optional)")),
+      el("td", {}, badge(d.status)), el("td", {}, badge(d.completeness)), el("td", {}, (d.reasons || []).join("; "))))),
+    changesTable("Unexpected", diffs(r.unexpected_changes || [])), changesTable("Unknown", diffs(r.unknown_changes || [])),
+    list("Errors", r.errors, "error"), list("Limitations", r.limitations),
+    el("p", { class: "notice" }, r.statement),
+    rawJson(r),
+  ];
+}
+
+// -- Modify tab: Phase D modifiers ---------------------------------------------------------
+
+let MODIFIERS_LOADING = null;
+const MODIFIER_FORMS = {};
+function loadModifiers() {
+  MODIFIERS_LOADING ||= (async () => {
+    let infos;
+    try {
+      infos = await api("/api/modifiers");
+    } catch (e) {
+      MODIFIERS_LOADING = null;
+      $("modifier-list").replaceChildren(el("p", { class: "error" }, e.message));
+      return;
+    }
+    $("modifier-list").replaceChildren(...infos.map((m) => {
+      const use = el("input", { type: "checkbox", value: m.id });
+      const inputs = Object.fromEntries(Object.keys(m.parameters || {}).map((k) => [k, el("input", { type: "text", autocomplete: "off" })]));
+      MODIFIER_FORMS[m.id] = { use, inputs };
+      return el("fieldset", { class: "step" },
+        el("legend", {}, el("label", { class: "check" }, use, ` ${m.id} — ${m.name}`)),
+        el("p", { class: "hint" }, m.description, ` Risk: ${m.risk}. Verification: ${m.verification_available ? "yes" : "no"}.`),
+        Object.entries(m.parameters || {}).map(([k, desc]) => {
+          const id = `mod-${m.id}-${k}`;
+          inputs[k].id = id;
+          return [el("label", { for: id }, k, el("span", { class: "muted" }, ` — ${desc}`)), inputs[k]];
+        }));
+    }));
+  })();
+  return MODIFIERS_LOADING;
+}
+
+function selectedModifiers() {
+  return Object.entries(MODIFIER_FORMS).filter(([, f]) => f.use.checked).map(([id, f]) => ({
+    id, parameters: Object.fromEntries(Object.entries(f.inputs).filter(([, i]) => i.value.trim()).map(([k, i]) => [k, i.value.trim()])),
+  }));
 }
 
 // -- patch bundles (Morphe list_patches) ----------------------------------------------
@@ -572,6 +700,7 @@ function selectTab(name) {
   for (const s of document.querySelectorAll("main section")) s.hidden = s.id !== `tab-${name}`;
   if (name === "jobs") loadJobs();
   if (name === "modkits" || name === "chain") loadModKits();
+  if (name === "modify") loadModifiers();
 }
 
 function onSubmit(formId, handler) {
@@ -632,6 +761,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     replacement: $("tr-replacement").value.trim() || null,
   }, $("out-transform"), btn));
   $("tr-id").addEventListener("change", () => { $("tr-replacement-row").hidden = $("tr-id").value !== "H-TRANS-003"; });
+  onSubmit("form-plan", (btn) => runJob("/api/jobs/modification-plan",
+    { apk: $("plan-apk").value.trim(), diff_apk: $("plan-diff").value.trim() || null }, $("out-plan"), btn));
+  onSubmit("form-modify", (btn) => {
+    const modifiers = selectedModifiers();
+    if (!modifiers.length) { $("out-modify").replaceChildren(el("div", { class: "panel error" }, "Select at least one modifier.")); return; }
+    runJob("/api/jobs/modify-preview", { apk: $("modify-apk").value.trim(), modifiers,
+      allow_partial: $("modify-partial").checked, measure_noise_floor: $("modify-noise").checked }, $("out-modify"), btn);
+  });
+  onSubmit("form-verify", (btn) => runJob("/api/jobs/verify", { original: $("verify-original").value.trim(),
+    modified: $("verify-modified").value.trim() || null, measure_noise_floor: $("verify-noise").checked }, $("out-verify"), btn));
   onSubmit("form-build", (btn) => runJob("/api/jobs/build-check", { apk: $("build-apk").value.trim() }, $("out-build"), btn));
   onSubmit("form-chain", (btn) => {
     let steps;
