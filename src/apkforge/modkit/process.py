@@ -20,6 +20,7 @@ untrusted third-party software, so :class:`ModKitProcessRunner`:
 from __future__ import annotations
 
 import contextlib
+import contextvars
 import datetime
 import os
 import re
@@ -34,11 +35,25 @@ from apkforge.modkit.masking import SecretMasker
 from apkforge.modkit.models import CommandRecord, ExecutionOutcome, FailureCategory
 
 if TYPE_CHECKING:
+    import threading
     from collections.abc import Mapping
 
     from apkforge.modkit.workspace import ModKitWorkspace
 
-__all__ = ["INHERITED_ENVIRONMENT", "CommandSpec", "ModKitProcessRunner", "strip_ansi"]
+__all__ = [
+    "CANCEL_EVENT",
+    "INHERITED_ENVIRONMENT",
+    "CommandSpec",
+    "ModKitProcessRunner",
+    "strip_ansi",
+]
+
+#: Set by a caller that runs ModKits off the main thread (the GUI job runner): when the
+#: event is set, a running ModKit's process group is killed and the result is CANCELLED,
+#: exactly like Ctrl+C on the CLI.
+CANCEL_EVENT: contextvars.ContextVar[threading.Event | None] = contextvars.ContextVar(
+    "apkforge_modkit_cancel", default=None
+)
 
 #: Parent variables a ModKit inherits (values are not secret).
 INHERITED_ENVIRONMENT = ("PATH", "LANG", "LC_ALL", "LC_CTYPE", "TZ")
@@ -197,8 +212,11 @@ class ModKitProcessRunner:
                 error, detail = FailureCategory.PROCESS_CRASH, f"{type(exc).__name__}: {exc}"
             else:
                 deadline = t0 + timeout_seconds
+                cancel = CANCEL_EVENT.get()
                 try:
                     while proc.poll() is None:
+                        if cancel is not None and cancel.is_set():
+                            raise KeyboardInterrupt  # same path as Ctrl+C
                         if time.monotonic() >= deadline:
                             timed_out = True
                             _kill_group(proc)
