@@ -36,6 +36,7 @@ from typing import TYPE_CHECKING
 
 import typer
 from rich.console import Console
+from rich.markup import escape
 from rich.panel import Panel
 from rich.table import Table
 
@@ -601,23 +602,86 @@ def _render_full_analysis_summary(
 
 @app.command("scan")
 def cmd_scan(
-    apk: Path = typer.Argument(
+    paths: list[Path] = typer.Argument(
         ...,
-        help="Path to the APK file to scan.",
+        metavar="APK_OR_DIR...",
+        help="APKs, or directories searched recursively for .apk/.apks/.xapk/.apkm files.",
         exists=True,
-        file_okay=True,
-        dir_okay=False,
         readable=True,
         resolve_path=True,
     ),
-    output_format: str = typer.Option("text", "--format", "-f", help="Output format."),
+    min_severity: Severity = typer.Option(
+        Severity.MEDIUM, "--min-severity", help="List findings at or above this severity."
+    ),
+    fail_on: str = typer.Option(
+        "high",
+        "--fail-on",
+        help="Fail (exit 1) on a finding at or above this severity: critical | high | medium "
+        "| low | informational | none.",
+    ),
+    json_output: bool = typer.Option(False, "--json", help="Machine-readable JSON output."),
 ) -> None:
-    """[yellow]⚡ Phase 1[/yellow] — Quick security scan.
+    """Quick security gate: actionable findings of one or many APKs, with a CI exit code.
 
-    A fast, high-signal scan that highlights the most actionable findings.
-    Use ``analyze`` for a comprehensive report.
+    Exit 0 when every APK passes, 1 when a finding reaches --fail-on, 2 when an APK could
+    not be (fully) analysed. "pass" only means no finding reached the threshold; it does
+    not mean an APK is safe. Use ``analyze`` or ``security`` for the full report.
     """
-    _not_implemented("scan", apk=str(apk))
+    import json
+
+    from apkforge.security.engine import SecurityEngine
+    from apkforge.security.scan import collect_apks, exit_code, scan_apk
+
+    if fail_on.lower() == "none":
+        threshold: Severity | None = None
+    else:
+        try:
+            threshold = Severity(fail_on.lower())
+        except ValueError:
+            _console.print(f"[red]Invalid --fail-on {fail_on!r}.[/red]")
+            raise typer.Exit(code=2) from None
+    apks = collect_apks(paths)
+    if not apks:
+        _console.print("[red]No APK files found.[/red]")
+        raise typer.Exit(code=2)
+
+    engine = SecurityEngine(config=load_default_config())
+    records = []
+    for i, apk in enumerate(apks, 1):
+        typer.echo(f"[{i}/{len(apks)}] {apk}", err=True)  # progress on stderr: --json stays clean
+        records.append(scan_apk(apk, engine.analyze, min_severity=min_severity,
+                                fail_on=threshold))  # fmt: skip
+    code = exit_code(records)
+
+    if json_output:
+        typer.echo(json.dumps({
+            "fail_on": threshold.value if threshold else None,
+            "min_severity": min_severity.value,
+            "exit_code": code,
+            "apks": [r.model_dump(mode="json") for r in records],
+        }, indent=2))  # fmt: skip
+        raise typer.Exit(code=code)
+
+    colors = {"pass": "green", "fail": "red", "incomplete": "yellow", "error": "red"}
+    sev_color = {"critical": "bold red", "high": "red", "medium": "yellow"}
+    for r in records:
+        name = Path(r.path).name
+        pkg = r.package_name or "?"
+        worst = r.worst_severity.value if r.worst_severity else "-"
+        c = colors[r.verdict]
+        _console.print(f"[{c}]{r.verdict.upper():<10}[/{c}] {name}  [dim]{pkg}[/dim]  "
+                       f"worst: {worst}", highlight=False)  # fmt: skip
+        for f in r.findings:
+            sc = sev_color.get(f.severity.value, "dim")
+            label = f"[{sc}]{f.severity.value.upper():<13}[/{sc}]"
+            _console.print(f"    {label} {f.id}  {escape(f.title)}", highlight=False)
+        if r.error:
+            _console.print(f"    [dim]{escape(r.error)}[/dim]", highlight=False)
+    counts = {v: sum(r.verdict == v for r in records) for v in colors}
+    summary = ", ".join(f"{n} {v}" for v, n in counts.items() if n)
+    gate = f"fail on {threshold.value}+" if threshold else "no failure threshold"
+    _console.print(f"\n{len(records)} scanned: {summary} ({gate}, exit {code})")
+    raise typer.Exit(code=code)
 
 
 def _render_diff_summary(
@@ -4164,8 +4228,6 @@ def cmd_explain(
 ) -> None:
     """Explain a result in plain language with an AI model (sends the result, not the APK)."""
     import json
-
-    from rich.markup import escape
 
     from apkforge.ai import AIConfig, ExplainError, explain
 
