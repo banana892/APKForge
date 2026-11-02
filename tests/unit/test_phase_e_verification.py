@@ -300,6 +300,34 @@ class TestCLI:
         assert data["overall"] in ("FAILED", "UNDETERMINED")
         assert res.exit_code in (1, 3)
 
+    def test_verify_planned_files_map_to_archive_entries(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        import apkforge.verification as verification
+
+        seen: list[set[str] | None] = []
+        real = verification.verify_pair
+
+        def spy(*args, **kw):  # type: ignore[no-untyped-def]
+            seen.append(kw["planned_entries"])
+            return real(*args, **kw)
+
+        monkeypatch.setattr(verification, "verify_pair", spy)
+        a = create_synthetic_apk(tmp_path / "a.apk")
+        b = create_synthetic_apk(tmp_path / "b.apk", native_abis=["x86"])
+        args = ["verify", str(a), str(b), "--json", "--planned-file", "AndroidManifest.xml",
+                "--planned-file", "smali_classes2/com/x/A.smali"]  # fmt: skip
+        CliRunner().invoke(app, args)
+        assert seen == [{"AndroidManifest.xml", "classes2.dex"}]
+        CliRunner().invoke(app, ["verify", str(a), str(b), "--json"])
+        assert seen[1] is None
+
+        for bad in (["verify", str(a), str(b), "--planned-file", "apktool.yml"],
+                    ["verify", str(a), "--planned-file", "AndroidManifest.xml"]):  # fmt: skip
+            res = CliRunner().invoke(app, bad)
+            assert res.exit_code == 2, res.output
+        assert len(seen) == 2
+
     def test_diff_json_has_no_ansi_and_new_fields(self, tmp_path: Path) -> None:
         a = create_synthetic_apk(tmp_path / "a.apk")
         b = create_synthetic_apk(tmp_path / "b.apk", native_abis=["x86"])

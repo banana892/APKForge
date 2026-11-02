@@ -3345,6 +3345,13 @@ def cmd_verify(
         exists=True,
         dir_okay=False,
     ),
+    planned_files: list[str] = typer.Option(
+        [],
+        "--planned-file",
+        help="Decoded-project path the modification edited (repeatable, e.g. "
+        "AndroidManifest.xml, smali/com/x/A.smali): the archive entries rebuilt from it are "
+        "accepted when their semantic changes are expected.",
+    ),
     expected_signer: str | None = typer.Option(
         None, "--expected-signer", help="SHA-256 of the certificate MODIFIED must be signed with."
     ),
@@ -3402,6 +3409,7 @@ def cmd_verify(
         current_toolchain_identity,
     )
     from apkforge.diff.expectations import ExpectedChange
+    from apkforge.diff.normalization import archive_entries_for
     from apkforge.verification import (
         VerificationMatrix,
         render_markdown,
@@ -3433,11 +3441,11 @@ def cmd_verify(
         if (control is None) == (not build_control):
             typer.echo("error: --plan needs exactly one of --control or --build-control.", err=True)
             raise typer.Exit(code=2)
-        if baseline_file is not None or measure or expected_file is not None:
+        if baseline_file is not None or measure or expected_file is not None or planned_files:
             typer.echo(
                 "error: --plan (H.4) measures noise with the control rebuild and derives the "
                 "declared changes from the plan; drop --baseline/--measure-noise-floor/"
-                "--expected.",
+                "--expected/--planned-file.",
                 err=True,
             )
             raise typer.Exit(code=2)
@@ -3454,6 +3462,13 @@ def cmd_verify(
             report_file=report_file,
         )
         return
+    if modified is None and planned_files:
+        typer.echo("error: --planned-file needs MODIFIED.", err=True)
+        raise typer.Exit(code=2)
+    planned, unmapped = archive_entries_for(planned_files)
+    if unmapped:  # their effect on the archive is unknown: accept no entry as planned
+        typer.echo(f"error: no known archive mapping for: {', '.join(unmapped)}", err=True)
+        raise typer.Exit(code=2)
     if modified is None:
         matrix = VerificationMatrix()
         matrix.checks["structural"] = structural_check(apk)
@@ -3493,6 +3508,7 @@ def cmd_verify(
         service=service,
         expected_signer=expected_signer,
         build_toolchain=toolchain,
+        planned_entries=planned or None,
     )
     md = render_markdown(report)
     if report_file is not None:
