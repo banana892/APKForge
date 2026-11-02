@@ -4146,6 +4146,58 @@ def cmd_modkit_chain(
     raise typer.Exit(code=_MODKIT_EXIT.get(str(result.status), 1))
 
 
+@app.command("gui")
+def cmd_gui(
+    port: int = typer.Option(
+        0, "--port", min=0, max=65535, help="Port on 127.0.0.1 (default: a free one)."
+    ),
+    no_browser: bool = typer.Option(False, "--no-browser", help="Do not open a browser."),
+    config: Path | None = typer.Option(None, "--config", help=_MODKIT_CONFIG_HELP),
+) -> None:
+    """[green]⚡ Phase 9[/green] — Open the local web workbench (127.0.0.1 only)."""
+    import secrets
+    import socket
+    import webbrowser
+
+    try:
+        import uvicorn
+
+        from apkforge.gui.app import create_app
+    except ImportError as exc:
+        _console.print(
+            f"[red]The GUI needs the 'gui' extra: pip install 'apkforge[gui]' ({exc}).[/red]"
+        )
+        raise typer.Exit(code=2) from exc
+
+    token = secrets.token_urlsafe(32)
+    app_ = create_app(token, modkit_config=config)
+    # Bind ourselves (never 0.0.0.0) so the printed URL has the real port when --port 0.
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    try:
+        sock.bind(("127.0.0.1", port))
+    except OSError as exc:
+        _console.print(f"[red]Cannot listen on 127.0.0.1:{port}: {exc}[/red]")
+        raise typer.Exit(code=2) from exc
+    url = f"http://127.0.0.1:{sock.getsockname()[1]}/#token={token}"
+    _console.print(
+        Panel(
+            f"[bold]{url}[/bold]\n\n[dim]Local only. Anyone with this URL can use the "
+            "workbench as you until you stop it (Ctrl+C).[/dim]",
+            title="APKForge workbench",
+            border_style="green",
+        ),
+        highlight=False,
+    )
+    if not no_browser:
+        webbrowser.open(url)
+    server = uvicorn.Server(uvicorn.Config(app_, log_level="warning"))
+    try:
+        server.run(sockets=[sock])
+    finally:
+        app_.state.jobs.shutdown()
+
+
 def _not_implemented(command: str, **kwargs: str) -> None:
     """Display a consistent 'not implemented yet' message and exit cleanly."""
     detail = "  ".join(f"[dim]{k}=[/dim][cyan]{v}[/cyan]" for k, v in kwargs.items())

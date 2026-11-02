@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>APKForge Workbench</title>
+<style>
+  :root {
+    --bg: #f7f7f5; --panel: #ffffff; --text: #1d1f21; --muted: #62666b; --line: #d9dcdf;
+    --accent: #2f6f4f; --accent-text: #ffffff; --bad: #b3261e; --warn: #8a5a00; --ok: #2f6f4f;
+    --code: #f0f1f2;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #141618; --panel: #1c1f22; --text: #e4e6e8; --muted: #9aa0a6; --line: #33383d;
+      --accent: #5fb38a; --accent-text: #0d1a13; --bad: #f2867d; --warn: #e0b45c; --ok: #5fb38a;
+      --code: #24282c;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header { display: flex; align-items: baseline; gap: 16px; padding: 14px 20px;
+           border-bottom: 1px solid var(--line); background: var(--panel); flex-wrap: wrap; }
+  header h1 { margin: 0; font-size: 17px; }
+  header .meta { color: var(--muted); font-size: 12px; }
+  nav { display: flex; gap: 4px; padding: 8px 20px; border-bottom: 1px solid var(--line);
+        background: var(--panel); flex-wrap: wrap; }
+  nav button { background: none; border: 1px solid transparent; color: var(--muted);
+               padding: 6px 12px; border-radius: 6px; cursor: pointer; font: inherit; }
+  nav button[aria-selected="true"] { color: var(--text); border-color: var(--line);
+                                     background: var(--bg); font-weight: 600; }
+  main { padding: 20px; max-width: 1200px; margin: 0 auto; }
+  section[hidden] { display: none; }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
+           padding: 16px; margin-bottom: 16px; }
+  .panel h2 { margin: 0 0 4px; font-size: 15px; }
+  .hint { color: var(--muted); font-size: 12px; margin: 0 0 12px; }
+  label { display: block; font-size: 12px; color: var(--muted); margin: 10px 0 4px; }
+  input[type=text], input[type=password], input[type=number], select, textarea {
+    width: 100%; padding: 7px 9px; border: 1px solid var(--line); border-radius: 6px;
+    background: var(--bg); color: var(--text); font: 13px ui-monospace, monospace; }
+  textarea { min-height: 220px; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 700px) { .row { grid-template-columns: 1fr; } }
+  .check { display: flex; align-items: center; gap: 6px; margin-top: 10px; color: var(--text);
+           font-size: 13px; }
+  button.primary { margin-top: 14px; background: var(--accent); color: var(--accent-text);
+                   border: 0; padding: 8px 16px; border-radius: 6px; font: inherit;
+                   font-weight: 600; cursor: pointer; }
+  button.primary:disabled { opacity: .5; cursor: progress; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line);
+           vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 12px; }
+  td.mono, .mono { font-family: ui-monospace, monospace; word-break: break-all; }
+  .badge { display: inline-block; padding: 1px 7px; border-radius: 10px; font-size: 12px;
+           font-weight: 600; border: 1px solid currentColor; }
+  .ok { color: var(--ok); } .bad { color: var(--bad); } .warn { color: var(--warn); }
+  .muted { color: var(--muted); }
+  .kv { display: grid; grid-template-columns: max-content 1fr; gap: 4px 16px; margin: 8px 0; }
+  .kv dt { color: var(--muted); } .kv dd { margin: 0; }
+  .stats { display: flex; gap: 10px; flex-wrap: wrap; margin: 10px 0; }
+  .stat { border: 1px solid var(--line); border-radius: 6px; padding: 8px 12px; min-width: 110px; }
+  .stat b { display: block; font-size: 18px; }
+  .stat span { color: var(--muted); font-size: 12px; }
+  details { margin-top: 10px; }
+  summary { cursor: pointer; color: var(--muted); }
+  pre { background: var(--code); padding: 10px; border-radius: 6px; overflow: auto;
+        max-height: 420px; font-size: 12px; }
+  .error { color: var(--bad); white-space: pre-wrap; }
+  .notice { border-left: 3px solid var(--warn); padding: 6px 10px; margin: 8px 0;
+            background: var(--code); }
+  .filter { max-width: 320px; margin: 8px 0; }
+  .clickable { cursor: pointer; }
+  .clickable:hover td { background: var(--code); }
+</style>
+</head>
+<body>
+<header>
+  <h1>APKForge Workbench</h1>
+  <span class="meta" id="version"></span>
+  <span class="meta">Local only · static analysis · nothing is executed or installed</span>
+</header>
+<nav role="tablist">
+  <button role="tab" data-tab="analyze" aria-selected="true">Analyze</button>
+  <button role="tab" data-tab="diff">Diff</button>
+  <button role="tab" data-tab="modkits">ModKits</button>
+  <button role="tab" data-tab="chain">Chain</button>
+  <button role="tab" data-tab="jobs">Jobs</button>
+</nav>
+<main>
+  <div id="fatal"></div>
+
+  <section id="tab-analyze">
+    <form class="panel" id="form-analyze">
+      <h2>Analyze an APK</h2>
+      <p class="hint">Inspection, privacy and security analysis (same as <code>apkforge analyze</code>).</p>
+      <label for="analyze-apk">APK path (absolute)</label>
+      <input type="text" id="analyze-apk" name="apk" required placeholder="/path/to/app.apk">
+      <button class="primary" type="submit">Analyze</button>
+    </form>
+    <div id="out-analyze"></div>
+  </section>
+
+  <section id="tab-diff" hidden>
+    <form class="panel" id="form-diff">
+      <h2>Compare two APKs</h2>
+      <p class="hint">Phase E semantic diff (same engine as <code>apkforge diff</code>).</p>
+      <div class="row">
+        <div><label for="diff-original">Original APK</label>
+          <input type="text" id="diff-original" name="original" required></div>
+        <div><label for="diff-modified">Modified APK</label>
+          <input type="text" id="diff-modified" name="modified" required></div>
+      </div>
+      <button class="primary" type="submit">Compare</button>
+    </form>
+    <div id="out-diff"></div>
+  </section>
+
+  <section id="tab-modkits" hidden>
+    <div class="panel">
+      <h2>ModKits</h2>
+      <p class="hint">Third-party tools APKForge drives. AVAILABLE means runnable, not trusted.</p>
+      <div id="modkit-list"><span class="muted">Loading…</span></div>
+    </div>
+    <form class="panel" id="form-modkit">
+      <h2>Run a ModKit operation</h2>
+      <p class="hint">Runs in an isolated workspace; the output is validated before it is published.</p>
+      <div class="row">
+        <div><label for="mk-id">ModKit</label><select id="mk-id" required></select></div>
+        <div><label for="mk-op">Operation</label><select id="mk-op" required></select></div>
+      </div>
+      <div class="row">
+        <div><label for="mk-apk">Input APK</label><input type="text" id="mk-apk" required></div>
+        <div><label for="mk-out">Output directory</label><input type="text" id="mk-out" required></div>
+      </div>
+      <div id="mk-params"></div>
+      <label class="check"><input type="checkbox" id="mk-noop"> Accept an unchanged output (NO_OP)</label>
+      <button class="primary" type="submit">Run</button>
+    </form>
+    <div id="out-modkit"></div>
+  </section>
+
+  <section id="tab-chain" hidden>
+    <form class="panel" id="form-chain">
+      <h2>Run a ModKit chain</h2>
+      <p class="hint">Steps run in order; each step's validated output feeds the next. Same
+        shape as a pipeline file's <code>steps</code>.</p>
+      <div class="row">
+        <div><label for="chain-apk">Input APK</label><input type="text" id="chain-apk" required></div>
+        <div><label for="chain-out">Output directory</label><input type="text" id="chain-out" required></div>
+      </div>
+      <label for="chain-steps">Steps (JSON array)</label>
+      <textarea id="chain-steps" spellcheck="false">[
+  {
+    "modkit": "morphe",
+    "operation": "patch",
+    "parameters": {"patches": "/path/patches.mpp", "enable": "Clone app"}
+  }
+]</textarea>
+      <label class="check"><input type="checkbox" id="chain-conflicts"> Check for conflicts between steps (slower)</label>
+      <button class="primary" type="submit">Run chain</button>
+    </form>
+    <div id="out-chain"></div>
+  </section>
+
+  <section id="tab-jobs" hidden>
+    <div class="panel">
+      <h2>Jobs</h2>
+      <p class="hint">This session only. Click a job to see its result.</p>
+      <div id="job-list"></div>
+    </div>
+    <div id="out-jobs"></div>
+  </section>
+</main>
+<script src="/app.js"></script>
+</body>
+</html>
