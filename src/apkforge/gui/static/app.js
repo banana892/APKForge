@@ -73,7 +73,7 @@ async function api(path, body) {
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
     const d = data.detail;
-    throw new Error(typeof d === "string" ? d : JSON.stringify(d || data) || res.statusText);
+    throw new Error(typeof d === "string" ? d : d ? JSON.stringify(d) : `${res.status} ${res.statusText}`);
   }
   return data;
 }
@@ -465,7 +465,7 @@ function loadModifiers() {
       return el("fieldset", { class: "step" },
         el("legend", {}, el("label", { class: "check" }, use, ` ${m.id} — ${m.name}`)),
         el("p", { class: "hint" }, m.description, ` Risk: ${m.risk}. Verification: ${m.verification_available ? "yes" : "no"}.`),
-        Object.entries(m.parameters || {}).map(([k, desc]) => {
+        Object.entries(m.parameters || {}).flatMap(([k, desc]) => {
           const id = `mod-${m.id}-${k}`;
           inputs[k].id = id;
           return [el("label", { for: id }, k, el("span", { class: "muted" }, ` — ${desc}`)), inputs[k]];
