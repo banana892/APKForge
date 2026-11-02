@@ -121,10 +121,14 @@ class MorpheAdapter(ExternalProcessAdapter):
     inherit_environment: ClassVar[tuple[str, ...]] = ("ANDROID_HOME", "ANDROID_SDK_ROOT")
 
     def capabilities(self) -> tuple[ModKitCapability, ...]:
-        # Verified live: a "Clone app" run actually changed the manifest package
-        # name (apkforge/modkit/morphe docs; the H.8.3 live test). Morphe patches
-        # can touch dex/resources too, but only this much has been exercised.
+        # All verified live against morphe-patches v2.0.0 (docs/modkits.md, "Verified
+        # capabilities"): "Clone app" changed the manifest package; "Spoof signature"
+        # and "Disable Play Store updates" modified existing dex classes and added
+        # new ones; "Override certificate pinning" rewrote AntennaPod's
+        # network_security_config XML resource.
         return (
+            ModKitCapability.DEX_TRANSFORMATION,
+            ModKitCapability.RESOURCE_TRANSFORMATION,
             ModKitCapability.MANIFEST_TRANSFORMATION,
             ModKitCapability.APK_TRANSFORMATION,
             ModKitCapability.PATCH_SELECTION,
@@ -137,6 +141,8 @@ class MorpheAdapter(ExternalProcessAdapter):
                 id=PATCH_OPERATION_ID,
                 description="Apply selected patches from a Morphe patch bundle.",
                 capabilities=(
+                    ModKitCapability.DEX_TRANSFORMATION,
+                    ModKitCapability.RESOURCE_TRANSFORMATION,
                     ModKitCapability.MANIFEST_TRANSFORMATION,
                     ModKitCapability.APK_TRANSFORMATION,
                     ModKitCapability.PATCH_SELECTION,

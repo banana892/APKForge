@@ -581,9 +581,9 @@ bundle: the first `Index: 0` line of a run comes out as `INFO: Index: 0` because
 last startup log line never gets its own trailing newline.
 
 H.8.3 adds the `patch` operation itself, so `capabilities()` now declares
-`MANIFEST_TRANSFORMATION`, `APK_TRANSFORMATION`, `PATCH_SELECTION` and `MULTI_PATCH`
-(verified: a live "Clone app" run changed the package name in the manifest;
-`MANIFEST_TRANSFORMATION` was only declared later, from that same evidence) and `operations()` declares one `OperationSpec`
+`APK_TRANSFORMATION`, `PATCH_SELECTION` and `MULTI_PATCH`, plus (declared later, each only
+after live evidence; see "Verified capabilities" below) `MANIFEST_TRANSFORMATION`,
+`DEX_TRANSFORMATION` and `RESOURCE_TRANSFORMATION`, and `operations()` declares one `OperationSpec`
 (`id="patch"`) with parameters `patches` (required), `enable`/`disable` (comma-separated
 patch names), `exclusive`, `force`, `prerelease`, (H.8.4) `keystore`,
 `keystore_entry_alias`, `keystore_entry_password`, `keystore_password`, (H.8.5)
@@ -662,6 +662,27 @@ real `MorpheApp/morphe-patches` v2.0.0 bundle (e.g. `Clone app`'s `packageName`/
 `updatePermissions`/`updateProviders`, `Custom branding`'s multi-line `appIcon`
 description with its `possible_values` list) and that a trailing `Compatible packages:`
 section after `Options:` still parses correctly.
+
+### Verified capabilities
+
+Every declared capability was observed through APKForge's own Phase E diff (`DiffEngine` +
+`observe()`) of a real Morphe 1.20.0 run with `morphe-patches` v2.0.0, never assumed from
+a patch's description:
+
+| Capability | Patch / APK | Evidence |
+|---|---|---|
+| `MANIFEST_TRANSFORMATION` | `Clone app` / OpenLink | package `de.audioattack.openlink` → `com.example.*` |
+| `DEX_TRANSFORMATION` | `Spoof signature` / OpenLink | `dex_class` modified ×4 (existing app classes), added `app.morphe.extension.signature.SignatureSpoof`, new `classes2.dex` |
+| `DEX_TRANSFORMATION` | `Disable Play Store updates` / OpenLink | `dex_class` modified ×2, added ×3 (`app.morphe.extension.all.versioncode.*`), `version_code` changed |
+| `RESOURCE_TRANSFORMATION` | `Override certificate pinning` / AntennaPod | `res/8G.xml` (obfuscated `network_security_config`) content modified: `overridePins="true"` on the user trust anchor and a new `<debug-overrides>` element (`aapt dump xmltree`) |
+
+DiffEngine reports the resource change only at file level (content hash of the XML entry),
+not as a semantic resource change; the `aapt` dump is what shows the content. `Override
+certificate pinning` **fails** on an APK without an existing
+`res/xml/network_security_config.xml` (OpenLink: `FileNotFoundException` inside Morphe), a
+Morphe-side limitation surfaced as `EXECUTION_FAILED`. `Change installer source` on OpenLink
+produced only container-level changes (`AndroidManifest.xml`, `resources.arsc`) with no
+semantic observation, so it is not used as evidence for anything.
 
 The H.7 framework needed no changes for H.8.1 through H.8.8: `MorpheAdapter` is
 ordinary third-party-facing code behind the same contract, plus (for H.8.2) one method
