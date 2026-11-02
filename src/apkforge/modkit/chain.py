@@ -11,7 +11,9 @@ trust: a step only ever sees an APK the previous step's independent validation a
   output directory; only the final APK is published there (same no-overwrite rule).
   Step workspaces follow the normal retention rules and ``chain-result.json`` is always
   written there; intermediate APKs are deleted after a successful chain unless kept.
-- Conflicts between steps are not examined here (H.10).
+- With ``check_conflicts``, each changing step is diffed (input -> output) and
+  repeated changes across steps are reported (H.10, :mod:`apkforge.modkit.conflicts`).
+  Conflicts never change the chain's status.
 
 Pipeline file (TOML, or JSON with the same shape)::
 
@@ -30,10 +32,12 @@ from __future__ import annotations
 import json
 import tomllib
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from pydantic import Field, ValidationError
 
+from apkforge.core.models import AnalysisStatus
+from apkforge.modkit.conflicts import ChainConflict, ConflictStatus, find_conflicts
 from apkforge.modkit.executor import ModKitExecutor
 from apkforge.modkit.models import (
     SCHEMA_VERSION,
@@ -47,6 +51,7 @@ from apkforge.modkit.models import (
 from apkforge.modkit.workspace import new_execution_id, sha256_file
 
 if TYPE_CHECKING:
+    from apkforge.diff.engine import DiffEngine
     from apkforge.modkit.manager import ModKitManager
 
 __all__ = [
@@ -103,6 +108,11 @@ class ModKitChainResult(_Frozen):
     original_unchanged: bool | None = None
     chain_dir: str | None = None
     intermediates_retained: bool = False
+    #: H.10: reported only; never changes ``status``.
+    conflict_status: ConflictStatus = ConflictStatus.NOT_CHECKED
+    conflicts: tuple[ChainConflict, ...] = ()
+    #: Steps whose diff was not COMPLETE (their conflicts may be missing).
+    conflict_gaps: tuple[str, ...] = ()
 
     @property
     def succeeded(self) -> bool:
@@ -113,8 +123,35 @@ class ModKitChainResult(_Frozen):
 
 
 class ModKitChainRunner:
-    def __init__(self, manager: ModKitManager) -> None:
+    def __init__(self, manager: ModKitManager, *, diff_engine: DiffEngine | None = None) -> None:
         self.manager = manager
+        self._engine = diff_engine
+
+    def _conflicts(self, results: list[ModKitExecutionResult]) -> dict[str, Any]:
+        from apkforge.diff.expectations import observe
+
+        if self._engine is None:
+            from apkforge.diff.engine import DiffEngine
+
+            self._engine = DiffEngine()
+        changes, gaps = [], []
+        for i, res in enumerate(results):
+            if res.published is None or res.original is None:
+                continue  # NO_OP step: changed nothing
+            diff = self._engine.diff(Path(res.original.path), Path(res.published.path))
+            if diff.status != AnalysisStatus.COMPLETE:
+                why = "; ".join([*diff.errors, *diff.warnings][:2])
+                gaps.append(f"step {i}: diff {diff.status}" + (f" ({why})" if why else ""))
+            changes.append((i, observe(diff)))
+        conflicts = find_conflicts(changes)
+        if gaps:
+            status = ConflictStatus.INCOMPLETE
+        elif any(not c.container for c in conflicts):
+            status = ConflictStatus.CONFLICTS
+        else:
+            status = ConflictStatus.CONTAINER_ONLY if conflicts else ConflictStatus.NONE
+        return {"conflict_status": status, "conflicts": tuple(conflicts),
+                "conflict_gaps": tuple(gaps)}  # fmt: skip
 
     def run(
         self,
@@ -125,6 +162,7 @@ class ModKitChainRunner:
         output_name: str | None = None,
         workspace_base: Path | None = None,
         keep_workspace: bool = False,
+        check_conflicts: bool = False,
     ) -> ModKitChainResult:
         chain_id = new_execution_id().replace("mk-", "chain-", 1)
         original = input_apk.resolve()
@@ -197,6 +235,8 @@ class ModKitChainRunner:
         if not unchanged:
             status, failure = R.EXECUTION_FAILED, FailureCategory.ORIGINAL_MUTATED
             reason = "the original APK changed during the chain"
+        # Needs the intermediates, so before they are deleted.
+        conflict_fields = self._conflicts(results) if check_conflicts and published else {}
         # Intermediate APKs are only evidence for a failed chain or an explicit keep.
         retained = keep_workspace or status not in (R.SUCCESS, R.NO_OP)
         if not retained:
@@ -214,6 +254,7 @@ class ModKitChainRunner:
             original_unchanged=unchanged,
             chain_dir=str(chain_dir),
             intermediates_retained=retained,
+            **conflict_fields,
         )
         (chain_dir / "chain-result.json").write_text(result.to_json() + "\n", encoding="utf-8")
         return result

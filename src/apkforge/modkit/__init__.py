@@ -9,7 +9,8 @@ and H.4 verification infrastructure. The ModKit only transforms.
 
 No third-party ModKit is bundled; H.7 ships only the generic framework and the
 deterministic reference ``test-modkit``. H.9 adds sequential chains
-(:mod:`apkforge.modkit.chain`). See ``docs/modkits.md``.
+(:mod:`apkforge.modkit.chain`), H.10 conflict reporting between chain steps
+(:mod:`apkforge.modkit.conflicts`). See ``docs/modkits.md``.
 """
 
 from __future__ import annotations
@@ -34,6 +35,7 @@ from apkforge.modkit.config import (
     load_modkit_config,
     parse_modkit_config,
 )
+from apkforge.modkit.conflicts import ChainConflict, ConflictStatus, find_conflicts
 from apkforge.modkit.contract import ExecutionContext, ExternalProcessAdapter, ModKitAdapter
 from apkforge.modkit.executor import ModKitExecutor
 from apkforge.modkit.manager import ModKitManager, contract_problems, default_manager
@@ -67,11 +69,13 @@ __all__ = [
     "ArtifactRecord",
     "AvailabilityReport",
     "AvailabilityStatus",
+    "ChainConflict",
     "ChainSpec",
     "ChainStep",
     "CommandRecord",
     "CommandSpec",
     "ConfigIssue",
+    "ConflictStatus",
     "ExecutionContext",
     "ExecutionOutcome",
     "ExecutionRequest",
@@ -106,6 +110,7 @@ __all__ = [
     "compare_findings",
     "contract_problems",
     "default_manager",
+    "find_conflicts",
     "load_chain_spec",
     "load_modkit_config",
     "parse_modkit_config",

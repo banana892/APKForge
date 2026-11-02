@@ -455,8 +455,37 @@ Verified live: Morphe `Clone app` (`packageName=com.example.chained`) → Morphe
 `Disable Play Store updates` → `test-modkit` marker on OpenLink produced one APK with all
 three changes (package renamed, `versionCode` 2147483647, marker asset).
 
-Chains do not examine whether steps conflict (for example a later step undoing an earlier
-one); that is H.10.
+### Conflict reporting (H.10)
+
+`--check-conflicts` (`ModKitChainRunner.run(..., check_conflicts=True)`,
+`apkforge.modkit.conflicts`) diffs every step that changed the APK (step input → step
+output, Phase E `DiffEngine`) and flattens each diff with Phase E's `observe()`. No new
+comparison logic. Two or more steps changing the same `(category, identifier)` is a
+`ChainConflict`:
+
+- `reverted`: the last step puts back the first step's *before* state: content hash or
+  `before`/`after` value equal, or presence for identifier-only observations (added then
+  removed, removed then re-added).
+- `overlap`: any other repeated change. Observations without a comparable state (for
+  example component attribute changes, `dex_class modified`) can only ever be `overlap`.
+- `container=True`: `classesN.dex`, `resources.arsc`, `AndroidManifest.xml`, signature
+  files and the signing certificate. Nearly every patch rewrites these, so their overlap is
+  expected; the semantic categories are where a real collision shows.
+
+`conflict_status`: `NOT_CHECKED` (default), `NONE`, `CONTAINER_ONLY`, `CONFLICTS`, or
+`INCOMPLETE` when any step's diff was not COMPLETE (`conflict_gaps` says which and
+DiffEngine's reason). Conflicts are **reported, never resolved, and never change the chain's
+status or exit code**. One DiffEngine pass per changing step (~3 s each on OpenLink), hence
+opt-in.
+
+Verified live on OpenLink: Morphe `Clone app` → `com.example.one`, then `Clone app` back to
+`de.audioattack.openlink`, then `test-modkit`: `identity/package_name` and the renamed
+`DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` (`uses_permission` and `manifest_element`) were
+`reverted`, `androidx.startup.InitializationProvider` an `overlap`, and
+`AndroidManifest.xml`/`resources.arsc` container overlaps. Step 2 was `INCOMPLETE`: Morphe's
+`--unsigned` output keeps a stale signing block and test-modkit's rewrite drops it, so
+DiffEngine could extract no certificate on the after side (DiffEngine's own judgement,
+surfaced, not hidden).
 
 ## Security boundary
 

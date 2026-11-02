@@ -4120,11 +4120,16 @@ def cmd_modkit_chain(
     keep_workspace: bool = typer.Option(
         False, "--keep-workspace", help="Keep every step's workspace and intermediate APK."
     ),
+    check_conflicts: bool = typer.Option(
+        False,
+        "--check-conflicts",
+        help="Diff every step and report changes more than one step made (H.10; slower).",
+    ),
     json_output: bool = typer.Option(False, "--json", help="Print the result as JSON."),
     report_file: Path | None = typer.Option(None, "--report", help="Write the JSON result here."),
     config: Path | None = typer.Option(None, "--config", help=_MODKIT_CONFIG_HELP),
 ) -> None:
-    """[green]⚡ Phase H.9[/green] — Run ModKit operations in sequence, each step's
+    """[green]⚡ Phase H.9/H.10[/green] — Run ModKit operations in sequence, each step's
     validated output feeding the next."""
     from apkforge.modkit import ModKitChainRunner, default_manager, load_chain_spec
 
@@ -4134,8 +4139,9 @@ def cmd_modkit_chain(
         _console.print(f"[red]{exc}[/red]")
         raise typer.Exit(code=2) from exc
     result = ModKitChainRunner(default_manager(config)).run(
-        spec, apk, output_dir, workspace_base=work_dir, keep_workspace=keep_workspace
-    )
+        spec, apk, output_dir, workspace_base=work_dir, keep_workspace=keep_workspace,
+        check_conflicts=check_conflicts,
+    )  # fmt: skip
     text = result.to_json()
     if report_file is not None:
         report_file.parent.mkdir(parents=True, exist_ok=True)
@@ -4168,6 +4174,19 @@ def cmd_modkit_chain(
         _console.print(
             Panel("\n".join(lines), title="ModKit chain", border_style=color), highlight=False
         )
+        if result.conflicts:
+            ct = Table(title=f"Conflicts ({result.conflict_status})", border_style="yellow")
+            for col in ("CATEGORY", "IDENTIFIER", "KIND", "STEPS", "CONTAINER"):
+                ct.add_column(col, overflow="fold")
+            for c in result.conflicts:
+                ct.add_row(c.category, c.identifier, str(c.kind),
+                           " → ".join(f"{s}:{k}" for s, k in zip(c.steps, c.changes, strict=True)),
+                           "yes" if c.container else "")  # fmt: skip
+            _console.print(ct)
+        elif check_conflicts:
+            _console.print(f"Conflicts: {result.conflict_status}")
+        for gap in result.conflict_gaps:
+            _console.print(f"[yellow]Conflict check incomplete: {gap}[/yellow]")
     raise typer.Exit(code=_MODKIT_EXIT.get(str(result.status), 1))
 
 
