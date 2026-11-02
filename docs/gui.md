@@ -15,9 +15,9 @@ The command prints a URL like `http://127.0.0.1:PORT/#token=…`. Stop it with C
 
 | Tab | Does | Same as |
 |---|---|---|
-| Analyze | Inspection + privacy + security of one APK; findings sorted by severity | `apkforge analyze` (`apkforge.analysis.full.run_full_analysis`) |
+| Analyze | Inspection + privacy + security of one APK; findings sorted by severity. "Open in Remediate" lists the same APK's remediable privacy findings (per APK: security findings do not name the privacy findings remediations act on) | `apkforge analyze` (`apkforge.analysis.full.run_full_analysis`) |
 | Diff | Phase E semantic diff of two APKs: summary counters and the flat observation list, filterable | `apkforge diff` (`DiffEngine` + `observe()`) |
-| ModKits | Discovered ModKits with status/capabilities; run one operation with a form built from its `ParameterSpec`s (choices → dropdown, `sensitive` → password field). For Morphe, "List patches in this bundle" shows every patch (filterable, with compatibility and option keys); ticking patches fills `enable` | `apkforge modkits`, `apkforge modkit run`, `apkforge modkit patches` |
+| ModKits | Discovered ModKits with status/capabilities; run one operation with a form built from its `ParameterSpec`s (choices → dropdown, `sensitive` → password field). For Morphe, "List patches in this bundle" shows every patch (filterable, with compatibility and option keys); ticking patches shows a field per option key of the ticked patches (Boolean → true/false, possible values as suggestions, required marked, current `options` prefilled); "Use selected" fills `enable` and `options` | `apkforge modkits`, `apkforge modkit run`, `apkforge modkit patches` |
 | Chain | Build a ModKit chain step by step (add, remove, reorder; per-step parameter form), or edit the same steps as JSON; optional conflict check | `apkforge modkit chain` (H.9/H.10) |
 | Plan (9.2) | Analysis-driven modification suggestions (risk, target, reason), optionally with diff evidence from the original; read-only | `apkforge plan APK [--diff ORIGINAL]` |
 | Modify (9.2) | Phase D modifiers with their parameters: dry run (plan, preconditions, conflicts), then Apply (decode → modify → rebuild → sign → verify) | `apkforge modify APK --modifier ID --param ID:K=V --dry-run`, then without |
@@ -136,8 +136,9 @@ Anyone who has the URL (with its token) can use the workbench as you until it st
   `--param`; `--report` files (use Download JSON)
 - the standalone `privacy`/`security` reports and `analyze --report` exports; Analyze shows
   the unified result, and the job JSON is the only export
-- patch *options* are listed (keys and defaults) but not edited in a form: type them into
-  the `options` field as comma-separated `key=value`
+- patch option values cannot contain a comma (the Morphe `options` parameter is
+  comma-separated; the form refuses them), and one value per key applies to every
+  selected patch with that key (Morphe's `-O key=value`); list-typed options are plain text
 - `diff --baseline` (normalized diff) and `--security` (security-relevant diff)
 - `modkit run --analyze` post-analysis
 
@@ -188,8 +189,13 @@ Anyone who has the URL (with its token) can use the workbench as you until it st
   the page's handoffs (`tests/integration/test_gui_browser.py`, Playwright: modifier
   parameter fields, References → Transform with the `#2` call-site target, invalid declared
   changes not sent, Modify → Verify output with its declared changes and planned entries).
-  The browser tests skip without Playwright's Chromium or an installed Google Chrome. Other
-  flows (Analyze, Diff, ModKits, Chain, Remediate, Build) have no browser tests.
+  9.4 adds Analyze (severity order) → Open in Remediate → plan → apply, Diff (observations
+  and filter), a ModKit run (parameter form, secret field, Download APK), the chain JSON
+  round trip and run, Build check → no-op rebuild, and the patch options form (shared
+  keys, presets, required and comma checks, hand-typed options kept). Analyze, Diff and
+  the test ModKit run for real; remediation and the build toolchain are stubbed. The
+  Plan tab and the ModKits list have no browser tests. The browser tests skip without
+  Playwright's Chromium or an installed Google Chrome.
 - Checked by hand in Chrome: Analyze (OpenLink), the ModKits tab, Morphe patch listing
   (194 patches from the 2.0.0 bundle, select → `enable`), upload, the chain step form and
   JSON round trip, cancelling a running chain, and the Jobs tab. 9.2 on OpenLink:
@@ -207,8 +213,12 @@ Anyone who has the URL (with its token) can use the workbench as you until it st
   changes, nothing unexpected). 9.3 with the real CLI (`--jobs-dir`): Build check →
   no-op rebuild apply on OpenLink → ticket download (245 919 bytes, same SHA-256 as the
   output) → restart → both jobs listed with results, "Download APK" shown and working,
-  re-applying the old preview refused (409). The Diff tab was exercised through the API
-  only.
+  re-applying the old preview refused (409). 9.4: Morphe 2.0.0 bundle (194 patches, 13
+  with options) → "Clone app" with `packageName=com.example.openlink.clone`,
+  `updateProviders=false` from the form → Morphe SUCCESS, output package
+  `com.example.openlink.clone`; Analyze OpenLink → Open in Remediate → 2 privacy findings
+  (G-REM-001/002/003 offered). The Diff tab was exercised through the API and the browser
+  tests only.
 - Tested in Chrome only; other browsers are untested. No accessibility audit was done
   beyond semantic HTML, labelled inputs and tab roles.
 - The FastAPI test client logs a deprecation warning (Starlette is moving from `httpx` to
