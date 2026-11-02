@@ -9,6 +9,8 @@ discovery and compatibility checking. H.8.2 adds read-only patch bundle discover
 (`apkforge modkit run morphe ... --operation patch -p patches=...`): patch selection and
 execution through the normal adapter contract. H.8.4 adds optional keystore-based signing
 to that same operation. H.8.5 adds per-patch option pass-through (`-O key=value`).
+H.8.6 adds `--with-options` to `apkforge modkit patches` so those per-patch option
+keys/types/defaults can be discovered without running Morphe's own CLI directly.
 APKForge never bundles or downloads Morphe; see "Morphe (H.8)" below.
 
 The rule behind every design decision is that **APKForge owns the lifecycle**. A ModKit is a
@@ -479,7 +481,7 @@ H.8.1 implements discovery and compatibility only:
 - `capabilities()` and `operations()` are both empty — nothing is verified yet, so the
   framework can never call `build_command`/`execute`/`collect_output` for it
 
-H.8.2 (current) adds `MorpheAdapter.list_patches(patches, *, package=None, prerelease=False,
+H.8.2 adds `MorpheAdapter.list_patches(patches, *, package=None, prerelease=False,
 timeout=None)`, a read-only query of a patch bundle's contents via Morphe's own
 `list-patches --with-packages --with-versions`. It runs directly (own subprocess call,
 own timeout, scrubbed `HOME`/`TMPDIR`) rather than through the operation contract: it
@@ -497,7 +499,7 @@ adapter parses the real text format — including one real quirk, verified again
 bundle: the first `Index: 0` line of a run comes out as `INFO: Index: 0` because Morphe's
 last startup log line never gets its own trailing newline.
 
-H.8.3 (current) adds the `patch` operation itself, so `capabilities()` now declares
+H.8.3 adds the `patch` operation itself, so `capabilities()` now declares
 `APK_TRANSFORMATION`, `PATCH_SELECTION` and `MULTI_PATCH` (verified: a live "Clone app" run
 changed the package name in the manifest) and `operations()` declares one `OperationSpec`
 (`id="patch"`) with parameters `patches` (required), `enable`/`disable` (comma-separated
@@ -528,7 +530,28 @@ write outside the workspace" rule. `collect_output` declares `patched.apk` as th
 output if Morphe produced it; `result.json`'s `appliedPatches`/`failedPatches` are read
 (size-limited, never trusted) only to add informational notes — pass/fail always comes
 from APKForge's own independent validation of the output file, exactly like `test-modkit`.
-The H.7 framework needed no changes for H.8.1 through H.8.5: `MorpheAdapter` is
+
+H.8.6 (current) adds `with_options` to `list_patches` (and `--with-options` to the CLI
+command), appending Morphe's own `--with-options` flag and parsing each patch's
+`Options:` sub-section into `PatchInfo.options: tuple[PatchOption, ...]` (`key`, `title`,
+`description`, `required`, `default`, `type`, `possible_values`) — closing the gap H.8.5
+left open (option keys were previously only discoverable by running Morphe's own CLI
+directly). Unlike every other field here, an option's `Description` is **not** parsed
+line-by-line: it is genuinely multi-line free text straight from the patch's own source,
+with arbitrary/inconsistent indentation (including lines with no leading whitespace at
+all, mid-description) — verified against the real bundle's `Custom branding`/
+`Change header` patches. Every other option field (`Title`/`Required`/`Key`/`Default`/
+`Possible values`/`Type`) is reliably single-line and in a fixed order, so each option is
+instead parsed by locating those fixed anchor lines and slicing the raw text between them
+for `Description` (bounded by `Description:`/`Required:`) and `Possible values` (bounded
+by its own header and `Type:`) — the same reason the parser locates fields this way
+rather than by indentation, extended one level deeper. Verified end-to-end against the
+real `MorpheApp/morphe-patches` v2.0.0 bundle (e.g. `Clone app`'s `packageName`/
+`updatePermissions`/`updateProviders`, `Custom branding`'s multi-line `appIcon`
+description with its `possible_values` list) and that a trailing `Compatible packages:`
+section after `Options:` still parses correctly.
+
+The H.7 framework needed no changes for H.8.1 through H.8.6: `MorpheAdapter` is
 ordinary third-party-facing code behind the same contract, plus (for H.8.2) one method
 the contract doesn't require.
 

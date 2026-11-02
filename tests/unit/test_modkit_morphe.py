@@ -44,6 +44,27 @@ Compatible packages:
 \t\t1.0.0
 """
 
+_FAKE_PATCH_LIST_WITH_OPTIONS = """\
+INFO: Index: 0
+Name: Clone app
+Description: Universal patch.
+Enabled: false
+Options:
+\tTitle: packageName
+\tRequired: true
+\tKey: packageName
+\tType: String
+
+Index: 1
+Name: Hide ads
+Description: Package-specific patch.
+Enabled: true
+Compatible packages:
+\tPackage name: com.example.app
+\tCompatible versions:
+\t\t1.0.0
+"""
+
 _FAKE_JAVA = """\
 #!/usr/bin/env python3
 import sys
@@ -57,7 +78,8 @@ elif len(args) >= 3 and args[0] == "-jar" and args[2] == "list-patches":
     if "missing" in bundle:
         print(f"{{bundle}} can not be found", file=sys.stderr)
         sys.exit(2)
-    print({fake_patch_list!r}, end="")
+    text = {fake_patch_list_with_options!r} if "--with-options" in args else {fake_patch_list!r}
+    print(text, end="")
 elif len(args) >= 3 and args[0] == "-jar" and args[2] == "patch":
     import json
     import zipfile
@@ -100,6 +122,7 @@ def _fake_java(tmp_path: Path, *, java_version: int = 21, morphe_version: str = 
             java_version=java_version,
             morphe_version=morphe_version,
             fake_patch_list=_FAKE_PATCH_LIST,
+            fake_patch_list_with_options=_FAKE_PATCH_LIST_WITH_OPTIONS,
         )
     )
     p.chmod(p.stat().st_mode | stat.S_IEXEC)
@@ -207,6 +230,30 @@ def test_list_patches_parses_fake_cli_output(tmp_path: Path) -> None:
     assert [p.name for p in listing.patches] == ["Clone app", "Hide ads"]
     assert listing.patches[0].compatible == ()
     assert listing.patches[1].compatible[0].package == "com.example.app"
+
+
+def test_list_patches_with_options_requests_and_parses_option_metadata(
+    tmp_path: Path,
+) -> None:
+    java = _fake_java(tmp_path)
+    cfg = _config(tmp_path, _jar(tmp_path), options={"java_executable": str(java)})
+    listing, err = MorpheAdapter(cfg).list_patches(str(tmp_path / "bundle.mpp"), with_options=True)
+    assert err == ""
+    assert listing is not None
+    clone_app = listing.patches[0]
+    assert len(clone_app.options) == 1
+    assert clone_app.options[0].key == "packageName"
+    assert clone_app.options[0].required is True
+    assert clone_app.options[0].type == "String"
+
+
+def test_list_patches_without_with_options_has_no_option_metadata(tmp_path: Path) -> None:
+    java = _fake_java(tmp_path)
+    cfg = _config(tmp_path, _jar(tmp_path), options={"java_executable": str(java)})
+    listing, err = MorpheAdapter(cfg).list_patches(str(tmp_path / "bundle.mpp"))
+    assert err == ""
+    assert listing is not None
+    assert all(p.options == () for p in listing.patches)
 
 
 def test_list_patches_without_executable_configured() -> None:

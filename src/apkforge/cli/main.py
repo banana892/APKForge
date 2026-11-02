@@ -3925,11 +3925,14 @@ def cmd_modkit_patches(
     prerelease: bool = typer.Option(
         False, "--prerelease", help="Fetch the latest dev pre-release instead of stable."
     ),
+    with_options: bool = typer.Option(
+        False, "--with-options", help="Also list each patch's configurable option keys."
+    ),
     timeout: int | None = typer.Option(None, "--timeout", min=1, help="Timeout in seconds."),
     json_output: bool = typer.Option(False, "--json", help="Print the listing as JSON."),
     config: Path | None = typer.Option(None, "--config", help=_MODKIT_CONFIG_HELP),
 ) -> None:
-    """[green]⚡ Phase H.8.2[/green] — List the patches in a ModKit's patch bundle.
+    """[green]⚡ Phase H.8.2/H.8.6[/green] — List the patches in a ModKit's patch bundle.
 
     Read-only discovery, outside the operation contract: works even though
     ``apkforge modkit run MODKIT_ID ...`` has no operations to run yet.
@@ -3956,8 +3959,9 @@ def cmd_modkit_patches(
             _console.print(f"[red]{reason}[/red]")
         raise typer.Exit(code=2)
     listing, err = adapter.list_patches(
-        patches, package=package, prerelease=prerelease, timeout=timeout
-    )
+        patches, package=package, prerelease=prerelease, with_options=with_options,
+        timeout=timeout,
+    )  # fmt: skip
     if listing is None:
         if json_output:
             typer.echo(json.dumps({"modkit_id": modkit_id, "error": err}, indent=2))
@@ -3974,13 +3978,23 @@ def cmd_modkit_patches(
     table.add_column("NAME", style="bold")
     table.add_column("ENABLED")
     table.add_column("COMPATIBLE WITH")
+    if with_options:
+        table.add_column("OPTIONS")
     for p in listing.patches:
         compat = (
             ", ".join(c.package for c in p.compatible) if p.compatible else "[dim]any app[/dim]"
         )
-        table.add_row(
+        row = [
             str(p.index), p.name, "[green]yes[/green]" if p.enabled else "[dim]no[/dim]", compat
-        )
+        ]  # fmt: skip
+        if with_options:
+            opts = (
+                ", ".join(f"{o.key}*" if o.required else o.key for o in p.options)
+                if p.options
+                else "[dim]none[/dim]"
+            )
+            row.append(opts)
+        table.add_row(*row)
     _console.print(table)
     _console.print(f"[dim]{len(listing.patches)} patch(es) from {listing.source}[/dim]")
 

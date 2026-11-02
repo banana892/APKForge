@@ -1,6 +1,7 @@
 """Adapter for Morphe Desktop (H.8.1: discovery/compatibility; H.8.2: patch bundle
 discovery; H.8.3: patch selection and execution; H.8.4: keystore-based signing;
-H.8.5: per-patch option pass-through).
+H.8.5: per-patch option pass-through; H.8.6: surfacing per-patch option metadata
+in :meth:`MorpheAdapter.list_patches`).
 
 Morphe Desktop (https://github.com/MorpheApp/morphe-desktop) ships as a JAR run with
 ``java -jar morphe-desktop.jar ...``; APKForge never bundles or downloads it, the user
@@ -16,8 +17,10 @@ as any other adapter. H.8.4 adds the ``keystore``/``keystore_entry_alias``/
 Morphe signs the output itself instead of ``--unsigned``; APKForge still never treats
 that signature as final (see :meth:`collect_output`). H.8.5 adds the ``options``
 parameter: comma-separated ``key=value`` pairs passed through to Morphe's own
-``-O key=value`` (one per pair; option keys are per-patch, discovered via Morphe's own
-``list-patches --with-options``).
+``-O key=value`` (one per pair; option keys are per-patch). H.8.6 adds
+``with_options`` to :meth:`list_patches` (``list-patches --with-options``) so those
+per-patch option keys/types/defaults can actually be discovered through APKForge
+instead of only by running Morphe's own CLI directly.
 """
 
 from __future__ import annotations
@@ -382,6 +385,7 @@ class MorpheAdapter(ExternalProcessAdapter):
         *,
         package: str | None = None,
         prerelease: bool = False,
+        with_options: bool = False,
         timeout: float | None = None,
     ) -> tuple[PatchBundleListing | None, str]:
         """Query the patches in *patches* (a local ``.mpp`` path or a GitHub/GitLab
@@ -405,6 +409,8 @@ class MorpheAdapter(ExternalProcessAdapter):
             argv += ["--filter-package-name", package]
         if prerelease:
             argv.append("--prerelease")
+        if with_options:
+            argv.append("--with-options")
         env = {k: os.environ[k] for k in (*INHERITED_ENVIRONMENT, *self.inherit_environment)
                if k in os.environ}  # fmt: skip
         if self.config is not None:
