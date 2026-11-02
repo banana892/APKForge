@@ -50,11 +50,63 @@ structure.
 
 Anyone who has the URL (with its token) can use the workbench as you until it stops.
 
-## Not in 9.1
+## Limits (9.1)
 
-Modification (`modify`/`plan`), remediation, H.2–H.4 transformations, `build`/`verify`,
-`references`, uploads, and persistent job history. Each of those changes files or needs an
-approval flow of its own, so they are later Phase 9 stages.
+**Scope: not in the GUI yet** (CLI only). Each of these changes files or needs an approval
+flow of its own, so they are later Phase 9 stages:
+
+- modification planning and applying (`plan`, `modify`), remediation (`remediate`)
+- H.2–H.4 transformations (`transform`, `verify`), `build`, `references`
+- `modkit patches` (patch bundle listing): to find Morphe patch names and option keys,
+  use the CLI; the run form only shows the operation's parameters
+- the standalone `privacy`/`security` reports and `analyze --report` exports; Analyze shows
+  the unified result, and "Raw JSON" is the only export
+- `diff --baseline` (normalized diff) and `--security` (security-relevant diff)
+- `modkit run --analyze` post-analysis
+
+**Input and output**
+
+- APKs are chosen by typing an **absolute path**; there is no file picker or upload
+  (a browser cannot hand a server a local path).
+- ModKit/chain output directories are typed too; the final APK is published there and the
+  page shows its path, it does not offer a download.
+- Chain steps are entered as a raw JSON array, with no form or validation until submit.
+- The Diff tab returns the summary and the flat observation list, not the full
+  `DiffResult` (use `apkforge diff --json`).
+
+**Jobs**
+
+- In memory only: restarting `apkforge gui` forgets every job and result.
+- At most two jobs run at once; more are queued. The last 200 jobs are kept.
+- No cancel: a submitted job runs to the end (a ModKit job still honours its own timeout).
+- The page polls once a second; there is no progress bar inside a job.
+- Results are held whole in memory and sent whole to the browser; an analysis with very
+  many findings can make the page slow.
+- `run_full_analysis`/`DiffEngine` workspaces are cleaned up the same way as on the CLI
+  (DiffEngine currently leaves its workspaces in the temp directory, as it does there).
+
+**Access and security**
+
+- Single user, single machine. Anyone with the URL (including its token) can use the
+  workbench as you until it stops; there are no accounts or roles.
+- The token is per launch and never expires while the server runs; it lives in the tab's
+  `sessionStorage`, so a new tab needs the original URL again.
+- Not reachable from other machines by design (no `--host` option, no TLS).
+- No OS-level sandbox, exactly as for the CLI: ModKits run with your privileges (see
+  `docs/modkits.md`, "Security boundary").
+- Only credential-*named* ModKit parameters are masked in the job list; a secret passed under
+  an ordinary name is shown as typed (results still carry the ModKit framework's masking).
+
+**Verification**
+
+- Automated tests cover the API (`tests/unit/test_gui.py`); the JavaScript is only
+  syntax-checked (`node --check`) and has no automated UI tests.
+- Checked by hand in Chrome: Analyze (OpenLink) and the ModKits tab. The Diff, Chain and Jobs
+  tabs were exercised through the API only.
+- Tested in Chrome only; other browsers are untested. No accessibility audit was done
+  beyond semantic HTML, labelled inputs and tab roles.
+- The FastAPI test client logs a deprecation warning (Starlette is moving from `httpx` to
+  `httpx2`).
 
 ## Code
 
