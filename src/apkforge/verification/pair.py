@@ -111,11 +111,14 @@ def verify_pair(
     expected_signer: str | None = None,
     build_toolchain: ToolchainIdentity | None = None,
     diff_engine: DiffEngine | None = None,
+    planned_entries: set[str] | None = None,
 ) -> tuple[VerificationReport, DiffResult | None]:
     """Verify *modified* against *original*: structure, signature, diff, matrix.
 
     *build_toolchain* is the toolchain that built *modified*, if known; when ``None``
     a content-aware baseline is applied with ``TOOLCHAIN_UNKNOWN`` semantics.
+    *planned_entries* are archive entries rebuilt from edited sources (see
+    ``archive_entries_for``), accepted when their semantic changes are expected.
     """
     from apkforge.diff.engine import DiffEngine
 
@@ -134,7 +137,8 @@ def verify_pair(
     if structural.status == "passed" and original_ok.status == "passed":
         diff = (diff_engine or DiffEngine()).diff(original, modified)
         check = check_baseline(baseline, diff.apk_a.sha256 or "", build_toolchain)
-        verdict = classify(diff, expected, baseline, check, expected_signer=expected_signer)
+        verdict = classify(diff, expected, baseline, check, planned_entries=planned_entries,
+                           expected_signer=expected_signer)  # fmt: skip
         security = build_security_diff(diff, verdict)
     matrix = build_matrix(
         structural=structural,
