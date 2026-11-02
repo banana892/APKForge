@@ -498,7 +498,7 @@ def test_verify_passes_declared_changes(
     assert unmapped.status_code == 422 and "apktool.yml" in unmapped.text
 
 
-# -- 9.3: persistent jobs --------------------------------------------------------------
+# -- 9.3: persistent jobs, APK download ---------------------------------------------------
 
 
 def _done(jobs: Any, kind: str, summary: dict[str, Any], result: Any) -> Any:
@@ -538,6 +538,41 @@ def test_jobs_survive_a_restart(tmp_path: Path, monkeypatch: pytest.MonkeyPatch)
     assert second.get(done.id) is None and not (store / f"{done.id}.json").exists()
     assert (store / f"{third.id}.json").exists()
     second.shutdown()
+
+
+def test_download_output_apk_with_a_single_use_ticket(
+    client: TestClient, apk: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from apkforge.builders.corpus import sha256_file
+    from apkforge.gui import app as app_mod
+
+    jobs = client.app.state.jobs  # type: ignore[attr-defined]
+    applied = _done(jobs, "apply", {"output": str(apk)}, {"status": "verified"})
+    r = client.post(f"/api/jobs/{applied.id}/download", headers=H)
+    assert r.status_code == 200, r.text
+    url = r.json()["url"]
+    got = client.get(url)  # no token header: the ticket is the authorisation
+    assert got.status_code == 200 and got.content == apk.read_bytes()
+    assert got.headers["content-type"] == app_mod.APK_MEDIA_TYPE
+    assert 'filename="app.apk"' in got.headers["content-disposition"]
+    assert client.get(url).status_code == 404  # single use
+    assert client.get(url, headers={"host": "evil.example"}).status_code == 403
+
+    published = {"published": {"path": str(apk), "sha256": sha256_file(apk)}}
+    run = _done(jobs, "modkit-run", {}, published)
+    assert client.post(f"/api/jobs/{run.id}/download", headers=H).status_code == 200
+    stale = _done(jobs, "modkit-chain", {}, {"published": {"path": str(apk), "sha256": "0" * 64}})
+    assert client.post(f"/api/jobs/{stale.id}/download", headers=H).status_code == 409
+
+    gone = _done(jobs, "apply", {"output": str(tmp_path / "missing.apk")}, {})
+    analysis = _done(jobs, "analyze", {"apk": str(apk)}, {})
+    for job_id in (gone.id, analysis.id, "nope"):
+        assert client.post(f"/api/jobs/{job_id}/download", headers=H).status_code == 404
+    assert client.post(f"/api/jobs/{applied.id}/download").status_code == 401  # token needed
+
+    monkeypatch.setattr(app_mod, "TICKET_SECONDS", -1)
+    url = client.post(f"/api/jobs/{applied.id}/download", headers=H).json()["url"]
+    assert client.get(url).status_code == 404  # expired
 
 
 def test_h4_after_a_restart_needs_a_new_plan(client: TestClient, apk: Path, tmp_path: Path) -> None:

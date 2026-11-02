@@ -11,6 +11,7 @@ from __future__ import annotations
 import socket
 import threading
 import time
+from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
 import pytest
@@ -27,11 +28,12 @@ from tests.fixtures import create_synthetic_apk  # noqa: E402
 
 if TYPE_CHECKING:
     from collections.abc import Iterator
-    from pathlib import Path
 
 pytestmark = pytest.mark.integration
 
 TOKEN = "ui-test-token"
+#: The app the `server` fixture is serving, for tests that need its job manager.
+SERVED: list[Any] = []
 
 
 @pytest.fixture(scope="module")
@@ -56,8 +58,9 @@ def server(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> Iterator[str]:
     monkeypatch.setenv(TEST_MODKIT_ENV_VAR, "1")
     sock = socket.socket()
     sock.bind(("127.0.0.1", 0))
-    srv = uvicorn.Server(uvicorn.Config(create_app(TOKEN, upload_dir=tmp_path / "up"),
-                                        log_level="warning"))  # fmt: skip
+    app = create_app(TOKEN, upload_dir=tmp_path / "up")
+    SERVED.append(app)
+    srv = uvicorn.Server(uvicorn.Config(app, log_level="warning"))
     thread = threading.Thread(target=srv.run, kwargs={"sockets": [sock]}, daemon=True)
     thread.start()
     while not srv.started:
@@ -65,6 +68,7 @@ def server(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> Iterator[str]:
     yield f"http://127.0.0.1:{sock.getsockname()[1]}"
     srv.should_exit = True
     thread.join(10)
+    SERVED.clear()
 
 
 @pytest.fixture()
@@ -187,3 +191,19 @@ def test_modify_result_verifies_its_declared_changes(
         time.sleep(0.05)
     assert calls[1]["planned_entries"] is None
     assert [e.identifier for e in calls[1]["expected"]] == ["android.permission.X"]
+
+
+def test_download_apk_of_a_finished_apply(page: Any, apk: Path) -> None:
+    jobs = SERVED[0].state.jobs
+    job = jobs.submit("apply", {"output": str(apk)}, lambda: {"status": "verified"})
+    deadline = time.monotonic() + 10
+    while jobs.get(job.id).status != "DONE":
+        assert time.monotonic() < deadline
+        time.sleep(0.02)
+    page.click("nav button[data-tab=jobs]")
+    page.click("#job-list tr.clickable")  # newest first
+    with page.expect_download() as info:
+        page.get_by_role("button", name="Download APK").click()
+    download = info.value
+    assert download.suggested_filename == "app.apk"
+    assert Path(download.path()).read_bytes() == apk.read_bytes()

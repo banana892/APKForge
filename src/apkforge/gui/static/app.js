@@ -124,9 +124,26 @@ function downloadButton(job) {
   } }, "Download JSON");
 }
 
+// The output APK of an apply or a ModKit run/chain; the server decides (see _job_output).
+function apkButton(job) {
+  const hasOutput = job.status === "DONE" && ((job.kind === "apply" && job.summary.output) || job.result?.published?.path);
+  if (!hasOutput) return null;
+  return el("button", { type: "button", class: "secondary", onclick: async (ev) => {
+    ev.target.disabled = true;
+    try {
+      const { url } = await api(`/api/jobs/${job.id}/download`, {});
+      el("a", { href: url }).click();  // single-use ticket; the response is an attachment
+    } catch (e) {
+      ev.target.replaceWith(el("span", { class: "error" }, e.message));
+    } finally {
+      ev.target.disabled = false;
+    }
+  } }, "Download APK");
+}
+
 function showJob(job, out, render) {
   const head = el("div", { class: "toolbar" }, badge(job.status), el("span", { class: "muted mono" }, ` ${job.kind} · ${job.id}`),
-    el("span", { class: "spacer" }), downloadButton(job));
+    el("span", { class: "spacer" }), apkButton(job), downloadButton(job));
   if (job.status === "ERROR") {
     out.replaceChildren(el("div", { class: "panel" }, head, el("h2", {}, "Job failed"),
       el("p", { class: "error" }, job.error), rawJson(job)));

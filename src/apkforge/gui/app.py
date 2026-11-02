@@ -16,6 +16,8 @@ from __future__ import annotations
 import re
 import secrets
 import tempfile
+import threading
+import time
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
@@ -27,11 +29,12 @@ from pydantic import BaseModel, Field, ValidationError
 # circular package at once raise _DeadlockError.
 import apkforge
 from apkforge.analysis.full import run_full_analysis
+from apkforge.builders.corpus import sha256_file
 from apkforge.core.config import load_default_config
 from apkforge.diff.engine import DiffEngine
 from apkforge.diff.expectations import observe
 from apkforge.gui.changes import add_change_routes
-from apkforge.gui.jobs import Job, JobManager
+from apkforge.gui.jobs import Job, JobManager, JobStatus
 from apkforge.gui.references import add_reference_routes
 from apkforge.modkit import ChainSpec, ExecutionRequest, ModKitChainRunner, default_manager
 from apkforge.modkit.masking import MASK, is_sensitive_name
@@ -313,6 +316,57 @@ def create_app(
             ),
         )  # fmt: skip
 
+    # -- APK download ------------------------------------------------------------
+    # The page sends the token in a header, which a plain download link cannot: it gets a
+    # single-use ticket for one job's output instead, and the browser fetches that.
+    tickets: dict[str, tuple[Path, float]] = {}
+    tickets_lock = threading.Lock()
+
+    @app.post("/api/jobs/{job_id}/download")
+    def download_ticket(job_id: str) -> dict[str, str]:
+        job = manager_jobs.get(job_id)
+        if job is None:
+            raise HTTPException(404, "unknown job")
+        path, sha256 = _job_output(job)
+        if path is None or not path.is_file():
+            raise HTTPException(404, "this job has no output APK (any more)")
+        if sha256 is not None and sha256_file(path) != sha256:
+            raise HTTPException(409, f"{path} changed since the job published it")
+        ticket = secrets.token_urlsafe(32)
+        with tickets_lock:
+            now = time.monotonic()
+            for t in [t for t, (_, exp) in tickets.items() if exp < now]:
+                del tickets[t]
+            tickets[ticket] = (path, now + TICKET_SECONDS)
+        return {"url": f"/download/{ticket}"}
+
+    @app.get("/download/{ticket}", include_in_schema=False)
+    def download(ticket: str) -> FileResponse:
+        with tickets_lock:
+            path, expires = tickets.pop(ticket, (None, 0.0))
+        if path is None or expires < time.monotonic():
+            raise HTTPException(404, "unknown or expired download")
+        return FileResponse(path, media_type=APK_MEDIA_TYPE, filename=path.name)
+
     add_change_routes(app, manager_jobs, upload_dir, _apk_path)
     add_reference_routes(app, manager_jobs, _apk_path)
     return app
+
+
+#: A download ticket is valid this long, and once.
+TICKET_SECONDS = 60
+APK_MEDIA_TYPE = "application/vnd.android.package-archive"
+
+
+def _job_output(job: Job) -> tuple[Path | None, str | None]:
+    """The APK a finished job wrote and its SHA-256 if recorded: only paths the server
+    itself recorded for the job, never one from the request."""
+    if job.status is not JobStatus.DONE:
+        return None, None
+    if job.kind == "apply":  # a new path when the apply was accepted (see changes.py)
+        return Path(job.summary["output"]), None
+    if job.kind in ("modkit-run", "modkit-chain") and isinstance(job.result, dict):
+        published = job.result.get("published") or {}
+        if published.get("path"):
+            return Path(published["path"]), published.get("sha256")
+    return None, None
