@@ -11,6 +11,11 @@ apkforge gui --port 8765 --no-browser --config ~/modkits.toml
 
 The command prints a URL like `http://127.0.0.1:PORT/#token=…`. Stop it with Ctrl+C.
 
+**Status: Phase 9 is complete** (9.1–9.4, plus optional AI explanations). What it leaves
+out is listed under [Limits](#limits): the CLI-only options, browsers other than Chrome,
+an accessibility audit, and browser tests for the Plan tab and the ModKits list. These
+are the backlog for any later GUI work.
+
 ## What the workbench covers
 
 | Tab | Does | Same as |
@@ -197,7 +202,8 @@ Anyone who has the URL (with its token) can use the workbench as you until it st
   9.4 adds Analyze (severity order) → Open in Remediate → plan → apply, Diff (observations
   and filter), a ModKit run (parameter form, secret field, Download APK), the chain JSON
   round trip and run, Build check → no-op rebuild, and the patch options form (shared
-  keys, presets, required and comma checks, hand-typed options kept). Analyze, Diff and
+  keys, presets, required and comma checks, hand-typed options kept), and Explain on an
+  Analyze result (hint names the provider; the answer is rendered as text). Analyze, Diff and
   the test ModKit run for real; remediation and the build toolchain are stubbed. The
   Plan tab and the ModKits list have no browser tests. The browser tests skip without
   Playwright's Chromium or an installed Google Chrome.
@@ -222,7 +228,9 @@ Anyone who has the URL (with its token) can use the workbench as you until it st
   with options) → "Clone app" with `packageName=com.example.openlink.clone`,
   `updateProviders=false` from the form → Morphe SUCCESS, output package
   `com.example.openlink.clone`; Analyze OpenLink → Open in Remediate → 2 privacy findings
-  (G-REM-001/002/003 offered). The Diff tab was exercised through the API and the browser
+  (G-REM-001/002/003 offered). AI explain: `apkforge explain` on the OpenLink analysis
+  with a local Ollama model (`qwen2.5-coder:7b`, OpenAI-compatible); the Claude backend
+  was tested against a local fake server only. The Diff tab was exercised through the API and the browser
   tests only.
 - Tested in Chrome only; other browsers are untested. No accessibility audit was done
   beyond semantic HTML, labelled inputs and tab roles.
