@@ -1,15 +1,14 @@
 """Morphe Desktop ModKit adapter (Phase H.8.1 discovery/compatibility; H.8.2 patch
-bundle discovery).
+bundle discovery; H.8.3 patch selection and execution).
 
 Morphe Desktop (https://github.com/MorpheApp/morphe-desktop) is a third-party Java
 CLI that drives the Morphe Patcher patching engine. H.8.1 adds discovery and
 compatibility checking: detecting the configured JAR, checking the Java runtime,
 probing ``--version`` and reporting a supported version range. H.8.2 adds
 :meth:`MorpheAdapter.list_patches`, a read-only query of a patch bundle's contents.
-Patch selection, options and execution (H.8.3) are not implemented yet:
-:class:`MorpheAdapter` still declares no capabilities or operations, so
-``apkforge modkit run morphe`` always fails with "unknown operation" until that
-stage lands.
+H.8.3 adds the ``patch`` operation: :class:`MorpheAdapter` now declares real
+capabilities and operations, so ``apkforge modkit run morphe ... --operation patch``
+drives the normal adapter contract (``build_command``/``execute``/``collect_output``).
 """
 
 from __future__ import annotations

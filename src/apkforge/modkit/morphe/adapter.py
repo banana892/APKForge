@@ -1,19 +1,21 @@
 """Adapter for Morphe Desktop (H.8.1: discovery/compatibility; H.8.2: patch bundle
-discovery).
+discovery; H.8.3: patch selection and execution).
 
 Morphe Desktop (https://github.com/MorpheApp/morphe-desktop) ships as a JAR run with
 ``java -jar morphe-desktop.jar ...``; APKForge never bundles or downloads it, the user
 configures ``executable_path`` to point at their own copy (see ``docs/modkits.md``).
 H.8.1 answers "is it installed, is Java available, what version is it, is that version
 supported". H.8.2 adds :meth:`MorpheAdapter.list_patches`, a read-only query of a patch
-bundle's contents (``list-patches``) run directly, outside the operation contract: it
-declares no capabilities or operations, so the framework still never invokes
-:meth:`build_command` and ``apkforge modkit run morphe ...`` still fails with "unknown
-operation" until H.8.3 adds real patch execution.
+bundle's contents (``list-patches``) run directly, outside the operation contract. H.8.3
+adds the ``patch`` operation: :meth:`capabilities`/:meth:`operations` are no longer
+empty, so the framework now drives ``build_command``/``execute``/``collect_output``
+through the normal :class:`~apkforge.modkit.executor.ModKitExecutor` lifecycle, the same
+as any other adapter.
 """
 
 from __future__ import annotations
 
+import json
 import os
 import re
 import shutil
@@ -27,17 +29,17 @@ from apkforge.modkit.models import (
     ModKitCapability,
     OperationSpec,
     OutputDeclaration,
+    ParameterSpec,
     Requirement,
     RequirementCheck,
     RequirementKind,
     TrustLevel,
 )
 from apkforge.modkit.morphe.patches import PatchBundleListing, parse_patch_listing
-from apkforge.modkit.process import INHERITED_ENVIRONMENT
+from apkforge.modkit.process import INHERITED_ENVIRONMENT, CommandSpec
 
 if TYPE_CHECKING:
     from apkforge.modkit.contract import ExecutionContext
-    from apkforge.modkit.process import CommandSpec
 
 __all__ = ["MIN_JAVA_MAJOR", "MORPHE_MODKIT_ID", "MorpheAdapter"]
 
@@ -55,6 +57,17 @@ _JAVA_REQUIREMENT = Requirement(
         "modkits.morphe.options.java_executable, otherwise 'java' is looked up on PATH"
     ),
 )
+
+#: H.8.3's only operation.
+PATCH_OPERATION_ID = "patch"
+#: Morphe's own result-file claim is read for diagnostics only (never trusted; see
+#: collect_output), so it is capped the same way test-modkit's is.
+_RESULT_LIMIT = 64 * 1024
+_OUTPUT_NAME = "patched.apk"
+
+
+def _split_names(value: str) -> list[str]:
+    return [n.strip() for n in value.split(",") if n.strip()]
 
 
 class MorpheAdapter(ExternalProcessAdapter):
@@ -81,12 +94,56 @@ class MorpheAdapter(ExternalProcessAdapter):
     max_version: ClassVar[str | None] = "1.21.0"
 
     def capabilities(self) -> tuple[ModKitCapability, ...]:
-        # H.8.1 verifies availability only; patch execution capabilities are added
-        # once H.8.2/H.8.3 implement and verify them.
-        return ()
+        # Verified live: a "Clone app" run actually changed the manifest package
+        # name (apkforge/modkit/morphe docs; the H.8.3 live test). Morphe patches
+        # can touch dex/resources too, but only this much has been exercised.
+        return (
+            ModKitCapability.APK_TRANSFORMATION,
+            ModKitCapability.PATCH_SELECTION,
+            ModKitCapability.MULTI_PATCH,
+        )
 
     def operations(self) -> tuple[OperationSpec, ...]:
-        return ()
+        return (
+            OperationSpec(
+                id=PATCH_OPERATION_ID,
+                description="Apply selected patches from a Morphe patch bundle.",
+                capabilities=(
+                    ModKitCapability.APK_TRANSFORMATION,
+                    ModKitCapability.PATCH_SELECTION,
+                    ModKitCapability.MULTI_PATCH,
+                ),
+                parameters=(
+                    ParameterSpec(
+                        name="patches",
+                        description="Local .mpp path or a GitHub/GitLab repo URL.",
+                        required=True,
+                    ),
+                    ParameterSpec(
+                        name="enable", description="Comma-separated patch names to enable."
+                    ),
+                    ParameterSpec(
+                        name="disable", description="Comma-separated patch names to disable."
+                    ),
+                    ParameterSpec(
+                        name="exclusive",
+                        description="Disable every patch except --enable.",
+                        choices=("true", "false"),
+                    ),
+                    ParameterSpec(
+                        name="force",
+                        description="Skip the app-version compatibility check.",
+                        choices=("true", "false"),
+                    ),
+                    ParameterSpec(
+                        name="prerelease",
+                        description="Fetch the latest dev pre-release bundle.",
+                        choices=("true", "false"),
+                    ),
+                ),
+                may_be_noop=True,
+            ),
+        )
 
     def requirements(self) -> tuple[Requirement, ...]:
         base = list(super().requirements())
@@ -175,11 +232,78 @@ class MorpheAdapter(ExternalProcessAdapter):
         m = _VERSION_RE.search(text)
         return m.group(0) if m else None
 
+    def data_dir(self, ctx: ExecutionContext) -> Path:
+        """Where Morphe caches downloaded patch bundles for this run.
+
+        Defaults inside the workspace (safe: adapters must not write outside it;
+        a fresh bundle download every run is the price). ``modkits.morphe.options.
+        data_dir`` (absolute path) opts into a persistent cache across runs instead.
+        """
+        configured = self.config.options.get("data_dir") if self.config else None
+        if configured:
+            p = Path(configured)
+            if p.is_absolute():
+                return p
+        return ctx.working_dir / "morphe-data"
+
     def build_command(self, ctx: ExecutionContext) -> CommandSpec:
-        raise NotImplementedError("Morphe patch execution is implemented in H.8.3")
+        exe = self.executable()
+        assert exe is not None
+        p = ctx.request.parameters
+        argv = [
+            *self.launcher(exe),
+            PATCH_OPERATION_ID,
+            str(ctx.staged_input),
+            "--patches", p["patches"],
+        ]  # fmt: skip
+        for name in _split_names(p.get("enable", "")):
+            argv += ["--enable", name]
+        for name in _split_names(p.get("disable", "")):
+            argv += ["--disable", name]
+        if p.get("exclusive") == "true":
+            argv.append("--exclusive")
+        if p.get("force") == "true":
+            argv.append("--force")
+        if p.get("prerelease") == "true":
+            argv.append("--prerelease")
+        argv += [
+            # Signing is APKForge's own concern downstream (BuildService); Morphe's
+            # self-signed output is never trusted or treated as final.
+            "--unsigned",
+            "-o", str(ctx.output_dir / _OUTPUT_NAME),
+            "-r", str(ctx.working_dir / "result.json"),
+        ]  # fmt: skip
+        return CommandSpec(
+            argv=tuple(argv), environment={"MORPHE_DATA_DIR": str(self.data_dir(ctx))}
+        )
+
+    def _result_notes(self, ctx: ExecutionContext) -> tuple[str, ...]:
+        """Morphe's own claim about what it did, for diagnostics only (never
+        trusted: pass/fail here always comes from the independently validated
+        output file, exactly like test-modkit's result.json)."""
+        path = ctx.working_dir / "result.json"
+        try:
+            if path.is_symlink() or not path.is_file() or path.stat().st_size > _RESULT_LIMIT:
+                return ()
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            return ()
+        if not isinstance(data, dict):
+            return ()
+        notes: list[str] = []
+        applied = data.get("appliedPatches")
+        if isinstance(applied, list):
+            notes.append(f"morphe applied: {', '.join(map(str, applied)) or '(none)'}")
+        failed = data.get("failedPatches")
+        if isinstance(failed, list) and failed:
+            notes.append(f"morphe failed: {', '.join(map(str, failed))}")
+        return tuple(notes)
 
     def collect_output(self, ctx: ExecutionContext) -> OutputDeclaration:
-        return OutputDeclaration()
+        candidate = ctx.output_dir / _OUTPUT_NAME
+        if not candidate.is_file() or candidate.is_symlink():
+            return OutputDeclaration(notes=("morphe did not produce the expected output file",))
+        return OutputDeclaration(primary=(_OUTPUT_NAME,), notes=self._result_notes(ctx))
 
     # -- H.8.2: patch bundle discovery ----------------------------------------------
 

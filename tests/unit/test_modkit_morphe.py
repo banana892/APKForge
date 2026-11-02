@@ -1,10 +1,10 @@
-"""Phase H.8.1/H.8.2 - Morphe Desktop adapter: discovery, compatibility and patch
-bundle listing.
+"""Phase H.8.1/H.8.2/H.8.3 - Morphe Desktop adapter: discovery, compatibility, patch
+bundle listing, and patch selection/execution.
 
 No real Morphe Desktop JAR or JRE is used: a tiny fake ``java`` script stands in for
-``java -version``, ``java -jar <jar> --version`` and ``... list-patches``, exactly
-like the reference ``test-modkit`` stands in for a real third-party tool elsewhere
-in this test suite.
+``java -version``, ``java -jar <jar> --version``, ``... list-patches`` and
+``... patch``, exactly like the reference ``test-modkit`` stands in for a real
+third-party tool elsewhere in this test suite.
 """
 
 from __future__ import annotations
@@ -15,8 +15,16 @@ from pathlib import Path
 import pytest
 
 from apkforge.modkit import AvailabilityStatus as A
-from apkforge.modkit import ModKitConfig, contract_problems
+from apkforge.modkit import (
+    ExecutionRequest,
+    ModKitConfig,
+    ModKitExecutor,
+    ModKitResultStatus,
+    contract_problems,
+)
+from apkforge.modkit import ModKitCapability as A_CAP
 from apkforge.modkit.morphe import MIN_JAVA_MAJOR, MORPHE_MODKIT_ID, MorpheAdapter
+from tests.fixtures.factory import create_synthetic_apk
 
 # The quirky "INFO: Index: 0" merge and the Compatible-packages block are the real
 # shape; see test_modkit_morphe_patches.py for the parser itself.
@@ -50,6 +58,26 @@ elif len(args) >= 3 and args[0] == "-jar" and args[2] == "list-patches":
         print(f"{{bundle}} can not be found", file=sys.stderr)
         sys.exit(2)
     print({fake_patch_list!r}, end="")
+elif len(args) >= 3 and args[0] == "-jar" and args[2] == "patch":
+    import json
+    import zipfile
+
+    rest = args[3:]
+    apk_path, patches = rest[0], rest[rest.index("--patches") + 1]
+    out_path, result_path = rest[rest.index("-o") + 1], rest[rest.index("-r") + 1]
+    enabled = [rest[i + 1] for i, a in enumerate(rest) if a == "--enable"]
+    if "missing" in patches:
+        print(f"{{patches}} can not be found", file=sys.stderr)
+        sys.exit(2)
+    if "--unsigned" not in rest:
+        print("expected --unsigned", file=sys.stderr)
+        sys.exit(2)
+    with open(apk_path, "rb") as src, open(out_path, "wb") as dst:
+        dst.write(src.read())
+    with zipfile.ZipFile(out_path, "a") as zf:
+        zf.writestr("assets/morphe-marker.txt", "patched")
+    with open(result_path, "w") as f:
+        json.dump({{"success": True, "appliedPatches": enabled, "failedPatches": []}}, f)
 else:
     print(f"unexpected args: {{args}}", file=sys.stderr)
     sys.exit(2)
@@ -86,10 +114,17 @@ def test_identity_and_contract() -> None:
     assert contract_problems(a, MORPHE_MODKIT_ID) == []
 
 
-def test_capabilities_and_operations_are_empty_in_h8_1() -> None:
-    # No operation is verified yet: the framework can never reach build_command.
+def test_capabilities_and_operations_declared_in_h8_3() -> None:
     a = MorpheAdapter()
-    assert a.capabilities() == () and a.operations() == ()
+    assert set(a.capabilities()) == {
+        A_CAP.APK_TRANSFORMATION,
+        A_CAP.PATCH_SELECTION,
+        A_CAP.MULTI_PATCH,
+    }
+    ops = a.operations()
+    assert [o.id for o in ops] == ["patch"]
+    assert {p.name for p in ops[0].parameters} >= {"patches", "enable", "disable"}
+    assert contract_problems(a, MORPHE_MODKIT_ID) == []
 
 
 def test_requirements_cover_executable_java_and_version_bounds() -> None:
@@ -151,13 +186,6 @@ def test_relative_java_executable_option_is_ignored(tmp_path: Path) -> None:
     assert MorpheAdapter(cfg).java_executable() is None
 
 
-def test_build_command_and_collect_output_are_not_implemented_yet() -> None:
-    a = MorpheAdapter()
-    with pytest.raises(NotImplementedError):
-        a.build_command(None)  # type: ignore[arg-type]
-    assert a.collect_output(None).primary == ()  # type: ignore[arg-type]
-
-
 # -- H.8.2: patch bundle discovery -----------------------------------------------
 
 
@@ -185,12 +213,113 @@ def test_list_patches_surfaces_tool_error(tmp_path: Path) -> None:
     assert "can not be found" in err
 
 
-def test_list_patches_does_not_require_capabilities_or_operations(tmp_path: Path) -> None:
-    # H.8.2 discovery runs even though capabilities()/operations() are still empty
-    # (apkforge modkit run morphe still fails until H.8.3).
+def test_list_patches_runs_outside_the_operation_contract(tmp_path: Path) -> None:
+    # H.8.2 discovery is a plain method call, not an ExecutionRequest/ModKitExecutor
+    # run: no workspace, no build_command/execute/collect_output involved.
     java = _fake_java(tmp_path)
     cfg = _config(tmp_path, _jar(tmp_path), options={"java_executable": str(java)})
-    a = MorpheAdapter(cfg)
-    assert a.capabilities() == () and a.operations() == ()
-    listing, err = a.list_patches(str(tmp_path / "bundle.mpp"))
+    listing, err = MorpheAdapter(cfg).list_patches(str(tmp_path / "bundle.mpp"))
     assert err == "" and listing is not None and listing.patches
+
+
+# -- H.8.3: patch selection and execution ----------------------------------------
+
+
+def _patch_request(apk: Path, tmp_path: Path, **overrides: object) -> ExecutionRequest:
+    parameters = {"patches": str(tmp_path / "bundle.mpp"), "enable": "Clone app"}
+    parameters.update(overrides.pop("parameters", {}))  # type: ignore[arg-type]
+    return ExecutionRequest(
+        input_apk=apk,
+        output_dir=tmp_path / "out",
+        operation="patch",
+        parameters=parameters,
+        workspace_base=tmp_path / "ws",
+        **overrides,  # type: ignore[arg-type]
+    )
+
+
+def test_patch_operation_succeeds_end_to_end(tmp_path: Path) -> None:
+    apk = create_synthetic_apk(tmp_path / "in" / "app.apk")
+    java = _fake_java(tmp_path)
+    cfg = _config(tmp_path, _jar(tmp_path), options={"java_executable": str(java)})
+    result = ModKitExecutor().run(MorpheAdapter(cfg), _patch_request(apk, tmp_path))
+    assert result.status is ModKitResultStatus.SUCCESS, result.reason
+    assert result.published is not None
+    assert result.declaration is not None
+    assert any("Clone app" in n for n in result.declaration.notes)
+
+
+def test_patch_operation_passes_enable_disable_exclusive_force(tmp_path: Path) -> None:
+    apk = create_synthetic_apk(tmp_path / "in" / "app.apk")
+    java = _fake_java(tmp_path)
+    cfg = _config(tmp_path, _jar(tmp_path), options={"java_executable": str(java)})
+    request = _patch_request(
+        apk, tmp_path,
+        parameters={
+            "enable": "Clone app, Hide ads",
+            "disable": "Spoof signature",
+            "exclusive": "true",
+            "force": "true",
+        },
+    )  # fmt: skip
+    result = ModKitExecutor().run(MorpheAdapter(cfg), request)
+    assert result.status is ModKitResultStatus.SUCCESS, result.reason
+    assert result.provenance is not None and result.provenance.command is not None
+    argv = result.provenance.command.argv
+    assert argv.count("--enable") == 2
+    assert "Clone app" in argv and "Hide ads" in argv
+    assert "--disable" in argv and "Spoof signature" in argv
+    assert "--exclusive" in argv and "--force" in argv
+    assert "--unsigned" in argv
+
+
+def test_patch_operation_always_unsigned_and_isolates_data_dir(tmp_path: Path) -> None:
+    apk = create_synthetic_apk(tmp_path / "in" / "app.apk")
+    java = _fake_java(tmp_path)
+    cfg = _config(tmp_path, _jar(tmp_path), options={"java_executable": str(java)})
+    result = ModKitExecutor().run(MorpheAdapter(cfg), _patch_request(apk, tmp_path))
+    assert result.provenance is not None and result.provenance.command is not None
+    command = result.provenance.command
+    assert "--unsigned" in command.argv
+    # MORPHE_DATA_DIR defaults inside the workspace (never outside it) unless the
+    # user opts into a persistent cache via modkits.morphe.options.data_dir.
+    data_dir = command.environment["MORPHE_DATA_DIR"]
+    assert data_dir.startswith(str(Path(result.workspace_path or "")))
+
+
+def test_patch_operation_honors_configured_data_dir(tmp_path: Path) -> None:
+    apk = create_synthetic_apk(tmp_path / "in" / "app.apk")
+    java = _fake_java(tmp_path)
+    persistent = tmp_path / "persistent-morphe-cache"
+    cfg = _config(
+        tmp_path, _jar(tmp_path),
+        options={"java_executable": str(java), "data_dir": str(persistent)},
+    )  # fmt: skip
+    result = ModKitExecutor().run(MorpheAdapter(cfg), _patch_request(apk, tmp_path))
+    assert result.status is ModKitResultStatus.SUCCESS, result.reason
+    assert result.provenance is not None and result.provenance.command is not None
+    assert result.provenance.command.environment["MORPHE_DATA_DIR"] == str(persistent)
+
+
+def test_patch_operation_surfaces_tool_error(tmp_path: Path) -> None:
+    apk = create_synthetic_apk(tmp_path / "in" / "app.apk")
+    java = _fake_java(tmp_path)
+    cfg = _config(tmp_path, _jar(tmp_path), options={"java_executable": str(java)})
+    request = _patch_request(apk, tmp_path, parameters={"patches": "missing.mpp"})
+    result = ModKitExecutor().run(MorpheAdapter(cfg), request)
+    assert result.status is ModKitResultStatus.EXECUTION_FAILED
+    assert result.outcome is not None
+    assert "can not be found" in result.outcome.stderr_tail
+
+
+def test_patch_operation_requires_patches_parameter(tmp_path: Path) -> None:
+    apk = create_synthetic_apk(tmp_path / "in" / "app.apk")
+    java = _fake_java(tmp_path)
+    cfg = _config(tmp_path, _jar(tmp_path), options={"java_executable": str(java)})
+    request = ExecutionRequest(
+        input_apk=apk, output_dir=tmp_path / "out", operation="patch",
+        parameters={}, workspace_base=tmp_path / "ws",
+    )  # fmt: skip
+    result = ModKitExecutor().run(MorpheAdapter(cfg), request)
+    assert result.status is ModKitResultStatus.INVALID_INPUT
+    assert "patches" in result.reason
