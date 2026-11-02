@@ -207,3 +207,66 @@ def test_download_apk_of_a_finished_apply(page: Any, apk: Path) -> None:
     download = info.value
     assert download.suggested_filename == "app.apk"
     assert Path(download.path()).read_bytes() == apk.read_bytes()
+
+
+# -- 9.4: the remaining tabs -----------------------------------------------------------------
+
+
+def test_analyze_findings_then_remediate_and_apply(
+    page: Any, apk: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import shutil
+    from types import SimpleNamespace
+
+    from apkforge.gui import changes
+    from apkforge.remediation import RemediationService
+    from apkforge.remediation.models import RemediationPlan
+
+    finding = {"id": "PRIV-REC-BOOT", "title": "Starts at boot", "severity": "medium",
+               "description": "d", "category": "persistence"}  # fmt: skip
+
+    class Finding:
+        def model_dump(self, **kw: Any) -> dict[str, Any]:
+            return finding
+
+    class Candidate:
+        def model_dump(self, **kw: Any) -> dict[str, Any]:
+            return {"remediation": {"id": "G-REM-001", "name": "Disable boot receiver"},
+                    "is_supported": True}  # fmt: skip
+
+    def plan(cls: object, a: Path, finding_id: str, **kw: Any) -> RemediationPlan:
+        return RemediationPlan(plan_id="p1", source_apk_path=str(a), source_apk_sha256="x",
+                               finding_id=finding_id, finding_category="persistence",
+                               finding_title="Starts at boot", remediation_id="G-REM-001",
+                               remediation_name="Disable boot receiver")  # fmt: skip
+
+    def apply(cls: object, p: Any, approved: bool, output_path: Path) -> dict[str, Any]:
+        shutil.copyfile(p.source_apk_path, output_path)
+        return {"state": "verified", "output_apk_path": str(output_path)}
+
+    monkeypatch.setattr(changes.PrivacyAnalysisService, "analyze",
+                        lambda a: SimpleNamespace(findings=[Finding()]))  # fmt: skip
+    monkeypatch.setattr(changes, "map_finding_to_remediations", lambda f: [Candidate()])
+    monkeypatch.setattr(RemediationService, "plan", classmethod(plan))
+    monkeypatch.setattr(RemediationService, "apply", classmethod(apply))
+
+    page.fill("#analyze-apk", str(apk))  # Analyze is the first tab; real analysis
+    page.click("#form-analyze button[type=submit]")
+    page.wait_for_selector("#out-analyze h2")
+    severities = page.locator("#out-analyze table tbody tr td:first-child").all_inner_texts()
+    order = ["critical", "high", "medium", "low", "info"]
+    ranks = [order.index(s.lower()) for s in severities if s.lower() in order]
+    assert ranks == sorted(ranks)  # most severe first
+
+    page.get_by_role("button", name="Open in Remediate").click()
+    assert page.get_attribute("nav button[aria-selected=true]", "data-tab") == "remediate"
+    assert page.input_value("#rem-apk") == str(apk)
+    page.get_by_role("button", name="Plan G-REM-001").click()
+    apply_form = page.locator("#out-remediate-plan form.apply")
+    apply_form.wait_for()
+    out = tmp_path / "out" / "fixed.apk"
+    apply_form.locator("input").fill(str(out))
+    apply_form.get_by_role("button", name="Apply remediation").click()
+    page.wait_for_selector("#out-remediate-plan form.apply .badge:text('DONE')")
+    assert out.read_bytes() == apk.read_bytes()
+    assert apply_form.get_by_role("button", name="Download APK").is_visible()

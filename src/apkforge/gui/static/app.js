@@ -161,7 +161,7 @@ function showJob(job, out, render) {
 
 const SEV_ORDER = { critical: 0, high: 1, medium: 2, low: 3, info: 4 };
 
-function renderAnalyze(r) {
+function renderAnalyze(r, apk) {
   const s = r.security_summary || {};
   const findings = [...(r.security_findings || [])]
     .sort((a, b) => (SEV_ORDER[String(a.severity).toLowerCase()] ?? 9) - (SEV_ORDER[String(b.severity).toLowerCase()] ?? 9));
@@ -188,6 +188,13 @@ function renderAnalyze(r) {
         el("td", {}, f.category))))
       : el("p", { class: "muted" }, "No security findings."),
     el("p", { class: "notice" }, "Static analysis only: neither findings nor their absence prove an APK safe or unsafe."),
+    // Security findings do not name the privacy findings remediations work on, so the
+    // handoff is per APK: Remediate lists that APK's remediable findings.
+    apk ? el("div", { class: "toolbar" }, el("button", { type: "button", class: "secondary", onclick: () => {
+      selectTab("remediate");
+      $("rem-apk").value = apk;
+      $("form-remediate").requestSubmit();
+    } }, "Open in Remediate"), el("span", { class: "muted" }, " privacy findings of this APK and their remediations")) : null,
     list("Errors", r.errors, "error"), list("Warnings", r.warnings), list("Limitations", r.limitations),
     rawJson(r),
   ];
@@ -252,7 +259,7 @@ function renderChain(r) {
   ];
 }
 
-const RENDER = { analyze: renderAnalyze, diff: renderDiff, "modkit-run": renderModKitResult,
+const RENDER = { diff: renderDiff, "modkit-run": renderModKitResult,
   "modkit-chain": renderChain, "modkit-patches": (r) => renderPatches(r, null),
   "remediation-findings": renderRemediationFindings, "modification-plan": renderModificationPlan,
   verify: renderVerify, "verify-transformation": renderH4, references: renderReferences };
@@ -374,6 +381,8 @@ function renderApplied(r) {
 
 // Project files a Modify apply edited, handed to the next Verify run (see "Verify output").
 let VERIFY_PLANNED_FILES = [];
+
+PREVIEW.analyze = (job) => renderAnalyze(job.result, job.summary.apk);
 
 PREVIEW.apply = (job) => {
   const r = job.result;
