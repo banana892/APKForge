@@ -275,7 +275,13 @@ apkforge remediate path/to/app.apk --finding PRIV-REC-BOOT
 
 # Apply remediation with explicit approval and output artifact
 apkforge remediate path/to/app.apk --finding PRIV-REC-BOOT --apply --output modified.apk --report report.md
+
+# Optional: explain an analyze/diff/verify result with an AI model (sends the result, never the APK)
+export ANTHROPIC_API_KEY=...   # or APKFORGE_AI_BASE_URL + APKFORGE_AI_MODEL for any OpenAI-compatible API
+apkforge explain full_report.json
 ```
+
+AI explanations are opt-in and off unless a provider is configured; see [docs/ai.md](docs/ai.md).
 
 
 ---
@@ -321,6 +327,8 @@ mypy src/
 Later work continued as lettered phases (D–H, documented at the top of this README):
 modification, diff/verification, privacy, remediation, controlled transformations, and
 third-party ModKits including the Morphe adapter ([docs/modkits.md](docs/modkits.md)).
+Optional AI explanations of results (`apkforge explain`, the workbench's Explain button)
+are documented in [docs/ai.md](docs/ai.md).
 
 ---
 
@@ -332,7 +340,7 @@ APKForge treats every APK as **untrusted input** from the moment it is loaded:
 2. **Extracted files are never executed** — `.dex`, `.so`, `.sh`, binary payloads
 3. **Extraction limits are enforced** — zip-bomb protection, max size, max depth
 4. **Analysis failures are FAILED** — never interpreted as "clean"
-5. **No automatic external uploads** — hash lookups require explicit configuration
+5. **No automatic external uploads** — hash lookups and AI explanations require explicit configuration
 
 ---
 
