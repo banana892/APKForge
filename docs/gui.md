@@ -29,7 +29,6 @@ are the backlog for any later GUI work.
 | Remediate (9.2) | Phase F privacy findings with the Phase G remediations each maps to; "Plan" shows preconditions, planned changes, expected diff; then Apply | `apkforge remediate --finding ID [--remediation R]`, then `--apply -o OUT` |
 | References (9.2) | H.1 references: every defined class (unreferenced first, filterable) with its incoming references, its methods with call counts, and the call sites inside a method. Buttons hand a class, method or call site to Transform (H-TRANS-001/002 plan at once; H-TRANS-003 stops for the replacement) | `apkforge references APK` |
 | Transform (9.2) | H.2 eligibility and plan for H-TRANS-001/002/003 and one target; then Apply (H.3/H.5/H.6) | `apkforge transform -t ID --target T --report plan.json`, then `--plan plan.json --apply -o OUT` |
-| Build (9.2) | Toolchain + signing check, then a no-op rebuild | `apkforge build APK -o OUT` |
 | Verify (9.2) | One APK: structure + signature. Two: the original → modified matrix with unexpected/unknown changes, optional noise floor and declared changes (JSON). A Modify apply's "Verify output" fills in the changes its modifiers declared. After a transformation apply, "Verify transformation" runs H.4 with a control rebuild | `apkforge verify A [B] [--measure-noise-floor] [--expected FILE]`, `verify A T --plan P --build-control` |
 | Jobs | Every job of this session; click to reopen its result, cancel running ones | — |
 | AI | Provider, model, base URL and API key for Explain, held in memory for this session (overrides the environment) | `APKFORGE_AI_*` / `ANTHROPIC_API_KEY` ([ai.md](ai.md)) |
@@ -58,8 +57,8 @@ structure.
 
 ## Changing an APK: preview, then apply (9.2)
 
-Modify, Remediate, Transform and Build never write anything in one step. The first job is
-a *preview* (modifier dry run, remediation plan, H.2 transformation plan, toolchain check)
+Modify, Remediate and Transform never write anything in one step. The first job is
+a *preview* (modifier dry run, remediation plan, H.2 transformation plan)
 that only reads.
 When it says the change is applicable, an **Apply** form appears under it; it takes only
 an output path. `POST /api/jobs/apply` names the preview job, and the server:
@@ -79,7 +78,7 @@ by default (one extra rebuild, `--measure-noise-floor`); without it the result i
 `failed` with "noise floor not established", exactly as on the CLI.
 
 Signing is the same as the CLI: `APKFORGE_SIGNING_*` if set, otherwise the APKForge
-development key (shown in the Build check).
+development key.
 
 **Verifying a Modify result again.** "Verify output" on a Modify apply runs a pair
 verification of the original and the output, declaring the modifiers' `expected_changes`
@@ -202,7 +201,7 @@ Anyone who has the URL (with its token) can use the workbench as you until it st
   changes not sent, Modify → Verify output with its declared changes and planned entries).
   9.4 adds Analyze (severity order) → Open in Remediate → plan → apply, Diff (observations
   and filter), a ModKit run (parameter form, secret field, Download APK), the chain JSON
-  round trip and run, Build check → no-op rebuild, and the patch options form (shared
+  round trip and run, and the patch options form (shared
   keys, presets, required and comma checks, hand-typed options kept), and Explain on an
   Analyze result (hint names the provider; the answer is rendered as text). Analyze, Diff and
   the test ModKit run for real; remediation and the build toolchain are stubbed. The

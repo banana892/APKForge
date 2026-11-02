@@ -374,21 +374,9 @@ const PREVIEW = {
       rawJson(r),
     ];
   },
-  "build-check": (job) => {
-    const t = job.result.toolchain;
-    return [
-      el("h2", {}, "Build toolchain ", badge(t.valid ? "valid" : "invalid")),
-      kv([["Signing", job.result.signing || "none configured"]]),
-      table(["Tool", "Status", "Version", "Path / notes"], Object.entries(t.tools || {}).map(([name, d]) => el("tr", {},
-        el("td", {}, name), el("td", {}, badge(d.status)), el("td", {}, d.version || ""),
-        el("td", { class: "mono" }, `${d.path || ""} ${d.notes || ""}`)))),
-      list("Errors", t.errors, "error"), list("Warnings", t.warnings),
-      t.valid ? applyPanel(job, "no-op rebuild") : notApplicable("the toolchain is not valid"),
-    ];
-  },
 };
 
-// Remediation, transformation and build results differ; show the common parts.
+// Remediation and transformation results differ; show the common parts.
 function renderApplied(r) {
   const status = r.state || r.status || (r.success === true ? "SUCCESS" : r.success === false ? "FAILED" : "?");
   const output = r.output_apk_path || r.output_apk;
@@ -914,13 +902,149 @@ async function loadJobs() {
 
 // -- wiring --------------------------------------------------------------------------
 
+const GROUPS = { inspect: ["analyze", "references", "plan"], change: ["modify", "remediate", "transform", "modkits", "chain"],
+  check: ["verify", "diff"], workbench: ["jobs", "ai"] };
+const groupOf = (tab) => Object.keys(GROUPS).find((g) => GROUPS[g].includes(tab)) || "home";
+
 function selectTab(name) {
-  for (const b of document.querySelectorAll("nav button")) b.setAttribute("aria-selected", b.dataset.tab === name);
+  const group = groupOf(name);
+  for (const b of document.querySelectorAll("nav button[data-tab]")) b.setAttribute("aria-selected", b.dataset.tab === name);
+  for (const b of document.querySelectorAll("nav button[data-group]")) b.setAttribute("aria-current", b.dataset.group === group);
+  for (const n of document.querySelectorAll("nav.subtabs")) n.hidden = n.dataset.subgroup !== group;
   for (const s of document.querySelectorAll("main section")) s.hidden = s.id !== `tab-${name}`;
+  for (const id of PRIMARY) if (CURRENT_APK && !$(id).value) $(id).value = CURRENT_APK;  // pre-fill, never overwrite
+  renderChip(name);
+  if (name === "home") loadHome();
   if (name === "jobs") loadJobs();
   if (name === "ai") loadAI();
   if (name === "modkits" || name === "chain") loadModKits();
   if (name === "modify") loadModifiers();
+}
+
+// -- Dashboard (home) --------------------------------------------------------------------
+
+// The one APK the user is working on; forms are pre-filled from it. Fields that name the
+// APK being worked on (not the second "modified"/"original" ones) are listed here.
+let CURRENT_APK = "";
+const PRIMARY = ["analyze-apk", "diff-original", "mk-apk", "chain-apk", "plan-apk", "modify-apk", "rem-apk", "ref-apk", "tr-apk", "verify-original"];
+const baseName = (p) => p.split(/[\\/]/).filter(Boolean).pop() || p;
+
+function renderChip(tab) {
+  $("apk-chip").hidden = !CURRENT_APK || tab === "home";
+  $("apk-chip-name").textContent = baseName(CURRENT_APK);
+  $("apk-chip-name").title = CURRENT_APK;
+}
+
+function setApk(path) {
+  CURRENT_APK = path.trim();
+  $("home-apk").value = CURRENT_APK;
+  for (const id of PRIMARY) $(id).value = CURRENT_APK;
+  const go = (tab, label, run) => el("button", { type: "button", class: "secondary",
+    onclick: () => { selectTab(tab); if (run) $(run).requestSubmit(); } }, label);
+  $("home-actions").hidden = !CURRENT_APK;
+  $("home-actions").replaceChildren(el("span", { class: "muted" }, `${baseName(CURRENT_APK)} — next:`),
+    el("button", { type: "button", class: "primary", style: "margin-top:0", onclick: () => { selectTab("analyze"); $("form-analyze").requestSubmit(); } }, "Analyze"),
+    go("references", "References"), go("plan", "Plan"), go("verify", "Verify"));
+}
+
+async function useFile(file) {
+  const status = $("home-status");
+  status.className = "upload-status muted";
+  status.textContent = `uploading ${file.name}…`;
+  try {
+    setApk(await upload(file));
+    status.textContent = `uploaded ${file.name} (${(file.size / 1048576).toFixed(1)} MB)`;
+  } catch (e) {
+    status.className = "upload-status error";
+    status.textContent = `upload failed: ${e.message}`;
+  }
+}
+
+const JOB_WHAT = (j) => {
+  const v = j.summary?.apk || j.summary?.original || j.summary?.output || j.summary?.modkit;
+  return v ? baseName(String(v)) : JSON.stringify(j.summary || {}).slice(0, 60);
+};
+let HOME_KITS = null;
+
+async function loadHome() {
+  let jobs = [];
+  try { jobs = await api("/api/jobs"); } catch (e) { $("home-recent").replaceChildren(el("p", { class: "error" }, e.message)); return; }
+  jobs.sort((a, b) => String(b.created).localeCompare(String(a.created)));
+  const n = (f) => jobs.filter(f).length;
+  $("tiles").replaceChildren(
+    ...[["Jobs", jobs.length, ""], ["Running", n((j) => ACTIVE.has(j.status)), ""],
+      ["Succeeded", n((j) => j.status === "DONE"), "ok"], ["Failed", n((j) => j.status === "ERROR"), n((j) => j.status === "ERROR") ? "bad" : ""]]
+      .map(([label, v, cls]) => el("div", { class: `tile ${cls}` }, el("b", {}, v), el("span", {}, label))));
+  $("home-recent").replaceChildren(jobs.length
+    ? table(["When", "Kind", "Status", "What"], jobs.slice(0, 8).map((j) => el("tr", {
+      class: "clickable", onclick: async () => {
+        showJob(await api(`/api/jobs/${j.id}`), $("drawer-body"));
+        $("drawer").hidden = false;
+      } }, el("td", { class: "mono" }, String(j.created).replace("T", " ").slice(0, 16)), el("td", {}, j.kind),
+    el("td", {}, badge(j.status)), el("td", { class: "mono" }, JOB_WHAT(j)))))
+    : el("div", { class: "empty" }, "No jobs yet. Drop an APK above to get started."));
+  try {
+    HOME_KITS ||= api("/api/modkits");
+    const [kits, ai] = await Promise.all([HOME_KITS, api("/api/ai").catch(() => ({ configured: false }))]);
+    const ok = kits.filter((k) => k.availability.status === "AVAILABLE").length;
+    $("home-health").replaceChildren(
+      table(["Component", "Status"], [
+        ...kits.map((k) => el("tr", {}, el("td", {}, k.identity.display_name), el("td", {}, badge(k.availability.status)))),
+        el("tr", {}, el("td", {}, "AI explanations"), el("td", {}, ai.configured ? badge("AVAILABLE") : el("span", { class: "muted" }, "off"))),
+      ]));
+    $("pills").replaceChildren(
+      el("span", { class: `pill ${ok ? "on" : ""}` }, `ModKits ${ok}/${kits.length}`),
+      el("span", { class: `pill ${ai.configured ? "on" : ""}` }, ai.configured ? `AI · ${ai.model}` : "AI off"),
+      ...(n((j) => ACTIVE.has(j.status)) ? [el("span", { class: "pill on" }, `${n((j) => ACTIVE.has(j.status))} running`)] : []));
+  } catch (e) {
+    HOME_KITS = null;
+    $("home-health").replaceChildren(el("p", { class: "error" }, e.message));
+  }
+}
+
+function initTheme() {
+  const root = document.documentElement;
+  try { const t = localStorage.getItem("apkforge-theme"); if (t) root.dataset.theme = t; } catch { /* storage blocked: follow the system */ }
+  $("theme-toggle").addEventListener("click", () => {
+    const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    root.dataset.theme = dark ? "light" : "dark";
+    try { localStorage.setItem("apkforge-theme", root.dataset.theme); } catch { /* per-viewer convenience only */ }
+  });
+}
+
+function initDashboard() {
+  initTheme();
+  for (const b of document.querySelectorAll("nav button[data-group]"))
+    b.addEventListener("click", () => selectTab(b.dataset.group === "home" ? "home" : GROUPS[b.dataset.group][0]));
+  for (const b of document.querySelectorAll("[data-go]")) b.addEventListener("click", () => selectTab(b.dataset.go));
+  $("apk-chip-change").addEventListener("click", () => selectTab("home"));
+  $("drawer-close").addEventListener("click", () => { $("drawer").hidden = true; });
+  const picker = el("input", { type: "file", accept: ".apk,application/vnd.android.package-archive", hidden: true });
+  picker.addEventListener("change", () => { if (picker.files[0]) useFile(picker.files[0]); picker.value = ""; });
+  $("home-browse").addEventListener("click", () => picker.click());
+  $("home-use").addEventListener("click", () => { if ($("home-apk").value.trim()) setApk($("home-apk").value); });
+  $("home-apk").addEventListener("keydown", (ev) => { if (ev.key === "Enter") $("home-use").click(); });
+  const drop = $("drop");
+  drop.addEventListener("dragover", (ev) => { ev.preventDefault(); drop.classList.add("over"); });
+  drop.addEventListener("dragleave", () => drop.classList.remove("over"));
+  drop.addEventListener("drop", (ev) => {
+    ev.preventDefault();
+    drop.classList.remove("over");
+    if (ev.dataTransfer.files[0]) useFile(ev.dataTransfer.files[0]);
+  });
+  for (const id of PRIMARY) $(id).addEventListener("change", () => { CURRENT_APK = $(id).value.trim(); });  // chip refreshes on the next page switch: showing it now would shift the layout mid-click
+  // keyboard: "/" focuses the first visible path field; "g" then h/a/d/v jumps
+  let g = false;
+  document.addEventListener("keydown", (ev) => {
+    if (ev.target.matches("input, textarea, select") || ev.ctrlKey || ev.metaKey || ev.altKey) return;
+    if (ev.key === "Escape") $("drawer").hidden = true;
+    else if (ev.key === "/") {
+      const f = [...document.querySelectorAll("main section:not([hidden]) input[type=text]")][0];
+      if (f) { ev.preventDefault(); f.focus(); }
+    } else if (g) { const t = { h: "home", a: "analyze", d: "diff", v: "verify", j: "jobs" }[ev.key]; if (t) selectTab(t); g = false; }
+    else g = ev.key === "g";
+  });
+  setInterval(() => { if (!document.hidden) loadHome(); }, 5000);
 }
 
 // -- AI settings ------------------------------------------------------------------
@@ -969,25 +1093,28 @@ function onSubmit(formId, handler) {
 function addUploadButtons() {
   for (const input of document.querySelectorAll("input[data-upload]")) {
     const picker = el("input", { type: "file", accept: ".apk,application/vnd.android.package-archive", hidden: true });
-    const status = el("span", { class: "muted" });
+    const status = el("div", { class: "upload-status muted" });
     const btn = el("button", { type: "button", class: "secondary", onclick: () => picker.click() }, "Upload…");
+    const field = el("div", { class: "pathfield" });
     picker.addEventListener("change", async () => {
       const file = picker.files[0];
       if (!file) return;
       btn.disabled = true;
-      status.textContent = ` uploading ${file.name}…`;
+      status.textContent = `uploading ${file.name}…`;
       try {
         input.value = await upload(file);
-        status.textContent = ` uploaded (${(file.size / 1048576).toFixed(1)} MB)`;
+        status.textContent = `uploaded (${(file.size / 1048576).toFixed(1)} MB)`;
       } catch (e) {
         status.textContent = "";
-        status.append(el("span", { class: "error" }, ` upload failed: ${e.message}`));
+        status.append(el("span", { class: "error" }, `upload failed: ${e.message}`));
       } finally {
         btn.disabled = false;
         picker.value = "";
       }
     });
-    input.after(el("div", { class: "toolbar" }, btn, status, picker));
+    input.replaceWith(field);
+    field.append(input, btn, picker);
+    field.after(status);
   }
 }
 
@@ -998,6 +1125,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   $("chain-add").addEventListener("click", () => { addStep(); renderSteps(); });
   $("chain-json-toggle").addEventListener("click", toggleChainJson);
   addUploadButtons();
+  initDashboard();
+  selectTab("home");
 
   onSubmit("form-analyze", (btn) => runJob("/api/jobs/analyze", { apk: $("analyze-apk").value.trim() }, $("out-analyze"), btn));
   onSubmit("form-diff", (btn) => runJob("/api/jobs/diff",
@@ -1039,7 +1168,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     runJob("/api/jobs/verify", { original: $("verify-original").value.trim(), modified: $("verify-modified").value.trim() || null,
       measure_noise_floor: $("verify-noise").checked, expected, planned_files }, $("out-verify"), btn);
   });
-  onSubmit("form-build", (btn) => runJob("/api/jobs/build-check", { apk: $("build-apk").value.trim() }, $("out-build"), btn));
   $("ai-provider").addEventListener("change", aiProviderChanged);
   onSubmit("form-ai", async (btn) => {
     btn.disabled = true;
@@ -1077,6 +1205,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     const h = await api("/api/health");
     $("version").textContent = `v${h.version}`;
+    loadHome();
   } catch (e) {
     $("fatal").replaceChildren(el("div", { class: "panel error" }, `Server rejected the session: ${e.message}`));
   }

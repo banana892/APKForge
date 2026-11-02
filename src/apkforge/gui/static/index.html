@@ -6,109 +6,245 @@
 <title>APKForge Workbench</title>
 <style>
   :root {
-    --bg: #f7f7f5; --panel: #ffffff; --text: #1d1f21; --muted: #62666b; --line: #d9dcdf;
-    --accent: #2f6f4f; --accent-text: #ffffff; --bad: #b3261e; --warn: #8a5a00; --ok: #2f6f4f;
-    --code: #f0f1f2;
+    --bg: #f4f5f3; --panel: #ffffff; --text: #17191b; --muted: #5d636a; --line: #dfe2e5;
+    --accent: #2a6f4c; --accent-hover: #225b3e; --accent-text: #ffffff; --accent-soft: #e5f1ea;
+    --bad: #b3261e; --warn: #8a5a00; --ok: #2a6f4c; --code: #eff1f2;
+    --shadow: 0 1px 2px rgba(20,25,30,.06), 0 4px 14px rgba(20,25,30,.04); --radius: 10px;
+  }
+  :root[data-theme="dark"] {
+    --bg: #111315; --panel: #1a1d20; --text: #e6e8ea; --muted: #9ba1a8; --line: #2f343a;
+    --accent: #5fb38a; --accent-hover: #78c6a0; --accent-text: #0b1a12; --accent-soft: #1f2d26;
+    --bad: #f2867d; --warn: #e0b45c; --ok: #5fb38a; --code: #23272b; --shadow: 0 1px 2px rgba(0,0,0,.4);
   }
   @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #141618; --panel: #1c1f22; --text: #e4e6e8; --muted: #9aa0a6; --line: #33383d;
-      --accent: #5fb38a; --accent-text: #0d1a13; --bad: #f2867d; --warn: #e0b45c; --ok: #5fb38a;
-      --code: #24282c;
+    :root:not([data-theme="light"]) {
+      --bg: #111315; --panel: #1a1d20; --text: #e6e8ea; --muted: #9ba1a8; --line: #2f343a;
+      --accent: #5fb38a; --accent-hover: #78c6a0; --accent-text: #0b1a12; --accent-soft: #1f2d26;
+      --bad: #f2867d; --warn: #e0b45c; --ok: #5fb38a; --code: #23272b; --shadow: 0 1px 2px rgba(0,0,0,.4);
     }
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--text);
-         font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
-  header { display: flex; align-items: baseline; gap: 16px; padding: 14px 20px;
-           border-bottom: 1px solid var(--line); background: var(--panel); flex-wrap: wrap; }
-  header h1 { margin: 0; font-size: 17px; }
-  header .meta { color: var(--muted); font-size: 12px; }
-  nav { display: flex; gap: 4px; padding: 8px 20px; border-bottom: 1px solid var(--line);
-        background: var(--panel); flex-wrap: wrap; }
-  nav button { background: none; border: 1px solid transparent; color: var(--muted);
-               padding: 6px 12px; border-radius: 6px; cursor: pointer; font: inherit; }
-  nav button[aria-selected="true"] { color: var(--text); border-color: var(--line);
-                                     background: var(--bg); font-weight: 600; }
-  main { padding: 20px; max-width: 1200px; margin: 0 auto; }
+         font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* top bar + two-level navigation */
+  .topbar { position: sticky; top: 0; z-index: 10; background: var(--panel); border-bottom: 1px solid var(--line); }
+  .bar { display: flex; align-items: center; gap: 12px; padding: 10px 24px; flex-wrap: wrap; }
+  .brand { font-size: 17px; font-weight: 700; letter-spacing: -.01em; display: flex; align-items: center; gap: 8px; margin: 0; }
+  .brand::before { content: ""; width: 10px; height: 10px; border-radius: 3px; background: var(--accent); }
+  .meta { color: var(--muted); font-size: 12px; }
+  .spacer { flex: 1; }
+  .pills { display: flex; gap: 6px; flex-wrap: wrap; }
+  .pill { font-size: 12px; padding: 2px 10px; border-radius: 999px; border: 1px solid var(--line);
+          background: var(--bg); color: var(--muted); white-space: nowrap; }
+  .pill.on { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+  .icon-btn { background: none; border: 1px solid var(--line); color: var(--text); border-radius: 6px;
+              padding: 3px 9px; cursor: pointer; font: inherit; font-size: 12px; }
+  .icon-btn:hover { border-color: var(--accent); }
+  nav.groups { display: flex; gap: 2px; padding: 0 24px; overflow-x: auto; scrollbar-width: none; }
+  nav button { background: none; border: 0; border-bottom: 2px solid transparent; color: var(--muted);
+               padding: 9px 14px; cursor: pointer; font: inherit; white-space: nowrap; }
+  nav button:hover { color: var(--text); }
+  nav.groups button[aria-current="true"] { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+  nav.subtabs { display: flex; gap: 4px; padding: 8px 24px; background: var(--bg); border-top: 1px solid var(--line);
+                overflow-x: auto; scrollbar-width: none; }
+  nav.subtabs[hidden] { display: none; }
+  nav.subtabs button { border: 1px solid transparent; border-radius: 999px; padding: 4px 14px; font-size: 13px; }
+  nav.subtabs button[aria-selected="true"] { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); font-weight: 600; }
+
+  main { padding: 24px; max-width: 1440px; margin: 0 auto; min-width: 0; }
+  html, body { overflow-x: hidden; }
   section[hidden] { display: none; }
-  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
-           padding: 16px; margin-bottom: 16px; }
-  .panel h2 { margin: 0 0 4px; font-size: 15px; }
-  .hint { color: var(--muted); font-size: 12px; margin: 0 0 12px; }
-  label { display: block; font-size: 12px; color: var(--muted); margin: 10px 0 4px; }
+  .apk-chip { display: flex; align-items: center; gap: 8px; margin: 0 0 16px; padding: 6px 12px;
+              background: var(--accent-soft); border: 1px solid var(--line); border-radius: 999px; width: fit-content;
+              max-width: 100%; font-size: 13px; }
+  .apk-chip[hidden] { display: none; }
+  .apk-chip b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .apk-chip button { background: none; border: 0; color: var(--accent); cursor: pointer; font: inherit; text-decoration: underline; padding: 0; }
+
+  /* dashboard */
+  .hero h2 { font-size: 22px; margin: 0 0 2px; letter-spacing: -.01em; }
+  .drop { margin-top: 14px; border: 2px dashed var(--line); border-radius: var(--radius); padding: 22px;
+          text-align: center; background: var(--bg); transition: border-color .15s, background .15s; }
+  .drop.over { border-color: var(--accent); background: var(--accent-soft); }
+  .drop .pathfield { max-width: 640px; margin: 10px auto 0; }
+  .grid { display: grid; gap: 14px; }
+  .tiles { grid-template-columns: repeat(4, 1fr); margin-bottom: 18px; }
+  .two { grid-template-columns: 3fr 2fr; align-items: start; }
+  .cards { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 900px) { .tiles { grid-template-columns: repeat(2, 1fr); } .two, .cards { grid-template-columns: 1fr; } }
+  .tile { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); }
+  .tile b { display: block; font-size: 26px; line-height: 1.1; letter-spacing: -.02em; }
+  .tile span { color: var(--muted); font-size: 12px; }
+  .tile.bad b { color: var(--bad); } .tile.ok b { color: var(--ok); }
+  .card h3 { margin: 0 0 2px; font-size: 14px; }
+  .card .actions { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
+  .card .actions button { text-align: left; }
+  .skeleton { color: transparent !important; background: linear-gradient(90deg, var(--code), var(--line), var(--code));
+              background-size: 200% 100%; animation: shimmer 1.2s infinite; border-radius: 6px; }
+  @keyframes shimmer { to { background-position: -200% 0; } }
+  .empty { text-align: center; color: var(--muted); padding: 22px 8px; }
+  .drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(720px, 100vw); background: var(--bg);
+            border-left: 1px solid var(--line); box-shadow: -8px 0 30px rgba(0,0,0,.25); z-index: 20;
+            overflow-y: auto; padding: 16px; }
+  .drawer[hidden] { display: none; }
+  .drawer .close { float: right; }
+
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow-x: auto; min-width: 0;
+           padding: 20px; margin-bottom: 18px; box-shadow: var(--shadow); }
+  .panel h2 { margin: 0 0 4px; font-size: 16px; }
+  h2 { font-size: 16px; margin: 18px 0 8px; }
+  .hint { color: var(--muted); font-size: 12.5px; margin: 0 0 14px; max-width: 75ch; }
+  label { display: block; font-size: 12.5px; font-weight: 500; color: var(--muted); margin: 12px 0 4px; }
   input[type=text], input[type=password], input[type=number], select, textarea {
-    width: 100%; padding: 7px 9px; border: 1px solid var(--line); border-radius: 6px;
-    background: var(--bg); color: var(--text); font: 13px ui-monospace, monospace; }
+    width: 100%; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px;
+    background: var(--bg); color: var(--text); font: 13px ui-monospace, monospace;
+    transition: border-color .15s, box-shadow .15s; }
+  input:focus, select:focus, textarea:focus { outline: 0; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
   textarea { min-height: 220px; }
-  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  @media (max-width: 700px) { .row { grid-template-columns: 1fr; } }
-  .check { display: flex; align-items: center; gap: 6px; margin-top: 10px; color: var(--text);
-           font-size: 13px; }
-  button.primary { margin-top: 14px; background: var(--accent); color: var(--accent-text);
-                   border: 0; padding: 8px 16px; border-radius: 6px; font: inherit;
-                   font-weight: 600; cursor: pointer; }
+  .pathfield { display: flex; gap: 8px; align-items: stretch; }
+  .pathfield input { flex: 1; min-width: 0; }
+  .upload-status { font-size: 12px; margin-top: 4px; min-height: 0; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 700px) {
+    .row { grid-template-columns: 1fr; }
+    .bar, nav.groups, nav.subtabs, main { padding-left: 14px; padding-right: 14px; }
+    .panel { padding: 14px; } .drop { padding: 14px; }
+  }
+  .check { display: flex; align-items: center; gap: 8px; margin-top: 12px; color: var(--text); font-size: 13px; font-weight: 400; }
+  button.primary { margin-top: 16px; background: var(--accent); color: var(--accent-text); border: 0; padding: 9px 18px;
+                   border-radius: 6px; font: inherit; font-weight: 600; cursor: pointer; transition: background .15s; }
+  button.primary:hover:not(:disabled) { background: var(--accent-hover); }
   button.primary:disabled { opacity: .5; cursor: progress; }
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line);
-           vertical-align: top; }
-  th { color: var(--muted); font-weight: 600; font-size: 12px; }
-  td.mono, .mono { font-family: ui-monospace, monospace; word-break: break-all; }
-  .badge { display: inline-block; padding: 1px 7px; border-radius: 10px; font-size: 12px;
-           font-weight: 600; border: 1px solid currentColor; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 11.5px; text-transform: uppercase; letter-spacing: .04em; }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.mono, .mono { font-family: ui-monospace, monospace; overflow-wrap: anywhere; }
+  td { overflow-wrap: anywhere; }
+  td.mono { min-width: 14ch; }
+  .badge { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 11.5px; font-weight: 600; border: 1px solid currentColor; }
   .ok { color: var(--ok); } .bad { color: var(--bad); } .warn { color: var(--warn); }
   .muted { color: var(--muted); }
   .kv { display: grid; grid-template-columns: max-content 1fr; gap: 4px 16px; margin: 8px 0; }
   .kv dt { color: var(--muted); } .kv dd { margin: 0; }
-  .stats { display: flex; gap: 10px; flex-wrap: wrap; margin: 10px 0; }
-  .stat { border: 1px solid var(--line); border-radius: 6px; padding: 8px 12px; min-width: 110px; }
-  .stat b { display: block; font-size: 18px; }
+  .stats { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0; }
+  .stat { border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; min-width: 110px; background: var(--bg); }
+  .stat b { display: block; font-size: 20px; }
   .stat span { color: var(--muted); font-size: 12px; }
-  details { margin-top: 10px; }
+  details { margin-top: 12px; }
   summary { cursor: pointer; color: var(--muted); }
-  pre { background: var(--code); padding: 10px; border-radius: 6px; overflow: auto;
-        max-height: 420px; font-size: 12px; }
+  summary:hover { color: var(--text); }
+  pre { background: var(--code); padding: 12px; border-radius: 6px; overflow: auto; max-height: 420px; font-size: 12px; }
   .error { color: var(--bad); white-space: pre-wrap; }
-  .explanation { white-space: pre-wrap; line-height: 1.5; }
-  .notice { border-left: 3px solid var(--warn); padding: 6px 10px; margin: 8px 0;
-            background: var(--code); }
+  .explanation { white-space: pre-wrap; line-height: 1.55; }
+  .notice { border-left: 3px solid var(--warn); padding: 8px 12px; margin: 10px 0; background: var(--code); border-radius: 0 6px 6px 0; }
   .filter { max-width: 320px; margin: 8px 0; }
   .clickable { cursor: pointer; }
-  .clickable:hover td { background: var(--code); }
-  .toolbar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+  .clickable:hover td { background: var(--accent-soft); }
+  .toolbar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
   .toolbar .spacer { flex: 1; }
-  button.secondary { background: var(--bg); color: var(--text); border: 1px solid var(--line);
-                     padding: 5px 11px; border-radius: 6px; font: inherit; cursor: pointer; }
+  button.secondary { background: var(--panel); color: var(--text); border: 1px solid var(--line); padding: 6px 12px;
+                     border-radius: 6px; font: inherit; cursor: pointer; transition: border-color .15s, background .15s; }
+  button.secondary:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-soft); }
   button.secondary:disabled { opacity: .5; cursor: default; }
-  fieldset.step { border: 1px solid var(--line); border-radius: 8px; margin: 12px 0; padding: 8px 14px 12px; }
+  fieldset.step { border: 1px solid var(--line); border-radius: var(--radius); margin: 12px 0; padding: 8px 14px 14px; }
   fieldset.step legend { font-weight: 600; padding: 0 4px; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
 </head>
 <body>
-<header>
-  <h1>APKForge Workbench</h1>
-  <span class="meta" id="version"></span>
-  <span class="meta">Local only · static analysis · APKs are never executed or installed; changes are written only to new files you approve</span>
-</header>
-<nav role="tablist">
-  <button role="tab" data-tab="analyze" aria-selected="true">Analyze</button>
-  <button role="tab" data-tab="diff">Diff</button>
-  <button role="tab" data-tab="modkits">ModKits</button>
-  <button role="tab" data-tab="chain">Chain</button>
-  <button role="tab" data-tab="plan">Plan</button>
-  <button role="tab" data-tab="modify">Modify</button>
-  <button role="tab" data-tab="remediate">Remediate</button>
-  <button role="tab" data-tab="references">References</button>
-  <button role="tab" data-tab="transform">Transform</button>
-  <button role="tab" data-tab="build">Build</button>
-  <button role="tab" data-tab="verify">Verify</button>
-  <button role="tab" data-tab="ai">AI</button>
-  <button role="tab" data-tab="jobs">Jobs</button>
-</nav>
+<div class="topbar">
+  <div class="bar">
+    <h1 class="brand">APKForge</h1><span class="meta" id="version"></span>
+    <span class="pill" title="APKs are never executed or installed; changes are written only to new files you approve">🔒 Local · static analysis</span>
+    <span class="spacer"></span>
+    <div class="pills" id="pills"></div>
+    <button class="icon-btn" id="theme-toggle" type="button" aria-label="Toggle light/dark theme">Theme</button>
+  </div>
+  <nav class="groups" aria-label="Sections">
+    <button type="button" data-group="home">Home</button>
+    <button type="button" data-group="inspect">Inspect</button>
+    <button type="button" data-group="change">Change</button>
+    <button type="button" data-group="check">Check</button>
+    <button type="button" data-group="workbench">Workbench</button>
+  </nav>
+  <nav class="subtabs" role="tablist" data-subgroup="inspect" hidden>
+    <button role="tab" data-tab="analyze" aria-selected="false">Analyze</button>
+    <button role="tab" data-tab="references" aria-selected="false">References</button>
+    <button role="tab" data-tab="plan" aria-selected="false">Plan</button>
+  </nav>
+  <nav class="subtabs" role="tablist" data-subgroup="change" hidden>
+    <button role="tab" data-tab="modify" aria-selected="false">Modify</button>
+    <button role="tab" data-tab="remediate" aria-selected="false">Remediate</button>
+    <button role="tab" data-tab="transform" aria-selected="false">Transform</button>
+    <button role="tab" data-tab="modkits" aria-selected="false">ModKits</button>
+    <button role="tab" data-tab="chain" aria-selected="false">Chain</button>
+  </nav>
+  <nav class="subtabs" role="tablist" data-subgroup="check" hidden>
+    <button role="tab" data-tab="verify" aria-selected="false">Verify</button>
+    <button role="tab" data-tab="diff" aria-selected="false">Diff</button>
+  </nav>
+  <nav class="subtabs" role="tablist" data-subgroup="workbench" hidden>
+    <button role="tab" data-tab="jobs" aria-selected="false">Jobs</button>
+    <button role="tab" data-tab="ai" aria-selected="false">AI</button>
+  </nav>
+</div>
 <main>
   <div id="fatal"></div>
+  <div class="apk-chip" id="apk-chip" hidden>Current APK: <b id="apk-chip-name"></b> <button type="button" id="apk-chip-change">change</button></div>
 
-  <section id="tab-analyze">
+  <section id="tab-home">
+    <div class="panel hero">
+      <h2>Start with an APK</h2>
+      <p class="hint">Drop it here or paste its path. It is remembered for every page, so no form asks again.
+        APKs are never executed or installed; changes are written only to new files you approve.</p>
+      <div class="drop" id="drop">
+        <div>Drag an APK here</div>
+        <div class="pathfield">
+          <input type="text" id="home-apk" placeholder="or paste an absolute path, e.g. /path/to/app.apk" aria-label="APK path">
+          <button type="button" class="secondary" id="home-browse">Browse…</button>
+          <button type="button" class="primary" id="home-use" style="margin-top:0">Use</button>
+        </div>
+        <div class="upload-status muted" id="home-status"></div>
+      </div>
+      <div class="toolbar" id="home-actions" hidden></div>
+    </div>
+
+    <div class="grid tiles" id="tiles"></div>
+
+    <div class="grid two">
+      <div class="panel">
+        <h2>Recent jobs</h2>
+        <div id="home-recent"><div class="skeleton">Loading…</div></div>
+        <div class="toolbar"><button type="button" class="secondary" data-go="jobs">View all jobs</button></div>
+      </div>
+      <div class="panel">
+        <h2>Health</h2>
+        <div id="home-health"><div class="skeleton">Loading…</div></div>
+        <div class="toolbar"><button type="button" class="secondary" data-go="modkits">ModKits</button>
+          <button type="button" class="secondary" data-go="ai">AI settings</button></div>
+      </div>
+    </div>
+
+    <div class="grid cards">
+      <div class="panel card"><h3>Inspect</h3><p class="hint">Understand an APK without changing it.</p>
+        <div class="actions"><button class="secondary" data-go="analyze">Analyze — security &amp; privacy</button>
+          <button class="secondary" data-go="references">References — who uses what</button>
+          <button class="secondary" data-go="plan">Plan — suggested changes</button></div></div>
+      <div class="panel card"><h3>Change</h3><p class="hint">Preview first; nothing is written until you apply.</p>
+        <div class="actions"><button class="secondary" data-go="modify">Modify — Phase D modifiers</button>
+          <button class="secondary" data-go="remediate">Remediate — privacy findings</button>
+          <button class="secondary" data-go="transform">Transform — remove code</button>
+          <button class="secondary" data-go="chain">Chain — run ModKits in order</button></div></div>
+      <div class="panel card"><h3>Check</h3><p class="hint">Prove what changed.</p>
+        <div class="actions"><button class="secondary" data-go="verify">Verify — structure &amp; signature</button>
+          <button class="secondary" data-go="diff">Diff — compare two APKs</button></div></div>
+    </div>
+  </section>
+
+  <section id="tab-analyze" hidden>
     <form class="panel" id="form-analyze">
       <h2>Analyze an APK</h2>
       <p class="hint">Inspection, privacy and security analysis (same as <code>apkforge analyze</code>).</p>
@@ -264,18 +400,6 @@
     <div id="out-transform"></div>
   </section>
 
-  <section id="tab-build" hidden>
-    <form class="panel" id="form-build">
-      <h2>No-op rebuild</h2>
-      <p class="hint">decode &rarr; build &rarr; zipalign &rarr; sign &rarr; verify, with no changes
-        (same as <code>apkforge build</code>). "Check" shows the toolchain and signing key first.</p>
-      <label for="build-apk">APK</label>
-      <input type="text" id="build-apk" data-upload required>
-      <button class="primary" type="submit">Check toolchain</button>
-    </form>
-    <div id="out-build"></div>
-  </section>
-
   <section id="tab-verify" hidden>
     <form class="panel" id="form-verify">
       <h2>Verify</h2>
@@ -344,6 +468,7 @@
     <div id="out-jobs"></div>
   </section>
 </main>
+<aside class="drawer" id="drawer" hidden aria-label="Job result"><button type="button" class="secondary close" id="drawer-close">Close ✕</button><div id="drawer-body"></div></aside>
 <script src="/app.js"></script>
 </body>
 </html>

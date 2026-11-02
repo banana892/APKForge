@@ -88,7 +88,7 @@ def apk(tmp_path: Path) -> Path:
 
 
 def test_modifier_parameters_render_as_fields(page: Any) -> None:
-    page.click("nav button[data-tab=modify]")
+    page.evaluate("selectTab('modify')")
     page.wait_for_selector("#modifier-list fieldset")
     assert "[object" not in page.inner_text("#modifier-list")
     for label in page.query_selector_all("#modifier-list label[for]"):
@@ -108,7 +108,7 @@ def test_references_hand_targets_to_transform(
     )
     monkeypatch.setattr(references.ReferenceAnalysisService, "analyze", lambda self, a: result)
 
-    page.click("nav button[data-tab=references]")
+    page.evaluate("selectTab('references')")
     page.fill("#ref-apk", str(apk))
     page.click("#form-references button[type=submit]")
     page.wait_for_selector("#out-references summary")
@@ -132,7 +132,7 @@ def test_references_hand_targets_to_transform(
 
 
 def test_invalid_declared_changes_are_not_sent(page: Any, apk: Path) -> None:
-    page.click("nav button[data-tab=verify]")
+    page.evaluate("selectTab('verify')")
     page.fill("#verify-original", str(apk))
     page.click("#tab-verify details summary")
     page.fill("#verify-expected", "{not json")
@@ -175,7 +175,7 @@ def test_modify_result_verifies_its_declared_changes(
             "expected_changes": [change],
             "file_changes": [{"path": "AndroidManifest.xml", "action": "modified"}]}}]},
     }  # fmt: skip
-    page.click("nav button[data-tab=modify]")
+    page.evaluate("selectTab('modify')")
     page.evaluate("job => showJob(job, document.getElementById('out-modify'))", job)
     page.get_by_role("button", name="Verify output").click()
     page.wait_for_selector("#out-verify .badge:text('DONE')")
@@ -200,7 +200,7 @@ def test_download_apk_of_a_finished_apply(page: Any, apk: Path) -> None:
     while jobs.get(job.id).status != "DONE":
         assert time.monotonic() < deadline
         time.sleep(0.02)
-    page.click("nav button[data-tab=jobs]")
+    page.evaluate("selectTab('jobs')")
     page.click("#job-list tr.clickable")  # newest first
     with page.expect_download() as info:
         page.get_by_role("button", name="Download APK").click()
@@ -258,7 +258,8 @@ def test_analyze_findings_then_remediate_and_apply(
     monkeypatch.setattr(RemediationService, "plan", classmethod(plan))
     monkeypatch.setattr(RemediationService, "apply", classmethod(apply))
 
-    page.fill("#analyze-apk", str(apk))  # Analyze is the first tab; real analysis
+    page.evaluate("selectTab('analyze')")
+    page.fill("#analyze-apk", str(apk))  # real analysis
     page.click("#form-analyze button[type=submit]")
     page.wait_for_selector("#out-analyze h2")
     severities = page.locator("#out-analyze table tbody tr td:first-child").all_inner_texts()
@@ -294,6 +295,7 @@ def test_explain_an_analyze_result(page: Any, apk: Path, monkeypatch: pytest.Mon
     monkeypatch.setattr(ai, "_openai_compatible", backend)
     monkeypatch.setenv("APKFORGE_AI_BASE_URL", "http://127.0.0.1:9/v1")
     monkeypatch.setenv("APKFORGE_AI_MODEL", "local-model")
+    page.evaluate("selectTab('analyze')")
     page.fill("#analyze-apk", str(apk))
     page.click("#form-analyze button[type=submit]")
     page.wait_for_selector("#out-analyze h2")
@@ -321,7 +323,7 @@ def test_ai_tab_settings_enable_explain(
     monkeypatch.setattr(ai, "_openai_compatible", backend)
     for var in ("APKFORGE_AI_BASE_URL", "APKFORGE_AI_PROVIDER", "ANTHROPIC_API_KEY"):
         monkeypatch.delenv(var, raising=False)
-    page.click("nav button[data-tab=ai]")
+    page.evaluate("selectTab('ai')")
     page.wait_for_selector("#ai-current p")
     assert "Not configured" in page.inner_text("#ai-current")
     assert page.is_hidden("#ai-base-url-row")  # Claude needs no base URL
@@ -335,7 +337,7 @@ def test_ai_tab_settings_enable_explain(
     assert "local-model" in current and "set here" in current and "SECRET" not in current
     assert page.input_value("#ai-key") == ""  # the key is not left in the page
 
-    page.click("nav button[data-tab=analyze]")
+    page.evaluate("selectTab('analyze')")
     page.fill("#analyze-apk", str(apk))
     page.click("#form-analyze button[type=submit]")
     page.wait_for_selector("#out-analyze h2")
@@ -347,7 +349,7 @@ def test_ai_tab_settings_enable_explain(
 def test_diff_lists_and_filters_observations(page: Any, tmp_path: Path) -> None:
     a = create_synthetic_apk(tmp_path / "a" / "app.apk")
     b = create_synthetic_apk(tmp_path / "b" / "app.apk", extra_files={"assets/new.txt": b"hi"})
-    page.click("nav button[data-tab=diff]")
+    page.evaluate("selectTab('diff')")
     page.fill("#diff-original", str(a))
     page.fill("#diff-modified", str(b))
     page.click("#form-diff button[type=submit]")
@@ -359,7 +361,7 @@ def test_diff_lists_and_filters_observations(page: Any, tmp_path: Path) -> None:
 
 
 def test_modkit_run_form_and_output_download(page: Any, apk: Path, tmp_path: Path) -> None:
-    page.click("nav button[data-tab=modkits]")
+    page.evaluate("selectTab('modkits')")
     page.wait_for_selector("#mk-id option", state="attached")
     page.select_option("#mk-id", "test-modkit")
     page.select_option("#mk-op", "transform")
@@ -381,7 +383,7 @@ def test_chain_json_round_trip_and_run(page: Any, apk: Path, tmp_path: Path) -> 
 
     steps = [{"modkit": "test-modkit", "operation": "transform",
               "parameters": {"scenario": "success", "marker": m}} for m in ("a", "b")]  # fmt: skip
-    page.click("nav button[data-tab=chain]")
+    page.evaluate("selectTab('chain')")
     page.wait_for_selector(
         "#chain-step-list fieldset, #chain-step-list .muted:not(:text('Loading'))"
     )
@@ -399,40 +401,6 @@ def test_chain_json_round_trip_and_run(page: Any, apk: Path, tmp_path: Path) -> 
     page.click("#form-chain button[type=submit]")
     page.wait_for_selector("#out-chain h2 .badge:text('SUCCESS')")
     assert page.locator("#out-chain table").first.locator("tbody tr").count() == 2
-
-
-def test_build_check_then_noop_rebuild(
-    page: Any, apk: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    import shutil
-    from types import SimpleNamespace
-
-    from apkforge.gui import changes
-
-    def build_pipeline(src: Path, options: Any) -> Any:
-        shutil.copyfile(src, options.output_apk)
-        stage = {"stage": "build", "status": "PASS", "duration_seconds": 0.1}
-        result = {"success": True, "output_apk_path": str(options.output_apk), "stages": [stage]}
-        return SimpleNamespace(to_dict=lambda: result)
-
-    toolchain = {"valid": True, "tools": {"apktool": {"status": "ok", "version": "2.9"}},
-                 "errors": [], "warnings": []}  # fmt: skip
-    service = SimpleNamespace(check_toolchain=lambda: SimpleNamespace(to_dict=lambda: toolchain),
-                              signing=SimpleNamespace(describe=lambda: "dev key"),
-                              build_pipeline=build_pipeline)  # fmt: skip
-    monkeypatch.setattr(changes, "default_build_service", lambda: service)
-
-    page.click("nav button[data-tab=build]")
-    page.fill("#build-apk", str(apk))
-    page.click("#form-build button[type=submit]")
-    apply_form = page.locator("#out-build form.apply")
-    apply_form.wait_for()
-    assert "valid" in page.inner_text("#out-build h2")
-    out = tmp_path / "rebuilt.apk"
-    apply_form.locator("input").fill(str(out))
-    apply_form.get_by_role("button", name="Apply no-op rebuild").click()
-    page.wait_for_selector("#out-build form.apply h2 .badge:text('SUCCESS')")
-    assert out.is_file()
 
 
 def test_patch_options_form_fills_enable_and_options(page: Any) -> None:
@@ -453,7 +421,7 @@ def test_patch_options_form_fills_enable_and_options(page: Any) -> None:
         box.append(el("input", { id: "pt-enable" }), options);
         box.append(...renderPatches(listing, box.children[0], box.children[1]));
         document.getElementById("tab-modkits").append(box);
-        document.querySelector("nav button[data-tab=modkits]").click();
+        selectTab("modkits");
     }""",
         listing,
     )
@@ -483,3 +451,19 @@ def test_patch_options_form_fills_enable_and_options(page: Any) -> None:
     assert page.input_value("#pt-options") == (
         "manual=1, packageName=com.example.clone, darkMode=true, accent=#00ff00"
     )
+
+
+def test_dashboard_remembers_the_apk_and_groups_the_tabs(page: Any, apk: Path) -> None:
+    assert page.is_visible("#tab-home")
+    assert page.locator("#tiles .tile").count() == 4
+    page.fill("#home-apk", str(apk))
+    page.click("#home-use")
+    page.click("nav button[data-group=inspect]")
+    assert page.get_attribute("nav button[aria-selected=true]", "data-tab") == "analyze"
+    assert page.input_value("#analyze-apk") == str(apk)  # pre-filled, no retyping
+    assert page.inner_text("#apk-chip-name") == "app.apk"
+    page.click("nav button[data-tab=references]")  # sub-tabs stay clickable within the group
+    assert page.input_value("#ref-apk") == str(apk)
+    assert not page.is_visible("nav button[data-tab=verify]")  # other groups' tabs are hidden
+    page.click("#apk-chip-change")
+    assert page.is_visible("#tab-home")
