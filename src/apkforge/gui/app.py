@@ -23,9 +23,17 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse, JSONResponse, Response
 from pydantic import BaseModel, Field, ValidationError
 
+# Services are imported here, not in job threads: two threads importing the same
+# circular package at once raise _DeadlockError.
+import apkforge
+from apkforge.analysis.full import run_full_analysis
 from apkforge.core.config import load_default_config
+from apkforge.diff.engine import DiffEngine
+from apkforge.diff.expectations import observe
 from apkforge.gui.jobs import Job, JobManager
+from apkforge.modkit import ChainSpec, ExecutionRequest, ModKitChainRunner, default_manager
 from apkforge.modkit.masking import MASK, is_sensitive_name
+from apkforge.modkit.validation import validate_apk_archive
 
 if TYPE_CHECKING:
     from collections.abc import Awaitable, Callable
@@ -156,13 +164,11 @@ def create_app(
 
     @app.get("/api/health")
     def health() -> dict[str, str]:
-        import apkforge
 
         return {"status": "ok", "version": apkforge.__version__}
 
     @app.get("/api/modkits")
     def modkits() -> list[dict[str, Any]]:
-        from apkforge.modkit import default_manager
 
         return [i.to_json_dict() for i in default_manager(modkit_config).discover()]
 
@@ -190,7 +196,6 @@ def create_app(
     async def upload(request: Request, name: str = "upload.apk") -> dict[str, Any]:
         """Raw request body = the APK (no multipart dependency). Stored under a random
         directory with a sanitised name; the client's name is never used as a path."""
-        from apkforge.modkit.validation import validate_apk_archive
 
         folder = upload_dir / secrets.token_hex(8)
         folder.mkdir(parents=True)
@@ -214,7 +219,6 @@ def create_app(
 
     @app.post("/api/jobs/modkit-patches", status_code=202)
     def modkit_patches(body: PatchesBody) -> Job:
-        from apkforge.modkit import default_manager
 
         adapter = default_manager(modkit_config).get(body.modkit)
         if adapter is None or not hasattr(adapter, "list_patches"):
@@ -236,7 +240,6 @@ def create_app(
         apk = _apk_path(body.apk, "apk")
 
         def work() -> Any:  # noqa: ANN401
-            from apkforge.analysis.full import run_full_analysis
 
             return run_full_analysis(apk, load_default_config())[0]
 
@@ -248,8 +251,6 @@ def create_app(
         modified = _apk_path(body.modified, "modified")
 
         def work() -> dict[str, Any]:
-            from apkforge.diff.engine import DiffEngine
-            from apkforge.diff.expectations import observe
 
             result = DiffEngine(config=load_default_config()).diff(original, modified)
             # The full DiffResult can be hundreds of MB on large apps; the page needs the
@@ -271,7 +272,6 @@ def create_app(
 
     @app.post("/api/jobs/modkit-run", status_code=202)
     def modkit_run(body: ModKitRunBody) -> Job:
-        from apkforge.modkit import ExecutionRequest, default_manager
 
         apk = _apk_path(body.apk, "apk")
         request = ExecutionRequest(
@@ -291,7 +291,6 @@ def create_app(
 
     @app.post("/api/jobs/modkit-chain", status_code=202)
     def modkit_chain(body: ChainBody) -> Job:
-        from apkforge.modkit import ChainSpec, ModKitChainRunner, default_manager
 
         apk = _apk_path(body.apk, "apk")
         out = _dir_path(body.output_dir, "output_dir")

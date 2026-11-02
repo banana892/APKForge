@@ -10,6 +10,8 @@ const TOKEN = (() => {
   }
   return sessionStorage.getItem("apkforge-token") || "";
 })();
+// Pasting a new server's URL into this tab only changes the hash: reload to pick it up.
+window.addEventListener("hashchange", () => { if (/token=/.test(location.hash)) location.reload(); });
 
 // -- tiny DOM helpers -----------------------------------------------------------------
 
