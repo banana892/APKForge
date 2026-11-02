@@ -496,56 +496,12 @@ def cmd_analyze(
     ),
 ) -> None:
     """Run unified analysis orchestrating Inspection, Privacy, and Security engines."""
-    from apkforge.inspection.engine import InspectionEngine
-    from apkforge.privacy.engine import PrivacyEngine
-    from apkforge.security.engine import SecurityEngine
-    from apkforge.security.models import FullAnalysisResult
+    from apkforge.analysis.full import run_full_analysis
 
     cfg = load_default_config()
     setup_logging(cfg.log_level)
-
-    # 1. Inspection
-    insp_engine = InspectionEngine(cfg)
-    insp_res = insp_engine.inspect(apk, keep_workspace=keep_workspace)
-
-    # 2. Privacy
-    priv_engine = PrivacyEngine(config=cfg)
-    priv_res = priv_engine.analyze(insp_res)
-
-    # 3. Security
-    sec_engine = SecurityEngine(config=cfg)
-    sec_res = sec_engine.analyze(insp_res, privacy=priv_res)
-
-    total_sdks = (
-        priv_res.advertising.total_advertising_sdks
-        + priv_res.analytics.total_analytics_sdks
-        + priv_res.trackers.total_trackers
-        + priv_res.telemetry.total_telemetry_sdks
-    )
-
-    full_result = FullAnalysisResult(
-        status=sec_res.status,
-        package_name=sec_res.package_name,
-        version_name=sec_res.version_name,
-        version_code=sec_res.version_code,
-        inspection_status=insp_res.status,
-        privacy_status=priv_res.status,
-        security_status=sec_res.security_status,
-        inspection_summary={
-            "total_files": insp_res.inventory.total_file_count,
-            "dex_files": insp_res.inventory.dex_count,
-            "native_libraries": insp_res.inventory.native_library_count,
-        },
-        privacy_summary={
-            "declared_permissions": len(priv_res.permissions.declared_permissions),
-            "detected_sdks": total_sdks,
-            "total_endpoints": priv_res.endpoints.total_endpoints,
-        },
-        security_summary=sec_res.summary,
-        security_findings=sec_res.findings,
-        warnings=sec_res.warnings,
-        errors=sec_res.errors,
-        limitations=sec_res.limitations,
+    full_result, insp_res, priv_res, sec_res = run_full_analysis(
+        apk, cfg, keep_workspace=keep_workspace
     )
 
     if json_output or output_format.lower() == "json":
