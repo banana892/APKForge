@@ -13,7 +13,9 @@ own beyond input validation and masking.
 
 from __future__ import annotations
 
+import re
 import secrets
+import tempfile
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
@@ -33,6 +35,9 @@ __all__ = ["TOKEN_HEADER", "create_app"]
 TOKEN_HEADER = "X-APKForge-Token"  # noqa: S105 - a header name, not a secret
 _STATIC = Path(__file__).parent / "static"
 _LOCAL_HOSTS = frozenset({"127.0.0.1", "localhost"})
+#: Uploads are a convenience for APKs not already on disk; larger ones: type the path.
+MAX_UPLOAD_BYTES = 1024 * 1024 * 1024
+_UNSAFE_NAME = re.compile(r"[^A-Za-z0-9._-]+")
 
 
 # -- request bodies ------------------------------------------------------------------
@@ -55,6 +60,13 @@ class ModKitRunBody(BaseModel):
     parameters: dict[str, str] = Field(default_factory=dict)
     allow_noop: bool = False
     timeout_seconds: int | None = Field(default=None, ge=1, le=86_400)
+
+
+class PatchesBody(BaseModel):
+    modkit: str
+    patches: str
+    package: str | None = None
+    with_options: bool = True
 
 
 class ChainBody(BaseModel):
@@ -90,15 +102,28 @@ def _masked(params: dict[str, str]) -> dict[str, str]:
     return {k: (MASK if is_sensitive_name(k) else v) for k, v in params.items()}
 
 
+def _upload_name(name: str) -> str:
+    stem = _UNSAFE_NAME.sub("_", Path(name).name).strip("._")[:100] or "upload"
+    return stem if stem.lower().endswith(".apk") else f"{stem}.apk"
+
+
 def create_app(
     token: str,
     *,
     modkit_config: Path | None = None,
     jobs: JobManager | None = None,
+    upload_dir: Path | None = None,
 ) -> FastAPI:
+    """*upload_dir*: where uploaded APKs go (the caller deletes it on shutdown); default
+    a fresh directory under the configured workspace base."""
     app = FastAPI(title="APKForge workbench", docs_url=None, redoc_url=None, openapi_url=None)
     manager_jobs = jobs or JobManager()
     app.state.jobs = manager_jobs
+    if upload_dir is None:
+        base = load_default_config().workspace.base_directory
+        base.mkdir(parents=True, exist_ok=True)
+        upload_dir = Path(tempfile.mkdtemp(prefix="gui-uploads-", dir=base))
+    app.state.upload_dir = upload_dir
 
     @app.middleware("http")
     async def guard(request: Request, call_next: Callable[[Request], Awaitable[Response]]
@@ -153,6 +178,58 @@ def create_app(
         if job is None:
             raise HTTPException(404, "unknown job")
         return job
+
+    @app.post("/api/jobs/{job_id}/cancel")
+    def cancel_job(job_id: str) -> Job:
+        job = manager_jobs.cancel(job_id)
+        if job is None:
+            raise HTTPException(404, "unknown job")
+        return job
+
+    @app.post("/api/uploads", status_code=201)
+    async def upload(request: Request, name: str = "upload.apk") -> dict[str, Any]:
+        """Raw request body = the APK (no multipart dependency). Stored under a random
+        directory with a sanitised name; the client's name is never used as a path."""
+        from apkforge.modkit.validation import validate_apk_archive
+
+        folder = upload_dir / secrets.token_hex(8)
+        folder.mkdir(parents=True)
+        dest = folder / _upload_name(name)
+        size = 0
+        with dest.open("xb") as out:
+            async for chunk in request.stream():
+                size += len(chunk)
+                if size > MAX_UPLOAD_BYTES:
+                    out.close()
+                    dest.unlink()
+                    folder.rmdir()
+                    raise HTTPException(413, f"upload larger than {MAX_UPLOAD_BYTES} bytes")
+                out.write(chunk)
+        problems = validate_apk_archive(dest)
+        if problems:
+            dest.unlink()
+            folder.rmdir()
+            raise HTTPException(422, "not a valid APK: " + "; ".join(problems[:3]))
+        return {"path": str(dest), "size": size}
+
+    @app.post("/api/jobs/modkit-patches", status_code=202)
+    def modkit_patches(body: PatchesBody) -> Job:
+        from apkforge.modkit import default_manager
+
+        adapter = default_manager(modkit_config).get(body.modkit)
+        if adapter is None or not hasattr(adapter, "list_patches"):
+            raise HTTPException(422, f"{body.modkit} does not support patch bundle listing")
+
+        def work() -> Any:  # noqa: ANN401
+            listing, err = adapter.list_patches(
+                body.patches, package=body.package or None, with_options=body.with_options
+            )
+            if listing is None:
+                raise RuntimeError(err)
+            return listing
+
+        summary = {"modkit": body.modkit, "patches": body.patches}
+        return manager_jobs.submit("modkit-patches", summary, work)
 
     @app.post("/api/jobs/analyze", status_code=202)
     def analyze(body: AnalyzeBody) -> Job:

@@ -4195,7 +4195,10 @@ def cmd_gui(
     try:
         server.run(sockets=[sock])
     finally:
+        import shutil
+
         app_.state.jobs.shutdown()
+        shutil.rmtree(app_.state.upload_dir, ignore_errors=True)  # uploads are session-only
 
 
 def _not_implemented(command: str, **kwargs: str) -> None:

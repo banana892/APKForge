@@ -74,18 +74,36 @@ async function api(path, body) {
   return data;
 }
 
-async function runJob(path, body, out, button) {
+async function upload(file) {
+  const res = await fetch(`/api/uploads?name=${encodeURIComponent(file.name)}`, {
+    method: "POST",
+    headers: { "X-APKForge-Token": TOKEN, "Content-Type": "application/octet-stream" },
+    body: file,
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.detail || res.statusText);
+  return data.path;
+}
+
+const ACTIVE = new Set(["QUEUED", "RUNNING"]);
+
+// Submit a job, poll it, then render it into `out`. `render` overrides the kind's renderer.
+async function runJob(path, body, out, button, render) {
   out.replaceChildren(el("div", { class: "panel" }, badge("QUEUED"), " submitting…"));
   button.disabled = true;
   try {
     let job = await api(path, body);
-    while (job.status === "QUEUED" || job.status === "RUNNING") {
-      out.replaceChildren(el("div", { class: "panel" }, badge(job.status), ` job ${job.id}`,
+    while (ACTIVE.has(job.status)) {
+      const id = job.id;
+      const cancel = el("button", { type: "button", class: "secondary", disabled: job.cancel_requested,
+        onclick: async () => { cancel.disabled = true; await api(`/api/jobs/${id}/cancel`, {}).catch(() => {}); },
+      }, job.cancel_requested ? "Cancelling…" : "Cancel");
+      out.replaceChildren(el("div", { class: "panel" }, badge(job.status), ` job ${job.id} `, cancel,
         el("span", { class: "muted" }, " — analysis of large APKs can take minutes")));
       await new Promise((r) => setTimeout(r, 1000));
       job = await api(`/api/jobs/${job.id}`);
     }
-    showJob(job, out);
+    showJob(job, out, render);
   } catch (e) {
     out.replaceChildren(el("div", { class: "panel error" }, String(e.message || e)));
   } finally {
@@ -93,14 +111,28 @@ async function runJob(path, body, out, button) {
   }
 }
 
-function showJob(job, out) {
+function downloadButton(job) {
+  return el("button", { type: "button", class: "secondary", onclick: () => {
+    const blob = new Blob([JSON.stringify(job, null, 2)], { type: "application/json" });
+    const a = el("a", { href: URL.createObjectURL(blob), download: `apkforge-${job.kind}-${job.id}.json` });
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  } }, "Download JSON");
+}
+
+function showJob(job, out, render) {
+  const head = el("div", { class: "toolbar" }, badge(job.status), el("span", { class: "muted mono" }, ` ${job.kind} · ${job.id}`),
+    el("span", { class: "spacer" }), downloadButton(job));
   if (job.status === "ERROR") {
-    out.replaceChildren(el("div", { class: "panel" }, el("h2", {}, "Job failed"),
+    out.replaceChildren(el("div", { class: "panel" }, head, el("h2", {}, "Job failed"),
       el("p", { class: "error" }, job.error), rawJson(job)));
     return;
   }
-  const render = RENDER[job.kind] || ((r) => [rawJson(r)]);
-  out.replaceChildren(el("div", { class: "panel" }, render(job.result)));
+  const notice = job.status === "CANCELLED"
+    ? el("p", { class: "notice" }, "Cancelled. Any result below is what the job produced before it stopped.") : null;
+  const body = job.result === null || job.result === undefined ? []
+    : (render || RENDER[job.kind] || ((r) => [rawJson(r)]))(job.result);
+  out.replaceChildren(el("div", { class: "panel" }, head, notice, body));
 }
 
 // -- renderers -----------------------------------------------------------------------
@@ -199,55 +231,198 @@ function renderChain(r) {
 }
 
 const RENDER = { analyze: renderAnalyze, diff: renderDiff, "modkit-run": renderModKitResult,
-  "modkit-chain": renderChain };
+  "modkit-chain": renderChain, "modkit-patches": (r) => renderPatches(r, null) };
+
+// -- patch bundles (Morphe list_patches) ----------------------------------------------
+
+// `enableInput` (optional): the form's "enable" field the picker fills.
+function renderPatches(listing, enableInput) {
+  const already = new Set((enableInput?.value || "").split(",").map((n) => n.trim()).filter(Boolean));
+  const filter = el("input", { type: "text", class: "filter", placeholder: "Filter patches…" });
+  const rows = (listing.patches || []).map((p) => {
+    const box = enableInput ? el("input", { type: "checkbox", value: p.name, checked: already.has(p.name) }) : null;
+    const compat = (p.compatible || []).map((c) => c.package + ((c.versions || []).length ? ` (${c.versions.join(", ")})` : "")).join("; ");
+    return el("tr", {},
+      enableInput ? el("td", {}, box) : null,
+      el("td", {}, p.index), el("td", {}, p.name, p.description ? el("div", { class: "muted" }, p.description) : null),
+      el("td", {}, p.enabled ? "yes" : "no"),
+      el("td", {}, compat || el("span", { class: "muted" }, "any app")),
+      el("td", { class: "mono" }, (p.options || []).map((o) => `${o.key}${o.required ? "*" : ""}${o.default ? `=${o.default}` : ""}`).join(", ") || "–"));
+  });
+  filter.addEventListener("input", () => {
+    const q = filter.value.toLowerCase();
+    for (const row of rows) row.hidden = q && !row.textContent.toLowerCase().includes(q);
+  });
+  const use = enableInput ? el("button", { type: "button", class: "primary", onclick: () => {
+    const names = [...rows].map((r) => r.querySelector("input[type=checkbox]")).filter((b) => b.checked).map((b) => b.value);
+    enableInput.value = names.join(", ");
+    enableInput.dispatchEvent(new Event("input", { bubbles: true }));
+    use.textContent = `Enabled ${names.length} patch(es)`;
+  } }, "Use selected as “enable”") : null;
+  return [
+    el("h2", {}, `${(listing.patches || []).length} patches`, listing.resolved_version ? ` · ${listing.resolved_version}` : ""),
+    filter,
+    table([enableInput ? "" : null, "#", "Patch", "Default", "Compatible with", "Options (key=default)"].filter((h) => h !== null), rows),
+    use,
+  ];
+}
+
+// -- ModKit parameter forms (run form and chain steps) --------------------------------
+
+let MODKITS = [];
+const kitById = (id) => MODKITS.find((k) => k.identity.modkit_id === id);
+const runnableKits = () => MODKITS.filter((k) => (k.operations || []).length);
+
+// A form for one operation's ParameterSpecs; `values` prefills it. Returns the node and a
+// collect() that yields the non-empty values.
+function paramForm(modkitId, op, values, onChange) {
+  const box = el("div", {});
+  const inputs = {};
+  for (const p of op?.parameters || []) {
+    const id = `p-${Math.random().toString(36).slice(2)}`;
+    let input;
+    if (p.choices && p.choices.length) {
+      input = el("select", { id }, el("option", { value: "" }, "(default)"), p.choices.map((c) => el("option", { value: c }, c)));
+    } else {
+      input = el("input", { id, type: p.sensitive ? "password" : "text", required: p.required, autocomplete: "off" });
+    }
+    input.value = values?.[p.name] ?? "";
+    if (onChange) input.addEventListener("input", onChange);
+    if (onChange) input.addEventListener("change", onChange);
+    inputs[p.name] = input;
+    box.append(el("label", { for: id }, p.name, p.required ? " *" : "", p.sensitive ? " (secret)" : "",
+      p.description ? el("span", { class: "muted" }, ` — ${p.description}`) : null), input);
+    if (p.name === "patches") {
+      const out = el("div", {});
+      const btn = el("button", { type: "button", class: "secondary", onclick: () => {
+        if (!input.value.trim()) { out.replaceChildren(el("p", { class: "error" }, "Enter a patch bundle first.")); return; }
+        runJob("/api/jobs/modkit-patches", { modkit: modkitId, patches: input.value.trim() }, out, btn,
+          (listing) => renderPatches(listing, inputs.enable));
+      } }, "List patches in this bundle");
+      box.append(el("div", { class: "toolbar" }, btn), out);
+    }
+  }
+  return { node: box, collect: () => Object.fromEntries(Object.entries(inputs).filter(([, i]) => i.value !== "").map(([k, i]) => [k, i.value])) };
+}
+
+function kitOptions(select, selected) {
+  select.replaceChildren(...runnableKits().map((k) => el("option", { value: k.identity.modkit_id }, k.identity.modkit_id)));
+  if (selected) select.value = selected;
+}
+function opOptions(select, kit, selected) {
+  select.replaceChildren(...(kit?.operations || []).map((o) => el("option", { value: o.id }, o.id)));
+  if (selected) select.value = selected;
+}
 
 // -- ModKits tab ---------------------------------------------------------------------
 
-let MODKITS = [];
+let RUN_FORM = null;
 
-function renderParams() {
-  const kit = MODKITS.find((k) => k.identity.modkit_id === $("mk-id").value);
+function fillRunForm() {
+  const kit = kitById($("mk-id").value);
   const op = kit?.operations.find((o) => o.id === $("mk-op").value);
-  const box = $("mk-params");
-  box.replaceChildren();
-  for (const p of op?.parameters || []) {
-    const id = `mk-param-${p.name}`;
-    let input;
-    if (p.choices && p.choices.length) {
-      input = el("select", { id, "data-param": p.name },
-        el("option", { value: "" }, "(default)"), p.choices.map((c) => el("option", { value: c }, c)));
-    } else {
-      input = el("input", { id, "data-param": p.name, type: p.sensitive ? "password" : "text",
-        required: p.required, autocomplete: "off" });
+  RUN_FORM = paramForm(kit?.identity.modkit_id, op, {});
+  $("mk-params").replaceChildren(RUN_FORM.node);
+}
+
+let MODKITS_LOADING = null;
+function loadModKits() {
+  MODKITS_LOADING ||= (async () => {
+    try {
+      MODKITS = await api("/api/modkits");
+    } catch (e) {
+      MODKITS_LOADING = null;
+      $("modkit-list").replaceChildren(el("p", { class: "error" }, e.message));
+      return;
     }
-    box.append(el("label", { for: id }, p.name, p.required ? " *" : "", p.sensitive ? " (secret)" : "",
-      p.description ? el("span", { class: "muted" }, ` — ${p.description}`) : null), input);
-  }
+    $("modkit-list").replaceChildren(MODKITS.length
+      ? table(["ID", "Name", "Version", "Status", "Capabilities"], MODKITS.map((k) => el("tr", {},
+        el("td", { class: "mono" }, k.identity.modkit_id), el("td", {}, k.identity.display_name),
+        el("td", {}, k.identity.installed_version || "–"),
+        el("td", {}, badge(k.availability.status), k.availability.reason ? el("div", { class: "muted" }, k.availability.reason) : null),
+        el("td", {}, (k.capabilities || []).join(", ") || "–"))))
+      : el("p", { class: "muted" }, "No ModKits configured. See docs/modkits.md."));
+    kitOptions($("mk-id"));
+    opOptions($("mk-op"), kitById($("mk-id").value));
+    fillRunForm();
+    if (!CHAIN.length && runnableKits().length) addStep();
+    renderSteps();
+  })();
+  return MODKITS_LOADING;
 }
 
-function fillOperations() {
-  const kit = MODKITS.find((k) => k.identity.modkit_id === $("mk-id").value);
-  $("mk-op").replaceChildren(...(kit?.operations || []).map((o) => el("option", { value: o.id }, o.id)));
-  renderParams();
+// -- Chain tab: step cards (JSON stays available as an advanced view) -----------------
+
+let CHAIN = [];
+let CHAIN_JSON = false;
+
+function addStep() {
+  const kit = runnableKits()[0];
+  CHAIN.push({ modkit: kit?.identity.modkit_id || "", operation: kit?.operations[0]?.id || "", parameters: {}, allow_noop: false });
 }
 
-async function loadModKits() {
-  try {
-    MODKITS = await api("/api/modkits");
-  } catch (e) {
-    $("modkit-list").replaceChildren(el("p", { class: "error" }, e.message));
+function renderSteps() {
+  const box = $("chain-step-list");
+  if (CHAIN_JSON) return;
+  if (!runnableKits().length) {
+    box.replaceChildren(el("p", { class: "muted" }, "No runnable ModKits configured."));
     return;
   }
-  $("modkit-list").replaceChildren(MODKITS.length
-    ? table(["ID", "Name", "Version", "Status", "Capabilities"], MODKITS.map((k) => el("tr", {},
-      el("td", { class: "mono" }, k.identity.modkit_id), el("td", {}, k.identity.display_name),
-      el("td", {}, k.identity.installed_version || "–"),
-      el("td", {}, badge(k.availability.status), k.availability.reason ? el("div", { class: "muted" }, k.availability.reason) : null),
-      el("td", {}, (k.capabilities || []).join(", ") || "–"))))
-    : el("p", { class: "muted" }, "No ModKits configured. See docs/modkits.md."));
-  const runnable = MODKITS.filter((k) => (k.operations || []).length);
-  $("mk-id").replaceChildren(...runnable.map((k) => el("option", { value: k.identity.modkit_id }, k.identity.modkit_id)));
-  fillOperations();
+  box.replaceChildren(...CHAIN.map((step, i) => {
+    const kitSel = el("select", {});
+    const opSel = el("select", {});
+    kitOptions(kitSel, step.modkit);
+    const kit = kitById(kitSel.value);
+    opOptions(opSel, kit, step.operation);
+    step.modkit = kitSel.value;
+    step.operation = opSel.value;
+    const form = paramForm(step.modkit, kit?.operations.find((o) => o.id === step.operation), step.parameters,
+      () => { step.parameters = form.collect(); });
+    kitSel.addEventListener("change", () => {
+      step.modkit = kitSel.value; step.operation = kitById(kitSel.value)?.operations[0]?.id || ""; step.parameters = {};
+      renderSteps();
+    });
+    opSel.addEventListener("change", () => { step.operation = opSel.value; step.parameters = {}; renderSteps(); });
+    const noop = el("input", { type: "checkbox", checked: step.allow_noop, onchange: () => { step.allow_noop = noop.checked; } });
+    const move = (d) => { const j = i + d; [CHAIN[i], CHAIN[j]] = [CHAIN[j], CHAIN[i]]; renderSteps(); };
+    return el("fieldset", { class: "step" },
+      el("legend", {}, `Step ${i}`),
+      el("div", { class: "toolbar" },
+        el("button", { type: "button", class: "secondary", disabled: i === 0, onclick: () => move(-1), "aria-label": `Move step ${i} up` }, "↑"),
+        el("button", { type: "button", class: "secondary", disabled: i === CHAIN.length - 1, onclick: () => move(1), "aria-label": `Move step ${i} down` }, "↓"),
+        el("button", { type: "button", class: "secondary", disabled: CHAIN.length === 1,
+          onclick: () => { CHAIN.splice(i, 1); renderSteps(); }, "aria-label": `Remove step ${i}` }, "Remove")),
+      el("div", { class: "row" }, el("div", {}, el("label", {}, "ModKit"), kitSel), el("div", {}, el("label", {}, "Operation"), opSel)),
+      form.node,
+      el("label", { class: "check" }, noop, " Accept an unchanged output (NO_OP)"));
+  }));
+}
+
+function chainSteps() {
+  if (!CHAIN_JSON) return CHAIN.map((s) => ({ ...s }));
+  return JSON.parse($("chain-steps").value);
+}
+
+function toggleChainJson() {
+  if (!CHAIN_JSON) {
+    $("chain-steps").value = JSON.stringify(CHAIN, null, 2);
+  } else {
+    try {
+      const parsed = JSON.parse($("chain-steps").value);
+      if (!Array.isArray(parsed)) throw new Error("expected a JSON array of steps");
+      CHAIN = parsed.map((s) => ({ modkit: s.modkit, operation: s.operation, parameters: s.parameters || {}, allow_noop: !!s.allow_noop,
+        ...(s.timeout_seconds ? { timeout_seconds: s.timeout_seconds } : {}) }));
+    } catch (e) {
+      $("out-chain").replaceChildren(el("div", { class: "panel error" }, `Steps are not valid JSON: ${e.message}`));
+      return;
+    }
+  }
+  CHAIN_JSON = !CHAIN_JSON;
+  $("chain-steps").hidden = !CHAIN_JSON;
+  $("chain-step-list").hidden = CHAIN_JSON;
+  $("chain-add").hidden = CHAIN_JSON;
+  $("chain-json-toggle").textContent = CHAIN_JSON ? "Edit as form" : "Edit as JSON";
+  renderSteps();
 }
 
 // -- Jobs tab ------------------------------------------------------------------------
@@ -256,11 +431,14 @@ async function loadJobs() {
   try {
     const jobs = await api("/api/jobs");
     $("job-list").replaceChildren(jobs.length
-      ? table(["Created", "Kind", "Status", "What"], jobs.map((j) => el("tr", {
+      ? table(["Created", "Kind", "Status", "What", ""], jobs.map((j) => el("tr", {
         class: "clickable",
         onclick: async () => showJob(await api(`/api/jobs/${j.id}`), $("out-jobs")),
       }, el("td", { class: "mono" }, j.created), el("td", {}, j.kind), el("td", {}, badge(j.status)),
-      el("td", { class: "mono" }, JSON.stringify(j.summary)))))
+      el("td", { class: "mono" }, JSON.stringify(j.summary)),
+      el("td", {}, ACTIVE.has(j.status) ? el("button", { type: "button", class: "secondary", disabled: j.cancel_requested,
+        onclick: async (ev) => { ev.stopPropagation(); await api(`/api/jobs/${j.id}/cancel`, {}).catch(() => {}); loadJobs(); },
+      }, j.cancel_requested ? "Cancelling…" : "Cancel") : null))))
       : el("p", { class: "muted" }, "No jobs yet."));
   } catch (e) {
     $("job-list").replaceChildren(el("p", { class: "error" }, e.message));
@@ -273,7 +451,7 @@ function selectTab(name) {
   for (const b of document.querySelectorAll("nav button")) b.setAttribute("aria-selected", b.dataset.tab === name);
   for (const s of document.querySelectorAll("main section")) s.hidden = s.id !== `tab-${name}`;
   if (name === "jobs") loadJobs();
-  if (name === "modkits" && !MODKITS.length) loadModKits();
+  if (name === "modkits" || name === "chain") loadModKits();
 }
 
 function onSubmit(formId, handler) {
@@ -283,28 +461,52 @@ function onSubmit(formId, handler) {
   });
 }
 
+// An "Upload…" button next to every APK path field: the server stores the file in a
+// session-only directory and the field gets that path.
+function addUploadButtons() {
+  for (const input of document.querySelectorAll("input[data-upload]")) {
+    const picker = el("input", { type: "file", accept: ".apk,application/vnd.android.package-archive", hidden: true });
+    const status = el("span", { class: "muted" });
+    const btn = el("button", { type: "button", class: "secondary", onclick: () => picker.click() }, "Upload…");
+    picker.addEventListener("change", async () => {
+      const file = picker.files[0];
+      if (!file) return;
+      btn.disabled = true;
+      status.textContent = ` uploading ${file.name}…`;
+      try {
+        input.value = await upload(file);
+        status.textContent = ` uploaded (${(file.size / 1048576).toFixed(1)} MB)`;
+      } catch (e) {
+        status.textContent = "";
+        status.append(el("span", { class: "error" }, ` upload failed: ${e.message}`));
+      } finally {
+        btn.disabled = false;
+        picker.value = "";
+      }
+    });
+    input.after(el("div", { class: "toolbar" }, btn, status, picker));
+  }
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   for (const b of document.querySelectorAll("nav button")) b.addEventListener("click", () => selectTab(b.dataset.tab));
-  $("mk-id").addEventListener("change", fillOperations);
-  $("mk-op").addEventListener("change", renderParams);
+  $("mk-id").addEventListener("change", () => { opOptions($("mk-op"), kitById($("mk-id").value)); fillRunForm(); });
+  $("mk-op").addEventListener("change", fillRunForm);
+  $("chain-add").addEventListener("click", () => { addStep(); renderSteps(); });
+  $("chain-json-toggle").addEventListener("click", toggleChainJson);
+  addUploadButtons();
 
   onSubmit("form-analyze", (btn) => runJob("/api/jobs/analyze", { apk: $("analyze-apk").value.trim() }, $("out-analyze"), btn));
   onSubmit("form-diff", (btn) => runJob("/api/jobs/diff",
     { original: $("diff-original").value.trim(), modified: $("diff-modified").value.trim() }, $("out-diff"), btn));
-  onSubmit("form-modkit", (btn) => {
-    const parameters = {};
-    for (const input of $("mk-params").querySelectorAll("[data-param]")) {
-      if (input.value !== "") parameters[input.dataset.param] = input.value;
-    }
-    runJob("/api/jobs/modkit-run", {
-      modkit: $("mk-id").value, operation: $("mk-op").value, apk: $("mk-apk").value.trim(),
-      output_dir: $("mk-out").value.trim(), parameters, allow_noop: $("mk-noop").checked,
-    }, $("out-modkit"), btn);
-  });
+  onSubmit("form-modkit", (btn) => runJob("/api/jobs/modkit-run", {
+    modkit: $("mk-id").value, operation: $("mk-op").value, apk: $("mk-apk").value.trim(),
+    output_dir: $("mk-out").value.trim(), parameters: RUN_FORM ? RUN_FORM.collect() : {}, allow_noop: $("mk-noop").checked,
+  }, $("out-modkit"), btn));
   onSubmit("form-chain", (btn) => {
     let steps;
     try {
-      steps = JSON.parse($("chain-steps").value);
+      steps = chainSteps();
     } catch (e) {
       $("out-chain").replaceChildren(el("div", { class: "panel error" }, `Steps are not valid JSON: ${e.message}`));
       return;

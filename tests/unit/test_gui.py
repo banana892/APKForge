@@ -30,8 +30,10 @@ def _isolated_env(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
 
 
 @pytest.fixture()
-def client() -> TestClient:
-    return TestClient(create_app(TOKEN), base_url="http://127.0.0.1:8765")
+def client(tmp_path: Path) -> TestClient:
+    return TestClient(
+        create_app(TOKEN, upload_dir=tmp_path / "up"), base_url="http://127.0.0.1:8765"
+    )
 
 
 @pytest.fixture()
@@ -61,13 +63,13 @@ def test_api_requires_the_token(client: TestClient) -> None:
     assert ok.status_code == 200 and ok.json()["status"] == "ok"
 
 
-def test_foreign_host_is_rejected_even_with_token() -> None:
+def test_foreign_host_is_rejected_even_with_token(tmp_path: Path) -> None:
     """DNS rebinding: a page on evil.example resolving to 127.0.0.1 sends its own Host."""
-    c = TestClient(create_app(TOKEN), base_url="http://evil.example")
+    c = TestClient(create_app(TOKEN, upload_dir=tmp_path), base_url="http://evil.example")
     assert c.get("/api/health", headers=H).status_code == 403
     assert c.get("/").status_code == 403
     assert (
-        TestClient(create_app(TOKEN), base_url="http://localhost:1")
+        TestClient(create_app(TOKEN, upload_dir=tmp_path), base_url="http://localhost:1")
         .get("/api/health", headers=H)
         .status_code
         == 200
@@ -174,3 +176,66 @@ def test_job_exception_becomes_error_status() -> None:
         time.sleep(0.01)
     assert got is not None and got.status is JobStatus.ERROR and got.error == "RuntimeError: kaput"
     jobs.shutdown()
+
+
+# -- 9.1 follow-ups: cancel, upload, patch listing -------------------------------------
+
+
+def test_cancel_kills_a_running_modkit(client: TestClient, apk: Path, tmp_path: Path) -> None:
+    body = {"modkit": TEST_MODKIT_ID, "apk": str(apk), "output_dir": str(tmp_path / "out"),
+            "operation": "transform", "parameters": {"scenario": "timeout"}}  # fmt: skip
+    job = client.post("/api/jobs/modkit-run", json=body, headers=H).json()
+    deadline = time.monotonic() + 30
+    while job["status"] != "RUNNING":  # cancel only once the tool really runs
+        assert time.monotonic() < deadline
+        time.sleep(0.05)
+        job = client.get(f"/api/jobs/{job['id']}", headers=H).json()
+    time.sleep(1)
+    assert client.post(f"/api/jobs/{job['id']}/cancel", headers=H).json()["cancel_requested"]
+    t0 = time.monotonic()
+    job = _wait(client, job, timeout=30)
+    assert time.monotonic() - t0 < 15  # killed, not the 3600 s sleep or the ModKit timeout
+    assert job["status"] == "CANCELLED" and job["result"]["status"] == "CANCELLED"
+    assert not (tmp_path / "out").exists() or not any((tmp_path / "out").iterdir())
+    assert client.post("/api/jobs/nope/cancel", headers=H).status_code == 404
+
+
+def test_cancel_queued_job_never_runs() -> None:
+    import threading
+
+    jobs = JobManager(workers=1)
+    gate, ran = threading.Event(), []
+    first = jobs.submit("block", {}, gate.wait)
+    second = jobs.submit("x", {}, lambda: ran.append(1))
+    got = jobs.cancel(second.id)
+    assert got is not None and got.status is JobStatus.CANCELLED
+    gate.set()
+    deadline = time.monotonic() + 10
+    while (j := jobs.get(first.id)) is not None and j.status is not JobStatus.DONE:
+        assert time.monotonic() < deadline
+        time.sleep(0.01)
+    time.sleep(0.1)
+    assert ran == [] and jobs.get(second.id).status is JobStatus.CANCELLED  # type: ignore[union-attr]
+    assert jobs.cancel(first.id).status is JobStatus.DONE  # type: ignore[union-attr]  # finished: unchanged
+    jobs.shutdown()
+
+
+def test_upload_stores_a_valid_apk_under_a_safe_name(tmp_path: Path, apk: Path) -> None:
+    up = tmp_path / "uploads"
+    c = TestClient(create_app(TOKEN, upload_dir=up), base_url="http://127.0.0.1:8765")
+    r = c.post("/api/uploads", params={"name": "../../etc/evil name.apk"},
+               content=apk.read_bytes(), headers=H)  # fmt: skip
+    assert r.status_code == 201, r.text
+    stored = Path(r.json()["path"])
+    assert stored.parent.parent == up and stored.name == "evil_name.apk"
+    assert stored.read_bytes() == apk.read_bytes()
+    bad = c.post("/api/uploads", params={"name": "x.apk"}, content=b"not a zip", headers=H)
+    assert bad.status_code == 422 and "not a valid APK" in bad.text
+    assert len(list(up.iterdir())) == 1  # the rejected upload left nothing behind
+    assert c.post("/api/uploads", content=b"x").status_code == 401
+
+
+def test_patch_listing_needs_a_modkit_that_supports_it(client: TestClient) -> None:
+    r = client.post("/api/jobs/modkit-patches", headers=H,
+                    json={"modkit": TEST_MODKIT_ID, "patches": "/x.mpp"})  # fmt: skip
+    assert r.status_code == 422 and "patch bundle listing" in r.text

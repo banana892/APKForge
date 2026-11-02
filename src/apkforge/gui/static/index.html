@@ -74,6 +74,13 @@
   .filter { max-width: 320px; margin: 8px 0; }
   .clickable { cursor: pointer; }
   .clickable:hover td { background: var(--code); }
+  .toolbar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+  .toolbar .spacer { flex: 1; }
+  button.secondary { background: var(--bg); color: var(--text); border: 1px solid var(--line);
+                     padding: 5px 11px; border-radius: 6px; font: inherit; cursor: pointer; }
+  button.secondary:disabled { opacity: .5; cursor: default; }
+  fieldset.step { border: 1px solid var(--line); border-radius: 8px; margin: 12px 0; padding: 8px 14px 12px; }
+  fieldset.step legend { font-weight: 600; padding: 0 4px; }
 </style>
 </head>
 <body>
@@ -97,7 +104,7 @@
       <h2>Analyze an APK</h2>
       <p class="hint">Inspection, privacy and security analysis (same as <code>apkforge analyze</code>).</p>
       <label for="analyze-apk">APK path (absolute)</label>
-      <input type="text" id="analyze-apk" name="apk" required placeholder="/path/to/app.apk">
+      <input type="text" id="analyze-apk" data-upload name="apk" required placeholder="/path/to/app.apk">
       <button class="primary" type="submit">Analyze</button>
     </form>
     <div id="out-analyze"></div>
@@ -106,12 +113,12 @@
   <section id="tab-diff" hidden>
     <form class="panel" id="form-diff">
       <h2>Compare two APKs</h2>
-      <p class="hint">Phase E semantic diff (same engine as <code>apkforge diff</code>).</p>
+      <p class="hint">Phase E semantic diff (same engine as <code>apkforge diff</code>). Type absolute paths or upload.</p>
       <div class="row">
         <div><label for="diff-original">Original APK</label>
-          <input type="text" id="diff-original" name="original" required></div>
+          <input type="text" id="diff-original" data-upload name="original" required></div>
         <div><label for="diff-modified">Modified APK</label>
-          <input type="text" id="diff-modified" name="modified" required></div>
+          <input type="text" id="diff-modified" data-upload name="modified" required></div>
       </div>
       <button class="primary" type="submit">Compare</button>
     </form>
@@ -132,7 +139,7 @@
         <div><label for="mk-op">Operation</label><select id="mk-op" required></select></div>
       </div>
       <div class="row">
-        <div><label for="mk-apk">Input APK</label><input type="text" id="mk-apk" required></div>
+        <div><label for="mk-apk">Input APK</label><input type="text" id="mk-apk" data-upload required></div>
         <div><label for="mk-out">Output directory</label><input type="text" id="mk-out" required></div>
       </div>
       <div id="mk-params"></div>
@@ -145,20 +152,18 @@
   <section id="tab-chain" hidden>
     <form class="panel" id="form-chain">
       <h2>Run a ModKit chain</h2>
-      <p class="hint">Steps run in order; each step's validated output feeds the next. Same
-        shape as a pipeline file's <code>steps</code>.</p>
+      <p class="hint">Steps run in order; each step's validated output feeds the next.
+        "Edit as JSON" shows the same shape as a pipeline file's <code>steps</code>.</p>
       <div class="row">
-        <div><label for="chain-apk">Input APK</label><input type="text" id="chain-apk" required></div>
+        <div><label for="chain-apk">Input APK</label><input type="text" id="chain-apk" data-upload required></div>
         <div><label for="chain-out">Output directory</label><input type="text" id="chain-out" required></div>
       </div>
-      <label for="chain-steps">Steps (JSON array)</label>
-      <textarea id="chain-steps" spellcheck="false">[
-  {
-    "modkit": "morphe",
-    "operation": "patch",
-    "parameters": {"patches": "/path/patches.mpp", "enable": "Clone app"}
-  }
-]</textarea>
+      <div id="chain-step-list"><span class="muted">Loading ModKits…</span></div>
+      <textarea id="chain-steps" spellcheck="false" hidden aria-label="Steps (JSON array)"></textarea>
+      <div class="toolbar">
+        <button type="button" class="secondary" id="chain-add">Add step</button>
+        <button type="button" class="secondary" id="chain-json-toggle">Edit as JSON</button>
+      </div>
       <label class="check"><input type="checkbox" id="chain-conflicts"> Check for conflicts between steps (slower)</label>
       <button class="primary" type="submit">Run chain</button>
     </form>
