@@ -239,3 +239,86 @@ def test_patch_listing_needs_a_modkit_that_supports_it(client: TestClient) -> No
     r = client.post("/api/jobs/modkit-patches", headers=H,
                     json={"modkit": TEST_MODKIT_ID, "patches": "/x.mpp"})  # fmt: skip
     assert r.status_code == 422 and "patch bundle listing" in r.text
+
+
+# -- 9.2: preview, then apply ----------------------------------------------------------
+
+
+def _post(client: TestClient, path: str, **body: Any) -> Any:
+    return client.post(path, headers=H, json=body)
+
+
+def _planned(apk: Path) -> Any:
+    from apkforge.remediation.models import RemediationPlan
+
+    return RemediationPlan(
+        plan_id="p1",
+        source_apk_path=str(apk),
+        source_apk_sha256="x",
+        finding_id="F-1",
+        finding_category="persistence",
+        finding_title="t",
+        remediation_id="G-REM-001",
+        remediation_name="n",
+    )
+
+
+def test_apply_runs_only_the_previewed_unchanged_plan(
+    client: TestClient, apk: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from apkforge.remediation import RemediationService
+
+    applied: list[tuple[str, Path]] = []
+
+    def fake_apply(cls: object, plan: Any, approved: bool, output_path: Path) -> dict[str, str]:
+        assert approved
+        applied.append((plan.plan_id, output_path))
+        return {"state": "verified"}
+
+    monkeypatch.setattr(RemediationService, "plan", classmethod(lambda c, a, f, **k: _planned(a)))
+    monkeypatch.setattr(RemediationService, "apply", classmethod(fake_apply))
+    preview = _wait(client, _post(client, "/api/jobs/remediation-plan", apk=str(apk),
+                                  finding_id="F-1").json())  # fmt: skip
+    assert preview["status"] == "DONE", preview["error"]
+    assert preview["result"]["state"] == "planned"
+
+    def apply(output: str) -> Any:
+        return _post(client, "/api/jobs/apply", preview_job=preview["id"], output=output)
+
+    out = tmp_path / "out" / "fixed.apk"
+    assert apply("fixed.apk").status_code == 422  # relative
+    assert apply(str(tmp_path / "x.zip")).status_code == 422  # not .apk
+    assert apply(str(apk)).status_code == 422  # exists (and is the input)
+    original = apk.read_bytes()
+    apk.write_bytes(original + b"\0")
+    changed = apply(str(out))
+    assert changed.status_code == 409 and "changed since the preview" in changed.text
+    apk.write_bytes(original)
+    job = _wait(client, apply(str(out)).json())
+    assert job["status"] == "DONE" and applied == [("p1", out)]
+    assert apply(str(tmp_path / "again.apk")).status_code == 409  # one apply per preview
+
+
+def test_apply_refuses_unfinished_or_inapplicable_previews(
+    client: TestClient, apk: Path, tmp_path: Path
+) -> None:
+    out = str(tmp_path / "o.apk")
+    assert _post(client, "/api/jobs/apply", preview_job="nope", output=out).status_code == 409
+    # a real plan for a finding that does not exist is never applicable
+    preview = _wait(client, _post(client, "/api/jobs/remediation-plan", apk=str(apk),
+                                  finding_id="NO-SUCH").json())  # fmt: skip
+    assert preview["status"] == "DONE" and preview["result"]["state"] != "planned"
+    r = _post(client, "/api/jobs/apply", preview_job=preview["id"], output=out)
+    assert r.status_code == 409 and "cannot apply" in r.text
+    analysis = _wait(client, _post(client, "/api/jobs/analyze", apk=str(apk)).json())
+    r = _post(client, "/api/jobs/apply", preview_job=analysis["id"], output=out)
+    assert r.status_code == 409  # an analysis is not a preview
+
+
+def test_transform_plan_validates_ids(client: TestClient, apk: Path) -> None:
+    def plan(**extra: str) -> Any:
+        return _post(client, "/api/jobs/transform-plan", apk=str(apk), target="a.B", **extra)
+
+    assert plan(transformation_id="H-TRANS-999").status_code == 422
+    repl = plan(transformation_id="H-TRANS-001", replacement="x")
+    assert repl.status_code == 422 and "H-TRANS-003" in repl.text

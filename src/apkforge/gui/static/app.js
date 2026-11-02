@@ -51,9 +51,11 @@ function list(title, items, cls) {
 }
 
 const GOOD = new Set(["SUCCESS", "NO_OP", "COMPLETE", "complete", "DONE", "AVAILABLE", "NONE",
-  "NO_SIGNIFICANT_STATIC_FINDINGS", "UNCHANGED"]);
+  "NO_SIGNIFICANT_STATIC_FINDINGS", "UNCHANGED", "planned", "verified", "VERIFIED", "PLANNED", "ELIGIBLE",
+  "FOUND", "INSTALLED", "PASS", "valid", "satisfied"]);
 const WARN = new Set(["PARTIAL", "partial", "QUEUED", "RUNNING", "CONTAINER_ONLY", "NOT_CHECKED",
-  "INCOMPLETE", "medium", "low", "MEDIUM", "LOW"]);
+  "INCOMPLETE", "medium", "low", "MEDIUM", "LOW", "CANCELLED", "CONDITIONALLY_ELIGIBLE",
+  "partially_remediated", "VERIFIED_WITH_LIMITATIONS", "NOT_INSTALLED", "SKIPPED", "informational", "INFO"]);
 function badge(value) {
   const v = String(value);
   const cls = GOOD.has(v) ? "ok" : WARN.has(v) ? "warn" : "bad";
@@ -133,7 +135,8 @@ function showJob(job, out, render) {
   const notice = job.status === "CANCELLED"
     ? el("p", { class: "notice" }, "Cancelled. Any result below is what the job produced before it stopped.") : null;
   const body = job.result === null || job.result === undefined ? []
-    : (render || RENDER[job.kind] || ((r) => [rawJson(r)]))(job.result);
+    : PREVIEW[job.kind] && !render ? PREVIEW[job.kind](job)
+      : (render || RENDER[job.kind] || ((r) => [rawJson(r)]))(job.result);
   out.replaceChildren(el("div", { class: "panel" }, head, notice, body));
 }
 
@@ -233,7 +236,122 @@ function renderChain(r) {
 }
 
 const RENDER = { analyze: renderAnalyze, diff: renderDiff, "modkit-run": renderModKitResult,
-  "modkit-chain": renderChain, "modkit-patches": (r) => renderPatches(r, null) };
+  "modkit-chain": renderChain, "modkit-patches": (r) => renderPatches(r, null),
+  "remediation-findings": renderRemediationFindings, apply: renderApplied };
+
+// -- 9.2: preview, then apply -----------------------------------------------------------
+
+// Shown under a finished, applicable preview. The server applies exactly what the preview
+// job saw (same inputs, same plan, APK unchanged); the page only adds the output path.
+function applyPanel(job, what) {
+  const out = el("div", {});
+  const id = `apply-${job.id}`;
+  const input = el("input", { type: "text", id, required: true, placeholder: "/path/to/new-output.apk" });
+  const btn = el("button", { type: "submit", class: "primary" }, `Apply ${what}`);
+  const form = el("form", { class: "panel apply" },
+    el("h2", {}, "Apply"),
+    el("p", { class: "hint" }, "Writes a new APK; the input is never modified. Applies exactly the preview above, once. ",
+      "If the input APK has changed since the preview, the server refuses."),
+    el("label", { for: id }, "Output APK (absolute path, must not exist)"), input, btn, out);
+  form.addEventListener("submit", (ev) => {
+    ev.preventDefault();
+    runJob("/api/jobs/apply", { preview_job: job.id, output: input.value.trim() }, out, btn)
+      .then(() => { if (out.querySelector(".badge")?.textContent === "DONE") btn.hidden = true; });
+  });
+  return form;
+}
+
+function notApplicable(reason) {
+  return el("p", { class: "notice" }, `Cannot be applied: ${reason}`);
+}
+
+function renderRemediationFindings(findings) {
+  if (!findings.length) return [el("p", { class: "muted" }, "No privacy findings.")];
+  const apk = $("rem-apk").value.trim();
+  return [
+    el("h2", {}, `${findings.length} privacy findings`),
+    table(["Severity", "Finding", "Remediations"], findings.map(({ finding: f, remediations }) => el("tr", {},
+      el("td", {}, badge(f.severity)),
+      el("td", {}, el("details", {}, el("summary", {}, f.title, " ", el("span", { class: "muted mono" }, f.id)),
+        el("p", {}, f.description), f.source_component ? el("p", { class: "mono" }, f.source_component) : null)),
+      el("td", {}, remediations.length ? remediations.map((c) => el("div", {},
+        el("button", { type: "button", class: "secondary", disabled: !c.is_supported,
+          onclick: (ev) => runJob("/api/jobs/remediation-plan",
+            { apk, finding_id: f.id, remediation_id: c.remediation.id }, $("out-remediate-plan"), ev.target),
+        }, `Plan ${c.remediation.id}`), " ", c.remediation.name,
+        c.is_supported ? null : el("div", { class: "muted" }, c.unsupported_reason)))
+        : el("span", { class: "muted" }, "none"))))),
+  ];
+}
+
+const PREVIEW = {
+  "remediation-plan": (job) => {
+    const p = job.result;
+    return [
+      el("h2", {}, `${p.remediation_id} ${p.remediation_name} `, badge(p.state)),
+      kv([["Finding", `${p.finding_id} — ${p.finding_title}`], ["Category", p.finding_category],
+        ["Package", p.package_name], ["APK SHA-256", p.source_apk_sha256]]),
+      (p.preconditions || []).length ? table(["Precondition", "", "Expected", "Actual"], p.preconditions.map((c) => el("tr", {},
+        el("td", {}, c.name, c.reason ? el("div", { class: "muted" }, c.reason) : null),
+        el("td", {}, badge(c.satisfied ? "satisfied" : "not satisfied")),
+        el("td", { class: "mono" }, c.expected), el("td", { class: "mono" }, c.actual)))) : null,
+      list("Planned changes", p.planned_changes), list("Expected diff", p.expected_diff),
+      list("Verification", p.verification_plan), list("Warnings", p.warnings),
+      list("Compatibility", p.compatibility_notes), list("Limitations", p.limitations),
+      p.state === "planned" ? applyPanel(job, "remediation") : notApplicable(`the plan is ${p.state}`),
+      rawJson(p),
+    ];
+  },
+  "transform-plan": (job) => {
+    const r = job.result;
+    const d = (r.decisions || [])[0];
+    if (!d) return [list("Errors", r.errors, "error"), rawJson(r)];
+    return [
+      el("h2", {}, `${d.transformation_id} `, el("span", { class: "mono" }, d.target ? d.target.raw : "(invalid target)"), " ", badge(d.eligibility)),
+      el("p", {}, d.statement),
+      (d.reasons || []).length ? table(["Reason", "Requirement", "Detail"], d.reasons.map((x) => el("tr", {},
+        el("td", {}, badge(x.state), " ", x.code), el("td", {}, x.requirement), el("td", {}, x.message)))) : null,
+      d.plan ? el("div", {}, el("h2", {}, "Planned changes"),
+        table(["Type", "Target", "Artifact"], d.plan.planned_changes.map((c) => el("tr", {},
+          el("td", {}, c.type), el("td", { class: "mono" }, c.target), el("td", { class: "mono" }, c.artifact || "–")))),
+        list("Expected changes", d.plan.expected_changes)) : null,
+      list("Errors", r.errors, "error"),
+      d.plan && !(r.errors || []).length ? applyPanel(job, "transformation") : notApplicable(`no applicable plan (${d.eligibility})`),
+      el("p", { class: "notice" }, "Eligibility means the static evidence supports the change; it does not establish that the target is malicious, unnecessary or safe to remove."),
+      rawJson(r),
+    ];
+  },
+  "build-check": (job) => {
+    const t = job.result.toolchain;
+    return [
+      el("h2", {}, "Build toolchain ", badge(t.valid ? "valid" : "invalid")),
+      kv([["Signing", job.result.signing || "none configured"]]),
+      table(["Tool", "Status", "Version", "Path / notes"], Object.entries(t.tools || {}).map(([name, d]) => el("tr", {},
+        el("td", {}, name), el("td", {}, badge(d.status)), el("td", {}, d.version || ""),
+        el("td", { class: "mono" }, `${d.path || ""} ${d.notes || ""}`)))),
+      list("Errors", t.errors, "error"), list("Warnings", t.warnings),
+      t.valid ? applyPanel(job, "no-op rebuild") : notApplicable("the toolchain is not valid"),
+    ];
+  },
+};
+
+// Remediation, transformation and build results differ; show the common parts.
+function renderApplied(r) {
+  const status = r.state || r.status || (r.success === true ? "SUCCESS" : r.success === false ? "FAILED" : "?");
+  const output = r.output_apk_path || r.output_apk;
+  const failure = r.failure ? `${r.failure.code} at ${r.failure.stage}: ${r.failure.message}` : r.failure_cause;
+  return [
+    el("h2", {}, "Result ", badge(status)),
+    kv([["Output APK", output], ["Failure", failure], ["Workspace", r.workspace]]),
+    (r.verification || []).length ? table(["Check", "Expected", "Actual", "Result"], r.verification.map((v) => el("tr", {},
+      el("td", {}, v.check, v.mandatory ? "" : el("span", { class: "muted" }, " (optional)")),
+      el("td", { class: "mono" }, v.expected), el("td", { class: "mono" }, v.actual), el("td", {}, badge(v.status))))) : null,
+    (r.stages || []).length ? table(["Stage", "Status", "Time"], r.stages.map((st) => el("tr", {},
+      el("td", {}, st.stage), el("td", {}, badge(st.status)), el("td", {}, `${(st.duration_seconds || 0).toFixed(2)}s`)))) : null,
+    list("Errors", r.errors, "error"), list("Warnings", r.warnings), list("Limitations", r.limitations),
+    rawJson(r),
+  ];
+}
 
 // -- patch bundles (Morphe list_patches) ----------------------------------------------
 
@@ -505,6 +623,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     modkit: $("mk-id").value, operation: $("mk-op").value, apk: $("mk-apk").value.trim(),
     output_dir: $("mk-out").value.trim(), parameters: RUN_FORM ? RUN_FORM.collect() : {}, allow_noop: $("mk-noop").checked,
   }, $("out-modkit"), btn));
+  onSubmit("form-remediate", (btn) => {
+    $("out-remediate-plan").replaceChildren();
+    runJob("/api/jobs/remediation-findings", { apk: $("rem-apk").value.trim() }, $("out-remediate"), btn);
+  });
+  onSubmit("form-transform", (btn) => runJob("/api/jobs/transform-plan", {
+    apk: $("tr-apk").value.trim(), transformation_id: $("tr-id").value, target: $("tr-target").value.trim(),
+    replacement: $("tr-replacement").value.trim() || null,
+  }, $("out-transform"), btn));
+  $("tr-id").addEventListener("change", () => { $("tr-replacement-row").hidden = $("tr-id").value !== "H-TRANS-003"; });
+  onSubmit("form-build", (btn) => runJob("/api/jobs/build-check", { apk: $("build-apk").value.trim() }, $("out-build"), btn));
   onSubmit("form-chain", (btn) => {
     let steps;
     try {

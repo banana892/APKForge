@@ -87,13 +87,16 @@
 <header>
   <h1>APKForge Workbench</h1>
   <span class="meta" id="version"></span>
-  <span class="meta">Local only · static analysis · nothing is executed or installed</span>
+  <span class="meta">Local only · static analysis · APKs are never executed or installed; changes are written only to new files you approve</span>
 </header>
 <nav role="tablist">
   <button role="tab" data-tab="analyze" aria-selected="true">Analyze</button>
   <button role="tab" data-tab="diff">Diff</button>
   <button role="tab" data-tab="modkits">ModKits</button>
   <button role="tab" data-tab="chain">Chain</button>
+  <button role="tab" data-tab="remediate">Remediate</button>
+  <button role="tab" data-tab="transform">Transform</button>
+  <button role="tab" data-tab="build">Build</button>
   <button role="tab" data-tab="jobs">Jobs</button>
 </nav>
 <main>
@@ -168,6 +171,58 @@
       <button class="primary" type="submit">Run chain</button>
     </form>
     <div id="out-chain"></div>
+  </section>
+
+  <section id="tab-remediate" hidden>
+    <form class="panel" id="form-remediate">
+      <h2>Remediate a privacy finding</h2>
+      <p class="hint">Lists the Phase F privacy findings and the Phase G remediations each one maps to.
+        "Plan" shows exactly what would change; nothing is written until you apply that plan
+        (same as <code>apkforge remediate --finding ID</code>, then <code>--apply</code>).</p>
+      <label for="rem-apk">APK</label>
+      <input type="text" id="rem-apk" data-upload required placeholder="/path/to/app.apk">
+      <button class="primary" type="submit">Find findings</button>
+    </form>
+    <div id="out-remediate"></div>
+    <div id="out-remediate-plan"></div>
+  </section>
+
+  <section id="tab-transform" hidden>
+    <form class="panel" id="form-transform">
+      <h2>Plan a transformation</h2>
+      <p class="hint">H.2 decides from static evidence whether the change is supported and produces a
+        deterministic plan; applying it runs H.3/H.5/H.6 (same as <code>apkforge transform -t ID --target T</code>,
+        then <code>--plan FILE --apply</code>). Targets come from <code>apkforge references</code>.</p>
+      <div class="row">
+        <div><label for="tr-apk">APK</label><input type="text" id="tr-apk" data-upload required></div>
+        <div><label for="tr-id">Transformation</label>
+          <select id="tr-id">
+            <option value="H-TRANS-001">H-TRANS-001 — remove isolated class</option>
+            <option value="H-TRANS-002">H-TRANS-002 — remove isolated method</option>
+            <option value="H-TRANS-003">H-TRANS-003 — replace a call site</option>
+          </select></div>
+      </div>
+      <label for="tr-target">Target (class, method or call site, as <code>references</code> prints it)</label>
+      <input type="text" id="tr-target" required placeholder="com.example.Unused">
+      <div id="tr-replacement-row" hidden>
+        <label for="tr-replacement">Replacement method (H-TRANS-003)</label>
+        <input type="text" id="tr-replacement" placeholder="com.x.Replacement->getValue()Ljava/lang/String;">
+      </div>
+      <button class="primary" type="submit">Plan</button>
+    </form>
+    <div id="out-transform"></div>
+  </section>
+
+  <section id="tab-build" hidden>
+    <form class="panel" id="form-build">
+      <h2>No-op rebuild</h2>
+      <p class="hint">decode &rarr; build &rarr; zipalign &rarr; sign &rarr; verify, with no changes
+        (same as <code>apkforge build</code>). "Check" shows the toolchain and signing key first.</p>
+      <label for="build-apk">APK</label>
+      <input type="text" id="build-apk" data-upload required>
+      <button class="primary" type="submit">Check toolchain</button>
+    </form>
+    <div id="out-build"></div>
   </section>
 
   <section id="tab-jobs" hidden>

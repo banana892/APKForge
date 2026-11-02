@@ -30,6 +30,7 @@ from apkforge.analysis.full import run_full_analysis
 from apkforge.core.config import load_default_config
 from apkforge.diff.engine import DiffEngine
 from apkforge.diff.expectations import observe
+from apkforge.gui.changes import add_change_routes
 from apkforge.gui.jobs import Job, JobManager
 from apkforge.modkit import ChainSpec, ExecutionRequest, ModKitChainRunner, default_manager
 from apkforge.modkit.masking import MASK, is_sensitive_name
@@ -122,8 +123,8 @@ def create_app(
     jobs: JobManager | None = None,
     upload_dir: Path | None = None,
 ) -> FastAPI:
-    """*upload_dir*: where uploaded APKs go (the caller deletes it on shutdown); default
-    a fresh directory under the configured workspace base."""
+    """*upload_dir*: session-only files (uploaded APKs, transformation plans); the caller
+    deletes it on shutdown. Default: a fresh directory under the configured workspace base."""
     app = FastAPI(title="APKForge workbench", docs_url=None, redoc_url=None, openapi_url=None)
     manager_jobs = jobs or JobManager()
     app.state.jobs = manager_jobs
@@ -310,4 +311,5 @@ def create_app(
             ),
         )  # fmt: skip
 
+    add_change_routes(app, manager_jobs, upload_dir, _apk_path)
     return app
