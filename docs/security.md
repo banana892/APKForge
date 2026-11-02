@@ -300,6 +300,32 @@ apkforge analyze app.apk
 apkforge analyze app.apk --json
 ```
 
+### Quick Scan and CI Gate
+
+`apkforge scan` runs the same security analysis on one or many APKs and shows only the
+actionable findings, with an exit code for CI:
+
+```bash
+apkforge scan app.apk                         # findings MEDIUM and above; fail on HIGH
+apkforge scan builds/ --fail-on medium        # directories: *.apk/*.apks/*.xapk/*.apkm, recursive
+apkforge scan app.apk --min-severity low --fail-on none
+apkforge scan builds/ --json > scan.json      # one record per APK; progress goes to stderr
+```
+
+| verdict | meaning | exit |
+|---|---|---|
+| `pass` | analysis COMPLETE and no finding at or above `--fail-on` | 0 |
+| `fail` | a finding at or above `--fail-on` (default `high`; `none` disables) | 1 |
+| `incomplete` | analysis PARTIAL and no failing finding: absence of findings proves nothing | 2 |
+| `error` | the APK could not be analysed (not an APK, engine error) | 2 |
+
+- The batch's exit code is its worst result. `incomplete` and `error` outrank `fail`, so a
+  batch that could not be fully checked never exits 0 or 1.
+- One bad APK does not stop the batch.
+- `pass` is a threshold result, not a safety verdict (§9).
+- Counts in the JSON include findings below `--min-severity`; only the listed findings are
+  filtered.
+
 ### Example JSON Structure
 
 ```json

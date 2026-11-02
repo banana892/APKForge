@@ -229,6 +229,10 @@ apkforge security path/to/app.apk --json > security.json
 apkforge analyze path/to/app.apk
 apkforge analyze path/to/app.apk --json > full_report.json
 
+# Quick security gate for one or many APKs (exit 1 on HIGH+ findings, 2 if an APK could not be fully analysed)
+apkforge scan path/to/app.apk
+apkforge scan path/to/apks/ --fail-on medium --json > scan.json
+
 # Modification Planning (Phase 6)
 apkforge plan path/to/app.apk
 apkforge plan path/to/app.apk --diff original.apk
