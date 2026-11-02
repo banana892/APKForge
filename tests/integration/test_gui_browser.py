@@ -212,6 +212,14 @@ def test_download_apk_of_a_finished_apply(page: Any, apk: Path) -> None:
 # -- 9.4: the remaining tabs -----------------------------------------------------------------
 
 
+def _param(page: Any, container: str, name: str) -> Any:
+    """The input of parameter *name* in a ModKit parameter form (labels start with it)."""
+    for label in page.query_selector_all(f"{container} label[for]"):
+        if label.inner_text().split(" ")[0] == name:
+            return page.locator(f'[id="{label.get_attribute("for")}"]')
+    raise AssertionError(f"no parameter {name}")
+
+
 def test_analyze_findings_then_remediate_and_apply(
     page: Any, apk: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -270,3 +278,53 @@ def test_analyze_findings_then_remediate_and_apply(
     page.wait_for_selector("#out-remediate-plan form.apply .badge:text('DONE')")
     assert out.read_bytes() == apk.read_bytes()
     assert apply_form.get_by_role("button", name="Download APK").is_visible()
+
+
+def test_patch_options_form_fills_enable_and_options(page: Any) -> None:
+    listing = {"patches": [
+        {"index": 0, "name": "Clone", "enabled": False, "compatible": [], "options": [
+            {"key": "packageName", "title": "Package name", "type": "String", "required": True},
+            {"key": "darkMode", "type": "Boolean", "default": "false"}]},
+        {"index": 1, "name": "Theme", "enabled": True, "compatible": [], "options": [
+            {"key": "darkMode", "type": "Boolean", "default": "false"},
+            {"key": "accent", "type": "String", "possible_values": [
+                {"value": "#ff0000", "label": "Red"}, {"value": "#0000ff", "label": "Blue"}]}]},
+        {"index": 2, "name": "Plain", "enabled": True, "compatible": [], "options": []},
+    ]}  # fmt: skip
+    page.evaluate(
+        """listing => {
+        const box = el("div", { id: "pt" });
+        const options = el("input", { id: "pt-options", value: "manual=1, accent=#0000ff" });
+        box.append(el("input", { id: "pt-enable" }), options);
+        box.append(...renderPatches(listing, box.children[0], box.children[1]));
+        document.getElementById("tab-modkits").append(box);
+        document.querySelector("nav button[data-tab=modkits]").click();
+    }""",
+        listing,
+    )
+    boxes = page.locator("#pt table input[type=checkbox]")
+    boxes.nth(0).check()
+    boxes.nth(1).check()
+    fields = page.locator("#pt label[for]")
+    assert sorted(t.split(" ")[0] for t in fields.all_inner_texts()) == ["accent", "darkMode",
+                                                                         "packageName"]  # fmt: skip
+    accent = _param(page, "#pt", "accent")
+    assert accent.input_value() == "#0000ff"  # prefilled from the options parameter
+    presets = page.locator(f'[id="{accent.get_attribute("list")}"] option')
+    assert presets.evaluate_all("os => os.map(o => o.value)") == ["#ff0000", "#0000ff"]
+    accent.fill("#00ff00")  # presets are suggestions: any value is accepted
+    use = page.get_by_role("button", name="Use selected as “enable” and “options”")
+    use.click()
+    assert "packageName is required" in page.inner_text("#pt")
+    assert page.input_value("#pt-enable") == ""
+    pkg = _param(page, "#pt", "packageName")
+    pkg.fill("com.a,b")
+    use.click()
+    assert "cannot contain a comma" in page.inner_text("#pt")
+    pkg.fill("com.example.clone")
+    _param(page, "#pt", "darkMode").select_option("true")
+    use.click()
+    assert page.input_value("#pt-enable") == "Clone, Theme"
+    assert page.input_value("#pt-options") == (
+        "manual=1, packageName=com.example.clone, darkMode=true, accent=#00ff00"
+    )

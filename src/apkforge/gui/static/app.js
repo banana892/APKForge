@@ -603,7 +603,45 @@ function selectedModifiers() {
 // -- patch bundles (Morphe list_patches) ----------------------------------------------
 
 // `enableInput` (optional): the form's "enable" field the picker fills.
-function renderPatches(listing, enableInput) {
+// "k1=v1, k2=v2" (the Morphe `options` parameter) <-> Map; entries without "=" are dropped,
+// as the adapter does.
+function parseOptions(text) {
+  return new Map((text || "").split(",").map((e) => e.trim()).filter((e) => e.includes("="))
+    .map((e) => [e.slice(0, e.indexOf("=")).trim(), e.slice(e.indexOf("=") + 1).trim()]).filter(([k]) => k));
+}
+
+// Fields for the options of the ticked patches, one per key: Morphe's `-O key=value` applies
+// to the whole run, so patches sharing a key share the field.
+function optionFields(patches, current) {
+  const byKey = new Map();
+  for (const p of patches) for (const o of p.options || []) {
+    if (!byKey.has(o.key)) byKey.set(o.key, { option: o, patches: [] });
+    byKey.get(o.key).patches.push(p.name);
+  }
+  const fields = new Map();
+  const node = el("div", {}, [...byKey].map(([key, { option: o, patches: users }]) => {
+    const id = `opt-${Math.random().toString(36).slice(2)}`;
+    const dflt = o.default ? `(default: ${o.default})` : "(default)";
+    // Possible values are presets, not a closed list (Clone app's packageName offers only
+    // "Default"): free text with the presets as suggestions.
+    const presets = (o.possible_values || []).length
+      ? el("datalist", { id: `${id}-presets` }, o.possible_values.map((v) => el("option", { value: v.value }, v.label || v.value))) : null;
+    const input = /bool/i.test(o.type) && !presets
+      ? el("select", { id }, el("option", { value: "" }, dflt), el("option", { value: "true" }, "true"), el("option", { value: "false" }, "false"))
+      : el("input", { id, type: "text", placeholder: o.default || "", autocomplete: "off", list: presets ? `${id}-presets` : null });
+    if (current.has(key)) {
+      if (input.tagName === "SELECT" && ![...input.options].some((x) => x.value === current.get(key))) input.append(el("option", { value: current.get(key) }, current.get(key)));
+      input.value = current.get(key);
+    }
+    fields.set(key, { input, option: o });
+    return el("div", {}, el("label", { for: id }, el("span", { class: "mono" }, key), o.required ? " *" : "",
+      o.title && o.title !== key ? ` — ${o.title}` : "", el("span", { class: "muted" }, ` (${[o.type, users.join(", ")].filter(Boolean).join("; ")})`)),
+    o.description ? el("div", { class: "hint" }, o.description) : null, input, presets);
+  }));
+  return { node, fields };
+}
+
+function renderPatches(listing, enableInput, optionsInput) {
   const already = new Set((enableInput?.value || "").split(",").map((n) => n.trim()).filter(Boolean));
   const filter = el("input", { type: "text", class: "filter", placeholder: "Filter patches…" });
   const rows = (listing.patches || []).map((p) => {
@@ -620,17 +658,51 @@ function renderPatches(listing, enableInput) {
     const q = filter.value.toLowerCase();
     for (const row of rows) row.hidden = q && !row.textContent.toLowerCase().includes(q);
   });
+  const ticked = () => (listing.patches || []).filter((p, i) => rows[i].querySelector("input[type=checkbox]")?.checked);
+  const optBox = el("div", {});
+  const problems = el("div", {});
+  let form = { fields: new Map() };
+  const drawOptions = () => {
+    // keep what was typed so far, over what the options parameter held
+    const current = parseOptions(optionsInput?.value);
+    for (const [k, f] of form.fields) current.set(k, f.input.value);
+    form = optionFields(ticked(), current);
+    optBox.replaceChildren(...(form.fields.size && optionsInput
+      ? [el("h2", {}, "Options of the selected patches"), el("p", { class: "hint" }, "Empty means the patch's default. Applies to every selected patch with that key."), form.node]
+      : []));
+  };
+  if (enableInput) {
+    for (const r of rows) r.querySelector("input[type=checkbox]").addEventListener("change", drawOptions);
+    drawOptions();
+  }
   const use = enableInput ? el("button", { type: "button", class: "primary", onclick: () => {
-    const names = [...rows].map((r) => r.querySelector("input[type=checkbox]")).filter((b) => b.checked).map((b) => b.value);
+    const errors = [];
+    const chosen = new Map();
+    for (const [key, { input, option }] of form.fields) {
+      const v = input.value.trim();
+      if (v.includes(",")) errors.push(`${key}: a value cannot contain a comma (the options parameter is comma-separated)`);
+      else if (!v && option.required && !option.default) errors.push(`${key} is required`);
+      else if (v) chosen.set(key, v);
+    }
+    problems.replaceChildren(...errors.map((e) => el("p", { class: "error" }, e)));
+    if (errors.length) return;
+    const names = ticked().map((p) => p.name);
     enableInput.value = names.join(", ");
     enableInput.dispatchEvent(new Event("input", { bubbles: true }));
-    use.textContent = `Enabled ${names.length} patch(es)`;
-  } }, "Use selected as “enable”") : null;
+    if (optionsInput) {
+      // options typed by hand for keys not shown here stay
+      const merged = new Map([...parseOptions(optionsInput.value)].filter(([k]) => !form.fields.has(k)));
+      for (const [k, v] of chosen) merged.set(k, v);
+      optionsInput.value = [...merged].map(([k, v]) => `${k}=${v}`).join(", ");
+      optionsInput.dispatchEvent(new Event("input", { bubbles: true }));
+    }
+    use.textContent = `Enabled ${names.length} patch(es)${chosen.size ? `, ${chosen.size} option(s)` : ""}`;
+  } }, optionsInput ? "Use selected as “enable” and “options”" : "Use selected as “enable”") : null;
   return [
     el("h2", {}, `${(listing.patches || []).length} patches`, listing.resolved_version ? ` · ${listing.resolved_version}` : ""),
     filter,
     table([enableInput ? "" : null, "#", "Patch", "Default", "Compatible with", "Options (key=default)"].filter((h) => h !== null), rows),
-    use,
+    optBox, problems, use,
   ];
 }
 
@@ -664,7 +736,7 @@ function paramForm(modkitId, op, values, onChange) {
       const btn = el("button", { type: "button", class: "secondary", onclick: () => {
         if (!input.value.trim()) { out.replaceChildren(el("p", { class: "error" }, "Enter a patch bundle first.")); return; }
         runJob("/api/jobs/modkit-patches", { modkit: modkitId, patches: input.value.trim() }, out, btn,
-          (listing) => renderPatches(listing, inputs.enable));
+          (listing) => renderPatches(listing, inputs.enable, inputs.options));
       } }, "List patches in this bundle");
       box.append(el("div", { class: "toolbar" }, btn), out);
     }
